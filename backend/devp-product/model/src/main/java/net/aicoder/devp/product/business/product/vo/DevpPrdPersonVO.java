@@ -1,5 +1,7 @@
 package net.aicoder.devp.product.business.product.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -11,131 +13,132 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
 * 产品干系人的值对象
 */
+@ApiModel(value = "展现产品干系人的值对象")
 public class DevpPrdPersonVO {
 
 
     private Long id;
 
-
+    @ApiModelProperty(value = "租户编号")
     /**
     * 租户编号
     * 
     */
     private Long tid;
 
-
+    @ApiModelProperty(value = "用户代码")
     /**
     * 用户代码
     * 
     */
     private String code;
 
-
+    @ApiModelProperty(value = "用户名称")
     /**
     * 用户名称
     * 
     */
     private String name;
 
-
+    @ApiModelProperty(value = "用户别名")
     /**
     * 用户别名
     * 
     */
     private String alias;
 
-
+    @ApiModelProperty(value = "用户描述")
     /**
     * 用户描述
     * 
     */
     private String description;
 
-
+    @ApiModelProperty(value = "关联元素类型")
     /**
     * 关联元素类型
     * 
     */
     private String nexusType;
 
-
+    @ApiModelProperty(value = "关联元素编号")
     /**
     * 关联元素编号
     * 
     */
     private Long nexusRid;
 
-
+    @ApiModelProperty(value = "顺序号")
     /**
     * 顺序号
     * 
     */
     private Integer seq;
 
-
+    @ApiModelProperty(value = "用户编号")
     /**
     * 用户编号
     * 
     */
     private Long uid;
 
-
+    @ApiModelProperty(value = "用户类型")
     /**
     * 用户类型
     * 
     */
     private String type;
 
-
+    @ApiModelProperty(value = "用户类型")
     /**
     * 用户类型
     * 
     */
     private String role;
 
-
+    @ApiModelProperty(value = "状态")
     /**
     * 状态
     * 
     */
     private String status;
 
-
+    @ApiModelProperty(value = "用户租户编号")
     /**
     * 用户租户编号
     * 
     */
     private Long userTid;
 
-
+    @ApiModelProperty(value = "组织编号")
     /**
     * 组织编号
     * 
     */
     private Long orgRid;
 
-
+    @ApiModelProperty(value = "组织名称")
     /**
     * 组织名称
     * 
     */
     private String orgName;
 
-
+    @ApiModelProperty(value = "记录状态")
     /**
     * 记录状态
     * 
     */
     private Integer recordState;
 
-
+    @ApiModelProperty(value = "创建用户代码")
     /**
     * 创建用户代码
     * 
     */
     private String createUcode;
 
-
+    @ApiModelProperty(value = "修改用户代码")
     /**
     * 修改用户代码
     * 

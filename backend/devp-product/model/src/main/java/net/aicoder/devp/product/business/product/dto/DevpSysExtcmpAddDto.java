@@ -1,5 +1,7 @@
 package net.aicoder.devp.product.business.product.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 产品包含的外部组件
  * @author icode
  */
+@ApiModel(value = "新增产品包含的外部组件使用的DTO")
 public class DevpSysExtcmpAddDto {
 
     /**
@@ -18,12 +21,14 @@ public class DevpSysExtcmpAddDto {
 	 * 
      */
 	@NotNull(message = "租户编号不能为空")
+	@ApiModelProperty(value = "租户编号", required = true)
 	private Long tid;
 
     /**
 	 * 代码
 	 * 
      */
+	@ApiModelProperty(value = "代码", required = false)
 	@Size(max = 255, message = "代码超长，最多255个字符")
 	private String code;
 
@@ -31,6 +36,7 @@ public class DevpSysExtcmpAddDto {
 	 * 名称
 	 * 
      */
+	@ApiModelProperty(value = "名称", required = false)
 	@Size(max = 255, message = "名称超长，最多255个字符")
 	private String name;
 
@@ -38,6 +44,7 @@ public class DevpSysExtcmpAddDto {
 	 * 别名
 	 * 
      */
+	@ApiModelProperty(value = "别名", required = false)
 	@Size(max = 255, message = "别名超长，最多255个字符")
 	private String alias;
 
@@ -45,6 +52,7 @@ public class DevpSysExtcmpAddDto {
 	 * 描述
 	 * 
      */
+	@ApiModelProperty(value = "描述", required = false)
 	@Size(max = 255, message = "描述超长，最多255个字符")
 	private String description;
 
@@ -53,6 +61,7 @@ public class DevpSysExtcmpAddDto {
 	 * 
      */
 	@NotNull(message = "产品编号不能为空")
+	@ApiModelProperty(value = "产品编号", required = true)
 	private Long prdRid;
 
     /**
@@ -60,6 +69,7 @@ public class DevpSysExtcmpAddDto {
 	 * 
      */
 	@NotNull(message = "外部产品编号不能为空")
+	@ApiModelProperty(value = "外部产品编号", required = true)
 	private Long extPrdRid;
 
     /**
@@ -67,18 +77,21 @@ public class DevpSysExtcmpAddDto {
 	 * 
      */
 	@NotNull(message = "外部系统元素编号不能为空")
+	@ApiModelProperty(value = "外部系统元素编号", required = true)
 	private Long extElmRid;
 
     /**
 	 * 顺序号
 	 * 
      */
+	@ApiModelProperty(value = "顺序号", required = false)
 	private Integer seq;
 
     /**
 	 * 类型
 	 * 
      */
+	@ApiModelProperty(value = "类型", required = false)
 	@Size(max = 255, message = "类型超长，最多255个字符")
 	private String type;
 
@@ -86,6 +99,7 @@ public class DevpSysExtcmpAddDto {
 	 * 构造型
 	 * 
      */
+	@ApiModelProperty(value = "构造型", required = false)
 	@Size(max = 255, message = "构造型超长，最多255个字符")
 	private String stereotype;
 
@@ -93,12 +107,14 @@ public class DevpSysExtcmpAddDto {
 	 * 记录状态
 	 * 
      */
+	@ApiModelProperty(value = "记录状态", required = false)
 	private Integer recordState;
 
     /**
 	 * 创建用户代码
 	 * 
      */
+	@ApiModelProperty(value = "创建用户代码", required = false)
 	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
 	private String createUcode;
 
@@ -106,6 +122,7 @@ public class DevpSysExtcmpAddDto {
 	 * 修改用户代码
 	 * 
      */
+	@ApiModelProperty(value = "修改用户代码", required = false)
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
 	private String modifyUcode;
 

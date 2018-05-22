@@ -1,5 +1,7 @@
 package net.aicoder.devp.product.business.product.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,6 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 产品定义
  * @author icode
  */
+@ApiModel(value = "新增产品定义使用的DTO")
 public class DevpPrdProductAddDto {
 
     /**
@@ -21,6 +24,7 @@ public class DevpPrdProductAddDto {
 	 * 
      */
 	@NotNull(message = "租户编号不能为空")
+	@ApiModelProperty(value = "租户编号", required = true)
 	private Long tid;
 
     /**
@@ -28,6 +32,7 @@ public class DevpPrdProductAddDto {
 	 * 
      */
 	@NotNull(message = "产品代码不能为空")
+	@ApiModelProperty(value = "产品代码", required = true)
 	@Size(max = 255, message = "产品代码超长，最多255个字符")
 	private String code;
 
@@ -36,6 +41,7 @@ public class DevpPrdProductAddDto {
 	 * 
      */
 	@NotNull(message = "产品名称不能为空")
+	@ApiModelProperty(value = "产品名称", required = true)
 	@Size(max = 255, message = "产品名称超长，最多255个字符")
 	private String name;
 
@@ -43,6 +49,7 @@ public class DevpPrdProductAddDto {
 	 * 产品别名
 	 * 
      */
+	@ApiModelProperty(value = "产品别名", required = false)
 	@Size(max = 255, message = "产品别名超长，最多255个字符")
 	private String alias;
 
@@ -50,6 +57,7 @@ public class DevpPrdProductAddDto {
 	 * 产品描述
 	 * 
      */
+	@ApiModelProperty(value = "产品描述", required = false)
 	@Size(max = 255, message = "产品描述超长，最多255个字符")
 	private String description;
 
@@ -57,6 +65,7 @@ public class DevpPrdProductAddDto {
 	 * 产品类型
 	 * 
      */
+	@ApiModelProperty(value = "产品类型", required = false)
 	@Size(max = 255, message = "产品类型超长，最多255个字符")
 	private String type;
 
@@ -64,6 +73,7 @@ public class DevpPrdProductAddDto {
 	 * 构造型
 	 * 
      */
+	@ApiModelProperty(value = "构造型", required = false)
 	@Size(max = 255, message = "构造型超长，最多255个字符")
 	private String stereotype;
 
@@ -71,6 +81,7 @@ public class DevpPrdProductAddDto {
 	 * 范围
 	 * 
      */
+	@ApiModelProperty(value = "范围", required = false)
 	@Size(max = 255, message = "范围超长，最多255个字符")
 	private String scope;
 
@@ -78,6 +89,7 @@ public class DevpPrdProductAddDto {
 	 * 所属部门
 	 * 
      */
+	@ApiModelProperty(value = "所属部门", required = false)
 	@Size(max = 255, message = "所属部门超长，最多255个字符")
 	private String prdDept;
 
@@ -85,6 +97,7 @@ public class DevpPrdProductAddDto {
 	 * 产品负责人
 	 * 
      */
+	@ApiModelProperty(value = "产品负责人", required = false)
 	@Size(max = 255, message = "产品负责人超长，最多255个字符")
 	private String prdOwner;
 
@@ -92,6 +105,7 @@ public class DevpPrdProductAddDto {
 	 * 开发负责人
 	 * 
      */
+	@ApiModelProperty(value = "开发负责人", required = false)
 	@Size(max = 255, message = "开发负责人超长，最多255个字符")
 	private String devManager;
 
@@ -99,6 +113,7 @@ public class DevpPrdProductAddDto {
 	 * 维护负责人
 	 * 
      */
+	@ApiModelProperty(value = "维护负责人", required = false)
 	@Size(max = 255, message = "维护负责人超长，最多255个字符")
 	private String opsManager;
 
@@ -106,6 +121,7 @@ public class DevpPrdProductAddDto {
 	 * 业务线
 	 * 
      */
+	@ApiModelProperty(value = "业务线", required = false)
 	@Size(max = 255, message = "业务线超长，最多255个字符")
 	private String bizLine;
 
@@ -113,6 +129,7 @@ public class DevpPrdProductAddDto {
 	 * 业务代表
 	 * 
      */
+	@ApiModelProperty(value = "业务代表", required = false)
 	@Size(max = 255, message = "业务代表超长，最多255个字符")
 	private String bizManager;
 
@@ -120,6 +137,7 @@ public class DevpPrdProductAddDto {
 	 * 启用时间
 	 * 
      */
+	@ApiModelProperty(value = "启用时间", required = false)
 	@Temporal(TemporalType.DATE)
 	private Date golive;
 
@@ -127,6 +145,7 @@ public class DevpPrdProductAddDto {
 	 * 主要客户
 	 * 
      */
+	@ApiModelProperty(value = "主要客户", required = false)
 	@Size(max = 255, message = "主要客户超长，最多255个字符")
 	private String majorCust;
 
@@ -134,6 +153,7 @@ public class DevpPrdProductAddDto {
 	 * 客户代表
 	 * 
      */
+	@ApiModelProperty(value = "客户代表", required = false)
 	@Size(max = 255, message = "客户代表超长，最多255个字符")
 	private String custManager;
 
@@ -141,6 +161,7 @@ public class DevpPrdProductAddDto {
 	 * 客户使用情况
 	 * 
      */
+	@ApiModelProperty(value = "客户使用情况", required = false)
 	@Size(max = 255, message = "客户使用情况超长，最多255个字符")
 	private String custUsage;
 
@@ -148,6 +169,7 @@ public class DevpPrdProductAddDto {
 	 * 获取方式
 	 * 
      */
+	@ApiModelProperty(value = "获取方式", required = false)
 	@Size(max = 255, message = "获取方式超长，最多255个字符")
 	private String acquisitionMode;
 
@@ -155,6 +177,7 @@ public class DevpPrdProductAddDto {
 	 * 获取方式说明
 	 * 
      */
+	@ApiModelProperty(value = "获取方式说明", required = false)
 	@Size(max = 255, message = "获取方式说明超长，最多255个字符")
 	private String acquisitionDesc;
 
@@ -162,6 +185,7 @@ public class DevpPrdProductAddDto {
 	 * 版本
 	 * 
      */
+	@ApiModelProperty(value = "版本", required = false)
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
 
@@ -169,6 +193,7 @@ public class DevpPrdProductAddDto {
 	 * 阶段
 	 * 
      */
+	@ApiModelProperty(value = "阶段", required = false)
 	@Size(max = 255, message = "阶段超长，最多255个字符")
 	private String phase;
 
@@ -176,6 +201,7 @@ public class DevpPrdProductAddDto {
 	 * 状态
 	 * 
      */
+	@ApiModelProperty(value = "状态", required = false)
 	@Size(max = 255, message = "状态超长，最多255个字符")
 	private String status;
 
@@ -183,6 +209,7 @@ public class DevpPrdProductAddDto {
 	 * 备注
 	 * 
      */
+	@ApiModelProperty(value = "备注", required = false)
 	@Size(max = 255, message = "备注超长，最多255个字符")
 	private String notes;
 
@@ -190,12 +217,14 @@ public class DevpPrdProductAddDto {
 	 * 记录状态
 	 * 
      */
+	@ApiModelProperty(value = "记录状态", required = false)
 	private Integer recordState;
 
     /**
 	 * 创建用户代码
 	 * 
      */
+	@ApiModelProperty(value = "创建用户代码", required = false)
 	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
 	private String createUcode;
 
@@ -203,6 +232,7 @@ public class DevpPrdProductAddDto {
 	 * 修改用户代码
 	 * 
      */
+	@ApiModelProperty(value = "修改用户代码", required = false)
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
 	private String cmodifyUcode;
 

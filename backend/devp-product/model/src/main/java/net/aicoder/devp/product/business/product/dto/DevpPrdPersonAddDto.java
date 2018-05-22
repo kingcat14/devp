@@ -1,5 +1,7 @@
 package net.aicoder.devp.product.business.product.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 产品干系人
  * @author icode
  */
+@ApiModel(value = "新增产品干系人使用的DTO")
 public class DevpPrdPersonAddDto {
 
     /**
@@ -18,6 +21,7 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "租户编号不能为空")
+	@ApiModelProperty(value = "租户编号", required = true)
 	private Long tid;
 
     /**
@@ -25,6 +29,7 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "用户代码不能为空")
+	@ApiModelProperty(value = "用户代码", required = true)
 	@Size(max = 255, message = "用户代码超长，最多255个字符")
 	private String code;
 
@@ -33,6 +38,7 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "用户名称不能为空")
+	@ApiModelProperty(value = "用户名称", required = true)
 	@Size(max = 255, message = "用户名称超长，最多255个字符")
 	private String name;
 
@@ -40,6 +46,7 @@ public class DevpPrdPersonAddDto {
 	 * 用户别名
 	 * 
      */
+	@ApiModelProperty(value = "用户别名", required = false)
 	@Size(max = 255, message = "用户别名超长，最多255个字符")
 	private String alias;
 
@@ -47,6 +54,7 @@ public class DevpPrdPersonAddDto {
 	 * 用户描述
 	 * 
      */
+	@ApiModelProperty(value = "用户描述", required = false)
 	@Size(max = 255, message = "用户描述超长，最多255个字符")
 	private String description;
 
@@ -55,6 +63,7 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "关联元素类型不能为空")
+	@ApiModelProperty(value = "关联元素类型", required = true)
 	@Size(max = 255, message = "关联元素类型超长，最多255个字符")
 	private String nexusType;
 
@@ -63,12 +72,14 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "关联元素编号不能为空")
+	@ApiModelProperty(value = "关联元素编号", required = true)
 	private Long nexusRid;
 
     /**
 	 * 顺序号
 	 * 
      */
+	@ApiModelProperty(value = "顺序号", required = false)
 	private Integer seq;
 
     /**
@@ -76,12 +87,14 @@ public class DevpPrdPersonAddDto {
 	 * 
      */
 	@NotNull(message = "用户编号不能为空")
+	@ApiModelProperty(value = "用户编号", required = true)
 	private Long uid;
 
     /**
 	 * 用户类型
 	 * 
      */
+	@ApiModelProperty(value = "用户类型", required = false)
 	@Size(max = 255, message = "用户类型超长，最多255个字符")
 	private String type;
 
@@ -89,6 +102,7 @@ public class DevpPrdPersonAddDto {
 	 * 用户类型
 	 * 
      */
+	@ApiModelProperty(value = "用户类型", required = false)
 	@Size(max = 255, message = "用户类型超长，最多255个字符")
 	private String role;
 
@@ -96,6 +110,7 @@ public class DevpPrdPersonAddDto {
 	 * 状态
 	 * 
      */
+	@ApiModelProperty(value = "状态", required = false)
 	@Size(max = 255, message = "状态超长，最多255个字符")
 	private String status;
 
@@ -103,18 +118,21 @@ public class DevpPrdPersonAddDto {
 	 * 用户租户编号
 	 * 
      */
+	@ApiModelProperty(value = "用户租户编号", required = false)
 	private Long userTid;
 
     /**
 	 * 组织编号
 	 * 
      */
+	@ApiModelProperty(value = "组织编号", required = false)
 	private Long orgRid;
 
     /**
 	 * 组织名称
 	 * 
      */
+	@ApiModelProperty(value = "组织名称", required = false)
 	@Size(max = 255, message = "组织名称超长，最多255个字符")
 	private String orgName;
 
@@ -122,12 +140,14 @@ public class DevpPrdPersonAddDto {
 	 * 记录状态
 	 * 
      */
+	@ApiModelProperty(value = "记录状态", required = false)
 	private Integer recordState;
 
     /**
 	 * 创建用户代码
 	 * 
      */
+	@ApiModelProperty(value = "创建用户代码", required = false)
 	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
 	private String createUcode;
 
@@ -135,6 +155,7 @@ public class DevpPrdPersonAddDto {
 	 * 修改用户代码
 	 * 
      */
+	@ApiModelProperty(value = "修改用户代码", required = false)
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
 	private String modifyUcode;
 

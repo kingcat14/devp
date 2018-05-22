@@ -2,6 +2,7 @@ package net.aicoder.devp.product.business.product.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.product.business.product.dto.DevpSysExtcmpAddDto;
+import net.aicoder.devp.product.business.product.dto.DevpSysExtcmpEditDto;
 import net.aicoder.devp.product.business.product.domain.DevpSysExtcmp;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -19,8 +20,10 @@ public class DevpSysExtcmpValidator implements Validator {
 	public boolean supports(Class<?> aClass) {
 		if(DevpSysExtcmpAddDto.class.equals(aClass))
 			return true;
-		if(DevpSysExtcmpAddDto.class.equals(aClass))
-            return true;
+		if(DevpSysExtcmpEditDto.class.equals(aClass))
+			return true;
+		if(PageSearchRequest.class.equals(aClass))
+			return true;
 		return DevpSysExtcmp.class.equals(aClass);
 	}
 

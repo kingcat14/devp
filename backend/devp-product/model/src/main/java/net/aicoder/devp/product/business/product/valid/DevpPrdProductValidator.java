@@ -2,6 +2,7 @@ package net.aicoder.devp.product.business.product.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.product.business.product.dto.DevpPrdProductAddDto;
+import net.aicoder.devp.product.business.product.dto.DevpPrdProductEditDto;
 import net.aicoder.devp.product.business.product.domain.DevpPrdProduct;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -19,8 +20,10 @@ public class DevpPrdProductValidator implements Validator {
 	public boolean supports(Class<?> aClass) {
 		if(DevpPrdProductAddDto.class.equals(aClass))
 			return true;
-		if(DevpPrdProductAddDto.class.equals(aClass))
-            return true;
+		if(DevpPrdProductEditDto.class.equals(aClass))
+			return true;
+		if(PageSearchRequest.class.equals(aClass))
+			return true;
 		return DevpPrdProduct.class.equals(aClass);
 	}
 

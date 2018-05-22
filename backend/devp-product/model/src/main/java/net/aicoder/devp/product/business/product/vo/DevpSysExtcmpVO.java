@@ -1,5 +1,7 @@
 package net.aicoder.devp.product.business.product.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -11,103 +13,104 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
 * 产品包含的外部组件的值对象
 */
+@ApiModel(value = "展现产品包含的外部组件的值对象")
 public class DevpSysExtcmpVO {
 
 
     private Long id;
 
-
+    @ApiModelProperty(value = "租户编号")
     /**
     * 租户编号
     * 
     */
     private Long tid;
 
-
+    @ApiModelProperty(value = "代码")
     /**
     * 代码
     * 
     */
     private String code;
 
-
+    @ApiModelProperty(value = "名称")
     /**
     * 名称
     * 
     */
     private String name;
 
-
+    @ApiModelProperty(value = "别名")
     /**
     * 别名
     * 
     */
     private String alias;
 
-
+    @ApiModelProperty(value = "描述")
     /**
     * 描述
     * 
     */
     private String description;
 
-
+    @ApiModelProperty(value = "产品编号")
     /**
     * 产品编号
     * 
     */
     private Long prdRid;
 
-
+    @ApiModelProperty(value = "外部产品编号")
     /**
     * 外部产品编号
     * 
     */
     private Long extPrdRid;
 
-
+    @ApiModelProperty(value = "外部系统元素编号")
     /**
     * 外部系统元素编号
     * 
     */
     private Long extElmRid;
 
-
+    @ApiModelProperty(value = "顺序号")
     /**
     * 顺序号
     * 
     */
     private Integer seq;
 
-
+    @ApiModelProperty(value = "类型")
     /**
     * 类型
     * 
     */
     private String type;
 
-
+    @ApiModelProperty(value = "构造型")
     /**
     * 构造型
     * 
     */
     private String stereotype;
 
-
+    @ApiModelProperty(value = "记录状态")
     /**
     * 记录状态
     * 
     */
     private Integer recordState;
 
-
+    @ApiModelProperty(value = "创建用户代码")
     /**
     * 创建用户代码
     * 
     */
     private String createUcode;
 
-
+    @ApiModelProperty(value = "修改用户代码")
     /**
     * 修改用户代码
     * 

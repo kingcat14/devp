@@ -1,4 +1,4 @@
-package net.aicoder.devp;
+package net.aicoder.devp.product;
 
 import com.yunkang.saas.common.framework.web.controller.ApiResponseBodyHandler;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;

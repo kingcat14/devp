@@ -1,12 +1,12 @@
 package net.aicoder.devp.product.business.product.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import net.aicoder.devp.product.business.product.dto.DevpPrdPrdlineAddDto;
 import net.aicoder.devp.product.business.product.domain.DevpPrdPrdline;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
+import net.aicoder.devp.product.business.product.dto.DevpPrdPrdlineAddDto;
+import net.aicoder.devp.product.business.product.dto.DevpPrdPrdlineEditDto;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 public class DevpPrdPrdlineValidator implements Validator {
 
@@ -19,8 +19,10 @@ public class DevpPrdPrdlineValidator implements Validator {
 	public boolean supports(Class<?> aClass) {
 		if(DevpPrdPrdlineAddDto.class.equals(aClass))
 			return true;
-		if(DevpPrdPrdlineAddDto.class.equals(aClass))
-            return true;
+		if(DevpPrdPrdlineEditDto.class.equals(aClass))
+			return true;
+		if(PageSearchRequest.class.equals(aClass))
+			return true;
 		return DevpPrdPrdline.class.equals(aClass);
 	}
 

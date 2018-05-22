@@ -46,7 +46,7 @@ public class DevpPrdPrdlineRibbon {
     @HystrixCommand(fallbackMethod = "addFail")
     public DevpPrdPrdlineResult add(DevpPrdPrdlineAddDto addDto) {
         String url = "http://"+host+"/product/devpPrdPrdline";
-        return restTemplate.postForObject(url, addDto, DevpPrdPrdlineResult.class);
+         return restTemplate.postForObject(url, addDto, DevpPrdPrdlineResult.class);
     }
     private DevpPrdPrdlineResult addFail(DevpPrdPrdlineAddDto addDto) {
         DevpPrdPrdlineResult result = new DevpPrdPrdlineResult();

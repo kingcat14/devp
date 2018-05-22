@@ -11,6 +11,7 @@ import net.aicoder.devp.product.business.product.dto.DevpSysExtcmpEditDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -28,7 +29,7 @@ public class DevpSysExtcmpRibbon {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysExtcmpRibbon.class);
 
-    String host = "PRODUCT";
+    private String host = "PRODUCT";
 
 	@Autowired(required = false)
     private RestTemplate restTemplate;
@@ -37,6 +38,9 @@ public class DevpSysExtcmpRibbon {
         this.restTemplate = restTemplate;
     }
 
+    public void setHost(String host) {
+        this.host = host;
+    }
 
     /**
      * 新增产品包含的外部组件
