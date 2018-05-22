@@ -2,6 +2,7 @@ package net.aicoder.devp.maintenanceui.business.security.service;
 
 
 import com.yunkang.saas.common.jpa.CrudService;
+import com.yunkang.saas.common.util.IdSnowflake;
 import net.aicoder.devp.maintenanceui.business.security.dao.ResourceDao;
 import net.aicoder.devp.maintenanceui.business.security.dao.ResourceSpecification;
 import net.aicoder.devp.maintenanceui.business.security.domain.Resource;
@@ -21,7 +22,12 @@ public class ResourceService  extends CrudService<Resource, ResourceCondition, R
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
 
-
+	public void add(Resource resource){
+		if(resource.getId() == null) {
+			resource.setId(IdSnowflake.getLocalInstance().nextId(getClass()));
+		}
+		dao.save(resource);
+	}
 
 	@Transactional(readOnly=true)
 	public List<Resource> findResourceTree(ResourceCondition resourceCondition){

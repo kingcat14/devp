@@ -51,8 +51,6 @@ public class DevpPrdProductController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdProductVO add(@RequestBody DevpPrdProductAddDto devpPrdProductAddDto){
 
-		devpPrdProductRibbonService.add(devpPrdProductAddDto);
-
 		return  devpPrdProductRibbonService.add(devpPrdProductAddDto);
 	}
 

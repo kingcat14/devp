@@ -51,8 +51,6 @@ public class DevpSysExtcmpController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysExtcmpVO add(@RequestBody DevpSysExtcmpAddDto devpSysExtcmpAddDto){
 
-		devpSysExtcmpRibbonService.add(devpSysExtcmpAddDto);
-
 		return  devpSysExtcmpRibbonService.add(devpSysExtcmpAddDto);
 	}
 

@@ -50,9 +50,6 @@ public class DevpPrdLinePrdController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdLinePrdVO add(@RequestBody DevpPrdLinePrdAddDto devpPrdLinePrdAddDto){
-
-		devpPrdLinePrdRibbonService.add(devpPrdLinePrdAddDto);
-
 		return  devpPrdLinePrdRibbonService.add(devpPrdLinePrdAddDto);
 	}
 

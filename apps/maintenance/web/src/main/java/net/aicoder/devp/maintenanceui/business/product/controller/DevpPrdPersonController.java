@@ -50,9 +50,6 @@ public class DevpPrdPersonController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdPersonVO add(@RequestBody DevpPrdPersonAddDto devpPrdPersonAddDto){
-
-		devpPrdPersonRibbonService.add(devpPrdPersonAddDto);
-
 		return  devpPrdPersonRibbonService.add(devpPrdPersonAddDto);
 	}
 

@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增资源使用的DTO")
 public class ResourceAddDto {
 
+	private Long id;
     /**
 	 * 资源名
 	 * 
@@ -62,6 +63,12 @@ public class ResourceAddDto {
 	@ApiModelProperty(value = "排序", required = false)
 	private Integer orderIndex;
 
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName(){
 		return name;

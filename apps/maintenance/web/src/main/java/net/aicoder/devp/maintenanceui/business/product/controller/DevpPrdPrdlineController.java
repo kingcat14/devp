@@ -51,8 +51,6 @@ public class DevpPrdPrdlineController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdPrdlineVO add(@RequestBody DevpPrdPrdlineAddDto devpPrdPrdlineAddDto){
 
-		devpPrdPrdlineRibbonService.add(devpPrdPrdlineAddDto);
-
 		return  devpPrdPrdlineRibbonService.add(devpPrdPrdlineAddDto);
 	}
 
