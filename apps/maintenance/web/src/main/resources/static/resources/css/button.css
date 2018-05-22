@@ -1,0 +1,155 @@
+.red{
+    color: #ff0000;
+}
+
+
+.app-dashboard {
+    background-image: url(../images/square.gif);
+}
+.bullet_red{
+    background-image:url(../images/icons/bullet_red.png) !important;
+}
+.add {
+    background-image:url(../images/icons/add.png) !important;
+}
+.edit{
+	background-image:url(../images/icons/pencil.png) !important;
+}
+.search {
+    background-image:url(../images/icons/zoom.png) !important;
+}
+.delete {
+    background-image:url(../images/icons/delete.png) !important;
+}
+.remove {
+    background-image:url(../images/icons/delete.png) !important;
+}
+.stop {
+    background-image:url(../images/icons/stop.png) !important;
+}
+.save {
+    background-image:url(../images/icons/disk.png) !important;
+}
+.cancel {
+    background-image:url(../images/icons/cancel.png) !important;
+}
+.accept {
+    background-image:url(../images/icons/accept.png) !important;
+}
+.preview {
+    background-image:url(../images/icons/magnifier.png) !important;
+}
+.connect {
+    background-image:url(../images/icons/connect.png) !important;
+}
+
+.arrow_up {
+    background-image:url(../images/icons/arrow_up.png) !important;
+}
+.upload-icon {
+    background-image:url(../images/icons/image_add.png) !important;
+}
+.error_go {
+    background-image:url(../images/icons/error_go.png) !important;
+}
+.application_form_magnify {
+    background-image:url(../images/icons/application_form_magnify.png) !important;
+}
+.group {
+    background-image:url(../images/icons/group.png) !important;
+}
+.link {
+    background-image:url(../images/icons/link.png) !important;
+}
+.word
+{
+    background-image:url(../images/icons/page_white_word.png) !important;
+}
+.phone_add
+{
+    background-image:url(../images/icons/phone_add.png) !important;
+}
+.telephone_add
+{
+    background-image:url(../images/icons/telephone_add.png) !important;
+}
+.comment
+{
+    background-image:url(../images/icons/comment.png) !important;
+}
+.tick
+{
+    background-image:url(../images/icons/tick.png) !important;
+}
+
+.folder
+{
+    background-image:url(../images/icons/folder.png) !important;
+}
+.folder_add
+{
+    background-image:url(../images/icons/folder_add.png) !important;
+}
+.folder_delete
+{
+    background-image:url(../images/icons/folder_delete.png) !important;
+}
+.folder_go
+{
+    background-image:url(../images/icons/folder_go.png) !important;
+}
+ .folder_lightbulb
+ {
+     background-image:url(../images/icons/folder_lightbulb.png) !important;
+ }
+.page
+{
+    background-image:url(../images/icons/page.png) !important;
+}
+.page_red
+{
+    background-image:url(../images/icons/page_red.png) !important;
+}
+.page_green
+{
+    background-image:url(../images/icons/page_green.png) !important;
+}
+.page_white
+{
+    background-image:url(../images/icons/page_white.png) !important;
+}
+.page_add
+{
+    background-image:url(../images/icons/page_add.png) !important;
+}
+.page_copy
+{
+    background-image:url(../images/icons/page_copy.png) !important;
+}
+.page_code
+{
+    background-image:url(../images/icons/page_code.png) !important;
+}
+.page_delete
+{
+    background-image:url(../images/icons/page_delete.png) !important;
+}
+.package
+{
+    background-image:url(../images/icons/package.png) !important;
+}
+.arrow_refresh
+{
+    background-image:url(../images/icons/arrow_refresh.png) !important;
+}
+.database_refresh
+{
+    background-image:url(../images/icons/database_refresh.png) !important;
+}
+
+
+
+
+
+
+
