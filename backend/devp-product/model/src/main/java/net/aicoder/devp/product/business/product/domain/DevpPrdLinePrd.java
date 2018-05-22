@@ -13,8 +13,7 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
  * 产品所属产品线定义
  * @author icode
  */
-@Entity
-@Table
+@Entity @Table
 public class DevpPrdLinePrd extends BaseEntity{
 
 	public static final String PROPERTY_TID = "tid";

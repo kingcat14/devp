@@ -13,6 +13,17 @@ eureka:
     lease-expiration-duration-in-seconds: 5
 
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    database: mysql
+    show-sql: true
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      format_sql: true
   application:
     name: ${sys.module}
   profiles:

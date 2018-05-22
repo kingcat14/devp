@@ -49,9 +49,7 @@ public class DevpPrdLinePrdValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpPrdLinePrd.getTid() ) {
-			errors.rejectValue(DevpPrdLinePrd.PROPERTY_TID, "EMPTY_"+DevpPrdLinePrd.PROPERTY_TID, "租户编号不能为空");
-		}
+
 		if (null == devpPrdLinePrd.getLineRid() ) {
 			errors.rejectValue(DevpPrdLinePrd.PROPERTY_LINE_RID, "EMPTY_"+DevpPrdLinePrd.PROPERTY_LINE_RID, "产品线编号不能为空");
 		}

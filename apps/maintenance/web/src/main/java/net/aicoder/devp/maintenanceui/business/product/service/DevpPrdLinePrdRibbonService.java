@@ -1,4 +1,4 @@
-package net.aicoder.devp.product.business.product.service;
+package net.aicoder.devp.maintenanceui.business.product.service;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;

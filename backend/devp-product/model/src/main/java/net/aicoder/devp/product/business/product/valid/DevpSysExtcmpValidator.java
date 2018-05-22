@@ -49,9 +49,6 @@ public class DevpSysExtcmpValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysExtcmp.getTid() ) {
-			errors.rejectValue(DevpSysExtcmp.PROPERTY_TID, "EMPTY_"+DevpSysExtcmp.PROPERTY_TID, "租户编号不能为空");
-		}
 		if (null == devpSysExtcmp.getPrdRid() ) {
 			errors.rejectValue(DevpSysExtcmp.PROPERTY_PRD_RID, "EMPTY_"+DevpSysExtcmp.PROPERTY_PRD_RID, "产品编号不能为空");
 		}

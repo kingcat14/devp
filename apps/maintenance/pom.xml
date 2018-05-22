@@ -4,6 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+    <modules>
+        <module>security</module>
+    </modules>
 
     <parent>
         <groupId>com.yunkang.saas.starter</groupId>
@@ -16,16 +19,26 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>-->
-                <!--<groupId>com.yunkang.saas.p7y.maintenance</groupId>-->
-                <!--<artifactId>maintenance-model</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>com.yunkang.saas.p7y.maintenance</groupId>
+                <artifactId>maintenance-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.yunkang.saas.p7y.maintenance</groupId>
                 <artifactId>maintenance-product</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yunkang.saas.p7y.maintenance</groupId>
+                <artifactId>maintenance-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.yunkang.saas.common</groupId>-->
+                <!--<artifactId>common-jpa</artifactId>-->
+                <!--<version>1.0.0-SNAPSHOT</version>-->
+            <!--</dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -55,6 +68,7 @@
             <modules>
                 <module>web</module>
                 <module>product</module>
+                <module>model</module>
             </modules>
         </profile>
     </profiles>

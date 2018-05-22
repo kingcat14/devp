@@ -1,32 +1,24 @@
-package net.aicoder.devp.product.business.product.controller;
+package net.aicoder.devp.maintenanceui.business.product.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.product.business.product.domain.DevpPrdLinePrd;
-import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdCondition;
+import net.aicoder.devp.maintenanceui.business.product.service.DevpPrdLinePrdRibbonService;
 import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdAddDto;
+import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdCondition;
 import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdEditDto;
-import net.aicoder.devp.product.business.product.service.DevpPrdLinePrdRibbonService;
 import net.aicoder.devp.product.business.product.valid.DevpPrdLinePrdValidator;
 import net.aicoder.devp.product.business.product.vo.DevpPrdLinePrdVO;
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 管理产品所属产品线定义
@@ -57,7 +49,7 @@ public class DevpPrdLinePrdController {
 	@ApiOperation(value = "新增", notes = "新增产品所属产品线定义", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	public DevpPrdLinePrdVO add(@RequestBody @Valid DevpPrdLinePrdAddDto devpPrdLinePrdAddDto){
+	public DevpPrdLinePrdVO add(@RequestBody DevpPrdLinePrdAddDto devpPrdLinePrdAddDto){
 
 		devpPrdLinePrdRibbonService.add(devpPrdLinePrdAddDto);
 
@@ -89,7 +81,7 @@ public class DevpPrdLinePrdController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产产品所属产品线定义(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public DevpPrdLinePrdVO update(@RequestBody @Valid DevpPrdLinePrdEditDto devpPrdLinePrdEditDto, @ApiParam(value = "要查询的产品所属产品线定义id") @PathVariable Long id){
+	public DevpPrdLinePrdVO update(@RequestBody DevpPrdLinePrdEditDto devpPrdLinePrdEditDto, @ApiParam(value = "要查询的产品所属产品线定义id") @PathVariable Long id){
 
 		DevpPrdLinePrdVO vo = devpPrdLinePrdRibbonService.merge(id, devpPrdLinePrdEditDto);
 
