@@ -34,6 +34,10 @@ spring:
   cloud:
     config:
       enable: false
+  data:
+    jpa:
+      repositories:
+        enabled: true
 logging:
   file: logs/${spring.application.name}.log
 
