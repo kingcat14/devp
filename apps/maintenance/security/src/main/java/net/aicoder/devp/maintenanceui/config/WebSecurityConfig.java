@@ -55,8 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //			.mvcMatchers("/login","*.html","assets/*").permitAll()
 				.antMatchers("/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
-						, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html","/**/*.jpg","/**/*.png"
-						,"/**/*.css", "/favicon.ico","/**/*").permitAll()
+						, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
+						, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
+						,"/**/*.css"
+						,"/ext_*/**/*"
+						,"/**/*"
+				).permitAll()
 				.anyRequest().fullyAuthenticated()
 				.and()
 			.formLogin()
