@@ -12,13 +12,9 @@
     <artifactId>maintenance-web</artifactId>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>net.aicoder.devp.maintenance</groupId>-->
-            <!--<artifactId>maintenance-model</artifactId>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>net.aicoder.devp.maintenance</groupId>
-            <artifactId>maintenance-security</artifactId>
+            <groupId>net.aicoder.devp.security</groupId>
+            <artifactId>security-web</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
