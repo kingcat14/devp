@@ -5,9 +5,11 @@ import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import net.aicoder.devp.security.business.security.domain.Account;
+import net.aicoder.devp.security.business.security.domain.AccountPassword;
 import net.aicoder.devp.security.business.security.dto.AccountAddDto;
 import net.aicoder.devp.security.business.security.dto.AccountCondition;
 import net.aicoder.devp.security.business.security.dto.AccountEditDto;
+import net.aicoder.devp.security.business.security.service.AccountManageService;
 import net.aicoder.devp.security.business.security.service.AccountService;
 import net.aicoder.devp.security.business.security.valid.AccountValidator;
 import net.aicoder.devp.security.business.security.vo.AccountVO;
@@ -39,6 +41,9 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private AccountManageService accountManageService;
+
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -56,7 +61,10 @@ public class AccountController {
 		Account account = new Account();
 		BeanUtils.copyProperties(accountAddDto, account);
 
-		accountService.add(account);
+		AccountPassword accountPassword = new AccountPassword();
+		accountPassword.setPassword(accountAddDto.getInitPwd());
+
+		accountManageService.add(account, accountPassword);
 
 		return  initViewProperty(account);
 	}

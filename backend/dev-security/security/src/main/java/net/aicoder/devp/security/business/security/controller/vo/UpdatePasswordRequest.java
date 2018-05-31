@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class UpdatePasswordRequest {
 
-	private String accountId;
+	private Long accountId;
 	private String accountName;
 	private String oldPassword;
 	private String newPassword;
@@ -37,11 +37,11 @@ public class UpdatePasswordRequest {
 		this.accountName = accountName;
 	}
 
-	public String getAccountId() {
+	public Long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 

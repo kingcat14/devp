@@ -67,6 +67,9 @@ public class AccountAddDto {
 	@Size(max = 255, message = "已启用超长，最多255个字符")
 	private String enable;
 
+	@ApiModelProperty(value = "初始密码", required = true)
+	private String initPwd;
+
 
 	public String getNickName(){
 		return nickName;
@@ -110,6 +113,12 @@ public class AccountAddDto {
 		this.enable = enable;
 	}
 
+	public String getInitPwd() {
+		return initPwd;
+	}
+	public void setInitPwd(String initPwd) {
+		this.initPwd = initPwd;
+	}
 
 	@Override
 	public String toString() {

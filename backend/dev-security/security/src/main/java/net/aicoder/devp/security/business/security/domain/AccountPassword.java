@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -35,8 +36,8 @@ public class AccountPassword extends BaseEntity{
     * 
     */
     @Column(name = "account_id")
-	@Size(max = 255, message = "账号Id超长，最多255个字符")
-	private String accountId;
+	@NotNull
+	private Long accountId;
 
     /**
     * 账号账号
@@ -61,10 +62,10 @@ public class AccountPassword extends BaseEntity{
     @Column(name = "wrong_count")
 	private Integer wrongCount;
 
-	public String getAccountId(){
+	public Long getAccountId(){
 		return accountId;
 	}
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 

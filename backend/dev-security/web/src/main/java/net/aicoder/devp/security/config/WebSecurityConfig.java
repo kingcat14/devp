@@ -2,6 +2,7 @@ package net.aicoder.devp.security.config;
 
 
 import net.aicoder.devp.security.business.security.service.SecurityUserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -46,9 +47,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //	private SecurityUserService securityUserService;
 
 
+	@Value("${security.test:false}")
+	private boolean inTest;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
+		String[] antMatchers = {"/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
+				, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
+				, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
+				,"/**/*.css"
+				,"/ext_*/**/*"
+		};
+
+		if(inTest){
+			String[] testMatchers = {"/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
+					, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
+					, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
+					,"/**/*.css"
+					,"/ext_*/**/*"
+					,"/**/*"
+			};
+			antMatchers = testMatchers;
+		}
+
 		http
 			//禁用CSRF保护
 			.csrf().disable()
@@ -58,12 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//配置那些路径可以不用权限访问
 
 //			.mvcMatchers("/login","*.html","assets/*").permitAll()
-				.antMatchers("/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
-						, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
-						, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
-						,"/**/*.css"
-						,"/ext_*/**/*"
-						,"/**/*"
+				.antMatchers(antMatchers
 				).permitAll()
 				.anyRequest().fullyAuthenticated()
 				.and()

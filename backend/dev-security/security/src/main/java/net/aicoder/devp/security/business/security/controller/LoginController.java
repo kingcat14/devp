@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,13 +53,13 @@ public class LoginController {
 	 * @return
 	 */
 	@PostMapping("/authenticate")
-	public LoginResult login(@Valid LoginRequest loginRequest, HttpSession session){
+	public LoginResult login(@RequestBody @Valid LoginRequest loginRequest, HttpSession session){
 
 		LoginResult loginResult = loginService.login(loginRequest);
 
 		loginResult.setSessionId(session.getId());
 
-		LOGGER.debug("{}", loginRequest);
+		LOGGER.debug("{}", loginResult);
 
 		return loginResult;
 
@@ -114,7 +115,7 @@ public class LoginController {
 
 		Account account = userDetails.getAccount();
 		//把账号设置成当前登录用户的账号
-		request.setAccountId(account.getId()+"");
+		request.setAccountId(account.getId());
 		UpdatePasswordResponse response = accountManageService.updatePassword(request);
 
 		return response;

@@ -11,7 +11,7 @@ public class AccountPasswordCondition implements Serializable{
 
 	private String id;
 
-	private String accountId;
+	private Long accountId;
 	private String accountName;
 	private String password;
 	private Integer wrongCount;
@@ -19,10 +19,10 @@ public class AccountPasswordCondition implements Serializable{
 	private Integer wrongCountMin;
 
 
-	public String getAccountId(){
+	public Long getAccountId(){
 		return accountId;
 	}
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 

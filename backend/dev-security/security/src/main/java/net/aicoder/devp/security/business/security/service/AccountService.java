@@ -18,6 +18,8 @@ public class AccountService  extends CrudService<Account, AccountCondition, Acco
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Account.class);
 
+
+
 	@Override
 	public Specification<Account> getSpecification(AccountCondition condition) {
 		return new AccountSpecification(condition);

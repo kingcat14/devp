@@ -4,16 +4,14 @@ import net.aicoder.devp.security.business.security.controller.vo.ResourceTreeNod
 import net.aicoder.devp.security.business.security.controller.vo.UpdatePasswordRequest;
 import net.aicoder.devp.security.business.security.controller.vo.UpdatePasswordResponse;
 import net.aicoder.devp.security.business.security.domain.*;
-import net.aicoder.devp.security.business.security.dto.AccountCondition;
-import net.aicoder.devp.security.business.security.dto.AccountPasswordCondition;
-import net.aicoder.devp.security.business.security.dto.AccountRoleRelationCondition;
-import net.aicoder.devp.security.business.security.dto.RoleResourceRelationCondition;
+import net.aicoder.devp.security.business.security.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +44,16 @@ public class AccountManageService {
 	@Autowired
 	private AccountRoleRelationService accountRoleRelationService;
 
+	@Transactional
+	public void add(Account account, AccountPassword accountPassword){
+		accountService.add(account);
+
+
+		accountPassword.setAccountId(account.getId());
+		accountPassword.setPassword(passwordEncoder.encode(accountPassword.getPassword()));
+		accountPassword.setWrongCount(0);
+		accountPasswordService.add(accountPassword);
+	}
 
 	/**
 	 * 更新密码

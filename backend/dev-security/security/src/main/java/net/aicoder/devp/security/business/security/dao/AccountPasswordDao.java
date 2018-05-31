@@ -12,5 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository("accountPasswordDao")
 public interface AccountPasswordDao extends BaseDao<AccountPassword, Long>{
 
+    AccountPassword findByAccountId(Long accountId);
 
 }

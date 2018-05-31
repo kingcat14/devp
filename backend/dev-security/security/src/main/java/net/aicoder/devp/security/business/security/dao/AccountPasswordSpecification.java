@@ -41,7 +41,7 @@ public class AccountPasswordSpecification implements Specification<AccountPasswo
 
 
 	private void tryAddAccountIdPredicate(List<Predicate> predicateList, Root<AccountPassword> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getAccountId())){
+		if(null != (condition.getAccountId())){
 			predicateList.add(cb.like(root.get(AccountPassword.PROPERTY_ACCOUNT_ID).as(String.class), "%"+condition.getAccountId()+"%"));
 		}
 	}

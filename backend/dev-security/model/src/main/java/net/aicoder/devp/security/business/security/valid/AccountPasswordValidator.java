@@ -50,9 +50,7 @@ public class AccountPasswordValidator implements Validator {
 		//验证必填
 
 		//验证长度
-		if(StringUtils.length(accountPassword.getAccountId()) > 255){
-			errors.rejectValue(AccountPassword.PROPERTY_ACCOUNT_ID,null,"账号Id最长255个字符");
-		}
+
 		if(StringUtils.length(accountPassword.getAccountName()) > 255){
 			errors.rejectValue(AccountPassword.PROPERTY_ACCOUNT_NAME,null,"账号账号最长255个字符");
 		}

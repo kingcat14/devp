@@ -45,7 +45,7 @@ public class LoginService {
 		LoginResult loginResult = new LoginResult(false, "未进行认证操作");
 		Date date1 = new Date();
 		LOGGER.info("{}");
-		String password = passwordEncoder.encode(loginRequest.getPassword());
+		//String password = passwordEncoder.encode(loginRequest.getPassword());
 
 		Date date2 = new Date();
 		LOGGER.info(" encode password cost:{}", date2.getTime() - date1.getTime());
@@ -78,7 +78,7 @@ public class LoginService {
 
 		}
 		else{
-			LOGGER.info("{} login fail with password:{},{}", loginRequest.getUsername(), loginRequest.getPassword(), password);
+			LOGGER.info("{} login fail with password:{}", loginRequest.getUsername(), loginRequest.getPassword());
 			loginResult = new LoginResult(false, "密码错误");
 
 			//密码错误次数+1
