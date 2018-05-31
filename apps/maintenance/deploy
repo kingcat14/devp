@@ -1,0 +1,6 @@
+cd /Users/gonghongrui/studio/git_aicoder/devp/apps/maintenance
+mvn clean package
+scp web/target/maintenance-web.jar root@121.41.14.24:/studio/apps/devp/maintenance
+
+
+java -jar maintenance-we5b.jar -Dspring.profiles.active=local
