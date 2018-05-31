@@ -60,16 +60,14 @@ public class DevpPrdLinePrdEditDto {
 	 * 产品线编号
 	 * 
      */
-	@NotNull(message = "产品线编号不能为空")
-	@ApiModelProperty(value = "产品线编号", required = true)
+	@ApiModelProperty(value = "产品线编号", required = false)
 	private Long lineRid;
 
     /**
 	 * 产品编号
 	 * 
      */
-	@NotNull(message = "产品编号不能为空")
-	@ApiModelProperty(value = "产品编号", required = true)
+	@ApiModelProperty(value = "产品编号", required = false)
 	private Long prdRid;
 
     /**

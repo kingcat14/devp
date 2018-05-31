@@ -28,7 +28,6 @@ public class DevpPrdPrdlineSpecification implements Specification<DevpPrdPrdline
 			return null;
 		}
        
-		tryAddTidPredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddAliasPredicate(predicateList, root, cb);
@@ -53,11 +52,6 @@ public class DevpPrdPrdlineSpecification implements Specification<DevpPrdPrdline
 	}
 
 
-	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpPrdPrdline> root, CriteriaBuilder cb){
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(DevpPrdPrdline.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<DevpPrdPrdline> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCode())){
 			predicateList.add(cb.like(root.get(DevpPrdPrdline.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));

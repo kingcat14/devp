@@ -4,6 +4,9 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.product.business.product.domain.DevpSysExtcmp;
 import net.aicoder.devp.product.business.product.dto.DevpSysExtcmpCondition;
 import net.aicoder.devp.product.business.product.dto.DevpSysExtcmpAddDto;
@@ -30,6 +33,7 @@ import java.util.List;
  * 管理产品包含的外部组件
  * @author icode
  */
+@Api(description = "产品包含的外部组件", tags = "DevpSysExtcmp")
 @RestController
 @RequestMapping(value = "/product/devpSysExtcmp")
 public class DevpSysExtcmpController {
@@ -41,9 +45,12 @@ public class DevpSysExtcmpController {
 	private DevpSysExtcmpService devpSysExtcmpService;
 
 
+	@Autowired
+	private DevpSysExtcmpValidator devpSysExtcmpValidator;
+
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.addValidators(new DevpSysExtcmpValidator());
+		webDataBinder.addValidators(devpSysExtcmpValidator);
 	}
 
 	/**
@@ -51,6 +58,7 @@ public class DevpSysExtcmpController {
 	 * @param devpSysExtcmpAddDto
 	 * @return
 	 */
+	@ApiOperation(value = "新增", notes = "新增产品包含的外部组件", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysExtcmpVO add(@RequestBody @Valid DevpSysExtcmpAddDto devpSysExtcmpAddDto){
@@ -66,6 +74,7 @@ public class DevpSysExtcmpController {
 	 * 删除产品包含的外部组件,id以逗号分隔
 	 * @param idArray
 	 */
+	@ApiOperation(value = "删除", notes = "删除产品包含的外部组件", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -84,6 +93,7 @@ public class DevpSysExtcmpController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "修改", notes = "修改产产品包含的外部组件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpSysExtcmpVO update(@RequestBody @Valid DevpSysExtcmpEditDto devpSysExtcmpEditDto, @PathVariable Long id){
 		DevpSysExtcmp devpSysExtcmp = new DevpSysExtcmp();
@@ -100,6 +110,7 @@ public class DevpSysExtcmpController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询产品包含的外部组件", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpSysExtcmpVO get(@PathVariable Long id) {
 
@@ -114,6 +125,7 @@ public class DevpSysExtcmpController {
 	 * @param pageSearchRequest
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据条件查询产品包含的外部组件列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpSysExtcmpVO> list(@RequestBody PageSearchRequest<DevpSysExtcmpCondition> pageSearchRequest){
 
@@ -145,8 +157,6 @@ public class DevpSysExtcmpController {
 	    //初始化其他对象
         return vo;
 	}
-
-
 
 
 }

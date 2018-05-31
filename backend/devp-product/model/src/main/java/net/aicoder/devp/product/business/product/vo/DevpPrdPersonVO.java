@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "展现产品干系人的值对象")
 public class DevpPrdPersonVO {
 
-
+    @ApiModelProperty(value = "记录id")
     private Long id;
 
     @ApiModelProperty(value = "租户编号")
@@ -89,9 +89,9 @@ public class DevpPrdPersonVO {
     */
     private String type;
 
-    @ApiModelProperty(value = "用户类型")
+    @ApiModelProperty(value = "用户角色")
     /**
-    * 用户类型
+    * 用户角色
     * 
     */
     private String role;

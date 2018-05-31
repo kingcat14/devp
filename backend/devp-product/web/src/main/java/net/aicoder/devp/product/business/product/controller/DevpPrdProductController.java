@@ -4,6 +4,9 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.product.business.product.domain.DevpPrdProduct;
 import net.aicoder.devp.product.business.product.dto.DevpPrdProductCondition;
 import net.aicoder.devp.product.business.product.dto.DevpPrdProductAddDto;
@@ -30,6 +33,7 @@ import java.util.List;
  * 管理产品定义
  * @author icode
  */
+@Api(description = "产品定义", tags = "DevpPrdProduct")
 @RestController
 @RequestMapping(value = "/product/devpPrdProduct")
 public class DevpPrdProductController {
@@ -41,9 +45,12 @@ public class DevpPrdProductController {
 	private DevpPrdProductService devpPrdProductService;
 
 
+	@Autowired
+	private DevpPrdProductValidator devpPrdProductValidator;
+
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.addValidators(new DevpPrdProductValidator());
+		webDataBinder.addValidators(devpPrdProductValidator);
 	}
 
 	/**
@@ -51,6 +58,7 @@ public class DevpPrdProductController {
 	 * @param devpPrdProductAddDto
 	 * @return
 	 */
+	@ApiOperation(value = "新增", notes = "新增产品定义", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdProductVO add(@RequestBody @Valid DevpPrdProductAddDto devpPrdProductAddDto){
@@ -66,6 +74,7 @@ public class DevpPrdProductController {
 	 * 删除产品定义,id以逗号分隔
 	 * @param idArray
 	 */
+	@ApiOperation(value = "删除", notes = "删除产品定义", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -84,6 +93,7 @@ public class DevpPrdProductController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "修改", notes = "修改产产品定义(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpPrdProductVO update(@RequestBody @Valid DevpPrdProductEditDto devpPrdProductEditDto, @PathVariable Long id){
 		DevpPrdProduct devpPrdProduct = new DevpPrdProduct();
@@ -100,6 +110,7 @@ public class DevpPrdProductController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询产品定义", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpPrdProductVO get(@PathVariable Long id) {
 
@@ -114,6 +125,7 @@ public class DevpPrdProductController {
 	 * @param pageSearchRequest
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据条件查询产品定义列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpPrdProductVO> list(@RequestBody PageSearchRequest<DevpPrdProductCondition> pageSearchRequest){
 
@@ -145,8 +157,6 @@ public class DevpPrdProductController {
 	    //初始化其他对象
         return vo;
 	}
-
-
 
 
 }

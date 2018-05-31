@@ -7,6 +7,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
+
+
 /**
  * 产品所属产品线定义
  * @author icode
@@ -58,16 +60,14 @@ public class DevpPrdLinePrdAddDto {
 	 * 产品线编号
 	 * 
      */
-	@NotNull(message = "产品线编号不能为空")
-	@ApiModelProperty(value = "产品线编号", required = true)
+	@ApiModelProperty(value = "产品线编号", required = false)
 	private Long lineRid;
 
     /**
 	 * 产品编号
 	 * 
      */
-	@NotNull(message = "产品编号不能为空")
-	@ApiModelProperty(value = "产品编号", required = true)
+	@ApiModelProperty(value = "产品编号", required = false)
 	private Long prdRid;
 
     /**

@@ -1,0 +1,6 @@
+cd /Users/gonghongrui/studio/git_aicoder/devp/backend/devp-product
+mvn clean package
+scp web/target/product-web.jar root@121.41.14.24:/studio/apps/devp/product
+
+
+java -jar product-web.jar -Dspring.profiles.active=local

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service("devpSysExtcmpService")
 public class DevpSysExtcmpService  extends CrudService<DevpSysExtcmp, DevpSysExtcmpCondition, DevpSysExtcmpDao> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysExtcmp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysExtcmpService.class);
 
 	@Override
 	public Specification<DevpSysExtcmp> getSpecification(DevpSysExtcmpCondition condition) {

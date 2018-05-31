@@ -19,13 +19,6 @@ public class DevpPrdPrdlineVO {
     @ApiModelProperty(value = "记录id")
     private Long id;
 
-    @ApiModelProperty(value = "租户编号")
-    /**
-    * 租户编号
-    * 
-    */
-    private Long tid;
-
     @ApiModelProperty(value = "产品线代码")
     /**
     * 产品线代码
@@ -139,12 +132,6 @@ public class DevpPrdPrdlineVO {
     private String modifyUcode;
 
 
-    public Long getTid(){
-        return tid;
-    }
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
     public String getCode(){
         return code;
     }

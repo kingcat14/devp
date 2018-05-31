@@ -4,6 +4,9 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.product.business.product.domain.DevpPrdPerson;
 import net.aicoder.devp.product.business.product.dto.DevpPrdPersonCondition;
 import net.aicoder.devp.product.business.product.dto.DevpPrdPersonAddDto;
@@ -30,6 +33,7 @@ import java.util.List;
  * 管理产品干系人
  * @author icode
  */
+@Api(description = "产品干系人", tags = "DevpPrdPerson")
 @RestController
 @RequestMapping(value = "/product/devpPrdPerson")
 public class DevpPrdPersonController {
@@ -41,9 +45,12 @@ public class DevpPrdPersonController {
 	private DevpPrdPersonService devpPrdPersonService;
 
 
+	@Autowired
+	private DevpPrdPersonValidator devpPrdPersonValidator;
+
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.addValidators(new DevpPrdPersonValidator());
+		webDataBinder.addValidators(devpPrdPersonValidator);
 	}
 
 	/**
@@ -51,6 +58,7 @@ public class DevpPrdPersonController {
 	 * @param devpPrdPersonAddDto
 	 * @return
 	 */
+	@ApiOperation(value = "新增", notes = "新增产品干系人", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdPersonVO add(@RequestBody @Valid DevpPrdPersonAddDto devpPrdPersonAddDto){
@@ -66,6 +74,7 @@ public class DevpPrdPersonController {
 	 * 删除产品干系人,id以逗号分隔
 	 * @param idArray
 	 */
+	@ApiOperation(value = "删除", notes = "删除产品干系人", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -84,6 +93,7 @@ public class DevpPrdPersonController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "修改", notes = "修改产产品干系人(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpPrdPersonVO update(@RequestBody @Valid DevpPrdPersonEditDto devpPrdPersonEditDto, @PathVariable Long id){
 		DevpPrdPerson devpPrdPerson = new DevpPrdPerson();
@@ -100,6 +110,7 @@ public class DevpPrdPersonController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询产品干系人", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpPrdPersonVO get(@PathVariable Long id) {
 
@@ -114,6 +125,7 @@ public class DevpPrdPersonController {
 	 * @param pageSearchRequest
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据条件查询产品干系人列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpPrdPersonVO> list(@RequestBody PageSearchRequest<DevpPrdPersonCondition> pageSearchRequest){
 
@@ -145,8 +157,6 @@ public class DevpPrdPersonController {
 	    //初始化其他对象
         return vo;
 	}
-
-
 
 
 }

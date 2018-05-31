@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service("devpPrdPrdlineService")
 public class DevpPrdPrdlineService  extends CrudService<DevpPrdPrdline, DevpPrdPrdlineCondition, DevpPrdPrdlineDao> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DevpPrdPrdline.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DevpPrdPrdlineService.class);
 
 	@Override
 	public Specification<DevpPrdPrdline> getSpecification(DevpPrdPrdlineCondition condition) {
@@ -27,7 +27,7 @@ public class DevpPrdPrdlineService  extends CrudService<DevpPrdPrdline, DevpPrdP
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , DevpPrdPrdline.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC , DevpPrdPrdline.PROPERTY_CODE);
 		return sort;
 	}
 }

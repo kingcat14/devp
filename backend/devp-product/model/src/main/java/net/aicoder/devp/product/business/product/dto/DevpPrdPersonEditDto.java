@@ -99,11 +99,11 @@ public class DevpPrdPersonEditDto {
 	private String type;
 
     /**
-	 * 用户类型
+	 * 用户角色
 	 * 
      */
-	@ApiModelProperty(value = "用户类型", required = false)
-	@Size(max = 255, message = "用户类型超长，最多255个字符")
+	@ApiModelProperty(value = "用户角色", required = false)
+	@Size(max = 255, message = "用户角色超长，最多255个字符")
 	private String role;
 
     /**

@@ -4,6 +4,9 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.product.business.product.domain.DevpPrdLinePrd;
 import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdCondition;
 import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdAddDto;
@@ -11,6 +14,10 @@ import net.aicoder.devp.product.business.product.dto.DevpPrdLinePrdEditDto;
 import net.aicoder.devp.product.business.product.service.DevpPrdLinePrdService;
 import net.aicoder.devp.product.business.product.valid.DevpPrdLinePrdValidator;
 import net.aicoder.devp.product.business.product.vo.DevpPrdLinePrdVO;
+import net.aicoder.devp.product.business.product.domain.DevpPrdPrdline;
+import net.aicoder.devp.product.business.product.service.DevpPrdPrdlineService;
+import net.aicoder.devp.product.business.product.domain.DevpPrdProduct;
+import net.aicoder.devp.product.business.product.service.DevpPrdProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +37,7 @@ import java.util.List;
  * 管理产品所属产品线定义
  * @author icode
  */
+@Api(description = "产品所属产品线定义", tags = "DevpPrdLinePrd")
 @RestController
 @RequestMapping(value = "/product/devpPrdLinePrd")
 public class DevpPrdLinePrdController {
@@ -40,10 +48,17 @@ public class DevpPrdLinePrdController {
 	@Autowired
 	private DevpPrdLinePrdService devpPrdLinePrdService;
 
+	@Autowired
+	private DevpPrdPrdlineService devpPrdPrdlineService;
+	@Autowired
+	private DevpPrdProductService devpPrdProductService;
+
+	@Autowired
+	private DevpPrdLinePrdValidator devpPrdLinePrdValidator;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.addValidators(new DevpPrdLinePrdValidator());
+		webDataBinder.addValidators(devpPrdLinePrdValidator);
 	}
 
 	/**
@@ -51,6 +66,7 @@ public class DevpPrdLinePrdController {
 	 * @param devpPrdLinePrdAddDto
 	 * @return
 	 */
+	@ApiOperation(value = "新增", notes = "新增产品所属产品线定义", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdLinePrdVO add(@RequestBody @Valid DevpPrdLinePrdAddDto devpPrdLinePrdAddDto){
@@ -66,6 +82,7 @@ public class DevpPrdLinePrdController {
 	 * 删除产品所属产品线定义,id以逗号分隔
 	 * @param idArray
 	 */
+	@ApiOperation(value = "删除", notes = "删除产品所属产品线定义", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -84,6 +101,7 @@ public class DevpPrdLinePrdController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "修改", notes = "修改产产品所属产品线定义(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpPrdLinePrdVO update(@RequestBody @Valid DevpPrdLinePrdEditDto devpPrdLinePrdEditDto, @PathVariable Long id){
 		DevpPrdLinePrd devpPrdLinePrd = new DevpPrdLinePrd();
@@ -100,6 +118,7 @@ public class DevpPrdLinePrdController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询产品所属产品线定义", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpPrdLinePrdVO get(@PathVariable Long id) {
 
@@ -114,6 +133,7 @@ public class DevpPrdLinePrdController {
 	 * @param pageSearchRequest
 	 * @return
 	 */
+	@ApiOperation(value = "查询", notes = "根据条件查询产品所属产品线定义列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpPrdLinePrdVO> list(@RequestBody PageSearchRequest<DevpPrdLinePrdCondition> pageSearchRequest){
 
@@ -143,10 +163,30 @@ public class DevpPrdLinePrdController {
         BeanUtils.copyProperties(devpPrdLinePrd, vo);
 
 	    //初始化其他对象
+	    initDevpPrdPrdlinePropertyGroup(vo, devpPrdLinePrd);
+	    initDevpPrdProductPropertyGroup(vo, devpPrdLinePrd);
         return vo;
 	}
 
 
+	private void initDevpPrdPrdlinePropertyGroup(DevpPrdLinePrdVO devpPrdLinePrdVO, DevpPrdLinePrd devpPrdLinePrd){
+	
+		DevpPrdPrdline devpPrdPrdline = devpPrdPrdlineService.find(devpPrdLinePrd.getLineRid());
+		if(devpPrdPrdline == null){
+			return;
+		}
+
+	}
+
+
+	private void initDevpPrdProductPropertyGroup(DevpPrdLinePrdVO devpPrdLinePrdVO, DevpPrdLinePrd devpPrdLinePrd){
+	
+		DevpPrdProduct devpPrdProduct = devpPrdProductService.find(devpPrdLinePrd.getPrdRid());
+		if(devpPrdProduct == null){
+			return;
+		}
+
+	}
 
 
 }

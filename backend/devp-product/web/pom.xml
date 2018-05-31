@@ -21,6 +21,10 @@
             <artifactId>product-product</artifactId>
         </dependency>
         <dependency>
+            <groupId>net.aicoder.devp.product</groupId>
+            <artifactId>product-sys</artifactId>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>

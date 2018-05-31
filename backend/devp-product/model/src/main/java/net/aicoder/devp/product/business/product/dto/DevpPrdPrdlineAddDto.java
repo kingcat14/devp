@@ -17,14 +17,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class DevpPrdPrdlineAddDto {
 
     /**
-	 * 租户编号
-	 * 
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true, example = "12345")
-	private Long tid;
-
-    /**
 	 * 产品线代码
 	 * 
      */
@@ -151,13 +143,6 @@ public class DevpPrdPrdlineAddDto {
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
 	private String modifyUcode;
 
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
 
 	public String getCode(){
 		return code;

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service("devpPrdProductService")
 public class DevpPrdProductService  extends CrudService<DevpPrdProduct, DevpPrdProductCondition, DevpPrdProductDao> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DevpPrdProduct.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DevpPrdProductService.class);
 
 	@Override
 	public Specification<DevpPrdProduct> getSpecification(DevpPrdProductCondition condition) {

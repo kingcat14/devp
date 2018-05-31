@@ -1,48 +1,79 @@
 package net.aicoder.devp.product.business.product.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
+@ApiModel(value = "查询产品干系人使用的DTO")
 public class DevpPrdPersonCondition implements Serializable{
 
-
-	private String id;
-
+	@ApiModelProperty(value = "租户编号")
 	private Long tid;
+	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
+	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
+	@ApiModelProperty(value = "用户代码")
 	private String code;
+	@ApiModelProperty(value = "用户名称")
 	private String name;
+	@ApiModelProperty(value = "用户别名")
 	private String alias;
+	@ApiModelProperty(value = "用户描述")
 	private String description;
+	@ApiModelProperty(value = "关联元素类型")
 	private String nexusType;
+	@ApiModelProperty(value = "关联元素编号")
 	private Long nexusRid;
+	@ApiModelProperty(value = "关联元素编号最大值")
 	private Long nexusRidMax;
+	@ApiModelProperty(value = "关联元素编号最小值")
 	private Long nexusRidMin;
+	@ApiModelProperty(value = "顺序号")
 	private Integer seq;
+	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
+	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
+	@ApiModelProperty(value = "用户编号")
 	private Long uid;
+	@ApiModelProperty(value = "用户编号最大值")
 	private Long uidMax;
+	@ApiModelProperty(value = "用户编号最小值")
 	private Long uidMin;
+	@ApiModelProperty(value = "用户类型")
 	private String type;
+	@ApiModelProperty(value = "用户角色")
 	private String role;
+	@ApiModelProperty(value = "状态")
 	private String status;
+	@ApiModelProperty(value = "用户租户编号")
 	private Long userTid;
+	@ApiModelProperty(value = "用户租户编号最大值")
 	private Long userTidMax;
+	@ApiModelProperty(value = "用户租户编号最小值")
 	private Long userTidMin;
+	@ApiModelProperty(value = "组织编号")
 	private Long orgRid;
+	@ApiModelProperty(value = "组织编号最大值")
 	private Long orgRidMax;
+	@ApiModelProperty(value = "组织编号最小值")
 	private Long orgRidMin;
+	@ApiModelProperty(value = "组织名称")
 	private String orgName;
+	@ApiModelProperty(value = "记录状态")
 	private Integer recordState;
+	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
+	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
+	@ApiModelProperty(value = "创建用户代码")
 	private String createUcode;
+	@ApiModelProperty(value = "修改用户代码")
 	private String modifyUcode;
 
 
@@ -288,12 +319,6 @@ public class DevpPrdPersonCondition implements Serializable{
 	}
 
 
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 
 
 	@Override

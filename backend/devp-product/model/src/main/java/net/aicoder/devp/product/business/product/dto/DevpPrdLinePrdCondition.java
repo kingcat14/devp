@@ -1,40 +1,63 @@
 package net.aicoder.devp.product.business.product.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
+@ApiModel(value = "查询产品所属产品线定义使用的DTO")
 public class DevpPrdLinePrdCondition implements Serializable{
 
-
-	private String id;
-
+	@ApiModelProperty(value = "租户编号")
 	private Long tid;
+	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
+	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
+	@ApiModelProperty(value = "代码")
 	private String code;
+	@ApiModelProperty(value = "名称")
 	private String name;
+	@ApiModelProperty(value = "别名")
 	private String alias;
+	@ApiModelProperty(value = "描述")
 	private String description;
+	@ApiModelProperty(value = "产品线编号")
 	private Long lineRid;
+	@ApiModelProperty(value = "产品线编号最大值")
 	private Long lineRidMax;
+	@ApiModelProperty(value = "产品线编号最小值")
 	private Long lineRidMin;
+	@ApiModelProperty(value = "产品编号")
 	private Long prdRid;
+	@ApiModelProperty(value = "产品编号最大值")
 	private Long prdRidMax;
+	@ApiModelProperty(value = "产品编号最小值")
 	private Long prdRidMin;
+	@ApiModelProperty(value = "顺序号")
 	private Integer seq;
+	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
+	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
+	@ApiModelProperty(value = "类型")
 	private String type;
+	@ApiModelProperty(value = "构造型")
 	private String stereotype;
+	@ApiModelProperty(value = "范围")
 	private String scope;
+	@ApiModelProperty(value = "记录状态")
 	private Integer recordState;
+	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
+	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
+	@ApiModelProperty(value = "创建用户代码")
 	private String createUcode;
+	@ApiModelProperty(value = "修改用户代码")
 	private String cmodifyUcode;
 
 
@@ -220,12 +243,6 @@ public class DevpPrdLinePrdCondition implements Serializable{
 	}
 
 
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 
 
 	@Override

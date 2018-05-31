@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "展现产品所属产品线定义的值对象")
 public class DevpPrdLinePrdVO {
 
-
+    @ApiModelProperty(value = "记录id")
     private Long id;
 
     @ApiModelProperty(value = "租户编号")
