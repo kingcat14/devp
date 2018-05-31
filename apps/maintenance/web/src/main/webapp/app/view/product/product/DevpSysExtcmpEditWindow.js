@@ -8,7 +8,7 @@ Ext.define('AM.view.product.product.DevpSysExtcmpEditWindow', {
     layout: {
         type: 'fit'
     },
-    title: '产品包含的外部组件详细信息',
+    title: '修改产品包含的外部组件',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {

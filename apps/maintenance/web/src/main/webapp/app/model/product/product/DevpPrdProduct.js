@@ -14,7 +14,7 @@ Ext.define('AM.model.product.product.DevpPrdProduct', {
         }
     	,{
             name: 'tid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }

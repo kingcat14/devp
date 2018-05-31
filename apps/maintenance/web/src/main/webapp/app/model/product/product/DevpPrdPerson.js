@@ -14,7 +14,7 @@ Ext.define('AM.model.product.product.DevpPrdPerson', {
         }
     	,{
             name: 'tid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
@@ -50,7 +50,7 @@ Ext.define('AM.model.product.product.DevpPrdPerson', {
         }
     	,{
             name: 'nexusRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
@@ -62,7 +62,7 @@ Ext.define('AM.model.product.product.DevpPrdPerson', {
         }
     	,{
             name: 'uid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
@@ -86,13 +86,13 @@ Ext.define('AM.model.product.product.DevpPrdPerson', {
         }
     	,{
             name: 'userTid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
             name: 'orgRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:true
             ,critical:true
         }

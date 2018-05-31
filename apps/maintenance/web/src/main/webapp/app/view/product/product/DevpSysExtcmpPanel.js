@@ -11,9 +11,8 @@ Ext.define('AM.view.product.product.DevpSysExtcmpPanel', {
             ,columns: [
 
                 {
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'tid'
-                    ,format:'0,000'
                     
                     ,text: '租户编号'
                 }
@@ -47,25 +46,22 @@ Ext.define('AM.view.product.product.DevpSysExtcmpPanel', {
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'prdRid'
-                    ,format:'0,000'
                     
                     ,text: '产品编号'
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'extPrdRid'
-                    ,format:'0,000'
                     
                     ,text: '外部产品编号'
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'extElmRid'
-                    ,format:'0,000'
                     
                     ,text: '外部系统元素编号'
                 }

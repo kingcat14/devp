@@ -42,55 +42,53 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineSearchWindow', {
                                     ,items: [
 
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
+                                            xtype: 'textfield',
+                                            itemId: 'codeField',
+                                            name: 'code',
+                                            fieldLabel: '产品线代码'
                                         }
                                         ,{
-                                            itemId: 'nameField',
-                                            name: 'name',
-                                            fieldLabel: '产品线名称'
+                                            xtype: 'textfield',
+                                            itemId: 'aliasField',
+                                            name: 'alias',
+                                            fieldLabel: '产品线别名'
                                         }
                                         ,{
-                                            itemId: 'descriptionField',
-                                            name: 'description',
-                                            fieldLabel: '产品线描述'
+                                            xtype: 'textfield',
+                                            itemId: 'typeField',
+                                            name: 'type',
+                                            fieldLabel: '产品线类型'
                                         }
                                         ,{
-                                            itemId: 'domainField',
-                                            name: 'domain',
-                                            fieldLabel: '领域'
+                                            xtype: 'textfield',
+                                            itemId: 'stereotypeField',
+                                            name: 'stereotype',
+                                            fieldLabel: '构造型'
                                         }
                                         ,{
-                                            itemId: 'scopeField',
-                                            name: 'scope',
-                                            fieldLabel: '访问控制范围'
+                                            xtype: 'textfield',
+                                            itemId: 'versionField',
+                                            name: 'version',
+                                            fieldLabel: '版本'
                                         }
                                         ,{
-                                            itemId: 'phaseField',
-                                            name: 'phase',
-                                            fieldLabel: '阶段'
-                                        }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'parentRidField',
-                                            name: 'parentRid',
-                                            fieldLabel: '父产品线编号'
+                                            xtype: 'textfield',
+                                            itemId: 'statusField',
+                                            name: 'status',
+                                            fieldLabel: '状态'
                                         }
                                         ,{
                                             xtype: 'numberfield',
                                             allowDecimals:false,
-                                            itemId: 'recordStateField',
-                                            name: 'recordState',
-                                            fieldLabel: '记录状态'
+                                            itemId: 'seqField',
+                                            name: 'seq',
+                                            fieldLabel: '顺序号'
                                         }
                                         ,{
-                                            itemId: 'modifyUcodeField',
-                                            name: 'modifyUcode',
-                                            fieldLabel: '修改用户代码'
+                                            xtype: 'textfield',
+                                            itemId: 'createUcodeField',
+                                            name: 'createUcode',
+                                            fieldLabel: '创建用户代码'
                                         }
 
                                     ]
@@ -111,74 +109,75 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineSearchWindow', {
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'codeField',
+                                            itemId: 'nameField',
                                             padding: '5 0 0 5',
-                                            name: 'code',
-                                            fieldLabel: '产品线代码',
+                                            name: 'name',
+                                            fieldLabel: '产品线名称',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'aliasField',
+                                            itemId: 'descriptionField',
                                             padding: '5 0 0 5',
-                                            name: 'alias',
-                                            fieldLabel: '产品线别名',
+                                            name: 'description',
+                                            fieldLabel: '产品线描述',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'typeField',
+                                            itemId: 'domainField',
                                             padding: '5 0 0 5',
-                                            name: 'type',
-                                            fieldLabel: '产品线类型',
+                                            name: 'domain',
+                                            fieldLabel: '领域',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'stereotypeField',
+                                            itemId: 'scopeField',
                                             padding: '5 0 0 5',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型',
+                                            name: 'scope',
+                                            fieldLabel: '访问控制范围',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'versionField',
+                                            itemId: 'phaseField',
                                             padding: '5 0 0 5',
-                                            name: 'version',
-                                            fieldLabel: '版本',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'statusField',
-                                            padding: '5 0 0 5',
-                                            name: 'status',
-                                            fieldLabel: '状态',
+                                            name: 'phase',
+                                            fieldLabel: '阶段',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'numberfield',
                                             allowDecimals:false,
                                             anchor: '96%',
-                                            itemId: 'seqField',
+                                            itemId: 'parentRidField',
                                             padding: '5 0 0 5',
-                                            name: 'seq',
-                                            fieldLabel: '顺序号',
+                                            name: 'parentRid',
+                                            fieldLabel: '父产品线编号',
+                                            labelAlign: 'top'
+                                        }
+                                        ,{
+                                            xtype: 'numberfield',
+                                            allowDecimals:false,
+                                            anchor: '96%',
+                                            itemId: 'recordStateField',
+                                            padding: '5 0 0 5',
+                                            name: 'recordState',
+                                            fieldLabel: '记录状态',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'createUcodeField',
+                                            itemId: 'modifyUcodeField',
                                             padding: '5 0 0 5',
-                                            name: 'createUcode',
-                                            fieldLabel: '创建用户代码',
+                                            name: 'modifyUcode',
+                                            fieldLabel: '修改用户代码',
                                             labelAlign: 'top'
                                         }
                                     ]
@@ -237,7 +236,6 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineSearchWindow', {
             return;
         }
 
-        var tidField = me.down("#tidField");
         var codeField = me.down("#codeField");
         var nameField = me.down("#nameField");
         var aliasField = me.down("#aliasField");
@@ -256,8 +254,7 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineSearchWindow', {
         var modifyUcodeField = me.down("#modifyUcodeField");
 
         var condition = {
-            tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
+            code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()

@@ -11,9 +11,8 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdPanel', {
             ,columns: [
 
                 {
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'tid'
-                    ,format:'0,000'
                     
                     ,text: '租户编号'
                 }
@@ -44,22 +43,6 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdPanel', {
                     ,dataIndex: 'description'
                     
                     ,text: '描述'
-                }
-
-                ,{
-                    xtype: 'numbercolumn'
-                    ,dataIndex: 'lineRid'
-                    ,format:'0,000'
-                    
-                    ,text: '产品线编号'
-                }
-
-                ,{
-                    xtype: 'numbercolumn'
-                    ,dataIndex: 'prdRid'
-                    ,format:'0,000'
-                    
-                    ,text: '产品编号'
                 }
 
                 ,{

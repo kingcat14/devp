@@ -11,9 +11,8 @@ Ext.define('AM.view.product.product.DevpPrdPersonPanel', {
             ,columns: [
 
                 {
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'tid'
-                    ,format:'0,000'
                     
                     ,text: '租户编号'
                 }
@@ -54,9 +53,8 @@ Ext.define('AM.view.product.product.DevpPrdPersonPanel', {
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'nexusRid'
-                    ,format:'0,000'
                     
                     ,text: '关联元素编号'
                 }
@@ -70,9 +68,8 @@ Ext.define('AM.view.product.product.DevpPrdPersonPanel', {
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'uid'
-                    ,format:'0,000'
                     
                     ,text: '用户编号'
                 }
@@ -88,7 +85,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonPanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'role'
                     
-                    ,text: '用户类型'
+                    ,text: '用户角色'
                 }
 
                 ,{
@@ -99,17 +96,15 @@ Ext.define('AM.view.product.product.DevpPrdPersonPanel', {
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'userTid'
-                    ,format:'0,000'
                     
                     ,text: '用户租户编号'
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'orgRid'
-                    ,format:'0,000'
                     
                     ,text: '组织编号'
                 }

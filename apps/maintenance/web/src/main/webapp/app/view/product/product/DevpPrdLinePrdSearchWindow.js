@@ -49,33 +49,42 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdSearchWindow', {
                                             fieldLabel: '租户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'nameField',
                                             name: 'name',
                                             fieldLabel: '名称'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'descriptionField',
                                             name: 'description',
                                             fieldLabel: '描述'
                                         }
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.product.product.DevpPrdProductStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
                                             itemId: 'prdRidField',
                                             name: 'prdRid',
                                             fieldLabel: '产品编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'typeField',
                                             name: 'type',
                                             fieldLabel: '类型'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'scopeField',
                                             name: 'scope',
                                             fieldLabel: '范围'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'createUcodeField',
                                             name: 'createUcode',
                                             fieldLabel: '创建用户代码'
@@ -115,8 +124,12 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdSearchWindow', {
                                             labelAlign: 'top'
                                         }
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.product.product.DevpPrdPrdlineStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
                                             anchor: '96%',
                                             itemId: 'lineRidField',
                                             padding: '5 0 0 5',

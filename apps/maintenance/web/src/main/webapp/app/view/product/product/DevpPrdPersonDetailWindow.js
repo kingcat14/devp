@@ -87,7 +87,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonDetailWindow', {
                                             itemId: 'roleField'
                                             ,padding: '5 0 0 5'
                                             ,name: 'role'
-                                            ,fieldLabel: '用户类型'
+                                            ,fieldLabel: '用户角色'
                                         }
 
                                         ,{

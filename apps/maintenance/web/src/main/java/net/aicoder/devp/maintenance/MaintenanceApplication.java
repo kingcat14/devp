@@ -16,8 +16,9 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @Import({RestApiExceptionHandler.class})
-@SpringBootApplication(scanBasePackages={"net.aicoder.devp.security","net.aicoder.devp.maintenance"
-		,"net.aicoder.devp.product.business.product.client"})
+@SpringBootApplication(scanBasePackages={"net.aicoder.devp.security"
+		,"net.aicoder.devp.maintenance"
+		,"net.aicoder.devp.product.client"})
 public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class MaintenanceApplication implements ExitCodeGenerator {
 
 	@ConditionalOnClass(ObjectMapper.class)
 	@Autowired
-	public void a(ObjectMapper objectMapper){
+	public void convertLongToString(ObjectMapper objectMapper){
 		SimpleModule simpleModule = new SimpleModule();
 		simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
 		simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);

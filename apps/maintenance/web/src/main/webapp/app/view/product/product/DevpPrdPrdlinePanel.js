@@ -11,14 +11,6 @@ Ext.define('AM.view.product.product.DevpPrdPrdlinePanel', {
             ,columns: [
 
                 {
-                    xtype: 'numbercolumn'
-                    ,dataIndex: 'tid'
-                    ,format:'0,000'
-                    
-                    ,text: '租户编号'
-                }
-
-                ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'code'
                     
@@ -96,9 +88,8 @@ Ext.define('AM.view.product.product.DevpPrdPrdlinePanel', {
                 }
 
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'parentRid'
-                    ,format:'0,000'
                     
                     ,text: '父产品线编号'
                 }
@@ -222,7 +213,7 @@ Ext.define('AM.view.product.product.DevpPrdPrdlinePanel', {
                         ,'-'
                         ,{
                             xtype:'textfield'
-                            ,emptyText:'请输入租户编号查询'
+                            ,emptyText:'请输入产品线代码查询'
                             ,itemId:'simpleSearchField'
 
                         }
@@ -282,7 +273,7 @@ Ext.define('AM.view.product.product.DevpPrdPrdlinePanel', {
 
         var simpleSearchField = panel.down("#simpleSearchField");
 
-        var searchCondition = {tid:simpleSearchField.getValue()}
+        var searchCondition = {code:simpleSearchField.getValue()}
 
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({

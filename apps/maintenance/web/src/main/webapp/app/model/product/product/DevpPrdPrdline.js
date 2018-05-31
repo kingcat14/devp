@@ -13,12 +13,6 @@ Ext.define('AM.model.product.product.DevpPrdPrdline', {
             allowNull:true
         }
     	,{
-            name: 'tid'
-            ,type:'int'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'code'
             ,type:'string'
             ,allowNull:false
@@ -86,7 +80,7 @@ Ext.define('AM.model.product.product.DevpPrdPrdline', {
         }
     	,{
             name: 'parentRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:true
             ,critical:true
         }

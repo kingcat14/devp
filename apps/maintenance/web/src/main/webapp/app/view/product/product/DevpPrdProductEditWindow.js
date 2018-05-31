@@ -8,7 +8,7 @@ Ext.define('AM.view.product.product.DevpPrdProductEditWindow', {
     layout: {
         type: 'fit'
     },
-    title: '产品定义详细信息',
+    title: '修改产品定义',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {

@@ -49,31 +49,37 @@ Ext.define('AM.view.product.product.DevpPrdProductSearchWindow', {
                                             fieldLabel: '租户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'nameField',
                                             name: 'name',
                                             fieldLabel: '产品名称'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'descriptionField',
                                             name: 'description',
                                             fieldLabel: '产品描述'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'stereotypeField',
                                             name: 'stereotype',
                                             fieldLabel: '构造型'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'prdDeptField',
                                             name: 'prdDept',
                                             fieldLabel: '所属部门'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'devManagerField',
                                             name: 'devManager',
                                             fieldLabel: '开发负责人'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'bizLineField',
                                             name: 'bizLine',
                                             fieldLabel: '业务线'
@@ -86,21 +92,25 @@ Ext.define('AM.view.product.product.DevpPrdProductSearchWindow', {
                                             fieldLabel: '启用时间'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'custManagerField',
                                             name: 'custManager',
                                             fieldLabel: '客户代表'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'acquisitionModeField',
                                             name: 'acquisitionMode',
                                             fieldLabel: '获取方式'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'versionField',
                                             name: 'version',
                                             fieldLabel: '版本'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'statusField',
                                             name: 'status',
                                             fieldLabel: '状态'
@@ -113,6 +123,7 @@ Ext.define('AM.view.product.product.DevpPrdProductSearchWindow', {
                                             fieldLabel: '记录状态'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'cmodifyUcodeField',
                                             name: 'cmodifyUcode',
                                             fieldLabel: '修改用户代码'

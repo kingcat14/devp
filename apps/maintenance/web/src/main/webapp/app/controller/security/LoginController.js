@@ -37,16 +37,16 @@ Ext.define('AM.controller.security.LoginController', {
 
 		Ext.getBody().unmask();
 
-		window.location="index.html";
+		//window.location="index.html";
 	}
 	,login: function(options) {
 		Ext.Ajax.request({
-			url: 'security/login/authenticate',
-			method: 'POST',
-			params: options.data,
-			scope: this,
-			callback: this.onLoginReturn,
-			original: options
+			url: 'security/login/authenticate'
+			,method: 'POST'
+			,jsonData: options.data
+			,scope: this
+			,callback: this.onLoginReturn
+			,original: options
 		});
 	},
 

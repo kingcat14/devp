@@ -14,7 +14,7 @@ Ext.define('AM.model.product.product.DevpSysExtcmp', {
         }
     	,{
             name: 'tid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
@@ -44,19 +44,19 @@ Ext.define('AM.model.product.product.DevpSysExtcmp', {
         }
     	,{
             name: 'prdRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
     	,{
             name: 'extPrdRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
     	,{
             name: 'extElmRid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }

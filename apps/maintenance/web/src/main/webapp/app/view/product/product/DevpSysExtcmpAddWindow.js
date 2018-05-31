@@ -10,7 +10,7 @@ Ext.define('AM.view.product.product.DevpSysExtcmpAddWindow', {
     }
     ,title: '添加新产品包含的外部组件'
     ,maximizable: true
-    ,closeAction:'hide'
+    ,closeAction: 'hide'
     ,initComponent: function () {
         var me = this;
 

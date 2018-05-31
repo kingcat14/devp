@@ -6,6 +6,12 @@
 .app-dashboard {
     background-image: url(../images/square.gif);
 }
+.login-view {
+    background-image: url(../images/lock-screen-background.jpg);
+    background-repeat:no-repeat ;
+    background-size:100% 100%;
+    background-attachment: fixed;
+}
 .bullet_red{
     background-image:url(../images/icons/bullet_red.png) !important;
 }

@@ -10,7 +10,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonAddWindow', {
     }
     ,title: '添加新产品干系人'
     ,maximizable: true
-    ,closeAction:'hide'
+    ,closeAction: 'hide'
     ,initComponent: function () {
         var me = this;
 
@@ -103,7 +103,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonAddWindow', {
                                             allowBlank:true,
                                             itemId: 'roleField',
                                             name: 'role',
-                                            fieldLabel: '用户类型'
+                                            fieldLabel: '用户角色'
                                         }
                                         ,{
 	                                        xtype: 'numberfield',

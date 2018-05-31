@@ -1,6 +1,8 @@
 Ext.define('AM.view.product.product.DevpPrdLinePrdAddWindow', {
     extend: 'Ext.window.Window'
     ,requires:[
+        'AM.store.product.product.DevpPrdPrdlineStore'
+        ,'AM.store.product.product.DevpPrdProductStore'
     ]
     ,autoScroll: true
     ,height: 350
@@ -10,7 +12,7 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdAddWindow', {
     }
     ,title: '添加新产品所属产品线定义'
     ,maximizable: true
-    ,closeAction:'hide'
+    ,closeAction: 'hide'
     ,initComponent: function () {
         var me = this;
 
@@ -74,12 +76,13 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdAddWindow', {
                                             fieldLabel: '描述'
                                         }
                                         ,{
-	                                        xtype: 'numberfield',
-	                                        allowDecimals:false,
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.product.product.DevpPrdProductStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            allowBlank:true,
                                             itemId: 'prdRidField',
                                             name: 'prdRid',
                                             fieldLabel: '产品编号'
@@ -137,12 +140,13 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdAddWindow', {
                                             fieldLabel: '别名'
                                         }
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.product.product.DevpPrdPrdlineStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            allowBlank:true,
                                             itemId: 'lineRidField',
                                             name: 'lineRid',
                                             fieldLabel: '产品线编号'

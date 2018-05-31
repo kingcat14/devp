@@ -8,7 +8,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonEditWindow', {
     layout: {
         type: 'fit'
     },
-    title: '产品干系人详细信息',
+    title: '修改产品干系人',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {
@@ -103,7 +103,7 @@ Ext.define('AM.view.product.product.DevpPrdPersonEditWindow', {
                                             allowBlank:true,
                                             itemId: 'roleField',
                                             name: 'role',
-                                            fieldLabel: '用户类型'
+                                            fieldLabel: '用户角色'
                                         }
                                         ,{
 	                                        xtype: 'numberfield',

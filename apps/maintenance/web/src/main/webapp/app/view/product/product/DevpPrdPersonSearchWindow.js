@@ -49,11 +49,13 @@ Ext.define('AM.view.product.product.DevpPrdPersonSearchWindow', {
                                             fieldLabel: '租户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'nameField',
                                             name: 'name',
                                             fieldLabel: '用户名称'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'descriptionField',
                                             name: 'description',
                                             fieldLabel: '用户描述'
@@ -73,9 +75,10 @@ Ext.define('AM.view.product.product.DevpPrdPersonSearchWindow', {
                                             fieldLabel: '用户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'roleField',
                                             name: 'role',
-                                            fieldLabel: '用户类型'
+                                            fieldLabel: '用户角色'
                                         }
                                         ,{
                                             xtype: 'numberfield',
@@ -85,11 +88,13 @@ Ext.define('AM.view.product.product.DevpPrdPersonSearchWindow', {
                                             fieldLabel: '用户租户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'orgNameField',
                                             name: 'orgName',
                                             fieldLabel: '组织名称'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'createUcodeField',
                                             name: 'createUcode',
                                             fieldLabel: '创建用户代码'

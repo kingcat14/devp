@@ -1,51 +1,81 @@
 Ext.define('AM.view.LoginView', {
-	extend: 'Ext.container.Viewport',
-	requires: ['AM.controller.security.LoginController','AM.model.security.LoginResult'],
+    extend: 'Ext.container.Viewport',
+    requires: ['AM.controller.security.LoginController','AM.model.security.LoginResult'],
 
-	controller:'login',
-	layout: 'center',
+    controller:'login',
+    layout: 'fit',
 
-	//style : 'background-image:url(resources/images/login.png);background-repeat: no-repeat;filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=\'scale\')";-moz-background-size:100% 100%;background-size:100% 100%;',
-	items: {
-		xtype: 'form',
-		reference: 'form',
-		width: 450,
-		title: '登录 - 客服中心',
-		frame: true,
-		width: 320,
-		bodyPadding: 10,
-		bodyStyle : {
-			//'opacity': 0.2,
-			//background: 'url(resources/images/login.png) no-repeat #00FFFF'
-			//background: '#ffc'
-		},
-		defaultType: 'textfield',
-		fieldDefaults: {labelAlign: 'right'},
-		items: [{
-			allowBlank: false,
-			fieldLabel: '用户名',
-			name: 'username',
-			emptyText: '账号'
-		}, {
-			allowBlank: false,
-			fieldLabel: '密码',
-			name: 'password',
-			emptyText: '密码',
-			inputType: 'password'
-		}],
+    //style : 'background-image:url(resources/images/login.png);background-repeat: no-repeat;filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=\'scale\')";-moz-background-size:100% 100%;background-size:100% 100%;',
+    items:{
+        xtype:'panel'
+        ,bodyCls:'login-view'
+        ,layout: 'center'
+        , items :[
+            {
+                xtype : 'container'
+                ,items:[
+                    {
+                        xtype : 'container'
+                    }
+                    ,{
+                        xtype: 'form'
+                        ,reference: 'form'
+                        ,title: '登录'
+                        ,titleAlign: 'center'
+                        ,frame: false
+                        ,width: 320
+                        ,margin: '10 0 0 0'
+                        //border: 1,
+                        //style: {borderColor:'#000000', borderStyle:'solid', borderWidth:'1px'},
+                        ,bodyStyle : {
+                            //'opacity': 0.5,
+                            //background: 'url(resources/images/login.png) no-repeat #00FFFF'
+                            //background: '#ffc'
+                        }
+                        ,defaultType: 'textfield'
+                        ,defaults: {
+                            anchor: '100%'
+                        }
+                        ,fieldDefaults: {
+                            width:300
+                            ,padding:10
+                            // labelAlign: 'left'
+                            ,labelStyle: 'font-weight: bold;'
+                            ,fieldStyle: 'font-weight: bold;'
+                        }
+                        ,items: [{
+                            allowBlank: false,
+                            //fieldLabel: '用户名',
+                            // padding:10,
+                            name: 'username',
+                            emptyText: '请输入用户名'
 
-		buttons: [{
-			text: '登录',
-			listeners: {
-				click: 'onLoginClick'
-			}
-		}],
+                        }, {
+                            allowBlank: false
+                            // padding:10,
+                            //fieldLabel: '密&nbsp;&nbsp;&nbsp;码',
+                            ,name: 'password'
+                            ,emptyText: '请输入用户密码'
+                            ,inputType: 'password'
+                        }]
+                        ,fbar: [
+                            ,'->',{ xtype: 'button', text: '登录',listeners: {
+                                    click: 'onLoginClick'
+                                } }
 
-		defaults: {
-			anchor: '100%',
-			labelWidth: 120
-		}
-	}
+                            ,{ xtype: 'button', text: '忘记密码?' }
+                        ]
+
+                    }
+
+                ]
+            }
+
+        ]
+
+    }
+
+
 
 
 });

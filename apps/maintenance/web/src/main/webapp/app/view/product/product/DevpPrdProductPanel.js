@@ -11,9 +11,8 @@ Ext.define('AM.view.product.product.DevpPrdProductPanel', {
             ,columns: [
 
                 {
-                    xtype: 'numbercolumn'
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'tid'
-                    ,format:'0,000'
                     
                     ,text: '租户编号'
                 }

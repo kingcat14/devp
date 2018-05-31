@@ -49,10 +49,83 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineDetailWindow', {
                                         }
 
                                         ,{
-                                            itemId: 'tidField'
+                                            itemId: 'codeField'
                                             ,padding: '5 0 0 5'
-                                            ,name: 'tid'
-                                            ,fieldLabel: '租户编号'
+                                            ,name: 'code'
+                                            ,fieldLabel: '产品线代码'
+                                        }
+
+                                        ,{
+                                            itemId: 'aliasField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'alias'
+                                            ,fieldLabel: '产品线别名'
+                                        }
+
+                                        ,{
+                                            itemId: 'typeField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'type'
+                                            ,fieldLabel: '产品线类型'
+                                        }
+
+                                        ,{
+                                            itemId: 'stereotypeField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'stereotype'
+                                            ,fieldLabel: '构造型'
+                                        }
+
+                                        ,{
+                                            itemId: 'versionField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'version'
+                                            ,fieldLabel: '版本'
+                                        }
+
+                                        ,{
+                                            itemId: 'statusField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'status'
+                                            ,fieldLabel: '状态'
+                                        }
+
+                                        ,{
+                                            itemId: 'seqField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'seq'
+                                            ,fieldLabel: '顺序号'
+                                        }
+
+                                        ,{
+                                            itemId: 'createUcodeField'
+                                            ,padding: '5 0 0 5'
+                                            ,name: 'createUcode'
+                                            ,fieldLabel: '创建用户代码'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container'
+                                    ,columnWidth: 0.5
+                                    ,layout: {
+                                        type: 'anchor'
+                                    }
+                                    ,defaults: {
+                                        labelAlign: 'right'
+                                        ,xtype: 'displayfield'
+                                        ,padding: '5 0 0 5'
+                                        ,blankText:'该字段为必填项'
+                                        ,anchor: '100%'
+                                        ,labelWidth:150
+                                    }
+                                    ,items: [
+                                        {
+                                            xtype: 'hiddenfield'
+                                            ,anchor: '100%'
+                                            ,itemId: 'versionField'
+                                            ,name: 'version'
+                                            ,fieldLabel: 'Label'
                                         }
 
                                         ,{
@@ -109,86 +182,6 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineDetailWindow', {
                                             ,padding: '5 0 0 5'
                                             ,name: 'modifyUcode'
                                             ,fieldLabel: '修改用户代码'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container'
-                                    ,columnWidth: 0.5
-                                    ,layout: {
-                                        type: 'anchor'
-                                    }
-                                    ,defaults: {
-                                        labelAlign: 'right'
-                                        ,xtype: 'displayfield'
-                                        ,padding: '5 0 0 5'
-                                        ,blankText:'该字段为必填项'
-                                        ,anchor: '100%'
-                                        ,labelWidth:150
-                                    }
-                                    ,items: [
-                                        {
-                                            xtype: 'hiddenfield'
-                                            ,anchor: '100%'
-                                            ,itemId: 'versionField'
-                                            ,name: 'version'
-                                            ,fieldLabel: 'Label'
-                                        }
-
-                                        ,{
-                                            itemId: 'codeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'code'
-                                            ,fieldLabel: '产品线代码'
-                                        }
-
-                                        ,{
-                                            itemId: 'aliasField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'alias'
-                                            ,fieldLabel: '产品线别名'
-                                        }
-
-                                        ,{
-                                            itemId: 'typeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'type'
-                                            ,fieldLabel: '产品线类型'
-                                        }
-
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
-
-                                        ,{
-                                            itemId: 'versionField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'version'
-                                            ,fieldLabel: '版本'
-                                        }
-
-                                        ,{
-                                            itemId: 'statusField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'status'
-                                            ,fieldLabel: '状态'
-                                        }
-
-                                        ,{
-                                            itemId: 'seqField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'seq'
-                                            ,fieldLabel: '顺序号'
-                                        }
-
-                                        ,{
-                                            itemId: 'createUcodeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'createUcode'
-                                            ,fieldLabel: '创建用户代码'
                                         }
                                     ]
                                 }

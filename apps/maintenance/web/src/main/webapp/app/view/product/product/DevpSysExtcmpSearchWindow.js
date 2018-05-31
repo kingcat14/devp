@@ -49,11 +49,13 @@ Ext.define('AM.view.product.product.DevpSysExtcmpSearchWindow', {
                                             fieldLabel: '租户编号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'nameField',
                                             name: 'name',
                                             fieldLabel: '名称'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'descriptionField',
                                             name: 'description',
                                             fieldLabel: '描述'
@@ -73,11 +75,13 @@ Ext.define('AM.view.product.product.DevpSysExtcmpSearchWindow', {
                                             fieldLabel: '顺序号'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'stereotypeField',
                                             name: 'stereotype',
                                             fieldLabel: '构造型'
                                         }
                                         ,{
+                                            xtype: 'textfield',
                                             itemId: 'createUcodeField',
                                             name: 'createUcode',
                                             fieldLabel: '创建用户代码'

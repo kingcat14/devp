@@ -14,7 +14,7 @@ Ext.define('AM.model.product.product.DevpPrdLinePrd', {
         }
     	,{
             name: 'tid'
-            ,type:'int'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }
@@ -44,14 +44,14 @@ Ext.define('AM.model.product.product.DevpPrdLinePrd', {
         }
     	,{
             name: 'lineRid'
-            ,type:'int'
-            ,allowNull:false
+            ,type:'string'
+            ,allowNull:true
             ,critical:true
         }
     	,{
             name: 'prdRid'
-            ,type:'int'
-            ,allowNull:false
+            ,type:'string'
+            ,allowNull:true
             ,critical:true
         }
     	,{

@@ -10,7 +10,7 @@ Ext.define('AM.view.product.product.DevpPrdProductAddWindow', {
     }
     ,title: '添加新产品定义'
     ,maximizable: true
-    ,closeAction:'hide'
+    ,closeAction: 'hide'
     ,initComponent: function () {
         var me = this;
 
