@@ -9,6 +9,7 @@ import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -18,7 +19,9 @@ import org.springframework.web.client.RestTemplate;
 @Import({RestApiExceptionHandler.class})
 @SpringBootApplication(scanBasePackages={"net.aicoder.devp.security"
 		,"net.aicoder.devp.maintenance"
-		,"net.aicoder.devp.product.client"})
+		,"net.aicoder.devp.product.client"
+		,"net.aicoder.devp.deploy.client"})
+@EnableCircuitBreaker
 public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {

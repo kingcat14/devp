@@ -2,17 +2,31 @@
 Ext.define('AM.view.main.HeaderContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.mainHeadercontainer',
-
+    title: '运维管理工具',
     height: 52,
-	html:'<h1 style="font-size: 24px;color: #fff;font-weight: normal;padding-left: 10px">AI CODER - 运维管理工具 <a href="/swagger-ui.html" target="_blank">接口</a></h1>'
-    +''
-    //html: '<h1 style="font-size: 16px;color: #fff;font-weight: normal;">iCode</h1>',
-    //style: 'background: #7F99BE url(resources/images/layout-browser-hd-bg.gif) repeat-x center;',
+    layout: {
+        type: 'hbox',
+        align: 'middle'
+    }
+    ,style: 'background: #28384a;border-bottom: 1px solid #0d1218;'
 
     ,initComponent: function() {
         var me = this;
-
-        me.callParent(arguments);
+        document.title = this.title;
+        //me.callParent(arguments);
+        this.items = [{
+            xtype: 'component',
+            id: 'app-header-logo',
+            style: 'color: white;font-size: 26px;margin: 0 10px;',
+            cls: [ 'ext', 'ext-sencha' ]
+        },{
+            xtype: 'component',
+            id: 'app-header-title',
+            style: 'color: white;font-size: 18px;font-weight: bold;padding: 10px 0 10px 0;',
+            html: this.title,
+            flex: 1
+        }];
+        this.callParent();
     }
 
 });
