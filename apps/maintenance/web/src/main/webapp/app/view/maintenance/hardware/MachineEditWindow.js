@@ -84,14 +84,6 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'scopeField',
-                            name: 'scope',
-                            fieldLabel: '范围'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'hardwareModelField',
                             name: 'hardwareModel',
                             fieldLabel: '硬件型号'
@@ -119,15 +111,6 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
-
-                        }
-                        ,{
-                            xtype: 'datefield',
-                            format: 'Y-m-d',
-                            allowBlank:true,
-                            itemId: 'createDateField',
-                            name: 'createDate',
-                            fieldLabel: '创建时间'
 
                         }
                         ,{

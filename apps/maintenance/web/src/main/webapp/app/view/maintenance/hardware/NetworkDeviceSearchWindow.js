@@ -41,14 +41,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceSearchWindow', {
                                     }
                                     ,items: [
 
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
-                                        }
-                                        ,{
+                                        {
                                             xtype: 'textfield',
                                             itemId: 'nameField',
                                             name: 'name',
@@ -73,12 +66,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceSearchWindow', {
                                             name: 'typeName',
                                             fieldLabel: '类型名称'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'scopeField',
-                                            name: 'scope',
-                                            fieldLabel: '范围'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'softwareModelField',
@@ -226,16 +214,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceSearchWindow', {
                                             fieldLabel: '版本',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            anchor: '96%',
-                                            itemId: 'createDateField',
-                                            padding: '5 0 0 5',
-                                            name: 'createDate',
-                                            fieldLabel: '创建时间',
-                                            labelAlign: 'top'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
@@ -326,16 +305,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceSearchWindow', {
                                             fieldLabel: '使用情况',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            anchor: '96%',
-                                            itemId: 'prdTidField',
-                                            padding: '5 0 0 5',
-                                            name: 'prdTid',
-                                            fieldLabel: '关联产品租户编号',
-                                            labelAlign: 'top'
-                                        }
+
                                     ]
                                 }
                             ]

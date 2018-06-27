@@ -41,13 +41,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
                                     }
                                     ,items: [
 
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'nameField',
@@ -156,15 +150,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
                                         ,anchor: '96%',
                                     }
                                     ,items: [
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'etypeField',
-                                            padding: '5 0 0 5',
-                                            name: 'etype',
-                                            fieldLabel: '元素类型',
-                                            labelAlign: 'top'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',

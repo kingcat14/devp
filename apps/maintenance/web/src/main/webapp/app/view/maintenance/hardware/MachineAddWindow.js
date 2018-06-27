@@ -85,14 +85,6 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'scopeField',
-                            name: 'scope',
-                            fieldLabel: '范围'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'hardwareModelField',
                             name: 'hardwareModel',
                             fieldLabel: '硬件型号'

@@ -16,12 +16,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
         Ext.apply(me, {
             columnLines: true
             ,columns: [
-                {
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'etype'
-                    ,text: '元素类型'
-                    
-                }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'name'
@@ -40,12 +35,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                     ,text: '别名'
                     
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'description'
-                    ,text: '描述'
-                    
-                }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeCode'
@@ -56,18 +46,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeName'
                     ,text: '类型名称'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'stereotype'
-                    ,text: '构造型'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'scope'
-                    ,text: '范围'
                     
                 }
                 ,{
@@ -92,13 +70,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'status'
                     ,text: '状态'
-                    
-                }
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'createDate'
-                    ,text: '创建时间'
                     
                 }
                 ,{
@@ -215,24 +186,16 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'custManager'
                     ,text: '客户代表'
-                    
                 }
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'custUsage'
                     ,text: '使用情况'
-                    
                 }
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'notes'
                     ,text: '备注'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'prdTid'
-                    ,text: '关联产品租户编号'
                     
                 }
                 ,{

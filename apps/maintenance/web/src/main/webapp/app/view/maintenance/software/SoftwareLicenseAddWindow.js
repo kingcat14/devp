@@ -240,15 +240,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseAddWindow', {
                             fieldLabel: '使用情况'
 
                         }
-                        ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:true,
-                            itemId: 'prdTidField',
-                            name: 'prdTid',
-                            fieldLabel: '关联产品租户编号'
 
-                        }
                         ,{
                             xtype: 'numberfield',
                             allowDecimals:false,

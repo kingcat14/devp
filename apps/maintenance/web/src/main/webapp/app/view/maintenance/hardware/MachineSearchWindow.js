@@ -41,13 +41,7 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                     }
                                     ,items: [
 
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'nameField',
@@ -72,12 +66,6 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                             itemId: 'typeNameField',
                                             name: 'typeName',
                                             fieldLabel: '类型名称'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'scopeField',
-                                            name: 'scope',
-                                            fieldLabel: '范围'
                                         }
                                         ,{
                                             xtype: 'textfield',
@@ -224,16 +212,6 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                             padding: '5 0 0 5',
                                             name: 'version',
                                             fieldLabel: '版本',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            anchor: '96%',
-                                            itemId: 'createDateField',
-                                            padding: '5 0 0 5',
-                                            name: 'createDate',
-                                            fieldLabel: '创建时间',
                                             labelAlign: 'top'
                                         }
                                         ,{

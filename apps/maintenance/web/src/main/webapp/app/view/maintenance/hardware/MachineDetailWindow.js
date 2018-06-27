@@ -68,12 +68,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,fieldLabel: '类型名称'
                         }
                         ,{
-                            itemId: 'scopeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'scope'
-                            ,fieldLabel: '范围'
-                        }
-                        ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
                             ,name: 'hardwareModel'
@@ -96,15 +90,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
-                        }
-                        ,{
-                            itemId: 'createDateField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'createDate'
-                            ,fieldLabel: '创建时间'
-                            ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
-                            }
                         }
                         ,{
                             itemId: 'expireDateField'

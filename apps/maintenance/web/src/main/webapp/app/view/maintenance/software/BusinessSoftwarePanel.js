@@ -18,12 +18,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
             ,columns: [
                 {
                     xtype: 'gridcolumn'
-                    ,dataIndex: 'etype'
-                    ,text: '元素类型'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
                     ,dataIndex: 'name'
                     ,text: '名称'
                     
@@ -40,12 +34,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     ,text: '别名'
                     
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'description'
-                    ,text: '描述'
-                    
-                }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeCode'
@@ -56,18 +45,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeName'
                     ,text: '类型名称'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'stereotype'
-                    ,text: '构造型'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'scope'
-                    ,text: '范围'
                     
                 }
                 ,{
@@ -92,13 +69,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'status'
                     ,text: '状态'
-                    
-                }
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'createDate'
-                    ,text: '创建时间'
                     
                 }
                 ,{
@@ -229,12 +199,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     ,text: '备注'
                     
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'prdTid'
-                    ,text: '关联产品租户编号'
-                    
-                }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'prdRid'

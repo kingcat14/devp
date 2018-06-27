@@ -82,14 +82,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             fieldLabel: '类型名称'
 
                         }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'scopeField',
-                            name: 'scope',
-                            fieldLabel: '范围'
 
-                        }
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
@@ -120,15 +113,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
-
-                        }
-                        ,{
-                            xtype: 'datefield',
-                            format: 'Y-m-d',
-                            allowBlank:true,
-                            itemId: 'createDateField',
-                            name: 'createDate',
-                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -301,15 +285,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             fieldLabel: '备注'
 
                         }
-                        ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:true,
-                            itemId: 'prdTidField',
-                            name: 'prdTid',
-                            fieldLabel: '关联产品租户编号'
 
-                        }
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,

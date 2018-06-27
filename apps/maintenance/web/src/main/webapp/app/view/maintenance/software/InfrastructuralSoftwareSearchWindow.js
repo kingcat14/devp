@@ -41,13 +41,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                     }
                                     ,items: [
 
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'nameField',
@@ -73,12 +67,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                             name: 'typeName',
                                             fieldLabel: '类型名称'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'scopeField',
-                                            name: 'scope',
-                                            fieldLabel: '范围'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'softwareModelField',
@@ -182,15 +171,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                         ,anchor: '96%',
                                     }
                                     ,items: [
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'etypeField',
-                                            padding: '5 0 0 5',
-                                            name: 'etype',
-                                            fieldLabel: '元素类型',
-                                            labelAlign: 'top'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
@@ -218,15 +199,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                             fieldLabel: '类型代码',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'stereotypeField',
-                                            padding: '5 0 0 5',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型',
-                                            labelAlign: 'top'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
@@ -243,16 +216,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                             padding: '5 0 0 5',
                                             name: 'version',
                                             fieldLabel: '版本',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            anchor: '96%',
-                                            itemId: 'createDateField',
-                                            padding: '5 0 0 5',
-                                            name: 'createDate',
-                                            fieldLabel: '创建时间',
                                             labelAlign: 'top'
                                         }
                                         ,{
@@ -345,16 +308,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                                             fieldLabel: '使用情况',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            anchor: '96%',
-                                            itemId: 'prdTidField',
-                                            padding: '5 0 0 5',
-                                            name: 'prdTid',
-                                            fieldLabel: '关联产品租户编号',
-                                            labelAlign: 'top'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',

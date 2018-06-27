@@ -29,17 +29,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                         ,anchor: '96%'
                     },
                     items: [
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            itemId: 'etypeField',
-                            name: 'etype',
-                            fieldLabel: '元素类型'
 
-                        }
                         ,{
                             xtype: 'textfield',
                             allowBlank:false,
@@ -94,22 +84,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'stereotypeField',
-                            name: 'stereotype',
-                            fieldLabel: '构造型'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'scopeField',
-                            name: 'scope',
-                            fieldLabel: '范围'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'hardwareModelField',
                             name: 'hardwareModel',
                             fieldLabel: '硬件型号'
@@ -137,15 +111,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
-
-                        }
-                        ,{
-                            xtype: 'datefield',
-                            format: 'Y-m-d',
-                            allowBlank:true,
-                            itemId: 'createDateField',
-                            name: 'createDate',
-                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -318,15 +283,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                             fieldLabel: '备注'
 
                         }
-                        ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:true,
-                            itemId: 'prdTidField',
-                            name: 'prdTid',
-                            fieldLabel: '关联产品租户编号'
 
-                        }
                         ,{
                             xtype: 'numberfield',
                             allowDecimals:false,

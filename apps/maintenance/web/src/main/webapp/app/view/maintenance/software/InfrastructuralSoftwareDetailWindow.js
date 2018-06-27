@@ -30,12 +30,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareDetailWindow', {
                         ,labelWidth:150
                     }
                     ,items: [
-                        ,{
-                            itemId: 'etypeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'etype'
-                            ,fieldLabel: '元素类型'
-                        }
+
                         ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
@@ -73,18 +68,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareDetailWindow', {
                             ,fieldLabel: '类型名称'
                         }
                         ,{
-                            itemId: 'stereotypeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'stereotype'
-                            ,fieldLabel: '构造型'
-                        }
-                        ,{
-                            itemId: 'scopeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'scope'
-                            ,fieldLabel: '范围'
-                        }
-                        ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
                             ,name: 'hardwareModel'
@@ -107,15 +90,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
-                        }
-                        ,{
-                            itemId: 'createDateField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'createDate'
-                            ,fieldLabel: '创建时间'
-                            ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
-                            }
                         }
                         ,{
                             itemId: 'expireDateField'
@@ -249,12 +223,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareDetailWindow', {
                             ,name: 'notes'
                             ,fieldLabel: '备注'
                         }
-                        ,{
-                            itemId: 'prdTidField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'prdTid'
-                            ,fieldLabel: '关联产品租户编号'
-                        }
+
                         ,{
                             itemId: 'prdRidField'
                             ,padding: '5 0 0 5'

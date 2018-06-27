@@ -40,14 +40,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                     ,text: '别名'
 
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'description'
-                    
 
-                    ,text: '描述'
-
-                }
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeCode'
@@ -62,14 +55,6 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                     
 
                     ,text: '类型名称'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'scope'
-                    
-
-                    ,text: '范围'
 
                 }
                 ,{
@@ -102,15 +87,6 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                     
 
                     ,text: '状态'
-
-                }
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'createDate'
-                    
-
-                    ,text: '创建时间'
 
                 }
                 ,{

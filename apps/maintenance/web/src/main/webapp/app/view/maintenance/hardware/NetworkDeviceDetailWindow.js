@@ -66,12 +66,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,name: 'typeName'
                             ,fieldLabel: '类型名称'
                         }
-                        ,{
-                            itemId: 'scopeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'scope'
-                            ,fieldLabel: '范围'
-                        }
+
                         ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
@@ -95,15 +90,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
-                        }
-                        ,{
-                            itemId: 'createDateField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'createDate'
-                            ,fieldLabel: '创建时间'
-                            ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
-                            }
                         }
                         ,{
                             itemId: 'expireDateField'
@@ -237,12 +223,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,name: 'notes'
                             ,fieldLabel: '备注'
                         }
-                        ,{
-                            itemId: 'prdTidField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'prdTid'
-                            ,fieldLabel: '关联产品租户编号'
-                        }
+
                         ,{
                             itemId: 'parasCodeField'
                             ,padding: '5 0 0 5'
