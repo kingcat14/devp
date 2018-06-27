@@ -91,13 +91,6 @@ Ext.define('AM.view.product.sys.DevpSysDgmElementDetailWindow', {
                                         }
 
                                         ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
-
-                                        ,{
                                             itemId: 'recordStateField'
                                             ,padding: '5 0 0 5'
                                             ,name: 'recordState'

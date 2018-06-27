@@ -82,13 +82,6 @@ Ext.define('AM.view.product.product.DevpSysExtcmpPanel', {
                 }
 
                 ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'stereotype'
-                    
-                    ,text: '构造型'
-                }
-
-                ,{
                     xtype: 'numbercolumn'
                     ,dataIndex: 'recordState'
                     ,format:'0,000'

@@ -70,13 +70,6 @@ Ext.define('AM.view.product.product.DevpPrdPrdlineDetailWindow', {
                                         }
 
                                         ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
-
-                                        ,{
                                             itemId: 'versionField'
                                             ,padding: '5 0 0 5'
                                             ,name: 'version'

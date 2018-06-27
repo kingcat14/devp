@@ -99,13 +99,6 @@ Ext.define('AM.view.product.sys.DevpSysDgmElementAddWindow', {
                                         ,{
                                             xtype: 'hiddenfield',
                                             allowBlank:true,
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
                                             itemId: 'recordStateField',
                                             name: 'recordState',
                                             fieldLabel: '记录状态'

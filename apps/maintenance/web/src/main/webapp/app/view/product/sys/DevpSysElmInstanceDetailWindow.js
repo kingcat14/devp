@@ -76,13 +76,7 @@ Ext.define('AM.view.product.sys.DevpSysElmInstanceDetailWindow', {
                                             ,fieldLabel: '类型'
                                         }
 
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
-
+                            
                                         ,{
                                             itemId: 'elmRidField'
                                             ,padding: '5 0 0 5'

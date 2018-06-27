@@ -82,13 +82,6 @@ Ext.define('AM.view.product.sys.DevpSysDiagramEditWindow', {
                                         ,{
                                             xtype: 'hiddenfield',
                                             allowBlank:true,
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
                                             itemId: 'versionField',
                                             name: 'version',
                                             fieldLabel: '版本'

@@ -76,13 +76,7 @@ Ext.define('AM.view.product.product.DevpPrdProductAddWindow', {
                                             name: 'description',
                                             fieldLabel: '产品描述'
                                         }
-                                        ,{
-	                                        xtype: 'textfield',
-                                            allowBlank:true,
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
+                                   
                                         ,{
 	                                        xtype: 'textfield',
                                             allowBlank:true,

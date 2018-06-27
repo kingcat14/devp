@@ -69,12 +69,7 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleDetailWindow', {
                                             ,fieldLabel: '对应关系描述'
                                         }
 
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
+                                    
 
                                         ,{
                                             itemId: 'versionField'

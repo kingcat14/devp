@@ -60,12 +60,7 @@ Ext.define('AM.view.product.product.DevpPrdProductSearchWindow', {
                                             name: 'description',
                                             fieldLabel: '产品描述'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
+
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'prdDeptField',

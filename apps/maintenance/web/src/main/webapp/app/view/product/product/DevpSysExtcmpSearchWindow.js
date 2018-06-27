@@ -74,12 +74,7 @@ Ext.define('AM.view.product.product.DevpSysExtcmpSearchWindow', {
                                             name: 'seq',
                                             fieldLabel: '顺序号'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
+                                        
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'createUcodeField',

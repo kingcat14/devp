@@ -60,12 +60,7 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdPanel', {
                     ,text: '类型'
                 }
 
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'stereotype'
-                    
-                    ,text: '构造型'
-                }
+                
 
                 ,{
                     xtype: 'gridcolumn'

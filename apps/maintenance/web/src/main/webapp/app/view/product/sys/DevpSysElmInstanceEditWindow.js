@@ -81,13 +81,6 @@ Ext.define('AM.view.product.sys.DevpSysElmInstanceEditWindow', {
                                         }
                                         ,{
                                             xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
                                             allowBlank:false,
                                             afterLabelTextTpl: [
                                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'

@@ -97,12 +97,6 @@ Ext.define('AM.view.product.sys.DevpSysElmConnectorDetailWindow', {
                                             ,fieldLabel: '对应关系类型'
                                         }
 
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
 
                                         ,{
                                             itemId: 'directionField'

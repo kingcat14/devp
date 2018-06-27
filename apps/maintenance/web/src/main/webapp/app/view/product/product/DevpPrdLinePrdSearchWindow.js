@@ -147,15 +147,7 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdSearchWindow', {
                                             fieldLabel: '顺序号',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'stereotypeField',
-                                            padding: '5 0 0 5',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型',
-                                            labelAlign: 'top'
-                                        }
+                                        
                                         ,{
                                             xtype: 'numberfield',
                                             allowDecimals:false,

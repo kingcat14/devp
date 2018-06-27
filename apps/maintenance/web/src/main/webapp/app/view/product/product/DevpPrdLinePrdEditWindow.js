@@ -159,13 +159,7 @@ Ext.define('AM.view.product.product.DevpPrdLinePrdEditWindow', {
                                             name: 'seq',
                                             fieldLabel: '顺序号'
                                         }
-                                        ,{
-	                                        xtype: 'textfield',
-	                                        allowBlank:true,
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
+
                                         ,{
 	                                        xtype: 'numberfield',
 	                                        allowDecimals:false,

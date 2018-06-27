@@ -69,13 +69,7 @@ Ext.define('AM.view.product.product.DevpPrdProductDetailWindow', {
                                             ,fieldLabel: '产品描述'
                                         }
 
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
-
+                                 
                                         ,{
                                             itemId: 'prdDeptField'
                                             ,padding: '5 0 0 5'

@@ -54,13 +54,6 @@ Ext.define('AM.view.product.product.DevpPrdPrdlinePanel', {
 
                 ,{
                     xtype: 'gridcolumn'
-                    ,dataIndex: 'stereotype'
-                    
-                    ,text: '构造型'
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
                     ,dataIndex: 'scope'
                     
                     ,text: '访问控制范围'

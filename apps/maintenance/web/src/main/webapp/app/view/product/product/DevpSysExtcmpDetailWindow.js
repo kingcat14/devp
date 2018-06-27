@@ -83,12 +83,6 @@ Ext.define('AM.view.product.product.DevpSysExtcmpDetailWindow', {
                                             ,fieldLabel: '顺序号'
                                         }
 
-                                        ,{
-                                            itemId: 'stereotypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'stereotype'
-                                            ,fieldLabel: '构造型'
-                                        }
 
                                         ,{
                                             itemId: 'createUcodeField'

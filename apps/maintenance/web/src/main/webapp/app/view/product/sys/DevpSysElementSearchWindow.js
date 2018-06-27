@@ -66,12 +66,7 @@ Ext.define('AM.view.product.系统.DevpSysElementSearchWindow', {
                                             name: 'type',
                                             fieldLabel: '类型'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'stereotypeField',
-                                            name: 'stereotype',
-                                            fieldLabel: '构造型'
-                                        }
+                                      
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'versionField',
