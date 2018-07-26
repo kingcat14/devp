@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 
@@ -15,26 +17,23 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
  */
 @Entity
 @Table
+//@DynamicUpdate
+//@DynamicInsert
 public class DevpSysCmpModule extends BaseEntity{
 
 	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_ETYPE = "etype";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_ALIAS = "alias";
 	public static final String PROPERTY_DESCRIPTION = "description";
+	public static final String PROPERTY_RECORD_STATE = "recordState";
 	public static final String PROPERTY_TYPE = "type";
-	public static final String PROPERTY_STEREOTYPE = "stereotype";
-	public static final String PROPERTY_SCOPE = "scope";
-	public static final String PROPERTY_VERSION = "version";
-	public static final String PROPERTY_PHASE = "phase";
-	public static final String PROPERTY_STATUS = "status";
+	public static final String PROPERTY_SUB_TYPE = "subType";
 	public static final String PROPERTY_PRD_RID = "prdRid";
-	public static final String PROPERTY_ELM_RID = "elmRid";
+	public static final String PROPERTY_CMP_RID = "cmpRid";
 	public static final String PROPERTY_MDU_RID = "mduRid";
 	public static final String PROPERTY_SEQ = "seq";
-	public static final String PROPERTY_RECORD_STATE = "recordState";
-	public static final String PROPERTY_CREATE_UCODE = "createUcode";
-	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
 
 
     @Id
@@ -49,6 +48,15 @@ public class DevpSysCmpModule extends BaseEntity{
     @Column(name = "tid")
 	@NotNull(message = "租户编号不能为空")
 	private Long tid;
+
+    /**
+    * 元素类型
+    * [元素类型]- SYS_CMP_MDU // 组件对应模块
+    */
+    @Column(name = "etype")
+	@NotNull(message = "元素类型不能为空")
+	@Size(max = 255, message = "元素类型超长，最多255个字符")
+	private String etype;
 
     /**
     * 对应关系名称
@@ -83,52 +91,27 @@ public class DevpSysCmpModule extends BaseEntity{
 	private String description;
 
     /**
-    * 对应关系类型
-    * [对应关系类型]
+    * 记录状态
+    * [记录状态]-0-失效;1-生效;缺省为1
+    */
+    @Column(name = "record_state")
+	private Integer recordState;
+
+    /**
+    * 类型
+    * [类型]
     */
     @Column(name = "type")
-	@Size(max = 255, message = "对应关系类型超长，最多255个字符")
+	@Size(max = 255, message = "类型超长，最多255个字符")
 	private String type;
 
     /**
-    * 构造型
-    * [构造型]
+    * 子类型
+    * [子类型]
     */
-    @Column(name = "stereotype")
-	@Size(max = 255, message = "构造型超长，最多255个字符")
-	private String stereotype;
-
-    /**
-    * 范围
-    * [范围]-(保留)
-    */
-    @Column(name = "scope")
-	@Size(max = 255, message = "范围超长，最多255个字符")
-	private String scope;
-
-    /**
-    * 版本
-    * [版本]-(保留)
-    */
-    @Column(name = "version")
-	@Size(max = 255, message = "版本超长，最多255个字符")
-	private String version;
-
-    /**
-    * 阶段
-    * [阶段]-(保留)
-    */
-    @Column(name = "phase")
-	@Size(max = 255, message = "阶段超长，最多255个字符")
-	private String phase;
-
-    /**
-    * 状态
-    * [状态]-(保留)
-    */
-    @Column(name = "status")
-	@Size(max = 255, message = "状态超长，最多255个字符")
-	private String status;
+    @Column(name = "sub_type")
+	@Size(max = 255, message = "子类型超长，最多255个字符")
+	private String subType;
 
     /**
     * 产品编号
@@ -139,12 +122,12 @@ public class DevpSysCmpModule extends BaseEntity{
 	private Long prdRid;
 
     /**
-    * 系统元素编号
-    * [系统元素编号]
+    * 组件编号
+    * [组件编号]
     */
-    @Column(name = "elm_rid")
-	@NotNull(message = "系统元素编号不能为空")
-	private Long elmRid;
+    @Column(name = "cmp_rid")
+	@NotNull(message = "组件编号不能为空")
+	private Long cmpRid;
 
     /**
     * 模块编号
@@ -161,34 +144,18 @@ public class DevpSysCmpModule extends BaseEntity{
     @Column(name = "seq")
 	private Integer seq;
 
-    /**
-    * 记录状态
-    * [记录状态]-0-失效;1-生效;缺省为1
-    */
-    @Column(name = "record_state")
-	private Integer recordState;
-
-    /**
-    * 创建用户代码
-    * [创建用户代码]
-    */
-    @Column(name = "create_ucode")
-	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
-	private String createUcode;
-
-    /**
-    * 修改用户代码
-    * [修改用户代码]
-    */
-    @Column(name = "modify_ucode")
-	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
-	private String modifyUcode;
-
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 	public String getName(){
@@ -219,6 +186,13 @@ public class DevpSysCmpModule extends BaseEntity{
 		this.description = description;
 	}
 
+	public Integer getRecordState(){
+		return recordState;
+	}
+	public void setRecordState(Integer recordState) {
+		this.recordState = recordState;
+	}
+
 	public String getType(){
 		return type;
 	}
@@ -226,39 +200,11 @@ public class DevpSysCmpModule extends BaseEntity{
 		this.type = type;
 	}
 
-	public String getStereotype(){
-		return stereotype;
+	public String getSubType(){
+		return subType;
 	}
-	public void setStereotype(String stereotype) {
-		this.stereotype = stereotype;
-	}
-
-	public String getScope(){
-		return scope;
-	}
-	public void setScope(String scope) {
-		this.scope = scope;
-	}
-
-	public String getVersion(){
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getPhase(){
-		return phase;
-	}
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
-
-	public String getStatus(){
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSubType(String subType) {
+		this.subType = subType;
 	}
 
 	public Long getPrdRid(){
@@ -268,11 +214,11 @@ public class DevpSysCmpModule extends BaseEntity{
 		this.prdRid = prdRid;
 	}
 
-	public Long getElmRid(){
-		return elmRid;
+	public Long getCmpRid(){
+		return cmpRid;
 	}
-	public void setElmRid(Long elmRid) {
-		this.elmRid = elmRid;
+	public void setCmpRid(Long cmpRid) {
+		this.cmpRid = cmpRid;
 	}
 
 	public Long getMduRid(){
@@ -287,27 +233,6 @@ public class DevpSysCmpModule extends BaseEntity{
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
-	}
-
-	public Integer getRecordState(){
-		return recordState;
-	}
-	public void setRecordState(Integer recordState) {
-		this.recordState = recordState;
-	}
-
-	public String getCreateUcode(){
-		return createUcode;
-	}
-	public void setCreateUcode(String createUcode) {
-		this.createUcode = createUcode;
-	}
-
-	public String getModifyUcode(){
-		return modifyUcode;
-	}
-	public void setModifyUcode(String modifyUcode) {
-		this.modifyUcode = modifyUcode;
 	}
 
 

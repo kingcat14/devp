@@ -3,4 +3,6 @@ mvn clean package
 scp web/target/maintenance-web.jar root@121.41.14.24:/studio/apps/devp/maintenance
 
 
-java -jar maintenance-we5b.jar -Dspring.profiles.active=local
+scp web/target/maintenance-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/maintenance
+java -Xmx256m -Xms128m -Xss512k -jar maintenance-web.jar -Dspring.profiles.active=local
+nohup java -Xmx256m -Xms128m -Xss512k -jar maintenance-web.jar -Dspring.profiles.active=local > /dev/null &

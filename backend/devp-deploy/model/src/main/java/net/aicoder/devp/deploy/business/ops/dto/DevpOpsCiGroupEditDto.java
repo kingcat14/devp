@@ -8,10 +8,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 资产项目分组
+ * 资产项目分组映射
  * @author icode
  */
-@ApiModel(value = "修改资产项目分组使用的DTO")
+@ApiModel(value = "修改资产项目分组映射使用的DTO")
 public class DevpOpsCiGroupEditDto {
 
 

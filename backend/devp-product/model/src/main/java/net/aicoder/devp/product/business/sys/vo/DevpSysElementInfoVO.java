@@ -17,133 +17,84 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class DevpSysElementInfoVO {
 
     @ApiModelProperty(value = "记录id")
-    private Long id;
+   private Long id;
 
-    @ApiModelProperty(value = "租户编号")
     /**
     * 租户编号
     * [租户编号]
     */
+    @ApiModelProperty(value = "租户编号")
     private Long tid;
 
-    @ApiModelProperty(value = "扩展信息代码")
+    /**
+    * 元素类型
+    * [元素类型]
+    */
+    @ApiModelProperty(value = "元素类型")
+    private String etype;
+
     /**
     * 扩展信息代码
     * [扩展信息代码]
     */
+    @ApiModelProperty(value = "扩展信息代码")
     private String code;
 
-    @ApiModelProperty(value = "扩展信息名称")
     /**
     * 扩展信息名称
     * [扩展信息名称]-显示名称
     */
+    @ApiModelProperty(value = "扩展信息名称")
     private String name;
 
-    @ApiModelProperty(value = "扩展信息别名")
     /**
     * 扩展信息别名
     * [扩展信息别名]
     */
+    @ApiModelProperty(value = "扩展信息别名")
     private String alias;
 
-    @ApiModelProperty(value = "扩展信息描述")
     /**
     * 扩展信息描述
-    * [扩展信息描述]-对应当前属性值
+    * [扩展信息描述]
     */
+    @ApiModelProperty(value = "扩展信息描述")
     private String description;
 
-    @ApiModelProperty(value = "产品编号")
-    /**
-    * 产品编号
-    * [产品编号]
-    */
-    private Long prdRid;
-
-    @ApiModelProperty(value = "系统元素编号")
-    /**
-    * 系统元素编号
-    * [系统元素编号]
-    */
-    private Long elmRid;
-
-    @ApiModelProperty(value = "系统元素实例编号")
-    /**
-    * 系统元素实例编号
-    * [系统元素实例编号]-缺省值为0
-    */
-    private Long instRid;
-
-    @ApiModelProperty(value = "顺序号")
-    /**
-    * 顺序号
-    * [顺序号]
-    */
-    private Integer seq;
-
-    @ApiModelProperty(value = "信息值1")
-    /**
-    * 信息值1
-    * [信息值1]
-    */
-    private String infoValue1;
-
-    @ApiModelProperty(value = "信息值2")
-    /**
-    * 信息值2
-    * [信息值2]
-    */
-    private String infoValue2;
-
-    @ApiModelProperty(value = "信息值3")
-    /**
-    * 信息值3
-    * [信息值3]
-    */
-    private String infoValue3;
-
-    @ApiModelProperty(value = "信息值4")
-    /**
-    * 信息值4
-    * [信息值4]
-    */
-    private String infoValue4;
-
-    @ApiModelProperty(value = "信息值5")
-    /**
-    * 信息值5
-    * [信息值5]
-    */
-    private String infoValue5;
-
-    @ApiModelProperty(value = "备注")
-    /**
-    * 备注
-    * [备注]
-    */
-    private String notes;
-
-    @ApiModelProperty(value = "记录状态")
     /**
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
+    @ApiModelProperty(value = "记录状态")
     private Integer recordState;
 
-    @ApiModelProperty(value = "创建用户代码")
     /**
-    * 创建用户代码
-    * [创建用户代码]
+    * 元素编号
+    * [元素编号]
     */
-    private String createUcode;
+    @ApiModelProperty(value = "元素编号")
+    private Long objRid;
 
-    @ApiModelProperty(value = "修改用户代码")
     /**
-    * 修改用户代码
-    * [修改用户代码]
+    * 数据类型
+    * [数据类型]
     */
-    private String modifyUcode;
+    @ApiModelProperty(value = "数据类型")
+    private String dataType;
+
+    /**
+    * 扩展信息值
+    * [扩展信息值]
+    */
+    @ApiModelProperty(value = "扩展信息值")
+    private String infoValue;
+
+    /**
+    * 备注
+    * [备注]
+    */
+    @ApiModelProperty(value = "备注")
+    private String notes;
 
 
     public Long getTid(){
@@ -151,6 +102,12 @@ public class DevpSysElementInfoVO {
     }
     public void setTid(Long tid) {
         this.tid = tid;
+    }
+    public String getEtype(){
+        return etype;
+    }
+    public void setEtype(String etype) {
+        this.etype = etype;
     }
     public String getCode(){
         return code;
@@ -176,59 +133,29 @@ public class DevpSysElementInfoVO {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Long getPrdRid(){
-        return prdRid;
+    public Integer getRecordState(){
+        return recordState;
     }
-    public void setPrdRid(Long prdRid) {
-        this.prdRid = prdRid;
+    public void setRecordState(Integer recordState) {
+        this.recordState = recordState;
     }
-    public Long getElmRid(){
-        return elmRid;
+    public Long getObjRid(){
+        return objRid;
     }
-    public void setElmRid(Long elmRid) {
-        this.elmRid = elmRid;
+    public void setObjRid(Long objRid) {
+        this.objRid = objRid;
     }
-    public Long getInstRid(){
-        return instRid;
+    public String getDataType(){
+        return dataType;
     }
-    public void setInstRid(Long instRid) {
-        this.instRid = instRid;
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
-    public Integer getSeq(){
-        return seq;
+    public String getInfoValue(){
+        return infoValue;
     }
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-    public String getInfoValue1(){
-        return infoValue1;
-    }
-    public void setInfoValue1(String infoValue1) {
-        this.infoValue1 = infoValue1;
-    }
-    public String getInfoValue2(){
-        return infoValue2;
-    }
-    public void setInfoValue2(String infoValue2) {
-        this.infoValue2 = infoValue2;
-    }
-    public String getInfoValue3(){
-        return infoValue3;
-    }
-    public void setInfoValue3(String infoValue3) {
-        this.infoValue3 = infoValue3;
-    }
-    public String getInfoValue4(){
-        return infoValue4;
-    }
-    public void setInfoValue4(String infoValue4) {
-        this.infoValue4 = infoValue4;
-    }
-    public String getInfoValue5(){
-        return infoValue5;
-    }
-    public void setInfoValue5(String infoValue5) {
-        this.infoValue5 = infoValue5;
+    public void setInfoValue(String infoValue) {
+        this.infoValue = infoValue;
     }
     public String getNotes(){
         return notes;
@@ -236,31 +163,13 @@ public class DevpSysElementInfoVO {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    public Integer getRecordState(){
-        return recordState;
-    }
-    public void setRecordState(Integer recordState) {
-        this.recordState = recordState;
-    }
-    public String getCreateUcode(){
-        return createUcode;
-    }
-    public void setCreateUcode(String createUcode) {
-        this.createUcode = createUcode;
-    }
-    public String getModifyUcode(){
-        return modifyUcode;
-    }
-    public void setModifyUcode(String modifyUcode) {
-        this.modifyUcode = modifyUcode;
-    }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     @Override
     public String toString() {

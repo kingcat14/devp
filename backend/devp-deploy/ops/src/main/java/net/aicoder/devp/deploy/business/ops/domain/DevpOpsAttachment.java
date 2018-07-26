@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 
@@ -16,7 +17,7 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
  * @author icode
  */
 @Entity
-@Table
+@Table(appliesTo = "devp_ops_attachment", comment = "[附件定义]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsAttachment extends BaseEntity{

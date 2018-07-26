@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-@ApiModel(value = "查询资产项目分组使用的DTO")
+@ApiModel(value = "查询资产项目分组映射使用的DTO")
 public class DevpOpsCiGroupCondition implements Serializable{
 
 	@ApiModelProperty(value = "租户编号")

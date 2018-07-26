@@ -12,7 +12,7 @@ import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleEditDto;
 import net.aicoder.devp.product.business.sys.vo.DevpSysCmpModuleVO;
 import net.aicoder.devp.maintenance.business.product.sys.service.DevpSysCmpModuleRibbonService;
 import net.aicoder.devp.maintenance.business.product.sys.valid.DevpSysCmpModuleValidator;
-
+import net.aicoder.devp.security.business.security.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class DevpSysCmpModuleController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysCmpModuleVO add(@RequestBody DevpSysCmpModuleAddDto devpSysCmpModuleAddDto){
-
+		devpSysCmpModuleAddDto.setTid(SecurityUtil.getAccount().getTenantId());
 		return  devpSysCmpModuleRibbonService.add(devpSysCmpModuleAddDto);
 	}
 

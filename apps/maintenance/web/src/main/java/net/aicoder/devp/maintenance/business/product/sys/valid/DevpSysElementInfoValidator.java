@@ -54,21 +54,22 @@ public class DevpSysElementInfoValidator implements Validator {
 		if (null == devpSysElementInfo.getTid() ) {
 			errors.rejectValue("tid", "EMPTY_TID", "租户编号不能为空");
 		}
+		if(StringUtils.isEmpty(devpSysElementInfo.getEtype())){
+			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
+		}
+       
 		if(StringUtils.isEmpty(devpSysElementInfo.getCode())){
 			errors.rejectValue("code", "EMPTY_CODE", "扩展信息代码不能为空");
 		}
        
-		if (null == devpSysElementInfo.getPrdRid() ) {
-			errors.rejectValue("prdRid", "EMPTY_PRD_RID", "产品编号不能为空");
-		}
-		if (null == devpSysElementInfo.getElmRid() ) {
-			errors.rejectValue("elmRid", "EMPTY_ELM_RID", "系统元素编号不能为空");
-		}
-		if (null == devpSysElementInfo.getInstRid() ) {
-			errors.rejectValue("instRid", "EMPTY_INST_RID", "系统元素实例编号不能为空");
+		if (null == devpSysElementInfo.getObjRid() ) {
+			errors.rejectValue("objRid", "EMPTY_OBJ_RID", "元素编号不能为空");
 		}
 
 		//验证长度
+		if(StringUtils.length(devpSysElementInfo.getEtype()) > 255){
+			errors.rejectValue("etype", null, "元素类型最长255个字符");
+		}
 		if(StringUtils.length(devpSysElementInfo.getCode()) > 255){
 			errors.rejectValue("code", null, "扩展信息代码最长255个字符");
 		}
@@ -81,29 +82,14 @@ public class DevpSysElementInfoValidator implements Validator {
 		if(StringUtils.length(devpSysElementInfo.getDescription()) > 255){
 			errors.rejectValue("description", null, "扩展信息描述最长255个字符");
 		}
-		if(StringUtils.length(devpSysElementInfo.getInfoValue1()) > 255){
-			errors.rejectValue("infoValue1", null, "信息值1最长255个字符");
+		if(StringUtils.length(devpSysElementInfo.getDataType()) > 255){
+			errors.rejectValue("dataType", null, "数据类型最长255个字符");
 		}
-		if(StringUtils.length(devpSysElementInfo.getInfoValue2()) > 255){
-			errors.rejectValue("infoValue2", null, "信息值2最长255个字符");
-		}
-		if(StringUtils.length(devpSysElementInfo.getInfoValue3()) > 255){
-			errors.rejectValue("infoValue3", null, "信息值3最长255个字符");
-		}
-		if(StringUtils.length(devpSysElementInfo.getInfoValue4()) > 255){
-			errors.rejectValue("infoValue4", null, "信息值4最长255个字符");
-		}
-		if(StringUtils.length(devpSysElementInfo.getInfoValue5()) > 255){
-			errors.rejectValue("infoValue5", null, "信息值5最长255个字符");
+		if(StringUtils.length(devpSysElementInfo.getInfoValue()) > 255){
+			errors.rejectValue("infoValue", null, "扩展信息值最长255个字符");
 		}
 		if(StringUtils.length(devpSysElementInfo.getNotes()) > 255){
 			errors.rejectValue("notes", null, "备注最长255个字符");
-		}
-		if(StringUtils.length(devpSysElementInfo.getCreateUcode()) > 255){
-			errors.rejectValue("createUcode", null, "创建用户代码最长255个字符");
-		}
-		if(StringUtils.length(devpSysElementInfo.getModifyUcode()) > 255){
-			errors.rejectValue("modifyUcode", null, "修改用户代码最长255个字符");
 		}
 	}
 }

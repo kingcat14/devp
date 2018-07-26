@@ -12,7 +12,7 @@ import net.aicoder.devp.product.business.sys.dto.DevpSysElementInfoEditDto;
 import net.aicoder.devp.product.business.sys.vo.DevpSysElementInfoVO;
 import net.aicoder.devp.maintenance.business.product.sys.service.DevpSysElementInfoRibbonService;
 import net.aicoder.devp.maintenance.business.product.sys.valid.DevpSysElementInfoValidator;
-
+import net.aicoder.devp.security.business.security.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class DevpSysElementInfoController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysElementInfoVO add(@RequestBody DevpSysElementInfoAddDto devpSysElementInfoAddDto){
-
+		devpSysElementInfoAddDto.setTid(SecurityUtil.getAccount().getTenantId());
 		return  devpSysElementInfoRibbonService.add(devpSysElementInfoAddDto);
 	}
 

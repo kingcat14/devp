@@ -17,6 +17,8 @@ public class DevpSysElementInfoCondition implements Serializable{
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
+	@ApiModelProperty(value = "元素类型")
+	private String etype;
 	@ApiModelProperty(value = "扩展信息代码")
 	private String code;
 	@ApiModelProperty(value = "扩展信息名称")
@@ -25,52 +27,24 @@ public class DevpSysElementInfoCondition implements Serializable{
 	private String alias;
 	@ApiModelProperty(value = "扩展信息描述")
 	private String description;
-	@ApiModelProperty(value = "产品编号")
-	private Long prdRid;
-	@ApiModelProperty(value = "产品编号最大值")
-	private Long prdRidMax;
-	@ApiModelProperty(value = "产品编号最小值")
-	private Long prdRidMin;
-	@ApiModelProperty(value = "系统元素编号")
-	private Long elmRid;
-	@ApiModelProperty(value = "系统元素编号最大值")
-	private Long elmRidMax;
-	@ApiModelProperty(value = "系统元素编号最小值")
-	private Long elmRidMin;
-	@ApiModelProperty(value = "系统元素实例编号")
-	private Long instRid;
-	@ApiModelProperty(value = "系统元素实例编号最大值")
-	private Long instRidMax;
-	@ApiModelProperty(value = "系统元素实例编号最小值")
-	private Long instRidMin;
-	@ApiModelProperty(value = "顺序号")
-	private Integer seq;
-	@ApiModelProperty(value = "顺序号最大值")
-	private Integer seqMax;
-	@ApiModelProperty(value = "顺序号最小值")
-	private Integer seqMin;
-	@ApiModelProperty(value = "信息值1")
-	private String infoValue1;
-	@ApiModelProperty(value = "信息值2")
-	private String infoValue2;
-	@ApiModelProperty(value = "信息值3")
-	private String infoValue3;
-	@ApiModelProperty(value = "信息值4")
-	private String infoValue4;
-	@ApiModelProperty(value = "信息值5")
-	private String infoValue5;
-	@ApiModelProperty(value = "备注")
-	private String notes;
 	@ApiModelProperty(value = "记录状态")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
-	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
-	private String modifyUcode;
+	@ApiModelProperty(value = "元素编号")
+	private Long objRid;
+	@ApiModelProperty(value = "元素编号最大值")
+	private Long objRidMax;
+	@ApiModelProperty(value = "元素编号最小值")
+	private Long objRidMin;
+	@ApiModelProperty(value = "数据类型")
+	private String dataType;
+	@ApiModelProperty(value = "扩展信息值")
+	private String infoValue;
+	@ApiModelProperty(value = "备注")
+	private String notes;
 
 
 	public Long getTid(){
@@ -92,6 +66,14 @@ public class DevpSysElementInfoCondition implements Serializable{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
+	}
+
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -127,142 +109,6 @@ public class DevpSysElementInfoCondition implements Serializable{
 	}
 
 
-	public Long getPrdRid(){
-		return prdRid;
-	}
-	public void setPrdRid(Long prdRid) {
-		this.prdRid = prdRid;
-	}
-
-	public Long getPrdRidMin(){
-		return prdRidMin;
-	}
-	public void setPrdRidMin(Long prdRidMin) {
-		this.prdRidMin = prdRidMin;
-	}
-
-	public Long getPrdRidMax(){
-		return prdRidMax;
-	}
-	public void setPrdRidMax(Long prdRidMax) {
-		this.prdRidMax = prdRidMax;
-	}
-
-
-	public Long getElmRid(){
-		return elmRid;
-	}
-	public void setElmRid(Long elmRid) {
-		this.elmRid = elmRid;
-	}
-
-	public Long getElmRidMin(){
-		return elmRidMin;
-	}
-	public void setElmRidMin(Long elmRidMin) {
-		this.elmRidMin = elmRidMin;
-	}
-
-	public Long getElmRidMax(){
-		return elmRidMax;
-	}
-	public void setElmRidMax(Long elmRidMax) {
-		this.elmRidMax = elmRidMax;
-	}
-
-
-	public Long getInstRid(){
-		return instRid;
-	}
-	public void setInstRid(Long instRid) {
-		this.instRid = instRid;
-	}
-
-	public Long getInstRidMin(){
-		return instRidMin;
-	}
-	public void setInstRidMin(Long instRidMin) {
-		this.instRidMin = instRidMin;
-	}
-
-	public Long getInstRidMax(){
-		return instRidMax;
-	}
-	public void setInstRidMax(Long instRidMax) {
-		this.instRidMax = instRidMax;
-	}
-
-
-	public Integer getSeq(){
-		return seq;
-	}
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
-
-	public Integer getSeqMin(){
-		return seqMin;
-	}
-	public void setSeqMin(Integer seqMin) {
-		this.seqMin = seqMin;
-	}
-
-	public Integer getSeqMax(){
-		return seqMax;
-	}
-	public void setSeqMax(Integer seqMax) {
-		this.seqMax = seqMax;
-	}
-
-
-	public String getInfoValue1(){
-		return infoValue1;
-	}
-	public void setInfoValue1(String infoValue1) {
-		this.infoValue1 = infoValue1;
-	}
-
-
-	public String getInfoValue2(){
-		return infoValue2;
-	}
-	public void setInfoValue2(String infoValue2) {
-		this.infoValue2 = infoValue2;
-	}
-
-
-	public String getInfoValue3(){
-		return infoValue3;
-	}
-	public void setInfoValue3(String infoValue3) {
-		this.infoValue3 = infoValue3;
-	}
-
-
-	public String getInfoValue4(){
-		return infoValue4;
-	}
-	public void setInfoValue4(String infoValue4) {
-		this.infoValue4 = infoValue4;
-	}
-
-
-	public String getInfoValue5(){
-		return infoValue5;
-	}
-	public void setInfoValue5(String infoValue5) {
-		this.infoValue5 = infoValue5;
-	}
-
-
-	public String getNotes(){
-		return notes;
-	}
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-
 	public Integer getRecordState(){
 		return recordState;
 	}
@@ -285,19 +131,49 @@ public class DevpSysElementInfoCondition implements Serializable{
 	}
 
 
-	public String getCreateUcode(){
-		return createUcode;
+	public Long getObjRid(){
+		return objRid;
 	}
-	public void setCreateUcode(String createUcode) {
-		this.createUcode = createUcode;
+	public void setObjRid(Long objRid) {
+		this.objRid = objRid;
+	}
+
+	public Long getObjRidMin(){
+		return objRidMin;
+	}
+	public void setObjRidMin(Long objRidMin) {
+		this.objRidMin = objRidMin;
+	}
+
+	public Long getObjRidMax(){
+		return objRidMax;
+	}
+	public void setObjRidMax(Long objRidMax) {
+		this.objRidMax = objRidMax;
 	}
 
 
-	public String getModifyUcode(){
-		return modifyUcode;
+	public String getDataType(){
+		return dataType;
 	}
-	public void setModifyUcode(String modifyUcode) {
-		this.modifyUcode = modifyUcode;
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+
+
+	public String getInfoValue(){
+		return infoValue;
+	}
+	public void setInfoValue(String infoValue) {
+		this.infoValue = infoValue;
+	}
+
+
+	public String getNotes(){
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 

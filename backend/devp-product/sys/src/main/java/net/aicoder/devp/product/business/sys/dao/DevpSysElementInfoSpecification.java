@@ -14,7 +14,7 @@ import java.util.*;
 
 public class DevpSysElementInfoSpecification implements Specification<DevpSysElementInfo>{
 
-	DevpSysElementInfoCondition condition;
+	private DevpSysElementInfoCondition condition;
 
 	public DevpSysElementInfoSpecification(DevpSysElementInfoCondition condition){
 		this.condition = condition;
@@ -27,36 +27,34 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 		if(condition==null){
 			return null;
 		}
-       
+
 		tryAddTidPredicate(predicateList, root, cb);
+		tryAddEtypePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddAliasPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
-		tryAddPrdRidPredicate(predicateList, root, cb);
-		tryAddElmRidPredicate(predicateList, root, cb);
-		tryAddInstRidPredicate(predicateList, root, cb);
-		tryAddSeqPredicate(predicateList, root, cb);
-		tryAddInfoValue1Predicate(predicateList, root, cb);
-		tryAddInfoValue2Predicate(predicateList, root, cb);
-		tryAddInfoValue3Predicate(predicateList, root, cb);
-		tryAddInfoValue4Predicate(predicateList, root, cb);
-		tryAddInfoValue5Predicate(predicateList, root, cb);
-		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddRecordStatePredicate(predicateList, root, cb);
-		tryAddCreateUcodePredicate(predicateList, root, cb);
-		tryAddModifyUcodePredicate(predicateList, root, cb);
+		tryAddObjRidPredicate(predicateList, root, cb);
+		tryAddDataTypePredicate(predicateList, root, cb);
+		tryAddInfoValuePredicate(predicateList, root, cb);
+		tryAddNotesPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
 		pre = predicateList.toArray(pre);
 		return cb.and(pre);
-	}
+    }
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
+		}
+	}
+	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getEtype())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_ETYPE).as(String.class), "%"+condition.getEtype()+"%"));
 		}
 	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
@@ -79,69 +77,29 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
 		}
 	}
-	private void tryAddPrdRidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if (null != condition.getPrdRid() ) {
-			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRid()));
-		}
-	}
-	private void tryAddElmRidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if (null != condition.getElmRid() ) {
-			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_ELM_RID).as(Long.class), condition.getElmRid()));
-		}
-	}
-	private void tryAddInstRidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if (null != condition.getInstRid() ) {
-			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_INST_RID).as(Long.class), condition.getInstRid()));
-		}
-	}
-	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if (null != condition.getSeq() ) {
-			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeq()));
-		}
-	}
-	private void tryAddInfoValue1Predicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getInfoValue1())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE1).as(String.class), "%"+condition.getInfoValue1()+"%"));
-		}
-	}
-	private void tryAddInfoValue2Predicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getInfoValue2())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE2).as(String.class), "%"+condition.getInfoValue2()+"%"));
-		}
-	}
-	private void tryAddInfoValue3Predicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getInfoValue3())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE3).as(String.class), "%"+condition.getInfoValue3()+"%"));
-		}
-	}
-	private void tryAddInfoValue4Predicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getInfoValue4())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE4).as(String.class), "%"+condition.getInfoValue4()+"%"));
-		}
-	}
-	private void tryAddInfoValue5Predicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getInfoValue5())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE5).as(String.class), "%"+condition.getInfoValue5()+"%"));
-		}
-	}
-	private void tryAddNotesPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getNotes())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_NOTES).as(String.class), "%"+condition.getNotes()+"%"));
-		}
-	}
 	private void tryAddRecordStatePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
 		if (null != condition.getRecordState() ) {
 			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
 		}
 	}
-	private void tryAddCreateUcodePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getCreateUcode())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_CREATE_UCODE).as(String.class), "%"+condition.getCreateUcode()+"%"));
+	private void tryAddObjRidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if (null != condition.getObjRid() ) {
+			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_OBJ_RID).as(Long.class), condition.getObjRid()));
 		}
 	}
-	private void tryAddModifyUcodePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getModifyUcode())){
-			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_MODIFY_UCODE).as(String.class), "%"+condition.getModifyUcode()+"%"));
+	private void tryAddDataTypePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDataType())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_DATA_TYPE).as(String.class), "%"+condition.getDataType()+"%"));
+		}
+	}
+	private void tryAddInfoValuePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getInfoValue())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_INFO_VALUE).as(String.class), "%"+condition.getInfoValue()+"%"));
+		}
+	}
+	private void tryAddNotesPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getNotes())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_NOTES).as(String.class), "%"+condition.getNotes()+"%"));
 		}
 	}
 }

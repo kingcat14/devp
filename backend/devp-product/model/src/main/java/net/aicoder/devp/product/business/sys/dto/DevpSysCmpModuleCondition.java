@@ -17,6 +17,8 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
+	@ApiModelProperty(value = "元素类型")
+	private String etype;
 	@ApiModelProperty(value = "对应关系名称")
 	private String name;
 	@ApiModelProperty(value = "对应关系代码")
@@ -25,30 +27,28 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	private String alias;
 	@ApiModelProperty(value = "对应关系描述")
 	private String description;
-	@ApiModelProperty(value = "对应关系类型")
+	@ApiModelProperty(value = "记录状态")
+	private Integer recordState;
+	@ApiModelProperty(value = "记录状态最大值")
+	private Integer recordStateMax;
+	@ApiModelProperty(value = "记录状态最小值")
+	private Integer recordStateMin;
+	@ApiModelProperty(value = "类型")
 	private String type;
-	@ApiModelProperty(value = "构造型")
-	private String stereotype;
-	@ApiModelProperty(value = "范围")
-	private String scope;
-	@ApiModelProperty(value = "版本")
-	private String version;
-	@ApiModelProperty(value = "阶段")
-	private String phase;
-	@ApiModelProperty(value = "状态")
-	private String status;
+	@ApiModelProperty(value = "子类型")
+	private String subType;
 	@ApiModelProperty(value = "产品编号")
 	private Long prdRid;
 	@ApiModelProperty(value = "产品编号最大值")
 	private Long prdRidMax;
 	@ApiModelProperty(value = "产品编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "系统元素编号")
-	private Long elmRid;
-	@ApiModelProperty(value = "系统元素编号最大值")
-	private Long elmRidMax;
-	@ApiModelProperty(value = "系统元素编号最小值")
-	private Long elmRidMin;
+	@ApiModelProperty(value = "组件编号")
+	private Long cmpRid;
+	@ApiModelProperty(value = "组件编号最大值")
+	private Long cmpRidMax;
+	@ApiModelProperty(value = "组件编号最小值")
+	private Long cmpRidMin;
 	@ApiModelProperty(value = "模块编号")
 	private Long mduRid;
 	@ApiModelProperty(value = "模块编号最大值")
@@ -61,16 +61,6 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "记录状态")
-	private Integer recordState;
-	@ApiModelProperty(value = "记录状态最大值")
-	private Integer recordStateMax;
-	@ApiModelProperty(value = "记录状态最小值")
-	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
-	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
-	private String modifyUcode;
 
 
 	public Long getTid(){
@@ -92,6 +82,14 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
+	}
+
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -127,6 +125,28 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	}
 
 
+	public Integer getRecordState(){
+		return recordState;
+	}
+	public void setRecordState(Integer recordState) {
+		this.recordState = recordState;
+	}
+
+	public Integer getRecordStateMin(){
+		return recordStateMin;
+	}
+	public void setRecordStateMin(Integer recordStateMin) {
+		this.recordStateMin = recordStateMin;
+	}
+
+	public Integer getRecordStateMax(){
+		return recordStateMax;
+	}
+	public void setRecordStateMax(Integer recordStateMax) {
+		this.recordStateMax = recordStateMax;
+	}
+
+
 	public String getType(){
 		return type;
 	}
@@ -135,43 +155,11 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	}
 
 
-	public String getStereotype(){
-		return stereotype;
+	public String getSubType(){
+		return subType;
 	}
-	public void setStereotype(String stereotype) {
-		this.stereotype = stereotype;
-	}
-
-
-	public String getScope(){
-		return scope;
-	}
-	public void setScope(String scope) {
-		this.scope = scope;
-	}
-
-
-	public String getVersion(){
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-
-	public String getPhase(){
-		return phase;
-	}
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
-
-
-	public String getStatus(){
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSubType(String subType) {
+		this.subType = subType;
 	}
 
 
@@ -197,25 +185,25 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	}
 
 
-	public Long getElmRid(){
-		return elmRid;
+	public Long getCmpRid(){
+		return cmpRid;
 	}
-	public void setElmRid(Long elmRid) {
-		this.elmRid = elmRid;
-	}
-
-	public Long getElmRidMin(){
-		return elmRidMin;
-	}
-	public void setElmRidMin(Long elmRidMin) {
-		this.elmRidMin = elmRidMin;
+	public void setCmpRid(Long cmpRid) {
+		this.cmpRid = cmpRid;
 	}
 
-	public Long getElmRidMax(){
-		return elmRidMax;
+	public Long getCmpRidMin(){
+		return cmpRidMin;
 	}
-	public void setElmRidMax(Long elmRidMax) {
-		this.elmRidMax = elmRidMax;
+	public void setCmpRidMin(Long cmpRidMin) {
+		this.cmpRidMin = cmpRidMin;
+	}
+
+	public Long getCmpRidMax(){
+		return cmpRidMax;
+	}
+	public void setCmpRidMax(Long cmpRidMax) {
+		this.cmpRidMax = cmpRidMax;
 	}
 
 
@@ -260,44 +248,6 @@ public class DevpSysCmpModuleCondition implements Serializable{
 	}
 	public void setSeqMax(Integer seqMax) {
 		this.seqMax = seqMax;
-	}
-
-
-	public Integer getRecordState(){
-		return recordState;
-	}
-	public void setRecordState(Integer recordState) {
-		this.recordState = recordState;
-	}
-
-	public Integer getRecordStateMin(){
-		return recordStateMin;
-	}
-	public void setRecordStateMin(Integer recordStateMin) {
-		this.recordStateMin = recordStateMin;
-	}
-
-	public Integer getRecordStateMax(){
-		return recordStateMax;
-	}
-	public void setRecordStateMax(Integer recordStateMax) {
-		this.recordStateMax = recordStateMax;
-	}
-
-
-	public String getCreateUcode(){
-		return createUcode;
-	}
-	public void setCreateUcode(String createUcode) {
-		this.createUcode = createUcode;
-	}
-
-
-	public String getModifyUcode(){
-		return modifyUcode;
-	}
-	public void setModifyUcode(String modifyUcode) {
-		this.modifyUcode = modifyUcode;
 	}
 
 

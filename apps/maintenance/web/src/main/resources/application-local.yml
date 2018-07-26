@@ -9,6 +9,9 @@ spring:
     url: jdbc:mysql://183.63.91.141:33060/aic_maintenance?useSSL=false&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&allowMultiQueries=true
     username: root
     password: daan_2017
+  jpa:
+    hibernate:
+      ddl-auto: update
   redis:
     host: localhost
     port: 6379

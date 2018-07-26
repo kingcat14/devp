@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 
@@ -16,7 +17,7 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
  * @author icode
  */
 @Entity
-@Table
+@Table(appliesTo = "devp_ops_paras_define", comment = "[运维元素扩充信息]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsParasDefine extends BaseEntity{
@@ -98,8 +99,7 @@ public class DevpOpsParasDefine extends BaseEntity{
     * 内容
     * [内容]
     */
-    @Column(name = "content")
-	@Size(max = 255, message = "内容超长，最多255个字符")
+    @Column(name = "content", columnDefinition = "blob")
 	private String content;
 
     /**

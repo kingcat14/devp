@@ -6,17 +6,18 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 
 /**
- * 资产项目分组
+ * 资产项目分组映射
  * @author icode
  */
 @Entity
-@Table
+@Table(appliesTo = "devp_ops_ci_group", comment = "[资产项目分组映射]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsCiGroup extends BaseEntity{

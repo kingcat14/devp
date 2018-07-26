@@ -54,17 +54,24 @@ public class DevpSysCmpModuleValidator implements Validator {
 		if (null == devpSysCmpModule.getTid() ) {
 			errors.rejectValue("tid", "EMPTY_TID", "租户编号不能为空");
 		}
+		if(StringUtils.isEmpty(devpSysCmpModule.getEtype())){
+			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
+		}
+       
 		if (null == devpSysCmpModule.getPrdRid() ) {
 			errors.rejectValue("prdRid", "EMPTY_PRD_RID", "产品编号不能为空");
 		}
-		if (null == devpSysCmpModule.getElmRid() ) {
-			errors.rejectValue("elmRid", "EMPTY_ELM_RID", "系统元素编号不能为空");
+		if (null == devpSysCmpModule.getCmpRid() ) {
+			errors.rejectValue("cmpRid", "EMPTY_CMP_RID", "组件编号不能为空");
 		}
 		if (null == devpSysCmpModule.getMduRid() ) {
 			errors.rejectValue("mduRid", "EMPTY_MDU_RID", "模块编号不能为空");
 		}
 
 		//验证长度
+		if(StringUtils.length(devpSysCmpModule.getEtype()) > 255){
+			errors.rejectValue("etype", null, "元素类型最长255个字符");
+		}
 		if(StringUtils.length(devpSysCmpModule.getName()) > 255){
 			errors.rejectValue("name", null, "对应关系名称最长255个字符");
 		}
@@ -78,28 +85,10 @@ public class DevpSysCmpModuleValidator implements Validator {
 			errors.rejectValue("description", null, "对应关系描述最长255个字符");
 		}
 		if(StringUtils.length(devpSysCmpModule.getType()) > 255){
-			errors.rejectValue("type", null, "对应关系类型最长255个字符");
+			errors.rejectValue("type", null, "类型最长255个字符");
 		}
-		if(StringUtils.length(devpSysCmpModule.getStereotype()) > 255){
-			errors.rejectValue("stereotype", null, "构造型最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getScope()) > 255){
-			errors.rejectValue("scope", null, "范围最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getVersion()) > 255){
-			errors.rejectValue("version", null, "版本最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getPhase()) > 255){
-			errors.rejectValue("phase", null, "阶段最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getStatus()) > 255){
-			errors.rejectValue("status", null, "状态最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getCreateUcode()) > 255){
-			errors.rejectValue("createUcode", null, "创建用户代码最长255个字符");
-		}
-		if(StringUtils.length(devpSysCmpModule.getModifyUcode()) > 255){
-			errors.rejectValue("modifyUcode", null, "修改用户代码最长255个字符");
+		if(StringUtils.length(devpSysCmpModule.getSubType()) > 255){
+			errors.rejectValue("subType", null, "子类型最长255个字符");
 		}
 	}
 }

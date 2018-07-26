@@ -25,6 +25,15 @@ public class DevpSysCmpModuleAddDto {
 	private Long tid;
 
     /**
+	 * 元素类型
+	 * [元素类型]- SYS_CMP_MDU // 组件对应模块
+     */
+	@NotNull(message = "元素类型不能为空")
+	@ApiModelProperty(value = "元素类型", required = true)
+	@Size(max = 255, message = "元素类型超长，最多255个字符")
+	private String etype;
+
+    /**
 	 * 对应关系名称
 	 * [对应关系名称]
      */
@@ -57,52 +66,27 @@ public class DevpSysCmpModuleAddDto {
 	private String description;
 
     /**
-	 * 对应关系类型
-	 * [对应关系类型]
+	 * 记录状态
+	 * [记录状态]-0-失效;1-生效;缺省为1
      */
-	@ApiModelProperty(value = "对应关系类型", required = false)
-	@Size(max = 255, message = "对应关系类型超长，最多255个字符")
+	@ApiModelProperty(value = "记录状态", required = false)
+	private Integer recordState;
+
+    /**
+	 * 类型
+	 * [类型]
+     */
+	@ApiModelProperty(value = "类型", required = false)
+	@Size(max = 255, message = "类型超长，最多255个字符")
 	private String type;
 
     /**
-	 * 构造型
-	 * [构造型]
+	 * 子类型
+	 * [子类型]
      */
-	@ApiModelProperty(value = "构造型", required = false)
-	@Size(max = 255, message = "构造型超长，最多255个字符")
-	private String stereotype;
-
-    /**
-	 * 范围
-	 * [范围]-(保留)
-     */
-	@ApiModelProperty(value = "范围", required = false)
-	@Size(max = 255, message = "范围超长，最多255个字符")
-	private String scope;
-
-    /**
-	 * 版本
-	 * [版本]-(保留)
-     */
-	@ApiModelProperty(value = "版本", required = false)
-	@Size(max = 255, message = "版本超长，最多255个字符")
-	private String version;
-
-    /**
-	 * 阶段
-	 * [阶段]-(保留)
-     */
-	@ApiModelProperty(value = "阶段", required = false)
-	@Size(max = 255, message = "阶段超长，最多255个字符")
-	private String phase;
-
-    /**
-	 * 状态
-	 * [状态]-(保留)
-     */
-	@ApiModelProperty(value = "状态", required = false)
-	@Size(max = 255, message = "状态超长，最多255个字符")
-	private String status;
+	@ApiModelProperty(value = "子类型", required = false)
+	@Size(max = 255, message = "子类型超长，最多255个字符")
+	private String subType;
 
     /**
 	 * 产品编号
@@ -113,12 +97,12 @@ public class DevpSysCmpModuleAddDto {
 	private Long prdRid;
 
     /**
-	 * 系统元素编号
-	 * [系统元素编号]
+	 * 组件编号
+	 * [组件编号]
      */
-	@NotNull(message = "系统元素编号不能为空")
-	@ApiModelProperty(value = "系统元素编号", required = true)
-	private Long elmRid;
+	@NotNull(message = "组件编号不能为空")
+	@ApiModelProperty(value = "组件编号", required = true)
+	private Long cmpRid;
 
     /**
 	 * 模块编号
@@ -135,35 +119,19 @@ public class DevpSysCmpModuleAddDto {
 	@ApiModelProperty(value = "顺序号", required = false)
 	private Integer seq;
 
-    /**
-	 * 记录状态
-	 * [记录状态]-0-失效;1-生效;缺省为1
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
-	private Integer recordState;
-
-    /**
-	 * 创建用户代码
-	 * [创建用户代码]
-     */
-	@ApiModelProperty(value = "创建用户代码", required = false)
-	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
-	private String createUcode;
-
-    /**
-	 * 修改用户代码
-	 * [修改用户代码]
-     */
-	@ApiModelProperty(value = "修改用户代码", required = false)
-	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
-	private String modifyUcode;
-
 
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 	public String getName(){
@@ -194,6 +162,13 @@ public class DevpSysCmpModuleAddDto {
 		this.description = description;
 	}
 
+	public Integer getRecordState(){
+		return recordState;
+	}
+	public void setRecordState(Integer recordState) {
+		this.recordState = recordState;
+	}
+
 	public String getType(){
 		return type;
 	}
@@ -201,39 +176,11 @@ public class DevpSysCmpModuleAddDto {
 		this.type = type;
 	}
 
-	public String getStereotype(){
-		return stereotype;
+	public String getSubType(){
+		return subType;
 	}
-	public void setStereotype(String stereotype) {
-		this.stereotype = stereotype;
-	}
-
-	public String getScope(){
-		return scope;
-	}
-	public void setScope(String scope) {
-		this.scope = scope;
-	}
-
-	public String getVersion(){
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getPhase(){
-		return phase;
-	}
-	public void setPhase(String phase) {
-		this.phase = phase;
-	}
-
-	public String getStatus(){
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSubType(String subType) {
+		this.subType = subType;
 	}
 
 	public Long getPrdRid(){
@@ -243,11 +190,11 @@ public class DevpSysCmpModuleAddDto {
 		this.prdRid = prdRid;
 	}
 
-	public Long getElmRid(){
-		return elmRid;
+	public Long getCmpRid(){
+		return cmpRid;
 	}
-	public void setElmRid(Long elmRid) {
-		this.elmRid = elmRid;
+	public void setCmpRid(Long cmpRid) {
+		this.cmpRid = cmpRid;
 	}
 
 	public Long getMduRid(){
@@ -262,27 +209,6 @@ public class DevpSysCmpModuleAddDto {
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
-	}
-
-	public Integer getRecordState(){
-		return recordState;
-	}
-	public void setRecordState(Integer recordState) {
-		this.recordState = recordState;
-	}
-
-	public String getCreateUcode(){
-		return createUcode;
-	}
-	public void setCreateUcode(String createUcode) {
-		this.createUcode = createUcode;
-	}
-
-	public String getModifyUcode(){
-		return modifyUcode;
-	}
-	public void setModifyUcode(String modifyUcode) {
-		this.modifyUcode = modifyUcode;
 	}
 
 

@@ -43,7 +43,7 @@ public class DevpOpsCiGroupValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpOpsCiGroup 资产项目分组
+     * @param devpOpsCiGroup 资产项目分组映射
      * @param errors
      */
 	public void validateDevpOpsCiGroupAddDto(DevpOpsCiGroupAddDto devpOpsCiGroup, Errors errors) {

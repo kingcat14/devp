@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 管理资产项目分组
+ * 管理资产项目分组映射
  * @author icode
  */
-@Api(description = "资产项目分组", tags = "DevpOpsCiGroup")
+@Api(description = "资产项目分组映射", tags = "DevpOpsCiGroup")
 @RestController
 @RequestMapping(value = "/ops/devpOpsCiGroup")
 public class DevpOpsCiGroupController {
@@ -54,11 +54,11 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 新增资产项目分组
+	 * 新增资产项目分组映射
 	 * @param devpOpsCiGroupAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增资产项目分组", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增资产项目分组映射", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsCiGroupVO add(@RequestBody @Valid DevpOpsCiGroupAddDto devpOpsCiGroupAddDto){
@@ -71,10 +71,10 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 删除资产项目分组,id以逗号分隔
+	 * 删除资产项目分组映射,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除资产项目分组", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除资产项目分组映射", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -88,12 +88,12 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 更新资产项目分组
+	 * 更新资产项目分组映射
 	 * @param devpOpsCiGroupEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产资产项目分组(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产资产项目分组映射(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpOpsCiGroupVO update(@RequestBody @Valid DevpOpsCiGroupEditDto devpOpsCiGroupEditDto, @PathVariable Long id){
 		DevpOpsCiGroup devpOpsCiGroup = new DevpOpsCiGroup();
@@ -106,11 +106,11 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 根据ID查询资产项目分组
+	 * 根据ID查询资产项目分组映射
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询资产项目分组", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询资产项目分组映射", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpOpsCiGroupVO get(@PathVariable Long id) {
 
@@ -121,11 +121,11 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 查询资产项目分组列表
+	 * 查询资产项目分组映射列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询资产项目分组列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询资产项目分组映射列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpOpsCiGroupVO> list(@RequestBody PageSearchRequest<DevpOpsCiGroupCondition> pageSearchRequest){
 

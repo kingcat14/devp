@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;
+import net.aicoder.devp.maintenance.config.ApiResponseBodyHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-@Import({RestApiExceptionHandler.class})
+@Import({ApiResponseBodyHandler.class, RestApiExceptionHandler.class})
+//@Import({RestApiExceptionHandler.class})
 @SpringBootApplication(scanBasePackages={"net.aicoder.devp.security"
 		,"net.aicoder.devp.maintenance"
 		,"net.aicoder.devp.product.client"
@@ -26,14 +28,12 @@ public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MaintenanceApplication.class, args);
-
 	}
 
 	@Override
 	public int getExitCode() {
 		return 0;
 	}
-
 
 	@Bean
 	@LoadBalanced

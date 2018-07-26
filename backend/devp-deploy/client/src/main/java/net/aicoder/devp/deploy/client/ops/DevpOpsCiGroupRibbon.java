@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 /**
- * 资产项目分组客户端
+ * 资产项目分组映射客户端
  * @author icode
  */
 @Service
@@ -42,7 +42,7 @@ public class DevpOpsCiGroupRibbon {
 
 
     /**
-     * 新增资产项目分组
+     * 新增资产项目分组映射
      * @param addDto
      * @return
      */
@@ -62,7 +62,7 @@ public class DevpOpsCiGroupRibbon {
     }
 
 	/**
-	 * 删除资产项目分组
+	 * 删除资产项目分组映射
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
@@ -83,7 +83,7 @@ public class DevpOpsCiGroupRibbon {
     }
 
 	/**
-	 * 更新资产项目分组
+	 * 更新资产项目分组映射
 	 * @param id
 	 * @param editDto
 	 * @return
@@ -109,7 +109,7 @@ public class DevpOpsCiGroupRibbon {
 
 
     /**
-	 * 根据ID查询资产项目分组
+	 * 根据ID查询资产项目分组映射
 	 * @param id
 	 * @return
 	 */
@@ -134,7 +134,7 @@ public class DevpOpsCiGroupRibbon {
     }
 
 	/**
-	 * 查询资产项目分组列表
+	 * 查询资产项目分组映射列表
 	 * @param pageSearchRequest
 	 * @return
 	 */

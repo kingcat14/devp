@@ -17,133 +17,98 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class DevpSysCmpModuleVO {
 
     @ApiModelProperty(value = "记录id")
-    private Long id;
+   private Long id;
 
-    @ApiModelProperty(value = "租户编号")
     /**
     * 租户编号
     * [租户编号]
     */
+    @ApiModelProperty(value = "租户编号")
     private Long tid;
 
-    @ApiModelProperty(value = "对应关系名称")
+    /**
+    * 元素类型
+    * [元素类型]- SYS_CMP_MDU // 组件对应模块
+    */
+    @ApiModelProperty(value = "元素类型")
+    private String etype;
+
     /**
     * 对应关系名称
     * [对应关系名称]
     */
+    @ApiModelProperty(value = "对应关系名称")
     private String name;
 
-    @ApiModelProperty(value = "对应关系代码")
     /**
     * 对应关系代码
     * [对应关系代码]
     */
+    @ApiModelProperty(value = "对应关系代码")
     private String code;
 
-    @ApiModelProperty(value = "对应关系别名")
     /**
     * 对应关系别名
     * [对应关系别名]
     */
+    @ApiModelProperty(value = "对应关系别名")
     private String alias;
 
-    @ApiModelProperty(value = "对应关系描述")
     /**
     * 对应关系描述
     * [对应关系描述]
     */
+    @ApiModelProperty(value = "对应关系描述")
     private String description;
 
-    @ApiModelProperty(value = "对应关系类型")
-    /**
-    * 对应关系类型
-    * [对应关系类型]
-    */
-    private String type;
-
-    @ApiModelProperty(value = "构造型")
-    /**
-    * 构造型
-    * [构造型]
-    */
-    private String stereotype;
-
-    @ApiModelProperty(value = "范围")
-    /**
-    * 范围
-    * [范围]-(保留)
-    */
-    private String scope;
-
-    @ApiModelProperty(value = "版本")
-    /**
-    * 版本
-    * [版本]-(保留)
-    */
-    private String version;
-
-    @ApiModelProperty(value = "阶段")
-    /**
-    * 阶段
-    * [阶段]-(保留)
-    */
-    private String phase;
-
-    @ApiModelProperty(value = "状态")
-    /**
-    * 状态
-    * [状态]-(保留)
-    */
-    private String status;
-
-    @ApiModelProperty(value = "产品编号")
-    /**
-    * 产品编号
-    * [产品编号]
-    */
-    private Long prdRid;
-
-    @ApiModelProperty(value = "系统元素编号")
-    /**
-    * 系统元素编号
-    * [系统元素编号]
-    */
-    private Long elmRid;
-
-    @ApiModelProperty(value = "模块编号")
-    /**
-    * 模块编号
-    * [模块编号]
-    */
-    private Long mduRid;
-
-    @ApiModelProperty(value = "顺序号")
-    /**
-    * 顺序号
-    * [顺序号]
-    */
-    private Integer seq;
-
-    @ApiModelProperty(value = "记录状态")
     /**
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
+    @ApiModelProperty(value = "记录状态")
     private Integer recordState;
 
-    @ApiModelProperty(value = "创建用户代码")
     /**
-    * 创建用户代码
-    * [创建用户代码]
+    * 类型
+    * [类型]
     */
-    private String createUcode;
+    @ApiModelProperty(value = "类型")
+    private String type;
 
-    @ApiModelProperty(value = "修改用户代码")
     /**
-    * 修改用户代码
-    * [修改用户代码]
+    * 子类型
+    * [子类型]
     */
-    private String modifyUcode;
+    @ApiModelProperty(value = "子类型")
+    private String subType;
+
+    /**
+    * 产品编号
+    * [产品编号]
+    */
+    @ApiModelProperty(value = "产品编号")
+    private Long prdRid;
+
+    /**
+    * 组件编号
+    * [组件编号]
+    */
+    @ApiModelProperty(value = "组件编号")
+    private Long cmpRid;
+
+    /**
+    * 模块编号
+    * [模块编号]
+    */
+    @ApiModelProperty(value = "模块编号")
+    private Long mduRid;
+
+    /**
+    * 顺序号
+    * [顺序号]
+    */
+    @ApiModelProperty(value = "顺序号")
+    private Integer seq;
 
 
     public Long getTid(){
@@ -151,6 +116,12 @@ public class DevpSysCmpModuleVO {
     }
     public void setTid(Long tid) {
         this.tid = tid;
+    }
+    public String getEtype(){
+        return etype;
+    }
+    public void setEtype(String etype) {
+        this.etype = etype;
     }
     public String getName(){
         return name;
@@ -176,41 +147,23 @@ public class DevpSysCmpModuleVO {
     public void setDescription(String description) {
         this.description = description;
     }
+    public Integer getRecordState(){
+        return recordState;
+    }
+    public void setRecordState(Integer recordState) {
+        this.recordState = recordState;
+    }
     public String getType(){
         return type;
     }
     public void setType(String type) {
         this.type = type;
     }
-    public String getStereotype(){
-        return stereotype;
+    public String getSubType(){
+        return subType;
     }
-    public void setStereotype(String stereotype) {
-        this.stereotype = stereotype;
-    }
-    public String getScope(){
-        return scope;
-    }
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-    public String getVersion(){
-        return version;
-    }
-    public void setVersion(String version) {
-        this.version = version;
-    }
-    public String getPhase(){
-        return phase;
-    }
-    public void setPhase(String phase) {
-        this.phase = phase;
-    }
-    public String getStatus(){
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
     public Long getPrdRid(){
         return prdRid;
@@ -218,11 +171,11 @@ public class DevpSysCmpModuleVO {
     public void setPrdRid(Long prdRid) {
         this.prdRid = prdRid;
     }
-    public Long getElmRid(){
-        return elmRid;
+    public Long getCmpRid(){
+        return cmpRid;
     }
-    public void setElmRid(Long elmRid) {
-        this.elmRid = elmRid;
+    public void setCmpRid(Long cmpRid) {
+        this.cmpRid = cmpRid;
     }
     public Long getMduRid(){
         return mduRid;
@@ -236,31 +189,13 @@ public class DevpSysCmpModuleVO {
     public void setSeq(Integer seq) {
         this.seq = seq;
     }
-    public Integer getRecordState(){
-        return recordState;
-    }
-    public void setRecordState(Integer recordState) {
-        this.recordState = recordState;
-    }
-    public String getCreateUcode(){
-        return createUcode;
-    }
-    public void setCreateUcode(String createUcode) {
-        this.createUcode = createUcode;
-    }
-    public String getModifyUcode(){
-        return modifyUcode;
-    }
-    public void setModifyUcode(String modifyUcode) {
-        this.modifyUcode = modifyUcode;
-    }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     @Override
     public String toString() {

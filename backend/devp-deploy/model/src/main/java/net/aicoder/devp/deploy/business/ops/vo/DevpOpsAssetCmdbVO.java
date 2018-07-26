@@ -18,7 +18,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class DevpOpsAssetCmdbVO {
 
     @ApiModelProperty(value = "记录id")
-   private Long rid;
+   private Long id;
+
+    /**
+    * 租户编号
+    * [租户编号]
+    */
+    @ApiModelProperty(value = "租户编号")
+    private Long tid;
 
     /**
     * 元素类型
@@ -59,6 +66,13 @@ public class DevpOpsAssetCmdbVO {
     */
     @ApiModelProperty(value = "描述")
     private String description;
+
+    /**
+    * 记录状态
+    * [记录状态]-0-失效;1-生效;缺省为1
+    */
+    @ApiModelProperty(value = "记录状态")
+    private Integer recordState;
 
     /**
     * 类型代码
@@ -292,6 +306,12 @@ public class DevpOpsAssetCmdbVO {
     private String parasCode;
 
 
+    public Long getTid(){
+        return tid;
+    }
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
     public String getEtype(){
         return etype;
     }
@@ -321,6 +341,12 @@ public class DevpOpsAssetCmdbVO {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public Integer getRecordState(){
+        return recordState;
+    }
+    public void setRecordState(Integer recordState) {
+        this.recordState = recordState;
     }
     public String getTypeCode(){
         return typeCode;
@@ -521,11 +547,11 @@ public class DevpOpsAssetCmdbVO {
         this.parasCode = parasCode;
     }
 
-	public Long getRid() {
-		return rid;
+	public Long getId() {
+		return id;
 	}
-	public void setRid(Long rid) {
-		this.rid = rid;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
     @Override
