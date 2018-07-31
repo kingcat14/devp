@@ -9,8 +9,7 @@ Ext.define('AM.store.product.sys.DevpSysCmpModuleStore', {
         me.callParent([Ext.apply({
             autoLoad: false
             ,model: 'AM.model.product.sys.DevpSysCmpModule'
-            ,pageSize: 10
-            ,limitParam:'pageSize'
+            ,pageSize: 25
             ,proxy: {
                 type: 'rest'
                 ,pageParam:'page'

@@ -1,15 +1,14 @@
 package net.aicoder.devp.product.business.sys.domain;
 
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 
@@ -18,7 +17,7 @@ import javax.validation.constraints.Size;
  * @author icode
  */
 @Entity
-@Table
+@Table(appliesTo = "devp_sys_cmp", comment = "[系统组件]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpSysCmp extends BaseEntity{

@@ -1,5 +1,6 @@
 Ext.define('AM.view.product.sys.DevpSysCmpModuleAddWindow', {
     extend: 'Ext.window.Window'
+    ,xtype: 'product.sys.DevpSysCmpModuleAddWindow'
     ,requires:[
     ]
     ,autoScroll: true
@@ -21,186 +22,154 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleAddWindow', {
                     ,autoScroll: true
                     ,bodyPadding: 10
                     ,fieldDefaults: {
-                        labelAlign: 'top'
+                        labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
-                    ,items: [
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'column'
-                            },
-                            items: [
-                                {
-                                    xtype: 'container',
-                                    columnWidth: 0.5,
-                                    layout: {
-                                        type: 'anchor'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'idField',
-                                            name: 'id',
-                                            fieldLabel: 'Label'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'tidField',
-                                            name: 'tid',
-                                            fieldLabel: '租户编号'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'codeField',
-                                            name: 'code',
-                                            fieldLabel: '对应关系代码'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'descriptionField',
-                                            name: 'description',
-                                            fieldLabel: '对应关系描述'
-                                        }
+                    ,
 
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'versionField',
-                                            name: 'version',
-                                            fieldLabel: '版本'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'statusField',
-                                            name: 'status',
-                                            fieldLabel: '状态'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'elmRidField',
-                                            name: 'elmRid',
-                                            fieldLabel: '系统元素编号'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'seqField',
-                                            name: 'seq',
-                                            fieldLabel: '顺序号'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'createUcodeField',
-                                            name: 'createUcode',
-                                            fieldLabel: '创建用户代码'
-                                        }
+                    items: [
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'ridField',
+                            name: 'rid',
+                            fieldLabel: '记录编号'
 
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    columnWidth: 0.5,
-                                    layout: {
-                                        type: 'anchor'
-                                    },
-                                    items: [
-                                        {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'versionField',
-                                            name: 'version',
-                                            fieldLabel: 'Label'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'nameField',
-                                            name: 'name',
-                                            fieldLabel: '对应关系名称'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'aliasField',
-                                            name: 'alias',
-                                            fieldLabel: '对应关系别名'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'typeField',
-                                            name: 'type',
-                                            fieldLabel: '对应关系类型'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'scopeField',
-                                            name: 'scope',
-                                            fieldLabel: '范围'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'phaseField',
-                                            name: 'phase',
-                                            fieldLabel: '阶段'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'prdRidField',
-                                            name: 'prdRid',
-                                            fieldLabel: '产品编号'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'mduRidField',
-                                            name: 'mduRid',
-                                            fieldLabel: '模块编号'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'recordStateField',
-                                            name: 'recordState',
-                                            fieldLabel: '记录状态'
-                                        }
-                                        ,{
-                                            xtype: 'hiddenfield',
-                                            allowBlank:true,
-                                            itemId: 'modifyUcodeField',
-                                            name: 'modifyUcode',
-                                            fieldLabel: '修改用户代码'
-                                        }
-                                    ]
-                                }
-                            ]
                         }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'tidField',
+                            name: 'tid',
+                            fieldLabel: '租户编号'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'etypeField',
+                            name: 'etype',
+                            fieldLabel: '元素类型'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'nameField',
+                            name: 'name',
+                            fieldLabel: '对应关系名称'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'codeField',
+                            name: 'code',
+                            fieldLabel: '对应关系代码'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'aliasField',
+                            name: 'alias',
+                            fieldLabel: '对应关系别名'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'descriptionField',
+                            name: 'description',
+                            fieldLabel: '对应关系描述'
+
+                        }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:true,
+                            itemId: 'recordStateField',
+                            name: 'recordState',
+                            fieldLabel: '记录状态'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'typeField',
+                            name: 'type',
+                            fieldLabel: '类型'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'subTypeField',
+                            name: 'subType',
+                            fieldLabel: '子类型'
+
+                        }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'prdRidField',
+                            name: 'prdRid',
+                            fieldLabel: '产品编号'
+
+                        }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'cmpRidField',
+                            name: 'cmpRid',
+                            fieldLabel: '组件编号'
+
+                        }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'mduRidField',
+                            name: 'mduRid',
+                            fieldLabel: '模块编号'
+
+                        }
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:true,
+                            itemId: 'seqField',
+                            name: 'seq',
+                            fieldLabel: '顺序号'
+
+                        }
+
+
                     ]
                 }
             ],
@@ -239,7 +208,7 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleAddWindow', {
             return;
         }
 
-        var id = this.down("#idField").getValue();
+        //var id = this.down("#idField").getValue();
 
         var record = this.down('form').getForm().getRecord();
 
@@ -250,19 +219,13 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleAddWindow', {
             success: function (newRecord) {
                 Ext.MsgUtil.show('操作成功', '保存组件对应模块成功!');
                 me.down('form').getForm().loadRecord(newRecord);
-                me.store.load({
-                    callback: function (records, operation, success) {
-                        if (success) {
-                            Ext.MsgUtil.show('操作成功', '同步组件对应模块列表成功');
-                        }
-
-                    }
-                });
+                me.fireEvent('saved');
+                me.hide(this.targetComp);
             }
         });
 
 
-        this.hide(this.targetComp);
+
     },
 
     setModel: function (model) {
@@ -276,9 +239,6 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleAddWindow', {
             this.setTitle("新增组件对应模块信息");
         }
         this.down('form').getForm().loadRecord(model);
-    },
-    setStore: function (store) {
-        this.store = store;
     }
 
 });

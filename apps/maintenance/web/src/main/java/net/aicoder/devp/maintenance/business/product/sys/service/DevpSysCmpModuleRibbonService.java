@@ -1,5 +1,6 @@
 package net.aicoder.devp.maintenance.business.product.sys.service;
 
+import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.product.client.sys.DevpSysCmpModuleRibbon;
@@ -28,7 +29,12 @@ public class DevpSysCmpModuleRibbonService  {
 
 	public DevpSysCmpModuleVO add(DevpSysCmpModuleAddDto addDto){
 		DevpSysCmpModuleResult result = devpSysCmpModuleRibbon.add(addDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
 		return result.getData();
+	
 	}
 
 	public void delete(Long id){
@@ -38,18 +44,36 @@ public class DevpSysCmpModuleRibbonService  {
 		}
 		LOGGER.debug("delete t:{}", id);
 		DevpSysCmpModuleResult result = devpSysCmpModuleRibbon.delete(id);
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
 	}
 	public DevpSysCmpModuleVO merge(Long id, DevpSysCmpModuleEditDto editDto){
 		DevpSysCmpModuleResult result = devpSysCmpModuleRibbon.update(id, editDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 	public DevpSysCmpModuleVO find(Long id){
 		DevpSysCmpModuleResult result = devpSysCmpModuleRibbon.get(id);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 
 	public PageContent<DevpSysCmpModuleVO> list(PageSearchRequest<DevpSysCmpModuleCondition> pageSearchRequest) {
 		DevpSysCmpModulePageResult result = devpSysCmpModuleRibbon.list(pageSearchRequest);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 }

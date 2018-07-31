@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("devpSysCmpDao")
-public interface DevpSysCmpDao extends BaseDao<DevpSysCmp, Long> {
+public interface DevpSysCmpDao extends BaseDao<DevpSysCmp, Long>{
 
 
 }

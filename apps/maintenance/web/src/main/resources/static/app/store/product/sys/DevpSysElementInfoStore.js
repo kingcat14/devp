@@ -9,8 +9,7 @@ Ext.define('AM.store.product.sys.DevpSysElementInfoStore', {
         me.callParent([Ext.apply({
             autoLoad: false
             ,model: 'AM.model.product.sys.DevpSysElementInfo'
-            ,pageSize: 10
-            ,limitParam:'pageSize'
+            ,pageSize: 25
             ,proxy: {
                 type: 'rest'
                 ,pageParam:'page'

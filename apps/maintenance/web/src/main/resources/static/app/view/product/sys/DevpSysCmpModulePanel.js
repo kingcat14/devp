@@ -2,13 +2,100 @@ Ext.define('AM.view.product.sys.DevpSysCmpModulePanel', {
     extend: 'Ext.grid.Panel'
     ,xtype: 'product.sys.DevpSysCmpModulePanel'
     ,title: '组件对应模块'
+    ,requires: [
+        'AM.view.product.sys.DevpSysCmpModuleController'
+        ,'AM.view.product.sys.DevpSysCmpModuleAddWindow'
+        ,'AM.view.product.sys.DevpSysCmpModuleEditWindow'
+        ,'AM.view.product.sys.DevpSysCmpModuleSearchWindow'
+        ,'AM.view.product.sys.DevpSysCmpModuleDetailWindow'
+    ]
+    ,controller: 'sys_DevpSysCmpModuleController'
     ,initComponent: function() {
-
         var me = this;
 
         Ext.apply(me, {
             columnLines: true
             ,columns: [
+                {
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'tid'
+                    ,text: '租户编号'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'etype'
+                    ,text: '元素类型'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'name'
+                    ,text: '对应关系名称'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'code'
+                    ,text: '对应关系代码'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'alias'
+                    ,text: '对应关系别名'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'description'
+                    ,text: '对应关系描述'
+                    
+                }
+                ,{
+                    xtype: 'numbercolumn'
+                    ,dataIndex: 'recordState'
+                    ,format:'0,000'
+                    ,text: '记录状态'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'type'
+                    ,text: '类型'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'subType'
+                    ,text: '子类型'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'prdRid'
+                    ,text: '产品编号'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'cmpRid'
+                    ,text: '组件编号'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'mduRid'
+                    ,text: '模块编号'
+                    
+                }
+                ,{
+                    xtype: 'numbercolumn'
+                    ,dataIndex: 'seq'
+                    ,format:'0,000'
+                    ,text: '顺序号'
+                    ,flex:1
+                }
                 ,{
                     xtype: 'actioncolumn'
                     ,menuDisabled: true
@@ -148,7 +235,12 @@ Ext.define('AM.view.product.sys.DevpSysCmpModulePanel', {
                     ,scope: me
                 }
             }
+            ,items:[]
         });
+        me.add({xtype:'product.sys.DevpSysCmpModuleAddWindow',reference:'devpSysCmpModuleAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'product.sys.DevpSysCmpModuleEditWindow',reference:'devpSysCmpModuleEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'product.sys.DevpSysCmpModuleSearchWindow',reference:'devpSysCmpModuleSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'product.sys.DevpSysCmpModuleDetailWindow',reference:'devpSysCmpModuleDetailWindow'})
 
         me.callParent(arguments);
     }
@@ -164,7 +256,6 @@ Ext.define('AM.view.product.sys.DevpSysCmpModulePanel', {
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({
             params:{
-                start:0,
                 page:0
             }
         });
@@ -226,66 +317,29 @@ Ext.define('AM.view.product.sys.DevpSysCmpModulePanel', {
     }
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
-
-        var addWindow = me.addWindow;
-
-        if(!addWindow||addWindow.isHidden()){
-
-            addWindow = Ext.create('AM.view.product.sys.DevpSysCmpModuleAddWindow',{store:me.getStore()});
-            me.addWindow = addWindow;
-        }
-
+        var addWindow = me.lookupReference('devpSysCmpModuleAddWindow');
         addWindow.setModel(model);
-
         addWindow.show(targetComponent);
-        addWindow.setStore(this.store);
         return addWindow;
     }
     ,showEditWindow: function(model, targetComponent) {
         var me = this;
-
-        var editWindow = me.editWindow;
-
-        if(!editWindow||editWindow.isHidden()){
-
-            editWindow = Ext.create('AM.view.product.sys.DevpSysCmpModuleEditWindow',{store:me.getStore()});
-            me.editWindow = editWindow;
-        }
-
+        var editWindow = me.lookupReference('devpSysCmpModuleEditWindow');
         editWindow.setModel(model);
-
         editWindow.show(targetComponent);
-        editWindow.setStore(this.store);
         return editWindow;
     }
     ,showDetailWindow: function(model, targetComponent) {
         var me = this;
-
-        var detailWindow = me.detailWindow;
-
-        if(!detailWindow||detailWindow.isHidden()){
-
-            detailWindow = Ext.create('AM.view.product.sys.DevpSysCmpModuleDetailWindow',{store:me.getStore()});
-            me.detailWindow = detailWindow;
-        }
-
+        var detailWindow = me.lookupReference('devpSysCmpModuleDetailWindow');
         detailWindow.setModel(model);
-
         detailWindow.show(targetComponent);
         return detailWindow;
     }
     ,showSearchWindow: function(button, e, options) {
         var me = options.scope;
 
-        var searchWindow = me.searchWindow;
-
-        if(!searchWindow){
-
-            searchWindow = Ext.create('AM.view.product.sys.DevpSysCmpModuleSearchWindow');
-            me.searchWindow = searchWindow;
-            searchWindow.setStore(this.store);
-        }
-
+        var searchWindow = me.lookupReference('devpSysCmpModuleSearchWindow');
         searchWindow.show(button);
     }
     ,setStore: function(store) {

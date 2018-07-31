@@ -21,7 +21,7 @@ Ext.define('AM.view.product.sys.DevpSysElementInfoMainPanel', {
 	    Ext.apply(me, {
 		    items: [
 			    {
-				    xtype: 'sysDevpSysElementInfoPanel'
+				    xtype: 'product.sys.DevpSysElementInfoPanel'
 				    ,region: 'center'
 				    ,itemId: 'devpSysElementInfoGrid'
 					,reference: 'devpSysElementInfoGrid'

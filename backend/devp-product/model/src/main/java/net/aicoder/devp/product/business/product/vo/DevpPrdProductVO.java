@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import net.aicoder.devp.product.business.sys.vo.DevpSysCmpVO;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -209,6 +211,9 @@ public class DevpPrdProductVO {
     */
     private String cmodifyUcode;
 
+    @ApiModelProperty(value = "产品包含的组件")
+    private List<DevpSysCmpVO> devpSysCmpList;
+
 
     public Long getTid(){
         return tid;
@@ -371,6 +376,13 @@ public class DevpPrdProductVO {
     }
     public void setCmodifyUcode(String cmodifyUcode) {
         this.cmodifyUcode = cmodifyUcode;
+    }
+
+    public List<DevpSysCmpVO> getDevpSysCmpList() {
+        return devpSysCmpList;
+    }
+    public void setDevpSysCmpList(List<DevpSysCmpVO> devpSysCmpList) {
+        this.devpSysCmpList = devpSysCmpList;
     }
 
     public Long getId() {

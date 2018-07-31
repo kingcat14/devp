@@ -51,7 +51,10 @@ public class DevpSysCmpModuleRibbon {
         String url = "http://"+host+"/sys/devpSysCmpModule";
         return restTemplate.postForObject(url, addDto, DevpSysCmpModuleResult.class);
     }
-    private DevpSysCmpModuleResult addFail(DevpSysCmpModuleAddDto addDto) {
+    private DevpSysCmpModuleResult addFail(DevpSysCmpModuleAddDto addDto, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysCmpModuleResult result = new DevpSysCmpModuleResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -69,7 +72,10 @@ public class DevpSysCmpModuleRibbon {
                 restTemplate.exchange(url, HttpMethod.DELETE, null, new ParameterizedTypeReference<DevpSysCmpModuleResult>() {});
         return response.getBody();
     }
-    private DevpSysCmpModuleResult deleteFail(Long id) {
+    private DevpSysCmpModuleResult deleteFail(Long id, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysCmpModuleResult result = new DevpSysCmpModuleResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -90,7 +96,10 @@ public class DevpSysCmpModuleRibbon {
         return response.getBody();
     }
 
-    public DevpSysCmpModuleResult updateFail(Long id, DevpSysCmpModuleEditDto updateRequest) {
+    public DevpSysCmpModuleResult updateFail(Long id, DevpSysCmpModuleEditDto updateRequest, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysCmpModuleResult result = new DevpSysCmpModuleResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -114,7 +123,10 @@ public class DevpSysCmpModuleRibbon {
      * @param id
      * @return
      */
-    private DevpSysCmpModuleResult getFail(Long id) {
+    private DevpSysCmpModuleResult getFail(Long id, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysCmpModuleResult result = new DevpSysCmpModuleResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -131,7 +143,10 @@ public class DevpSysCmpModuleRibbon {
         String url = "http://"+host+"/sys/devpSysCmpModule/list";
         return restTemplate.postForObject(url, pageSearchRequest, DevpSysCmpModulePageResult.class);
     }
-    public DevpSysCmpModulePageResult listFail(PageSearchRequest<DevpSysCmpModuleCondition> pageSearchRequest) {
+    public DevpSysCmpModulePageResult listFail(PageSearchRequest<DevpSysCmpModuleCondition> pageSearchRequest, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysCmpModulePageResult result = new DevpSysCmpModulePageResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");

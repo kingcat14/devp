@@ -21,7 +21,7 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleMainPanel', {
 	    Ext.apply(me, {
 		    items: [
 			    {
-				    xtype: 'sysDevpSysCmpModulePanel'
+				    xtype: 'product.sys.DevpSysCmpModulePanel'
 				    ,region: 'center'
 				    ,itemId: 'devpSysCmpModuleGrid'
 					,reference: 'devpSysCmpModuleGrid'

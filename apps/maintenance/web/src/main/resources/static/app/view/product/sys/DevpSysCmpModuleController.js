@@ -18,4 +18,29 @@ Ext.define('AM.view.product.sys.DevpSysCmpModuleController', {
 
 
 	}
+	,reloadStore:function () {
+        var me = this;
+        var devpSysCmpModuleAddWindow = me.lookupReference ('devpSysCmpModuleAddWindow');
+        var devpSysCmpModuleGrid = devpSysCmpModuleAddWindow.up('gridpanel');
+
+        devpSysCmpModuleGrid.getStore().load({
+            callback: function (records, operation, success) {
+                if (success) {
+                    Ext.MsgUtil.show('操作成功', '同步列表成功');
+                }
+            }
+        });
+    }
+    ,doSearch:function () {
+        var me = this;
+        var devpSysCmpModuleSearchWindow = me.lookupReference ('devpSysCmpModuleSearchWindow');
+        var devpSysCmpModuleGrid = devpSysCmpModuleSearchWindow.up('gridpanel');
+        devpSysCmpModuleGrid.getStore().proxy.extraParams={searchCondition:devpSysCmpModuleSearchWindow.getCondition()};
+        devpSysCmpModuleGrid.getStore().load({
+            params:{
+                start:0,
+                page:0
+            }
+        });
+    }
 })

@@ -1,17 +1,17 @@
-Ext.define('AM.view.product.系统.DevpSysElementInfoSearchWindow', {
-    extend: 'Ext.window.Window',
-    alias: 'widget.product系统DevpSysElementInfoSearchWindow',
-
-    autoScroll: true,
-    height: 250,
-    width: 400,
-    layout: {
+Ext.define('AM.view.product.sys.DevpSysElementInfoSearchWindow', {
+    extend: 'Ext.window.Window'
+    ,xtype: 'product.sys.DevpSysElementInfoSearchWindow'
+    ,alias: 'widget.productsysDevpSysElementInfoSearchWindow'
+    ,autoScroll: true
+    ,height: 250
+    ,width: 400
+    ,layout: {
         type: 'fit'
-    },
-    title: '系统元素扩充信息高级查询',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+    }
+    ,title: '系统元素扩充信息高级查询'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -50,53 +50,34 @@ Ext.define('AM.view.product.系统.DevpSysElementInfoSearchWindow', {
                                         }
                                         ,{
                                             xtype: 'textfield',
-                                            itemId: 'nameField',
-                                            name: 'name',
-                                            fieldLabel: '扩展信息名称'
+                                            itemId: 'codeField',
+                                            name: 'code',
+                                            fieldLabel: '扩展信息代码'
                                         }
                                         ,{
                                             xtype: 'textfield',
-                                            itemId: 'descriptionField',
-                                            name: 'description',
-                                            fieldLabel: '扩展信息描述'
+                                            itemId: 'aliasField',
+                                            name: 'alias',
+                                            fieldLabel: '扩展信息别名'
                                         }
                                         ,{
                                             xtype: 'numberfield',
                                             allowDecimals:false,
-                                            itemId: 'elmRidField',
-                                            name: 'elmRid',
-                                            fieldLabel: '系统元素编号'
-                                        }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'seqField',
-                                            name: 'seq',
-                                            fieldLabel: '顺序号'
+                                            itemId: 'recordStateField',
+                                            name: 'recordState',
+                                            fieldLabel: '记录状态'
                                         }
                                         ,{
                                             xtype: 'textfield',
-                                            itemId: 'infoValue2Field',
-                                            name: 'infoValue2',
-                                            fieldLabel: '信息值2'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'infoValue4Field',
-                                            name: 'infoValue4',
-                                            fieldLabel: '信息值4'
+                                            itemId: 'dataTypeField',
+                                            name: 'dataType',
+                                            fieldLabel: '数据类型'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'notesField',
                                             name: 'notes',
                                             fieldLabel: '备注'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'createUcodeField',
-                                            name: 'createUcode',
-                                            fieldLabel: '创建用户代码'
                                         }
 
                                     ]
@@ -117,85 +98,47 @@ Ext.define('AM.view.product.系统.DevpSysElementInfoSearchWindow', {
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'codeField',
+                                            itemId: 'etypeField',
                                             padding: '5 0 0 5',
-                                            name: 'code',
-                                            fieldLabel: '扩展信息代码',
+                                            name: 'etype',
+                                            fieldLabel: '元素类型',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'aliasField',
+                                            itemId: 'nameField',
                                             padding: '5 0 0 5',
-                                            name: 'alias',
-                                            fieldLabel: '扩展信息别名',
+                                            name: 'name',
+                                            fieldLabel: '扩展信息名称',
+                                            labelAlign: 'top'
+                                        }
+                                        ,{
+                                            xtype: 'textfield',
+                                            anchor: '96%',
+                                            itemId: 'descriptionField',
+                                            padding: '5 0 0 5',
+                                            name: 'description',
+                                            fieldLabel: '扩展信息描述',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'numberfield',
                                             allowDecimals:false,
                                             anchor: '96%',
-                                            itemId: 'prdRidField',
+                                            itemId: 'objRidField',
                                             padding: '5 0 0 5',
-                                            name: 'prdRid',
-                                            fieldLabel: '产品编号',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            anchor: '96%',
-                                            itemId: 'instRidField',
-                                            padding: '5 0 0 5',
-                                            name: 'instRid',
-                                            fieldLabel: '系统元素实例编号',
+                                            name: 'objRid',
+                                            fieldLabel: '元素编号',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'infoValue1Field',
+                                            itemId: 'infoValueField',
                                             padding: '5 0 0 5',
-                                            name: 'infoValue1',
-                                            fieldLabel: '信息值1',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'infoValue3Field',
-                                            padding: '5 0 0 5',
-                                            name: 'infoValue3',
-                                            fieldLabel: '信息值3',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'infoValue5Field',
-                                            padding: '5 0 0 5',
-                                            name: 'infoValue5',
-                                            fieldLabel: '信息值5',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            anchor: '96%',
-                                            itemId: 'recordStateField',
-                                            padding: '5 0 0 5',
-                                            name: 'recordState',
-                                            fieldLabel: '记录状态',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'modifyUcodeField',
-                                            padding: '5 0 0 5',
-                                            name: 'modifyUcode',
-                                            fieldLabel: '修改用户代码',
+                                            name: 'infoValue',
+                                            fieldLabel: '扩展信息值',
                                             labelAlign: 'top'
                                         }
                                     ]
@@ -254,73 +197,48 @@ Ext.define('AM.view.product.系统.DevpSysElementInfoSearchWindow', {
             return;
         }
 
+        me.fireEvent('saved');
+        me.hide();
+    }
+    ,onRestButtonClick: function (button, e, options) {
+        var me = this;
+        me.down('form').getForm().reset();
+        
+        me.fireEvent('saved');
+
+       
+    }
+    ,getCondition: function(){
+
+        var me = this;
         var tidField = me.down("#tidField");
+        var etypeField = me.down("#etypeField");
         var codeField = me.down("#codeField");
         var nameField = me.down("#nameField");
         var aliasField = me.down("#aliasField");
         var descriptionField = me.down("#descriptionField");
-        var prdRidField = me.down("#prdRidField");
-        var elmRidField = me.down("#elmRidField");
-        var instRidField = me.down("#instRidField");
-        var seqField = me.down("#seqField");
-        var infoValue1Field = me.down("#infoValue1Field");
-        var infoValue2Field = me.down("#infoValue2Field");
-        var infoValue3Field = me.down("#infoValue3Field");
-        var infoValue4Field = me.down("#infoValue4Field");
-        var infoValue5Field = me.down("#infoValue5Field");
-        var notesField = me.down("#notesField");
         var recordStateField = me.down("#recordStateField");
-        var createUcodeField = me.down("#createUcodeField");
-        var modifyUcodeField = me.down("#modifyUcodeField");
+        var objRidField = me.down("#objRidField");
+        var dataTypeField = me.down("#dataTypeField");
+        var infoValueField = me.down("#infoValueField");
+        var notesField = me.down("#notesField");
 
         var condition = {
             tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
+            ,etype:Ext.isEmpty(etypeField.getValue())?null:etypeField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
-            ,prdRid:Ext.isNumber(prdRidField.getValue())?prdRidField.getValue():null
-            ,elmRid:Ext.isNumber(elmRidField.getValue())?elmRidField.getValue():null
-            ,instRid:Ext.isNumber(instRidField.getValue())?instRidField.getValue():null
-            ,seq:Ext.isNumber(seqField.getValue())?seqField.getValue():null
-            ,infoValue1:Ext.isEmpty(infoValue1Field.getValue())?null:infoValue1Field.getValue()
-            ,infoValue2:Ext.isEmpty(infoValue2Field.getValue())?null:infoValue2Field.getValue()
-            ,infoValue3:Ext.isEmpty(infoValue3Field.getValue())?null:infoValue3Field.getValue()
-            ,infoValue4:Ext.isEmpty(infoValue4Field.getValue())?null:infoValue4Field.getValue()
-            ,infoValue5:Ext.isEmpty(infoValue5Field.getValue())?null:infoValue5Field.getValue()
-            ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
             ,recordState:Ext.isNumber(recordStateField.getValue())?recordStateField.getValue():null
-            ,createUcode:Ext.isEmpty(createUcodeField.getValue())?null:createUcodeField.getValue()
-            ,modifyUcode:Ext.isEmpty(modifyUcodeField.getValue())?null:modifyUcodeField.getValue()
+            ,objRid:Ext.isNumber(objRidField.getValue())?objRidField.getValue():null
+            ,dataType:Ext.isEmpty(dataTypeField.getValue())?null:dataTypeField.getValue()
+            ,infoValue:Ext.isEmpty(infoValueField.getValue())?null:infoValueField.getValue()
+            ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
         };
 
-        this.store.proxy.extraParams={searchCondition:condition};
-        this.store.load({
-            params:{
-                start:0,
-                page:0
-            }
-        });
-
-
-        this.hide();
+        return condition;
     }
-    ,onRestButtonClick: function (button, e, options) {
-
-        this.down('form').getForm().reset();
-
-        this.store.proxy.extraParams={searchCondition:{}};
-            this.store.load({
-            params:{
-                start:0,
-                page:0
-            }
-        });
-
-
-        this.hide();
-    }
-
     ,setStore: function (store) {
         this.store = store;
     }

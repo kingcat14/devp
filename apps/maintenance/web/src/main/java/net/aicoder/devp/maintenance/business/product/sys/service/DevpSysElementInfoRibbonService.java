@@ -1,5 +1,6 @@
 package net.aicoder.devp.maintenance.business.product.sys.service;
 
+import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.product.client.sys.DevpSysElementInfoRibbon;
@@ -28,7 +29,12 @@ public class DevpSysElementInfoRibbonService  {
 
 	public DevpSysElementInfoVO add(DevpSysElementInfoAddDto addDto){
 		DevpSysElementInfoResult result = devpSysElementInfoRibbon.add(addDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
 		return result.getData();
+	
 	}
 
 	public void delete(Long id){
@@ -38,18 +44,36 @@ public class DevpSysElementInfoRibbonService  {
 		}
 		LOGGER.debug("delete t:{}", id);
 		DevpSysElementInfoResult result = devpSysElementInfoRibbon.delete(id);
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
 	}
 	public DevpSysElementInfoVO merge(Long id, DevpSysElementInfoEditDto editDto){
 		DevpSysElementInfoResult result = devpSysElementInfoRibbon.update(id, editDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 	public DevpSysElementInfoVO find(Long id){
 		DevpSysElementInfoResult result = devpSysElementInfoRibbon.get(id);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 
 	public PageContent<DevpSysElementInfoVO> list(PageSearchRequest<DevpSysElementInfoCondition> pageSearchRequest) {
 		DevpSysElementInfoPageResult result = devpSysElementInfoRibbon.list(pageSearchRequest);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("PRODUCT", "SYS", result.getCode()+"", result.getMessage());
+		}
+
 		return result.getData();
 	}
 }

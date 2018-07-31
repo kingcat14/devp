@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -131,6 +131,9 @@ public class DevpPrdPrdlineVO {
     */
     private String modifyUcode;
 
+    @ApiModelProperty(value = "产品线包含的产品")
+    private List<DevpPrdProductVO> productList;
+
 
     public String getCode(){
         return code;
@@ -227,6 +230,13 @@ public class DevpPrdPrdlineVO {
     }
     public void setModifyUcode(String modifyUcode) {
         this.modifyUcode = modifyUcode;
+    }
+
+    public List<DevpPrdProductVO> getProductList() {
+        return productList;
+    }
+    public void setProductList(List<DevpPrdProductVO> productList) {
+        this.productList = productList;
     }
 
     public Long getId() {

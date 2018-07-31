@@ -51,7 +51,10 @@ public class DevpSysElementInfoRibbon {
         String url = "http://"+host+"/sys/devpSysElementInfo";
         return restTemplate.postForObject(url, addDto, DevpSysElementInfoResult.class);
     }
-    private DevpSysElementInfoResult addFail(DevpSysElementInfoAddDto addDto) {
+    private DevpSysElementInfoResult addFail(DevpSysElementInfoAddDto addDto, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysElementInfoResult result = new DevpSysElementInfoResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -69,7 +72,10 @@ public class DevpSysElementInfoRibbon {
                 restTemplate.exchange(url, HttpMethod.DELETE, null, new ParameterizedTypeReference<DevpSysElementInfoResult>() {});
         return response.getBody();
     }
-    private DevpSysElementInfoResult deleteFail(Long id) {
+    private DevpSysElementInfoResult deleteFail(Long id, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysElementInfoResult result = new DevpSysElementInfoResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -90,7 +96,10 @@ public class DevpSysElementInfoRibbon {
         return response.getBody();
     }
 
-    public DevpSysElementInfoResult updateFail(Long id, DevpSysElementInfoEditDto updateRequest) {
+    public DevpSysElementInfoResult updateFail(Long id, DevpSysElementInfoEditDto updateRequest, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysElementInfoResult result = new DevpSysElementInfoResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -114,7 +123,10 @@ public class DevpSysElementInfoRibbon {
      * @param id
      * @return
      */
-    private DevpSysElementInfoResult getFail(Long id) {
+    private DevpSysElementInfoResult getFail(Long id, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysElementInfoResult result = new DevpSysElementInfoResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");
@@ -131,7 +143,10 @@ public class DevpSysElementInfoRibbon {
         String url = "http://"+host+"/sys/devpSysElementInfo/list";
         return restTemplate.postForObject(url, pageSearchRequest, DevpSysElementInfoPageResult.class);
     }
-    public DevpSysElementInfoPageResult listFail(PageSearchRequest<DevpSysElementInfoCondition> pageSearchRequest) {
+    public DevpSysElementInfoPageResult listFail(PageSearchRequest<DevpSysElementInfoCondition> pageSearchRequest, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
         DevpSysElementInfoPageResult result = new DevpSysElementInfoPageResult();
         result.setCode(RestStatus.SERVER_ERROR.ordinal());
         result.setMessage("系统繁忙，请稍后再试");

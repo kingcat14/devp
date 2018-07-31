@@ -2,13 +2,87 @@ Ext.define('AM.view.product.sys.DevpSysElementInfoPanel', {
     extend: 'Ext.grid.Panel'
     ,xtype: 'product.sys.DevpSysElementInfoPanel'
     ,title: '系统元素扩充信息'
+    ,requires: [
+        'AM.view.product.sys.DevpSysElementInfoController'
+        ,'AM.view.product.sys.DevpSysElementInfoAddWindow'
+        ,'AM.view.product.sys.DevpSysElementInfoEditWindow'
+        ,'AM.view.product.sys.DevpSysElementInfoSearchWindow'
+        ,'AM.view.product.sys.DevpSysElementInfoDetailWindow'
+    ]
+    ,controller: 'sys_DevpSysElementInfoController'
     ,initComponent: function() {
-
         var me = this;
 
         Ext.apply(me, {
             columnLines: true
             ,columns: [
+                {
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'tid'
+                    ,text: '租户编号'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'etype'
+                    ,text: '元素类型'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'code'
+                    ,text: '扩展信息代码'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'name'
+                    ,text: '扩展信息名称'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'alias'
+                    ,text: '扩展信息别名'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'description'
+                    ,text: '扩展信息描述'
+                    
+                }
+                ,{
+                    xtype: 'numbercolumn'
+                    ,dataIndex: 'recordState'
+                    ,format:'0,000'
+                    ,text: '记录状态'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'objRid'
+                    ,text: '元素编号'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'dataType'
+                    ,text: '数据类型'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'infoValue'
+                    ,text: '扩展信息值'
+                    
+                }
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'notes'
+                    ,text: '备注'
+                    ,flex:1
+                }
                 ,{
                     xtype: 'actioncolumn'
                     ,menuDisabled: true
@@ -148,7 +222,12 @@ Ext.define('AM.view.product.sys.DevpSysElementInfoPanel', {
                     ,scope: me
                 }
             }
+            ,items:[]
         });
+        me.add({xtype:'product.sys.DevpSysElementInfoAddWindow',reference:'devpSysElementInfoAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'product.sys.DevpSysElementInfoEditWindow',reference:'devpSysElementInfoEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'product.sys.DevpSysElementInfoSearchWindow',reference:'devpSysElementInfoSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'product.sys.DevpSysElementInfoDetailWindow',reference:'devpSysElementInfoDetailWindow'})
 
         me.callParent(arguments);
     }
@@ -164,7 +243,6 @@ Ext.define('AM.view.product.sys.DevpSysElementInfoPanel', {
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({
             params:{
-                start:0,
                 page:0
             }
         });
@@ -226,66 +304,29 @@ Ext.define('AM.view.product.sys.DevpSysElementInfoPanel', {
     }
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
-
-        var addWindow = me.addWindow;
-
-        if(!addWindow||addWindow.isHidden()){
-
-            addWindow = Ext.create('AM.view.product.sys.DevpSysElementInfoAddWindow',{store:me.getStore()});
-            me.addWindow = addWindow;
-        }
-
+        var addWindow = me.lookupReference('devpSysElementInfoAddWindow');
         addWindow.setModel(model);
-
         addWindow.show(targetComponent);
-        addWindow.setStore(this.store);
         return addWindow;
     }
     ,showEditWindow: function(model, targetComponent) {
         var me = this;
-
-        var editWindow = me.editWindow;
-
-        if(!editWindow||editWindow.isHidden()){
-
-            editWindow = Ext.create('AM.view.product.sys.DevpSysElementInfoEditWindow',{store:me.getStore()});
-            me.editWindow = editWindow;
-        }
-
+        var editWindow = me.lookupReference('devpSysElementInfoEditWindow');
         editWindow.setModel(model);
-
         editWindow.show(targetComponent);
-        editWindow.setStore(this.store);
         return editWindow;
     }
     ,showDetailWindow: function(model, targetComponent) {
         var me = this;
-
-        var detailWindow = me.detailWindow;
-
-        if(!detailWindow||detailWindow.isHidden()){
-
-            detailWindow = Ext.create('AM.view.product.sys.DevpSysElementInfoDetailWindow',{store:me.getStore()});
-            me.detailWindow = detailWindow;
-        }
-
+        var detailWindow = me.lookupReference('devpSysElementInfoDetailWindow');
         detailWindow.setModel(model);
-
         detailWindow.show(targetComponent);
         return detailWindow;
     }
     ,showSearchWindow: function(button, e, options) {
         var me = options.scope;
 
-        var searchWindow = me.searchWindow;
-
-        if(!searchWindow){
-
-            searchWindow = Ext.create('AM.view.product.sys.DevpSysElementInfoSearchWindow');
-            me.searchWindow = searchWindow;
-            searchWindow.setStore(this.store);
-        }
-
+        var searchWindow = me.lookupReference('devpSysElementInfoSearchWindow');
         searchWindow.show(button);
     }
     ,setStore: function(store) {
