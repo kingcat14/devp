@@ -40,7 +40,6 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 		tryAddStereotypePredicate(predicateList, root, cb);
 		tryAddScopePredicate(predicateList, root, cb);
 		tryAddVersionPredicate(predicateList, root, cb);
-		tryAddPhasePredicate(predicateList, root, cb);
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddPrdRidPredicate(predicateList, root, cb);
@@ -116,11 +115,6 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 	private void tryAddVersionPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getVersion())){
 			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_VERSION).as(String.class), "%"+condition.getVersion()+"%"));
-		}
-	}
-	private void tryAddPhasePredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getPhase())){
-			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_PHASE).as(String.class), "%"+condition.getPhase()+"%"));
 		}
 	}
 	private void tryAddStatusPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){

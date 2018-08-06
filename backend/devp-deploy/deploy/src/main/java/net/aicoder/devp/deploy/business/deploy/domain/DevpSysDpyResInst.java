@@ -34,7 +34,6 @@ public class DevpSysDpyResInst extends BaseEntity{
 	public static final String PROPERTY_STEREOTYPE = "stereotype";
 	public static final String PROPERTY_SCOPE = "scope";
 	public static final String PROPERTY_VERSION = "version";
-	public static final String PROPERTY_PHASE = "phase";
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_NOTES = "notes";
 	public static final String PROPERTY_PRD_RID = "prdRid";
@@ -147,14 +146,6 @@ public class DevpSysDpyResInst extends BaseEntity{
     @Column(name = "version")
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
-
-    /**
-    * 阶段
-    * [阶段]
-    */
-    @Column(name = "phase")
-	@Size(max = 255, message = "阶段超长，最多255个字符")
-	private String phase;
 
     /**
     * 状态
@@ -307,13 +298,6 @@ public class DevpSysDpyResInst extends BaseEntity{
 	}
 	public void setVersion(String version) {
 		this.version = version;
-	}
-
-	public String getPhase(){
-		return phase;
-	}
-	public void setPhase(String phase) {
-		this.phase = phase;
 	}
 
 	public String getStatus(){
