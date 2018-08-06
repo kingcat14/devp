@@ -12,7 +12,7 @@ import net.aicoder.devp.deploy.business.ops.dto.DevpOpsCiGroupEditDto;
 import net.aicoder.devp.deploy.business.ops.vo.DevpOpsCiGroupVO;
 import net.aicoder.devp.maintenance.business.deploy.ops.service.DevpOpsCiGroupRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.ops.valid.DevpOpsCiGroupValidator;
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

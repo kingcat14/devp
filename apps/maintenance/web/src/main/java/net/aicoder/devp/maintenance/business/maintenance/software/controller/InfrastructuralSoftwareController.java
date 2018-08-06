@@ -1,32 +1,23 @@
 package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareCondition;
-import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareAddDto;
-import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareEditDto;
-import net.aicoder.devp.maintenance.business.software.vo.InfrastructuralSoftwareVO;
 import net.aicoder.devp.maintenance.business.maintenance.software.service.InfrastructuralSoftwareRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.software.valid.InfrastructuralSoftwareValidator;
-
-
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareAddDto;
+import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareCondition;
+import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareEditDto;
+import net.aicoder.devp.maintenance.business.software.vo.InfrastructuralSoftwareVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 管理基础软件

@@ -25,9 +25,10 @@ Ext.define('AM.view.dashboard.UserDetailPanelController', {
 		this.getView().unmask();
 		console.log(response.responseText);
 
-		var config = Ext.decode(response.responseText)
+		var account = Ext.decode(response.responseText)
 
-		var result = Ext.create('AM.model.security.Account', config.data);
+		// var result = Ext.create('AM.model.security.Account', account.data);
+        var result = Ext.create('AM.model.security.Account', account);
 		console.log(Ext.getClassName(result))
 		this.getView().down('displayfield[name=nickName]').setValue(result.get('nickName'))
 		this.getView().down('displayfield[name=name]').setValue(result.get('name'))

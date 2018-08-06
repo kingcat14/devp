@@ -12,7 +12,7 @@ import net.aicoder.devp.deploy.business.deploy.dto.DevpSysDpyResourcesEditDto;
 import net.aicoder.devp.deploy.business.deploy.vo.DevpSysDpyResourcesVO;
 import net.aicoder.devp.maintenance.business.deploy.deploy.service.DevpSysDpyResourcesRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.deploy.valid.DevpSysDpyResourcesValidator;
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

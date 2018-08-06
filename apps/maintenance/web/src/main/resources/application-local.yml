@@ -26,3 +26,11 @@ spring:
 
 security:
   test: true
+  basic:
+    enabled: false
+
+management:
+  security:
+    enabled: false
+
+

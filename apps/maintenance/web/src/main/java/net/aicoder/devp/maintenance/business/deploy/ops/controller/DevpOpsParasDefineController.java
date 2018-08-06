@@ -12,7 +12,7 @@ import net.aicoder.devp.deploy.business.ops.dto.DevpOpsParasDefineEditDto;
 import net.aicoder.devp.deploy.business.ops.vo.DevpOpsParasDefineVO;
 import net.aicoder.devp.maintenance.business.deploy.ops.service.DevpOpsParasDefineRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.ops.valid.DevpOpsParasDefineValidator;
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

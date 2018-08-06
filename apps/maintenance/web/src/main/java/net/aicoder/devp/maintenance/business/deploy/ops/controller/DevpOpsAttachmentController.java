@@ -12,7 +12,7 @@ import net.aicoder.devp.deploy.business.ops.dto.DevpOpsAttachmentEditDto;
 import net.aicoder.devp.deploy.business.ops.vo.DevpOpsAttachmentVO;
 import net.aicoder.devp.maintenance.business.deploy.ops.service.DevpOpsAttachmentRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.ops.valid.DevpOpsAttachmentValidator;
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

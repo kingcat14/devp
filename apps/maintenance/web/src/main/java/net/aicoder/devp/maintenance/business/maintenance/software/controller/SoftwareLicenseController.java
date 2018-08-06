@@ -1,32 +1,23 @@
 package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseCondition;
-import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseAddDto;
-import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseEditDto;
-import net.aicoder.devp.maintenance.business.software.vo.SoftwareLicenseVO;
 import net.aicoder.devp.maintenance.business.maintenance.software.service.SoftwareLicenseRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.software.valid.SoftwareLicenseValidator;
-
-
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
+import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseAddDto;
+import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseCondition;
+import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseEditDto;
+import net.aicoder.devp.maintenance.business.software.vo.SoftwareLicenseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 管理服务许可

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;
-import net.aicoder.devp.maintenance.config.ApiResponseBodyHandler;
+import com.yunkang.saas.security.local.config.LocalSecurityAutoConfiguration;
+import net.aicoder.devp.maintenance.config.TypedApiResponseBodyHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
@@ -17,10 +18,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-@Import({ApiResponseBodyHandler.class, RestApiExceptionHandler.class})
+@Import({TypedApiResponseBodyHandler.class, RestApiExceptionHandler.class
+		,LocalSecurityAutoConfiguration.class})
 //@Import({RestApiExceptionHandler.class})
-@SpringBootApplication(scanBasePackages={"net.aicoder.devp.security"
-		,"net.aicoder.devp.maintenance"
+@SpringBootApplication(scanBasePackages={
+		"net.aicoder.devp.maintenance"
 		,"net.aicoder.devp.product.client"
 		,"net.aicoder.devp.deploy.client"})
 @EnableCircuitBreaker

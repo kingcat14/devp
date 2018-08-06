@@ -3,6 +3,7 @@ package net.aicoder.devp.maintenance.business.product.sys.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.security.local.business.service.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,8 +13,6 @@ import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleEditDto;
 import net.aicoder.devp.product.business.sys.vo.DevpSysCmpModuleVO;
 import net.aicoder.devp.maintenance.business.product.sys.service.DevpSysCmpModuleRibbonService;
 import net.aicoder.devp.maintenance.business.product.sys.valid.DevpSysCmpModuleValidator;
-import net.aicoder.devp.security.business.security.service.SecurityUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
