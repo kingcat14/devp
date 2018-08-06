@@ -3,9 +3,9 @@ package net.aicoder.devp.security.client.security;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yunkang.saas.common.framework.web.controller.RestStatus;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import net.aicoder.devp.security.business.security.dto.AccountAddDto;
-import net.aicoder.devp.security.business.security.dto.AccountCondition;
-import net.aicoder.devp.security.business.security.dto.AccountEditDto;
+import com.yunkang.saas.security.model.dto.AccountAddDto;
+import com.yunkang.saas.security.model.dto.AccountCondition;
+import com.yunkang.saas.security.model.dto.AccountEditDto;
 import net.aicoder.devp.security.client.security.result.AccountPageResult;
 import net.aicoder.devp.security.client.security.result.AccountResult;
 import org.slf4j.Logger;
@@ -61,6 +61,8 @@ public class AccountRibbon {
 	/**
 	 * 删除账号
 	 * @param id
+     *
+     *
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
     public AccountResult delete(Long id) {

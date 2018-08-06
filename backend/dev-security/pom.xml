@@ -9,7 +9,7 @@
         <artifactId>saas-biz-starter-parent </artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>net.aicoder.devp.security</groupId>
+    <groupId>com.yunkang.saas.security</groupId>
     <artifactId>security-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -35,7 +35,6 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-utils</artifactId>
@@ -46,7 +45,6 @@
             <artifactId>common-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        
     </dependencies>
     <profiles>
         <!-- 默认 -->
@@ -61,10 +59,32 @@
             <modules>
                 <module>model</module>
                 <module>web</module>
-                <module>security</module>
+                <module>security-local</module>
                 <module>client</module>
             </modules>
         </profile>
 
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>my-nexus-releases</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>my-nexus-releases</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/repositories/releases/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>my-nexus-snapshots</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

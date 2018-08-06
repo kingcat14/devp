@@ -17,10 +17,6 @@
             <artifactId>security-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.aicoder.devp.security</groupId>
-            <artifactId>security-security</artifactId>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
