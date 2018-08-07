@@ -2,25 +2,27 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.hardware.MachineEditWindow'
     ,requires:[
+        'AM.view.ux.FileUploadPanel'
     ],
     autoScroll: true,
     height: 350,
     width: 600,
     layout: {
-        type: 'fit'
+        type: 'vbox'
     },
     title: '修改服务器信息',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {
         var me = this;
-
         Ext.apply(me, {
             items: [
                 {
                     xtype: 'form',
+                    region: 'center',
                     autoScroll: true,
                     bodyPadding: 10,
+                    width:'100%',
                     fieldDefaults: {
                         labelAlign: 'top'
                         ,msgTarget: 'side'
@@ -304,6 +306,84 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
                     ]
                 }
+                ,{
+                    xtype:'grid'
+                    ,width:'96%'
+                    ,padding: '0 10 0 15'
+                    ,selModel: 'checkboxmodel'
+
+                    // ,frame:true
+                    ,title:'附件'
+                    ,collapsible:true
+                    ,border:true
+                    ,columnLines:true
+                    ,store:Ext.create('AM.store.deploy.ops.DevpOpsAttachmentStore')
+                    ,tbar: [
+                        {   xtype:'form'
+                            ,itemId:'fileForm'
+                            ,items:[{
+                                xtype: 'filefield'
+                                ,buttonOnly:true
+                                , buttonText:'新增附件'
+                                ,listeners:{
+                                    change:function (field, value) {
+                                        var form = me.down('#fileForm').getForm();
+
+                                        if (form.isValid()) {
+                                            form.submit({
+                                                url: 'common/attachment/upload'
+                                                ,waitMsg: '附件上传中...'
+                                                ,success: function(formPanel, action) {
+                                                    console.log(action)
+                                                    var attachment = action.result.initialPreviewConfig[0];
+                                                    var record = me.down('form').getForm().getRecord();
+
+                                                    me.down('grid').getStore().add({
+                                                        name:attachment.caption
+                                                        ,address:'common/attachment/download/'+attachment.extra.id
+                                                        ,code:attachment.extra.id
+                                                        ,nexusRid:record.get('id')
+                                                        ,nexusType:'Machine'
+                                                    });
+                                                }
+                                                ,failure: function(form, action) {
+                                                    console.log(action);
+                                                    Ext.Msg.alert('failure', action.failureType);
+                                                }
+                                            });
+                                        }
+                                    }
+                            }
+                        }]}
+                    ]
+                    ,columns: [
+                        {
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'name'
+                            ,menuDisabled: true
+                            ,text: '名称'
+                            ,flex: 1
+                            ,renderer: function (value, field, record) {
+                                return '<a href="'+record.get('address')+'">'+record.get('name')+'</a>';
+                            }
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'delete'
+                                ,tooltip: '删除'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    grid.getStore().remove(record);
+                                }
+                            }]
+                        }
+
+                    ]
+
+                }
             ],
             dockedItems: [
                 {
@@ -353,6 +433,27 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+
+
+                //保存附件与记录的关系()
+                // var attachmentRelation = Ext.create('AM.model.deploy.ops.DevpOpsAttachment',{
+                //     nexusRid:newRecord.get('id')
+                //     ,nexusType:'Machine'
+                //     ,code:me.down('#attachmentField').getValue()
+                //     ,address:"common/attachment/download/"+me.down('#attachmentField').getValue()
+                // });
+                // attachmentRelation.save({
+                //     success:function () {
+                //         Ext.MsgUtil.show('操作成功', '保存附件成功!');
+                //     }
+                // });
+
+                me.down('grid').getStore().sync({
+                    success: function (batch, options) {
+                        Ext.MsgUtil.show('操作成功','同步附件成功!');
+                    }
+                })
+
             }
         });
 
@@ -369,6 +470,17 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
         this.setTitle("修改服务器信息");
 
         this.down('form').getForm().loadRecord(model);
+
+        //处理附件的列表
+        var attachmentCondition = {nexusRid:model.get('id')}
+
+        var attachmentStore = this.down('grid').getStore();
+        attachmentStore.proxy.extraParams = {searchCondition:attachmentCondition};
+        attachmentStore.load({
+            params:{
+                page:0
+            }
+        });
     },
     setStore: function (store) {
         this.store = store;

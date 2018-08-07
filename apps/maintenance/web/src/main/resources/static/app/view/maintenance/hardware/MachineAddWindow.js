@@ -317,7 +317,6 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                             itemId: 'attachmentField',
                             name: 'attachment',
                             fieldLabel: '附件'
-
                         }
                     ]
                 }
@@ -430,14 +429,25 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+
+                //保存附件与记录的关系()
+                var attachmentRelation = Ext.create('AM.model.deploy.ops.DevpOpsAttachment',{
+                    nexusRid:newRecord.get('id')
+                    ,nexusType:'Machine'
+                    ,code:me.down('#attachmentField').getValue()
+                    ,address:"common/attachment/download/"+me.down('#attachmentField').getValue()
+                });
+                attachmentRelation.save({
+                    success:function () {
+                        Ext.MsgUtil.show('操作成功', '保存附件成功!');
+                    }
+                });
             }
         });
 
+    }
 
-
-    },
-
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
