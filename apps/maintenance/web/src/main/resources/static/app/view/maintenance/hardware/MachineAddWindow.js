@@ -7,7 +7,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
     ,height: 350
     ,width: 600
     ,layout: {
-        type: 'fit'
+        type: 'vbox'
     }
     ,title: '添加新服务器'
     ,maximizable: true
@@ -19,7 +19,8 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
             items: [
                 {
                     xtype: 'form'
-                    ,autoScroll: true
+                    ,width:'100%'
+                    ,autoScroll: false
                     ,bodyPadding: 10
                     ,fieldDefaults: {
                         labelAlign: 'right'
@@ -27,9 +28,9 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
+                        ,width:'100%'
                     }
                     ,
-
                     items: [
                         {
                             xtype: 'textfield',
@@ -310,8 +311,74 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                             fieldLabel: '参数定义标识'
 
                         }
+                        ,{
+                            xtype: 'hiddenfield',
+                            allowBlank:true,
+                            itemId: 'attachmentField',
+                            name: 'attachment',
+                            fieldLabel: '附件'
 
+                        }
+                    ]
+                }
+                ,{
+                    xtype: 'form'
+                    ,itemId:'fileForm'
+                    ,width:'100%'
+                    ,bodyPadding: 10
+                    ,fieldDefaults: {
+                        labelAlign: 'right'
+                        ,msgTarget: 'side'
+                        ,padding: '5 0 0 5'
+                        ,blankText:'该字段为必填项'
+                        ,anchor: '96%'
+                    }
+                    ,items: [
+                        {
+                            xtype: 'fieldset'
+                            ,title: '附件'
+                            ,items:[
+                                {
+                                    xtype: 'displayfield',
+                                    emptyText: '',
+                                    itemId: 'attachmentDisplayField',
+                                    fieldLabel: '附件'
+                                }
+                                ,{
+                                    xtype: 'filefield',
+                                    emptyText: '选择',
+                                    fieldLabel: '选择',
+                                    itemId: 'attachmentUploadField',
+                                    buttonText: '选择文件'
+                                    ,listeners:{
+                                        change:function (field, value) {
+                                            console.log(me)
+                                            console.log(me.down('#fileForm'))
+                                            var form = me.down('#fileForm').getForm();
 
+                                            if (form.isValid()) {
+                                                form.submit({
+                                                    url: 'common/attachment/upload'
+                                                    ,waitMsg: '附件上传中...'
+                                                    ,success: function(formPanel, action) {
+                                                        console.log(action)
+                                                        var attachment = action.result.initialPreviewConfig[0];
+                                                        var url = '<a href="'+attachment.url+'">'+attachment.caption+'</a>'
+                                                        me.down('#attachmentDisplayField').setValue(url);
+                                                        me.down('#attachmentUploadField').setRawValue(value);
+                                                        me.down('#attachmentField').setValue(attachment.extra.id);
+                                                    }
+                                                    ,failure: function(form, action) {
+                                                        console.log(action);
+                                                        Ext.Msg.alert('failure', action.failureType);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                     ]
                 }
             ],
