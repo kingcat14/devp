@@ -2,6 +2,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.hardware.MachineAddWindow'
     ,requires:[
+        'AM.view.ux.FileUploadPanel'
     ]
     ,autoScroll: true
     ,height: 350
@@ -321,64 +322,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                     ]
                 }
                 ,{
-                    xtype: 'form'
-                    ,itemId:'fileForm'
-                    ,width:'100%'
-                    ,bodyPadding: 10
-                    ,fieldDefaults: {
-                        labelAlign: 'right'
-                        ,msgTarget: 'side'
-                        ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
-                        ,anchor: '96%'
-                    }
-                    ,items: [
-                        {
-                            xtype: 'fieldset'
-                            ,title: '附件'
-                            ,items:[
-                                {
-                                    xtype: 'displayfield',
-                                    emptyText: '',
-                                    itemId: 'attachmentDisplayField',
-                                    fieldLabel: '附件'
-                                }
-                                ,{
-                                    xtype: 'filefield',
-                                    emptyText: '选择',
-                                    fieldLabel: '选择',
-                                    itemId: 'attachmentUploadField',
-                                    buttonText: '选择文件'
-                                    ,listeners:{
-                                        change:function (field, value) {
-                                            console.log(me)
-                                            console.log(me.down('#fileForm'))
-                                            var form = me.down('#fileForm').getForm();
-
-                                            if (form.isValid()) {
-                                                form.submit({
-                                                    url: 'common/attachment/upload'
-                                                    ,waitMsg: '附件上传中...'
-                                                    ,success: function(formPanel, action) {
-                                                        console.log(action)
-                                                        var attachment = action.result.initialPreviewConfig[0];
-                                                        var url = '<a href="'+attachment.url+'">'+attachment.caption+'</a>'
-                                                        me.down('#attachmentDisplayField').setValue(url);
-                                                        me.down('#attachmentUploadField').setRawValue(value);
-                                                        me.down('#attachmentField').setValue(attachment.extra.id);
-                                                    }
-                                                    ,failure: function(form, action) {
-                                                        console.log(action);
-                                                        Ext.Msg.alert('failure', action.failureType);
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                    xtype:'fileuploadpanel'
                 }
             ],
             dockedItems: [
@@ -431,17 +375,18 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                 me.hide(this.targetComp);
 
                 //保存附件与记录的关系()
-                var attachmentRelation = Ext.create('AM.model.deploy.ops.DevpOpsAttachment',{
-                    nexusRid:newRecord.get('id')
-                    ,nexusType:'Machine'
-                    ,code:me.down('#attachmentField').getValue()
-                    ,address:"common/attachment/download/"+me.down('#attachmentField').getValue()
-                });
-                attachmentRelation.save({
-                    success:function () {
-                        Ext.MsgUtil.show('操作成功', '保存附件成功!');
-                    }
-                });
+                // var attachmentRelation = Ext.create('AM.model.deploy.ops.DevpOpsAttachment',{
+                //     nexusRid:newRecord.get('id')
+                //     ,nexusType:'Machine'
+                //     ,code:me.down('#attachmentField').getValue()
+                //     ,address:"common/attachment/download/"+me.down('#attachmentField').getValue()
+                // });
+                // attachmentRelation.save({
+                //     success:function () {
+                //         Ext.MsgUtil.show('操作成功', '保存附件成功!');
+                //     }
+                // });
+                me.down('fileuploadpanel').save(newRecord, 'Machine')
             }
         });
 
@@ -453,11 +398,12 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
             return;
         }
 
-        this.setTitle("修改服务器信息");
-        if(model.phantom){
-            this.setTitle("新增服务器信息");
-        }
+        this.setTitle("新增服务器信息");
+        // if(model.phantom){
+        //     this.setTitle("新增服务器信息");
+        // }
         this.down('form').getForm().loadRecord(model);
+        this.down('fileuploadpanel').clean();
     }
 
 });
