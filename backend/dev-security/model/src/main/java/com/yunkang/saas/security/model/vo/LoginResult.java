@@ -19,9 +19,9 @@ public class LoginResult {
 		this.success = success;
 	}
 
-	public LoginResult(Boolean success, String id){
+	public LoginResult(Boolean success, String message){
 		this.success = success;
-		this.sessionId = id;
+		this.message = message;
 	}
 
 

@@ -22,13 +22,13 @@
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>net.aicoder.devp.security</groupId>
+                <groupId>com.yunkang.saas.security</groupId>
                 <artifactId>security-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.aicoder.devp.security</groupId>
-                <artifactId>security-security</artifactId>
+                <groupId>com.yunkang.saas.security</groupId>
+                <artifactId>security-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -60,6 +60,7 @@
                 <module>model</module>
                 <module>web</module>
                 <module>security-local</module>
+                <module>security-service</module>
                 <module>client</module>
             </modules>
         </profile>

@@ -10,13 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>security-local</artifactId>
-    <description>供各个应用引用,在本地管理用户资源权限</description>
+    <description>供各个应用, 在本地管理用户资源权限的接口、页面</description>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>net.aicoder.devp.security</groupId>
+            <groupId>com.yunkang.saas.security</groupId>
             <artifactId>security-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yunkang.saas.security</groupId>
+            <artifactId>security-service</artifactId>
         </dependency>
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>

@@ -11,6 +11,7 @@ public class ResourceCondition implements Serializable{
 
 	private String id;
 
+	private Long appId;
 	private String name;
 	private String url;
 	private String type;
@@ -22,6 +23,12 @@ public class ResourceCondition implements Serializable{
 	private Integer orderIndexMax;
 	private Integer orderIndexMin;
 
+	public Long getAppId() {
+		return appId;
+	}
+	public void setAppId(Long appId) {
+		this.appId = appId;
+	}
 
 	public String getName(){
 		return name;

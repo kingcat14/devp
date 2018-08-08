@@ -9,6 +9,7 @@ public class RoleResourceCheckTreeNode  {
 	private String name;
 	private Long roleId;
 	private Long resourceId;
+	private Long relationId;
 	private Boolean checked;
 	protected boolean leaf;
 
@@ -76,5 +77,13 @@ public class RoleResourceCheckTreeNode  {
 	}
 	public void setChecked(Boolean checked) {
 		this.checked = checked;
+	}
+
+	public Long getRelationId() {
+		return relationId;
+	}
+
+	public void setRelationId(Long relationId) {
+		this.relationId = relationId;
 	}
 }

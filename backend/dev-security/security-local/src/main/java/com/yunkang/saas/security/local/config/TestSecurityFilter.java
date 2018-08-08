@@ -1,9 +1,9 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.security.local.business.domain.Account;
-import com.yunkang.saas.security.local.business.domain.SecurityUser;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.security.service.business.platform.domain.Account;
+import com.yunkang.saas.security.service.business.platform.domain.SecurityUser;
+import com.yunkang.saas.security.service.business.platform.service.SecurityUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,8 +19,8 @@ import java.util.Collections;
 @Component
 public class TestSecurityFilter implements Filter {
 
-    @Value("${security.test:false}")
-    private boolean inTest;
+    @Value("${security.basic.enabled:true}")
+    private boolean notInTest;
 
     @Override  
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -30,7 +30,7 @@ public class TestSecurityFilter implements Filter {
   
     @Override  
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if(inTest && SecurityUtil.getAccount() == null){
+        if(!notInTest && SecurityUtil.getAccount() == null){
             this.initTestAccount();
         }
         filterChain.doFilter(servletRequest, servletResponse);  
@@ -46,7 +46,7 @@ public class TestSecurityFilter implements Filter {
         account.setName("测试中");
         account.setNickName("虚拟用户");
         account.setId(1L);
-        account.setTenantId(1L);
+        account.setTenantId(-1L);
 
         SecurityUser userDetails = new SecurityUser(account, null);
 

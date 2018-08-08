@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 //@ConditionalOnClass({ AuthorServer.class })
 //@EnableConfigurationProperties(AuthorProperties.class)
 @Import(WebSecurityConfig.class)
-@ComponentScan("com.yunkang.saas.security.local")
+@ComponentScan("com.yunkang.saas.security")
 public class LocalSecurityAutoConfiguration {
 
 //    @Resource

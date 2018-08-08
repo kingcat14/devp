@@ -1,7 +1,7 @@
 package com.yunkang.saas.security.local.config;
 
-import com.yunkang.saas.security.local.business.domain.Resource;
-import com.yunkang.saas.security.local.business.service.ResourceService;
+import com.yunkang.saas.security.service.business.platform.domain.Resource;
+import com.yunkang.saas.security.service.business.platform.service.ResourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +76,6 @@ public class ResourceConfigCheckeService implements CommandLineRunner {
 	    resource999002.setType("menu");
 	    resource999002.setOrderIndex(1);
 	    checkResource(resource999002);
-
-
-
 
 
     }

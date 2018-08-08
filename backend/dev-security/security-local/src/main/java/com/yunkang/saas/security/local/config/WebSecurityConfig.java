@@ -1,7 +1,7 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.security.local.business.service.SecurityUserService;
+import com.yunkang.saas.security.service.business.platform.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -39,29 +39,30 @@ import java.io.IOException;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //覆盖默认的spring security提供的配置
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@EnableJpaRepositories(basePackages = {"com.yunkang.saas.security.local"})
-@EntityScan({"com.yunkang.saas.security.local"})
+@EnableJpaRepositories(basePackages = {"com.yunkang.saas.security"})
+@EntityScan({"com.yunkang.saas.security"})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //	@Autowired
 //	private SecurityUserService securityUserService;
 
 
-	@Value("${security.test:false}")
-	private boolean inTest;
+	@Value("${security.basic.enabled:true}")
+	private boolean notInTest;
 
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		String[] antMatchers = {"/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
-				, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
+		String[] antMatchers = {"/security/login/authenticate", "/login.html", "/ext_/**"
+				,"/**/*.html","/**.html"
+				,"/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js"
 				, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
 				,"/**/*.css"
 				,"/ext_*/**/*"
 		};
 
-		if(inTest){
+		if(!notInTest){
 			String[] testMatchers = {"/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
 					, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
 					, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
@@ -76,13 +77,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //				.and().authorizeRequests().anyRequest().authenticated();
 
 		http
+				.formLogin().loginPage("/login").permitAll()
 			//禁用CSRF保护
-			.csrf().disable()
-			.authorizeRequests()
+			.and().csrf().disable().authorizeRequests()
 			//任何访问都必须授权
 
 			//配置那些路径可以不用权限访问
-
 //			.mvcMatchers("/login","*.html","assets/*").permitAll()
 				.antMatchers(antMatchers).permitAll()
 				.anyRequest().fullyAuthenticated()
@@ -97,7 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			//认证不通过后的处理
 			.exceptionHandling().accessDeniedHandler(new RestAccessDeniedHandler())
-			.authenticationEntryPoint(new RestAuthenticationEntryPoint());
+			.authenticationEntryPoint(new RestAuthenticationEntryPoint())
+		.and().headers().frameOptions().disable();
 	}
 
 	@Override
