@@ -1,11 +1,14 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.security.service.business.platform.service.SecurityUserService;
+import com.yunkang.saas.platform.config.PlatformConfig;
+import com.yunkang.saas.platform.config.ResourceConfig;
+import com.yunkang.saas.security.local.business.authorize.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.access.AccessDeniedException;
@@ -41,6 +44,7 @@ import java.io.IOException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableJpaRepositories(basePackages = {"com.yunkang.saas.security"})
 @EntityScan({"com.yunkang.saas.security"})
+@Import({ResourceConfig.class, PlatformConfig.class})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //	@Autowired

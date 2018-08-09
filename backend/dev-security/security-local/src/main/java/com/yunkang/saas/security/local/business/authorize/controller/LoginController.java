@@ -1,11 +1,19 @@
-package com.yunkang.saas.security.local.business.platform.controller;
+package com.yunkang.saas.security.local.business.authorize.controller;
 
 import com.yunkang.saas.common.framework.exception.BusinessException;
-import com.yunkang.saas.security.service.business.platform.domain.Account;
-import com.yunkang.saas.security.service.business.platform.domain.Resource;
-import com.yunkang.saas.security.service.business.platform.domain.SecurityUser;
-import com.yunkang.saas.security.service.business.platform.service.*;
-import com.yunkang.saas.security.model.vo.*;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordRequest;
+import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordResponse;
+import com.yunkang.saas.platform.business.platform.security.service.AccountManageService;
+import com.yunkang.saas.platform.business.platform.security.vo.ResourceTreeNode;
+import com.yunkang.saas.platform.business.resource.domain.Resource;
+import com.yunkang.saas.platform.business.resource.service.ResourceService;
+import com.yunkang.saas.platform.business.resource.service.ResourceUtil;
+import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
+import com.yunkang.saas.security.local.business.authorize.service.LoginService;
+import com.yunkang.saas.security.model.vo.LoginRequest;
+import com.yunkang.saas.security.model.vo.LoginResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +38,19 @@ public class LoginController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+
+	@Autowired
+	private SecurityUtil securityUtil;
+
 	@Autowired
 	private AccountManageService accountManageService;
 
 	@Autowired
 	private LoginService loginService;
 
-
-	@Autowired
-	private AccountService accountService;
-
 	@Autowired
 	private ResourceService resourceService;
 
-	@Autowired
-	private ResourceManageController resourceManageController;
 
 	@Value("${security.basic.enabled:true}")
 	private boolean notInTest = false;
@@ -75,7 +81,7 @@ public class LoginController {
 	public Account getAccount(){
 
 
-		Account account =  SecurityUtil.getAccount();
+		Account account =  securityUtil.getAccount();
 
 		if(account==null){
 			if(this.notInTest){
@@ -139,9 +145,7 @@ public class LoginController {
 			result = resourceService.findAll(null);
 		}
 
-		//return result;
-
-		return resourceManageController.convert(result);
+		return ResourceUtil.convert(result);
 
 
 	}

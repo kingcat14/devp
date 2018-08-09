@@ -1,4 +1,4 @@
-package com.yunkang.saas.security.service.business.tenant.domain;
+package com.yunkang.saas.security.service.business.platform.tenant.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -8,7 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
@@ -20,7 +20,7 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
 @Table(appliesTo = "tenant", comment = "[租户]")
 //@DynamicUpdate
 //@DynamicInsert
-public class Tenant extends BaseEntity{
+public class Tenant extends GenericBaseEntity<Long>{
 
 	public static final String PROPERTY_TENANT_CODE = "tenantCode";
 	public static final String PROPERTY_TENANT_TYPE = "tenantType";

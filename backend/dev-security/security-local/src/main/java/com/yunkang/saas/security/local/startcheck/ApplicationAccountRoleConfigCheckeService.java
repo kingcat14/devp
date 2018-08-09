@@ -1,10 +1,17 @@
-package com.yunkang.saas.security.local.config;
+package com.yunkang.saas.security.local.startcheck;
 
-import com.yunkang.saas.security.service.business.platform.domain.*;
-import com.yunkang.saas.security.service.business.platform.service.*;
+import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
+import com.yunkang.saas.platform.business.platform.security.domain.AccountRoleRelation;
+import com.yunkang.saas.platform.business.platform.security.domain.Role;
+import com.yunkang.saas.platform.business.platform.security.service.AccountPasswordService;
+import com.yunkang.saas.platform.business.platform.security.service.AccountRoleRelationService;
+import com.yunkang.saas.platform.business.platform.security.service.AccountService;
+import com.yunkang.saas.platform.business.platform.security.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +22,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(value=1)
-public class AccountRoleConfigCheckeService implements CommandLineRunner {
+public class ApplicationAccountRoleConfigCheckeService implements CommandLineRunner {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AccountRoleConfigCheckeService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationAccountRoleConfigCheckeService.class);
+
+	@Value("${sys.id:-1}")
+	private long sysId;
 
 	@Autowired
     private AccountService accountService;
@@ -31,44 +41,44 @@ public class AccountRoleConfigCheckeService implements CommandLineRunner {
 	@Autowired
 	private AccountRoleRelationService accountRoleRelationService;
 
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
 
-    	Role role =new Role();
-    	role.setId(1L);
-    	role.setName("超级管理员");
-		role.setTenantId(1L);
-		role.setDescription("超级管理员");
+    	Role role = new Role();
+    	role.setId(sysId);
+    	role.setName("租户管理员");
+		role.setTenantId(sysId);
+		role.setAppId(sysId);
+		role.setDescription("租户管理员");
 		checkRole(role);
 
 		Account account = new Account();
-		account.setId(1L);
-		account.setTenantId(1L);
-		account.setAccountName("admin");
-		account.setName("超级管理员");
+		account.setId(sysId);
+		account.setTenantId(sysId);
+		account.setAccountName(sysId+"");
+		account.setName("租户管理员");
 		account.setEnable("true");
+		account.setAppId(sysId);
 		check(account);
 
 		AccountPassword accountPassword = new AccountPassword();
-		accountPassword.setId(1L);
-		accountPassword.setAccountName("admin");
-		accountPassword.setTenantId(1L);
-		accountPassword.setAccountId(1L);
+		accountPassword.setId(sysId);
+		accountPassword.setAccountName(sysId+"");
+		accountPassword.setTenantId(sysId);
+		accountPassword.setAccountId(sysId);
 		//默认123456
 		accountPassword.setPassword(passwordEncoder.encode("123456"));
 		check(accountPassword);
 
 
 		AccountRoleRelation accountRoleRelation = new AccountRoleRelation();
-		accountRoleRelation.setAccountId(1L);
-		accountRoleRelation.setRoleId(1L);
-		accountRoleRelation.setId(1L);
+		accountRoleRelation.setAccountId(sysId);
+		accountRoleRelation.setRoleId(sysId);
+		accountRoleRelation.setId(sysId);
 		check(accountRoleRelation);
-
 
     }
 
@@ -87,7 +97,6 @@ public class AccountRoleConfigCheckeService implements CommandLineRunner {
 			accountService.merge(target);
 		}
 	}
-
 	private void check(AccountPassword target){
 		LOGGER.info("[check]:{}", target);
 		AccountPassword entity = accountPasswordService.find(target.getId());

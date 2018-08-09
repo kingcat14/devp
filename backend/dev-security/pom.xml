@@ -26,12 +26,8 @@
                 <artifactId>security-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.yunkang.saas.security</groupId>
-                <artifactId>security-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
@@ -45,6 +41,7 @@
             <artifactId>common-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
     <profiles>
         <!-- 默认 -->
@@ -60,7 +57,6 @@
                 <module>model</module>
                 <module>web</module>
                 <module>security-local</module>
-                <module>security-service</module>
                 <module>client</module>
             </modules>
         </profile>

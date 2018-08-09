@@ -1,9 +1,10 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.security.service.business.platform.domain.Account;
-import com.yunkang.saas.security.service.business.platform.domain.SecurityUser;
-import com.yunkang.saas.security.service.business.platform.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,9 @@ public class TestSecurityFilter implements Filter {
     @Value("${security.basic.enabled:true}")
     private boolean notInTest;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @Override  
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -30,7 +34,7 @@ public class TestSecurityFilter implements Filter {
   
     @Override  
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if(!notInTest && SecurityUtil.getAccount() == null){
+        if(!notInTest && securityUtil.getAccount() == null){
             this.initTestAccount();
         }
         filterChain.doFilter(servletRequest, servletResponse);  
