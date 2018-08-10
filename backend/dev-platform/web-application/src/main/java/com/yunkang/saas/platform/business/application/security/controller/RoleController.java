@@ -129,6 +129,7 @@ public class RoleController {
 		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
 		pageRequest.setSort(sort);
 
+		pageSearchRequest.getSearchCondition().setAppId(saaSUtil.getAccount().getAppId());
 		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
 
 		Page<Role> page = roleService.find(pageSearchRequest.getSearchCondition(), pageRequest);

@@ -1,25 +1,34 @@
 package com.yunkang.saas.platform.business.platform.security.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
-public class RoleCondition implements Serializable{
+public class RoleCondition extends SaaSCondition {
 
-	private String id;
+	private Long id;
 
 	private String name;
+	private String code;
 	private String description;
-	private Long appId;
-	private Long tenantId;
 
 	public String getName(){
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDescription(){
@@ -29,24 +38,11 @@ public class RoleCondition implements Serializable{
 		this.description = description;
 	}
 
-	public Long getAppId() {
-		return appId;
-	}
-	public void setAppId(Long appId) {
-		this.appId = appId;
-	}
 
-	public Long getTenantId() {
-		return tenantId;
-	}
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
-
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

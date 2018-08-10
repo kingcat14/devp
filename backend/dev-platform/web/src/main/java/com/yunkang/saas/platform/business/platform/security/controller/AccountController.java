@@ -1,12 +1,10 @@
-package com.yunkang.saas.platform.business.application.security.controller;
+package com.yunkang.saas.platform.business.platform.security.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
-import com.yunkang.saas.platform.business.application.security.SaaSUtil;
-import com.yunkang.saas.platform.business.application.security.valid.AccountValidator;
+import com.yunkang.saas.platform.business.platform.security.Constants;
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
 import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.platform.business.platform.security.dto.AccountAddDto;
@@ -14,12 +12,12 @@ import com.yunkang.saas.platform.business.platform.security.dto.AccountCondition
 import com.yunkang.saas.platform.business.platform.security.dto.AccountEditDto;
 import com.yunkang.saas.platform.business.platform.security.service.AccountManageService;
 import com.yunkang.saas.platform.business.platform.security.service.AccountService;
+import com.yunkang.saas.platform.business.platform.security.valid.AccountValidator;
 import com.yunkang.saas.platform.business.platform.security.vo.AccountVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -34,16 +32,12 @@ import java.util.List;
  * 管理账号
  * @author icode
  */
-@RestController("applicationAccountController")
-@RequestMapping(value = "/application/security/account")
+
+@RestController
+@RequestMapping(value = "/platform/security/account")
 public class AccountController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
-
 
 	@Autowired
 	private AccountService accountService;
@@ -69,12 +63,12 @@ public class AccountController {
 
 		BeanUtils.copyProperties(accountAddDto, account);
 
+		Long tenantId = Constants.TENANT_ID_PLATFOMR;
+		account.setTenantId(tenantId);
 
-		saaSUtil.fillSaaSEntity(account);
 		AccountPassword accountPassword = new AccountPassword();
 		accountPassword.setAccountName(account.getAccountName());
 		accountPassword.setPassword(accountAddDto.getInitPwd());
-		saaSUtil.fillSaaSEntity(accountPassword);
 
 		accountManageService.add(account, accountPassword);
 
@@ -143,11 +137,6 @@ public class AccountController {
 		}
 		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
 		pageRequest.setSort(sort);
-
-		//账号暂时不管理与应用的对应关系
-//		pageSearchRequest.getSearchCondition().setAppId(saaSUtil.getAccount().getAppId());
-		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
-
 		Page<Account> page = accountService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<AccountVO> voList = new ArrayList<>();
@@ -169,8 +158,6 @@ public class AccountController {
 	    //初始化其他对象
         return vo;
 	}
-
-
 
 
 

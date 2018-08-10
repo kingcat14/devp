@@ -1,27 +1,27 @@
-Ext.define('AM.controller.application.security.AccountController', {
+Ext.define('AM.controller.platform.security.AccountController', {
     extend: 'Ext.app.Controller',
 
     views: [
-        'application.security.AccountPanel'
+        'platform.security.AccountPanel'
     ],
 	stores: [
          
     ],
     refs: [
         {
-            ref: 'applicationSecurityAccountPanel',
-            selector: 'applicationSecurityAccountPanel'
+            ref: 'platformSecurityAccountPanel',
+            selector: 'platformSecurityAccountPanel'
         }
     ],
 
     init: function(application) {
         var center = application.getController('main.MainController').getMainContentPanel();
 
-        var userPanel = center.child('applicationSecurityAccountPanel');
+        var userPanel = center.child('platformSecurityAccountPanel');
         if(!userPanel){
-            userPanel = Ext.widget('applicationSecurityAccountPanel',{closable:true});
+            userPanel = Ext.widget('platformSecurityAccountPanel',{closable:true});
 
-            var store = Ext.create('AM.store.application.security.AccountStore');
+            var store = Ext.create('AM.store.platform.security.AccountStore');
             store.proxy.extraParams={searchCondition:{}};
             userPanel.setStore(store);
             store.load();

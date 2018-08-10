@@ -1,12 +1,12 @@
 package com.yunkang.saas.platform.business.platform.security.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
 
 
-public class AccountCondition implements Serializable{
+public class AccountCondition extends SaaSCondition {
 
 
 	private String id;
@@ -65,21 +65,6 @@ public class AccountCondition implements Serializable{
 	}
 	public void setEnable(String enable) {
 		this.enable = enable;
-	}
-
-
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Long getTenantId() {
-		return tenantId;
-	}
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
 	}
 
 	@Override

@@ -13,7 +13,8 @@ import javax.validation.constraints.Size;
 
 
 /**
- * 账号
+ * 平台账号
+ * 对accoun来说,appid字段没有用
  * @author icode
  */
 @Entity

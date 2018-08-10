@@ -53,12 +53,12 @@ public class RoleSpecification implements Specification<Role>{
 	}
 	private void tryAddTenantIdPredicate(List<Predicate> predicateList, Root<Role> root, CriteriaBuilder cb){
 		if(null != condition.getTenantId()){
-			predicateList.add(cb.equal(root.get(Role.PROPERTY_TENANT_ID).as(String.class), condition.getTenantId()));
+			predicateList.add(cb.equal(root.get(Role.PROPERTY_TENANT_ID).as(Long.class), condition.getTenantId()));
 		}
 	}
 	private void tryAddAppIdPredicate(List<Predicate> predicateList, Root<Role> root, CriteriaBuilder cb){
 		if(null != condition.getAppId()){
-			predicateList.add(cb.equal(root.get(Role.PROPERTY_APP_ID).as(String.class), condition.getAppId()));
+			predicateList.add(cb.equal(root.get(Role.PROPERTY_APP_ID).as(Long.class), condition.getAppId()));
 		}
 	}
 }

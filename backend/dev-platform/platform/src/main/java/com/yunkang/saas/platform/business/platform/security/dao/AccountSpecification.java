@@ -1,6 +1,7 @@
 package com.yunkang.saas.platform.business.platform.security.dao;
 
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.platform.business.platform.security.domain.Role;
 import com.yunkang.saas.platform.business.platform.security.dto.AccountCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
@@ -34,10 +35,12 @@ public class AccountSpecification implements Specification<Account>{
 		tryAddMobilePredicate(predicateList, root, cb);
 		tryAddEmailPredicate(predicateList, root, cb);
 		tryAddEnablePredicate(predicateList, root, cb);
-
+		tryAddTenantIdPredicate(predicateList, root, cb);
+		tryAddAppIdPredicate(predicateList, root, cb);
 
 		Predicate[] pre = new Predicate[predicateList.size()];
 		pre = predicateList.toArray(pre);
+
 		return cb.and(pre);
 	}
 
@@ -70,6 +73,16 @@ public class AccountSpecification implements Specification<Account>{
 	private void tryAddEnablePredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEnable())){
 			predicateList.add(cb.like(root.get(Account.PROPERTY_ENABLE).as(String.class), "%"+condition.getEnable()+"%"));
+		}
+	}
+	private void tryAddTenantIdPredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
+		if(null != condition.getTenantId()){
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_TENANT_ID).as(Long.class), condition.getTenantId()));
+		}
+	}
+	private void tryAddAppIdPredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
+		if(null != condition.getAppId()){
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_APP_ID).as(Long.class), condition.getAppId()));
 		}
 	}
 }

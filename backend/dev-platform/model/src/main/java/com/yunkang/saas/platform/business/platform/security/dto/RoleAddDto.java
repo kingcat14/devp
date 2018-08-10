@@ -25,6 +25,12 @@ public class RoleAddDto {
 	@Size(max = 255, message = "角色名称超长，最多255个字符")
 	private String name;
 
+
+	/**角色代码*/
+	@ApiModelProperty(value = "角色代码", required = true)
+	@Size(max = 255, message = "角色代码超长，最多255个字符")
+	private String code;
+
     /**
 	 * 角色描述
 	 * 
@@ -39,6 +45,13 @@ public class RoleAddDto {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getDescription(){
