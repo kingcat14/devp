@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 /**
- * 部署关联资源实例定义客户端
+ * 部署关联资源实例客户端
  * @author icode
  */
 @Service
@@ -42,7 +42,7 @@ public class DevpSysDpyResInstRibbon {
 
 
     /**
-     * 新增部署关联资源实例定义
+     * 新增部署关联资源实例
      * @param addDto
      * @return
      */
@@ -62,7 +62,7 @@ public class DevpSysDpyResInstRibbon {
     }
 
 	/**
-	 * 删除部署关联资源实例定义
+	 * 删除部署关联资源实例
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
@@ -83,7 +83,7 @@ public class DevpSysDpyResInstRibbon {
     }
 
 	/**
-	 * 更新部署关联资源实例定义
+	 * 更新部署关联资源实例
 	 * @param id
 	 * @param editDto
 	 * @return
@@ -109,7 +109,7 @@ public class DevpSysDpyResInstRibbon {
 
 
     /**
-	 * 根据ID查询部署关联资源实例定义
+	 * 根据ID查询部署关联资源实例
 	 * @param id
 	 * @return
 	 */
@@ -134,7 +134,7 @@ public class DevpSysDpyResInstRibbon {
     }
 
 	/**
-	 * 查询部署关联资源实例定义列表
+	 * 查询部署关联资源实例列表
 	 * @param pageSearchRequest
 	 * @return
 	 */

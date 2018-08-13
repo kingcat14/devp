@@ -8,10 +8,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 部署关联资源定义
+ * 部署关联资源
  * @author icode
  */
-@ApiModel(value = "修改部署关联资源定义使用的DTO")
+@ApiModel(value = "修改部署关联资源使用的DTO")
 public class DevpSysDpyResourcesEditDto {
 
 
@@ -48,7 +48,8 @@ public class DevpSysDpyResourcesEditDto {
 	 * 系统元素代码
 	 * [系统元素代码]
      */
-	@ApiModelProperty(value = "系统元素代码", required = false)
+	@NotNull(message = "系统元素代码不能为空")
+	@ApiModelProperty(value = "系统元素代码", required = true)
 	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
 	private String code;
 
@@ -81,7 +82,7 @@ public class DevpSysDpyResourcesEditDto {
 
     /**
 	 * 类型
-	 * [类型]-关联类型：部署到、连接、调用
+	 * [类型]-运行环境/数据库/消息队列/缓存/外部接口
      */
 	@ApiModelProperty(value = "类型", required = false)
 	@Size(max = 255, message = "类型超长，最多255个字符")
@@ -90,7 +91,7 @@ public class DevpSysDpyResourcesEditDto {
 
     /**
 	 * 子类型
-	 * [子类型]-连接时：双向[-o)-]，请求[-)],提供[-o]
+	 * [子类型]
      */
 	@ApiModelProperty(value = "子类型", required = false)
 	@Size(max = 255, message = "子类型超长，最多255个字符")

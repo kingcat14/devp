@@ -25,12 +25,11 @@ spring:
       max-wait: 1
 
 security:
-  test: true
   basic:
-    enabled: false
+    enabled: true
 
 management:
   security:
-    enabled: false
+    enabled: true
 
 

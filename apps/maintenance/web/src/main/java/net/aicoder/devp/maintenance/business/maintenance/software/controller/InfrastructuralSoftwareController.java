@@ -2,7 +2,7 @@ package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,6 +30,8 @@ public class InfrastructuralSoftwareController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(InfrastructuralSoftwareController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private InfrastructuralSoftwareRibbonService infrastructuralSoftwareRibbonService;
@@ -51,7 +53,7 @@ public class InfrastructuralSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public InfrastructuralSoftwareVO add(@RequestBody InfrastructuralSoftwareAddDto infrastructuralSoftwareAddDto){
-		infrastructuralSoftwareAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		infrastructuralSoftwareAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  infrastructuralSoftwareRibbonService.add(infrastructuralSoftwareAddDto);
 	}
 
@@ -81,7 +83,7 @@ public class InfrastructuralSoftwareController {
 	@ApiOperation(value = "修改", notes = "修改产基础软件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public InfrastructuralSoftwareVO update(@RequestBody InfrastructuralSoftwareEditDto infrastructuralSoftwareEditDto, @ApiParam(value = "要查询的基础软件id") @PathVariable Long id){
-		infrastructuralSoftwareEditDto.setTid(SecurityUtil.getAccount().getTenantId());
+		infrastructuralSoftwareEditDto.setTid(securityUtil.getAccount().getTenantId());
 		InfrastructuralSoftwareVO vo = infrastructuralSoftwareRibbonService.merge(id, infrastructuralSoftwareEditDto);
 
 		return  vo;

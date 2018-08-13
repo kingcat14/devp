@@ -2,6 +2,7 @@ package com.yunkang.saas.security.local.business.authorize.domain;
 
 
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,9 +16,15 @@ import java.util.List;
 public class SecurityUser implements UserDetails {
 
 	private Account account;
+	private String password;
 
 	public SecurityUser(Account account, List<Resource> resourceList){
 		this.account = account;
+	}
+
+	public SecurityUser(Account account, AccountPassword accountPassword, List<Resource> resourceList){
+		this.account = account;
+		this.password = accountPassword.getPassword();
 	}
 
 	public Account getAccount() {
@@ -35,12 +42,12 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return account.getAccountName();
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		return account.getName();
+		return account.getAccountName();
 	}
 
 	@Override

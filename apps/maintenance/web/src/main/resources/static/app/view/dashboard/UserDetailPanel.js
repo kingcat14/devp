@@ -1,7 +1,7 @@
 Ext.define('AM.view.dashboard.UserDetailPanel', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.form-register',
-	requires:['AM.view.dashboard.UserDetailPanelController','AM.model.security.Account'],
+	requires:['AM.view.dashboard.UserDetailPanelController','AM.model.application.security.Account'],
 	xtype:'form-register',
 	controller:'dashboard-UserDetail',
 

@@ -40,6 +40,7 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 		tryAddStereotypePredicate(predicateList, root, cb);
 		tryAddScopePredicate(predicateList, root, cb);
 		tryAddVersionPredicate(predicateList, root, cb);
+		tryAddVerPostfixPredicate(predicateList, root, cb);
 		tryAddPhasePredicate(predicateList, root, cb);
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
@@ -111,6 +112,11 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 	private void tryAddVersionPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getVersion())){
 			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_VERSION).as(String.class), "%"+condition.getVersion()+"%"));
+		}
+	}
+	private void tryAddVerPostfixPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getVerPostfix())){
+			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_VER_POSTFIX).as(String.class), "%"+condition.getVerPostfix()+"%"));
 		}
 	}
 	private void tryAddPhasePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){

@@ -43,7 +43,7 @@ public class DevpSysDpyResourcesValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param devpSysDpyResources 部署关联资源定义
+     * @param devpSysDpyResources 部署关联资源
      * @param errors
      */
 	public void validateAddDto(DevpSysDpyResourcesAddDto devpSysDpyResources, Errors errors) {
@@ -60,6 +60,10 @@ public class DevpSysDpyResourcesValidator implements Validator {
        
 		if(StringUtils.isEmpty(devpSysDpyResources.getName())){
 			errors.rejectValue("name", "EMPTY_NAME", "系统元素名称不能为空");
+		}
+       
+		if(StringUtils.isEmpty(devpSysDpyResources.getCode())){
+			errors.rejectValue("code", "EMPTY_CODE", "系统元素代码不能为空");
 		}
        
 		if (null == devpSysDpyResources.getPrdRid() ) {

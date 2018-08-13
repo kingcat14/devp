@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 系统元素间关系定义的数据库操作
+ * 系统元素间关系的数据库操作
  * @author icode
  */
 @Repository("devpSysDpyCmpRefDao")

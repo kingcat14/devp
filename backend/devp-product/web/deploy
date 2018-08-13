@@ -2,5 +2,7 @@ cd /Users/gonghongrui/studio/git_aicoder/devp/backend/devp-product
 mvn clean package
 scp web/target/product-web.jar root@121.41.14.24:/studio/apps/devp/product
 
+scp web/target/product-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/product
+nohup java -Xmx256m -Xms128m -Xss512k -Dspring.profiles.active=local -jar product-web.jar > /dev/null &
 
-java -jar product-web.jar -Dspring.profiles.active=local
+java -Dspring.profiles.active=local -jar product-web.jar

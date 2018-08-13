@@ -97,7 +97,7 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,name: 'expireDate'
                             ,fieldLabel: '到期时间'
                             ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
+                                return Ext.Date.format(value, 'Y-m-d')
                             }
                         }
                         ,{
@@ -196,7 +196,7 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,name: 'goliveDate'
                             ,fieldLabel: '启用时间'
                             ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
+                                return Ext.Date.format(value, 'Y-m-d')
                             }
                         }
                         ,{
@@ -245,6 +245,7 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
 
     ,setModel: function (model) {
         if (model && model.get('id')) {
+            console.log(this.down('form').getForm())
             this.down('form').getForm().loadRecord(model);
 
         } else {

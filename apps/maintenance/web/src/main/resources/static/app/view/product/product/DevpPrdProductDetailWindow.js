@@ -97,7 +97,7 @@ Ext.define('AM.view.product.product.DevpPrdProductDetailWindow', {
                                             ,name: 'golive'
                                             ,fieldLabel: '启用时间'
                                             ,renderer: function (value, field) {
-                                                return Ext.Date.format(dt, 'Y-m-d')
+                                                return Ext.Date.format(value, 'Y-m-d')
                                             }
                                         }
 

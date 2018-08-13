@@ -2,7 +2,7 @@ package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,6 +30,8 @@ public class SoftwareLicenseController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoftwareLicenseController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private SoftwareLicenseRibbonService softwareLicenseRibbonService;
@@ -51,7 +53,7 @@ public class SoftwareLicenseController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public SoftwareLicenseVO add(@RequestBody SoftwareLicenseAddDto softwareLicenseAddDto){
-		softwareLicenseAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		softwareLicenseAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  softwareLicenseRibbonService.add(softwareLicenseAddDto);
 	}
 
@@ -81,7 +83,7 @@ public class SoftwareLicenseController {
 	@ApiOperation(value = "修改", notes = "修改产服务许可(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public SoftwareLicenseVO update(@RequestBody SoftwareLicenseEditDto softwareLicenseEditDto, @ApiParam(value = "要查询的服务许可id") @PathVariable Long id){
-		softwareLicenseEditDto.setTid(SecurityUtil.getAccount().getTenantId());
+		softwareLicenseEditDto.setTid(securityUtil.getAccount().getTenantId());
 		SoftwareLicenseVO vo = softwareLicenseRibbonService.merge(id, softwareLicenseEditDto);
 
 		return  vo;

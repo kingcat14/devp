@@ -5,7 +5,8 @@ Ext.define('AM.view.Viewport', {
 		'AM.view.main.HeaderContainer',
 		'AM.view.main.FunctionPanel',
 		'AM.view.main.MainContentPanel',
-		'AM.view.dashboard.Dashboard'
+		'AM.view.dashboard.Dashboard',
+        'AM.view.ux.FileUploadPanel'
 	],
     layout: 'border',
 	bodyCls: 'app-dashboard',

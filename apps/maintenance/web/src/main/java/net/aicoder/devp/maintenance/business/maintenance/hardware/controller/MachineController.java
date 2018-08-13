@@ -2,7 +2,7 @@ package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,6 +30,8 @@ public class MachineController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private MachineRibbonService machineRibbonService;
@@ -51,7 +53,7 @@ public class MachineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
-		machineAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		machineAddDto.setTid(securityUtil.getAccount().getTenantId());
 
 		return  machineRibbonService.add(machineAddDto);
 	}
@@ -82,7 +84,7 @@ public class MachineController {
 	@ApiOperation(value = "修改", notes = "修改产服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public MachineVO update(@RequestBody MachineEditDto machineEditDto, @ApiParam(value = "要查询的服务器id") @PathVariable Long id){
-        machineEditDto.setTid(SecurityUtil.getAccount().getTenantId());
+        machineEditDto.setTid(securityUtil.getAccount().getTenantId());
 		MachineVO vo = machineRibbonService.merge(id, machineEditDto);
 
 		return  vo;

@@ -6,7 +6,7 @@ import com.yunkang.saas.platform.business.platform.security.domain.Account;
 import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordRequest;
 import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordResponse;
 import com.yunkang.saas.platform.business.platform.security.service.AccountManageService;
-import com.yunkang.saas.platform.business.platform.security.vo.ResourceTreeNode;
+import com.yunkang.saas.platform.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
 import com.yunkang.saas.platform.business.resource.service.ResourceService;
 import com.yunkang.saas.platform.business.resource.service.ResourceUtil;

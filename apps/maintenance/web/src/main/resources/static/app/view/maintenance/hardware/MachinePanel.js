@@ -17,10 +17,23 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
             columnLines: true
             ,columns: [
                 {
+                    xtype: 'actioncolumn'
+                    ,menuDisabled: true
+                    ,width:30
+                    ,items: [{
+                        iconCls: 'x-fa fa-eye'
+                        ,tooltip: '详情'
+                        ,handler: function(grid, rowIndex, colIndex) {
+                            var record = grid.getStore().getAt(rowIndex);
+                            me.getSelectionModel().deselectAll()
+                            me.getSelectionModel().select(record)
+                            me.showDetailWindow(record, this);
+                        }
+                    }]
+                },
+                {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'name'
-                    
-
                     ,text: '名称'
 
                 }
@@ -101,7 +114,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetProject'
-                    
+
 
                     ,text: '所属项目'
 
@@ -254,16 +267,13 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'notes'
-                    
-
                     ,text: '备注'
 
                 }
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'prdRid'
-                    
-
+                    ,hidden: true
                     ,text: '关联产品记录编号'
 
                 }
@@ -275,21 +285,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                     ,text: '参数定义标识'
 
                 }
-                ,{
-                    xtype: 'actioncolumn'
-                    ,menuDisabled: true
-                    ,width:30
-                    ,items: [{
-                        iconCls: 'x-fa fa-eye'
-                        ,tooltip: '详情'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.showDetailWindow(record, this);
-                        }
-                    }]
-                }
+
                 ,{
                     xtype: 'actioncolumn'
                     ,menuDisabled: true

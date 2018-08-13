@@ -3,6 +3,7 @@ package com.yunkang.saas.security.local.business.authorize;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
+import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class SecurityUtilImpl implements SecurityUtil {
 
     public Account getAccount(){
+        SecurityExpressionRoot root = null;
 
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication()

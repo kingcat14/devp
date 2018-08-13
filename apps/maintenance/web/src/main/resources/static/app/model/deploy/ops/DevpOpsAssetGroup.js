@@ -21,12 +21,6 @@ Ext.define('AM.model.deploy.ops.DevpOpsAssetGroup', {
             ,allowNull:true
         }
     	,{
-            name: 'rid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'tid'
             ,type:'string'
             ,allowNull:false

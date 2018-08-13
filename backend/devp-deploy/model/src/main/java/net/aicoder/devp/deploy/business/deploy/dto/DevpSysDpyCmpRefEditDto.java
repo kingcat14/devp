@@ -8,10 +8,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 系统元素间关系定义
+ * 系统元素间关系
  * @author icode
  */
-@ApiModel(value = "修改系统元素间关系定义使用的DTO")
+@ApiModel(value = "修改系统元素间关系使用的DTO")
 public class DevpSysDpyCmpRefEditDto {
 
 

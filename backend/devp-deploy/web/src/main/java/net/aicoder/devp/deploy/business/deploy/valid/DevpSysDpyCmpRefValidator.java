@@ -43,7 +43,7 @@ public class DevpSysDpyCmpRefValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpSysDpyCmpRef 系统元素间关系定义
+     * @param devpSysDpyCmpRef 系统元素间关系
      * @param errors
      */
 	public void validateDevpSysDpyCmpRefAddDto(DevpSysDpyCmpRefAddDto devpSysDpyCmpRef, Errors errors) {

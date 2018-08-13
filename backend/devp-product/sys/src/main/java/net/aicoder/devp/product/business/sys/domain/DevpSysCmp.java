@@ -2,13 +2,14 @@ package net.aicoder.devp.product.business.sys.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import com.yunkang.saas.common.framework.eo.SaaSEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 
@@ -20,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
 @Table(appliesTo = "devp_sys_cmp", comment = "[系统组件]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysCmp extends BaseEntity{
+public class DevpSysCmp extends SaaSEntity {
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

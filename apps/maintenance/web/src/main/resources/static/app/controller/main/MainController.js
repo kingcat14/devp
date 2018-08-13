@@ -4,7 +4,7 @@ Ext.define('AM.controller.main.MainController', {
 	extend: 'Ext.app.Controller',
 
 	stores: [
-		'AM.store.security.AllResourceTreeStore'
+		 // 'AM.store.security.AllResourceTreeStore'
 	],
 
 	models: [

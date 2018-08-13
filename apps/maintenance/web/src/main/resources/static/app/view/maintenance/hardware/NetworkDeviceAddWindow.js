@@ -7,7 +7,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
     ,height: 350
     ,width: 600
     ,layout: {
-        type: 'fit'
+        type: 'vbox'
     }
     ,title: '添加新网络设备'
     ,maximizable: true
@@ -31,7 +31,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                     ,
 
                     items: [
-                        {
+                        ,{
                             xtype: 'textfield',
                             allowBlank:false,
                             afterLabelTextTpl: [
@@ -61,14 +61,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'descriptionField',
-                            name: 'description',
-                            fieldLabel: '描述'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'typeCodeField',
                             name: 'typeCode',
                             fieldLabel: '类型代码'
@@ -82,7 +74,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             fieldLabel: '类型名称'
 
                         }
-
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
@@ -102,17 +93,18 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'versionField',
-                            name: 'version',
-                            fieldLabel: '版本'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
+
+                        }
+                        ,{
+                            xtype: 'datefield',
+                            format: 'Y-m-d',
+                            allowBlank:true,
+                            itemId: 'createDateField',
+                            name: 'createDate',
+                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -285,7 +277,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             fieldLabel: '备注'
 
                         }
-
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
@@ -294,10 +285,29 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                             fieldLabel: '参数定义标识'
 
                         }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'attachmentField',
+                            name: 'attachment',
+                            fieldLabel: '附件'
+
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '98% 70%',
+                            itemId: 'descriptionField',
+                            padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
+                        }
 
 
                     ]
                 }
+                ,{xtype:'fileuploadpanel', itemId:'fileuploadpanel-attachment'}
             ],
             dockedItems: [
                 {
@@ -347,6 +357,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+
+                me.down('#fileuploadpanel-attachment').save(newRecord, 'NetworkDevice-attachment')
             }
         });
 

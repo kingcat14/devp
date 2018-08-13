@@ -1,31 +1,23 @@
 package net.aicoder.devp.maintenance.business.deploy.deploy.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.deploy.business.deploy.dto.DevpSysDpySchemeCondition;
 import net.aicoder.devp.deploy.business.deploy.dto.DevpSysDpySchemeAddDto;
+import net.aicoder.devp.deploy.business.deploy.dto.DevpSysDpySchemeCondition;
 import net.aicoder.devp.deploy.business.deploy.dto.DevpSysDpySchemeEditDto;
 import net.aicoder.devp.deploy.business.deploy.vo.DevpSysDpySchemeVO;
 import net.aicoder.devp.maintenance.business.deploy.deploy.service.DevpSysDpySchemeRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.deploy.valid.DevpSysDpySchemeValidator;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 管理产品部署方案
@@ -38,6 +30,8 @@ public class DevpSysDpySchemeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysDpySchemeController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private DevpSysDpySchemeRibbonService devpSysDpySchemeRibbonService;
@@ -59,7 +53,7 @@ public class DevpSysDpySchemeController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpySchemeVO add(@RequestBody DevpSysDpySchemeAddDto devpSysDpySchemeAddDto){
-		devpSysDpySchemeAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		devpSysDpySchemeAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  devpSysDpySchemeRibbonService.add(devpSysDpySchemeAddDto);
 	}
 

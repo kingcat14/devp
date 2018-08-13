@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-@ApiModel(value = "查询系统元素间关系定义使用的DTO")
+@ApiModel(value = "查询系统元素间关系使用的DTO")
 public class DevpSysDpyCmpRefCondition implements Serializable{
 
 	@ApiModelProperty(value = "租户编号")

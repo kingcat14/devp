@@ -343,6 +343,14 @@ public class MachineAddDto {
 	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
 	private String parasCode;
 
+	/**
+	 * 附件ID
+	 * [附件ID]-逗号分隔的附件ID
+	 */
+	@ApiModelProperty(value = "附件", required = false)
+	@Size(max = 255, message = "逗号分隔的附件ID")
+	private String attachment;
+
 
 	public Long getTid(){
 		return tid;
@@ -624,6 +632,12 @@ public class MachineAddDto {
 		this.parasCode = parasCode;
 	}
 
+	public String getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
 
 	@Override
 	public String toString() {

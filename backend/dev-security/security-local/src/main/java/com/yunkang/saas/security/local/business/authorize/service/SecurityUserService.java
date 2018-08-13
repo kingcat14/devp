@@ -2,7 +2,9 @@ package com.yunkang.saas.security.local.business.authorize.service;
 
 
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.platform.business.platform.security.dto.AccountCondition;
+import com.yunkang.saas.platform.business.platform.security.service.AccountPasswordService;
 import com.yunkang.saas.platform.business.platform.security.service.AccountService;
 
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
@@ -20,6 +22,14 @@ public class SecurityUserService implements UserDetailsService {
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private AccountPasswordService accountPasswordService;
+
+	/**
+	 * @param username
+	 * @return
+	 * @throws UsernameNotFoundException
+	 */
 	@Override
 	public SecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -28,10 +38,10 @@ public class SecurityUserService implements UserDetailsService {
 		Account account = accountService.findOne(accountCondition);
 		if(account == null){
 			throw new UsernameNotFoundException("用户名不存在");
-
 		}
 
-		return new SecurityUser(account, null);
+		AccountPassword accountPassword = accountPasswordService.findForAccountId(account.getId());
+		return new SecurityUser(account, accountPassword, null);
 	}
 
 }

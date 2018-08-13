@@ -91,7 +91,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseDetailWindow', {
                             ,name: 'expireDate'
                             ,fieldLabel: '到期时间'
                             ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
+                                return Ext.Date.format(value, 'Y-m-d')
                             }
                         }
                         ,{
@@ -190,7 +190,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseDetailWindow', {
                             ,name: 'goliveDate'
                             ,fieldLabel: '启用时间'
                             ,renderer: function (value, field) {
-                                return Ext.Date.format(dt, 'Y-m-d')
+                                return Ext.Date.format(value, 'Y-m-d')
                             }
                         }
                         ,{

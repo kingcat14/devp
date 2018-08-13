@@ -1,30 +1,23 @@
 package net.aicoder.devp.maintenance.business.product.sys.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleCondition;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleAddDto;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleEditDto;
-import net.aicoder.devp.product.business.sys.vo.DevpSysCmpModuleVO;
 import net.aicoder.devp.maintenance.business.product.sys.service.DevpSysCmpModuleRibbonService;
 import net.aicoder.devp.maintenance.business.product.sys.valid.DevpSysCmpModuleValidator;
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleAddDto;
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleCondition;
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpModuleEditDto;
+import net.aicoder.devp.product.business.sys.vo.DevpSysCmpModuleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 管理组件对应模块
@@ -37,6 +30,8 @@ public class DevpSysCmpModuleController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysCmpModuleController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private DevpSysCmpModuleRibbonService devpSysCmpModuleRibbonService;
@@ -58,7 +53,7 @@ public class DevpSysCmpModuleController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysCmpModuleVO add(@RequestBody DevpSysCmpModuleAddDto devpSysCmpModuleAddDto){
-		devpSysCmpModuleAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		devpSysCmpModuleAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  devpSysCmpModuleRibbonService.add(devpSysCmpModuleAddDto);
 	}
 

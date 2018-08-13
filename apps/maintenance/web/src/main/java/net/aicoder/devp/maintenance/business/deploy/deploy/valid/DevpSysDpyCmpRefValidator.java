@@ -43,7 +43,7 @@ public class DevpSysDpyCmpRefValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param devpSysDpyCmpRef 系统元素间关系定义
+     * @param devpSysDpyCmpRef 系统元素关系定义
      * @param errors
      */
 	public void validateAddDto(DevpSysDpyCmpRefAddDto devpSysDpyCmpRef, Errors errors) {

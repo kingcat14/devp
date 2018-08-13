@@ -1,31 +1,23 @@
 package net.aicoder.devp.maintenance.business.product.sys.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpCondition;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpAddDto;
-import net.aicoder.devp.product.business.sys.dto.DevpSysCmpEditDto;
-import net.aicoder.devp.product.business.sys.vo.DevpSysCmpVO;
 import net.aicoder.devp.maintenance.business.product.sys.service.DevpSysCmpRibbonService;
 import net.aicoder.devp.maintenance.business.product.sys.valid.DevpSysCmpValidator;
-
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpAddDto;
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpCondition;
+import net.aicoder.devp.product.business.sys.dto.DevpSysCmpEditDto;
+import net.aicoder.devp.product.business.sys.vo.DevpSysCmpVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 管理系统组件
@@ -38,6 +30,8 @@ public class DevpSysCmpController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysCmpController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private DevpSysCmpRibbonService devpSysCmpRibbonService;
@@ -59,9 +53,10 @@ public class DevpSysCmpController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysCmpVO add(@RequestBody DevpSysCmpAddDto devpSysCmpAddDto){
-		devpSysCmpAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		devpSysCmpAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  devpSysCmpRibbonService.add(devpSysCmpAddDto);
 	}
+
 
 	/**
 	 * 删除系统组件,id以逗号分隔

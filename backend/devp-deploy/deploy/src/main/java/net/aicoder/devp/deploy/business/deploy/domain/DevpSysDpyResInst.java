@@ -13,11 +13,11 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 /**
- * 部署关联资源实例定义
+ * 部署关联资源实例
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_sys_dpy_res_inst", comment = "[部署关联资源实例定义]")
+@Table(appliesTo = "devp_sys_dpy_res_inst", comment = "[部署关联资源实例]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpSysDpyResInst extends BaseEntity{
@@ -29,14 +29,16 @@ public class DevpSysDpyResInst extends BaseEntity{
 	public static final String PROPERTY_ALIAS = "alias";
 	public static final String PROPERTY_DESCRIPTION = "description";
 	public static final String PROPERTY_RECORD_STATE = "recordState";
+	public static final String PROPERTY_FLAG = "flag";
 	public static final String PROPERTY_TYPE = "type";
 	public static final String PROPERTY_SUB_TYPE = "subType";
-	public static final String PROPERTY_STEREOTYPE = "stereotype";
-	public static final String PROPERTY_SCOPE = "scope";
-	public static final String PROPERTY_VERSION = "version";
+	public static final String PROPERTY_DPY_MODEL = "dpyModel";
+	public static final String PROPERTY_DPY_DESCRIPTION = "dpyDescription";
+	public static final String PROPERTY_ACCESS_ADDR = "accessAddr";
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_NOTES = "notes";
 	public static final String PROPERTY_PRD_RID = "prdRid";
+	public static final String PROPERTY_SCHEME_RID = "schemeRid";
 	public static final String PROPERTY_RES_RID = "resRid";
 	public static final String PROPERTY_PARENT_RID = "parentRid";
 	public static final String PROPERTY_SEQ = "seq";
@@ -72,7 +74,6 @@ public class DevpSysDpyResInst extends BaseEntity{
     * [系统元素名称]
     */
     @Column(name = "name")
-	@NotNull(message = "系统元素名称不能为空")
 	@Size(max = 255, message = "系统元素名称超长，最多255个字符")
 	private String name;
 
@@ -108,6 +109,14 @@ public class DevpSysDpyResInst extends BaseEntity{
 	private Integer recordState;
 
     /**
+    * 资源实例标识
+    * [资源实例标识]-同一个部署方案中不能重复
+    */
+    @Column(name = "flag")
+	@Size(max = 255, message = "资源实例标识超长，最多255个字符")
+	private String flag;
+
+    /**
     * 类型
     * [类型]
     */
@@ -124,28 +133,28 @@ public class DevpSysDpyResInst extends BaseEntity{
 	private String subType;
 
     /**
-    * 构造型
-    * [构造型]
+    * 部署模式
+    * [部署模式]-主机/容器化/第三方提供/不适用
     */
-    @Column(name = "stereotype")
-	@Size(max = 255, message = "构造型超长，最多255个字符")
-	private String stereotype;
+    @Column(name = "dpy_model")
+	@Size(max = 255, message = "部署模式超长，最多255个字符")
+	private String dpyModel;
 
     /**
-    * 范围
-    * [范围]
+    * 部署说明
+    * [部署说明]
     */
-    @Column(name = "scope")
-	@Size(max = 255, message = "范围超长，最多255个字符")
-	private String scope;
+    @Column(name = "dpy_description")
+	@Size(max = 255, message = "部署说明超长，最多255个字符")
+	private String dpyDescription;
 
     /**
-    * 版本
-    * [版本]
+    * 访问地址
+    * [访问地址]-内部访问地址，如：内网IP
     */
-    @Column(name = "version")
-	@Size(max = 255, message = "版本超长，最多255个字符")
-	private String version;
+    @Column(name = "access_addr")
+	@Size(max = 255, message = "访问地址超长，最多255个字符")
+	private String accessAddr;
 
     /**
     * 状态
@@ -170,6 +179,14 @@ public class DevpSysDpyResInst extends BaseEntity{
     @Column(name = "prd_rid")
 	@NotNull(message = "产品编号不能为空")
 	private Long prdRid;
+
+    /**
+    * 部署方案编号
+    * [部署方案编号]
+    */
+    @Column(name = "scheme_rid")
+	@NotNull(message = "部署方案编号不能为空")
+	private Long schemeRid;
 
     /**
     * 关联资源编号
@@ -265,6 +282,13 @@ public class DevpSysDpyResInst extends BaseEntity{
 		this.recordState = recordState;
 	}
 
+	public String getFlag(){
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
 	public String getType(){
 		return type;
 	}
@@ -279,25 +303,25 @@ public class DevpSysDpyResInst extends BaseEntity{
 		this.subType = subType;
 	}
 
-	public String getStereotype(){
-		return stereotype;
+	public String getDpyModel(){
+		return dpyModel;
 	}
-	public void setStereotype(String stereotype) {
-		this.stereotype = stereotype;
-	}
-
-	public String getScope(){
-		return scope;
-	}
-	public void setScope(String scope) {
-		this.scope = scope;
+	public void setDpyModel(String dpyModel) {
+		this.dpyModel = dpyModel;
 	}
 
-	public String getVersion(){
-		return version;
+	public String getDpyDescription(){
+		return dpyDescription;
 	}
-	public void setVersion(String version) {
-		this.version = version;
+	public void setDpyDescription(String dpyDescription) {
+		this.dpyDescription = dpyDescription;
+	}
+
+	public String getAccessAddr(){
+		return accessAddr;
+	}
+	public void setAccessAddr(String accessAddr) {
+		this.accessAddr = accessAddr;
 	}
 
 	public String getStatus(){
@@ -319,6 +343,13 @@ public class DevpSysDpyResInst extends BaseEntity{
 	}
 	public void setPrdRid(Long prdRid) {
 		this.prdRid = prdRid;
+	}
+
+	public Long getSchemeRid(){
+		return schemeRid;
+	}
+	public void setSchemeRid(Long schemeRid) {
+		this.schemeRid = schemeRid;
 	}
 
 	public Long getResRid(){

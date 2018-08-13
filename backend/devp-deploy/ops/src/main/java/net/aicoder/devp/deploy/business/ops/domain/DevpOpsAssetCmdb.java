@@ -63,6 +63,7 @@ public class DevpOpsAssetCmdb extends BaseEntity{
 	public static final String PROPERTY_PRD_TID = "prdTid";
 	public static final String PROPERTY_PRD_RID = "prdRid";
 	public static final String PROPERTY_PARAS_CODE = "parasCode";
+	public static final String PROPERTY_ACQUISITION_PROVIDER = "acquisitionProvider";
 
 
     @Id
@@ -364,6 +365,12 @@ public class DevpOpsAssetCmdb extends BaseEntity{
 	@Size(max = 255, message = "使用情况超长，最多255个字符")
 	private String custUsage;
 
+	/**
+	 * 供应商
+	 */
+	@Column(name = "acquisition_provider")
+	@Size(max = 255, message = "供应商超长，最多255个字符")
+	private String acquisitionProvider;
     /**
     * 备注
     * [备注]
@@ -674,6 +681,12 @@ public class DevpOpsAssetCmdb extends BaseEntity{
 		this.parasCode = parasCode;
 	}
 
+	public String getAcquisitionProvider() {
+		return acquisitionProvider;
+	}
+	public void setAcquisitionProvider(String acquisitionProvider) {
+		this.acquisitionProvider = acquisitionProvider;
+	}
 
 	public Long getId() {
 		return id;

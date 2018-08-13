@@ -7,7 +7,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
     height: 350,
     width: 600,
     layout: {
-        type: 'fit'
+        type: 'vbox'
     },
     title: '修改服务许可信息',
     maximizable: true,
@@ -20,8 +20,9 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                 {
                     xtype: 'form',
                     autoScroll: true,
-                    bodyPadding: 10,
-                    fieldDefaults: {
+                    bodyPadding: 10
+                    ,width:'100%'
+                    ,fieldDefaults: {
                         labelAlign: 'top'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
@@ -29,7 +30,30 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                         ,anchor: '96%'
                     },
                     items: [
-                        {
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'tidField',
+                            name: 'tid',
+                            fieldLabel: '租户编号'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'etypeField',
+                            name: 'etype',
+                            fieldLabel: '元素类型'
+
+                        }
+                        ,{
                             xtype: 'textfield',
                             allowBlank:false,
                             afterLabelTextTpl: [
@@ -57,6 +81,15 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
 
                         }
                         ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:true,
+                            itemId: 'recordStateField',
+                            name: 'recordState',
+                            fieldLabel: '记录状态'
+
+                        }
+                        ,{
                             xtype: 'textfield',
                             allowBlank:true,
                             itemId: 'typeCodeField',
@@ -75,9 +108,26 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
+                            itemId: 'stereotypeField',
+                            name: 'stereotype',
+                            fieldLabel: '构造型'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'scopeField',
+                            name: 'scope',
+                            fieldLabel: '范围'
+
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
                             itemId: 'hardwareModelField',
                             name: 'hardwareModel',
                             fieldLabel: '硬件型号'
+
                         }
                         ,{
                             xtype: 'textfield',
@@ -101,6 +151,15 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
+
+                        }
+                        ,{
+                            xtype: 'datefield',
+                            format: 'Y-m-d',
+                            allowBlank:true,
+                            itemId: 'createDateField',
+                            name: 'createDate',
+                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -265,7 +324,6 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                             fieldLabel: '使用情况'
 
                         }
-
                         ,{
                             xtype: 'numberfield',
                             allowDecimals:false,
@@ -286,7 +344,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                         ,{
 
                             xtype: 'textarea',
-                            anchor: '98% 70%',
+                            anchor: '96% 70%',
                             itemId: 'descriptionField',
                             padding: '5 0 0 5',
                             name: 'description',
@@ -296,7 +354,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                         ,{
 
                             xtype: 'textarea',
-                            anchor: '98% 70%',
+                            anchor: '96% 70%',
                             itemId: 'notesField',
                             padding: '5 0 0 5',
                             name: 'notes',
@@ -307,6 +365,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
 
                     ]
                 }
+                ,{xtype:'fileuploadpanel', itemId:'fileuploadpanel-attachment'}
             ],
             dockedItems: [
                 {
@@ -356,6 +415,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+                me.down('#fileuploadpanel-attachment').save(newRecord, 'SoftwareLicense-attachment');
             }
         });
 
@@ -372,6 +432,8 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
         this.setTitle("修改服务许可信息");
 
         this.down('form').getForm().loadRecord(model);
+
+        this.down('#fileuploadpanel-attachment').reset(model);
     },
     setStore: function (store) {
         this.store = store;

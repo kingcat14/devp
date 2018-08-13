@@ -60,6 +60,9 @@ public class DevpSysDpySchemeValidator implements Validator {
 		if(StringUtils.isEmpty(devpSysDpyScheme.getName())){
 			errors.rejectValue(DevpSysDpyScheme.PROPERTY_NAME, "EMPTY_"+DevpSysDpyScheme.PROPERTY_NAME, "系统元素名称不能为空");
 		}
+		if(StringUtils.isEmpty(devpSysDpyScheme.getCode())){
+			errors.rejectValue(DevpSysDpyScheme.PROPERTY_CODE, "EMPTY_"+DevpSysDpyScheme.PROPERTY_CODE, "系统元素代码不能为空");
+		}
 		if (null == devpSysDpyScheme.getPrdRid() ) {
 			errors.rejectValue(DevpSysDpyScheme.PROPERTY_PRD_RID, "EMPTY_"+DevpSysDpyScheme.PROPERTY_PRD_RID, "产品编号不能为空");
 		}
@@ -94,6 +97,9 @@ public class DevpSysDpySchemeValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysDpyScheme.getVersion()) > 255){
 			errors.rejectValue(DevpSysDpyScheme.PROPERTY_VERSION,null,"版本最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyScheme.getVerPostfix()) > 255){
+			errors.rejectValue(DevpSysDpyScheme.PROPERTY_VER_POSTFIX,null,"版本标识后缀最长255个字符");
 		}
 		if(StringUtils.length(devpSysDpyScheme.getPhase()) > 255){
 			errors.rejectValue(DevpSysDpyScheme.PROPERTY_PHASE,null,"阶段最长255个字符");

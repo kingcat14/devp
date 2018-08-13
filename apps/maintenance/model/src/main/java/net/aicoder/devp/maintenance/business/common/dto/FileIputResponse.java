@@ -10,6 +10,7 @@ public class FileIputResponse {
 
 	private List<InitialPreviewConfig> initialPreviewConfig = new ArrayList<>();
 
+	private boolean success;
 	public FileIputResponse(String caption, String width, String url, int key, String id){
 		Extra extra = new Extra();
 		extra.setId( id);
@@ -22,10 +23,25 @@ public class FileIputResponse {
 		initialPreviewConfig.add(config);
 	}
 
+	public static FileIputResponse success(String caption, String width, String url, int key, String id){
+		FileIputResponse success = new FileIputResponse(caption, width, url, key, id);
+		success.success = true;
+		return success;
+	}
+	public static FileIputResponse failure(String caption, String width, String url, int key, String id){
+		FileIputResponse failure = new FileIputResponse(caption, width, url, key, id);
+		failure.success = false;
+		return failure;
+	}
+
 
 
 	public List<InitialPreviewConfig> getInitialPreviewConfig() {
 		return initialPreviewConfig;
+	}
+
+	public boolean isSuccess(){
+		return success;
 	}
 }
 

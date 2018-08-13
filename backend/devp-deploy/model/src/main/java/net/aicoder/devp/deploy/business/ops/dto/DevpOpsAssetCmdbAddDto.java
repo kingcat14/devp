@@ -3,6 +3,7 @@ package net.aicoder.devp.deploy.business.ops.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
+import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.*;
@@ -313,6 +314,12 @@ public class DevpOpsAssetCmdbAddDto {
 	@Size(max = 255, message = "使用情况超长，最多255个字符")
 	private String custUsage;
 
+	/**
+	 * 供应商
+	 */
+	@ApiModelProperty(value = "供应商", required = false)
+	@Size(max = 255, message = "供应商超长，最多255个字符")
+	private String acquisitionProvider;
     /**
 	 * 备注
 	 * [备注]
@@ -524,6 +531,13 @@ public class DevpOpsAssetCmdbAddDto {
 	}
 	public void setAssetManager(String assetManager) {
 		this.assetManager = assetManager;
+	}
+
+	public String getAcquisitionProvider() {
+		return acquisitionProvider;
+	}
+	public void setAcquisitionProvider(String acquisitionProvider) {
+		this.acquisitionProvider = acquisitionProvider;
 	}
 
 	public String getUseDept(){

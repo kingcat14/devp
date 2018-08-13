@@ -1,8 +1,10 @@
 package net.aicoder.devp.maintenance.business.deploy.ops.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.common.domain.Attachment;
+import com.yunkang.saas.platform.business.common.service.AttachmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,20 +14,13 @@ import net.aicoder.devp.deploy.business.ops.dto.DevpOpsAttachmentEditDto;
 import net.aicoder.devp.deploy.business.ops.vo.DevpOpsAttachmentVO;
 import net.aicoder.devp.maintenance.business.deploy.ops.service.DevpOpsAttachmentRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.ops.valid.DevpOpsAttachmentValidator;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 管理附件定义
@@ -38,12 +33,17 @@ public class DevpOpsAttachmentController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpOpsAttachmentController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private DevpOpsAttachmentRibbonService devpOpsAttachmentRibbonService;
 
 	@Autowired
 	DevpOpsAttachmentValidator devpOpsAttachmentValidator;
+
+	@Autowired
+	private AttachmentService attachmentService;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -52,15 +52,21 @@ public class DevpOpsAttachmentController {
 
 	/**
 	 * 新增附件定义
-	 * @param devpOpsAttachmentAddDto
+	 * @param addDto
 	 * @return
 	 */
 	@ApiOperation(value = "新增", notes = "新增附件定义", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	public DevpOpsAttachmentVO add(@RequestBody DevpOpsAttachmentAddDto devpOpsAttachmentAddDto){
-		devpOpsAttachmentAddDto.setTid(SecurityUtil.getAccount().getTenantId());
-		return  devpOpsAttachmentRibbonService.add(devpOpsAttachmentAddDto);
+	public DevpOpsAttachmentVO add(@RequestBody DevpOpsAttachmentAddDto addDto){
+
+		Attachment attachment = attachmentService.find(Long.valueOf(addDto.getCode()));
+
+		addDto.setName(attachment.getName());
+		addDto.setTypeName(attachment.getType());
+
+		addDto.setTid(securityUtil.getAccount().getTenantId());
+		return  devpOpsAttachmentRibbonService.add(addDto);
 	}
 
 	/**

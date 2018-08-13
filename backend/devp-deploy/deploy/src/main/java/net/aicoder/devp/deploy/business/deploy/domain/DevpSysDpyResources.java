@@ -13,11 +13,11 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 /**
- * 部署关联资源定义
+ * 部署关联资源
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_sys_dpy_resources", comment = "[部署关联资源定义]")
+@Table(appliesTo = "devp_sys_dpy_resources", comment = "[部署关联资源]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpSysDpyResources extends BaseEntity{
@@ -77,6 +77,7 @@ public class DevpSysDpyResources extends BaseEntity{
     * [系统元素代码]
     */
     @Column(name = "code")
+	@NotNull(message = "系统元素代码不能为空")
 	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
 	private String code;
 
@@ -105,7 +106,7 @@ public class DevpSysDpyResources extends BaseEntity{
 
     /**
     * 类型
-    * [类型]-关联类型：部署到、连接、调用
+    * [类型]-运行环境/数据库/消息队列/缓存/外部接口
     */
     @Column(name = "type")
 	@Size(max = 255, message = "类型超长，最多255个字符")
@@ -113,7 +114,7 @@ public class DevpSysDpyResources extends BaseEntity{
 
     /**
     * 子类型
-    * [子类型]-连接时：双向[-o)-]，请求[-)],提供[-o]
+    * [子类型]
     */
     @Column(name = "sub_type")
 	@Size(max = 255, message = "子类型超长，最多255个字符")

@@ -43,7 +43,7 @@ public class DevpSysDpyResInstValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param devpSysDpyResInst 部署关联资源实例定义
+     * @param devpSysDpyResInst 部署关联资源实例
      * @param errors
      */
 	public void validateAddDto(DevpSysDpyResInstAddDto devpSysDpyResInst, Errors errors) {
@@ -58,12 +58,11 @@ public class DevpSysDpyResInstValidator implements Validator {
 			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
 		}
        
-		if(StringUtils.isEmpty(devpSysDpyResInst.getName())){
-			errors.rejectValue("name", "EMPTY_NAME", "系统元素名称不能为空");
-		}
-       
 		if (null == devpSysDpyResInst.getPrdRid() ) {
 			errors.rejectValue("prdRid", "EMPTY_PRD_RID", "产品编号不能为空");
+		}
+		if (null == devpSysDpyResInst.getSchemeRid() ) {
+			errors.rejectValue("schemeRid", "EMPTY_SCHEME_RID", "部署方案编号不能为空");
 		}
 		if (null == devpSysDpyResInst.getResRid() ) {
 			errors.rejectValue("resRid", "EMPTY_RES_RID", "关联资源编号不能为空");
@@ -85,23 +84,23 @@ public class DevpSysDpyResInstValidator implements Validator {
 		if(StringUtils.length(devpSysDpyResInst.getDescription()) > 255){
 			errors.rejectValue("description", null, "系统元素描述最长255个字符");
 		}
+		if(StringUtils.length(devpSysDpyResInst.getFlag()) > 255){
+			errors.rejectValue("flag", null, "资源实例标识最长255个字符");
+		}
 		if(StringUtils.length(devpSysDpyResInst.getType()) > 255){
 			errors.rejectValue("type", null, "类型最长255个字符");
 		}
 		if(StringUtils.length(devpSysDpyResInst.getSubType()) > 255){
 			errors.rejectValue("subType", null, "子类型最长255个字符");
 		}
-		if(StringUtils.length(devpSysDpyResInst.getStereotype()) > 255){
-			errors.rejectValue("stereotype", null, "构造型最长255个字符");
+		if(StringUtils.length(devpSysDpyResInst.getDpyModel()) > 255){
+			errors.rejectValue("dpyModel", null, "部署模式最长255个字符");
 		}
-		if(StringUtils.length(devpSysDpyResInst.getScope()) > 255){
-			errors.rejectValue("scope", null, "范围最长255个字符");
+		if(StringUtils.length(devpSysDpyResInst.getDpyDescription()) > 255){
+			errors.rejectValue("dpyDescription", null, "部署说明最长255个字符");
 		}
-		if(StringUtils.length(devpSysDpyResInst.getVersion()) > 255){
-			errors.rejectValue("version", null, "版本最长255个字符");
-		}
-		if(StringUtils.length(devpSysDpyResInst.getPhase()) > 255){
-			errors.rejectValue("phase", null, "阶段最长255个字符");
+		if(StringUtils.length(devpSysDpyResInst.getAccessAddr()) > 255){
+			errors.rejectValue("accessAddr", null, "访问地址最长255个字符");
 		}
 		if(StringUtils.length(devpSysDpyResInst.getStatus()) > 255){
 			errors.rejectValue("status", null, "状态最长255个字符");

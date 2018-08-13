@@ -321,9 +321,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
                         }
                     ]
                 }
-                ,{
-                    xtype:'fileuploadpanel'
-                }
+                ,{xtype:'fileuploadpanel'}
             ],
             dockedItems: [
                 {

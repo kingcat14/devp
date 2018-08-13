@@ -34,6 +34,7 @@ public class DevpSysDpyScheme extends BaseEntity{
 	public static final String PROPERTY_STEREOTYPE = "stereotype";
 	public static final String PROPERTY_SCOPE = "scope";
 	public static final String PROPERTY_VERSION = "version";
+	public static final String PROPERTY_VER_POSTFIX = "verPostfix";
 	public static final String PROPERTY_PHASE = "phase";
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_NOTES = "notes";
@@ -77,6 +78,7 @@ public class DevpSysDpyScheme extends BaseEntity{
     * [系统元素代码]
     */
     @Column(name = "code")
+	@NotNull(message = "系统元素代码不能为空")
 	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
 	private String code;
 
@@ -142,6 +144,14 @@ public class DevpSysDpyScheme extends BaseEntity{
     @Column(name = "version")
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
+
+    /**
+    * 版本标识后缀
+    * [版本标识后缀]
+    */
+    @Column(name = "ver_postfix")
+	@Size(max = 255, message = "版本标识后缀超长，最多255个字符")
+	private String verPostfix;
 
     /**
     * 阶段
@@ -264,6 +274,13 @@ public class DevpSysDpyScheme extends BaseEntity{
 	}
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public String getVerPostfix(){
+		return verPostfix;
+	}
+	public void setVerPostfix(String verPostfix) {
+		this.verPostfix = verPostfix;
 	}
 
 	public String getPhase(){

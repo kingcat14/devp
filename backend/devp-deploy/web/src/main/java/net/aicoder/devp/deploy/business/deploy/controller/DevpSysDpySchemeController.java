@@ -82,7 +82,7 @@ public class DevpSysDpySchemeController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpySchemeService.delete(Long.parseLong(id));
+			devpSysDpySchemeService.delete(Long.valueOf(id));
 		}
 
 	}

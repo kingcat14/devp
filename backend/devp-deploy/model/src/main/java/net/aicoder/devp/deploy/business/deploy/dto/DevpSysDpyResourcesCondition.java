@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-@ApiModel(value = "查询部署关联资源定义使用的DTO")
+@ApiModel(value = "查询部署关联资源使用的DTO")
 public class DevpSysDpyResourcesCondition implements Serializable{
 
 	@ApiModelProperty(value = "租户编号")

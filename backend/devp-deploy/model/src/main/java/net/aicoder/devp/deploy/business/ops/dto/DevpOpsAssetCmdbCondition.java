@@ -8,6 +8,8 @@ import java.util.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.validation.constraints.Size;
+
 
 @ApiModel(value = "查询资产定义使用的DTO")
 public class DevpOpsAssetCmdbCondition implements Serializable{
@@ -120,7 +122,8 @@ public class DevpOpsAssetCmdbCondition implements Serializable{
 	private Long prdRidMin;
 	@ApiModelProperty(value = "参数定义标识")
 	private String parasCode;
-
+	@ApiModelProperty(value = "供应商")
+	private String acquisitionProvider;
 
 	public Long getTid(){
 		return tid;
@@ -317,6 +320,13 @@ public class DevpOpsAssetCmdbCondition implements Serializable{
 		this.assetProject = assetProject;
 	}
 
+	public String getAcquisitionProvider() {
+		return acquisitionProvider;
+	}
+
+	public void setAcquisitionProvider(String acquisitionProvider) {
+		this.acquisitionProvider = acquisitionProvider;
+	}
 
 	public String getAssetArea(){
 		return assetArea;

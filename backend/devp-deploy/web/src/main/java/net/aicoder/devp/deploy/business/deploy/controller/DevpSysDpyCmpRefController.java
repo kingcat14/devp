@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 管理系统元素间关系定义
+ * 管理系统元素间关系
  * @author icode
  */
-@Api(description = "系统元素间关系定义", tags = "DevpSysDpyCmpRef")
+@Api(description = "系统元素间关系", tags = "DevpSysDpyCmpRef")
 @RestController
 @RequestMapping(value = "/deploy/devpSysDpyCmpRef")
 public class DevpSysDpyCmpRefController {
@@ -54,11 +54,11 @@ public class DevpSysDpyCmpRefController {
 	}
 
 	/**
-	 * 新增系统元素间关系定义
+	 * 新增系统元素间关系
 	 * @param devpSysDpyCmpRefAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增系统元素间关系定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增系统元素间关系", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyCmpRefVO add(@RequestBody @Valid DevpSysDpyCmpRefAddDto devpSysDpyCmpRefAddDto){
@@ -71,10 +71,10 @@ public class DevpSysDpyCmpRefController {
 	}
 
 	/**
-	 * 删除系统元素间关系定义,id以逗号分隔
+	 * 删除系统元素间关系,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除系统元素间关系定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除系统元素间关系", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -82,18 +82,18 @@ public class DevpSysDpyCmpRefController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpyCmpRefService.delete(Long.parseLong(id));
+			devpSysDpyCmpRefService.delete(Long.valueOf(id));
 		}
 
 	}
 
 	/**
-	 * 更新系统元素间关系定义
+	 * 更新系统元素间关系
 	 * @param devpSysDpyCmpRefEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产系统元素间关系定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产系统元素间关系(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpSysDpyCmpRefVO update(@RequestBody @Valid DevpSysDpyCmpRefEditDto devpSysDpyCmpRefEditDto, @PathVariable Long id){
 		DevpSysDpyCmpRef devpSysDpyCmpRef = new DevpSysDpyCmpRef();
@@ -106,11 +106,11 @@ public class DevpSysDpyCmpRefController {
 	}
 
 	/**
-	 * 根据ID查询系统元素间关系定义
+	 * 根据ID查询系统元素间关系
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询系统元素间关系定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询系统元素间关系", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpSysDpyCmpRefVO get(@PathVariable Long id) {
 
@@ -121,11 +121,11 @@ public class DevpSysDpyCmpRefController {
 	}
 
 	/**
-	 * 查询系统元素间关系定义列表
+	 * 查询系统元素间关系列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询系统元素间关系定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询系统元素间关系列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpSysDpyCmpRefVO> list(@RequestBody PageSearchRequest<DevpSysDpyCmpRefCondition> pageSearchRequest){
 

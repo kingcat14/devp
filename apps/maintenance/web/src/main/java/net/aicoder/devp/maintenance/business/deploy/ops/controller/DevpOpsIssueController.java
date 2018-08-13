@@ -1,8 +1,8 @@
 package net.aicoder.devp.maintenance.business.deploy.ops.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,20 +12,13 @@ import net.aicoder.devp.deploy.business.ops.dto.DevpOpsIssueEditDto;
 import net.aicoder.devp.deploy.business.ops.vo.DevpOpsIssueVO;
 import net.aicoder.devp.maintenance.business.deploy.ops.service.DevpOpsIssueRibbonService;
 import net.aicoder.devp.maintenance.business.deploy.ops.valid.DevpOpsIssueValidator;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 管理问题记录
@@ -38,6 +31,8 @@ public class DevpOpsIssueController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpOpsIssueController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private DevpOpsIssueRibbonService devpOpsIssueRibbonService;
@@ -59,7 +54,7 @@ public class DevpOpsIssueController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsIssueVO add(@RequestBody DevpOpsIssueAddDto devpOpsIssueAddDto){
-		devpOpsIssueAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		devpOpsIssueAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  devpOpsIssueRibbonService.add(devpOpsIssueAddDto);
 	}
 

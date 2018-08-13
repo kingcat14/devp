@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 /**
- * 系统元素间关系定义客户端
+ * 系统元素间关系客户端
  * @author icode
  */
 @Service
@@ -42,7 +42,7 @@ public class DevpSysDpyCmpRefRibbon {
 
 
     /**
-     * 新增系统元素间关系定义
+     * 新增系统元素间关系
      * @param addDto
      * @return
      */
@@ -62,7 +62,7 @@ public class DevpSysDpyCmpRefRibbon {
     }
 
 	/**
-	 * 删除系统元素间关系定义
+	 * 删除系统元素间关系
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
@@ -83,7 +83,7 @@ public class DevpSysDpyCmpRefRibbon {
     }
 
 	/**
-	 * 更新系统元素间关系定义
+	 * 更新系统元素间关系
 	 * @param id
 	 * @param editDto
 	 * @return
@@ -109,7 +109,7 @@ public class DevpSysDpyCmpRefRibbon {
 
 
     /**
-	 * 根据ID查询系统元素间关系定义
+	 * 根据ID查询系统元素间关系
 	 * @param id
 	 * @return
 	 */
@@ -134,7 +134,7 @@ public class DevpSysDpyCmpRefRibbon {
     }
 
 	/**
-	 * 查询系统元素间关系定义列表
+	 * 查询系统元素间关系列表
 	 * @param pageSearchRequest
 	 * @return
 	 */

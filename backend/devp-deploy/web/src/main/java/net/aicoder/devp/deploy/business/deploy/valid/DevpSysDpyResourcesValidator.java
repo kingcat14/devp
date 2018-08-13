@@ -43,7 +43,7 @@ public class DevpSysDpyResourcesValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpSysDpyResources 部署关联资源定义
+     * @param devpSysDpyResources 部署关联资源
      * @param errors
      */
 	public void validateDevpSysDpyResourcesAddDto(DevpSysDpyResourcesAddDto devpSysDpyResources, Errors errors) {
@@ -59,6 +59,9 @@ public class DevpSysDpyResourcesValidator implements Validator {
 		}
 		if(StringUtils.isEmpty(devpSysDpyResources.getName())){
 			errors.rejectValue(DevpSysDpyResources.PROPERTY_NAME, "EMPTY_"+DevpSysDpyResources.PROPERTY_NAME, "系统元素名称不能为空");
+		}
+		if(StringUtils.isEmpty(devpSysDpyResources.getCode())){
+			errors.rejectValue(DevpSysDpyResources.PROPERTY_CODE, "EMPTY_"+DevpSysDpyResources.PROPERTY_CODE, "系统元素代码不能为空");
 		}
 		if (null == devpSysDpyResources.getPrdRid() ) {
 			errors.rejectValue(DevpSysDpyResources.PROPERTY_PRD_RID, "EMPTY_"+DevpSysDpyResources.PROPERTY_PRD_RID, "产品编号不能为空");

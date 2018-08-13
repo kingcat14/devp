@@ -48,7 +48,8 @@ public class DevpSysDpySchemeEditDto {
 	 * 系统元素代码
 	 * [系统元素代码]
      */
-	@ApiModelProperty(value = "系统元素代码", required = false)
+	@NotNull(message = "系统元素代码不能为空")
+	@ApiModelProperty(value = "系统元素代码", required = true)
 	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
 	private String code;
 
@@ -122,6 +123,15 @@ public class DevpSysDpySchemeEditDto {
 	@ApiModelProperty(value = "版本", required = false)
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
+
+
+    /**
+	 * 版本标识后缀
+	 * [版本标识后缀]
+     */
+	@ApiModelProperty(value = "版本标识后缀", required = false)
+	@Size(max = 255, message = "版本标识后缀超长，最多255个字符")
+	private String verPostfix;
 
 
     /**
@@ -250,6 +260,13 @@ public class DevpSysDpySchemeEditDto {
 	}
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public String getVerPostfix(){
+		return verPostfix;
+	}
+	public void setVerPostfix(String verPostfix) {
+		this.verPostfix = verPostfix;
 	}
 
 	public String getPhase(){

@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 管理部署关联资源实例定义
+ * 管理部署关联资源实例
  * @author icode
  */
-@Api(description = "部署关联资源实例定义", tags = "DevpSysDpyResInst")
+@Api(description = "部署关联资源实例", tags = "DevpSysDpyResInst")
 @RestController
 @RequestMapping(value = "/deploy/devpSysDpyResInst")
 public class DevpSysDpyResInstController {
@@ -54,11 +54,11 @@ public class DevpSysDpyResInstController {
 	}
 
 	/**
-	 * 新增部署关联资源实例定义
+	 * 新增部署关联资源实例
 	 * @param devpSysDpyResInstAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增部署关联资源实例定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增部署关联资源实例", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyResInstVO add(@RequestBody @Valid DevpSysDpyResInstAddDto devpSysDpyResInstAddDto){
@@ -71,10 +71,10 @@ public class DevpSysDpyResInstController {
 	}
 
 	/**
-	 * 删除部署关联资源实例定义,id以逗号分隔
+	 * 删除部署关联资源实例,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除部署关联资源实例定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除部署关联资源实例", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -82,18 +82,18 @@ public class DevpSysDpyResInstController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpyResInstService.delete(Long.parseLong(id));
+			devpSysDpyResInstService.delete(Long.valueOf(id));
 		}
 
 	}
 
 	/**
-	 * 更新部署关联资源实例定义
+	 * 更新部署关联资源实例
 	 * @param devpSysDpyResInstEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产部署关联资源实例定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产部署关联资源实例(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpSysDpyResInstVO update(@RequestBody @Valid DevpSysDpyResInstEditDto devpSysDpyResInstEditDto, @PathVariable Long id){
 		DevpSysDpyResInst devpSysDpyResInst = new DevpSysDpyResInst();
@@ -106,11 +106,11 @@ public class DevpSysDpyResInstController {
 	}
 
 	/**
-	 * 根据ID查询部署关联资源实例定义
+	 * 根据ID查询部署关联资源实例
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询部署关联资源实例定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询部署关联资源实例", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpSysDpyResInstVO get(@PathVariable Long id) {
 
@@ -121,11 +121,11 @@ public class DevpSysDpyResInstController {
 	}
 
 	/**
-	 * 查询部署关联资源实例定义列表
+	 * 查询部署关联资源实例列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询部署关联资源实例定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询部署关联资源实例列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpSysDpyResInstVO> list(@RequestBody PageSearchRequest<DevpSysDpyResInstCondition> pageSearchRequest){
 

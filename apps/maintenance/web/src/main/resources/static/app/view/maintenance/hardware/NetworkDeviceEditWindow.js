@@ -7,7 +7,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
     height: 350,
     width: 600,
     layout: {
-        type: 'fit'
+        type: 'vbox'
     },
     title: '修改网络设备信息',
     maximizable: true,
@@ -20,8 +20,9 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                 {
                     xtype: 'form',
                     autoScroll: true,
-                    bodyPadding: 10,
-                    fieldDefaults: {
+                    bodyPadding: 10
+                    ,width:'100%'
+                    ,fieldDefaults: {
                         labelAlign: 'top'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
@@ -29,7 +30,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                         ,anchor: '96%'
                     },
                     items: [
-                        {
+                        ,{
                             xtype: 'textfield',
                             allowBlank:false,
                             afterLabelTextTpl: [
@@ -59,14 +60,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'descriptionField',
-                            name: 'description',
-                            fieldLabel: '描述'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'typeCodeField',
                             name: 'typeCode',
                             fieldLabel: '类型代码'
@@ -80,7 +73,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                             fieldLabel: '类型名称'
 
                         }
-
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
@@ -100,17 +92,18 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'versionField',
-                            name: 'version',
-                            fieldLabel: '版本'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
+
+                        }
+                        ,{
+                            xtype: 'datefield',
+                            format: 'Y-m-d',
+                            allowBlank:true,
+                            itemId: 'createDateField',
+                            name: 'createDate',
+                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -283,7 +276,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                             fieldLabel: '备注'
 
                         }
-
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
@@ -292,10 +284,29 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                             fieldLabel: '参数定义标识'
 
                         }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'attachmentField',
+                            name: 'attachment',
+                            fieldLabel: '附件'
+
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+
+                            itemId: 'descriptionField',
+                            // padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
+                        }
 
 
                     ]
                 }
+                ,{xtype:'fileuploadpanel', itemId:'fileuploadpanel-attachment'}
             ],
             dockedItems: [
                 {
@@ -345,6 +356,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+                me.down('#fileuploadpanel-attachment').save(newRecord, 'NetworkDevice-attachment');
             }
         });
 
@@ -361,6 +373,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
         this.setTitle("修改网络设备信息");
 
         this.down('form').getForm().loadRecord(model);
+
+        this.down('#fileuploadpanel-attachment').reset(model, 'NetworkDevice-attachment');
     },
     setStore: function (store) {
         this.store = store;

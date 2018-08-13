@@ -26,6 +26,7 @@ public class MachineRibbonService  {
 
 
 	public MachineVO add(MachineAddDto addDto){
+
 		MachineResult result = machineRibbon.add(addDto);
 
 		if(!result.isSuccess()){

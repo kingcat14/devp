@@ -1,9 +1,8 @@
 package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.security.local.business.service.SecurityUtil;
+import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,16 +16,10 @@ import net.aicoder.devp.maintenance.business.maintenance.software.valid.Business
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 管理应用软件
@@ -39,6 +32,8 @@ public class BusinessSoftwareController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BusinessSoftwareController.class);
 
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	@Autowired
 	private BusinessSoftwareRibbonService businessSoftwareRibbonService;
@@ -60,7 +55,7 @@ public class BusinessSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public BusinessSoftwareVO add(@RequestBody BusinessSoftwareAddDto businessSoftwareAddDto){
-		businessSoftwareAddDto.setTid(SecurityUtil.getAccount().getTenantId());
+		businessSoftwareAddDto.setTid(securityUtil.getAccount().getTenantId());
 		return  businessSoftwareRibbonService.add(businessSoftwareAddDto);
 	}
 
@@ -90,7 +85,7 @@ public class BusinessSoftwareController {
 	@ApiOperation(value = "修改", notes = "修改产应用软件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public BusinessSoftwareVO update(@RequestBody BusinessSoftwareEditDto businessSoftwareEditDto, @ApiParam(value = "要查询的应用软件id") @PathVariable Long id){
-		businessSoftwareEditDto.setTid(SecurityUtil.getAccount().getTenantId());
+		businessSoftwareEditDto.setTid(securityUtil.getAccount().getTenantId());
 		BusinessSoftwareVO vo = businessSoftwareRibbonService.merge(id, businessSoftwareEditDto);
 
 		return  vo;

@@ -43,6 +43,8 @@ public class DevpSysDpySchemeCondition implements Serializable{
 	private String scope;
 	@ApiModelProperty(value = "版本")
 	private String version;
+	@ApiModelProperty(value = "版本标识后缀")
+	private String verPostfix;
 	@ApiModelProperty(value = "阶段")
 	private String phase;
 	@ApiModelProperty(value = "状态")
@@ -184,6 +186,14 @@ public class DevpSysDpySchemeCondition implements Serializable{
 	}
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+
+	public String getVerPostfix(){
+		return verPostfix;
+	}
+	public void setVerPostfix(String verPostfix) {
+		this.verPostfix = verPostfix;
 	}
 
 

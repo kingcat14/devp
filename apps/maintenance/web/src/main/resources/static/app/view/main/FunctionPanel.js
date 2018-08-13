@@ -4,6 +4,7 @@ Ext.define('AM.view.main.FunctionPanel', {
 	requires: [
 		'Ext.layout.container.Accordion'
 		,'AM.view.main.FunctionTreePanel'
+		,'AM.model.application.security.ResourceTreeNode'
 
 	],
 	alias: 'widget.mainFunctionPanel',
@@ -39,7 +40,7 @@ Ext.define('AM.view.main.FunctionPanel', {
 Ext.define('AM.view.main.FunctionController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-		'AM.model.security.Resource'
+
 	]
 	,alias: 'controller.main-Function',
 
@@ -60,12 +61,16 @@ Ext.define('AM.view.main.FunctionController', {
 	,onFailure: function(response, opts) {
 		console.log('server-side failure with status code ' + response.status);
 		opts.mask.hide()
-		Ext.MessageBox.alert('获取资源失败', '获取用户功能清单失败, 请联系研发同事。status code:' + response.status);
-	}
+		if(401 == response.status){
+            window.location="login.html";
+		}else {
+            Ext.MessageBox.alert('获取资源失败', '获取用户功能清单失败, 请联系研发同事。status code:' + response.status);
+        }
+    }
 	,onSuccess: function (response, opts) {
 
 		opts.mask.hide()
-		var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.security.ResourceTreeNode').getProxy().getReader().read(response);
+		var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.application.security.ResourceTreeNode').getProxy().getReader().read(response);
 
 		var resourceList = resultSet.getRecords();
 		for(var i in resourceList){
@@ -73,7 +78,7 @@ Ext.define('AM.view.main.FunctionController', {
 			var store = Ext.create('Ext.data.TreeStore', {
 				root : resourceList[i]
 			})
-			this.getView().add(Ext.create("AM.view.main.FunctionTreePanel",{title:resourceList[i].get("name"), store:store }))
+			this.getView().add(Ext.create("AM.view.main.FunctionTreePanel" ,{title:resourceList[i].get("name"), store:store }))
 		}
 
 	}
@@ -81,7 +86,7 @@ Ext.define('AM.view.main.FunctionController', {
 
 		if (success) {
 			options.mask.hide()
-			var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.security.ResourceTreeNode').getProxy().getReader().read(response);
+			var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.application.security.ResourceTreeNode').getProxy().getReader().read(response);
 
 			var resourceList = resultSet.getRecords();
 			for(var i in resourceList){

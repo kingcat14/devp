@@ -13,11 +13,11 @@ import com.yunkang.saas.common.framework.eo.BaseEntity;
 
 
 /**
- * 系统元素间关系定义
+ * 系统元素间关系
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_sys_dpy_cmp_ref", comment = "[系统元素间关系定义]")
+@Table(appliesTo = "devp_sys_dpy_cmp_ref", comment = "[系统元素间关系]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpSysDpyCmpRef extends BaseEntity{

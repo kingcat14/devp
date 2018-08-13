@@ -21,12 +21,6 @@ Ext.define('AM.model.deploy.ops.DevpOpsAttachment', {
             ,allowNull:true
         }
     	,{
-            name: 'rid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'tid'
             ,type:'string'
             ,allowNull:false

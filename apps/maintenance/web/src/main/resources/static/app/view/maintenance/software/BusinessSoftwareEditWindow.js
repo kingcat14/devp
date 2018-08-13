@@ -7,7 +7,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
     height: 350,
     width: 600,
     layout: {
-        type: 'fit'
+        type: 'vbox'
     },
     title: '修改应用软件信息',
     maximizable: true,
@@ -20,8 +20,9 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                 {
                     xtype: 'form',
                     autoScroll: true,
-                    bodyPadding: 10,
-                    fieldDefaults: {
+                    bodyPadding: 10
+                    ,width:'100%'
+                    ,fieldDefaults: {
                         labelAlign: 'top'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
@@ -29,7 +30,29 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                         ,anchor: '96%'
                     },
                     items: [
+                        ,{
+                            xtype: 'numberfield',
+                            allowDecimals:false,
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'tidField',
+                            name: 'tid',
+                            fieldLabel: '租户编号'
 
+                        }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:false,
+                            afterLabelTextTpl: [
+                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            ],
+                            itemId: 'etypeField',
+                            name: 'etype',
+                            fieldLabel: '元素类型'
+
+                        }
                         ,{
                             xtype: 'textfield',
                             allowBlank:false,
@@ -111,6 +134,15 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
+
+                        }
+                        ,{
+                            xtype: 'datefield',
+                            format: 'Y-m-d',
+                            allowBlank:true,
+                            itemId: 'createDateField',
+                            name: 'createDate',
+                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -283,7 +315,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                             fieldLabel: '备注'
 
                         }
-
                         ,{
                             xtype: 'numberfield',
                             allowDecimals:false,
@@ -305,6 +336,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
 
                     ]
                 }
+                ,{xtype:'fileuploadpanel', itemId:'fileuploadpanel-attachment'}
             ],
             dockedItems: [
                 {
@@ -354,6 +386,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
+                me.down('#fileuploadpanel-attachment').save(newRecord, 'BusinessSoftware-attachment');
             }
         });
 
@@ -370,6 +403,8 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareEditWindow', {
         this.setTitle("修改应用软件信息");
 
         this.down('form').getForm().loadRecord(model);
+
+        this.down('#fileuploadpanel-attachment').reset(model);
     },
     setStore: function (store) {
         this.store = store;

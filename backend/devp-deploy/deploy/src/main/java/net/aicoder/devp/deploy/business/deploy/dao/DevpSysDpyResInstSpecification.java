@@ -35,14 +35,16 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 		tryAddAliasPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
 		tryAddRecordStatePredicate(predicateList, root, cb);
+		tryAddFlagPredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
 		tryAddSubTypePredicate(predicateList, root, cb);
-		tryAddStereotypePredicate(predicateList, root, cb);
-		tryAddScopePredicate(predicateList, root, cb);
-		tryAddVersionPredicate(predicateList, root, cb);
+		tryAddDpyModelPredicate(predicateList, root, cb);
+		tryAddDpyDescriptionPredicate(predicateList, root, cb);
+		tryAddAccessAddrPredicate(predicateList, root, cb);
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddPrdRidPredicate(predicateList, root, cb);
+		tryAddSchemeRidPredicate(predicateList, root, cb);
 		tryAddResRidPredicate(predicateList, root, cb);
 		tryAddParentRidPredicate(predicateList, root, cb);
 		tryAddSeqPredicate(predicateList, root, cb);
@@ -92,6 +94,11 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 			predicateList.add(cb.equal(root.get(DevpSysDpyResInst.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
 		}
 	}
+	private void tryAddFlagPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getFlag())){
+			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_FLAG).as(String.class), "%"+condition.getFlag()+"%"));
+		}
+	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getType())){
 			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_TYPE).as(String.class), "%"+condition.getType()+"%"));
@@ -102,19 +109,19 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_SUB_TYPE).as(String.class), "%"+condition.getSubType()+"%"));
 		}
 	}
-	private void tryAddStereotypePredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getStereotype())){
-			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_STEREOTYPE).as(String.class), "%"+condition.getStereotype()+"%"));
+	private void tryAddDpyModelPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDpyModel())){
+			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_DPY_MODEL).as(String.class), "%"+condition.getDpyModel()+"%"));
 		}
 	}
-	private void tryAddScopePredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getScope())){
-			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_SCOPE).as(String.class), "%"+condition.getScope()+"%"));
+	private void tryAddDpyDescriptionPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDpyDescription())){
+			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_DPY_DESCRIPTION).as(String.class), "%"+condition.getDpyDescription()+"%"));
 		}
 	}
-	private void tryAddVersionPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getVersion())){
-			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_VERSION).as(String.class), "%"+condition.getVersion()+"%"));
+	private void tryAddAccessAddrPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getAccessAddr())){
+			predicateList.add(cb.like(root.get(DevpSysDpyResInst.PROPERTY_ACCESS_ADDR).as(String.class), "%"+condition.getAccessAddr()+"%"));
 		}
 	}
 	private void tryAddStatusPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
@@ -130,6 +137,11 @@ public class DevpSysDpyResInstSpecification implements Specification<DevpSysDpyR
 	private void tryAddPrdRidPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
 		if (null != condition.getPrdRid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyResInst.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRid()));
+		}
+	}
+	private void tryAddSchemeRidPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){
+		if (null != condition.getSchemeRid() ) {
+			predicateList.add(cb.equal(root.get(DevpSysDpyResInst.PROPERTY_SCHEME_RID).as(Long.class), condition.getSchemeRid()));
 		}
 	}
 	private void tryAddResRidPredicate(List<Predicate> predicateList, Root<DevpSysDpyResInst> root, CriteriaBuilder cb){

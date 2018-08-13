@@ -347,6 +347,12 @@ public class DevpOpsAssetCmdbEditDto {
 	@Size(max = 255, message = "使用情况超长，最多255个字符")
 	private String custUsage;
 
+	/**
+	 * 供应商
+	 */
+	@ApiModelProperty(value = "供应商", required = false)
+	@Size(max = 255, message = "供应商超长，最多255个字符")
+	private String acquisitionProvider;
 
     /**
 	 * 备注
@@ -590,6 +596,13 @@ public class DevpOpsAssetCmdbEditDto {
 	}
 	public void setOpsManager(String opsManager) {
 		this.opsManager = opsManager;
+	}
+
+	public String getAcquisitionProvider() {
+		return acquisitionProvider;
+	}
+	public void setAcquisitionProvider(String acquisitionProvider) {
+		this.acquisitionProvider = acquisitionProvider;
 	}
 
 	public String getBizLine(){

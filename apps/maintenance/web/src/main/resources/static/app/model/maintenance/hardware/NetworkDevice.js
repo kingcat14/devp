@@ -21,12 +21,6 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,allowNull:true
         }
     	,{
-            name: 'rid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'tid'
             ,type:'string'
             ,allowNull:false
@@ -259,6 +253,12 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
         }
     	,{
             name: 'parasCode'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'attachment'
             ,type:'string'
             ,allowNull:true
             ,critical:true

@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 管理部署关联资源定义
+ * 管理部署关联资源
  * @author icode
  */
-@Api(description = "部署关联资源定义", tags = "DevpSysDpyResources")
+@Api(description = "部署关联资源", tags = "DevpSysDpyResources")
 @RestController
 @RequestMapping(value = "/deploy/devpSysDpyResources")
 public class DevpSysDpyResourcesController {
@@ -54,11 +54,11 @@ public class DevpSysDpyResourcesController {
 	}
 
 	/**
-	 * 新增部署关联资源定义
+	 * 新增部署关联资源
 	 * @param devpSysDpyResourcesAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增部署关联资源定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增部署关联资源", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyResourcesVO add(@RequestBody @Valid DevpSysDpyResourcesAddDto devpSysDpyResourcesAddDto){
@@ -71,10 +71,10 @@ public class DevpSysDpyResourcesController {
 	}
 
 	/**
-	 * 删除部署关联资源定义,id以逗号分隔
+	 * 删除部署关联资源,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除部署关联资源定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除部署关联资源", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -82,18 +82,18 @@ public class DevpSysDpyResourcesController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpyResourcesService.delete(Long.parseLong(id));
+			devpSysDpyResourcesService.delete(Long.valueOf(id));
 		}
 
 	}
 
 	/**
-	 * 更新部署关联资源定义
+	 * 更新部署关联资源
 	 * @param devpSysDpyResourcesEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产部署关联资源定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产部署关联资源(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpSysDpyResourcesVO update(@RequestBody @Valid DevpSysDpyResourcesEditDto devpSysDpyResourcesEditDto, @PathVariable Long id){
 		DevpSysDpyResources devpSysDpyResources = new DevpSysDpyResources();
@@ -106,11 +106,11 @@ public class DevpSysDpyResourcesController {
 	}
 
 	/**
-	 * 根据ID查询部署关联资源定义
+	 * 根据ID查询部署关联资源
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询部署关联资源定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询部署关联资源", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpSysDpyResourcesVO get(@PathVariable Long id) {
 
@@ -121,11 +121,11 @@ public class DevpSysDpyResourcesController {
 	}
 
 	/**
-	 * 查询部署关联资源定义列表
+	 * 查询部署关联资源列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询部署关联资源定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询部署关联资源列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpSysDpyResourcesVO> list(@RequestBody PageSearchRequest<DevpSysDpyResourcesCondition> pageSearchRequest){
 

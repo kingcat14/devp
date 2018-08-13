@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 部署关联资源实例定义的数据库操作
+ * 部署关联资源实例的数据库操作
  * @author icode
  */
 @Repository("devpSysDpyResInstDao")
