@@ -17,7 +17,7 @@ Ext.define('AM.store.application.security.ResourceStore', {
                 url: 'application/security/resource',
                 reader: {
                     type: 'json',
-                    root: 'content'
+                    rootProperty: 'content'
                 },
                 actionMethods:{read:'POST'},
                 api:{read:"application/security/resource/list"},

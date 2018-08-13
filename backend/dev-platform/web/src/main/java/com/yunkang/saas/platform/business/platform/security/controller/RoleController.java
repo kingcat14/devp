@@ -4,6 +4,9 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.platform.business.platform.application.domain.App;
+import com.yunkang.saas.platform.business.platform.application.service.AppService;
+import com.yunkang.saas.platform.business.platform.application.vo.AppVO;
 import com.yunkang.saas.platform.business.platform.security.domain.Role;
 import com.yunkang.saas.platform.business.platform.security.dto.RoleAddDto;
 import com.yunkang.saas.platform.business.platform.security.dto.RoleCondition;
@@ -11,6 +14,9 @@ import com.yunkang.saas.platform.business.platform.security.dto.RoleEditDto;
 import com.yunkang.saas.platform.business.platform.security.service.RoleService;
 import com.yunkang.saas.platform.business.platform.security.valid.RoleValidator;
 import com.yunkang.saas.platform.business.platform.security.vo.RoleVO;
+import com.yunkang.saas.platform.business.platform.tenant.domain.Tenant;
+import com.yunkang.saas.platform.business.platform.tenant.service.TenantService;
+import com.yunkang.saas.platform.business.platform.tenant.vo.TenantVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -38,9 +44,14 @@ public class RoleController {
 
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private TenantService tenantService;
+	@Autowired
+	private AppService appService;
 
 
-    @InitBinder
+
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(new RoleValidator());
 	}
@@ -141,9 +152,25 @@ public class RoleController {
 
         BeanUtils.copyProperties(role, vo);
 
+		Tenant tenant = tenantService.find(role.getTenantId());
+		if(tenant != null){
+			TenantVO tenantVO = new TenantVO();
+			BeanUtils.copyProperties(tenant, tenantVO);
+			vo.setTenantVO(tenantVO);
+		}
+
+		App app = appService.find(role.getAppId());
+		if(app != null){
+			AppVO appVO = new AppVO();
+			BeanUtils.copyProperties(app, appVO);
+			vo.setAppVO(appVO);
+		}
+
 	    //初始化其他对象
         return vo;
 	}
+
+
 
 
 

@@ -31,6 +31,7 @@ public class TenantSpecification implements Specification<Tenant>{
 		tryAddTenantCodePredicate(predicateList, root, cb);
 		tryAddTenantTypePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
+		tryAddMobilePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -52,6 +53,11 @@ public class TenantSpecification implements Specification<Tenant>{
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Tenant> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
 			predicateList.add(cb.like(root.get(Tenant.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
+		}
+	}
+	private void tryAddMobilePredicate(List<Predicate> predicateList, Root<Tenant> root, CriteriaBuilder cb){
+		if (null != condition.getMobile() ) {
+			predicateList.add(cb.equal(root.get(Tenant.PROPERTY_MOBILE).as(Long.class), condition.getMobile()));
 		}
 	}
 }

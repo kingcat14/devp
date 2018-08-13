@@ -19,20 +19,32 @@ public class ApplicationPasswordVO {
     @ApiModelProperty(value = "记录id")
     private Long id;
 
-    /**
-    * 访问ID
-    * 
-    */
+    /**应用Id*/
+    @ApiModelProperty(value = "应用Id")
+    private Long appId;
+    private AppVO appIdVO;
+
+    /**访问ID*/
     @ApiModelProperty(value = "访问ID")
     private String accessId;
 
-    /**
-    * 访问密码
-    * 
-    */
+    /**访问密码*/
     @ApiModelProperty(value = "访问密码")
     private String accessKey;
 
+
+    public Long getAppId(){
+        return appId;
+    }
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+    public AppVO getAppIdVO(){
+        return appIdVO;
+    }
+    public void setAppIdVO(AppVO appIdVO) {
+        this.appIdVO = appIdVO;
+    }
 
     public String getAccessId(){
         return accessId;
@@ -40,12 +52,14 @@ public class ApplicationPasswordVO {
     public void setAccessId(String accessId) {
         this.accessId = accessId;
     }
+
     public String getAccessKey(){
         return accessKey;
     }
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
     }
+
 
 	public Long getId() {
 		return id;

@@ -37,6 +37,9 @@ public class ResourceService  extends CrudService<Resource, ResourceCondition, R
 
 
 
+	public Resource findByCodeAndAppId(Resource resource){
+		return dao.findByCodeAndAppId(resource.getCode(), resource.getAppId());
+	}
 
 	@Override
 	public Specification<Resource> getSpecification(ResourceCondition condition) {
@@ -45,7 +48,7 @@ public class ResourceService  extends CrudService<Resource, ResourceCondition, R
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.ASC , Resource.PROPERTY_ORDER_INDEX);
+		Sort sort = new Sort(Sort.Direction.ASC , Resource.PROPERTY_ORDER_INDEX, Resource.PROPERTY_CODE);
 		return sort;
 	}
 }

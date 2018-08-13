@@ -16,10 +16,7 @@ public class ApplicationPasswordEditDto {
 
 
 
-    /**
-	 * 访问ID
-	 * 
-     */
+    /**访问ID*/
 	@NotNull(message = "访问ID不能为空")
 	@ApiModelProperty(value = "访问ID", required = true)
 	@Size(max = 255, message = "访问ID超长，最多255个字符")
@@ -27,10 +24,7 @@ public class ApplicationPasswordEditDto {
 
 
 
-    /**
-	 * 访问密码
-	 * 
-     */
+    /**访问密码*/
 	@NotNull(message = "访问密码不能为空")
 	@ApiModelProperty(value = "访问密码", required = true)
 	@Size(max = 255, message = "访问密码超长，最多255个字符")

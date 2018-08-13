@@ -42,12 +42,6 @@ Ext.define('AM.model.platform.security.Account', {
             ,critical:true
         }
     	,{
-            name: 'maxClient'
-			,type:'int'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'enable'
 			,type:'boolean'
             ,allowNull:false
@@ -59,5 +53,12 @@ Ext.define('AM.model.platform.security.Account', {
             ,allowNull:false
             ,critical:true
         }
+        ,{
+            name: 'tenantId'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+
     ]
 });

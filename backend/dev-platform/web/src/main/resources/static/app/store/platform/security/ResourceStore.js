@@ -1,37 +1,37 @@
 Ext.define('AM.store.platform.security.ResourceStore', {
-    extend: 'Ext.data.Store',
-    requires: [
+    extend: 'Ext.data.Store'
+    ,requires: [
         'AM.model.platform.security.Resource'
-    ],
-
-    constructor: function(cfg) {
+    ]
+    ,constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: false,
-            model: 'AM.model.platform.security.Resource',
-            pageSize: 10,
-            proxy: {
-                type: 'rest',
-                url: 'platform/security/resource',
-                reader: {
-                    type: 'json',
-                    root: 'content'
-                },
-                actionMethods:{read:'POST'},
-                api:{read:"platform/security/resource/list"},
-                paramsAsJson:true,
-                listeners: {
+            autoLoad: false
+            ,model: 'AM.model.platform.security.Resource'
+            ,pageSize: 25
+            ,proxy: {
+                type: 'rest'
+                ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+                ,url: 'platform/security/resource'
+                ,reader: {
+                    type: 'json'
+                    ,rootProperty: 'content'
+                }
+                ,actionMethods:{read:'POST'}
+                ,api:{read:"platform/security/resource/list"}
+                ,paramsAsJson:true
+                ,listeners: {
                     exception: {
-                        fn: me.onAjaxproxyException,
-                        scope: me
+                        fn: me.onAjaxproxyException
+                        ,scope: me
                     }
                 }
             }
             ,listeners: {
                 beforeload: {
-                    fn:me.beforeload,
-                    scope: me
+                    fn:me.beforeload
+                    ,scope: me
                 }
             }
         }, cfg)]);
@@ -56,17 +56,17 @@ Ext.define('AM.store.platform.security.ResourceStore', {
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
 
-        if(this.rootModel){
-
-            var extraParams = this.proxy.getExtraParams();
-
-            if(!extraParams.searchCondition){
-                extraParams.searchCondition = {}
-            }
-
-            extraParams.searchCondition.projectTemplateId = this.rootModel.getId()
-
-        }
+        // if(this.rootModel){
+        //
+        //     var extraParams = this.proxy.getExtraParams();
+        //
+        //     if(!extraParams.searchCondition){
+        //         extraParams.searchCondition = {}
+        //     }
+        //
+        //     extraParams.searchCondition.projectTemplateId = this.rootModel.getId()
+        //
+        // }
     }
 
 });

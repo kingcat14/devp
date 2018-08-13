@@ -27,7 +27,7 @@ Ext.define('AM.store.platform.security.RoleResourceRelationTreeStore', {
                 api:{read:"platform/security/roleResourceRelation?method=getChildNodes"},
 	            reader: {
 		            type: 'json'
-		            //,root: 'content'
+		            //,rootProperty: 'content'
 	            },
                 listeners: {
                     exception: {

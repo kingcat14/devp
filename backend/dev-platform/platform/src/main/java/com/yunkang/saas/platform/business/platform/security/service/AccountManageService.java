@@ -102,7 +102,7 @@ public class AccountManageService {
 
 		//得到账号
 		AccountCondition accountCondition = new AccountCondition();
-		accountCondition.setName(accountName);
+		accountCondition.setAccountName(accountName);
 		Account account = accountService.findOne(accountCondition);
 
 		//得到账号的所有角色
@@ -132,8 +132,11 @@ public class AccountManageService {
 
 		for(Long key : resourceKeySet){
 			Resource resource = resourceService.find(key);
+
 			if(resource!=null) {
 				resourceList.add(resource);
+			}else{
+				LOGGER.info("can not find resource for id:{}", key);
 			}
 		}
 
@@ -161,7 +164,7 @@ public class AccountManageService {
 
 //	public List<Resource> findAllResourceTree(){
 //
-//		Sort sort = new Sort(Sort.Direction.ASC , Resource.PROPERTY_PARENT_ID);
+//		Sort sort = new Sort(Sort.Direction.ASC , Resource.PROPERTY_PARENT_CODE);
 //		sort.and(new Sort(Sort.Direction.ASC , Resource.PROPERTY_ORDER_INDEX));
 //		List<Resource> resourceList = resourceService.findAll(null);
 //

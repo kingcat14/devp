@@ -38,14 +38,6 @@ public class AppAddDto {
 	private String code;
 
     /**
-	 * 所属租户
-	 * 
-     */
-	@NotNull(message = "所属租户不能为空")
-	@ApiModelProperty(value = "所属租户", required = true)
-	private Long tenantId;
-
-    /**
 	 * 应用类别
 	 * 
      */
@@ -56,7 +48,7 @@ public class AppAddDto {
 	 * 标签
 	 * 应用的标签，逗号分隔，可填写多个
      */
-	@ApiModelProperty(value = "标签", required = false)
+	@ApiModelProperty(value = "标签", required = false, notes = "应用的标签，逗号分隔，可填写多个")
 	private String label;
 
     /**
@@ -77,7 +69,7 @@ public class AppAddDto {
 	 * 应用链接
 	 * 跳转至对应的应用
      */
-	@ApiModelProperty(value = "应用链接", required = false)
+	@ApiModelProperty(value = "应用链接", required = false, notes = "跳转至对应的应用")
 	@Size(max = 255, message = "应用链接超长，最多255个字符")
 	private String url;
 
@@ -108,13 +100,6 @@ public class AppAddDto {
 	}
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public Long getTenantId(){
-		return tenantId;
-	}
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
 	}
 
 	public Long getAppCategoryId(){

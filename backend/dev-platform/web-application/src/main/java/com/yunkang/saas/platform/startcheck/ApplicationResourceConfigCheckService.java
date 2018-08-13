@@ -5,6 +5,7 @@ import com.yunkang.saas.platform.business.resource.service.ResourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -21,13 +22,17 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	@Autowired
     private ResourceService resourceService;
 
+	@Value("${sys.id:-1}")
+	private Long appId;
 
     @Override
     public void run(String... args) throws Exception {
 
 	    Resource resource998 = new Resource();
 	    resource998.setId(998L);
-	    resource998.setParentId(Resource.TOP_NODE_ID);
+		resource998.setAppId(appId);
+		resource998.setCode(998L);
+	    resource998.setParentCode(Resource.TOP_NODE_ID);
 	    resource998.setName("系统管理");
 	    resource998.setType("menu");
 	    resource998.setOrderIndex(998);
@@ -35,7 +40,9 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 	    Resource resource998001 = new Resource();
 	    resource998001.setId(998001L);
-	    resource998001.setParentId(998L);
+		resource998001.setAppId(appId);
+		resource998001.setCode(998001L);
+	    resource998001.setParentCode(998L);
 	    resource998001.setName("安全配置");
 	    resource998001.setType("menu");
 	    resource998001.setOrderIndex(1);
@@ -43,7 +50,7 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 //	    Resource resource998001001 = new Resource();
 //	    resource998001001.setId(998001001L);
-//	    resource998001001.setParentId(998001L);
+//	    resource998001001.setParentCode(998001L);
 //	    resource998001001.setName("资源配置");
 //	    resource998001001.setType("page");
 //	    resource998001001.setUrl("AM.controller.application.security.ResourceController");
@@ -52,7 +59,9 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 	    Resource resource998001002 = new Resource();
 	    resource998001002.setId(998001002L);
-	    resource998001002.setParentId(998001L);
+		resource998001002.setAppId(appId);
+		resource998001002.setCode(998001002L);
+	    resource998001002.setParentCode(998001L);
 	    resource998001002.setName("角色管理");
 	    resource998001002.setType("page");
 	    resource998001002.setUrl("AM.controller.application.security.RoleController");
@@ -61,7 +70,9 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 	    Resource resource998001003 = new Resource();
 	    resource998001003.setId(998001003L);
-	    resource998001003.setParentId(998001L);
+		resource998001003.setAppId(appId);
+		resource998001003.setCode(998001003L);
+	    resource998001003.setParentCode(998001L);
 	    resource998001003.setName("账号管理");
 	    resource998001003.setType("page");
 	    resource998001003.setUrl("AM.controller.application.security.AccountController");
@@ -70,7 +81,9 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 	    Resource resource998002 = new Resource();
 	    resource998002.setId(998002L);
-	    resource998002.setParentId(998L);
+		resource998002.setAppId(appId);
+		resource998002.setCode(998002L);
+	    resource998002.setParentCode(998L);
 	    resource998002.setName("参数配置");
 	    resource998002.setType("menu");
 	    resource998002.setOrderIndex(1);
@@ -78,7 +91,9 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 
 	    Resource resource998002001 = new Resource();
 	    resource998002001.setId(998002001L);
-	    resource998002001.setParentId(998002L);
+		resource998002001.setAppId(appId);
+		resource998002001.setCode(998002001L);
+	    resource998002001.setParentCode(998002L);
 	    resource998002001.setName("业务参数配置");
 	    resource998002001.setType("page");
 	    resource998002001.setUrl("AM.controller.application.config.SimpleConfigController");

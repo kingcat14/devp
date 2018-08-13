@@ -54,6 +54,8 @@ public class Role extends SaaSEntity {
 	@Size(max = 255, message = "角色描述超长，最多255个字符")
 	private String description;
 
+
+
 	public String getName(){
 		return name;
 	}

@@ -20,74 +20,40 @@ public class AppVO {
     @ApiModelProperty(value = "记录id")
     private Long id;
 
-    /**
-    * 应用名称
-    * 
-    */
+    /**应用名称*/
     @ApiModelProperty(value = "应用名称")
     private String name;
 
-    /**
-    * 应用代码
-    * 
-    */
+    /**应用代码*/
     @ApiModelProperty(value = "应用代码")
     private String code;
 
-    /**
-    * 所属租户
-    * 
-    */
-    @ApiModelProperty(value = "所属租户")
-    private Long tenantId;
-
-    /**
-    * 应用类别
-    * 
-    */
+    /**应用类别*/
     @ApiModelProperty(value = "应用类别")
     private Long appCategoryId;
     private ConfigAppCategoryVO appCategoryIdVO;
 
-    /**
-    * 标签
-    * 应用的标签，逗号分隔，可填写多个
-    */
-    @ApiModelProperty(value = "标签")
+    /**标签*/
+    @ApiModelProperty(value = "标签", notes = "应用的标签，逗号分隔，可填写多个")
     private String label;
 
-    /**
-    * 已启用
-    * 
-    */
+    /**已启用*/
     @ApiModelProperty(value = "已启用")
     private Boolean enable;
 
-    /**
-    * 上架时间
-    * 
-    */
+    /**上架时间*/
     @ApiModelProperty(value = "上架时间")
     private Date onBoardTime;
 
-    /**
-    * 应用链接
-    * 跳转至对应的应用
-    */
-    @ApiModelProperty(value = "应用链接")
+    /**应用链接*/
+    @ApiModelProperty(value = "应用链接", notes = "跳转至对应的应用")
     private String url;
 
-    /**
-    * 描述
-    * 
-    */
+    /**描述*/
     @ApiModelProperty(value = "描述")
     private String description;
 
-    /**
-    * 可见
-    * 
-    */
+    /**可见*/
     @ApiModelProperty(value = "可见")
     private Boolean visible;
 
@@ -104,13 +70,6 @@ public class AppVO {
     }
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Long getTenantId(){
-        return tenantId;
-    }
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
     }
 
     public Long getAppCategoryId(){

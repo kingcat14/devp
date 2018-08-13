@@ -1,5 +1,6 @@
 package com.yunkang.saas.platform.business.platform.tenant.domain;
 
+import com.yunkang.saas.common.jpa.SaaSEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -20,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "tenant", comment = "[租户]")
 //@DynamicUpdate
 //@DynamicInsert
-public class Tenant extends GenericBaseEntity<Long>{
+public class Tenant extends SaaSEntity{
 
 	public static final String PROPERTY_TENANT_CODE = "tenantCode";
 	public static final String PROPERTY_TENANT_TYPE = "tenantType";
@@ -33,6 +34,7 @@ public class Tenant extends GenericBaseEntity<Long>{
 	public static final String PROPERTY_TELEPHONE_NO = "telephoneNo";
 	public static final String PROPERTY_CRM_CODE = "crmCode";
 	public static final String PROPERTY_PREFIX_DOMAIN_NAME = "prefixDomainName";
+	public static final String PROPERTY_MOBILE = "mobile";
 	public static final String PROPERTY_STATUS = "status";
 
 
@@ -132,12 +134,19 @@ public class Tenant extends GenericBaseEntity<Long>{
 	private String prefixDomainName;
 
     /**
-    * 状态
+    * 号码
+    * 
+    */
+    @Column(name = "mobile")
+	private Long mobile;
+
+    /**
+    * 启用
     * 
     */
     @Column(name = "status")
-	@NotNull(message = "状态不能为空")
-	private Integer status;
+	@NotNull(message = "启用不能为空")
+	private Boolean status;
 
 	public String getTenantCode(){
 		return tenantCode;
@@ -216,10 +225,17 @@ public class Tenant extends GenericBaseEntity<Long>{
 		this.prefixDomainName = prefixDomainName;
 	}
 
-	public Integer getStatus(){
+	public Long getMobile(){
+		return mobile;
+	}
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
+	}
+
+	public Boolean getStatus(){
 		return status;
 	}
-	public void setStatus(Integer status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

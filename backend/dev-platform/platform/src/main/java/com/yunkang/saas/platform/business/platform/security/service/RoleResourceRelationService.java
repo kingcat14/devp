@@ -5,10 +5,12 @@ import com.yunkang.saas.common.jpa.CrudService;
 
 import com.yunkang.saas.platform.business.platform.security.dao.RoleResourceRelationDao;
 import com.yunkang.saas.platform.business.platform.security.dao.RoleResourceRelationSpecification;
+import com.yunkang.saas.platform.business.platform.security.domain.Role;
 import com.yunkang.saas.platform.business.platform.security.domain.RoleResourceRelation;
 import com.yunkang.saas.platform.business.platform.security.dto.RoleResourceRelationCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

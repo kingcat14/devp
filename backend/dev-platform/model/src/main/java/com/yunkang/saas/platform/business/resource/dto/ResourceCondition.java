@@ -15,13 +15,9 @@ public class ResourceCondition implements Serializable{
 	private String name;
 	private String url;
 	private String type;
-	private String code;
-	private Long parentId;
-	private Long parentIdMax;
-	private Long parentIdMin;
+	private Long code;
+	private Long parentCode;
 	private Integer orderIndex;
-	private Integer orderIndexMax;
-	private Integer orderIndexMin;
 
 	public Long getAppId() {
 		return appId;
@@ -54,55 +50,26 @@ public class ResourceCondition implements Serializable{
 	}
 
 
-	public String getCode(){
+	public Long getCode(){
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
 
-	public Long getParentId(){
-		return parentId;
+	public Long getParentCode() {
+		return parentCode;
 	}
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
+	public void setParentCode(Long parentCode) {
+		this.parentCode = parentCode;
 	}
-
-	public Long getParentIdMin(){
-		return parentIdMin;
-	}
-	public void setParentIdMin(Long parentIdMin) {
-		this.parentIdMin = parentIdMin;
-	}
-
-	public Long getParentIdMax(){
-		return parentIdMax;
-	}
-	public void setParentIdMax(Long parentIdMax) {
-		this.parentIdMax = parentIdMax;
-	}
-
 
 	public Integer getOrderIndex(){
 		return orderIndex;
 	}
 	public void setOrderIndex(Integer orderIndex) {
 		this.orderIndex = orderIndex;
-	}
-
-	public Integer getOrderIndexMin(){
-		return orderIndexMin;
-	}
-	public void setOrderIndexMin(Integer orderIndexMin) {
-		this.orderIndexMin = orderIndexMin;
-	}
-
-	public Integer getOrderIndexMax(){
-		return orderIndexMax;
-	}
-	public void setOrderIndexMax(Integer orderIndexMax) {
-		this.orderIndexMax = orderIndexMax;
 	}
 
 

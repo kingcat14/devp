@@ -17,7 +17,7 @@ Ext.define('AM.store.application.security.AccountStore', {
                 url: 'application/security/account',
                 reader: {
                     type: 'json',
-                    root: 'content'
+                    rootProperty: 'content'
                 },
                 actionMethods:{read:'POST'},
                 api:{read:"application/security/account/list"},

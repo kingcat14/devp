@@ -17,7 +17,7 @@ Ext.define('AM.store.platform.security.RoleStore', {
                 url: 'platform/security/role',
                 reader: {
                     type: 'json',
-                    root: 'content'
+                    rootProperty: 'content'
                 },
                 actionMethods:{read:'POST'},
                 api:{read:"platform/security/role/list"},

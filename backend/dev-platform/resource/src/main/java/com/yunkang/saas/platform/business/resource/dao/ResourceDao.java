@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository("resourceDao")
 public interface ResourceDao extends BaseDao<Resource, Long>{
 
+    Resource findByCodeAndAppId(Long code, Long appId);
 
 }

@@ -154,6 +154,18 @@ public class TenantController {
 
 	}
 
+	/**
+	 * 查询租户列表
+	 * @param pageSearchRequest
+	 * @return
+	 */
+	@ApiOperation(value = "查询", notes = "根据条件快速查询租户列表", httpMethod = "POST")
+	@PostMapping(value = "/list", params = "query")
+	public PageContent<TenantVO> query(@RequestBody PageSearchRequest<TenantCondition> pageSearchRequest){
+		return null;
+	}
+
+
 	private TenantVO initViewProperty(Tenant tenant){
 	    TenantVO vo = new TenantVO();
 

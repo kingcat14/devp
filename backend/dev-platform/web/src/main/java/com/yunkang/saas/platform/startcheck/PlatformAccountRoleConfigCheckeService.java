@@ -55,7 +55,7 @@ public class PlatformAccountRoleConfigCheckeService implements CommandLineRunner
 		account.setTenantId(1L);
 		account.setAccountName("admin");
 		account.setName("超级管理员");
-		account.setEnable("true");
+		account.setEnable(true);
 		check(account);
 
 		AccountPassword accountPassword = new AccountPassword();

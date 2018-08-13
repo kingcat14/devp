@@ -4,6 +4,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
 	alias: 'widget.platformSecurityRolePanel',
 	requires: [
 		'AM.view.platform.security.RoleResourceTreeWindow'
+		,'AM.view.platform.security.RoleResourceTabWindow'
 	],
 	height: 250,
 	width: 400,
@@ -54,9 +55,33 @@ Ext.define('AM.view.platform.security.RolePanel', {
 							}
 						}
 						,'-'
+                        ,{
+                            xtype:'combobox'
+                            ,emptyText:'点击选择租户'
+                            ,store: Ext.create("AM.store.platform.platform.tenant.TenantStore", {autoLoad:true, pageSize: 1000})
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId:'simpleSearchTenantField'
+							,queryMode:'local'
+							,typeAhead: true
+							,forceSelection: true
+
+                        }
+                        ,{
+                            xtype:'combobox'
+                            ,emptyText:'点击选择应用'
+                            ,store: Ext.create("AM.store.platform.platform.application.AppStore", {autoLoad:true, pageSize: 1000})
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId:'simpleSearchAppField'
+                            ,queryMode:'local'
+                            ,typeAhead: true
+                            ,forceSelection: true
+
+                        }
 						,{
 							xtype:'textfield'
-							,blankText:'请输入角色名称查询'
+							,emptyText:'请输入角色名称查询'
 							,itemId:'simpleSearchField'
 
 						}
@@ -82,7 +107,25 @@ Ext.define('AM.view.platform.security.RolePanel', {
 					itemId: 'roleGrid',
 					columnLines: true,
 					columns: [
-						{
+                        {
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'tenantId'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("tenantVO")?record.get("tenantVO").name:'';
+                            }
+                            ,text: '所属租户'
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'appId'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("appVO")?record.get("appVO").name:'';
+                            }
+                            ,text: '所属应用'
+
+                        }
+                        ,{
 							xtype: 'gridcolumn',
 							dataIndex: 'name',
 							text: '角色名'
@@ -105,7 +148,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
 										view.getSelectionModel( ).select(record);
 										var window = me.window;
 										window.setRole(record);
-										//window.show()
+										window.show()
 									},
 									iconCls: 'link',
 									tooltip: '修改角色资源'
@@ -208,8 +251,12 @@ Ext.define('AM.view.platform.security.RolePanel', {
 		var toolbar = this.down('toolbar')
 
 		var simpleSearchField = panel.down("#simpleSearchField");
-
-		var searchCondition = {name:simpleSearchField.getValue()}
+        var simpleSearchTenantField = panel.down("#simpleSearchTenantField");
+        var simpleSearchAppField = panel.down("#simpleSearchAppField");
+		var searchCondition = {name:simpleSearchField.getValue()
+            ,tenantId:simpleSearchTenantField.getValue()
+            ,appId:simpleSearchAppField.getValue()
+		}
 
 		this.store.proxy.extraParams={searchCondition:searchCondition};
 		this.store.load({

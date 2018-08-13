@@ -2,11 +2,9 @@ package com.yunkang.saas.platform.business.platform.security.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -15,6 +13,8 @@ import javax.validation.constraints.Size;
  */
 @ApiModel(value = "修改账号使用的DTO")
 public class AccountEditDto {
+
+
 
     /**
 	 * 昵称
@@ -25,6 +25,8 @@ public class AccountEditDto {
 	@Size(max = 255, message = "昵称超长，最多255个字符")
 	private String nickName;
 
+
+
     /**
 	 * 姓名
 	 * 
@@ -34,13 +36,7 @@ public class AccountEditDto {
 	@Size(max = 255, message = "姓名超长，最多255个字符")
 	private String name;
 
-    /**
-	 * 账号
-	 * 
-     */
-	@ApiModelProperty(value = "账号", required = false)
-	@Size(max = 255, message = "账号超长，最多255个字符")
-	private String accountName;
+
 
     /**
 	 * 手机号
@@ -50,6 +46,8 @@ public class AccountEditDto {
 	@Size(max = 255, message = "手机号超长，最多255个字符")
 	private String mobile;
 
+
+
     /**
 	 * 邮箱
 	 * 
@@ -58,14 +56,16 @@ public class AccountEditDto {
 	@Size(max = 255, message = "邮箱超长，最多255个字符")
 	private String email;
 
+
+
     /**
 	 * 已启用
 	 * 
      */
 	@NotNull(message = "已启用不能为空")
 	@ApiModelProperty(value = "已启用", required = true)
-	@Size(max = 255, message = "已启用超长，最多255个字符")
-	private String enable;
+	private Boolean enable;
+
 
 
 	public String getNickName(){
@@ -75,6 +75,7 @@ public class AccountEditDto {
 		this.nickName = nickName;
 	}
 
+
 	public String getName(){
 		return name;
 	}
@@ -82,12 +83,6 @@ public class AccountEditDto {
 		this.name = name;
 	}
 
-	public String getAccountName(){
-		return accountName;
-	}
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
 
 	public String getMobile(){
 		return mobile;
@@ -96,6 +91,7 @@ public class AccountEditDto {
 		this.mobile = mobile;
 	}
 
+
 	public String getEmail(){
 		return email;
 	}
@@ -103,10 +99,11 @@ public class AccountEditDto {
 		this.email = email;
 	}
 
-	public String getEnable(){
+
+	public Boolean getEnable(){
 		return enable;
 	}
-	public void setEnable(String enable) {
+	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
 

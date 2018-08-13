@@ -2,11 +2,11 @@ package com.yunkang.saas.platform.business.platform.security.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 
 /**
@@ -63,13 +63,18 @@ public class AccountAddDto {
 	 * 
      */
 	@NotNull(message = "已启用不能为空")
-	@ApiModelProperty(value = "已启用", required = true)
+	@ApiModelProperty(value = "已启用", required = true, notes = "")
 	@Size(max = 255, message = "已启用超长，最多255个字符")
-	private String enable;
+	private Boolean enable;
+
 
 	@ApiModelProperty(value = "初始密码", required = true)
 	private String initPwd;
 
+    /**所属租户*/
+    @NotNull(message = "所属租户不能为空")
+    @ApiModelProperty(value = "所属租户", required = true)
+    private Long tenantId;
 
 	public String getNickName(){
 		return nickName;
@@ -106,10 +111,10 @@ public class AccountAddDto {
 		this.email = email;
 	}
 
-	public String getEnable(){
+	public Boolean getEnable(){
 		return enable;
 	}
-	public void setEnable(String enable) {
+	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
 
@@ -120,7 +125,15 @@ public class AccountAddDto {
 		this.initPwd = initPwd;
 	}
 
-	@Override
+    @NotNull
+    public Long getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(@NotNull Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    @Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}

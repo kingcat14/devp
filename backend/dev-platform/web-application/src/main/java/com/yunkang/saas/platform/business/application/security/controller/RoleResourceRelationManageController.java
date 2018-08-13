@@ -42,6 +42,9 @@ public class RoleResourceRelationManageController {
 	@Autowired
 	private ResourceService resourceService;
 
+	@Autowired
+	private SaaSUtil saaSUtil;
+
 	/**
 	 * Method getChildNodes.
 	 * @param node String
@@ -58,9 +61,20 @@ public class RoleResourceRelationManageController {
 	){
 
 
+		//先查询父节点
+		Resource parentResource = null;
+		if(id == -1){
+			parentResource = new Resource();
+			parentResource.setParentCode(-1L);
+			parentResource.setAppId(saaSUtil.getAppId());
+		}else{
+			parentResource = resourceService.find(id);
+		}
+
+		//设置父节点ID和所属APPID
 		ResourceCondition condition = new ResourceCondition();
-		condition.setParentId(id);
-		condition.setAppId(appId);
+		condition.setParentCode(parentResource.getCode());
+		condition.setAppId(saaSUtil.getAppId());
 
 
 		List<Resource> resourceList = resourceService.findAll(condition);

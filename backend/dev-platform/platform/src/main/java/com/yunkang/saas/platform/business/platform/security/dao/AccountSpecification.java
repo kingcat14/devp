@@ -57,22 +57,22 @@ public class AccountSpecification implements Specification<Account>{
 	}
 	private void tryAddAccountNamePredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getAccountName())){
-			predicateList.add(cb.like(root.get(Account.PROPERTY_ACCOUNT_NAME).as(String.class), "%"+condition.getAccountName()+"%"));
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_ACCOUNT_NAME).as(String.class), condition.getAccountName()));
 		}
 	}
 	private void tryAddMobilePredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getMobile())){
-			predicateList.add(cb.like(root.get(Account.PROPERTY_MOBILE).as(String.class), "%"+condition.getMobile()+"%"));
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_MOBILE).as(String.class), condition.getMobile()));
 		}
 	}
 	private void tryAddEmailPredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEmail())){
-			predicateList.add(cb.like(root.get(Account.PROPERTY_EMAIL).as(String.class), "%"+condition.getEmail()+"%"));
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_EMAIL).as(String.class), condition.getEmail()));
 		}
 	}
 	private void tryAddEnablePredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getEnable())){
-			predicateList.add(cb.like(root.get(Account.PROPERTY_ENABLE).as(String.class), "%"+condition.getEnable()+"%"));
+		if(null != condition.getEnable()){
+			predicateList.add(cb.equal(root.get(Account.PROPERTY_ENABLE).as(String.class), condition.getEnable()));
 		}
 	}
 	private void tryAddTenantIdPredicate(List<Predicate> predicateList, Root<Account> root, CriteriaBuilder cb){

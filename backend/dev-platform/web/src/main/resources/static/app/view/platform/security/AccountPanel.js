@@ -12,30 +12,35 @@ Ext.define('AM.view.platform.security.AccountPanel', {
 
         Ext.apply(me, {
 
-            columnLines: true,
-            columns: [
-
+            columnLines: true
+            ,columns: [
                 {
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'tenantId'
+                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return record.get("tenantVO")?record.get("tenantVO").name:'';
+                    }
+                    ,text: '所属租户'
+
+                }
+                ,{
+                    xtype: 'gridcolumn',
+                    dataIndex: 'accountName',
+
+                    text: '账号'
+                }
+                ,{
                     xtype: 'gridcolumn',
                     dataIndex: 'nickName',
                     
                     text: '昵称'
                 }
-
                 ,{
                     xtype: 'gridcolumn',
                     dataIndex: 'name',
                     
                     text: '姓名'
                 }
-
-                ,{
-                    xtype: 'gridcolumn',
-                    dataIndex: 'accountName',
-                    
-                    text: '账号'
-                }
-
                 ,{
                     xtype: 'gridcolumn',
                     dataIndex: 'mobile',
@@ -52,13 +57,6 @@ Ext.define('AM.view.platform.security.AccountPanel', {
 
                 ,{
                     xtype: 'gridcolumn',
-                    dataIndex: 'maxClient',
-                    
-                    text: '最大接待人数'
-                }
-
-                ,{
-                    xtype: 'gridcolumn',
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                         if(value===null)
                             return '不确定';
@@ -67,14 +65,6 @@ Ext.define('AM.view.platform.security.AccountPanel', {
                     dataIndex: 'enable',
                     
                     text: '已启用'
-                }
-
-                ,{
-                    xtype: 'gridcolumn',
-                    dataIndex: 'initPwd',
-		            hidden:true,
-                    flex:1,
-                    text: '初始密码'
                 }
                 ,{
 		            xtype: 'actioncolumn',
@@ -103,11 +93,11 @@ Ext.define('AM.view.platform.security.AccountPanel', {
 		            ]
 	            }
 
-            ],
-            viewConfig: {
+            ]
+            ,viewConfig: {
 
-            },
-            dockedItems: [
+            }
+            ,dockedItems: [
                 {
                     xtype: 'toolbar',
                     dock: 'top',
@@ -147,9 +137,18 @@ Ext.define('AM.view.platform.security.AccountPanel', {
                         }
                         ,'-'
                         ,{
+                            xtype:'combobox'
+                            ,emptyText:'点击选择租户'
+                            ,store: Ext.create("AM.store.platform.platform.tenant.TenantStore")
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId:'simpleSearchTenantField'
+
+                        }
+                        ,{
                             xtype:'textfield'
                             ,emptyText:'请输入姓名查询'
-                            ,itemId:'simpleSearchField'
+                            ,itemId:'simpleSearchNameField'
 
                         }
                         ,{
@@ -204,17 +203,17 @@ Ext.define('AM.view.platform.security.AccountPanel', {
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var panel = options.scope;
 
-        var toolbar = this.down('toolbar')
+        var simpleSearchTenantField = panel.down("#simpleSearchTenantField");
+        var simpleSearchNameField = panel.down("#simpleSearchNameField");
 
-        var simpleSearchField = panel.down("#simpleSearchField");
-
-        var searchCondition = {name:simpleSearchField.getValue()}
+        var searchCondition = {name:simpleSearchNameField.getValue()
+            ,tenantId:simpleSearchTenantField.getValue()}
 
         this.store.proxy.extraParams={searchCondition:searchCondition};
         this.store.load({
             params:{
-                start:0,
-                page:0
+                start:0
+                ,page:0
             }
         });
     }
@@ -342,6 +341,9 @@ Ext.define('AM.view.platform.security.AccountPanel', {
     	if(me.detailWindow){
     		me.detailWindow.hide();
     	}
+        if(me.roleWindow){
+            me.roleWindow.hide();
+        }
     }
 
 });

@@ -16,20 +16,14 @@ public class ConfigAppCategoryEditDto {
 
 
 
-    /**
-	 * 类别名称
-	 * 
-     */
+    /**类别名称*/
 	@ApiModelProperty(value = "类别名称", required = false)
 	@Size(max = 255, message = "类别名称超长，最多255个字符")
 	private String name;
 
 
 
-    /**
-	 * 类别代码
-	 * 
-     */
+    /**类别代码*/
 	@ApiModelProperty(value = "类别代码", required = false)
 	@Size(max = 255, message = "类别代码超长，最多255个字符")
 	private String code;

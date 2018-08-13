@@ -1,25 +1,27 @@
 package com.yunkang.saas.platform.business.platform.security.domain;
 
 import com.yunkang.saas.common.jpa.SaaSEntity;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
- * 平台账号
- * 对accoun来说,appid字段没有用
+ * 账号
  * @author icode
  */
 @Entity
-@Table
-public class Account extends SaaSEntity {
+@Table(appliesTo = "account", comment = "[账号]")
+//@DynamicUpdate
+//@DynamicInsert
+public class Account extends SaaSEntity{
 
 	public static final String PROPERTY_NICK_NAME = "nickName";
 	public static final String PROPERTY_NAME = "name";
@@ -30,7 +32,7 @@ public class Account extends SaaSEntity {
 
 
     @Id
-    @Column(name = "rid")
+    @Column(name = "id")
     private Long id;
 
 
@@ -56,7 +58,6 @@ public class Account extends SaaSEntity {
     * 
     */
     @Column(name = "account_name", updatable = false)
-	@NotNull(message = "账号不能为空")
 	@Size(max = 255, message = "账号超长，最多255个字符")
 	private String accountName;
 
@@ -82,12 +83,9 @@ public class Account extends SaaSEntity {
     */
     @Column(name = "enable")
 	@NotNull(message = "已启用不能为空")
-	@Size(max = 255, message = "已启用超长，最多255个字符")
-	private String enable;
+	private Boolean enable;
 
-
-
-    public String getNickName(){
+	public String getNickName(){
 		return nickName;
 	}
 	public void setNickName(String nickName) {
@@ -122,12 +120,13 @@ public class Account extends SaaSEntity {
 		this.email = email;
 	}
 
-	public String getEnable(){
+	public Boolean getEnable(){
 		return enable;
 	}
-	public void setEnable(String enable) {
+	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
+
 
 	public Long getId() {
 		return id;

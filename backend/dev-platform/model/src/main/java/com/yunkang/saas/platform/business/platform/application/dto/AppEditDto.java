@@ -19,10 +19,7 @@ public class AppEditDto {
 
 
 
-    /**
-	 * 应用名称
-	 * 
-     */
+    /**应用名称*/
 	@NotNull(message = "应用名称不能为空")
 	@ApiModelProperty(value = "应用名称", required = true)
 	@Size(max = 255, message = "应用名称超长，最多255个字符")
@@ -30,10 +27,7 @@ public class AppEditDto {
 
 
 
-    /**
-	 * 应用代码
-	 * 
-     */
+    /**应用代码*/
 	@NotNull(message = "应用代码不能为空")
 	@ApiModelProperty(value = "应用代码", required = true)
 	@Size(max = 255, message = "应用代码超长，最多255个字符")
@@ -41,75 +35,44 @@ public class AppEditDto {
 
 
 
-    /**
-	 * 所属租户
-	 * 
-     */
-	@NotNull(message = "所属租户不能为空")
-	@ApiModelProperty(value = "所属租户", required = true)
-	private Long tenantId;
-
-
-
-    /**
-	 * 应用类别
-	 * 
-     */
+    /**应用类别*/
 	@ApiModelProperty(value = "应用类别", required = false)
 	private Long appCategoryId;
 
 
 
-    /**
-	 * 标签
-	 * 应用的标签，逗号分隔，可填写多个
-     */
-	@ApiModelProperty(value = "标签", required = false)
+    /**标签*/
+	@ApiModelProperty(value = "标签", required = false, notes = "应用的标签，逗号分隔，可填写多个")
 	private String label;
 
 
 
-    /**
-	 * 已启用
-	 * 
-     */
+    /**已启用*/
 	@ApiModelProperty(value = "已启用", required = false)
 	private Boolean enable;
 
 
 
-    /**
-	 * 上架时间
-	 * 
-     */
+    /**上架时间*/
 	@ApiModelProperty(value = "上架时间", required = false)
 	private Date onBoardTime;
 
 
 
-    /**
-	 * 应用链接
-	 * 跳转至对应的应用
-     */
-	@ApiModelProperty(value = "应用链接", required = false)
+    /**应用链接*/
+	@ApiModelProperty(value = "应用链接", required = false, notes = "跳转至对应的应用")
 	@Size(max = 255, message = "应用链接超长，最多255个字符")
 	private String url;
 
 
 
-    /**
-	 * 描述
-	 * 
-     */
+    /**描述*/
 	@ApiModelProperty(value = "描述", required = false)
 	private String description;
 
 
 
-    /**
-	 * 可见
-	 * 
-     */
+    /**可见*/
 	@ApiModelProperty(value = "可见", required = false)
 	private Boolean visible;
 
@@ -128,14 +91,6 @@ public class AppEditDto {
 	}
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-
-	public Long getTenantId(){
-		return tenantId;
-	}
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
 	}
 
 

@@ -15,6 +15,10 @@ import javax.validation.constraints.Size;
 @ApiModel(value = "修改资源使用的DTO")
 public class ResourceEditDto {
 
+	/** 所属应用 */
+	@ApiModelProperty(value = "所属应用")
+	private Long appId;
+
     /**
 	 * 资源名
 	 * 
@@ -44,17 +48,17 @@ public class ResourceEditDto {
 	 * 
      */
 	@ApiModelProperty(value = "资源代码", required = false)
-	@Size(max = 255, message = "资源代码超长，最多255个字符")
-	private String code;
+	private Long code;
 
     /**
 	 * 父节点
 	 * 
      */
 	@ApiModelProperty(value = "父节点", required = false)
-	private Long parentId;
+	private Long parentCode;
 
-    /**
+
+	/**
 	 * 排序
 	 * 
      */
@@ -83,18 +87,25 @@ public class ResourceEditDto {
 		this.type = type;
 	}
 
-	public String getCode(){
+	public Long getCode(){
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
-	public Long getParentId(){
-		return parentId;
+	public Long getParentCode() {
+		return parentCode;
 	}
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
+	public void setParentCode(Long parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	public Long getAppId() {
+		return appId;
+	}
+	public void setAppId(Long appId) {
+		this.appId = appId;
 	}
 
 	public Integer getOrderIndex(){

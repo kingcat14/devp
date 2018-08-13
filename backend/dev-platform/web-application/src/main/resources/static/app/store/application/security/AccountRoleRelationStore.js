@@ -17,7 +17,7 @@ Ext.define('AM.store.application.security.AccountRoleRelationStore', {
                 url: 'application/security/accountRoleRelation',
                 reader: {
                     type: 'json',
-                    root: 'content'
+                    rootProperty: 'content'
                 },
                 actionMethods:{read:'POST'},
                 api:{read:"application/security/accountRoleRelation/list"},

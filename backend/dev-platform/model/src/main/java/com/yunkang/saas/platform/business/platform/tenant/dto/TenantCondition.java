@@ -1,26 +1,29 @@
 package com.yunkang.saas.platform.business.platform.tenant.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 @ApiModel(value = "查询租户使用的DTO")
-public class TenantCondition implements Serializable{
+public class TenantCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户代号")
 	private String tenantCode;
-	@ApiModelProperty(value = "租户类型")
-	private Long tenantType;
-	@ApiModelProperty(value = "租户类型最大值")
-	private Long tenantTypeMax;
-	@ApiModelProperty(value = "租户类型最小值")
-	private Long tenantTypeMin;
+    @ApiModelProperty(value = "租户类型")
+    private String tenantType;
 	@ApiModelProperty(value = "租户名称")
 	private String name;
+	@ApiModelProperty(value = "号码")
+	private Long mobile;
+	@ApiModelProperty(value = "号码最大值")
+	private Long mobileMax;
+	@ApiModelProperty(value = "号码最小值")
+	private Long mobileMin;
 
 
 	public String getTenantCode(){
@@ -31,26 +34,12 @@ public class TenantCondition implements Serializable{
 	}
 
 
-	public Long getTenantType(){
-		return tenantType;
-	}
-	public void setTenantType(Long tenantType) {
-		this.tenantType = tenantType;
-	}
-
-	public Long getTenantTypeMin(){
-		return tenantTypeMin;
-	}
-	public void setTenantTypeMin(Long tenantTypeMin) {
-		this.tenantTypeMin = tenantTypeMin;
-	}
-
-	public Long getTenantTypeMax(){
-		return tenantTypeMax;
-	}
-	public void setTenantTypeMax(Long tenantTypeMax) {
-		this.tenantTypeMax = tenantTypeMax;
-	}
+    public String getTenantType(){
+        return tenantType;
+    }
+    public void setTenantType(String tenantType) {
+        this.tenantType = tenantType;
+    }
 
 
 	public String getName(){
@@ -58,6 +47,28 @@ public class TenantCondition implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public Long getMobile(){
+		return mobile;
+	}
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
+	}
+
+	public Long getMobileMin(){
+		return mobileMin;
+	}
+	public void setMobileMin(Long mobileMin) {
+		this.mobileMin = mobileMin;
+	}
+
+	public Long getMobileMax(){
+		return mobileMax;
+	}
+	public void setMobileMax(Long mobileMax) {
+		this.mobileMax = mobileMax;
 	}
 
 

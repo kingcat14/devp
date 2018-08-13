@@ -23,5 +23,17 @@ Ext.define('AM.model.platform.security.Role', {
             ,allowNull:true
             ,critical:true
         }
+        ,{
+            name: 'tenantId'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+        ,{
+            name: 'appId'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
     ]
 });

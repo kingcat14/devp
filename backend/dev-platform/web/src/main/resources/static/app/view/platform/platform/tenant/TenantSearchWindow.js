@@ -42,22 +42,16 @@ Ext.define('AM.view.platform.platform.tenant.TenantSearchWindow', {
                                     ,items: [
 
                                         ,{
-                                            xtype: 'textfield'
-                                            ,anchor: '96%'
-                                            ,itemId: 'tenantCodeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'tenantCode'
-                                            ,fieldLabel: '租户代号'
-                                            ,labelAlign: 'top'
+                                            xtype: 'textfield',
+                                            itemId: 'tenantCodeField',
+                                            name: 'tenantCode',
+                                            fieldLabel: '租户代号'
                                         }
                                         ,{
-                                            xtype: 'textfield'
-                                            ,anchor: '96%'
-                                            ,itemId: 'nameField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'name'
-                                            ,fieldLabel: '租户名称'
-                                            ,labelAlign: 'top'
+                                            xtype: 'textfield',
+                                            itemId: 'nameField',
+                                            name: 'name',
+                                            fieldLabel: '租户名称'
                                         }
 
                                     ]
@@ -76,18 +70,28 @@ Ext.define('AM.view.platform.platform.tenant.TenantSearchWindow', {
                                     }
                                     ,items: [
                                         ,{
-                                            xtype: 'combobox'
-                                            ,store: Ext.create("AM.store.platform.platform.tenant.TenantTypeStore")
-                                            ,typeAhead:false
-                                            ,editable:false
-                                            ,displayField:'name'
-                                            ,valueField:'id'
-                                            ,anchor: '96%'
-                                            ,itemId: 'tenantTypeField'
-                                            ,padding: '5 0 0 5'
-                                            ,name: 'tenantType'
-                                            ,fieldLabel: '租户类型'
-                                            ,labelAlign: 'top'
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.platform.platform.tenant.TenantTypeStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            anchor: '96%',
+                                            itemId: 'tenantTypeField',
+                                            padding: '5 0 0 5',
+                                            name: 'tenantType',
+                                            fieldLabel: '租户类型',
+                                            labelAlign: 'top'
+                                        }
+                                        ,{
+                                            xtype: 'numberfield',
+                                            allowDecimals:false,
+                                            anchor: '96%',
+                                            itemId: 'mobileField',
+                                            padding: '5 0 0 5',
+                                            name: 'mobile',
+                                            fieldLabel: '号码',
+                                            labelAlign: 'top'
                                         }
                                     ]
                                 }
@@ -162,17 +166,16 @@ Ext.define('AM.view.platform.platform.tenant.TenantSearchWindow', {
         var tenantCodeField = me.down("#tenantCodeField");
         var tenantTypeField = me.down("#tenantTypeField");
         var nameField = me.down("#nameField");
+        var mobileField = me.down("#mobileField");
 
         var condition = {
             tenantCode:Ext.isEmpty(tenantCodeField.getValue())?null:tenantCodeField.getValue()
-            ,tenantType:Ext.isNumber(tenantTypeField.getValue())?tenantTypeField.getValue():null
+            ,tenantType:Ext.isEmpty(tenantTypeField.getValue())?null:tenantTypeField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            ,mobile:Ext.isNumber(mobileField.getValue())?mobileField.getValue():null
         };
 
         return condition;
-    }
-    ,setStore: function (store) {
-        this.store = store;
     }
 
 });

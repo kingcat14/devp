@@ -42,11 +42,20 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                     },
                                     items: [
                                         {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'idField',
-                                            name: 'id',
-                                            fieldLabel: 'Label'
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.platform.platform.tenant.TenantStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'tenantIdField',
+                                            name: 'tenantId',
+                                            fieldLabel: '所属租户'
+
                                         }
                                         ,{
 	                                        xtype: 'textfield',
@@ -54,8 +63,8 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                             afterLabelTextTpl: [
                                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
-                                            itemId: 'nameField',
-                                            name: 'name',
+                                            itemId: 'appField',
+                                            name: 'appId',
                                             fieldLabel: '角色名称'
                                         }
 
@@ -69,11 +78,20 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                     },
                                     items: [
                                         {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'versionField',
-                                            name: 'version',
-                                            fieldLabel: 'Label'
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.platform.platform.application.AppStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'tenantIdField',
+                                            name: 'tenantId',
+                                            fieldLabel: '所属应用'
+
                                         }
                                     ]
                                 }
@@ -127,7 +145,7 @@ Ext.define('AM.view.platform.security.RoleWindow', {
             return;
         }
 
-        var id = this.down("#idField").getValue();
+        //var id = this.down("#idField").getValue();
 
         var record = this.down('form').getForm().getRecord();
 

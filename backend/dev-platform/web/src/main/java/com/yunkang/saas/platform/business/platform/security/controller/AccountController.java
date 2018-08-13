@@ -14,6 +14,9 @@ import com.yunkang.saas.platform.business.platform.security.service.AccountManag
 import com.yunkang.saas.platform.business.platform.security.service.AccountService;
 import com.yunkang.saas.platform.business.platform.security.valid.AccountValidator;
 import com.yunkang.saas.platform.business.platform.security.vo.AccountVO;
+import com.yunkang.saas.platform.business.platform.tenant.domain.Tenant;
+import com.yunkang.saas.platform.business.platform.tenant.service.TenantService;
+import com.yunkang.saas.platform.business.platform.tenant.vo.TenantVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +44,9 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private TenantService tenantService;
 
 	@Autowired
 	private AccountManageService accountManageService;
@@ -154,6 +160,14 @@ public class AccountController {
 	    AccountVO vo = new AccountVO();
 
         BeanUtils.copyProperties(account, vo);
+
+        Tenant tenant = tenantService.find(account.getTenantId());
+        if(tenant != null){
+			TenantVO tenantVO = new TenantVO();
+			BeanUtils.copyProperties(tenant, tenantVO);
+			vo.setTenantVO(tenantVO);
+		}
+
 
 	    //初始化其他对象
         return vo;

@@ -10,7 +10,7 @@ Ext.define('AM.store.platform.security.AllResourceTreeStore', {
 	autoLoad: false,
 	nodeParam:'id',
 	root: {
-		expanded: false,
+		expanded: true,
 		//text: "My Root",
         name:'Root',
 		id: '-1'

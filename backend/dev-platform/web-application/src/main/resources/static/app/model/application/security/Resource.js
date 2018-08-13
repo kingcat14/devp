@@ -2,6 +2,7 @@ Ext.define('AM.model.application.security.Resource', {
     extend: 'Ext.data.Model',
     proxy: {
         type: "rest",
+        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
         headers:{"Accept":"application/json"},
         url: 'application/security/resource'
     },

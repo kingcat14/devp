@@ -42,55 +42,50 @@ Ext.define('AM.view.platform.security.AccountEditWindow', {
                                     },
                                     items: [
                                         {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'idField',
-                                            name: 'id',
-                                            fieldLabel: 'Label'
-                                        }
-                                        ,{
-	                                        xtype: 'textfield',
+                                            xtype: 'textfield',
                                             allowBlank:false,
                                             afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'nameField',
+                                            name: 'name',
+                                            fieldLabel: '姓名'
+                                        }
+                                        ,{
+                                            xtype: 'textfield',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
                                             itemId: 'nickNameField',
                                             name: 'nickName',
                                             fieldLabel: '昵称'
                                         }
                                         ,{
-	                                        xtype: 'textfield',
-		                                    editable :false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'accountNameField',
-                                            name: 'accountName',
-                                            fieldLabel: '账号'
+                                            xtype: 'textfield',
+                                            allowDecimals:false,
+                                            allowBlank:true,
+                                            itemId: 'mobileField',
+                                            name: 'mobile',
+                                            fieldLabel: '手机号',
+                                            validator: function (val) {
+                                                if(!val){
+                                                    return true;
+                                                }
+                                                // remove non-numeric characters
+                                                var tn = val.replace(/[^0-9]/g,''),
+                                                    errMsg = "必须为11位的手机号码";
+                                                // if the numeric value is not 10 digits return an error message
+                                                return (tn.length === 11) ? true : errMsg;
+                                            }
                                         }
                                         ,{
-	                                        xtype: 'textfield',
+                                            xtype: 'textfield',
                                             allowBlank:true,
                                             itemId: 'emailField',
                                             name: 'email',
                                             fieldLabel: '邮箱',
                                             vtype:'email'
-                                        }
-                                        ,{
-                                            xtype: 'combobox',
-                                            store: [
-                                                [true,'是'],
-                                                [false,'否']
-                                            ],
-                                            allowBlank:false,
-                                            afterLabelTextTpl: [
-                                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                            ],
-                                            itemId: 'enableField',
-                                            name: 'enable',
-                                            fieldLabel: '已启用'
-                                            ,typeAhead:false
-		                                    ,editable:false
                                         }
 
                                     ]
@@ -103,50 +98,47 @@ Ext.define('AM.view.platform.security.AccountEditWindow', {
                                     },
                                     items: [
                                         {
-                                            xtype: 'hiddenfield',
-                                            anchor: '100%',
-                                            itemId: 'versionField',
-                                            name: 'version',
-                                            fieldLabel: 'Label'
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.platform.platform.tenant.TenantStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'name',
+                                            valueField:'id',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'tenantIdField',
+                                            name: 'tenantId',
+                                            fieldLabel: '所属租户'
+
                                         }
                                         ,{
-	                                        xtype: 'textfield',
-	                                        allowBlank:false,
-	                                        afterLabelTextTpl: [
-	                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-	                                        ],
-                                            itemId: 'nameField',
-                                            name: 'name',
-                                            fieldLabel: '姓名'
+                                            xtype: 'textfield',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'accountNameField',
+                                            name: 'accountName',
+                                            fieldLabel: '账号'
                                         }
                                         ,{
-	                                        xtype: 'textfield',
-	                                        allowDecimals:false,
-	                                        allowBlank:true,
-                                            itemId: 'mobileField',
-                                            name: 'mobile',
-                                            fieldLabel: '手机号',
-		                                    validator: function (val) {
-	                                            if(!val){
-	                                                return true;
-                                                }
-			                                    // remove non-numeric characters
-			                                    var tn = val.replace(/[^0-9]/g,''),
-				                                    errMsg = "必须为11位的手机号码";
-			                                    // if the numeric value is not 10 digits return an error message
-			                                    return (tn.length === 11) ? true : errMsg;
-		                                    }
-                                        }
-                                        ,{
-	                                        xtype: 'numberfield',
-	                                        allowDecimals:false,
-	                                        allowBlank:false,
-	                                        afterLabelTextTpl: [
-	                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-	                                        ],
-                                            itemId: 'maxClientField',
-                                            name: 'maxClient',
-                                            fieldLabel: '最大接待人数'
+                                            xtype: 'combobox',
+                                            store: [
+                                                ['true','是'],
+                                                ['false','否']
+                                            ],
+                                            typeAhead:false,
+                                            editable:false,
+                                            value:'true',
+                                            allowBlank:false,
+                                            afterLabelTextTpl: [
+                                                '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                                            ],
+                                            itemId: 'enableField',
+                                            name: 'enable',
+                                            fieldLabel: '启用'
                                         }
                                     ]
                                 }
@@ -190,8 +182,6 @@ Ext.define('AM.view.platform.security.AccountEditWindow', {
             return;
         }
 
-        var id = this.down("#idField").getValue();
-
         var record = this.down('form').getForm().getRecord();
 
 
@@ -223,9 +213,6 @@ Ext.define('AM.view.platform.security.AccountEditWindow', {
         }
 
         this.setTitle("修改账号信息");
-        if(model.phantom){
-            this.setTitle("新增账号信息");
-        }
         this.down('form').getForm().loadRecord(model);
     },
     setStore: function (store) {

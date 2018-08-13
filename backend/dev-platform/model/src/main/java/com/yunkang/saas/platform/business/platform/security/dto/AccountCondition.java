@@ -1,23 +1,30 @@
 package com.yunkang.saas.platform.business.platform.security.dto;
 
 import com.yunkang.saas.common.framework.eo.SaaSCondition;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
+@ApiModel(value = "查询账号使用的DTO")
+public class AccountCondition extends SaaSCondition{
 
-public class AccountCondition extends SaaSCondition {
-
-
-	private String id;
-
+	@ApiModelProperty(value = "昵称")
 	private String nickName;
+	@ApiModelProperty(value = "姓名")
 	private String name;
+	@ApiModelProperty(value = "账号")
 	private String accountName;
+	@ApiModelProperty(value = "手机号")
 	private String mobile;
+	@ApiModelProperty(value = "邮箱")
 	private String email;
-	private String enable;
-	private Long tenantId;
+	@ApiModelProperty(value = "已启用")
+	private Boolean enable;
+
 
 
 	public String getNickName(){
@@ -60,12 +67,15 @@ public class AccountCondition extends SaaSCondition {
 	}
 
 
-	public String getEnable(){
+	public Boolean getEnable(){
 		return enable;
 	}
-	public void setEnable(String enable) {
+	public void setEnable(Boolean enable) {
 		this.enable = enable;
 	}
+
+
+
 
 	@Override
 	public String toString() {

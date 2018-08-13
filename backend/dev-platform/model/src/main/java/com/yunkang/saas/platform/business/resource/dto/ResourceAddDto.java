@@ -15,7 +15,10 @@ import javax.validation.constraints.Size;
 @ApiModel(value = "新增资源使用的DTO")
 public class ResourceAddDto {
 
-	private Long id;
+	/** 所属应用 */
+	@ApiModelProperty(value = "所属应用")
+	private Long appId;
+
     /**
 	 * 资源名
 	 * 
@@ -45,15 +48,11 @@ public class ResourceAddDto {
 	 * 
      */
 	@ApiModelProperty(value = "资源代码", required = false)
-	@Size(max = 255, message = "资源代码超长，最多255个字符")
-	private String code;
+	private Long code;
 
-    /**
-	 * 父节点
-	 * 
-     */
+    /**父节点*/
 	@ApiModelProperty(value = "父节点", required = false)
-	private Long parentId;
+	private Long parentCode;
 
     /**
 	 * 排序
@@ -61,13 +60,6 @@ public class ResourceAddDto {
      */
 	@ApiModelProperty(value = "排序", required = false)
 	private Integer orderIndex;
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName(){
 		return name;
@@ -90,18 +82,25 @@ public class ResourceAddDto {
 		this.type = type;
 	}
 
-	public String getCode(){
+	public Long getCode(){
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
-	public Long getParentId(){
-		return parentId;
+	public Long getAppId() {
+		return appId;
 	}
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
+	public void setAppId(Long appId) {
+		this.appId = appId;
+	}
+
+	public Long getParentCode() {
+		return parentCode;
+	}
+	public void setParentCode(Long parentCode) {
+		this.parentCode = parentCode;
 	}
 
 	public Integer getOrderIndex(){

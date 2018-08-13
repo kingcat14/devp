@@ -5,7 +5,7 @@ import com.yunkang.saas.platform.business.resource.vo.ResourceVO;
 
 /**
  */
-public class RoleResourceCheckTreeNode  {
+public class RoleResourceCheckTreeNode {
 
 	private Long id;
 	private String name;

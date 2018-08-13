@@ -57,6 +57,10 @@ Ext.define('AM.store.platform.platform.tenant.TenantStore', {
     ,beforeload :function(store, operation, eOpts ){
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
+        console.log(operation);
+        console.log(operation.getUrl());
+        //operation.setUrl(operation.getUrl()+"&query=111");
+        // console.log(operation.getParams())
 
     }
 

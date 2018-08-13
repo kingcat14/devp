@@ -144,7 +144,7 @@ Ext.define('AM.view.platform.security.RoleResourceTreeWindow', {
         me.role = role;
 		me.setTitle('为角色' + role.get('name') + '分配资源');
 
-		me.down('treepanel').getStore().proxy.extraParams={roleId:role.get('id')};
+		me.down('treepanel').getStore().proxy.extraParams={roleId:role.get('id'), appId:role.get('appId')};
 		//me.down('treepanel').expandAll();
 		// me.down('treepanel').getStore().reload()
 		// me.down('treepanel').getStore().getRoot().reload()

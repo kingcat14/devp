@@ -1,5 +1,7 @@
 package com.yunkang.saas.platform.business.platform.security.vo;
 
+import com.yunkang.saas.platform.business.platform.application.vo.AppVO;
+import com.yunkang.saas.platform.business.platform.tenant.vo.TenantVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -23,11 +25,16 @@ public class RoleVO {
     private String name;
 
     @ApiModelProperty(value = "角色描述")
-    /**
-    * 角色描述
-    * 
-    */
+    /**角色描述*/
     private String description;
+
+    @ApiModelProperty(value = "租户")
+    private Long tenantId;
+    private TenantVO tenantVO;
+
+    @ApiModelProperty(value = "应用")
+    private Long appId;
+    private AppVO appVO;
 
 
     public String getName(){
@@ -36,11 +43,40 @@ public class RoleVO {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDescription(){
         return description;
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public TenantVO getTenantVO() {
+        return tenantVO;
+    }
+    public void setTenantVO(TenantVO tenantVO) {
+        this.tenantVO = tenantVO;
+    }
+
+    public Long getAppId() {
+        return appId;
+    }
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+
+    public AppVO getAppVO() {
+        return appVO;
+    }
+    public void setAppVO(AppVO appVO) {
+        this.appVO = appVO;
     }
 
     public Long getId() {

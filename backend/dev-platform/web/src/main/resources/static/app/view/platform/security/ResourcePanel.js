@@ -15,20 +15,21 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 		Ext.apply(me, {
 			items: [
 				{
-					xtype: 'treepanel',
-					region: 'west',
-					split: true,
-					width: 150,
-					title: '资源树',
-					store: Ext.create('AM.store.platform.security.AllResourceTreeStore'),
-					displayField: 'name',
-					viewConfig: {
+					xtype: 'treepanel'
+					,region: 'west'
+					,split: true
+					,width: 150
+					,title: '资源树'
+                    ,rootVisible: false
+                    ,store: Ext.create('AM.store.platform.security.AllResourceTreeStore')
+					,displayField: 'name'
+					,viewConfig: {
 
-					},
-					listeners: {
+					}
+					,listeners: {
 						itemclick: {
-							fn: me.onTreepanelItemClick,
-							scope: me
+							fn: me.onTreepanelItemClick
+							,scope: me
 						}
 					}
 				},
@@ -52,20 +53,23 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 
 										var tree = grid.previousSibling('treepanel');
 										var parentResource = tree.getSelectionModel( ).getLastSelected();
-										var parentId = parentResource?parentResource.get('id'):-1;
-
+										var parentCode = parentResource?parentResource.get('code'):-1;
+                                        var appId = parentResource?parentResource.get('appId'):-1;
 
 										// Create a model instance
 										var r = Ext.create('AM.model.platform.security.Resource', {
-											name: '<resource_name>',
-											parentId:parentId,
-											orderIndex:1,
-											type:'function'
+											name: '<resource_name>'
+                                            ,parentCode: parentCode
+                                            ,appId: appId
+											,orderIndex: 1
+											,type:'function'
 
 										});
+										//r.save()
 
 										grid.getStore().insert(grid.getStore().getCount(), r);
 										rowEditing.startEdit(r, 0);
+                                        //grid.getStore().sync();
 									},
 									iconCls: 'add',
 									text: '新增'
@@ -105,18 +109,18 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 					],
 					columns: [
 						{
-							xtype: 'gridcolumn',
-							dataIndex: 'id',
-							text: 'ID',
-							editor: {
+							xtype: 'gridcolumn'
+							,dataIndex: 'code'
+							,text: 'CODE'
+							,editor: {
 								xtype: 'textfield'
 							}
 						},
 						{
-							xtype: 'gridcolumn',
-							dataIndex: 'name',
-							text: '资源名',
-							editor: {
+							xtype: 'gridcolumn'
+							,dataIndex: 'name'
+							,text: '资源名'
+							,editor: {
 								xtype: 'textfield'
 							}
 						},
@@ -162,7 +166,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 						},
 						{
 							xtype: 'gridcolumn',
-							dataIndex: 'parentId',
+							dataIndex: 'parentCode',
 							text: '父节点'
 						}
 					],
@@ -201,12 +205,18 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 			return;
 		}
 
-		var parentId = record.get('id');
-		var condition = Ext.JSON.encode({parentId:record.get('id')});
+		var parentCode = record.get('code');
+        var appId = record.get('appId');
+		var condition = Ext.JSON.encode({parentCode:parentCode, appId:appId});
 		//this.resourceStore.proxy.setUrl ("platform/security/resource/rest/"+parentId);
 		// this.resourceStore.proxy.extraParams={condition:condition};
-		this.resourceStore.proxy.extraParams={searchCondition:{"parentId":parentId}};
-		this.resourceStore.load();
+		//this.resourceStore.proxy.extraParams={searchCondition:{parentCode:parentCode, appId:appId}};
+		this.resourceStore.load({
+            params:{
+                searchCondition:{parentCode:parentCode, appId:appId}
+			}
+
+		});
 		this.down('grid').setTitle(record.get('name')+'的直接子节点');
 	},
 

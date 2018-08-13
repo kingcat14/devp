@@ -1,10 +1,9 @@
 package com.yunkang.saas.platform.business.resource.service;
 
-import com.yunkang.saas.platform.business.platform.security.vo.ResourceTreeNode;
+import com.yunkang.saas.platform.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
 import com.yunkang.saas.platform.business.resource.vo.ResourceVO;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -29,8 +28,8 @@ public class ResourceUtil {
                 o2.setOrderIndex(o2.getOrderIndex()==null?0:o2.getOrderIndex());
 
                 //先按父节点ID排序
-                if(o1.getParentId().compareTo(o2.getParentId()) != 0){
-                    return o1.getParentId().compareTo(o2.getParentId());
+                if(o1.getParentCode().compareTo(o2.getParentCode()) != 0){
+                    return o1.getParentCode().compareTo(o2.getParentCode());
                 }
 
                 //如果父节点ID一样
@@ -50,7 +49,7 @@ public class ResourceUtil {
 
         sortResourceList(resourceList);
 
-        HashMap<Long, ResourceTreeNode> hashMap = new HashMap<>();
+        HashMap<String, ResourceTreeNode> hashMap = new HashMap<>();
         List<ResourceTreeNode> allResource = new ArrayList<>();
         List<ResourceTreeNode> result = new ArrayList<>();
 
@@ -60,16 +59,16 @@ public class ResourceUtil {
 
             ResourceTreeNode resourceTreeNode = new ResourceTreeNode(vo);
 
-            if(vo.getParentId()== -1){
+            if(vo.getParentCode()== -1){
                 result.add(resourceTreeNode);
             }
             allResource.add(resourceTreeNode);
-            hashMap.put(resourceTreeNode.getId(), resourceTreeNode);
+            hashMap.put(resourceTreeNode.getAppId()+"-"+resourceTreeNode.getCode(), resourceTreeNode);
         }
 
         for(ResourceTreeNode node : allResource){
-            if(hashMap.containsKey(node.getParentId())){
-                hashMap.get(node.getParentId()).addChild(node);
+            if(hashMap.containsKey(node.getAppId()+"-"+node.getParentCode())){
+                hashMap.get(node.getAppId()+"-"+node.getParentCode()).addChild(node);
             }
         }
 

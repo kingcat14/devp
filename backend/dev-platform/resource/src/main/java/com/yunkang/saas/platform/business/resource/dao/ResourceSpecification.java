@@ -35,7 +35,7 @@ public class ResourceSpecification implements Specification<Resource>{
 		tryAddUrlPredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
-		tryAddParentIdPredicate(predicateList, root, cb);
+		tryAddParentCodePredicate(predicateList, root, cb);
 		tryAddOrderIndexPredicate(predicateList, root, cb);
 
 
@@ -47,7 +47,7 @@ public class ResourceSpecification implements Specification<Resource>{
 
 	private void tryAddAppIdPredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
 		if(null != (condition.getAppId())){
-			predicateList.add(cb.equal(root.get(Resource.PROPERTY_APP_ID).as(Long.class), condition.getName()));
+			predicateList.add(cb.equal(root.get(Resource.PROPERTY_APP_ID).as(Long.class), condition.getAppId()));
 		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
@@ -66,13 +66,13 @@ public class ResourceSpecification implements Specification<Resource>{
 		}
 	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getCode())){
-			predicateList.add(cb.like(root.get(Resource.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
+		if(null != condition.getCode()){
+			predicateList.add(cb.equal(root.get(Resource.PROPERTY_CODE).as(String.class), condition.getCode()));
 		}
 	}
-	private void tryAddParentIdPredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
-		if (null != condition.getParentId() ) {
-			predicateList.add(cb.equal(root.get(Resource.PROPERTY_PARENT_ID).as(Long.class), condition.getParentId()));
+	private void tryAddParentCodePredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
+		if (null != condition.getParentCode() ) {
+			predicateList.add(cb.equal(root.get(Resource.PROPERTY_PARENT_CODE).as(Long.class), condition.getParentCode()));
 		}
 	}
 	private void tryAddOrderIndexPredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){

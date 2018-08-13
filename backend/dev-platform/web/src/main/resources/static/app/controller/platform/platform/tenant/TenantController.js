@@ -1,8 +1,8 @@
 Ext.define('AM.controller.platform.platform.tenant.TenantController', {
     extend: 'Ext.app.Controller'
     ,init: function(application) {
-        this.initPanel(application);
-        //this.initMainPanel(application);
+        // this.initPanel(application);
+        this.initMainPanel(application);
     }
     ,initPanel: function(application) {
         var center = application.getController('main.MainController').getMainContentPanel();

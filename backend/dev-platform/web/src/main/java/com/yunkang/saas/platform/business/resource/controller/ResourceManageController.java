@@ -2,12 +2,16 @@ package com.yunkang.saas.platform.business.resource.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.platform.business.platform.security.vo.ResourceTreeNode;
+import com.yunkang.saas.platform.business.platform.application.domain.App;
+import com.yunkang.saas.platform.business.platform.application.service.AppService;
+import com.yunkang.saas.platform.business.platform.application.vo.AppVO;
+import com.yunkang.saas.platform.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
 import com.yunkang.saas.platform.business.resource.dto.ResourceCondition;
 import com.yunkang.saas.platform.business.resource.service.ResourceService;
 import com.yunkang.saas.platform.business.resource.service.ResourceUtil;
 import com.yunkang.saas.platform.business.resource.vo.ResourceVO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -33,9 +37,11 @@ public class ResourceManageController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceManageController.class);
 
-
 	@Autowired
 	private ResourceService resourceService;
+
+	@Autowired
+	private AppService appService;
 
 
 
@@ -52,8 +58,23 @@ public class ResourceManageController {
 			@RequestParam(required=false,value="id",defaultValue = "-1") Long id
 	){
 
+		if(-1L == id){
+			return findAppNode();
+		}
+
+
+		//先查询父节点
+		Resource parentResource = resourceService.find(id);
+
+		List<ResourceTreeNode> resourceTreeNodes = getResourceTreeNodes(parentResource);
+
+		return resourceTreeNodes;
+	}
+
+	private List<ResourceTreeNode> getResourceTreeNodes(Resource parentResource) {
 		ResourceCondition condition = new ResourceCondition();
-		condition.setParentId(id);
+		condition.setParentCode(parentResource.getCode());
+		condition.setAppId(parentResource.getAppId());
 
 		List<Resource> resourceList = resourceService.findAll(condition);
 		LOGGER.info(resourceList.toString());
@@ -66,7 +87,6 @@ public class ResourceManageController {
 				resourceTreeNodes.add(new ResourceTreeNode(vo));
 			}
 		}
-
 		return resourceTreeNodes;
 	}
 
@@ -93,10 +113,41 @@ public class ResourceManageController {
 	}
 
 
+	/**
+	 * 查询APP并转换成ResourceTreeNode
+	 * @return
+	 */
+	private List<ResourceTreeNode> findAppNode(){
+		/*
+		 * 1.茶渣所有APP
+		 * 2.查找每个APP的定级节点
+		 */
 
 
+		List<ResourceTreeNode> result = new ArrayList<>();
+		List<App> appList = appService.findAll(null);
 
+		for(App app : appList){
+			AppVO appVO = new AppVO();
+			BeanUtils.copyProperties(app, appVO);
+			ResourceTreeNode resourceTreeNode = new ResourceTreeNode(appVO);
+			List<ResourceVO> children = new ArrayList<>();
+			CollectionUtils.addAll(children, this.findTopNodeForApp(app));
+			resourceTreeNode.setChildren(children);
+			result.add(resourceTreeNode);
 
+		}
 
+		return result;
+	}
+
+	private List<ResourceTreeNode> findTopNodeForApp(App app){
+
+		Resource parentResource = new Resource();
+		parentResource.setCode(-1L);
+		parentResource.setAppId(app.getId());
+		return this.getResourceTreeNodes(parentResource);
+
+	}
 
 }

@@ -59,8 +59,5 @@ public class ResourceValidator implements Validator {
 		if(StringUtils.length(resource.getType()) > 255){
 			errors.rejectValue(Resource.PROPERTY_TYPE,null,"资源类型最长255个字符");
 		}
-		if(StringUtils.length(resource.getCode()) > 255){
-			errors.rejectValue(Resource.PROPERTY_CODE,null,"资源代码最长255个字符");
-		}
 	}
 }

@@ -2,16 +2,12 @@ Ext.define('AM.model.platform.security.Resource', {
     extend: 'Ext.data.Model',
     proxy: {
         type: "rest",
+        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
         headers:{"Accept":"application/json"},
         url: 'platform/security/resource'
     },
     fields: [
     	{
-            name: 'id',
-            type:'string',
-            allowNull:true
-        }
-    	,{
             name: 'name'
 			,type:'string'
             ,allowNull:false
@@ -36,8 +32,14 @@ Ext.define('AM.model.platform.security.Resource', {
             ,critical:true
         }
     	,{
-            name: 'parentId'
+            name: 'parentCode'
 			,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+        ,{
+            name: 'appId'
+            ,type:'string'
             ,allowNull:false
             ,critical:true
         }

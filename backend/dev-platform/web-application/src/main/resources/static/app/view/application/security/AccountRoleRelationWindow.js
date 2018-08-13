@@ -1,4 +1,4 @@
-Ext.define('AM.view.security.AccountRoleRelationWindow', {
+Ext.define('AM.view.application.security.AccountRoleRelationWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.applicationSecurityAccountRoleRelationWindow',
 

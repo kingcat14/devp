@@ -19,17 +19,11 @@ public class ConfigAppCategoryVO {
     @ApiModelProperty(value = "记录id")
     private Long id;
 
-    /**
-    * 类别名称
-    * 
-    */
+    /**类别名称*/
     @ApiModelProperty(value = "类别名称")
     private String name;
 
-    /**
-    * 类别代码
-    * 
-    */
+    /**类别代码*/
     @ApiModelProperty(value = "类别代码")
     private String code;
 
@@ -40,12 +34,14 @@ public class ConfigAppCategoryVO {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getCode(){
         return code;
     }
     public void setCode(String code) {
         this.code = code;
     }
+
 
 	public Long getId() {
 		return id;

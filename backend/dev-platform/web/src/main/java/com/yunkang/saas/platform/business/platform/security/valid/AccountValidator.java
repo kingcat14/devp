@@ -54,7 +54,7 @@ public class AccountValidator implements Validator {
 		if(StringUtils.isEmpty(account.getName())){
 			errors.rejectValue(Account.PROPERTY_NAME, "EMPTY_"+Account.PROPERTY_NAME, "姓名不能为空");
 		}
-		if(StringUtils.isEmpty(account.getEnable())){
+		if(null ==account.getEnable()){
 			errors.rejectValue(Account.PROPERTY_ENABLE, "EMPTY_"+Account.PROPERTY_ENABLE, "已启用不能为空");
 		}
 
@@ -74,8 +74,6 @@ public class AccountValidator implements Validator {
 		if(StringUtils.length(account.getEmail()) > 255){
 			errors.rejectValue(Account.PROPERTY_EMAIL,null,"邮箱最长255个字符");
 		}
-		if(StringUtils.length(account.getEnable()) > 255){
-			errors.rejectValue(Account.PROPERTY_ENABLE,null,"已启用最长255个字符");
-		}
+
 	}
 }

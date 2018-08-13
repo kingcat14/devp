@@ -50,14 +50,34 @@ public class RoleResourceRelationManageController {
 	List<RoleResourceCheckTreeNode> getChildNodes(
 			@RequestParam(required=false,value="node") String node,
 			@RequestParam(required=false,value="id",defaultValue = "-1") Long id,
-			@RequestParam(required=false,value="roleId",defaultValue = "-1") Long roleId
+			@RequestParam(required=false,value="roleId",defaultValue = "-1") Long roleId,
+			@RequestParam(required=false,value="appId",defaultValue = "-1") Long appId
 	){
+		/*
+		 * 1.查找当前APP的所有资源
+		 * 2.查找当前角色的所有资源
+		 * 3.匹配一下
+		 */
+		Resource parentResource = null;
+		if(id == -1){
+			parentResource = new Resource();
+			parentResource.setParentCode(-1L);
+			parentResource.setAppId(appId);
+		}else{
+			parentResource = resourceService.find(id);
+		}
+		//先查询父节点
+		List<RoleResourceCheckTreeNode> resourceTreeNodes = getRoleResourceCheckTreeNodes(roleId, parentResource);
 
 
+		return resourceTreeNodes;
+	}
+
+	private List<RoleResourceCheckTreeNode> getRoleResourceCheckTreeNodes(@RequestParam(required = false, value = "roleId", defaultValue = "-1") Long roleId, Resource parentResource) {
+		//设置父节点ID和所属APPID
 		ResourceCondition condition = new ResourceCondition();
-		condition.setParentId(id);
-
-
+		condition.setParentCode(parentResource.getCode());
+		condition.setAppId(parentResource.getAppId());
 
 		List<Resource> resourceList = resourceService.findAll(condition);
 		LOGGER.info(resourceList.toString());
@@ -82,13 +102,8 @@ public class RoleResourceRelationManageController {
 				resourceTreeNodes.add(treeNode);
 			}
 		}
-
-
-
 		return resourceTreeNodes;
 	}
-
-
 
 
 }

@@ -6,7 +6,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.Column;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,45 +23,36 @@ public class ResourceVO {
     private Long id;
 
     @ApiModelProperty(value = "资源名")
-    /**
-    * 资源名
-    * 
-    */
+    /**资源名*/
     private String name;
 
     @ApiModelProperty(value = "资源链接")
-    /**
-    * 资源链接
-    * 
-    */
+    /**资源链接*/
     private String url;
 
-    @ApiModelProperty(value = "资源类型")
+
     /**
     * 资源类型
     * 
     */
+    @ApiModelProperty(value = "资源类型")
     private String type;
 
+    /** 所属应用 */
+    @ApiModelProperty(value = "所属应用")
+    private Long appId;
+    /**资源代码*/
     @ApiModelProperty(value = "资源代码")
-    /**
-    * 资源代码
-    * 
-    */
-    private String code;
+    private Long code;
+    /**父节点代码*/
+    @ApiModelProperty(value = "父节点代码")
+    private Long parentCode;
 
-    @ApiModelProperty(value = "父节点")
-    /**
-    * 父节点
-    * 
-    */
-    private Long parentId;
-
-    @ApiModelProperty(value = "排序")
     /**
     * 排序
     * 
     */
+    @ApiModelProperty(value = "排序")
     private Integer orderIndex;
 
     private List<ResourceVO> children;
@@ -70,30 +63,28 @@ public class ResourceVO {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getUrl(){
         return url;
     }
     public void setUrl(String url) {
         this.url = url;
     }
+
     public String getType(){
         return type;
     }
     public void setType(String type) {
         this.type = type;
     }
-    public String getCode(){
+
+    public Long getCode(){
         return code;
     }
-    public void setCode(String code) {
+    public void setCode(Long code) {
         this.code = code;
     }
-    public Long getParentId(){
-        return parentId;
-    }
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+
     public Integer getOrderIndex(){
         return orderIndex;
     }
@@ -108,6 +99,20 @@ public class ResourceVO {
         this.id = id;
     }
 
+    public Long getAppId() {
+        return appId;
+    }
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
+
+
+    public Long getParentCode() {
+        return parentCode;
+    }
+    public void setParentCode(Long parentCode) {
+        this.parentCode = parentCode;
+    }
 
     @Transient
     public List<ResourceVO> getChildren() {
