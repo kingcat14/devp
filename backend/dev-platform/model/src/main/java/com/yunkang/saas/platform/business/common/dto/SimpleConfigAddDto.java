@@ -22,7 +22,7 @@ public class SimpleConfigAddDto {
      */
 	@NotNull(message = "配置类型不能为空")
 	@ApiModelProperty(value = "配置类型", required = true)
-	private Long configType;
+	private String configType;
 
     /**
 	 * 租户ID
@@ -73,10 +73,10 @@ public class SimpleConfigAddDto {
 	private Integer vIndex;
 
 
-	public Long getConfigType(){
+	public String getConfigType(){
 		return configType;
 	}
-	public void setConfigType(Long configType) {
+	public void setConfigType(String configType) {
 		this.configType = configType;
 	}
 

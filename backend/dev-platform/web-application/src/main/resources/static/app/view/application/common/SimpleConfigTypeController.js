@@ -8,7 +8,7 @@ Ext.define('AM.view.application.common.SimpleConfigTypeController', {
 	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
 		//点击主数据的某行
 		var me = this;
-        var searchCondition = {configType:record.get('id')}
+        var searchCondition = {configType:record.get('typeCode')}
         var simpleConfigPanel = me.lookup('simpleConfigPanel');
         simpleConfigPanel.expand();
 

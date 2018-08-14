@@ -47,7 +47,7 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
                                             typeAhead:false,
                                             editable:false,
                                             displayField:'typeName',
-                                            valueField:'id',
+                                            valueField:'typeCode',
                                             itemId: 'configTypeField',
                                             name: 'configType',
                                             fieldLabel: '配置类型'

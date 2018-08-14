@@ -21,7 +21,7 @@ public class SimpleConfigVO {
 
     /**配置类型*/
     @ApiModelProperty(value = "配置类型")
-    private Long configType;
+    private String configType;
     private SimpleConfigTypeVO configTypeVO;
 
     /**参数名称*/
@@ -45,10 +45,10 @@ public class SimpleConfigVO {
     private Integer vIndex;
 
 
-    public Long getConfigType(){
+    public String getConfigType(){
         return configType;
     }
-    public void setConfigType(Long configType) {
+    public void setConfigType(String configType) {
         this.configType = configType;
     }
     public SimpleConfigTypeVO getConfigTypeVO(){

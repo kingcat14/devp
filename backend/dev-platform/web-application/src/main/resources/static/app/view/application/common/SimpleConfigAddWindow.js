@@ -39,7 +39,7 @@ Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
                             typeAhead:false,
                             editable:false,
                             displayField:'typeName',
-                            valueField:'id',
+                            valueField:'typeCode',
                             allowBlank:false,
                             afterLabelTextTpl: [
                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'

@@ -19,7 +19,7 @@ public class SimpleConfigEditDto {
     /**配置类型*/
 	@NotNull(message = "配置类型不能为空")
 	@ApiModelProperty(value = "配置类型", required = true)
-	private Long configType;
+	private String configType;
 
 
 
@@ -65,10 +65,10 @@ public class SimpleConfigEditDto {
 
 
 
-	public Long getConfigType(){
+	public String getConfigType(){
 		return configType;
 	}
-	public void setConfigType(Long configType) {
+	public void setConfigType(String configType) {
 		this.configType = configType;
 	}
 

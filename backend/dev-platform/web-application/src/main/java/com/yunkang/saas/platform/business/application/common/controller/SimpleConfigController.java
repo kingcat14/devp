@@ -165,7 +165,7 @@ public class SimpleConfigController {
 
 	private void initConfigTypePropertyGroup(SimpleConfigVO simpleConfigVO, SimpleConfig simpleConfig){
 	
-		SimpleConfigType configType = simpleConfigTypeService.find(simpleConfig.getConfigType());
+		SimpleConfigType configType = simpleConfigTypeService.findByCode(simpleConfig.getConfigType());
 		if(configType == null){
 			return;
 		}
