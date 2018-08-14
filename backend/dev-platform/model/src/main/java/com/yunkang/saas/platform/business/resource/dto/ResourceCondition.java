@@ -18,6 +18,7 @@ public class ResourceCondition implements Serializable{
 	private Long code;
 	private Long parentCode;
 	private Integer orderIndex;
+	private Boolean hidden;
 
 	public Long getAppId() {
 		return appId;
@@ -80,6 +81,13 @@ public class ResourceCondition implements Serializable{
 		this.id = id;
 	}
 
+
+	public Boolean getHidden() {
+		return hidden;
+	}
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
 
 	@Override
 	public String toString() {

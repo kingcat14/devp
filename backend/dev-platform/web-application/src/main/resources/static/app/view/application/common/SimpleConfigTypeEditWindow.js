@@ -1,6 +1,6 @@
-Ext.define('AM.view.application.common.AttachmentEditWindow', {
+Ext.define('AM.view.application.common.SimpleConfigTypeEditWindow', {
     extend: 'Ext.window.Window'
-    ,xtype: 'application.common.AttachmentEditWindow'
+    ,xtype: 'application.common.SimpleConfigTypeEditWindow'
     ,requires:[
     ],
     autoScroll: true,
@@ -9,7 +9,7 @@ Ext.define('AM.view.application.common.AttachmentEditWindow', {
     layout: {
         type: 'vbox'
     },
-    title: '修改Attachment信息',
+    title: '修改通用配置类型信息',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {
@@ -33,66 +33,17 @@ Ext.define('AM.view.application.common.AttachmentEditWindow', {
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'nameField',
-                            name: 'name',
-                            fieldLabel: '文件名'
+                            itemId: 'typeNameField',
+                            name: 'typeName',
+                            fieldLabel: '类型名称'
 
                         }
                         ,{
                             xtype: 'textfield',
                             allowBlank:true,
-                            itemId: 'typeField',
-                            name: 'type',
-                            fieldLabel: '类型'
-
-                        }
-                        ,{
-                            xtype: 'combobox',
-                            store: [
-                                [true,'是'],
-                                [false,'否']
-                            ],
-                            value:true,
-                            typeAhead:false,
-                            editable:false,
-                            allowBlank:true,
-                            itemId: 'disabledField',
-                            name: 'disabled',
-                            fieldLabel: '是否有效'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'newFileNameField',
-                            name: 'newFileName',
-                            fieldLabel: '存储服务器上文件名称'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'contentTypeField',
-                            name: 'contentType',
-                            fieldLabel: '文件类型'
-
-                        }
-                        ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:true,
-                            itemId: 'sizeField',
-                            name: 'size',
-                            fieldLabel: '文件大小'
-
-                        }
-                        ,{
-                            xtype: 'datefield',
-                            format: 'Y-m-d',
-                            allowBlank:true,
-                            itemId: 'createTimeField',
-                            name: 'createTime',
-                            fieldLabel: '创建时间'
+                            itemId: 'typeCodeField',
+                            name: 'typeCode',
+                            fieldLabel: '类型代码'
 
                         }
 
@@ -144,7 +95,7 @@ Ext.define('AM.view.application.common.AttachmentEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存Attachment成功!');
+                Ext.MsgUtil.show('操作成功', '保存通用配置类型成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -161,7 +112,7 @@ Ext.define('AM.view.application.common.AttachmentEditWindow', {
             return;
         }
 
-        this.setTitle("修改Attachment信息");
+        this.setTitle("修改通用配置类型信息");
 
         this.down('form').getForm().loadRecord(model);
 

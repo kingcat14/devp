@@ -4,13 +4,15 @@ import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import com.yunkang.saas.platform.business.application.common.valid.SimpleConfigValidator;
 import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
+import com.yunkang.saas.platform.business.common.domain.SimpleConfigType;
 import com.yunkang.saas.platform.business.common.dto.SimpleConfigAddDto;
 import com.yunkang.saas.platform.business.common.dto.SimpleConfigCondition;
 import com.yunkang.saas.platform.business.common.dto.SimpleConfigEditDto;
 import com.yunkang.saas.platform.business.common.service.SimpleConfigService;
+import com.yunkang.saas.platform.business.common.service.SimpleConfigTypeService;
+import com.yunkang.saas.platform.business.common.vo.SimpleConfigTypeVO;
 import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,17 +41,17 @@ public class SimpleConfigController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleConfigController.class);
 
-	@Autowired
-	private SecurityUtil securityUtil;
 
 	@Autowired
 	private SimpleConfigService simpleConfigService;
 
+	@Autowired
+	private SimpleConfigTypeService simpleConfigTypeService;
 
 	@Autowired
 	private SimpleConfigValidator simpleConfigValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(simpleConfigValidator);
 	}
@@ -66,7 +68,6 @@ public class SimpleConfigController {
 		SimpleConfig simpleConfig = new SimpleConfig();
 		BeanUtils.copyProperties(simpleConfigAddDto, simpleConfig);
 
-		simpleConfigAddDto.setTid(securityUtil.getAccount().getTenantId());
 		simpleConfigService.add(simpleConfig);
 
 		return  initViewProperty(simpleConfig);
@@ -84,7 +85,7 @@ public class SimpleConfigController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			simpleConfigService.delete(Long.valueOf(id));
+			simpleConfigService.delete(Long.parseLong(id));
 		}
 
 	}
@@ -157,7 +158,22 @@ public class SimpleConfigController {
         BeanUtils.copyProperties(simpleConfig, vo);
 
 	    //初始化其他对象
+	    initConfigTypePropertyGroup(vo, simpleConfig);
         return vo;
+	}
+
+
+	private void initConfigTypePropertyGroup(SimpleConfigVO simpleConfigVO, SimpleConfig simpleConfig){
+	
+		SimpleConfigType configType = simpleConfigTypeService.find(simpleConfig.getConfigType());
+		if(configType == null){
+			return;
+		}
+		SimpleConfigTypeVO configTypeVO = new SimpleConfigTypeVO();
+		BeanUtils.copyProperties(configType, configTypeVO);
+
+		simpleConfigVO.setConfigTypeVO(configTypeVO);
+
 	}
 
 

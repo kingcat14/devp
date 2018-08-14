@@ -3,11 +3,13 @@ package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.maintenance.business.maintenance.software.service.SoftwareLicenseRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.software.valid.SoftwareLicenseValidator;
+import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareCondition;
 import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseAddDto;
 import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseCondition;
 import net.aicoder.devp.maintenance.business.software.dto.SoftwareLicenseEditDto;
@@ -31,7 +33,7 @@ public class SoftwareLicenseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoftwareLicenseController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
+	private SaaSUtil saaSUtil;;
 
 	@Autowired
 	private SoftwareLicenseRibbonService softwareLicenseRibbonService;
@@ -53,7 +55,7 @@ public class SoftwareLicenseController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public SoftwareLicenseVO add(@RequestBody SoftwareLicenseAddDto softwareLicenseAddDto){
-		softwareLicenseAddDto.setTid(securityUtil.getAccount().getTenantId());
+		softwareLicenseAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  softwareLicenseRibbonService.add(softwareLicenseAddDto);
 	}
 
@@ -83,7 +85,7 @@ public class SoftwareLicenseController {
 	@ApiOperation(value = "修改", notes = "修改产服务许可(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public SoftwareLicenseVO update(@RequestBody SoftwareLicenseEditDto softwareLicenseEditDto, @ApiParam(value = "要查询的服务许可id") @PathVariable Long id){
-		softwareLicenseEditDto.setTid(securityUtil.getAccount().getTenantId());
+		softwareLicenseEditDto.setTid(saaSUtil.getAccount().getTenantId());
 		SoftwareLicenseVO vo = softwareLicenseRibbonService.merge(id, softwareLicenseEditDto);
 
 		return  vo;
@@ -111,6 +113,12 @@ public class SoftwareLicenseController {
 	@PostMapping("/list")
 	public PageContent<SoftwareLicenseVO> list(@RequestBody PageSearchRequest<SoftwareLicenseCondition> pageSearchRequest){
 
+		SoftwareLicenseCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new SoftwareLicenseCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId()); condition = pageSearchRequest.getSearchCondition();
 
 		PageContent<SoftwareLicenseVO> pageContent = softwareLicenseRibbonService.list(pageSearchRequest);
 
@@ -118,6 +126,5 @@ public class SoftwareLicenseController {
 		return pageContent;
 
 	}
-
 
 }

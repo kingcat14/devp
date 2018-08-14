@@ -61,6 +61,10 @@ public class ResourceAddDto {
 	@ApiModelProperty(value = "排序", required = false)
 	private Integer orderIndex;
 
+	/**是否隐藏菜单*/
+	@ApiModelProperty(value = "隐藏菜单", required = true)
+	private Boolean hidden;
+
 	public String getName(){
 		return name;
 	}
@@ -110,6 +114,12 @@ public class ResourceAddDto {
 		this.orderIndex = orderIndex;
 	}
 
+	public Boolean getHidden() {
+		return hidden;
+	}
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
 
 	@Override
 	public String toString() {

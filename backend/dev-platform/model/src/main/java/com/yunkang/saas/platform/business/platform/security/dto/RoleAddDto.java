@@ -1,5 +1,7 @@
 package com.yunkang.saas.platform.business.platform.security.dto;
 
+import com.yunkang.saas.platform.business.platform.application.vo.AppVO;
+import com.yunkang.saas.platform.business.platform.tenant.vo.TenantVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -39,6 +41,11 @@ public class RoleAddDto {
 	@Size(max = 255, message = "角色描述超长，最多255个字符")
 	private String description;
 
+	@ApiModelProperty(value = "租户")
+	private Long tenantId;
+
+	@ApiModelProperty(value = "应用")
+	private Long appId;
 
 	public String getName(){
 		return name;
@@ -61,6 +68,19 @@ public class RoleAddDto {
 		this.description = description;
 	}
 
+	public Long getTenantId() {
+		return tenantId;
+	}
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public Long getAppId() {
+		return appId;
+	}
+	public void setAppId(Long appId) {
+		this.appId = appId;
+	}
 
 	@Override
 	public String toString() {

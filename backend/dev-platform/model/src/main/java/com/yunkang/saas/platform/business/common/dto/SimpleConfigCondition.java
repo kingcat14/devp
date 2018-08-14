@@ -1,28 +1,37 @@
 package com.yunkang.saas.platform.business.common.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-
 
 @ApiModel(value = "查询通用配置使用的DTO")
-public class SimpleConfigCondition implements Serializable{
+public class SimpleConfigCondition extends SaaSCondition{
 
+    @ApiModelProperty(value = "配置类型")
+    private String configType;
 	@ApiModelProperty(value = "租户ID")
 	private Long tid;
 	@ApiModelProperty(value = "租户ID最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户ID最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "配置类型")
-	private String configType;
-	@ApiModelProperty(value = "展现名称")
+	@ApiModelProperty(value = "参数名称")
 	private String displayName;
 	@ApiModelProperty(value = "参数代码")
 	private String code;
+
+
+    public String getConfigType(){
+        return configType;
+    }
+    public void setConfigType(String configType) {
+        this.configType = configType;
+    }
 
 
 	public Long getTid(){
@@ -44,14 +53,6 @@ public class SimpleConfigCondition implements Serializable{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
-	}
-
-
-	public String getConfigType(){
-		return configType;
-	}
-	public void setConfigType(String configType) {
-		this.configType = configType;
 	}
 
 

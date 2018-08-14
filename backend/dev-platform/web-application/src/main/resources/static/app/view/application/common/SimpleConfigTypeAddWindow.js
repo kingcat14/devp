@@ -1,6 +1,6 @@
-Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
+Ext.define('AM.view.application.common.SimpleConfigTypeAddWindow', {
     extend: 'Ext.window.Window'
-    ,xtype: 'application.common.SimpleConfigAddWindow'
+    ,xtype: 'application.common.SimpleConfigTypeAddWindow'
     ,requires:[
     ]
     ,autoScroll: true
@@ -9,7 +9,7 @@ Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '添加新通用配置'
+    ,title: '添加新通用配置类型'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -34,66 +34,19 @@ Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
                     items: [
                         ,{
                             xtype: 'textfield',
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            itemId: 'configTypeField',
-                            name: 'configType',
-                            fieldLabel: '配置类型'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            itemId: 'displayNameField',
-                            name: 'displayName',
-                            fieldLabel: '展现名称'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            itemId: 'codeField',
-                            name: 'code',
-                            fieldLabel: '参数代码'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                            ],
-                            itemId: 'valueField',
-                            name: 'value',
-                            fieldLabel: '参数值'
-
-                        }
-                        ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
                             allowBlank:true,
-                            itemId: 'vIndexField',
-                            name: 'vIndex',
-                            fieldLabel: '展现顺序'
+                            itemId: 'typeNameField',
+                            name: 'typeName',
+                            fieldLabel: '类型名称'
 
                         }
                         ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'typeCodeField',
+                            name: 'typeCode',
+                            fieldLabel: '类型代码'
 
-                            xtype: 'textarea',
-                            anchor: '96% 70%',
-                            itemId: 'descriptionField',
-                            padding: '5 0 0 5',
-                            name: 'description',
-                            fieldLabel: '参数说明',
-                            labelAlign: 'top'
                         }
 
 
@@ -144,7 +97,7 @@ Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存通用配置成功!');
+                Ext.MsgUtil.show('操作成功', '保存通用配置类型成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -162,9 +115,9 @@ Ext.define('AM.view.application.common.SimpleConfigAddWindow', {
             return;
         }
 
-        this.setTitle("修改通用配置信息");
+        this.setTitle("修改通用配置类型信息");
         if(model.phantom){
-            this.setTitle("新增通用配置信息");
+            this.setTitle("新增通用配置类型信息");
         }
         this.down('form').getForm().loadRecord(model);
     }

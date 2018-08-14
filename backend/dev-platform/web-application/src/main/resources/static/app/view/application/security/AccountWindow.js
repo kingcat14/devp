@@ -139,17 +139,6 @@ Ext.define('AM.view.application.security.AccountWindow', {
 		                                    }
                                         }
                                         ,{
-	                                        xtype: 'numberfield',
-	                                        allowDecimals:false,
-	                                        allowBlank:false,
-	                                        afterLabelTextTpl: [
-	                                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-	                                        ],
-                                            itemId: 'maxClientField',
-                                            name: 'maxClient',
-                                            fieldLabel: '最大接待人数'
-                                        }
-                                        ,{
 	                                        xtype: 'textfield',
 	                                        allowBlank:false,
 	                                        afterLabelTextTpl: [

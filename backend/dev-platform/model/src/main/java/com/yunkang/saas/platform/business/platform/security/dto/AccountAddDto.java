@@ -64,7 +64,6 @@ public class AccountAddDto {
      */
 	@NotNull(message = "已启用不能为空")
 	@ApiModelProperty(value = "已启用", required = true, notes = "")
-	@Size(max = 255, message = "已启用超长，最多255个字符")
 	private Boolean enable;
 
 
@@ -72,8 +71,7 @@ public class AccountAddDto {
 	private String initPwd;
 
     /**所属租户*/
-    @NotNull(message = "所属租户不能为空")
-    @ApiModelProperty(value = "所属租户", required = true)
+    @ApiModelProperty(value = "所属租户", required = false)
     private Long tenantId;
 
 	public String getNickName(){
@@ -125,11 +123,10 @@ public class AccountAddDto {
 		this.initPwd = initPwd;
 	}
 
-    @NotNull
     public Long getTenantId() {
         return tenantId;
     }
-    public void setTenantId(@NotNull Long tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 

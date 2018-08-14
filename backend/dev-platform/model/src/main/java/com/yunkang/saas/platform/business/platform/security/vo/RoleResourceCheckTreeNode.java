@@ -2,10 +2,15 @@ package com.yunkang.saas.platform.business.platform.security.vo;
 
 
 import com.yunkang.saas.platform.business.resource.vo.ResourceVO;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  */
-public class RoleResourceCheckTreeNode {
+public class RoleResourceCheckTreeNode implements Serializable {
 
 	private Long id;
 	private String name;
@@ -13,26 +18,32 @@ public class RoleResourceCheckTreeNode {
 	private Long resourceId;
 	private Long relationId;
 	private Boolean checked;
+	private Long parentCode;
+	private Long code;
 	protected boolean leaf;
+	protected List<RoleResourceCheckTreeNode> children;
 
 	/**
 	 * Constructor for ResourceTreeNode.
 	 * @param resource Resource
 	 */
-	public RoleResourceCheckTreeNode(ResourceVO resource, Long roleId){
+	public RoleResourceCheckTreeNode(ResourceVO resource){
 		this.id = resource.getId();
 		this.name = resource.getName();
-		this.roleId = roleId;
 		this.resourceId = resource.getId();
+		this.checked = false;
+		this.leaf = ResourceVO.TYPE_FUNCTION.equals(resource.getType());
+	}
+
+	public RoleResourceCheckTreeNode(ResourceVO resource, Long roleId){
+		this(resource);
+		this.roleId = roleId;
 		this.checked = false;
 		this.leaf = false;
 	}
 
 	public RoleResourceCheckTreeNode(ResourceVO resource, Long roleId, Boolean checked){
-		this.id = resource.getId();
-		this.name = resource.getName();
-		this.roleId = roleId;
-		this.resourceId = resource.getId();
+		this(resource, roleId);
 		this.checked = checked;
 		this.leaf = false;
 	}
@@ -84,8 +95,34 @@ public class RoleResourceCheckTreeNode {
 	public Long getRelationId() {
 		return relationId;
 	}
-
 	public void setRelationId(Long relationId) {
 		this.relationId = relationId;
+	}
+
+	public Long getParentCode() {
+		return parentCode;
+	}
+	public void setParentCode(Long parentCode) {
+		this.parentCode = parentCode;
+	}
+
+	public Long getCode() {
+		return code;
+	}
+	public void setCode(Long code) {
+		this.code = code;
+	}
+
+	public List<RoleResourceCheckTreeNode> getChildren() {
+		return children;
+	}
+	public void setChildren(List<RoleResourceCheckTreeNode> children) {
+		this.children = children;
+	}
+	public void addChild(RoleResourceCheckTreeNode resource){
+		if(CollectionUtils.isEmpty(children)){
+			children = new ArrayList<>();
+		}
+		children.add(resource);
 	}
 }

@@ -44,7 +44,7 @@ public class DevpSysElementInfo extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid")
+    @Column(name = "tid", updatable = false)
 	@NotNull(message = "租户编号不能为空")
 	private Long tid;
 

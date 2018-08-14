@@ -19,6 +19,9 @@ import java.util.List;
 @ApiModel(value = "展现资源的值对象")
 public class ResourceVO {
 
+    public static final String TYPE_FUNCTION = "function";
+    public static final String TYPE_MODULE = "module";
+
     @ApiModelProperty(value = "记录id")
     private Long id;
 
@@ -48,12 +51,13 @@ public class ResourceVO {
     @ApiModelProperty(value = "父节点代码")
     private Long parentCode;
 
-    /**
-    * 排序
-    * 
-    */
+    /**排序*/
     @ApiModelProperty(value = "排序")
     private Integer orderIndex;
+
+    /**是否隐藏菜单*/
+    @ApiModelProperty(value = "隐藏菜单")
+    private Boolean hidden;
 
     private List<ResourceVO> children;
 
@@ -112,6 +116,13 @@ public class ResourceVO {
     }
     public void setParentCode(Long parentCode) {
         this.parentCode = parentCode;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     @Transient

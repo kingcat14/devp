@@ -5,6 +5,7 @@ import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
 import org.springframework.stereotype.Repository;
 
 
+
 /**
  * 通用配置的数据库操作
  * @author icode

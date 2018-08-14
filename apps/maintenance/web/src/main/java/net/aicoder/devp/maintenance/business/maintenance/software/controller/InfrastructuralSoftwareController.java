@@ -3,11 +3,13 @@ package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.maintenance.business.maintenance.software.service.InfrastructuralSoftwareRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.software.valid.InfrastructuralSoftwareValidator;
+import net.aicoder.devp.maintenance.business.software.dto.BusinessSoftwareCondition;
 import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareAddDto;
 import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareCondition;
 import net.aicoder.devp.maintenance.business.software.dto.InfrastructuralSoftwareEditDto;
@@ -31,7 +33,7 @@ public class InfrastructuralSoftwareController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(InfrastructuralSoftwareController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
+	private SaaSUtil saaSUtil;
 
 	@Autowired
 	private InfrastructuralSoftwareRibbonService infrastructuralSoftwareRibbonService;
@@ -53,7 +55,7 @@ public class InfrastructuralSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public InfrastructuralSoftwareVO add(@RequestBody InfrastructuralSoftwareAddDto infrastructuralSoftwareAddDto){
-		infrastructuralSoftwareAddDto.setTid(securityUtil.getAccount().getTenantId());
+		infrastructuralSoftwareAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  infrastructuralSoftwareRibbonService.add(infrastructuralSoftwareAddDto);
 	}
 
@@ -83,7 +85,7 @@ public class InfrastructuralSoftwareController {
 	@ApiOperation(value = "修改", notes = "修改产基础软件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public InfrastructuralSoftwareVO update(@RequestBody InfrastructuralSoftwareEditDto infrastructuralSoftwareEditDto, @ApiParam(value = "要查询的基础软件id") @PathVariable Long id){
-		infrastructuralSoftwareEditDto.setTid(securityUtil.getAccount().getTenantId());
+		infrastructuralSoftwareEditDto.setTid(saaSUtil.getAccount().getTenantId());
 		InfrastructuralSoftwareVO vo = infrastructuralSoftwareRibbonService.merge(id, infrastructuralSoftwareEditDto);
 
 		return  vo;
@@ -111,6 +113,12 @@ public class InfrastructuralSoftwareController {
 	@PostMapping("/list")
 	public PageContent<InfrastructuralSoftwareVO> list(@RequestBody PageSearchRequest<InfrastructuralSoftwareCondition> pageSearchRequest){
 
+		InfrastructuralSoftwareCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new InfrastructuralSoftwareCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId()); condition = pageSearchRequest.getSearchCondition();
 
 		PageContent<InfrastructuralSoftwareVO> pageContent = infrastructuralSoftwareRibbonService.list(pageSearchRequest);
 

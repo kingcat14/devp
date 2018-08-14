@@ -35,12 +35,18 @@ Ext.define('AM.view.application.common.SimpleConfigDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'configType'
                             ,fieldLabel: '配置类型'
+                            ,renderer: function (value, field) {
+
+                                var record = me.down('form').getForm().getRecord();
+
+                                return record.get('configTypeVO').typeName;
+                            }
                         }
                         ,{
                             itemId: 'displayNameField'
                             ,padding: '5 0 0 5'
                             ,name: 'displayName'
-                            ,fieldLabel: '展现名称'
+                            ,fieldLabel: '参数名称'
                         }
                         ,{
                             itemId: 'codeField'

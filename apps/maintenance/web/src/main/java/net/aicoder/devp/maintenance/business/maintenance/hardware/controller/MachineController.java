@@ -3,6 +3,7 @@ package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,7 +32,7 @@ public class MachineController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
+	private SaaSUtil saaSUtil;
 
 	@Autowired
 	private MachineRibbonService machineRibbonService;
@@ -53,7 +54,7 @@ public class MachineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
-		machineAddDto.setTid(securityUtil.getAccount().getTenantId());
+		machineAddDto.setTid(saaSUtil.getAccount().getTenantId());
 
 		return  machineRibbonService.add(machineAddDto);
 	}
@@ -84,7 +85,7 @@ public class MachineController {
 	@ApiOperation(value = "修改", notes = "修改产服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public MachineVO update(@RequestBody MachineEditDto machineEditDto, @ApiParam(value = "要查询的服务器id") @PathVariable Long id){
-        machineEditDto.setTid(securityUtil.getAccount().getTenantId());
+        machineEditDto.setTid(saaSUtil.getAccount().getTenantId());
 		MachineVO vo = machineRibbonService.merge(id, machineEditDto);
 
 		return  vo;
@@ -111,6 +112,13 @@ public class MachineController {
 	@ApiOperation(value = "查询", notes = "根据条件查询服务器列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<MachineVO> list(@RequestBody PageSearchRequest<MachineCondition> pageSearchRequest){
+
+		MachineCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new MachineCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 
 
 		PageContent<MachineVO> pageContent = machineRibbonService.list(pageSearchRequest);

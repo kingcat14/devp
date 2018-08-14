@@ -30,7 +30,7 @@ public class Resource extends BaseEntity{
 	public static final String PROPERTY_PARENT_CODE = "parentCode";
 	public static final String PROPERTY_ORDER_INDEX = "orderIndex";
 	public static final String PROPERTY_ICON_CLASS = "iconClass";
-
+	public static final String PROPERTY_HIDDEN = "hidden";
 
     @Id
     @Column(name = "rid")
@@ -89,6 +89,9 @@ public class Resource extends BaseEntity{
     /**资源图标*/
 	@Column(name = "icon_class")
     private String iconClass;
+
+	@Column(name = "hidden")
+	private Boolean hidden;
 
 	public String getName(){
 		return name;
@@ -153,6 +156,12 @@ public class Resource extends BaseEntity{
 		this.id = id;
 	}
 
+	public Boolean getHidden() {
+		return hidden;
+	}
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
 
 	@Override
 	public String toString() {

@@ -69,8 +69,8 @@ public class AccountController {
 
 		BeanUtils.copyProperties(accountAddDto, account);
 
-
-		saaSUtil.fillSaaSEntity(account);
+		account.setTenantId(saaSUtil.getAccount().getTenantId());
+//		saaSUtil.fillSaaSEntity(account);
 		AccountPassword accountPassword = new AccountPassword();
 		accountPassword.setAccountName(account.getAccountName());
 		accountPassword.setPassword(accountAddDto.getInitPwd());

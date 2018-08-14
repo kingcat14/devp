@@ -1,7 +1,6 @@
 Ext.define('AM.view.application.security.AccountSearchWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.applicationSecurityAccountSearchWindow',
-
     autoScroll: true,
     height: 250,
     width: 400,
@@ -106,24 +105,6 @@ Ext.define('AM.view.application.security.AccountSearchWindow', {
                                             padding: '5 0 0 5',
                                             name: 'mobile',
                                             fieldLabel: '手机号',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'maxClientField',
-                                            padding: '5 0 0 5',
-                                            name: 'maxClient',
-                                            fieldLabel: '最大接待人数',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'initPwdField',
-                                            padding: '5 0 0 5',
-                                            name: 'initPwd',
-                                            fieldLabel: '初始密码',
                                             labelAlign: 'top'
                                         }
                                     ]

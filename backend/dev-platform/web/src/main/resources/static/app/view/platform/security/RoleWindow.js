@@ -2,16 +2,16 @@ Ext.define('AM.view.platform.security.RoleWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.platformSecurityRoleWindow',
 
-    autoScroll: true,
-    height: 250,
-    width: 400,
-    layout: {
+    autoScroll: true
+    ,height: 550
+    ,width: 800
+    ,layout: {
         type: 'fit'
-    },
-    title: '角色详细信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+    }
+    ,title: '角色详细信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -63,8 +63,8 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                             afterLabelTextTpl: [
                                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
-                                            itemId: 'appField',
-                                            name: 'appId',
+                                            itemId: 'nameField',
+                                            name: 'name',
                                             fieldLabel: '角色名称'
                                         }
 
@@ -88,8 +88,8 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                             afterLabelTextTpl: [
                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
-                                            itemId: 'tenantIdField',
-                                            name: 'tenantId',
+                                            itemId: 'appIdField',
+                                            name: 'appId',
                                             fieldLabel: '所属应用'
 
                                         }

@@ -1,15 +1,15 @@
-Ext.define('AM.view.application.common.AttachmentPanel', {
+Ext.define('AM.view.application.common.SimpleConfigTypePanel', {
     extend: 'Ext.grid.Panel'
-    ,xtype: 'application.common.AttachmentPanel'
-    ,title: 'Attachment'
+    ,xtype: 'application.common.SimpleConfigTypePanel'
+    ,title: '通用配置类型'
     ,requires: [
-        'AM.view.application.common.AttachmentController'
-        ,'AM.view.application.common.AttachmentAddWindow'
-        ,'AM.view.application.common.AttachmentEditWindow'
-        ,'AM.view.application.common.AttachmentSearchWindow'
-        ,'AM.view.application.common.AttachmentDetailWindow'
+        'AM.view.application.common.SimpleConfigTypeController'
+        ,'AM.view.application.common.SimpleConfigTypeAddWindow'
+        ,'AM.view.application.common.SimpleConfigTypeEditWindow'
+        ,'AM.view.application.common.SimpleConfigTypeSearchWindow'
+        ,'AM.view.application.common.SimpleConfigTypeDetailWindow'
     ]
-    ,controller: 'common_AttachmentController'
+    ,controller: 'common_SimpleConfigTypeController'
     ,initComponent: function() {
         var me = this;
 
@@ -19,55 +19,15 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
 
                 {
                     xtype: 'gridcolumn'
-                    ,dataIndex: 'name'
-                    ,text: '文件名'
+                    ,dataIndex: 'typeName'
+                    ,text: '类型名称'
                     
                 }
 
                 ,{
                     xtype: 'gridcolumn'
-                    ,dataIndex: 'type'
-                    ,text: '类型'
-                    
-                }
-
-                ,{
-                    xtype: 'booleancolumn'
-                    ,dataIndex: 'disabled'
-                    ,trueText: '是'
-                    ,falseText: '否'
-                    ,emptyCellText :'不确定'
-
-                    ,text: '是否有效'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'newFileName'
-                    ,text: '存储服务器上文件名称'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'contentType'
-                    ,text: '文件类型'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'size'
-                    ,text: '文件大小'
-                    
-                }
-
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d H:i:s'
-                    ,dataIndex: 'createTime'
-                    ,text: '创建时间'
+                    ,dataIndex: 'typeCode'
+                    ,text: '类型代码'
                     ,flex:1
                 }
                 ,{
@@ -160,7 +120,7 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
                         ,'-'
                         ,{
                             xtype:'textfield'
-                            ,emptyText:'请输入类型查询'
+                            ,emptyText:'请输入类型代码查询'
                             ,itemId:'simpleSearchField'
 
                         }
@@ -211,10 +171,10 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
             }
             ,items:[]
         });
-        me.add({xtype:'application.common.AttachmentAddWindow',reference:'attachmentAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'application.common.AttachmentEditWindow',reference:'attachmentEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'application.common.AttachmentSearchWindow',reference:'attachmentSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'application.common.AttachmentDetailWindow',reference:'attachmentDetailWindow'})
+        me.add({xtype:'application.common.SimpleConfigTypeAddWindow',reference:'simpleConfigTypeAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'application.common.SimpleConfigTypeEditWindow',reference:'simpleConfigTypeEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'application.common.SimpleConfigTypeSearchWindow',reference:'simpleConfigTypeSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'application.common.SimpleConfigTypeDetailWindow',reference:'simpleConfigTypeDetailWindow'})
 
         me.callParent(arguments);
     }
@@ -225,7 +185,7 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
 
         var simpleSearchField = panel.down("#simpleSearchField");
 
-        var searchCondition = {type:simpleSearchField.getValue()}
+        var searchCondition = {typeCode:simpleSearchField.getValue()}
 
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({
@@ -238,11 +198,11 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
 
         var modelConfig = {}
 
-        var record = Ext.create('AM.model.application.common.Attachment', modelConfig);
+        var record = Ext.create('AM.model.application.common.SimpleConfigType', modelConfig);
 
         options.src = button;
         var addWindow = this.showAddWindow(record, button);
-        addWindow.setTitle('添加新Attachment');
+        addWindow.setTitle('添加新通用配置类型');
     }
     ,onEditButtonClick: function(button, e, options) {
 
@@ -255,7 +215,7 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
 
         var record = selections[0];
         var detailWindow = this.showEditWindow(record, button);
-        detailWindow.setTitle('修改Attachment信息');
+        detailWindow.setTitle('修改通用配置类型信息');
     }
     ,onDeleteButtonClick: function(button, e, options) {
         var me = this;
@@ -276,7 +236,7 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
                         if(!success)
                         	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
-                        	Ext.MsgUtil.show('操作成功','删除Attachment成功!');
+                        	Ext.MsgUtil.show('操作成功','删除通用配置类型成功!');
                     }
                 });
             }
@@ -287,25 +247,25 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
         var me = this;
         options.src=item;
         var editWindow = me.showEditWindow(record, item);
-        editWindow.setTitle('修改Attachment信息');
+        editWindow.setTitle('修改通用配置类型信息');
     }
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
-        var addWindow = me.lookupReference('attachmentAddWindow');
+        var addWindow = me.lookupReference('simpleConfigTypeAddWindow');
         addWindow.setModel(model);
         addWindow.show(targetComponent);
         return addWindow;
     }
     ,showEditWindow: function(model, targetComponent) {
         var me = this;
-        var editWindow = me.lookupReference('attachmentEditWindow');
+        var editWindow = me.lookupReference('simpleConfigTypeEditWindow');
         editWindow.setModel(model);
         editWindow.show(targetComponent);
         return editWindow;
     }
     ,showDetailWindow: function(model, targetComponent) {
         var me = this;
-        var detailWindow = me.lookupReference('attachmentDetailWindow');
+        var detailWindow = me.lookupReference('simpleConfigTypeDetailWindow');
         detailWindow.setModel(model);
         detailWindow.show(targetComponent);
         return detailWindow;
@@ -313,7 +273,7 @@ Ext.define('AM.view.application.common.AttachmentPanel', {
     ,showSearchWindow: function(button, e, options) {
         var me = options.scope;
 
-        var searchWindow = me.lookupReference('attachmentSearchWindow');
+        var searchWindow = me.lookupReference('simpleConfigTypeSearchWindow');
         searchWindow.show(button);
     }
     ,setStore: function(store) {

@@ -29,7 +29,7 @@ public class ResourceSpecification implements Specification<Resource>{
 		if(condition==null){
 			return null;
 		}
-
+		
 		tryAddAppIdPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddUrlPredicate(predicateList, root, cb);
@@ -37,7 +37,7 @@ public class ResourceSpecification implements Specification<Resource>{
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddParentCodePredicate(predicateList, root, cb);
 		tryAddOrderIndexPredicate(predicateList, root, cb);
-
+		tryAddHiddenPredicate(predicateList, root, cb);
 
 		Predicate[] pre = new Predicate[predicateList.size()];
 		pre = predicateList.toArray(pre);
@@ -80,6 +80,12 @@ public class ResourceSpecification implements Specification<Resource>{
 			predicateList.add(cb.equal(root.get(Resource.PROPERTY_ORDER_INDEX).as(Integer.class), condition.getOrderIndex()));
 		}
 	}
+	private void tryAddHiddenPredicate(List<Predicate> predicateList, Root<Resource> root, CriteriaBuilder cb){
+		if (null != condition.getHidden() ) {
+			predicateList.add(cb.equal(root.get(Resource.PROPERTY_HIDDEN).as(Boolean.class), condition.getHidden()));
+		}
+	}
+
 }
 
 

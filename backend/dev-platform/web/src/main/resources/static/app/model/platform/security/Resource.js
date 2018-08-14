@@ -43,6 +43,12 @@ Ext.define('AM.model.platform.security.Resource', {
             ,allowNull:false
             ,critical:true
         }
+        ,{
+            name: 'hidden'
+            ,type:'bool'
+            ,allowNull:false
+            ,critical:true
+        }
     	,{
             name: 'orderIndex'
 			,type:'int'

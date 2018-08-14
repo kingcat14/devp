@@ -1,10 +1,10 @@
-Ext.define('AM.model.application.common.SimpleConfig', {
+Ext.define('AM.model.application.common.SimpleConfigType', {
     extend: 'Ext.data.Model',
     proxy: {
         type: "rest",
         writer:{writeRecordId:false, partialDataOptions:{changes:false}},
         headers:{"Accept":"application/json"},
-        url: 'common/simpleConfig'
+        url: 'common/simpleConfigType'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -21,44 +21,14 @@ Ext.define('AM.model.application.common.SimpleConfig', {
             ,allowNull:true
         }
     	,{
-            name: 'configType'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'tid'
+            name: 'typeName'
             ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'displayName'
+            name: 'typeCode'
             ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'code'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'value'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'description'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'vIndex'
-            ,type:'int'
             ,allowNull:true
             ,critical:true
         }

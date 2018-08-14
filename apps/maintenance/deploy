@@ -1,10 +1,11 @@
 cd /Users/gonghongrui/studio/git_aicoder/devp/apps/maintenance
-mvn clean package
+mvn clean deploy
+mvn clean package -Pspring-boot
 scp web/target/maintenance-web.jar root@121.41.14.24:/studio/apps/devp/maintenance
 
 
 ps aux|grep 'maintenance-web.jar'|grep -v grep |awk '{print $2}'|xargs kill -9
 
-scp web/target/maintenance-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/maintenance
-java -Xmx256m -Xms128m -Xss512k  -Dspring.profiles.active=local -jar maintenance-web.jar
-nohup java -Xmx256m -Xms32m -Xss512k  -Dspring.profiles.active=local -jar maintenance-web.jar >/dev/null &
+scp web/target/maintenance-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/prd/maintenance
+java -Xmx256m -Xms128m -Xss512k  --spring.profiles.active=local -jar maintenance-web.jar
+nohup java -Xmx256m -Xms32m -Xss512k -jar maintenance-web.jar --spring.profiles.active=prd >/dev/null &

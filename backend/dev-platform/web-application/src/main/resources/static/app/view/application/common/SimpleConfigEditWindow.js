@@ -2,6 +2,7 @@ Ext.define('AM.view.application.common.SimpleConfigEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'application.common.SimpleConfigEditWindow'
     ,requires:[
+        'AM.store.application.common.SimpleConfigTypeStore'
     ],
     autoScroll: true,
     height: 350,
@@ -31,7 +32,12 @@ Ext.define('AM.view.application.common.SimpleConfigEditWindow', {
                     },
                     items: [
                         ,{
-                            xtype: 'textfield',
+                            xtype: 'combobox',
+                            store: Ext.create("AM.store.application.common.SimpleConfigTypeStore", {autoLoad:true, asynchronousLoad:false, pageSize:1000}),
+                            typeAhead:false,
+                            editable:false,
+                            displayField:'typeName',
+                            valueField:'id',
                             allowBlank:false,
                             afterLabelTextTpl: [
                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
@@ -49,7 +55,7 @@ Ext.define('AM.view.application.common.SimpleConfigEditWindow', {
                             ],
                             itemId: 'displayNameField',
                             name: 'displayName',
-                            fieldLabel: '展现名称'
+                            fieldLabel: '参数名称'
 
                         }
                         ,{

@@ -4,6 +4,7 @@ Ext.define('AM.view.application.security.RolePanel', {
 	alias: 'widget.applicationSecurityRolePanel',
 	requires: [
 		'AM.view.application.security.RoleResourceTreeWindow'
+		,'AM.view.application.security.RoleResourceTreePanel'
 	],
 	height: 250,
 	width: 400,
@@ -16,64 +17,7 @@ Ext.define('AM.view.application.security.RolePanel', {
 
 		Ext.apply(me, {
 			dockedItems: [
-				{
-					xtype: 'toolbar',
-					dock: 'top',
-					items: [
-						{
-							xtype: 'button',
-							iconCls: 'add',
-							text: '新增',
-							listeners: {
-								click: {
-									fn: me.onAddButtonClick,
-									scope: me
-								}
-							}
-						},
-						{
-							xtype: 'button',
-							iconCls: 'edit',
-							text: '修改',
-							listeners: {
-								click: {
-									fn: me.onEditButtonClick,
-									scope: me
-								}
-							}
-						},
-						{
-							xtype: 'button',
-							iconCls: 'remove',
-							text: '删除',
-							listeners: {
-								click: {
-									fn: me.onDeleteButtonClick,
-									scope: me
-								}
-							}
-						}
-						,'-'
-						,{
-							xtype:'textfield'
-							,blankText:'请输入角色名称查询'
-							,itemId:'simpleSearchField'
 
-						}
-						,{
-							xtype: 'button',
-							iconCls: 'search',
-							text: '查询',
-							listeners: {
-								click: {
-									//fn: me.onSearchButtonClick,
-									fn:me.onSimpleSearchButtonClick,
-									scope: me
-								}
-							}
-						}
-					]
-				}
 			],
 			items: [
 				{
@@ -99,12 +43,17 @@ Ext.define('AM.view.application.security.RolePanel', {
 								{
 									handler: function(view, rowIndex, colIndex, item, e, record, row) {
 
-										if(!me.window){
-											me.window = Ext.widget('applicationSecurityRoleResourceTreeWindow');
-										}
-										view.getSelectionModel( ).select(record);
-										var window = me.window;
-										window.setRole(record);
+                                        view.getSelectionModel( ).select(record);
+
+                                        me.down('applicationSecurityRoleResourceTreePanel').setRole(record);
+                                        me.down('applicationSecurityRoleResourceTreePanel').expand()
+
+										// if(!me.window){
+										// 	me.window = Ext.widget('applicationSecurityRoleResourceTreeWindow');
+										// }
+										//
+										// var window = me.window;
+										// window.setRole(record);
 										//window.show()
 									},
 									iconCls: 'link',
@@ -117,7 +66,65 @@ Ext.define('AM.view.application.security.RolePanel', {
 
 					},
 					dockedItems: [
-						{
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'add',
+                                    text: '新增',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onAddButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'edit',
+                                    text: '修改',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onEditButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 'remove',
+                                    text: '删除',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onDeleteButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                                ,'-'
+                                ,{
+                                    xtype:'textfield'
+                                    ,blankText:'请输入角色名称查询'
+                                    ,itemId:'simpleSearchField'
+
+                                }
+                                ,{
+                                    xtype: 'button',
+                                    iconCls: 'search',
+                                    text: '查询',
+                                    listeners: {
+                                        click: {
+                                            //fn: me.onSearchButtonClick,
+                                            fn:me.onSimpleSearchButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+						,{
 							xtype: 'pagingtoolbar',
 							dock: 'bottom',
 							width: 360,
@@ -134,6 +141,55 @@ Ext.define('AM.view.application.security.RolePanel', {
 						}
 					}
 				}
+				// ,{
+                //     xtype: 'treepanel'
+				// 	,region:'east'
+				// 	,width:200
+				// 	,split:true
+				// 	,title:'角色资源'
+                //     //使用CheckTreeNode,生成的是带勾选框的树
+                //     ,store: Ext.create('AM.store.application.security.RoleResourceRelationTreeStore')
+                //     ,autoLoad: true
+                //     ,displayField: 'name'
+                //     ,rootVisible: false
+                //     ,checkPropagation:'down'
+                //     ,viewConfig: {
+				//
+                //     }
+                //     ,listeners: {
+                //         checkchange: {
+                //             fn: me.onTreepanelCheckChange,
+                //             scope: me
+                //         }
+                //     }
+                //     ,dockedItems: [
+                //         {
+                //             xtype: 'toolbar',
+                //             dock: 'top',
+                //             items: [
+                //                 {
+                //                     xtype: 'button',
+                //                     iconCls: 'accept',
+                //                     text: '确定',
+                //                     listeners: {
+                //                         click: {
+                //                             fn: me.onButtonClick,
+                //                             scope: me
+                //                         }
+                //                     }
+                //                 }
+                //             ]
+                //         }
+                //     ]
+                // }
+                , {
+                        xtype: 'applicationSecurityRoleResourceTreePanel'
+                    	,region:'east'
+						,split:true
+						,collapsed: false
+						,collapsible: true
+						,width:400
+                }
 			],
 			listeners: {
 				beforehide: {

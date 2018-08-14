@@ -1,14 +1,14 @@
-Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
+Ext.define('AM.view.application.common.SimpleConfigTypeSearchWindow', {
     extend: 'Ext.window.Window'
-    ,xtype: 'application.common.SimpleConfigSearchWindow'
-    ,alias: 'widget.applicationcommonSimpleConfigSearchWindow'
+    ,xtype: 'application.common.SimpleConfigTypeSearchWindow'
+    ,alias: 'widget.applicationcommonSimpleConfigTypeSearchWindow'
     ,autoScroll: true
     ,height: 250
     ,width: 400
     ,layout: {
         type: 'fit'
     }
-    ,title: '通用配置高级查询'
+    ,title: '通用配置类型高级查询'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {
@@ -43,15 +43,9 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
 
                                         ,{
                                             xtype: 'textfield',
-                                            itemId: 'configTypeField',
-                                            name: 'configType',
-                                            fieldLabel: '配置类型'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'displayNameField',
-                                            name: 'displayName',
-                                            fieldLabel: '展现名称'
+                                            itemId: 'typeNameField',
+                                            name: 'typeName',
+                                            fieldLabel: '类型名称'
                                         }
 
                                     ]
@@ -70,22 +64,12 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
                                     }
                                     ,items: [
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            anchor: '96%',
-                                            itemId: 'tidField',
-                                            padding: '5 0 0 5',
-                                            name: 'tid',
-                                            fieldLabel: '租户ID',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'codeField',
+                                            itemId: 'typeCodeField',
                                             padding: '5 0 0 5',
-                                            name: 'code',
-                                            fieldLabel: '参数代码',
+                                            name: 'typeCode',
+                                            fieldLabel: '类型代码',
                                             labelAlign: 'top'
                                         }
                                     ]
@@ -158,16 +142,12 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var configTypeField = me.down("#configTypeField");
-        var tidField = me.down("#tidField");
-        var displayNameField = me.down("#displayNameField");
-        var codeField = me.down("#codeField");
+        var typeNameField = me.down("#typeNameField");
+        var typeCodeField = me.down("#typeCodeField");
 
         var condition = {
-            configType:Ext.isEmpty(configTypeField.getValue())?null:configTypeField.getValue()
-            ,tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,displayName:Ext.isEmpty(displayNameField.getValue())?null:displayNameField.getValue()
-            ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
+            typeName:Ext.isEmpty(typeNameField.getValue())?null:typeNameField.getValue()
+            ,typeCode:Ext.isEmpty(typeCodeField.getValue())?null:typeCodeField.getValue()
         };
 
         return condition;

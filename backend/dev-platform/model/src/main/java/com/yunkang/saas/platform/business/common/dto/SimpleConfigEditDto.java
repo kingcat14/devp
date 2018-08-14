@@ -2,11 +2,9 @@ package com.yunkang.saas.platform.business.common.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -17,68 +15,62 @@ import javax.validation.constraints.Size;
 public class SimpleConfigEditDto {
 
 
-    /**
-	 * 租户ID
-	 * 
-     */
+
+    /**配置类型*/
+	@NotNull(message = "配置类型不能为空")
+	@ApiModelProperty(value = "配置类型", required = true)
+	private Long configType;
+
+
+
+    /**租户ID*/
 	@ApiModelProperty(value = "租户ID", required = false)
 	private Long tid;
 
 
-    /**
-	 * 配置类型
-	 * 
-     */
-	@NotNull(message = "配置类型不能为空")
-	@ApiModelProperty(value = "配置类型", required = true)
-	@Size(max = 255, message = "配置类型超长，最多255个字符")
-	private String configType;
 
-
-    /**
-	 * 展现名称
-	 * 
-     */
-	@NotNull(message = "展现名称不能为空")
-	@ApiModelProperty(value = "展现名称", required = true)
-	@Size(max = 255, message = "展现名称超长，最多255个字符")
+    /**参数名称*/
+	@NotNull(message = "参数名称不能为空")
+	@ApiModelProperty(value = "参数名称", required = true)
+	@Size(max = 255, message = "参数名称超长，最多255个字符")
 	private String displayName;
 
 
-    /**
-	 * 参数代码
-	 * 
-     */
+
+    /**参数代码*/
 	@NotNull(message = "参数代码不能为空")
 	@ApiModelProperty(value = "参数代码", required = true)
 	@Size(max = 255, message = "参数代码超长，最多255个字符")
 	private String code;
 
 
-    /**
-	 * 参数值
-	 * 
-     */
+
+    /**参数值*/
 	@NotNull(message = "参数值不能为空")
 	@ApiModelProperty(value = "参数值", required = true)
 	@Size(max = 255, message = "参数值超长，最多255个字符")
 	private String value;
 
 
-    /**
-	 * 参数说明
-	 * 
-     */
+
+    /**参数说明*/
 	@ApiModelProperty(value = "参数说明", required = false)
 	private String description;
 
 
-    /**
-	 * 展现顺序
-	 * 
-     */
+
+    /**展现顺序*/
 	@ApiModelProperty(value = "展现顺序", required = false)
 	private Integer vIndex;
+
+
+
+	public Long getConfigType(){
+		return configType;
+	}
+	public void setConfigType(Long configType) {
+		this.configType = configType;
+	}
 
 
 	public Long getTid(){
@@ -88,12 +80,6 @@ public class SimpleConfigEditDto {
 		this.tid = tid;
 	}
 
-	public String getConfigType(){
-		return configType;
-	}
-	public void setConfigType(String configType) {
-		this.configType = configType;
-	}
 
 	public String getDisplayName(){
 		return displayName;
@@ -102,12 +88,14 @@ public class SimpleConfigEditDto {
 		this.displayName = displayName;
 	}
 
+
 	public String getCode(){
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 
 	public String getValue(){
 		return value;
@@ -116,12 +104,14 @@ public class SimpleConfigEditDto {
 		this.value = value;
 	}
 
+
 	public String getDescription(){
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 
 	public Integer getVIndex(){
 		return vIndex;

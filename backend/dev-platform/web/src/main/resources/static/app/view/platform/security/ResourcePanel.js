@@ -63,6 +63,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
                                             ,appId: appId
 											,orderIndex: 1
 											,type:'function'
+											// ,hidden:false
 
 										});
 										//r.save()
@@ -141,8 +142,8 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 							editor: {
 								xtype: 'numberfield'
 							}
-						},
-						{
+						}
+						,{
 							header: '资源类型',
 							dataIndex: 'type',
 							editor: new Ext.form.field.ComboBox({
@@ -163,8 +164,25 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 									return '';
 								}
 							}
-						},
-						{
+						}
+                        ,{
+                            xtype: 'booleancolumn'
+                            ,text: '隐藏'
+                            ,dataIndex: 'hidden'
+                            ,trueText: '是'
+                            ,falseText: '否'
+                            ,emptyCellText :''
+                            ,editor: new Ext.form.field.ComboBox({
+                                typeAhead: false,
+                                triggerAction: 'all',
+                                store: [
+                                    [true,'是'],
+                                    [false,'否']
+                                ]
+                                ,value : '1'
+                            })
+                        }
+						,{
 							xtype: 'gridcolumn',
 							dataIndex: 'parentCode',
 							text: '父节点'
@@ -257,5 +275,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 		this.resourceStore = store;
 		this.down('grid').reconfigure(store);
 	}
+
+
 
 });

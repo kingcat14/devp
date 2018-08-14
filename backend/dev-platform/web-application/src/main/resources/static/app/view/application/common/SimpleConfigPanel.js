@@ -16,10 +16,12 @@ Ext.define('AM.view.application.common.SimpleConfigPanel', {
         Ext.apply(me, {
             columnLines: true
             ,columns: [
-
                 {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'configType'
+                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return record.get("configTypeVO")?record.get("configTypeVO").typeName:'';
+                    }
                     ,text: '配置类型'
                     
                 }
@@ -27,7 +29,7 @@ Ext.define('AM.view.application.common.SimpleConfigPanel', {
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'displayName'
-                    ,text: '展现名称'
+                    ,text: '参数名称'
                     
                 }
 
@@ -147,12 +149,6 @@ Ext.define('AM.view.application.common.SimpleConfigPanel', {
                             }
                         }
                         ,'-'
-                        ,{
-                            xtype:'textfield'
-                            ,emptyText:'请输入租户ID查询'
-                            ,itemId:'simpleSearchField'
-
-                        }
                         ,{
                             xtype: 'button'
                             ,iconCls: 'search'
@@ -309,7 +305,7 @@ Ext.define('AM.view.application.common.SimpleConfigPanel', {
         this.reconfigure(store);
         this.down('pagingtoolbar').bindStore(store);
 
-        this.store=store;
+        this.store = store;
     }
     ,onBeforeShow:function(abstractcomponent, options) {
 	    this.store.reload({scope: this,callback: function(){}});

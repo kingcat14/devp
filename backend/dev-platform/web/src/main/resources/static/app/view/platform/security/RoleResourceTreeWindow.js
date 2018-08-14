@@ -4,7 +4,7 @@ Ext.define('AM.view.platform.security.RoleResourceTreeWindow', {
 	requires: [
         'AM.store.platform.security.RoleResourceRelationTreeStore'
 	],
-    height: 400,
+    height: '80%',
     width: 254,
     layout: {
         type: 'fit'
@@ -15,7 +15,7 @@ Ext.define('AM.view.platform.security.RoleResourceTreeWindow', {
         var me = this;
 
         me.roleResourceRelationStore = Ext.create('AM.store.platform.security.RoleResourceRelationTreeStore');
-
+        // me.roleResourceRelationStore = Ext.create('Ext.data.TreeStore');
         Ext.apply(me, {
             items: [
                 {
@@ -135,7 +135,9 @@ Ext.define('AM.view.platform.security.RoleResourceTreeWindow', {
         // this.down('treepanel').getStore().sync();
 	    this.down('treepanel').getStore().removeAll(true);
 	    this.down('treepanel').getStore().setRoot({expanded: true, name:'Root', id: '-1'})
-	    this.down('treepanel').expandAll();
+
+
+        // this.down('treepanel').expandAll();
 
     }
 
@@ -155,40 +157,10 @@ Ext.define('AM.view.platform.security.RoleResourceTreeWindow', {
 
 		me.down('treepanel').getStore().removeAll(true);
 		me.down('treepanel').getStore().setRoot({expanded: true, name:'Root', id: '-1'})
-		me.down('treepanel').expandAll();
+		// me.down('treepanel').expandAll();
 
 
-		// me.roleResourceRelationStore.proxy.extraParams={searchCondition:{"a":"123",roleId:role.get('id')}};
-		// me.roleResourceRelationStore.pageSize = 1000;
-		//
-		// me.roleResourceRelationStore.load(function(records, operation, success) {
-		// 	console.log("roleResourceRelationStore success");
-		// 	me.roleResourceRelationStore.each(function(record){
-		// 	    console.log("resourceId:"+record.get('resourceId'))
-		// 		var resource = me.down('treepanel').getStore().getById(record.get('resourceId'));
-		// 		console.log("resource name:"+resource.get("name"));
-		// 		resource.set('checked', true);
-		// 	});
-		//
-		// 	me.show();
-		// });
     }
-    ,aaa: function () {
-        var me = this;
-		me.roleResourceRelationStore.proxy.extraParams={searchCondition:{"a":"123",roleId:me.role.get('id')}};
-		me.roleResourceRelationStore.pageSize = 1000;
 
-		me.roleResourceRelationStore.load(function(records, operation, success) {
-			console.log("roleResourceRelationStore success");
-			me.roleResourceRelationStore.each(function(record){
-			    console.log("resourceId:"+record.get('resourceId'))
-				var resource = me.down('treepanel').getStore().getById(record.get('resourceId'));
-				console.log("resource name:"+resource.get("name"));
-				resource.set('checked', true);
-			});
-
-			me.show();
-		});
-	}
 
 });

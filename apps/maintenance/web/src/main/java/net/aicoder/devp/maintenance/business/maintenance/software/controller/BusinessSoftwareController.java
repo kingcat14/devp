@@ -3,9 +3,11 @@ package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceCondition;
 import net.aicoder.devp.maintenance.business.software.dto.BusinessSoftwareCondition;
 import net.aicoder.devp.maintenance.business.software.dto.BusinessSoftwareAddDto;
 import net.aicoder.devp.maintenance.business.software.dto.BusinessSoftwareEditDto;
@@ -33,7 +35,7 @@ public class BusinessSoftwareController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BusinessSoftwareController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
+	private SaaSUtil saaSUtil;
 
 	@Autowired
 	private BusinessSoftwareRibbonService businessSoftwareRibbonService;
@@ -55,7 +57,7 @@ public class BusinessSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public BusinessSoftwareVO add(@RequestBody BusinessSoftwareAddDto businessSoftwareAddDto){
-		businessSoftwareAddDto.setTid(securityUtil.getAccount().getTenantId());
+		businessSoftwareAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  businessSoftwareRibbonService.add(businessSoftwareAddDto);
 	}
 
@@ -85,7 +87,7 @@ public class BusinessSoftwareController {
 	@ApiOperation(value = "修改", notes = "修改产应用软件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public BusinessSoftwareVO update(@RequestBody BusinessSoftwareEditDto businessSoftwareEditDto, @ApiParam(value = "要查询的应用软件id") @PathVariable Long id){
-		businessSoftwareEditDto.setTid(securityUtil.getAccount().getTenantId());
+		businessSoftwareEditDto.setTid(saaSUtil.getAccount().getTenantId());
 		BusinessSoftwareVO vo = businessSoftwareRibbonService.merge(id, businessSoftwareEditDto);
 
 		return  vo;
@@ -113,6 +115,12 @@ public class BusinessSoftwareController {
 	@PostMapping("/list")
 	public PageContent<BusinessSoftwareVO> list(@RequestBody PageSearchRequest<BusinessSoftwareCondition> pageSearchRequest){
 
+		BusinessSoftwareCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new BusinessSoftwareCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId()); condition = pageSearchRequest.getSearchCondition();
 
 		PageContent<BusinessSoftwareVO> pageContent = businessSoftwareRibbonService.list(pageSearchRequest);
 

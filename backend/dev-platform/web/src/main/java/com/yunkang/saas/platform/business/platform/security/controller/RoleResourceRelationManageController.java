@@ -2,11 +2,14 @@ package com.yunkang.saas.platform.business.platform.security.controller;
 
 
 import com.yunkang.saas.platform.business.platform.security.domain.RoleResourceRelation;
+import com.yunkang.saas.platform.business.platform.security.dto.RoleResourceRelationCondition;
 import com.yunkang.saas.platform.business.platform.security.service.RoleResourceRelationService;
 import com.yunkang.saas.platform.business.platform.security.vo.RoleResourceCheckTreeNode;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
 import com.yunkang.saas.platform.business.resource.dto.ResourceCondition;
 import com.yunkang.saas.platform.business.resource.service.ResourceService;
+import com.yunkang.saas.platform.business.resource.service.ResourceUtil;
+import com.yunkang.saas.platform.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.platform.business.resource.vo.ResourceVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -38,72 +41,86 @@ public class RoleResourceRelationManageController {
 	@Autowired
 	private ResourceService resourceService;
 
-	/**
-	 * Method getChildNodes.
-	 * @param node String
-	 * @param id int
-	 * @param id int
-	 * @return ResponseEntity<String>
-	 */
 	@RequestMapping(params = "method=getChildNodes", headers="Accept=application/xml, application/json")
 	public @ResponseBody
-	List<RoleResourceCheckTreeNode> getChildNodes(
-			@RequestParam(required=false,value="node") String node,
-			@RequestParam(required=false,value="id",defaultValue = "-1") Long id,
-			@RequestParam(required=false,value="roleId",defaultValue = "-1") Long roleId,
-			@RequestParam(required=false,value="appId",defaultValue = "-1") Long appId
-	){
-		/*
-		 * 1.查找当前APP的所有资源
-		 * 2.查找当前角色的所有资源
-		 * 3.匹配一下
-		 */
+	List<RoleResourceCheckTreeNode> getTree(
+			@RequestParam(required=true, value="id") Long id
+			,@RequestParam(required=true,value="roleId",defaultValue = "-1") Long roleId
+			,@RequestParam(required=true,value="appId",defaultValue = "-1") Long appId){
+
+		//不是根节点不处理
+
 		Resource parentResource = null;
 		if(id == -1){
 			parentResource = new Resource();
-			parentResource.setParentCode(-1L);
 			parentResource.setAppId(appId);
 		}else{
 			parentResource = resourceService.find(id);
 		}
-		//先查询父节点
-		List<RoleResourceCheckTreeNode> resourceTreeNodes = getRoleResourceCheckTreeNodes(roleId, parentResource);
+		/*
+		 * 1.得到系统的所有资源
+		 * 2.得到当前角色已经选择的资源
+		 * 3.计算哪些是已经选择的
+		 */
+		//1.
+		ResourceCondition resourceCondition = new ResourceCondition();
+		resourceCondition.setAppId(appId);
+		resourceCondition.setParentCode(parentResource.getParentCode());//如果是根节点，则会查询所有的子节点
+		List<Resource> resourceList = resourceService.findAll(resourceCondition);
+		//先排个序
+		ResourceUtil.sortResourceList(resourceList);
 
-
-		return resourceTreeNodes;
-	}
-
-	private List<RoleResourceCheckTreeNode> getRoleResourceCheckTreeNodes(@RequestParam(required = false, value = "roleId", defaultValue = "-1") Long roleId, Resource parentResource) {
-		//设置父节点ID和所属APPID
-		ResourceCondition condition = new ResourceCondition();
-		condition.setParentCode(parentResource.getCode());
-		condition.setAppId(parentResource.getAppId());
-
-		List<Resource> resourceList = resourceService.findAll(condition);
-		LOGGER.info(resourceList.toString());
-
-		//得到该角色的所有已授权资源
+		//2.
 		List<RoleResourceRelation> roleResourceRelationList = roleResourceRelationService.findAllForRole(roleId);
-		HashMap<Long, RoleResourceRelation> relationMap = new HashMap<>();
-		for(RoleResourceRelation relation : roleResourceRelationList){
-			relationMap.put(relation.getResourceId(), relation);
+
+		//3.
+		HashMap<Long, RoleResourceCheckTreeNode> hashMap = new HashMap<>();
+		List<RoleResourceCheckTreeNode> allResource = new ArrayList<>();
+		for(Resource resource : resourceList){
+			ResourceVO vo = new ResourceVO();
+			BeanUtils.copyProperties(resource, vo);
+
+			RoleResourceCheckTreeNode node = new RoleResourceCheckTreeNode(vo, roleId);
+			BeanUtils.copyProperties(vo, node);
+
+			allResource.add(node);
+			hashMap.put(node.getResourceId(), node);
 		}
 
-		List<RoleResourceCheckTreeNode> resourceTreeNodes = new ArrayList<>();
-		if(CollectionUtils.isNotEmpty(resourceList)){
-			for(Resource resource : resourceList){
-				ResourceVO vo = new ResourceVO();
-				BeanUtils.copyProperties(resource, vo);
-
-				RoleResourceCheckTreeNode treeNode = new RoleResourceCheckTreeNode(vo, roleId, relationMap.containsKey(resource.getId()));
-				if( relationMap.containsKey(resource.getId())){
-					treeNode.setRelationId(relationMap.get(resource.getId()).getId());
-				}
-				resourceTreeNodes.add(treeNode);
+		for(RoleResourceRelation relation : roleResourceRelationList){
+			RoleResourceCheckTreeNode node = hashMap.get(relation.getResourceId());
+			if(node != null){
+				node.setRelationId(relation.getId());
+				node.setChecked(true);
 			}
 		}
-		return resourceTreeNodes;
+
+		return this.convert(allResource, id);
+
 	}
 
+	public static List<RoleResourceCheckTreeNode> convert(List<RoleResourceCheckTreeNode> resourceList, Long rootId){
+
+		HashMap<Long, RoleResourceCheckTreeNode> hashMap = new HashMap<>();
+
+		List<RoleResourceCheckTreeNode> result = new ArrayList<>();
+
+		for(RoleResourceCheckTreeNode resource : resourceList){
+
+			if(resource.getParentCode() == rootId){
+				result.add(resource);
+			}
+
+			hashMap.put(resource.getCode(), resource);
+		}
+
+		for(RoleResourceCheckTreeNode node : resourceList){
+			if(hashMap.containsKey(node.getParentCode())){
+				hashMap.get(node.getParentCode()).addChild(node);
+			}
+		}
+
+		return result;
+	}
 
 }

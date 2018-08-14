@@ -1,27 +1,27 @@
-Ext.define('AM.store.application.common.AttachmentStore', {
+Ext.define('AM.store.application.common.SimpleConfigTypeStore', {
     extend: 'Ext.data.Store'
     ,requires: [
-        'AM.model.application.common.Attachment'
+        'AM.model.application.common.SimpleConfigType'
     ]
     ,constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
             autoLoad: false
-            ,model: 'AM.model.application.common.Attachment'
+            ,model: 'AM.model.application.common.SimpleConfigType'
             ,pageSize: 25
             ,proxy: {
                 type: 'rest'
                 ,pageParam:'page'
                 ,limitParam:'limit'
-                ,url: 'common/attachment'
+                ,url: 'common/simpleConfigType'
                 ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
                 ,reader: {
                     type: 'json',
                     rootProperty: 'content'
                 }
                 ,actionMethods:{read:'POST'}
-                ,api:{read:"common/attachment/list"}
+                ,api:{read:"common/simpleConfigType/list"}
                 ,paramsAsJson:true
                 ,listeners: {
                     exception: {

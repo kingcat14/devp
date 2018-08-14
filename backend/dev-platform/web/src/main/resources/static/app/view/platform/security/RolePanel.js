@@ -4,7 +4,8 @@ Ext.define('AM.view.platform.security.RolePanel', {
 	alias: 'widget.platformSecurityRolePanel',
 	requires: [
 		'AM.view.platform.security.RoleResourceTreeWindow'
-		,'AM.view.platform.security.RoleResourceTabWindow'
+		,'AM.view.platform.security.RoleEditWindow'
+        ,'AM.view.platform.security.RoleWindow'
 	],
 	height: 250,
 	width: 400,
@@ -142,11 +143,11 @@ Ext.define('AM.view.platform.security.RolePanel', {
 								{
 									handler: function(view, rowIndex, colIndex, item, e, record, row) {
 
-										if(!me.window){
-											me.window = Ext.widget('platformSecurityRoleResourceTreeWindow');
+										if(!me.roleResourceTreeWindow){
+											me.roleResourceTreeWindow = Ext.widget('platformSecurityRoleResourceTreeWindow');
 										}
 										view.getSelectionModel( ).select(record);
-										var window = me.window;
+										var window = me.roleResourceTreeWindow;
 										window.setRole(record);
 										window.show()
 									},
@@ -194,7 +195,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
 		var record = Ext.create('AM.model.platform.security.Role', {});
 
 		options.src = button;
-		var detailWindow = this.showDetailWindow(record, options);
+		var detailWindow = this.showAddWindow(record, options);
 		detailWindow.setTitle('添加新角色');
 	},
 
@@ -273,9 +274,6 @@ Ext.define('AM.view.platform.security.RolePanel', {
 		me.showDetailWindow(record,options);
 	}
 
-	,onPanelBeforeHide: function(abstractcomponent, options) {
-
-	}
 
 	,showDetailWindow: function(model, options) {
 		var me = options.scope;
@@ -284,7 +282,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
 
 		if(!detailWindow){
 
-			detailWindow = Ext.create('AM.view.platform.security.RoleWindow', {store:me.down('gridpanel').getStore()});
+			detailWindow = Ext.create('AM.view.platform.security.RoleEditWindow', {store:me.down('gridpanel').getStore()});
 			me.detailWindow = detailWindow;
 		}
 
@@ -297,6 +295,26 @@ Ext.define('AM.view.platform.security.RolePanel', {
 
 		return detailWindow;
 	}
+    ,showAddWindow: function(model, options) {
+        var me = options.scope;
+
+        var addWindow = me.addWindow;
+
+        if(!addWindow){
+
+            addWindow = Ext.create('AM.view.platform.security.RoleWindow', {store:me.down('gridpanel').getStore()});
+            me.addWindow = addWindow;
+        }
+
+
+        addWindow.setModel(model);
+
+        addWindow.show(options.src);
+
+        addWindow.setStore(this.store);
+
+        return addWindow;
+    }
 
 	,setStore: function(store) {
 		this.down('grid').reconfigure(store);
@@ -305,5 +323,26 @@ Ext.define('AM.view.platform.security.RolePanel', {
 		this.store=store;
 		store.load();
 	}
+    ,onPanelBeforeHide: function(abstractcomponent, options) {
+        var me = this;
+
+        if(me.searchWindow){
+            me.searchWindow.hide();
+        }
+        if(me.detailWindow){
+            me.detailWindow.hide();
+        }
+        if(me.editWindow){
+            me.editWindow.hide();
+        }
+        if(me.addWindow){
+            me.addWindow.hide();
+        }
+        if(me.roleResourceTreeWindow){
+            me.roleResourceTreeWindow.hide();
+        }
+
+    }
+
 
 });

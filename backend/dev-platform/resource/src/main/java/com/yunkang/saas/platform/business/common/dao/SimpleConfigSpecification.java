@@ -1,17 +1,16 @@
 package com.yunkang.saas.platform.business.common.dao;
 
-
-import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
 import com.yunkang.saas.platform.business.common.dto.SimpleConfigCondition;
+import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SimpleConfigSpecification implements Specification<SimpleConfig>{
 
@@ -29,8 +28,8 @@ public class SimpleConfigSpecification implements Specification<SimpleConfig>{
 			return null;
 		}
 
-		tryAddTidPredicate(predicateList, root, cb);
 		tryAddConfigTypePredicate(predicateList, root, cb);
+		tryAddTidPredicate(predicateList, root, cb);
 		tryAddDisplayNamePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 
@@ -41,14 +40,14 @@ public class SimpleConfigSpecification implements Specification<SimpleConfig>{
     }
 
 
+	private void tryAddConfigTypePredicate(List<Predicate> predicateList, Root<SimpleConfig> root, CriteriaBuilder cb){
+		if (null != condition.getConfigType() ) {
+			predicateList.add(cb.equal(root.get(SimpleConfig.PROPERTY_CONFIG_TYPE).as(Long.class), condition.getConfigType()));
+		}
+	}
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<SimpleConfig> root, CriteriaBuilder cb){
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(SimpleConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-	}
-	private void tryAddConfigTypePredicate(List<Predicate> predicateList, Root<SimpleConfig> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getConfigType())){
-			predicateList.add(cb.like(root.get(SimpleConfig.PROPERTY_CONFIG_TYPE).as(String.class), "%"+condition.getConfigType()+"%"));
 		}
 	}
 	private void tryAddDisplayNamePredicate(List<Predicate> predicateList, Root<SimpleConfig> root, CriteriaBuilder cb){

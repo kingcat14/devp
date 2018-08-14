@@ -50,11 +50,11 @@ public class SimpleConfigValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if(StringUtils.isEmpty(simpleConfig.getConfigType())){
+		if (null == simpleConfig.getConfigType() ) {
 			errors.rejectValue(SimpleConfig.PROPERTY_CONFIG_TYPE, "EMPTY_"+SimpleConfig.PROPERTY_CONFIG_TYPE, "配置类型不能为空");
 		}
 		if(StringUtils.isEmpty(simpleConfig.getDisplayName())){
-			errors.rejectValue(SimpleConfig.PROPERTY_DISPLAY_NAME, "EMPTY_"+SimpleConfig.PROPERTY_DISPLAY_NAME, "展现名称不能为空");
+			errors.rejectValue(SimpleConfig.PROPERTY_DISPLAY_NAME, "EMPTY_"+SimpleConfig.PROPERTY_DISPLAY_NAME, "参数名称不能为空");
 		}
 		if(StringUtils.isEmpty(simpleConfig.getCode())){
 			errors.rejectValue(SimpleConfig.PROPERTY_CODE, "EMPTY_"+SimpleConfig.PROPERTY_CODE, "参数代码不能为空");
@@ -64,11 +64,8 @@ public class SimpleConfigValidator implements Validator {
 		}
 
 		//验证长度
-		if(StringUtils.length(simpleConfig.getConfigType()) > 255){
-			errors.rejectValue(SimpleConfig.PROPERTY_CONFIG_TYPE,null,"配置类型最长255个字符");
-		}
 		if(StringUtils.length(simpleConfig.getDisplayName()) > 255){
-			errors.rejectValue(SimpleConfig.PROPERTY_DISPLAY_NAME,null,"展现名称最长255个字符");
+			errors.rejectValue(SimpleConfig.PROPERTY_DISPLAY_NAME,null,"参数名称最长255个字符");
 		}
 		if(StringUtils.length(simpleConfig.getCode()) > 255){
 			errors.rejectValue(SimpleConfig.PROPERTY_CODE,null,"参数代码最长255个字符");

@@ -42,7 +42,12 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
                                     ,items: [
 
                                         ,{
-                                            xtype: 'textfield',
+                                            xtype: 'combobox',
+                                            store: Ext.create("AM.store.application.common.SimpleConfigTypeStore"),
+                                            typeAhead:false,
+                                            editable:false,
+                                            displayField:'typeName',
+                                            valueField:'id',
                                             itemId: 'configTypeField',
                                             name: 'configType',
                                             fieldLabel: '配置类型'
@@ -51,7 +56,7 @@ Ext.define('AM.view.application.common.SimpleConfigSearchWindow', {
                                             xtype: 'textfield',
                                             itemId: 'displayNameField',
                                             name: 'displayName',
-                                            fieldLabel: '展现名称'
+                                            fieldLabel: '参数名称'
                                         }
 
                                     ]

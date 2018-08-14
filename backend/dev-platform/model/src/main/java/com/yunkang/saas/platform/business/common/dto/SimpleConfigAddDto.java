@@ -2,11 +2,11 @@ package com.yunkang.saas.platform.business.common.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 
 /**
@@ -17,6 +17,14 @@ import javax.validation.constraints.Size;
 public class SimpleConfigAddDto {
 
     /**
+	 * 配置类型
+	 * 
+     */
+	@NotNull(message = "配置类型不能为空")
+	@ApiModelProperty(value = "配置类型", required = true)
+	private Long configType;
+
+    /**
 	 * 租户ID
 	 * 
      */
@@ -24,21 +32,12 @@ public class SimpleConfigAddDto {
 	private Long tid;
 
     /**
-	 * 配置类型
+	 * 参数名称
 	 * 
      */
-	@NotNull(message = "配置类型不能为空")
-	@ApiModelProperty(value = "配置类型", required = true)
-	@Size(max = 255, message = "配置类型超长，最多255个字符")
-	private String configType;
-
-    /**
-	 * 展现名称
-	 * 
-     */
-	@NotNull(message = "展现名称不能为空")
-	@ApiModelProperty(value = "展现名称", required = true)
-	@Size(max = 255, message = "展现名称超长，最多255个字符")
+	@NotNull(message = "参数名称不能为空")
+	@ApiModelProperty(value = "参数名称", required = true)
+	@Size(max = 255, message = "参数名称超长，最多255个字符")
 	private String displayName;
 
     /**
@@ -74,18 +73,18 @@ public class SimpleConfigAddDto {
 	private Integer vIndex;
 
 
+	public Long getConfigType(){
+		return configType;
+	}
+	public void setConfigType(Long configType) {
+		this.configType = configType;
+	}
+
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
-	}
-
-	public String getConfigType(){
-		return configType;
-	}
-	public void setConfigType(String configType) {
-		this.configType = configType;
 	}
 
 	public String getDisplayName(){

@@ -108,24 +108,6 @@ Ext.define('AM.view.platform.security.AccountSearchWindow', {
                                             fieldLabel: '手机号',
                                             labelAlign: 'top'
                                         }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'maxClientField',
-                                            padding: '5 0 0 5',
-                                            name: 'maxClient',
-                                            fieldLabel: '最大接待人数',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'initPwdField',
-                                            padding: '5 0 0 5',
-                                            name: 'initPwd',
-                                            fieldLabel: '初始密码',
-                                            labelAlign: 'top'
-                                        }
                                     ]
                                 }
                             ]

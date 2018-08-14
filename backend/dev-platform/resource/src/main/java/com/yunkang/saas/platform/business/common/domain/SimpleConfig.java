@@ -1,15 +1,16 @@
 package com.yunkang.saas.platform.business.common.domain;
 
-import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
+import com.yunkang.saas.common.jpa.SaaSEntity;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -20,10 +21,10 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "simple_config", comment = "[通用配置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class SimpleConfig extends GenericBaseEntity<Long>{
+public class SimpleConfig extends SaaSEntity{
 
-	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_CONFIG_TYPE = "configType";
+	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_DISPLAY_NAME = "displayName";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_VALUE = "value";
@@ -37,28 +38,27 @@ public class SimpleConfig extends GenericBaseEntity<Long>{
 
 
     /**
-    * 租户ID
-    * 
-    */
-    @Column(name = "tid")
-	private Long tid;
-
-    /**
     * 配置类型
     * 
     */
     @Column(name = "config_type")
 	@NotNull(message = "配置类型不能为空")
-	@Size(max = 255, message = "配置类型超长，最多255个字符")
-	private String configType;
+	private Long configType;
 
     /**
-    * 展现名称
+    * 租户ID
+    * 
+    */
+    @Column(name = "tid", updatable = false)
+	private Long tid;
+
+    /**
+    * 参数名称
     * 
     */
     @Column(name = "display_name")
-	@NotNull(message = "展现名称不能为空")
-	@Size(max = 255, message = "展现名称超长，最多255个字符")
+	@NotNull(message = "参数名称不能为空")
+	@Size(max = 255, message = "参数名称超长，最多255个字符")
 	private String displayName;
 
     /**
@@ -93,18 +93,18 @@ public class SimpleConfig extends GenericBaseEntity<Long>{
     @Column(name = "v_index")
 	private Integer vIndex;
 
+	public Long getConfigType(){
+		return configType;
+	}
+	public void setConfigType(Long configType) {
+		this.configType = configType;
+	}
+
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
-	}
-
-	public String getConfigType(){
-		return configType;
-	}
-	public void setConfigType(String configType) {
-		this.configType = configType;
 	}
 
 	public String getDisplayName(){

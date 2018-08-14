@@ -3,9 +3,11 @@ package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.aicoder.devp.maintenance.business.hardware.dto.MachineCondition;
 import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceAddDto;
 import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceCondition;
 import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceEditDto;
@@ -31,7 +33,7 @@ public class NetworkDeviceController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NetworkDeviceController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
+	private SaaSUtil saaSUtil;
 
 	@Autowired
 	private NetworkDeviceRibbonService networkDeviceRibbonService;
@@ -53,7 +55,7 @@ public class NetworkDeviceController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public NetworkDeviceVO add(@RequestBody NetworkDeviceAddDto networkDeviceAddDto){
-		networkDeviceAddDto.setTid(securityUtil.getAccount().getTenantId());
+		networkDeviceAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  networkDeviceRibbonService.add(networkDeviceAddDto);
 	}
 
@@ -83,7 +85,7 @@ public class NetworkDeviceController {
 	@ApiOperation(value = "修改", notes = "修改产网络设备(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public NetworkDeviceVO update(@RequestBody NetworkDeviceEditDto networkDeviceEditDto, @ApiParam(value = "要查询的网络设备id") @PathVariable Long id){
-		networkDeviceEditDto.setTid(securityUtil.getAccount().getTenantId());
+		networkDeviceEditDto.setTid(saaSUtil.getAccount().getTenantId());
 		NetworkDeviceVO vo = networkDeviceRibbonService.merge(id, networkDeviceEditDto);
 
 		return  vo;
@@ -111,6 +113,12 @@ public class NetworkDeviceController {
 	@PostMapping("/list")
 	public PageContent<NetworkDeviceVO> list(@RequestBody PageSearchRequest<NetworkDeviceCondition> pageSearchRequest){
 
+		NetworkDeviceCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new NetworkDeviceCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId()); condition = pageSearchRequest.getSearchCondition();
 
 		PageContent<NetworkDeviceVO> pageContent = networkDeviceRibbonService.list(pageSearchRequest);
 
