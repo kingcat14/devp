@@ -1,15 +1,14 @@
 package net.aicoder.devp.deploy.business.ops.domain;
 
-import java.util.*;
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import com.yunkang.saas.common.framework.eo.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
-import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 
 
@@ -75,8 +74,8 @@ public class DevpOpsAssetCmdb extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", updatable = false, nullable = false)
+//	@NotNull(message = "租户编号不能为空")
 	private Long tid;
 
     /**

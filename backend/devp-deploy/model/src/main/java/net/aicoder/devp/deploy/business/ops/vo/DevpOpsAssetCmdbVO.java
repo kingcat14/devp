@@ -305,6 +305,10 @@ public class DevpOpsAssetCmdbVO {
     @ApiModelProperty(value = "参数定义标识")
     private String parasCode;
 
+    /**供应商*/
+    @ApiModelProperty(value = "供应商")
+    private String acquisitionProvider;
+
 
     public Long getTid(){
         return tid;
@@ -547,7 +551,14 @@ public class DevpOpsAssetCmdbVO {
         this.parasCode = parasCode;
     }
 
-	public Long getId() {
+    public String getAcquisitionProvider() {
+        return acquisitionProvider;
+    }
+    public void setAcquisitionProvider(String acquisitionProvider) {
+        this.acquisitionProvider = acquisitionProvider;
+    }
+
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

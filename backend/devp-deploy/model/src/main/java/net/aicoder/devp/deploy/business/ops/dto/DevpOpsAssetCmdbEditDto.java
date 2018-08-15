@@ -19,15 +19,6 @@ public class DevpOpsAssetCmdbEditDto {
 
 
     /**
-	 * 租户编号
-	 * [租户编号]
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
-	private Long tid;
-
-
-    /**
 	 * 元素类型
 	 * [元素类型]-服务器主机ASSET_HOST,
 网络设备ASSET_NETWORK,
@@ -386,14 +377,6 @@ public class DevpOpsAssetCmdbEditDto {
 	@ApiModelProperty(value = "参数定义标识", required = false)
 	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
 	private String parasCode;
-
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
 
 	public String getEtype(){
 		return etype;
