@@ -17,6 +17,10 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yunkang.saas.platform</groupId>
+            <artifactId>platform-model</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
