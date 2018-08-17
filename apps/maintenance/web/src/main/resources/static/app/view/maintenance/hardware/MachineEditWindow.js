@@ -2,11 +2,10 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.hardware.MachineEditWindow'
     ,requires:[
-        'AM.view.ux.FileUploadPanel'
     ],
     autoScroll: true,
-    height: 350,
-    width: 600,
+    height: '80%',
+    width: '80%',
     layout: {
         type: 'vbox'
     },
@@ -15,23 +14,37 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
     closeAction:'hide',
     initComponent: function () {
         var me = this;
+        
+        var machineStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        machineStatusStore.proxy.isSynchronous = true;
+        machineStatusStore.proxy.extraParams={searchCondition:{configType:'MACHINE-STATUS'}};
+        machineStatusStore.load();
+        
         Ext.apply(me, {
             items: [
                 {
                     xtype: 'form',
-                    region: 'center',
                     autoScroll: true,
-                    bodyPadding: 10,
-                    width:'100%',
-                    fieldDefaults: {
-                        labelAlign: 'top'
+                    bodyPadding: 10
+                    ,layout: {
+                        type: 'table',
+                        columns: 3,
+                        tableAttrs: {
+                            style: {
+                                width: '100%'
+                            }
+                        }
+                    }
+                    ,defaults:{width:'100%'}
+                    ,width:'100%'
+                    ,fieldDefaults: {
+                        labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     },
                     items: [
-
                         ,{
                             xtype: 'textfield',
                             allowBlank:false,
@@ -57,14 +70,6 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                             itemId: 'aliasField',
                             name: 'alias',
                             fieldLabel: '别名'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'descriptionField',
-                            name: 'description',
-                            fieldLabel: '描述'
 
                         }
                         ,{
@@ -100,19 +105,25 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
                         }
                         ,{
-                            xtype: 'textfield',
-                            allowBlank:true,
-                            itemId: 'versionField',
-                            name: 'version',
-                            fieldLabel: '版本'
-
-                        }
-                        ,{
-                            xtype: 'textfield',
+                            xtype: 'combobox',
+                            store: machineStatusStore,
+                            typeAhead:false,
+                            editable:false,
+                            displayField:'displayName',
+                            valueField:'value',
                             allowBlank:true,
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'
+
+                        }
+                        ,{
+                            xtype: 'datefield',
+                            format: 'Y-m-d',
+                            allowBlank:true,
+                            itemId: 'createDateField',
+                            name: 'createDate',
+                            fieldLabel: '创建时间'
 
                         }
                         ,{
@@ -286,15 +297,6 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
                         }
                         ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:true,
-                            itemId: 'prdRidField',
-                            name: 'prdRid',
-                            fieldLabel: '关联产品记录编号'
-
-                        }
-                        ,{
                             xtype: 'textfield',
                             allowBlank:true,
                             itemId: 'parasCodeField',
@@ -302,13 +304,38 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                             fieldLabel: '参数定义标识'
 
                         }
+                        ,{
+                            xtype: 'textfield',
+                            allowBlank:true,
+                            itemId: 'acquisitionProviderField',
+                            name: 'acquisitionProvider',
+                            fieldLabel: '供应商'
+
+                        }
+                        // ,{
+                        //     xtype: 'numberfield',
+                        //     allowDecimals:false,
+                        //     allowBlank:true,
+                        //     itemId: 'recordStateField',
+                        //     name: 'recordState',
+                        //     fieldLabel: '记录状态'
+                        //
+                        // }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'descriptionField',
+                            padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
+                        }
 
 
                     ]
                 }
-                ,{
-                    xtype:'fileuploadpanel'
-                }
+                ,{xtype:'fileuploadpanel', itemId:'fileuploadpanel-attachment'}
             ],
             dockedItems: [
                 {
@@ -349,6 +376,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
         var record = this.down('form').getForm().getRecord();
 
+
         //将form中的数据刷进record
         this.down('form').getForm().updateRecord(record);
         record.save({
@@ -357,10 +385,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
-
-
-                me.down('fileuploadpanel').save(newRecord, 'Machine')
-
+                me.down('#fileuploadpanel-attachment').save(newRecord, 'Machine-attachment');
             }
         });
 
@@ -378,7 +403,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
         this.down('form').getForm().loadRecord(model);
 
-        this.down('fileuploadpanel').reset(model);
+        this.down('#fileuploadpanel-attachment').reset(model);
     },
     setStore: function (store) {
         this.store = store;

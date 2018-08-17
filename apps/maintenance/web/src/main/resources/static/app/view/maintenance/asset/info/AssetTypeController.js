@@ -21,6 +21,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeController', {
 
 	}
 	,reloadStore:function () {
+	    console.log('inner reload')
         var me = this;
         var assetTypeAddWindow = me.lookupReference ('assetTypeAddWindow');
         var assetTypeGrid = assetTypeAddWindow.up('gridpanel');
@@ -32,6 +33,9 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeController', {
                 }
             }
         });
+        console.log('inner reload 2')
+        me.getView().fireEvent('reload')
+        console.log('inner reload 3')
     }
     ,doSearch:function () {
         var me = this;

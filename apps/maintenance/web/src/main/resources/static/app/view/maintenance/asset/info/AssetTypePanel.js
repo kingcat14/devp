@@ -113,18 +113,19 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypePanel', {
                     xtype: 'toolbar',
                     dock: 'top',
                     items: [
+                        // {
+                        //     xtype: 'button'
+                        //     ,iconCls: 'add'
+                        //     ,text: '新增'
+                        //     ,listeners: {
+                        //         click: {
+                        //             fn: me.onAddButtonClick,
+                        //             scope: me
+                        //         }
+                        //     }
+                        // }
+                        // ,
                         {
-                            xtype: 'button'
-                            ,iconCls: 'add'
-                            ,text: '新增'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onAddButtonClick,
-                                    scope: me
-                                }
-                            }
-                        }
-                        ,{
                             xtype: 'button'
                             ,iconCls: 'edit'
                             ,text: '修改'
@@ -263,7 +264,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypePanel', {
             ,url: "asset/info/assetType/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
+            ,params:condition.searchCondition
             ,isUpload: true
             ,form: Ext.fly('formFly')
         });

@@ -21,15 +21,9 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,allowNull:true
         }
     	,{
-            name: 'tid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'etype'
             ,type:'string'
-            ,allowNull:false
+            ,allowNull:true
             ,critical:true
         }
     	,{
@@ -57,12 +51,6 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,critical:true
         }
     	,{
-            name: 'recordState'
-            ,type:'int'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'typeCode'
             ,type:'string'
             ,allowNull:true
@@ -75,18 +63,6 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,critical:true
         }
     	,{
-            name: 'stereotype'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'scope'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'hardwareModel'
             ,type:'string'
             ,allowNull:true
@@ -94,12 +70,6 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
         }
     	,{
             name: 'softwareModel'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'version'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -246,7 +216,7 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,critical:true
         }
     	,{
-            name: 'prdTid'
+            name: 'prdRid'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -259,6 +229,12 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
         }
     	,{
             name: 'attachment'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'acquisitionProvider'
             ,type:'string'
             ,allowNull:true
             ,critical:true

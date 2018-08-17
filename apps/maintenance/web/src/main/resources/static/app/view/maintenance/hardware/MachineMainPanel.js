@@ -60,7 +60,7 @@ Ext.define('AM.view.maintenance.hardware.MachineMainPanel', {
 	,initStore: function(){
 		var me = this;
 		var machineStore = Ext.create('AM.store.maintenance.hardware.MachineStore');
-		machineS.proxy.extraParams={searchCondition:{}};
+		machineStore.proxy.extraParams={searchCondition:{}};
 		me.machineStore = machineStore;
 		machineStore.load();
 	}

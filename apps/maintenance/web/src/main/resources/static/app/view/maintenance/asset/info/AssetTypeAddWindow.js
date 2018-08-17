@@ -48,6 +48,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'numField'
@@ -59,6 +60,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'nameField'
@@ -70,8 +72,9 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,readOnly:false
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '代码'
@@ -82,6 +85,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                     xtype: 'numberfield'
                                     ,allowDecimals:false
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'useMonthField'
@@ -93,6 +97,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'viewIndexField'
@@ -104,8 +109,9 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,readOnly:false
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'parentCodeField'
                                     ,name: 'parentCode'
                                     ,fieldLabel: '上级代码'
@@ -174,9 +180,8 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
             success: function (newRecord) {
                 Ext.MsgUtil.show('操作成功', '保存资产分类成功!');
                 me.down('form').getForm().loadRecord(newRecord);
-                me.fireEvent('saved');
                 me.hide(this.targetComp);
-
+                me.fireEvent('saved');
             }
         });
     },

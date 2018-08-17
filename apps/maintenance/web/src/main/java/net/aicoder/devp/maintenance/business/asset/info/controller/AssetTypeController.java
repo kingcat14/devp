@@ -1,23 +1,22 @@
 package net.aicoder.devp.maintenance.business.asset.info.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.common.framework.exception.BusinessException;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.maintenance.business.asset.info.domain.AssetType;
-import net.aicoder.devp.maintenance.business.asset.info.dto.AssetTypeCondition;
 import net.aicoder.devp.maintenance.business.asset.info.dto.AssetTypeAddDto;
+import net.aicoder.devp.maintenance.business.asset.info.dto.AssetTypeCondition;
 import net.aicoder.devp.maintenance.business.asset.info.dto.AssetTypeEditDto;
 import net.aicoder.devp.maintenance.business.asset.info.service.AssetTypeService;
 import net.aicoder.devp.maintenance.business.asset.info.valid.AssetTypeValidator;
 import net.aicoder.devp.maintenance.business.asset.info.vo.AssetTypeVO;
-
-import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -27,8 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -88,6 +87,7 @@ public class AssetTypeController {
 
 	    LOGGER.debug("delete assetType :{}", idArray);
 
+
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
 			assetTypeService.delete(Long.parseLong(id));
@@ -104,9 +104,11 @@ public class AssetTypeController {
 	@ApiOperation(value = "修改", notes = "修改产资产分类(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	AssetTypeVO update(@RequestBody @Valid AssetTypeEditDto assetTypeEditDto, @PathVariable Long id){
-		AssetType assetType = new AssetType();
+		AssetType assetType = assetTypeService.find(id);
+
 		BeanUtils.copyProperties(assetTypeEditDto, assetType);
 		assetType.setId(id);
+
 		assetTypeService.merge(assetType);
 
 		AssetTypeVO vo = initViewProperty(assetType);
@@ -184,7 +186,7 @@ public class AssetTypeController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
             headMap.put("tid" ,"租户id");
             headMap.put("num" ,"编号");
@@ -196,8 +198,8 @@ public class AssetTypeController {
             headMap.put("description" ,"说明");
 
         String title = new String("资产分类");
-        String fileName = new String("资产分类_".getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title + DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date()), headMap, jsonArray, response, fileName);
+        String fileName = new String(("资产分类_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title , headMap, jsonArray, response, fileName);
     }
 
 	private AssetTypeVO initViewProperty(AssetType assetType){

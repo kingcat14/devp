@@ -104,7 +104,7 @@ public class AssetCategoryController {
 	@ApiOperation(value = "修改", notes = "修改产资产大类(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	AssetCategoryVO update(@RequestBody @Valid AssetCategoryEditDto assetCategoryEditDto, @PathVariable Long id){
-		AssetCategory assetCategory = new AssetCategory();
+		AssetCategory assetCategory = assetCategoryService.find(id);
 		BeanUtils.copyProperties(assetCategoryEditDto, assetCategory);
 		assetCategory.setId(id);
 		assetCategoryService.merge(assetCategory);

@@ -16,18 +16,21 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
         Ext.apply(me, {
             columnLines: true
             ,columns: [
+
                 {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'name'
                     ,text: '名称'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'code'
                     ,text: '代码'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'alias'
@@ -37,40 +40,60 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
 
                 ,{
                     xtype: 'gridcolumn'
+                    ,dataIndex: 'description'
+                    ,text: '描述'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
                     ,dataIndex: 'typeCode'
+                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return record.get("typeCodeVO")?record.get("typeCodeVO").displayName:'';
+                    }
                     ,text: '类型代码'
                     
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'typeName'
-                    ,text: '类型名称'
-                    
-                }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'hardwareModel'
                     ,text: '硬件型号'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'softwareModel'
                     ,text: '软件型号'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'version'
                     ,text: '版本'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'status'
+                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return record.get("statusVO")?record.get("statusVO").displayName:'';
+                    }
                     ,text: '状态'
                     
                 }
+
+                ,{
+                    xtype: 'datecolumn'
+                    ,format: 'Y-m-d'
+                    ,dataIndex: 'createDate'
+                    ,text: '创建时间'
+                    
+                }
+
                 ,{
                     xtype: 'datecolumn'
                     ,format: 'Y-m-d'
@@ -78,96 +101,112 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     ,text: '到期时间'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetProject'
                     ,text: '所属项目'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetArea'
                     ,text: '所属区域'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetLocation'
                     ,text: '资产位置'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'intAccessAddr'
                     ,text: '内部访问地址'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'extAccessAddr'
                     ,text: '外部访问地址'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'acquisitionMode'
                     ,text: '获取方式'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'acquisitionDesc'
                     ,text: '获取方式说明'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetDept'
                     ,text: '归属部门'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'assetManager'
                     ,text: '资产负责人'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'useDept'
                     ,text: '使用部门'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'useManager'
                     ,text: '使用负责人'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'opsDept'
                     ,text: '维护部门'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'opsManager'
                     ,text: '维护负责人'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'bizLine'
                     ,text: '业务线'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'bizManager'
                     ,text: '业务代表'
                     
                 }
+
                 ,{
                     xtype: 'datecolumn'
                     ,format: 'Y-m-d'
@@ -175,24 +214,28 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                     ,text: '启用时间'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'majorCust'
                     ,text: '主要客户'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'custManager'
                     ,text: '客户代表'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'custUsage'
                     ,text: '使用情况'
                     
                 }
+
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'notes'
@@ -202,14 +245,8 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
 
                 ,{
                     xtype: 'gridcolumn'
-                    ,dataIndex: 'prdRid'
-                    ,text: '关联产品记录编号'
-                    
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'parasCode'
-                    ,text: '参数定义标识'
+                    ,dataIndex: 'acquisitionProvider'
+                    ,text: '供应商'
                     ,flex:1
                 }
                 ,{
@@ -302,7 +339,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                         ,'-'
                         ,{
                             xtype:'textfield'
-                            ,emptyText:'请输入租户编号查询'
+                            ,emptyText:'请输入元素类型查询'
                             ,itemId:'simpleSearchField'
 
                         }
@@ -324,6 +361,17 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                             ,listeners: {
                                 click: {
                                     fn: me.showSearchWindow
+                                    ,scope: me
+                                }
+                            }
+                        }
+                        ,{
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '导出'
+                            ,listeners: {
+                                click: {
+                                    fn: me.onExportButtonClick
                                     ,scope: me
                                 }
                             }
@@ -367,7 +415,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
 
         var simpleSearchField = panel.down("#simpleSearchField");
 
-        var searchCondition = {tid:simpleSearchField.getValue()}
+        var searchCondition = {etype:simpleSearchField.getValue()}
 
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({
@@ -375,6 +423,31 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                 page:0
             }
         });
+    }
+
+    ,onExportButtonClick: function(button, e, options) {
+
+        var condition = this.store.proxy.extraParams;
+        if(!condition){
+            condition = {searchCondition:{}};
+        }
+        console.log(condition)
+        if (!Ext.fly('formFly')) {
+            var frm = document.createElement('form');
+            frm.id = 'formFly';
+            frm.className = 'x-hidden';
+            document.body.appendChild(frm);
+        }
+        Ext.Ajax.request({
+            disableCaching: true
+            ,url: "software/businessSoftware/export"
+            ,method: "POST"
+            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
+            ,params:condition
+            ,isUpload: true
+            ,form: Ext.fly('formFly')
+        });
+
     }
 	,onAddButtonClick: function(button, e, options) {
 

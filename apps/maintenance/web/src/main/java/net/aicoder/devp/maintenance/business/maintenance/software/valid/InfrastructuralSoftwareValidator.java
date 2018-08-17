@@ -20,13 +20,7 @@ public class InfrastructuralSoftwareValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(InfrastructuralSoftwareAddDto.class.equals(aClass))
-			return true;
-		if(InfrastructuralSoftwareEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -51,13 +45,6 @@ public class InfrastructuralSoftwareValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == infrastructuralSoftware.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(infrastructuralSoftware.getEtype())){
-			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
-		}
-       
 		if(StringUtils.isEmpty(infrastructuralSoftware.getName())){
 			errors.rejectValue("name", "EMPTY_NAME", "名称不能为空");
 		}
@@ -85,12 +72,6 @@ public class InfrastructuralSoftwareValidator implements Validator {
 		if(StringUtils.length(infrastructuralSoftware.getTypeName()) > 255){
 			errors.rejectValue("typeName", null, "类型名称最长255个字符");
 		}
-		if(StringUtils.length(infrastructuralSoftware.getStereotype()) > 255){
-			errors.rejectValue("stereotype", null, "构造型最长255个字符");
-		}
-		if(StringUtils.length(infrastructuralSoftware.getScope()) > 255){
-			errors.rejectValue("scope", null, "范围最长255个字符");
-		}
 		if(StringUtils.length(infrastructuralSoftware.getHardwareModel()) > 255){
 			errors.rejectValue("hardwareModel", null, "硬件型号最长255个字符");
 		}
@@ -99,9 +80,6 @@ public class InfrastructuralSoftwareValidator implements Validator {
 		}
 		if(StringUtils.length(infrastructuralSoftware.getVersion()) > 255){
 			errors.rejectValue("version", null, "版本最长255个字符");
-		}
-		if(StringUtils.length(infrastructuralSoftware.getStatus()) > 255){
-			errors.rejectValue("status", null, "状态最长255个字符");
 		}
 		if(StringUtils.length(infrastructuralSoftware.getAssetProject()) > 255){
 			errors.rejectValue("assetProject", null, "所属项目最长255个字符");
@@ -162,6 +140,9 @@ public class InfrastructuralSoftwareValidator implements Validator {
 		}
 		if(StringUtils.length(infrastructuralSoftware.getParasCode()) > 255){
 			errors.rejectValue("parasCode", null, "参数定义标识最长255个字符");
+		}
+		if(StringUtils.length(infrastructuralSoftware.getAcquisitionProvider()) > 255){
+			errors.rejectValue("acquisitionProvider", null, "供应商最长255个字符");
 		}
 	}
 }

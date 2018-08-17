@@ -20,13 +20,7 @@ public class SoftwareLicenseValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(SoftwareLicenseAddDto.class.equals(aClass))
-			return true;
-		if(SoftwareLicenseEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -51,13 +45,6 @@ public class SoftwareLicenseValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == softwareLicense.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(softwareLicense.getEtype())){
-			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
-		}
-       
 		if(StringUtils.isEmpty(softwareLicense.getName())){
 			errors.rejectValue("name", "EMPTY_NAME", "名称不能为空");
 		}
@@ -76,20 +63,11 @@ public class SoftwareLicenseValidator implements Validator {
 		if(StringUtils.length(softwareLicense.getAlias()) > 255){
 			errors.rejectValue("alias", null, "别名最长255个字符");
 		}
-		if(StringUtils.length(softwareLicense.getDescription()) > 255){
-			errors.rejectValue("description", null, "描述最长255个字符");
-		}
 		if(StringUtils.length(softwareLicense.getTypeCode()) > 255){
 			errors.rejectValue("typeCode", null, "类型代码最长255个字符");
 		}
 		if(StringUtils.length(softwareLicense.getTypeName()) > 255){
 			errors.rejectValue("typeName", null, "类型名称最长255个字符");
-		}
-		if(StringUtils.length(softwareLicense.getStereotype()) > 255){
-			errors.rejectValue("stereotype", null, "构造型最长255个字符");
-		}
-		if(StringUtils.length(softwareLicense.getScope()) > 255){
-			errors.rejectValue("scope", null, "范围最长255个字符");
 		}
 		if(StringUtils.length(softwareLicense.getHardwareModel()) > 255){
 			errors.rejectValue("hardwareModel", null, "硬件型号最长255个字符");
@@ -99,9 +77,6 @@ public class SoftwareLicenseValidator implements Validator {
 		}
 		if(StringUtils.length(softwareLicense.getVersion()) > 255){
 			errors.rejectValue("version", null, "版本最长255个字符");
-		}
-		if(StringUtils.length(softwareLicense.getStatus()) > 255){
-			errors.rejectValue("status", null, "状态最长255个字符");
 		}
 		if(StringUtils.length(softwareLicense.getAssetProject()) > 255){
 			errors.rejectValue("assetProject", null, "所属项目最长255个字符");
@@ -157,11 +132,11 @@ public class SoftwareLicenseValidator implements Validator {
 		if(StringUtils.length(softwareLicense.getCustUsage()) > 255){
 			errors.rejectValue("custUsage", null, "使用情况最长255个字符");
 		}
-		if(StringUtils.length(softwareLicense.getNotes()) > 255){
-			errors.rejectValue("notes", null, "备注最长255个字符");
-		}
 		if(StringUtils.length(softwareLicense.getParasCode()) > 255){
 			errors.rejectValue("parasCode", null, "参数定义标识最长255个字符");
+		}
+		if(StringUtils.length(softwareLicense.getAcquisitionProvider()) > 255){
+			errors.rejectValue("acquisitionProvider", null, "供应商最长255个字符");
 		}
 	}
 }

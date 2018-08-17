@@ -60,7 +60,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareMainPanel', {
 	,initStore: function(){
 		var me = this;
 		var infrastructuralSoftwareStore = Ext.create('AM.store.maintenance.software.InfrastructuralSoftwareStore');
-		infrastructuralSoftwareS.proxy.extraParams={searchCondition:{}};
+		infrastructuralSoftwareStore.proxy.extraParams={searchCondition:{}};
 		me.infrastructuralSoftwareStore = infrastructuralSoftwareStore;
 		infrastructuralSoftwareStore.load();
 	}

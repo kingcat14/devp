@@ -17,4 +17,5 @@ public interface AssetTypeDao extends BaseDao<AssetType, Long>{
     AssetType findByCodeAndTid(String code, Long tid);
     List<AssetType> findByParentCodeAndTid(String parentCode, Long tid);
 
+    int countAllByParentCodeAndTid(String parentCode, Long tid);
 }

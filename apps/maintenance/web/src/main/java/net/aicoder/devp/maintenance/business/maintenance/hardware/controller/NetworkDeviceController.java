@@ -1,25 +1,34 @@
 package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.maintenance.business.hardware.dto.MachineCondition;
-import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceAddDto;
 import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceCondition;
+import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceAddDto;
 import net.aicoder.devp.maintenance.business.hardware.dto.NetworkDeviceEditDto;
 import net.aicoder.devp.maintenance.business.hardware.vo.NetworkDeviceVO;
 import net.aicoder.devp.maintenance.business.maintenance.hardware.service.NetworkDeviceRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.hardware.valid.NetworkDeviceValidator;
+import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
+import com.yunkang.saas.platform.business.common.service.SimpleConfigService;
+import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理网络设备
@@ -32,6 +41,7 @@ public class NetworkDeviceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NetworkDeviceController.class);
 
+
 	@Autowired
 	private SaaSUtil saaSUtil;
 
@@ -40,6 +50,9 @@ public class NetworkDeviceController {
 
 	@Autowired
 	NetworkDeviceValidator networkDeviceValidator;
+
+    @Autowired
+    private SimpleConfigService simpleConfigService;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -85,7 +98,7 @@ public class NetworkDeviceController {
 	@ApiOperation(value = "修改", notes = "修改产网络设备(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public NetworkDeviceVO update(@RequestBody NetworkDeviceEditDto networkDeviceEditDto, @ApiParam(value = "要查询的网络设备id") @PathVariable Long id){
-		networkDeviceEditDto.setTid(saaSUtil.getAccount().getTenantId());
+
 		NetworkDeviceVO vo = networkDeviceRibbonService.merge(id, networkDeviceEditDto);
 
 		return  vo;
@@ -118,12 +131,32 @@ public class NetworkDeviceController {
 			condition = new NetworkDeviceCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId()); condition = pageSearchRequest.getSearchCondition();
-
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<NetworkDeviceVO> pageContent = networkDeviceRibbonService.list(pageSearchRequest);
+		for(NetworkDeviceVO vo : pageContent.getContent()){
+			initViewProperty(vo);
+		}
 
 		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
 		return pageContent;
+
+	}
+
+	private NetworkDeviceVO initViewProperty( NetworkDeviceVO vo){
+
+	   
+
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("MACHINE-STATUS", vo.getStatus());
+
+		if(statusSimpleConfig!=null) {
+
+		    SimpleConfigVO statusSimpleConfigVO = new SimpleConfigVO();
+		    BeanUtils.copyProperties(statusSimpleConfig, statusSimpleConfigVO);
+		    vo.setStatusVO(statusSimpleConfigVO);
+		}
+
+	   
+        return vo;
 
 	}
 

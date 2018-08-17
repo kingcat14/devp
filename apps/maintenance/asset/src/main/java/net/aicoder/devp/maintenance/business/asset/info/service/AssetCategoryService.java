@@ -33,7 +33,7 @@ public class AssetCategoryService  extends GenericCrudService<AssetCategory, Lon
 		this.dao.save(t);
 		AssetType assetType = new AssetType();
 		BeanUtils.copyProperties(t, assetType);
-		assetType.setParentCode("-1");
+		assetType.setParentCode(assetType.getCode());
 
 		//ID保持一致
 		assetTypeService.merge(assetType);
@@ -48,7 +48,7 @@ public class AssetCategoryService  extends GenericCrudService<AssetCategory, Lon
 			assetType = new AssetType();
 		}
 		BeanUtils.copyProperties(t, assetType);
-		assetType.setParentCode("-1");
+		assetType.setParentCode(assetType.getCode());
 		assetTypeService.merge(assetType);
 
 	}

@@ -60,7 +60,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareMainPanel', {
 	,initStore: function(){
 		var me = this;
 		var businessSoftwareStore = Ext.create('AM.store.maintenance.software.BusinessSoftwareStore');
-		businessSoftwareS.proxy.extraParams={searchCondition:{}};
+		businessSoftwareStore.proxy.extraParams={searchCondition:{}};
 		me.businessSoftwareStore = businessSoftwareStore;
 		businessSoftwareStore.load();
 	}

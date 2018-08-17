@@ -16,7 +16,252 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
         Ext.apply(me, {
             columnLines: true
             ,columns: [
+
                 {
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'name'
+                    ,text: '名称'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'code'
+                    ,text: '代码'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'alias'
+                    ,text: '别名'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'description'
+                    ,text: '描述'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'typeCode'
+                    ,text: '类型代码'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'typeName'
+                    ,text: '类型名称'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'hardwareModel'
+                    ,text: '硬件型号'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'softwareModel'
+                    ,text: '软件型号'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'status'
+                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return record.get("statusVO")?record.get("statusVO").displayName:'';
+                    }
+                    ,text: '状态'
+                    
+                }
+
+                ,{
+                    xtype: 'datecolumn'
+                    ,format: 'Y-m-d'
+                    ,dataIndex: 'createDate'
+                    ,text: '创建时间'
+                    
+                }
+
+                ,{
+                    xtype: 'datecolumn'
+                    ,format: 'Y-m-d'
+                    ,dataIndex: 'expireDate'
+                    ,text: '到期时间'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'assetProject'
+                    ,text: '所属项目'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'assetArea'
+                    ,text: '所属区域'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'assetLocation'
+                    ,text: '资产位置'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'intAccessAddr'
+                    ,text: '内部访问地址'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'extAccessAddr'
+                    ,text: '外部访问地址'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'acquisitionMode'
+                    ,text: '获取方式'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'acquisitionDesc'
+                    ,text: '获取方式说明'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'assetDept'
+                    ,text: '归属部门'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'assetManager'
+                    ,text: '资产负责人'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'useDept'
+                    ,text: '使用部门'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'useManager'
+                    ,text: '使用负责人'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'opsDept'
+                    ,text: '维护部门'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'opsManager'
+                    ,text: '维护负责人'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'bizLine'
+                    ,text: '业务线'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'bizManager'
+                    ,text: '业务代表'
+                    
+                }
+
+                ,{
+                    xtype: 'datecolumn'
+                    ,format: 'Y-m-d'
+                    ,dataIndex: 'goliveDate'
+                    ,text: '启用时间'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'majorCust'
+                    ,text: '主要客户'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'custManager'
+                    ,text: '客户代表'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'custUsage'
+                    ,text: '使用情况'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'notes'
+                    ,text: '备注'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'parasCode'
+                    ,text: '参数定义标识'
+                    
+                }
+
+                ,{
+                    xtype: 'gridcolumn'
+                    ,dataIndex: 'acquisitionProvider'
+                    ,text: '供应商'
+                    
+                }
+
+                // ,{
+                //     xtype: 'numbercolumn'
+                //     ,dataIndex: 'recordState'
+                //     ,format:'0,000'
+                //     ,text: '记录状态'
+                //     ,flex:1
+                // }
+                ,{
                     xtype: 'actioncolumn'
                     ,menuDisabled: true
                     ,width:30
@@ -30,262 +275,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                             me.showDetailWindow(record, this);
                         }
                     }]
-                },
-                {
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'name'
-                    ,text: '名称'
-
                 }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'code'
-                    
-
-                    ,text: '代码'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'alias'
-                    
-
-                    ,text: '别名'
-
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'typeCode'
-                    
-
-                    ,text: '类型代码'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'typeName'
-                    
-
-                    ,text: '类型名称'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'hardwareModel'
-                    
-
-                    ,text: '硬件型号'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'softwareModel'
-                    
-
-                    ,text: '软件型号'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'version'
-                    
-
-                    ,text: '版本'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'status'
-                    
-
-                    ,text: '状态'
-
-                }
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'expireDate'
-                    
-
-                    ,text: '到期时间'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetProject'
-
-
-                    ,text: '所属项目'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetArea'
-                    
-
-                    ,text: '所属区域'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetLocation'
-                    
-
-                    ,text: '资产位置'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'intAccessAddr'
-                    
-
-                    ,text: '内部访问地址'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'extAccessAddr'
-                    
-
-                    ,text: '外部访问地址'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'acquisitionMode'
-                    
-
-                    ,text: '获取方式'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'acquisitionDesc'
-                    
-
-                    ,text: '获取方式说明'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetDept'
-                    
-
-                    ,text: '归属部门'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetManager'
-                    
-
-                    ,text: '资产负责人'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'useDept'
-                    
-
-                    ,text: '使用部门'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'useManager'
-                    
-
-                    ,text: '使用负责人'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'opsDept'
-                    
-
-                    ,text: '维护部门'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'opsManager'
-                    
-
-                    ,text: '维护负责人'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'bizLine'
-                    
-
-                    ,text: '业务线'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'bizManager'
-                    
-
-                    ,text: '业务代表'
-
-                }
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'goliveDate'
-                    
-
-                    ,text: '启用时间'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'majorCust'
-                    
-
-                    ,text: '主要客户'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'custManager'
-                    
-
-                    ,text: '客户代表'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'custUsage'
-                    
-
-                    ,text: '使用情况'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'notes'
-                    ,text: '备注'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'prdRid'
-                    ,hidden: true
-                    ,text: '关联产品记录编号'
-
-                }
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'parasCode'
-                    ,flex:1
-
-                    ,text: '参数定义标识'
-
-                }
-
                 ,{
                     xtype: 'actioncolumn'
                     ,menuDisabled: true
@@ -361,14 +351,14 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                         ,'-'
                         ,{
                             xtype:'textfield'
-                            ,emptyText:'请输入租户编号查询'
+                            ,emptyText:'请输入名称查询'
                             ,itemId:'simpleSearchField'
 
                         }
                         ,{
                             xtype: 'button'
                             ,iconCls: 'search'
-                            ,text: '查询'
+                            ,text: '查询',disabled:true
                             ,listeners: {
                                 click: {
                                     fn: me.onSimpleSearchButtonClick
@@ -426,7 +416,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
 
         var simpleSearchField = panel.down("#simpleSearchField");
 
-        var searchCondition = {tid:simpleSearchField.getValue()}
+        var searchCondition = {name:simpleSearchField.getValue()}
 
         this.store.proxy.extraParams = {searchCondition:searchCondition};
         this.store.load({

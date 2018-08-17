@@ -30,7 +30,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                         ,labelWidth:150
                     }
                     ,items: [
-
                         ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
@@ -62,12 +61,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,fieldLabel: '类型代码'
                         }
                         ,{
-                            itemId: 'typeNameField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'typeName'
-                            ,fieldLabel: '类型名称'
-                        }
-                        ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
                             ,name: 'hardwareModel'
@@ -90,6 +83,15 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
+                        }
+                        ,{
+                            itemId: 'createDateField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'createDate'
+                            ,fieldLabel: '创建时间'
+                            ,renderer: function (value, field) {
+                                return Ext.Date.format(value, 'Y-m-d')
+                            }
                         }
                         ,{
                             itemId: 'expireDateField'
@@ -223,18 +225,11 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,name: 'notes'
                             ,fieldLabel: '备注'
                         }
-
                         ,{
-                            itemId: 'prdRidField'
+                            itemId: 'acquisitionProviderField'
                             ,padding: '5 0 0 5'
-                            ,name: 'prdRid'
-                            ,fieldLabel: '关联产品记录编号'
-                        }
-                        ,{
-                            itemId: 'parasCodeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'parasCode'
-                            ,fieldLabel: '参数定义标识'
+                            ,name: 'acquisitionProvider'
+                            ,fieldLabel: '供应商'
                         }
                     ]
                 }

@@ -41,7 +41,6 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                     }
                                     ,items: [
 
-
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'nameField',
@@ -55,23 +54,16 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                             fieldLabel: '别名'
                                         }
                                         ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'recordStateField',
-                                            name: 'recordState',
-                                            fieldLabel: '记录状态'
+                                            xtype: 'textfield',
+                                            itemId: 'typeCodeField',
+                                            name: 'typeCode',
+                                            fieldLabel: '类型代码'
                                         }
                                         ,{
                                             xtype: 'textfield',
-                                            itemId: 'typeNameField',
-                                            name: 'typeName',
-                                            fieldLabel: '类型名称'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'softwareModelField',
-                                            name: 'softwareModel',
-                                            fieldLabel: '软件型号'
+                                            itemId: 'hardwareModelField',
+                                            name: 'hardwareModel',
+                                            fieldLabel: '硬件型号'
                                         }
                                         ,{
                                             xtype: 'textfield',
@@ -153,6 +145,13 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                             name: 'parasCode',
                                             fieldLabel: '参数定义标识'
                                         }
+                                        // ,{
+                                        //     xtype: 'numberfield',
+                                        //     allowDecimals:false,
+                                        //     itemId: 'recordStateField',
+                                        //     name: 'recordState',
+                                        //     fieldLabel: '记录状态'
+                                        // }
 
                                     ]
                                 },
@@ -169,7 +168,7 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                         ,anchor: '96%',
                                     }
                                     ,items: [
-                                        {
+                                        ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
                                             itemId: 'codeField',
@@ -190,28 +189,29 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'typeCodeField',
+                                            itemId: 'typeNameField',
                                             padding: '5 0 0 5',
-                                            name: 'typeCode',
-                                            fieldLabel: '类型代码',
+                                            name: 'typeName',
+                                            fieldLabel: '类型名称',
                                             labelAlign: 'top'
                                         }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'hardwareModelField',
+                                            itemId: 'softwareModelField',
                                             padding: '5 0 0 5',
-                                            name: 'hardwareModel',
-                                            fieldLabel: '硬件型号',
+                                            name: 'softwareModel',
+                                            fieldLabel: '软件型号',
                                             labelAlign: 'top'
                                         }
                                         ,{
-                                            xtype: 'textfield',
+                                            xtype: 'datefield',
+                                            format: 'Y-m-d',
                                             anchor: '96%',
-                                            itemId: 'versionField',
+                                            itemId: 'createDateField',
                                             padding: '5 0 0 5',
-                                            name: 'version',
-                                            fieldLabel: '版本',
+                                            name: 'createDate',
+                                            fieldLabel: '创建时间',
                                             labelAlign: 'top'
                                         }
                                         ,{
@@ -314,6 +314,15 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                                             fieldLabel: '关联产品记录编号',
                                             labelAlign: 'top'
                                         }
+                                        ,{
+                                            xtype: 'textfield',
+                                            anchor: '96%',
+                                            itemId: 'acquisitionProviderField',
+                                            padding: '5 0 0 5',
+                                            name: 'acquisitionProvider',
+                                            fieldLabel: '供应商',
+                                            labelAlign: 'top'
+                                        }
                                     ]
                                 }
                             ]
@@ -376,28 +385,22 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
     ,onRestButtonClick: function (button, e, options) {
         var me = this;
         me.down('form').getForm().reset();
-        
+
         me.fireEvent('saved');
 
-       
+
     }
     ,getCondition: function(){
 
         var me = this;
-        var tidField = me.down("#tidField");
-        var etypeField = me.down("#etypeField");
         var nameField = me.down("#nameField");
         var codeField = me.down("#codeField");
         var aliasField = me.down("#aliasField");
         var descriptionField = me.down("#descriptionField");
-        var recordStateField = me.down("#recordStateField");
         var typeCodeField = me.down("#typeCodeField");
         var typeNameField = me.down("#typeNameField");
-        var stereotypeField = me.down("#stereotypeField");
-        var scopeField = me.down("#scopeField");
         var hardwareModelField = me.down("#hardwareModelField");
         var softwareModelField = me.down("#softwareModelField");
-        var versionField = me.down("#versionField");
         var statusField = me.down("#statusField");
         var createDateField = me.down("#createDateField");
         var expireDateField = me.down("#expireDateField");
@@ -423,22 +426,18 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
         var notesField = me.down("#notesField");
         var prdRidField = me.down("#prdRidField");
         var parasCodeField = me.down("#parasCodeField");
+        var acquisitionProviderField = me.down("#acquisitionProviderField");
+        var recordStateField = me.down("#recordStateField");
 
         var condition = {
-            tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,etype:Ext.isEmpty(etypeField.getValue())?null:etypeField.getValue()
-            ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
-            ,recordState:Ext.isNumber(recordStateField.getValue())?recordStateField.getValue():null
             ,typeCode:Ext.isEmpty(typeCodeField.getValue())?null:typeCodeField.getValue()
             ,typeName:Ext.isEmpty(typeNameField.getValue())?null:typeNameField.getValue()
-            ,stereotype:Ext.isEmpty(stereotypeField.getValue())?null:stereotypeField.getValue()
-            ,scope:Ext.isEmpty(scopeField.getValue())?null:scopeField.getValue()
             ,hardwareModel:Ext.isEmpty(hardwareModelField.getValue())?null:hardwareModelField.getValue()
             ,softwareModel:Ext.isEmpty(softwareModelField.getValue())?null:softwareModelField.getValue()
-            ,version:Ext.isEmpty(versionField.getValue())?null:versionField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
             ,createDate:Ext.isEmpty(createDateField.getValue())?null:Ext.Date.format(createDateField.getValue(),'Y-m-d')
             ,expireDate:Ext.isEmpty(expireDateField.getValue())?null:Ext.Date.format(expireDateField.getValue(),'Y-m-d')
@@ -464,12 +463,11 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
             ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
             ,prdRid:Ext.isNumber(prdRidField.getValue())?prdRidField.getValue():null
             ,parasCode:Ext.isEmpty(parasCodeField.getValue())?null:parasCodeField.getValue()
+            ,acquisitionProvider:Ext.isEmpty(acquisitionProviderField.getValue())?null:acquisitionProviderField.getValue()
+            ,recordState:Ext.isNumber(recordStateField.getValue())?recordStateField.getValue():null
         };
 
         return condition;
-    }
-    ,setStore: function (store) {
-        this.store = store;
     }
 
 });

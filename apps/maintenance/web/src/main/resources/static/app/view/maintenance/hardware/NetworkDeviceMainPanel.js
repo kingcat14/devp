@@ -60,7 +60,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceMainPanel', {
 	,initStore: function(){
 		var me = this;
 		var networkDeviceStore = Ext.create('AM.store.maintenance.hardware.NetworkDeviceStore');
-		networkDeviceS.proxy.extraParams={searchCondition:{}};
+		networkDeviceStore.proxy.extraParams={searchCondition:{}};
 		me.networkDeviceStore = networkDeviceStore;
 		networkDeviceStore.load();
 	}

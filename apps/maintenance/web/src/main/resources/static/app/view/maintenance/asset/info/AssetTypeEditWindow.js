@@ -29,8 +29,8 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
-                    },
-                    items: [
+                    }
+                    ,items: [
                         {
                             xtype:'container'
                             ,anchor: '96% 70%'
@@ -48,6 +48,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'numField'
@@ -57,6 +58,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'nameField'
@@ -66,6 +68,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeField'
@@ -76,6 +79,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                     xtype: 'numberfield'
                                     ,allowDecimals:false
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'useMonthField'
@@ -85,6 +89,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'viewIndexField'
@@ -94,6 +99,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'parentCodeField'

@@ -1,24 +1,34 @@
 package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
 import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.devp.maintenance.business.hardware.dto.MachineAddDto;
 import net.aicoder.devp.maintenance.business.hardware.dto.MachineCondition;
+import net.aicoder.devp.maintenance.business.hardware.dto.MachineAddDto;
 import net.aicoder.devp.maintenance.business.hardware.dto.MachineEditDto;
 import net.aicoder.devp.maintenance.business.hardware.vo.MachineVO;
 import net.aicoder.devp.maintenance.business.maintenance.hardware.service.MachineRibbonService;
 import net.aicoder.devp.maintenance.business.maintenance.hardware.valid.MachineValidator;
+import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
+import com.yunkang.saas.platform.business.common.service.SimpleConfigService;
+import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理服务器
@@ -31,6 +41,7 @@ public class MachineController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
 
+
 	@Autowired
 	private SaaSUtil saaSUtil;
 
@@ -39,6 +50,9 @@ public class MachineController {
 
 	@Autowired
 	MachineValidator machineValidator;
+
+    @Autowired
+    private SimpleConfigService simpleConfigService;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -55,7 +69,6 @@ public class MachineController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
 		machineAddDto.setTid(saaSUtil.getAccount().getTenantId());
-
 		return  machineRibbonService.add(machineAddDto);
 	}
 
@@ -85,7 +98,7 @@ public class MachineController {
 	@ApiOperation(value = "修改", notes = "修改产服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public MachineVO update(@RequestBody MachineEditDto machineEditDto, @ApiParam(value = "要查询的服务器id") @PathVariable Long id){
-        machineEditDto.setTid(saaSUtil.getAccount().getTenantId());
+
 		MachineVO vo = machineRibbonService.merge(id, machineEditDto);
 
 		return  vo;
@@ -119,12 +132,31 @@ public class MachineController {
 			pageSearchRequest.setSearchCondition(condition);
 		}
 		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
-
-
 		PageContent<MachineVO> pageContent = machineRibbonService.list(pageSearchRequest);
+		for(MachineVO vo : pageContent.getContent()){
+			initViewProperty(vo);
+		}
 
 		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
 		return pageContent;
+
+	}
+
+	private MachineVO initViewProperty( MachineVO vo){
+
+	   
+
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("MACHINE-STATUS", vo.getStatus());
+
+		if(statusSimpleConfig!=null) {
+
+		    SimpleConfigVO statusSimpleConfigVO = new SimpleConfigVO();
+		    BeanUtils.copyProperties(statusSimpleConfig, statusSimpleConfigVO);
+		    vo.setStatusVO(statusSimpleConfigVO);
+		}
+
+	   
+        return vo;
 
 	}
 

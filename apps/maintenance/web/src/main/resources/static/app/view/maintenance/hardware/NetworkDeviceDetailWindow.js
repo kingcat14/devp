@@ -30,7 +30,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                         ,labelWidth:150
                     }
                     ,items: [
-                        {
+                        ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
                             ,name: 'name'
@@ -49,12 +49,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,fieldLabel: '别名'
                         }
                         ,{
-                            itemId: 'descriptionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'description'
-                            ,fieldLabel: '描述'
-                        }
-                        ,{
                             itemId: 'typeCodeField'
                             ,padding: '5 0 0 5'
                             ,name: 'typeCode'
@@ -66,7 +60,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,name: 'typeName'
                             ,fieldLabel: '类型名称'
                         }
-
                         ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
@@ -80,16 +73,19 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,fieldLabel: '软件型号'
                         }
                         ,{
-                            itemId: 'versionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'version'
-                            ,fieldLabel: '版本'
-                        }
-                        ,{
                             itemId: 'statusField'
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
+                        }
+                        ,{
+                            itemId: 'createDateField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'createDate'
+                            ,fieldLabel: '创建时间'
+                            ,renderer: function (value, field) {
+                                return Ext.Date.format(value, 'Y-m-d')
+                            }
                         }
                         ,{
                             itemId: 'expireDateField'
@@ -223,12 +219,31 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,name: 'notes'
                             ,fieldLabel: '备注'
                         }
-
+                        // ,{
+                        //     itemId: 'prdRidField'
+                        //     ,padding: '5 0 0 5'
+                        //     ,name: 'prdRid'
+                        //     ,fieldLabel: '关联产品编号'
+                        // }
+                        // ,{
+                        //     itemId: 'parasCodeField'
+                        //     ,padding: '5 0 0 5'
+                        //     ,name: 'parasCode'
+                        //     ,fieldLabel: '参数定义标识'
+                        // }
                         ,{
-                            itemId: 'parasCodeField'
+                            itemId: 'acquisitionProviderField'
                             ,padding: '5 0 0 5'
-                            ,name: 'parasCode'
-                            ,fieldLabel: '参数定义标识'
+                            ,name: 'acquisitionProvider'
+                            ,fieldLabel: '供应商'
+                        }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
                         }
                     ]
                 }

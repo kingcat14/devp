@@ -30,7 +30,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                         ,labelWidth:150
                     }
                     ,items: [
-
                         ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
@@ -48,12 +47,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'alias'
                             ,fieldLabel: '别名'
-                        }
-                        ,{
-                            itemId: 'descriptionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'description'
-                            ,fieldLabel: '描述'
                         }
                         ,{
                             itemId: 'typeCodeField'
@@ -80,16 +73,19 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,fieldLabel: '软件型号'
                         }
                         ,{
-                            itemId: 'versionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'version'
-                            ,fieldLabel: '版本'
-                        }
-                        ,{
                             itemId: 'statusField'
                             ,padding: '5 0 0 5'
                             ,name: 'status'
                             ,fieldLabel: '状态'
+                        }
+                        ,{
+                            itemId: 'createDateField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'createDate'
+                            ,fieldLabel: '创建时间'
+                            ,renderer: function (value, field) {
+                                return Ext.Date.format(value, 'Y-m-d')
+                            }
                         }
                         ,{
                             itemId: 'expireDateField'
@@ -224,16 +220,30 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,fieldLabel: '备注'
                         }
                         ,{
-                            itemId: 'prdRidField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'prdRid'
-                            ,fieldLabel: '关联产品记录编号'
-                        }
-                        ,{
                             itemId: 'parasCodeField'
                             ,padding: '5 0 0 5'
                             ,name: 'parasCode'
                             ,fieldLabel: '参数定义标识'
+                        }
+                        ,{
+                            itemId: 'acquisitionProviderField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'acquisitionProvider'
+                            ,fieldLabel: '供应商'
+                        }
+                        // ,{
+                        //     itemId: 'recordStateField'
+                        //     ,padding: '5 0 0 5'
+                        //     ,name: 'recordState'
+                        //     ,fieldLabel: '记录状态'
+                        // }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
                         }
                     ]
                 }
@@ -245,7 +255,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
 
     ,setModel: function (model) {
         if (model && model.get('id')) {
-            console.log(this.down('form').getForm())
             this.down('form').getForm().loadRecord(model);
 
         } else {

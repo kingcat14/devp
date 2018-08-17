@@ -21,18 +21,6 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
             ,allowNull:true
         }
     	,{
-            name: 'rid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'tid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'etype'
             ,type:'string'
             ,allowNull:false
@@ -63,12 +51,6 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
             ,critical:true
         }
     	,{
-            name: 'recordState'
-            ,type:'int'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'typeCode'
             ,type:'string'
             ,allowNull:true
@@ -81,18 +63,6 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
             ,critical:true
         }
     	,{
-            name: 'stereotype'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'scope'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'hardwareModel'
             ,type:'string'
             ,allowNull:true
@@ -100,12 +70,6 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
         }
     	,{
             name: 'softwareModel'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'version'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -260,6 +224,24 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
     	,{
             name: 'parasCode'
             ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'acquisitionProvider'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'attachment'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'recordState'
+            ,type:'int'
             ,allowNull:true
             ,critical:true
         }

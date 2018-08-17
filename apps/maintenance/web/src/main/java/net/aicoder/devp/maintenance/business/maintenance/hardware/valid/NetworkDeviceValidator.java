@@ -85,21 +85,14 @@ public class NetworkDeviceValidator implements Validator {
 		if(StringUtils.length(networkDevice.getTypeName()) > 255){
 			errors.rejectValue("typeName", null, "类型名称最长255个字符");
 		}
-		if(StringUtils.length(networkDevice.getStereotype()) > 255){
-			errors.rejectValue("stereotype", null, "构造型最长255个字符");
-		}
-		if(StringUtils.length(networkDevice.getScope()) > 255){
-			errors.rejectValue("scope", null, "范围最长255个字符");
-		}
+
 		if(StringUtils.length(networkDevice.getHardwareModel()) > 255){
 			errors.rejectValue("hardwareModel", null, "硬件型号最长255个字符");
 		}
 		if(StringUtils.length(networkDevice.getSoftwareModel()) > 255){
 			errors.rejectValue("softwareModel", null, "软件型号最长255个字符");
 		}
-		if(StringUtils.length(networkDevice.getVersion()) > 255){
-			errors.rejectValue("version", null, "版本最长255个字符");
-		}
+
 		if(StringUtils.length(networkDevice.getStatus()) > 255){
 			errors.rejectValue("status", null, "状态最长255个字符");
 		}

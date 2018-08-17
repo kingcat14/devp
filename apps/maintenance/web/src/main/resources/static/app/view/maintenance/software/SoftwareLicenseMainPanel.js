@@ -60,7 +60,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseMainPanel', {
 	,initStore: function(){
 		var me = this;
 		var softwareLicenseStore = Ext.create('AM.store.maintenance.software.SoftwareLicenseStore');
-		softwareLicenseS.proxy.extraParams={searchCondition:{}};
+		softwareLicenseStore.proxy.extraParams={searchCondition:{}};
 		me.softwareLicenseStore = softwareLicenseStore;
 		softwareLicenseStore.load();
 	}

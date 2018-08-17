@@ -3,8 +3,8 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
     ,xtype: 'maintenance.software.SoftwareLicenseSearchWindow'
     ,alias: 'widget.maintenancesoftwareSoftwareLicenseSearchWindow'
     ,autoScroll: true
-    ,height: 250
-    ,width: 400
+    ,height: '60%'
+    ,width: '60%'
     ,layout: {
         type: 'fit'
     }
@@ -54,13 +54,13 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
                                             name: 'alias',
                                             fieldLabel: '别名'
                                         }
-                                        ,{
-                                            xtype: 'numberfield',
-                                            allowDecimals:false,
-                                            itemId: 'recordStateField',
-                                            name: 'recordState',
-                                            fieldLabel: '记录状态'
-                                        }
+                                        // ,{
+                                        //     xtype: 'numberfield',
+                                        //     allowDecimals:false,
+                                        //     itemId: 'recordStateField',
+                                        //     name: 'recordState',
+                                        //     fieldLabel: '记录状态'
+                                        // }
                                         ,{
                                             xtype: 'textfield',
                                             itemId: 'typeNameField',
@@ -150,7 +150,15 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
                                         ,anchor: '96%',
                                     }
                                     ,items: [
-
+                                        // ,{
+                                        //     xtype: 'textfield',
+                                        //     anchor: '96%',
+                                        //     itemId: 'etypeField',
+                                        //     padding: '5 0 0 5',
+                                        //     name: 'etype',
+                                        //     fieldLabel: '元素类型',
+                                        //     labelAlign: 'top'
+                                        // }
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
@@ -280,10 +288,10 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
                                         ,{
                                             xtype: 'textfield',
                                             anchor: '96%',
-                                            itemId: 'parasCodeField',
+                                            itemId: 'acquisitionProviderField',
                                             padding: '5 0 0 5',
-                                            name: 'parasCode',
-                                            fieldLabel: '参数定义标识',
+                                            name: 'acquisitionProvider',
+                                            fieldLabel: '供应商',
                                             labelAlign: 'top'
                                         }
                                     ]
@@ -348,16 +356,16 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
     ,onRestButtonClick: function (button, e, options) {
         var me = this;
         me.down('form').getForm().reset();
-        
+
         me.fireEvent('saved');
 
-       
+
     }
     ,getCondition: function(){
 
         var me = this;
-        var tidField = me.down("#tidField");
-        var etypeField = me.down("#etypeField");
+        // var tidField = me.down("#tidField");
+        // var etypeField = me.down("#etypeField");
         var nameField = me.down("#nameField");
         var codeField = me.down("#codeField");
         var aliasField = me.down("#aliasField");
@@ -387,12 +395,12 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
         var custManagerField = me.down("#custManagerField");
         var custUsageField = me.down("#custUsageField");
         var notesField = me.down("#notesField");
-        var parasCodeField = me.down("#parasCodeField");
+        var acquisitionProviderField = me.down("#acquisitionProviderField");
 
         var condition = {
-            tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,etype:Ext.isEmpty(etypeField.getValue())?null:etypeField.getValue()
-            ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            // tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
+            // ,etype:Ext.isEmpty(etypeField.getValue())?null:etypeField.getValue()
+            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
@@ -421,13 +429,10 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseSearchWindow', {
             ,custManager:Ext.isEmpty(custManagerField.getValue())?null:custManagerField.getValue()
             ,custUsage:Ext.isEmpty(custUsageField.getValue())?null:custUsageField.getValue()
             ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
-            ,parasCode:Ext.isEmpty(parasCodeField.getValue())?null:parasCodeField.getValue()
+            ,acquisitionProvider:Ext.isEmpty(acquisitionProviderField.getValue())?null:acquisitionProviderField.getValue()
         };
 
         return condition;
-    }
-    ,setStore: function (store) {
-        this.store = store;
     }
 
 });

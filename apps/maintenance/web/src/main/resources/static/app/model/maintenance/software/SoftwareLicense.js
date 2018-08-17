@@ -21,21 +21,15 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
             ,allowNull:true
         }
     	,{
-            name: 'rid'
-            ,type:'string'
-            ,allowNull:false
-            ,critical:true
-        }
-    	,{
             name: 'tid'
             ,type:'string'
-            ,allowNull:false
+            ,allowNull:true
             ,critical:true
         }
     	,{
             name: 'etype'
             ,type:'string'
-            ,allowNull:false
+            ,allowNull:true
             ,critical:true
         }
     	,{
@@ -76,18 +70,6 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
         }
     	,{
             name: 'typeName'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'stereotype'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'scope'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -252,19 +234,25 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
             ,critical:true
         }
     	,{
-            name: 'prdTid'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'prdRid'
             ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
+            name: 'attachment'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
             name: 'parasCode'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'acquisitionProvider'
             ,type:'string'
             ,allowNull:true
             ,critical:true

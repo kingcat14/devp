@@ -24,7 +24,6 @@ public class MachineEditDto {
 	 * 租户编号
 	 * [租户编号]
      */
-	@NotNull(message = "租户编号不能为空")
 	@ApiModelProperty(value = "租户编号", required = true)
 	private Long tid;
 

@@ -11,7 +11,9 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseController', {
 
 
 		var detailTabPanel = me.lookup('detailTabPanel');
-		detailTabPanel.expand();
+		if(detailTabPanel) {
+            detailTabPanel.expand();
+        }
 
 		var id = record.get('id');
 
