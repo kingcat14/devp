@@ -427,7 +427,6 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
         var prdRidField = me.down("#prdRidField");
         var parasCodeField = me.down("#parasCodeField");
         var acquisitionProviderField = me.down("#acquisitionProviderField");
-        var recordStateField = me.down("#recordStateField");
 
         var condition = {
             name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
@@ -464,7 +463,6 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
             ,prdRid:Ext.isNumber(prdRidField.getValue())?prdRidField.getValue():null
             ,parasCode:Ext.isEmpty(parasCodeField.getValue())?null:parasCodeField.getValue()
             ,acquisitionProvider:Ext.isEmpty(acquisitionProviderField.getValue())?null:acquisitionProviderField.getValue()
-            ,recordState:Ext.isNumber(recordStateField.getValue())?recordStateField.getValue():null
         };
 
         return condition;

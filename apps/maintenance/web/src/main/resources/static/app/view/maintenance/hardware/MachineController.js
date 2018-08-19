@@ -22,8 +22,8 @@ Ext.define('AM.view.maintenance.hardware.MachineController', {
 	}
 	,reloadStore:function () {
         var me = this;
-        var machineAddWindow = me.lookupReference ('machineAddWindow');
-        var machineGrid = machineAddWindow.up('gridpanel');
+
+        var machineGrid = me.getView().down ('grid');
 
         machineGrid.getStore().load({
             callback: function (records, operation, success) {
@@ -35,9 +35,9 @@ Ext.define('AM.view.maintenance.hardware.MachineController', {
     }
     ,doSearch:function () {
         var me = this;
-        var machineSearchWindow = me.lookupReference ('machineSearchWindow');
-        var machineGrid = machineSearchWindow.up('gridpanel');
-        machineGrid.getStore().proxy.extraParams={searchCondition:machineSearchWindow.getCondition()};
+        var searchWindow = me.lookupReference ('searchWindow');
+        var machineGrid = me.getView().down ('grid');
+        machineGrid.getStore().proxy.extraParams={searchCondition:searchWindow.getCondition()};
         machineGrid.getStore().load({
             params:{
                 start:0,
