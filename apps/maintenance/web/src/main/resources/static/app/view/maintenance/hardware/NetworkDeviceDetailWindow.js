@@ -52,13 +52,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             itemId: 'typeCodeField'
                             ,padding: '5 0 0 5'
                             ,name: 'typeCode'
-                            ,fieldLabel: '类型代码'
-                        }
-                        ,{
-                            itemId: 'typeNameField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'typeName'
-                            ,fieldLabel: '类型名称'
+                            ,fieldLabel: '类型'
                         }
                         ,{
                             itemId: 'hardwareModelField'
@@ -219,18 +213,18 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceDetailWindow', {
                             ,name: 'notes'
                             ,fieldLabel: '备注'
                         }
-                        // ,{
-                        //     itemId: 'prdRidField'
-                        //     ,padding: '5 0 0 5'
-                        //     ,name: 'prdRid'
-                        //     ,fieldLabel: '关联产品编号'
-                        // }
-                        // ,{
-                        //     itemId: 'parasCodeField'
-                        //     ,padding: '5 0 0 5'
-                        //     ,name: 'parasCode'
-                        //     ,fieldLabel: '参数定义标识'
-                        // }
+                        ,{
+                            itemId: 'prdRidField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'prdRid'
+                            ,fieldLabel: '关联产品编号'
+                        }
+                        ,{
+                            itemId: 'parasCodeField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'parasCode'
+                            ,fieldLabel: '参数定义标识'
+                        }
                         ,{
                             itemId: 'acquisitionProviderField'
                             ,padding: '5 0 0 5'

@@ -35,7 +35,7 @@ Ext.define('AM.view.maintenance.hardware.MachineController', {
     }
     ,doSearch:function () {
         var me = this;
-        var searchWindow = me.lookupReference ('searchWindow');
+        var searchWindow = me.lookupReference ('mainSearchWindow');
         var machineGrid = me.getView().down ('grid');
         machineGrid.getStore().proxy.extraParams={searchCondition:searchWindow.getCondition()};
         machineGrid.getStore().load({

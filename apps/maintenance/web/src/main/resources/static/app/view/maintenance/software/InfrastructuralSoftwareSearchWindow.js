@@ -13,325 +13,298 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
+        var infrastructuralSoftwareTypeCodeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        infrastructuralSoftwareTypeCodeStore.proxy.isSynchronous = true;
+        infrastructuralSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-TYPECODE'}};
+        infrastructuralSoftwareTypeCodeStore.load();
+
+        var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
+        infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-STATUS'}};
+        infrastructuralSoftwareStatusStore.load();
 
         Ext.apply(me, {
             items: [
                 {
-                    xtype: 'form',
-                    autoScroll: true,
-                    bodyPadding: 10,
-                    items: [
-                        {
-                            xtype: 'container',
-                            layout: {
-                                type: 'column'
-                            }
-                            ,items: [
-                                {
-                                    xtype: 'container',
-                                    columnWidth: 0.5,
-                                    layout: {
-                                        type: 'anchor'
-                                    }
-                                    ,defaults:{
-                                        xtype: 'textfield'
-                                        ,labelAlign: 'top'
-                                        ,padding: '5 0 0 5'
-                                        ,anchor: '96%',
-                                    }
-                                    ,items: [
-
-
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'nameField',
-                                            name: 'name',
-                                            fieldLabel: '名称'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'aliasField',
-                                            name: 'alias',
-                                            fieldLabel: '别名'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'typeCodeField',
-                                            name: 'typeCode',
-                                            fieldLabel: '类型代码'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'hardwareModelField',
-                                            name: 'hardwareModel',
-                                            fieldLabel: '硬件型号'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'versionField',
-                                            name: 'version',
-                                            fieldLabel: '版本'
-                                        }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            itemId: 'createDateField',
-                                            name: 'createDate',
-                                            fieldLabel: '创建时间'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'assetProjectField',
-                                            name: 'assetProject',
-                                            fieldLabel: '所属项目'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'assetLocationField',
-                                            name: 'assetLocation',
-                                            fieldLabel: '资产位置'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'extAccessAddrField',
-                                            name: 'extAccessAddr',
-                                            fieldLabel: '外部访问地址'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'acquisitionDescField',
-                                            name: 'acquisitionDesc',
-                                            fieldLabel: '获取方式说明'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'assetManagerField',
-                                            name: 'assetManager',
-                                            fieldLabel: '资产负责人'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'useManagerField',
-                                            name: 'useManager',
-                                            fieldLabel: '使用负责人'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'opsManagerField',
-                                            name: 'opsManager',
-                                            fieldLabel: '维护负责人'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'bizManagerField',
-                                            name: 'bizManager',
-                                            fieldLabel: '业务代表'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'majorCustField',
-                                            name: 'majorCust',
-                                            fieldLabel: '主要客户'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'custUsageField',
-                                            name: 'custUsage',
-                                            fieldLabel: '使用情况'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            itemId: 'acquisitionProviderField',
-                                            name: 'acquisitionProvider',
-                                            fieldLabel: '供应商'
-                                        }
-
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    columnWidth: 0.5,
-                                    layout: {
-                                        type: 'anchor'
-                                    }
-                                    ,defaults:{
-                                        xtype: 'textfield'
-                                        ,labelAlign: 'top'
-                                        ,padding: '5 0 0 5'
-                                        ,anchor: '96%',
-                                    }
-                                    ,items: [
-                                        // ,{
-                                        //     xtype: 'textfield',
-                                        //     anchor: '96%',
-                                        //     itemId: 'etypeField',
-                                        //     padding: '5 0 0 5',
-                                        //     name: 'etype',
-                                        //     fieldLabel: '元素类型',
-                                        //     labelAlign: 'top'
-                                        // }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'codeField',
-                                            padding: '5 0 0 5',
-                                            name: 'code',
-                                            fieldLabel: '代码',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'descriptionField',
-                                            padding: '5 0 0 5',
-                                            name: 'description',
-                                            fieldLabel: '描述',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'typeNameField',
-                                            padding: '5 0 0 5',
-                                            name: 'typeName',
-                                            fieldLabel: '类型名称',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'softwareModelField',
-                                            padding: '5 0 0 5',
-                                            name: 'softwareModel',
-                                            fieldLabel: '软件型号',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'statusField',
-                                            padding: '5 0 0 5',
-                                            name: 'status',
-                                            fieldLabel: '状态',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            anchor: '96%',
-                                            itemId: 'expireDateField',
-                                            padding: '5 0 0 5',
-                                            name: 'expireDate',
-                                            fieldLabel: '到期时间',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'assetAreaField',
-                                            padding: '5 0 0 5',
-                                            name: 'assetArea',
-                                            fieldLabel: '所属区域',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'intAccessAddrField',
-                                            padding: '5 0 0 5',
-                                            name: 'intAccessAddr',
-                                            fieldLabel: '内部访问地址',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'acquisitionModeField',
-                                            padding: '5 0 0 5',
-                                            name: 'acquisitionMode',
-                                            fieldLabel: '获取方式',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'assetDeptField',
-                                            padding: '5 0 0 5',
-                                            name: 'assetDept',
-                                            fieldLabel: '归属部门',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'useDeptField',
-                                            padding: '5 0 0 5',
-                                            name: 'useDept',
-                                            fieldLabel: '使用部门',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'opsDeptField',
-                                            padding: '5 0 0 5',
-                                            name: 'opsDept',
-                                            fieldLabel: '维护部门',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'bizLineField',
-                                            padding: '5 0 0 5',
-                                            name: 'bizLine',
-                                            fieldLabel: '业务线',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'datefield',
-                                            format: 'Y-m-d',
-                                            anchor: '96%',
-                                            itemId: 'goliveDateField',
-                                            padding: '5 0 0 5',
-                                            name: 'goliveDate',
-                                            fieldLabel: '启用时间',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'custManagerField',
-                                            padding: '5 0 0 5',
-                                            name: 'custManager',
-                                            fieldLabel: '客户代表',
-                                            labelAlign: 'top'
-                                        }
-                                        ,{
-                                            xtype: 'textfield',
-                                            anchor: '96%',
-                                            itemId: 'notesField',
-                                            padding: '5 0 0 5',
-                                            name: 'notes',
-                                            fieldLabel: '备注',
-                                            labelAlign: 'top'
-                                        }
-                                        // ,{
-                                        //     xtype: 'numberfield',
-                                        //     allowDecimals:false,
-                                        //     anchor: '96%',
-                                        //     itemId: 'recordStateField',
-                                        //     padding: '5 0 0 5',
-                                        //     name: 'recordState',
-                                        //     fieldLabel: '记录状态',
-                                        //     labelAlign: 'top'
-                                        // }
-                                    ]
-                                }
-                            ]
+                    xtype: 'form'
+                    ,autoScroll: true
+                    ,bodyPadding: 10
+                    ,width:'100%'
+                    ,fieldDefaults: {
+                        labelAlign: 'top'
+                        ,msgTarget: 'side'
+                        ,padding: '5 0 0 5'
+                        ,blankText:'该字段为必填项'
+                        ,anchor: '96%'
+                    }
+                    ,layout: {
+                        type: 'table'
+                        ,columns: 2
+                        ,tableAttrs: {style: {width: '100%'}}
+                    }
+                    ,defaults:{width:'100%'}
+                    ,items:[
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'nameField'
+                            ,fieldLabel: '名称'
                         }
 
-                    ]
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'codeField'
+                            ,fieldLabel: '代码'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'aliasField'
+                            ,fieldLabel: '别名'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'descriptionField'
+                            ,fieldLabel: '描述'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: infrastructuralSoftwareTypeCodeStore
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'displayName'
+                            ,valueField:'value'
+                            ,itemId: 'typeCodeField'
+                            ,fieldLabel: '类型'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'hardwareModelField'
+                            ,fieldLabel: '硬件型号'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'softwareModelField'
+                            ,fieldLabel: '软件型号'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: infrastructuralSoftwareStatusStore
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'displayName'
+                            ,valueField:'value'
+                            ,itemId: 'statusField'
+                            ,fieldLabel: '状态'
+                        }
+
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'createDateField'
+                            ,fieldLabel: '创建时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'createDateStartField'
+                            ,fieldLabel: '起始创建时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'createDateEndField'
+                            ,fieldLabel: '结束创建时间'
+                        }
+
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'expireDateField'
+                            ,fieldLabel: '到期时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'expireDateStartField'
+                            ,fieldLabel: '起始到期时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'expireDateEndField'
+                            ,fieldLabel: '结束到期时间'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'assetProjectField'
+                            ,fieldLabel: '所属项目'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'assetAreaField'
+                            ,fieldLabel: '所属区域'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'assetLocationField'
+                            ,fieldLabel: '资产位置'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'intAccessAddrField'
+                            ,fieldLabel: '内部访问地址'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'extAccessAddrField'
+                            ,fieldLabel: '外部访问地址'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'acquisitionModeField'
+                            ,fieldLabel: '获取方式'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'acquisitionDescField'
+                            ,fieldLabel: '获取方式说明'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'assetDeptField'
+                            ,fieldLabel: '归属部门'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'assetManagerField'
+                            ,fieldLabel: '资产负责人'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'useDeptField'
+                            ,fieldLabel: '使用部门'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'useManagerField'
+                            ,fieldLabel: '使用负责人'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'opsDeptField'
+                            ,fieldLabel: '维护部门'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'opsManagerField'
+                            ,fieldLabel: '维护负责人'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'bizLineField'
+                            ,fieldLabel: '业务线'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'bizManagerField'
+                            ,fieldLabel: '业务代表'
+                        }
+
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'goliveDateField'
+                            ,fieldLabel: '启用时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'goliveDateStartField'
+                            ,fieldLabel: '起始启用时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'goliveDateEndField'
+                            ,fieldLabel: '结束启用时间'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'majorCustField'
+                            ,fieldLabel: '主要客户'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'custManagerField'
+                            ,fieldLabel: '客户代表'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'custUsageField'
+                            ,fieldLabel: '使用情况'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'notesField'
+                            ,fieldLabel: '备注'
+                        }
+
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'prdRidField'
+                            ,fieldLabel: '关联产品记录编号'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'prdRidMaxField'
+                            ,fieldLabel: '关联产品记录编号'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'prdRidMinField'
+                            ,fieldLabel: '关联产品记录编号'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'attachmentField'
+                            ,fieldLabel: '附件'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'acquisitionProviderField'
+                            ,fieldLabel: '供应商'
+                        }
+
+                            ]
                 }
             ],
             dockedItems: [
@@ -396,19 +369,19 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        // var tidField = me.down("#tidField");
-        // var etypeField = me.down("#etypeField");
         var nameField = me.down("#nameField");
         var codeField = me.down("#codeField");
         var aliasField = me.down("#aliasField");
         var descriptionField = me.down("#descriptionField");
         var typeCodeField = me.down("#typeCodeField");
-        var typeNameField = me.down("#typeNameField");
         var hardwareModelField = me.down("#hardwareModelField");
         var softwareModelField = me.down("#softwareModelField");
-        var versionField = me.down("#versionField");
         var statusField = me.down("#statusField");
+        var createDateStartField = me.down("#createDateStartField");
+        var createDateEndField = me.down("#createDateEndField");
         var createDateField = me.down("#createDateField");
+        var expireDateStartField = me.down("#expireDateStartField");
+        var expireDateEndField = me.down("#expireDateEndField");
         var expireDateField = me.down("#expireDateField");
         var assetProjectField = me.down("#assetProjectField");
         var assetAreaField = me.down("#assetAreaField");
@@ -425,29 +398,34 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
         var opsManagerField = me.down("#opsManagerField");
         var bizLineField = me.down("#bizLineField");
         var bizManagerField = me.down("#bizManagerField");
+        var goliveDateStartField = me.down("#goliveDateStartField");
+        var goliveDateEndField = me.down("#goliveDateEndField");
         var goliveDateField = me.down("#goliveDateField");
         var majorCustField = me.down("#majorCustField");
         var custManagerField = me.down("#custManagerField");
         var custUsageField = me.down("#custUsageField");
         var notesField = me.down("#notesField");
+        var prdRidField = me.down("#prdRidField");
+        var prdRidMaxField = me.down("#prdRidMaxField");
+        var prdRidMinField = me.down("#prdRidMinField");
+        var attachmentField = me.down("#attachmentField");
         var acquisitionProviderField = me.down("#acquisitionProviderField");
-        var recordStateField = me.down("#recordStateField");
 
         var condition = {
-            // tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            // ,etype:Ext.isEmpty(etypeField.getValue())?null:etypeField.getValue()
             name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
             ,typeCode:Ext.isEmpty(typeCodeField.getValue())?null:typeCodeField.getValue()
-            ,typeName:Ext.isEmpty(typeNameField.getValue())?null:typeNameField.getValue()
             ,hardwareModel:Ext.isEmpty(hardwareModelField.getValue())?null:hardwareModelField.getValue()
             ,softwareModel:Ext.isEmpty(softwareModelField.getValue())?null:softwareModelField.getValue()
-            ,version:Ext.isEmpty(versionField.getValue())?null:versionField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
             ,createDate:Ext.isEmpty(createDateField.getValue())?null:Ext.Date.format(createDateField.getValue(),'Y-m-d')
+            ,createDateStart:Ext.isEmpty(createDateStartField.getValue())?null:Ext.Date.format(createDateStartField.getValue(),'Y-m-d')
+            ,createDateEnd:Ext.isEmpty(createDateEndField.getValue())?null:Ext.Date.format(createDateEndField.getValue(),'Y-m-d')
             ,expireDate:Ext.isEmpty(expireDateField.getValue())?null:Ext.Date.format(expireDateField.getValue(),'Y-m-d')
+            ,expireDateStart:Ext.isEmpty(expireDateStartField.getValue())?null:Ext.Date.format(expireDateStartField.getValue(),'Y-m-d')
+            ,expireDateEnd:Ext.isEmpty(expireDateEndField.getValue())?null:Ext.Date.format(expireDateEndField.getValue(),'Y-m-d')
             ,assetProject:Ext.isEmpty(assetProjectField.getValue())?null:assetProjectField.getValue()
             ,assetArea:Ext.isEmpty(assetAreaField.getValue())?null:assetAreaField.getValue()
             ,assetLocation:Ext.isEmpty(assetLocationField.getValue())?null:assetLocationField.getValue()
@@ -464,12 +442,17 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
             ,bizLine:Ext.isEmpty(bizLineField.getValue())?null:bizLineField.getValue()
             ,bizManager:Ext.isEmpty(bizManagerField.getValue())?null:bizManagerField.getValue()
             ,goliveDate:Ext.isEmpty(goliveDateField.getValue())?null:Ext.Date.format(goliveDateField.getValue(),'Y-m-d')
+            ,goliveDateStart:Ext.isEmpty(goliveDateStartField.getValue())?null:Ext.Date.format(goliveDateStartField.getValue(),'Y-m-d')
+            ,goliveDateEnd:Ext.isEmpty(goliveDateEndField.getValue())?null:Ext.Date.format(goliveDateEndField.getValue(),'Y-m-d')
             ,majorCust:Ext.isEmpty(majorCustField.getValue())?null:majorCustField.getValue()
             ,custManager:Ext.isEmpty(custManagerField.getValue())?null:custManagerField.getValue()
             ,custUsage:Ext.isEmpty(custUsageField.getValue())?null:custUsageField.getValue()
             ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
+            ,prdRid:Ext.isNumber(prdRidField.getValue())?prdRidField.getValue():null
+            ,prdRidMax:Ext.isNumber(prdRidMaxField.getValue())?prdRidMaxField.getValue():null
+            ,prdRidMin:Ext.isNumber(prdRidMinField.getValue())?prdRidMinField.getValue():null
+            ,attachment:Ext.isEmpty(attachmentField.getValue())?null:attachmentField.getValue()
             ,acquisitionProvider:Ext.isEmpty(acquisitionProviderField.getValue())?null:acquisitionProviderField.getValue()
-            ,recordState:Ext.isNumber(recordStateField.getValue())?recordStateField.getValue():null
         };
 
         return condition;

@@ -30,6 +30,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeMainController', {
         submitButton.setDisabled(false);
     }
 	,onTreepanelItemClick : function() {
+	    console.log('44444')
         var me = this;
 
         var treePanel = this.lookup('assetTypeTree');
@@ -149,12 +150,12 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeMainController', {
 
             return;
         }
-
+        console.log(11111)
         //准备数据
         var modelConfig = {parentCode:record.get('code')}
         var newRecord = Ext.create('AM.model.maintenance.asset.info.AssetType', modelConfig);
         form.getForm().loadRecord(newRecord)
-
+        console.log(22222)
         //准备界面
         form.down('#codeField').setDisabled(false)
         form.down('#codeField').setDisabled(false)
@@ -162,5 +163,6 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeMainController', {
         form.setTitle('新增['+record.get('name')+']的子节点');
 
         submitButton.setDisabled(false);
+        console.log(333)
     }
 })

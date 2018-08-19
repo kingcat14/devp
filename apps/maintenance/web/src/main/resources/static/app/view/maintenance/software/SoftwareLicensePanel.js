@@ -1,511 +1,343 @@
 Ext.define('AM.view.maintenance.software.SoftwareLicensePanel', {
-    extend: 'Ext.grid.Panel'
-    ,xtype: 'maintenance.software.SoftwareLicensePanel'
-    ,title: '服务许可'
-    ,requires: [
+    extend: 'Ext.panel.Panel'
+    , xtype: 'maintenance.software.SoftwareLicensePanel'
+    , title: '服务许可'
+    , layout: 'border'
+    , requires: [
         'AM.view.maintenance.software.SoftwareLicenseController'
         ,'AM.view.maintenance.software.SoftwareLicenseAddWindow'
         ,'AM.view.maintenance.software.SoftwareLicenseEditWindow'
         ,'AM.view.maintenance.software.SoftwareLicenseSearchWindow'
         ,'AM.view.maintenance.software.SoftwareLicenseDetailWindow'
     ]
-    ,controller: 'software_SoftwareLicenseController'
+    ,controller: 'maintenance.software.SoftwareLicenseController'
     ,initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
-            columnLines: true
-            ,columns: [
-
+            items: [
                 {
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'name'
-                    ,text: '名称'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'code'
-                    ,text: '代码'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'alias'
-                    ,text: '别名'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'description'
-                    ,text: '描述'
-                    
-                }
-
-                // ,{
-                //     xtype: 'numbercolumn'
-                //     ,dataIndex: 'recordState'
-                //     ,format:'0,000'
-                //     ,text: '记录状态'
-                //
-                // }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'typeCode'
-                    ,text: '类型代码'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'typeName'
-                    ,text: '类型名称'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'hardwareModel'
-                    ,text: '硬件型号'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'softwareModel'
-                    ,text: '软件型号'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'version'
-                    ,text: '版本'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'status'
-                    ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        return record.get("statusVO")?record.get("statusVO").displayName:'';
-                    }
-                    ,text: '状态'
-                    
-                }
-
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'createDate'
-                    ,text: '创建时间'
-                    
-                }
-
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'expireDate'
-                    ,text: '到期时间'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetProject'
-                    ,text: '所属项目'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetArea'
-                    ,text: '所属区域'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetLocation'
-                    ,text: '资产位置'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'intAccessAddr'
-                    ,text: '内部访问地址'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'extAccessAddr'
-                    ,text: '外部访问地址'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'acquisitionMode'
-                    ,text: '获取方式'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'acquisitionDesc'
-                    ,text: '获取方式说明'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetDept'
-                    ,text: '归属部门'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'assetManager'
-                    ,text: '资产负责人'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'useDept'
-                    ,text: '使用部门'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'useManager'
-                    ,text: '使用负责人'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'opsDept'
-                    ,text: '维护部门'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'opsManager'
-                    ,text: '维护负责人'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'bizLine'
-                    ,text: '业务线'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'bizManager'
-                    ,text: '业务代表'
-                    
-                }
-
-                ,{
-                    xtype: 'datecolumn'
-                    ,format: 'Y-m-d'
-                    ,dataIndex: 'goliveDate'
-                    ,text: '启用时间'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'majorCust'
-                    ,text: '主要客户'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'custManager'
-                    ,text: '客户代表'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'custUsage'
-                    ,text: '使用情况'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'notes'
-                    ,text: '备注'
-                    
-                }
-
-                ,{
-                    xtype: 'gridcolumn'
-                    ,dataIndex: 'acquisitionProvider'
-                    ,text: '供应商'
-                    ,flex:1
-                }
-                ,{
-                    xtype: 'actioncolumn'
-                    ,menuDisabled: true
-                    ,width:30
-                    ,items: [{
-                        iconCls: 'x-fa fa-eye'
-                        ,tooltip: '详情'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.showDetailWindow(record, this);
-                        }
-                    }]
-                }
-                ,{
-                    xtype: 'actioncolumn'
-                    ,menuDisabled: true
-                    ,width:30
-                    ,items: [{
-                        iconCls: 'edit'
-                        ,tooltip: '修改'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.showEditWindow(record, this);
-                        }
-                    }]
-                }
-                ,{
-                    xtype: 'actioncolumn'
-                    ,menuDisabled: true
-                    ,width:30
-                    ,items: [{
-                        iconCls: 'delete'
-                        ,tooltip: '删除'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.onDeleteButtonClick();
-                        }
-                    }]
-                }
-            ]
-            ,viewConfig: {
-
-            }
-            ,dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
+                    xtype: 'grid'
+                    ,region:'center'
+                    ,store: Ext.create('AM.store.maintenance.software.SoftwareLicenseStore')
+                    ,columnLines: true
+                    ,reference:'mainGridPanel'
+                    ,columns: [
                         {
-                            xtype: 'button'
-                            ,iconCls: 'add'
-                            ,text: '新增'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onAddButtonClick,
-                                    scope: me
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'x-fa fa-eye'
+                                ,tooltip: '详情'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    me.getSelectionModel().deselectAll()
+                                    me.getSelectionModel().select(record)
+                                    me.showDetailWindow(record, this);
                                 }
-                            }
+                            }]
                         }
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'edit'
-                            ,text: '修改'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onEditButtonClick
-                                    ,scope: me
-                                }
-                            }
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'name'
+                            ,text: '名称'
+                            
                         }
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'delete'
-                            ,text: '删除'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onDeleteButtonClick
-                                    ,scope: me
-                                }
-                            }
-                        }
-                        ,'-'
-                        ,{
-                            xtype:'textfield'
-                            ,emptyText:'请输入类型代码查询'
-                            ,itemId:'simpleSearchField'
-
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'code'
+                            ,text: '代码'
+                            
                         }
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'search'
-                            ,text: '查询'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onSimpleSearchButtonClick
-                                    ,scope: me
-                                }
-                            }
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'alias'
+                            ,text: '别名'
+                            
                         }
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'search'
-                            ,text: '高级查询'
-                            ,listeners: {
-                                click: {
-                                    fn: me.showSearchWindow
-                                    ,scope: me
-                                }
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'typeCode'
+                            ,text: '类型'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'hardwareModel'
+                            ,text: '硬件型号'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'softwareModel'
+                            ,text: '软件型号'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'status'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("statusVO")?record.get("statusVO").displayName:'';
                             }
+                            ,text: '状态'
+                            
+                        }
+                        ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d'
+                            ,dataIndex: 'createDate'
+                            ,text: '创建时间'
+                            
+                        }
+                        ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d'
+                            ,dataIndex: 'expireDate'
+                            ,text: '到期时间'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'assetProject'
+                            ,text: '所属项目'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'assetArea'
+                            ,text: '所属区域'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'assetLocation'
+                            ,text: '资产位置'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'assetManager'
+                            ,text: '资产负责人'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'useManager'
+                            ,text: '使用负责人'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'opsManager'
+                            ,text: '维护负责人'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'bizManager'
+                            ,text: '业务代表'
+                            
+                        }
+                        ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d'
+                            ,dataIndex: 'goliveDate'
+                            ,text: '启用时间'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'custUsage'
+                            ,text: '使用情况'
+                            ,flex:1
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'edit'
+                                ,tooltip: '修改'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    grid.getSelectionModel().deselectAll()
+                                    grid.getSelectionModel().select(record)
+                                    me.getController().onEditButtonClick();
+                                }
+                            }]
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'delete'
+                                ,tooltip: '删除'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    grid.getSelectionModel().deselectAll()
+                                    grid.getSelectionModel().select(record)
+                                    me.getController().onDeleteButtonClick();
+                                }
+                            }]
                         }
                     ]
-                },
-                {
-                    xtype: 'pagingtoolbar'
-                    ,dock: 'bottom'
-                    ,displayInfo: true
+                    ,viewConfig: {
+
+                    }
+                    ,dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button'
+                                    ,iconCls: 'add'
+                                    ,text: '新增'
+                                    ,listeners: {
+                                        click: 'onAddButtonClick'
+                                    }
+                                }
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'edit'
+                                    ,text: '修改'
+                                    ,listeners: {
+                                        click: 'onEditButtonClick'
+                                    }
+                                }
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'delete'
+                                    ,text: '删除'
+                                    ,listeners: {
+                                        click: 'onDeleteButtonClick'
+                                    }
+                                }
+                                ,'-'
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'名称'
+                                    ,reference: 'nameField'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'代码'
+                                    ,reference: 'codeField'
+                                }
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'search'
+                                    ,text: '查询'
+                                    ,listeners: {
+                                        click: 'onSimpleSearchButtonClick'
+                                    }
+                                }
+                                ,'->'
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'search'
+                                    ,text: '高级查询'
+                                    ,listeners: {
+                                        click: 'showSearchWindow'
+                                    }
+                                }
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'search'
+                                    ,text: '导出'
+                                    ,listeners: {
+                                        click: {
+                                            fn: me.onExportButtonClick
+                                            ,scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'pagingtoolbar'
+                            ,dock: 'bottom'
+                            ,displayInfo: true
+                        }
+                    ]
+                    ,selModel: 'checkboxmodel'
+                    ,listeners: {
+                        beforeshow: {
+                            fn: me.onBeforeShow
+                            ,scope: me
+                        }
+                        ,beforehide: {
+                            fn: me.onPanelBeforeHide
+                            ,scope: me
+                        }
+                    }
                 }
             ]
-            ,selModel: 'checkboxmodel'
-            ,listeners: {
-                beforeshow: {
-                    fn: me.onBeforeShow
-                    ,scope: me
-                }
-                ,beforehide: {
-                    fn: me.onPanelBeforeHide
-                    ,scope: me
-                }
-                ,itemdblclick: {
-                    fn: me.onItemDblClick
-                    ,scope: me
-                }
-            }
-            ,items:[]
         });
-        me.add({xtype:'maintenance.software.SoftwareLicenseAddWindow',reference:'softwareLicenseAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'maintenance.software.SoftwareLicenseEditWindow',reference:'softwareLicenseEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'maintenance.software.SoftwareLicenseSearchWindow',reference:'softwareLicenseSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'maintenance.software.SoftwareLicenseDetailWindow',reference:'softwareLicenseDetailWindow'})
+
+        me.add({xtype:'maintenance.software.SoftwareLicenseAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'maintenance.software.SoftwareLicenseEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'maintenance.software.SoftwareLicenseSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'maintenance.software.SoftwareLicenseDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }
     ,onSimpleSearchButtonClick: function(button, e, options) {
+        var me = this;
         var panel = options.scope;
 
         var toolbar = this.down('toolbar')
 
-        var simpleSearchField = panel.down("#simpleSearchField");
-
-        var searchCondition = {typeCode:simpleSearchField.getValue()}
-
-        this.store.proxy.extraParams = {searchCondition:searchCondition};
+        var nameField = me.down("#nameField");
+        var codeField = me.down("#codeField");
+        var condition = {
+                    name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+                    ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
+        };
+        this.store.proxy.extraParams = {searchCondition:condition};
         this.store.load({
             params:{
                 page:0
             }
         });
     }
-	,onAddButtonClick: function(button, e, options) {
 
-        var modelConfig = {}
+    ,onExportButtonClick: function(button, e, options) {
 
-        var record = Ext.create('AM.model.maintenance.software.SoftwareLicense', modelConfig);
-
-        options.src = button;
-        var addWindow = this.showAddWindow(record, button);
-        addWindow.setTitle('添加新服务许可');
-    }
-    ,onEditButtonClick: function(button, e, options) {
-
-        var selections = this.getSelectionModel( ).getSelection( );
-
-        if(selections.length <= 0){
-            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
-            return;
+        var condition = this.store.proxy.extraParams;
+        if(!condition){
+            condition = {searchCondition:{}};
         }
-
-        var record = selections[0];
-        var detailWindow = this.showEditWindow(record, button);
-        detailWindow.setTitle('修改服务许可信息');
-    }
-    ,onDeleteButtonClick: function(button, e, options) {
-        var me = this;
-        var selections = me.getSelectionModel( ).getSelection( );
-        me.getStore().remove(selections);
-        me.getStore().sync({
-            success:function(batch,options){
-
-                var store = options.scope;
-		        var count = store.getCount();
-
-		        var targetPage = count<=0 ? store.currentPage-1 : store.currentPage;
-		        targetPage = targetPage <=0 ? 1 :targetPage;
-
-                store.loadPage(targetPage,{
-                    scope: this,
-                    callback: function(records, operation, success) {
-                        if(!success)
-                        	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
-                        else
-                        	Ext.MsgUtil.show('操作成功','删除服务许可成功!');
-                    }
-                });
-            }
-            ,scope:me.getStore()
+        if (!Ext.fly('formFly')) {
+            var frm = document.createElement('form');
+            frm.id = 'formFly';
+            frm.className = 'x-hidden';
+            document.body.appendChild(frm);
+        }
+        console.log(condition)
+        Ext.Ajax.request({
+            disableCaching: true
+            ,url: "software/softwareLicense/export"
+            ,method: "POST"
+            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
+            ,params:condition
+            ,isUpload: true
+            ,form: Ext.fly('formFly')
         });
+
     }
-    ,onItemDblClick: function(tablepanel, record, item, index, e, options) {
-        var me = this;
-        options.src=item;
-        var editWindow = me.showEditWindow(record, item);
-        editWindow.setTitle('修改服务许可信息');
-    }
-    ,showAddWindow: function(model, targetComponent) {
-        var me = this;
-        var addWindow = me.lookupReference('softwareLicenseAddWindow');
-        addWindow.setModel(model);
-        addWindow.show(targetComponent);
-        return addWindow;
-    }
-    ,showEditWindow: function(model, targetComponent) {
-        var me = this;
-        var editWindow = me.lookupReference('softwareLicenseEditWindow');
-        editWindow.setModel(model);
-        editWindow.show(targetComponent);
-        return editWindow;
-    }
+
+
     ,showDetailWindow: function(model, targetComponent) {
         var me = this;
-        var detailWindow = me.lookupReference('softwareLicenseDetailWindow');
+        var detailWindow = me.lookupReference('mainDetailWindow');
         detailWindow.setModel(model);
         detailWindow.show(targetComponent);
         return detailWindow;
-    }
-    ,showSearchWindow: function(button, e, options) {
-        var me = options.scope;
-
-        var searchWindow = me.lookupReference('softwareLicenseSearchWindow');
-        searchWindow.show(button);
     }
     ,setStore: function(store) {
         this.reconfigure(store);

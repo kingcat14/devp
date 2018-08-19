@@ -48,23 +48,11 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseDetailWindow', {
                             ,name: 'alias'
                             ,fieldLabel: '别名'
                         }
-                        // ,{
-                        //     itemId: 'recordStateField'
-                        //     ,padding: '5 0 0 5'
-                        //     ,name: 'recordState'
-                        //     ,fieldLabel: '记录状态'
-                        // }
                         ,{
                             itemId: 'typeCodeField'
                             ,padding: '5 0 0 5'
                             ,name: 'typeCode'
-                            ,fieldLabel: '类型代码'
-                        }
-                        ,{
-                            itemId: 'typeNameField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'typeName'
-                            ,fieldLabel: '类型名称'
+                            ,fieldLabel: '类型'
                         }
                         ,{
                             itemId: 'hardwareModelField'
@@ -77,12 +65,6 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'softwareModel'
                             ,fieldLabel: '软件型号'
-                        }
-                        ,{
-                            itemId: 'versionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'version'
-                            ,fieldLabel: '版本'
                         }
                         ,{
                             itemId: 'statusField'
@@ -125,18 +107,6 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'assetLocation'
                             ,fieldLabel: '资产位置'
-                        }
-                        ,{
-                            itemId: 'intAccessAddrField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'intAccessAddr'
-                            ,fieldLabel: '内部访问地址'
-                        }
-                        ,{
-                            itemId: 'extAccessAddrField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'extAccessAddr'
-                            ,fieldLabel: '外部访问地址'
                         }
                         ,{
                             itemId: 'acquisitionModeField'

@@ -2,10 +2,12 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.software.BusinessSoftwareAddWindow'
     ,requires:[
+        'AM.store.application.common.SimpleConfigStore'
+
     ]
     ,autoScroll: true
-    ,height: '80%'
-    ,width: '80%'
+    ,height: '60%'
+    ,width: '60%'
     ,layout: {
         type: 'vbox'
     }
@@ -15,13 +17,9 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var businessSoftwareTypeCodeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
-        businessSoftwareTypeCodeStore.proxy.isSynchronous = true;
-        businessSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'ASSET-CMDB-TYPECODE'}};
-        businessSoftwareTypeCodeStore.load();
         var businessSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         businessSoftwareStatusStore.proxy.isSynchronous = true;
-        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'MACHINE-STATUS'}};
+        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'BUSINESSSOFTWARE-STATUS'}};
         businessSoftwareStatusStore.load();
         Ext.apply(me, {
             items: [
@@ -52,279 +50,412 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
                             }
                             ,defaults:{width:'100%'}
                             ,items:[
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:false,
-                                    afterLabelTextTpl: [
-                                    '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
-                                    ],
-                                    itemId: 'nameField',
-                                    name: 'name',
-                                    fieldLabel: '名称'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '名称'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'codeField',
-                                    name: 'code',
-                                    fieldLabel: '代码'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'codeField'
+                                    ,name: 'code'
+                                    ,fieldLabel: '代码'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'aliasField',
-                                    name: 'alias',
-                                    fieldLabel: '别名'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'aliasField'
+                                    ,name: 'alias'
+                                    ,fieldLabel: '别名'
                                 }
+
+
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'descriptionField',
-                                    name: 'description',
-                                    fieldLabel: '描述'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:true
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'typeCodeField'
+                                    ,name: 'typeCode'
+                                    ,fieldLabel: '类型'
                                 }
+
+
                                 ,{
-                                    xtype: 'combobox',
-                                    store: businessSoftwareTypeCodeStore,
-                                    typeAhead:false,
-                                    editable:false,
-                                    displayField:'displayName',
-                                    valueField:'value',
-                                    allowBlank:true,
-                                    itemId: 'typeCodeField',
-                                    name: 'typeCode',
-                                    fieldLabel: '类型代码'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'hardwareModelField'
+                                    ,name: 'hardwareModel'
+                                    ,fieldLabel: '硬件型号'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'hardwareModelField',
-                                    name: 'hardwareModel',
-                                    fieldLabel: '硬件型号'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'softwareModelField'
+                                    ,name: 'softwareModel'
+                                    ,fieldLabel: '软件型号'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'softwareModelField',
-                                    name: 'softwareModel',
-                                    fieldLabel: '软件型号'
-            
+                                    xtype: 'combobox'
+                                    ,store: businessSoftwareStatusStore
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'displayName'
+                                    ,valueField:'value'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'statusField'
+                                    ,name: 'status'
+                                    ,fieldLabel: '状态'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'versionField',
-                                    name: 'version',
-                                    fieldLabel: '版本'
-            
+                                    xtype: 'datefield'
+                                    ,format: 'Y-m-d'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'createDateField'
+                                    ,name: 'createDate'
+                                    ,fieldLabel: '创建时间'
                                 }
+
+
                                 ,{
-                                    xtype: 'combobox',
-                                    store: businessSoftwareStatusStore,
-                                    typeAhead:false,
-                                    editable:false,
-                                    displayField:'displayName',
-                                    valueField:'value',
-                                    allowBlank:true,
-                                    itemId: 'statusField',
-                                    name: 'status',
-                                    fieldLabel: '状态'
-            
+                                    xtype: 'datefield'
+                                    ,format: 'Y-m-d'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'expireDateField'
+                                    ,name: 'expireDate'
+                                    ,fieldLabel: '到期时间'
                                 }
+
+
                                 ,{
-                                    xtype: 'datefield',
-                                    format: 'Y-m-d',
-                                    allowBlank:true,
-                                    itemId: 'createDateField',
-                                    name: 'createDate',
-                                    fieldLabel: '创建时间'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'assetProjectField'
+                                    ,name: 'assetProject'
+                                    ,fieldLabel: '所属项目'
                                 }
+
+
                                 ,{
-                                    xtype: 'datefield',
-                                    format: 'Y-m-d',
-                                    allowBlank:true,
-                                    itemId: 'expireDateField',
-                                    name: 'expireDate',
-                                    fieldLabel: '到期时间'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'assetAreaField'
+                                    ,name: 'assetArea'
+                                    ,fieldLabel: '所属区域'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'assetProjectField',
-                                    name: 'assetProject',
-                                    fieldLabel: '所属项目'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'assetLocationField'
+                                    ,name: 'assetLocation'
+                                    ,fieldLabel: '资产位置'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'assetAreaField',
-                                    name: 'assetArea',
-                                    fieldLabel: '所属区域'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'intAccessAddrField'
+                                    ,name: 'intAccessAddr'
+                                    ,fieldLabel: '内部访问地址'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'assetLocationField',
-                                    name: 'assetLocation',
-                                    fieldLabel: '资产位置'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'extAccessAddrField'
+                                    ,name: 'extAccessAddr'
+                                    ,fieldLabel: '外部访问地址'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'intAccessAddrField',
-                                    name: 'intAccessAddr',
-                                    fieldLabel: '内部访问地址'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'acquisitionModeField'
+                                    ,name: 'acquisitionMode'
+                                    ,fieldLabel: '获取方式'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'extAccessAddrField',
-                                    name: 'extAccessAddr',
-                                    fieldLabel: '外部访问地址'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'acquisitionDescField'
+                                    ,name: 'acquisitionDesc'
+                                    ,fieldLabel: '获取方式说明'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'acquisitionModeField',
-                                    name: 'acquisitionMode',
-                                    fieldLabel: '获取方式'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'assetDeptField'
+                                    ,name: 'assetDept'
+                                    ,fieldLabel: '归属部门'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'acquisitionDescField',
-                                    name: 'acquisitionDesc',
-                                    fieldLabel: '获取方式说明'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'assetManagerField'
+                                    ,name: 'assetManager'
+                                    ,fieldLabel: '资产负责人'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'assetDeptField',
-                                    name: 'assetDept',
-                                    fieldLabel: '归属部门'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'useDeptField'
+                                    ,name: 'useDept'
+                                    ,fieldLabel: '使用部门'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'assetManagerField',
-                                    name: 'assetManager',
-                                    fieldLabel: '资产负责人'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'useManagerField'
+                                    ,name: 'useManager'
+                                    ,fieldLabel: '使用负责人'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'useDeptField',
-                                    name: 'useDept',
-                                    fieldLabel: '使用部门'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'opsDeptField'
+                                    ,name: 'opsDept'
+                                    ,fieldLabel: '维护部门'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'useManagerField',
-                                    name: 'useManager',
-                                    fieldLabel: '使用负责人'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'opsManagerField'
+                                    ,name: 'opsManager'
+                                    ,fieldLabel: '维护负责人'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'opsDeptField',
-                                    name: 'opsDept',
-                                    fieldLabel: '维护部门'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'bizLineField'
+                                    ,name: 'bizLine'
+                                    ,fieldLabel: '业务线'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'opsManagerField',
-                                    name: 'opsManager',
-                                    fieldLabel: '维护负责人'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'bizManagerField'
+                                    ,name: 'bizManager'
+                                    ,fieldLabel: '业务代表'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'bizLineField',
-                                    name: 'bizLine',
-                                    fieldLabel: '业务线'
-            
+                                    xtype: 'datefield'
+                                    ,format: 'Y-m-d'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'goliveDateField'
+                                    ,name: 'goliveDate'
+                                    ,fieldLabel: '启用时间'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'bizManagerField',
-                                    name: 'bizManager',
-                                    fieldLabel: '业务代表'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'majorCustField'
+                                    ,name: 'majorCust'
+                                    ,fieldLabel: '主要客户'
                                 }
+
+
                                 ,{
-                                    xtype: 'datefield',
-                                    format: 'Y-m-d',
-                                    allowBlank:true,
-                                    itemId: 'goliveDateField',
-                                    name: 'goliveDate',
-                                    fieldLabel: '启用时间'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'custManagerField'
+                                    ,name: 'custManager'
+                                    ,fieldLabel: '客户代表'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'majorCustField',
-                                    name: 'majorCust',
-                                    fieldLabel: '主要客户'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'custUsageField'
+                                    ,name: 'custUsage'
+                                    ,fieldLabel: '使用情况'
                                 }
+
+
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'custManagerField',
-                                    name: 'custManager',
-                                    fieldLabel: '客户代表'
-            
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'prdRidField'
+                                    ,name: 'prdRid'
+                                    ,fieldLabel: '关联产品记录编号'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'custUsageField',
-                                    name: 'custUsage',
-                                    fieldLabel: '使用情况'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'attachmentField'
+                                    ,name: 'attachment'
+                                    ,fieldLabel: '附件'
                                 }
+
+
                                 ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'notesField',
-                                    name: 'notes',
-                                    fieldLabel: '备注'
-            
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'acquisitionProviderField'
+                                    ,name: 'acquisitionProvider'
+                                    ,fieldLabel: '供应商'
                                 }
-                                ,{
-                                    xtype: 'textfield',
-                                    allowBlank:true,
-                                    itemId: 'acquisitionProviderField',
-                                    name: 'acquisitionProvider',
-                                    fieldLabel: '供应商'
-            
-                                }
+
                             ]
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'descriptionField',
+                            padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'notesField',
+                            padding: '5 0 0 5',
+                            name: 'notes',
+                            fieldLabel: '备注',
+                            labelAlign: 'top'
                         }
                     ]
                 }
@@ -382,9 +513,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
                 me.down('#fileuploadpanel-attachment').save(newRecord, 'BusinessSoftware-attachment')
             }
         });
-
-
-
     },
 
     setModel: function (model) {
@@ -392,12 +520,10 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
-
-        this.setTitle("修改应用软件信息");
-        if(model.phantom){
-            this.setTitle("新增应用软件信息");
-        }
+        model.set('typeCode',this.down('#typeCodeField').getValue());
         this.down('form').getForm().loadRecord(model);
+
+        this.down('#fileuploadpanel-attachment').reset(model);
     }
 
 });

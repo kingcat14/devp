@@ -49,16 +49,10 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,fieldLabel: '别名'
                         }
                         ,{
-                            itemId: 'descriptionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'description'
-                            ,fieldLabel: '描述'
-                        }
-                        ,{
                             itemId: 'typeCodeField'
                             ,padding: '5 0 0 5'
                             ,name: 'typeCode'
-                            ,fieldLabel: '类型代码'
+                            ,fieldLabel: '类型'
                         }
                         ,{
                             itemId: 'hardwareModelField'
@@ -71,12 +65,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'softwareModel'
                             ,fieldLabel: '软件型号'
-                        }
-                        ,{
-                            itemId: 'versionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'version'
-                            ,fieldLabel: '版本'
                         }
                         ,{
                             itemId: 'statusField'
@@ -220,16 +208,26 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareDetailWindow', {
                             ,fieldLabel: '使用情况'
                         }
                         ,{
-                            itemId: 'notesField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'notes'
-                            ,fieldLabel: '备注'
-                        }
-                        ,{
                             itemId: 'acquisitionProviderField'
                             ,padding: '5 0 0 5'
                             ,name: 'acquisitionProvider'
                             ,fieldLabel: '供应商'
+                        }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
+                        }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'notesField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'notes'
+                            ,fieldLabel: '备注'
+                            ,labelAlign: 'top'
                         }
                     ]
                 }

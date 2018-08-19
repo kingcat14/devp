@@ -3,7 +3,10 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
     ,xtype: 'maintenance.asset.info.AssetCmdbPanel'
     ,requires: [
         'AM.view.maintenance.hardware.MachinePanel'
-		,'AM.view.maintenance.hardware.MachineController'
+        ,'AM.view.maintenance.hardware.NetworkDevicePanel'
+        ,'AM.view.maintenance.software.BusinessSoftwarePanel'
+        ,'AM.view.maintenance.software.InfrastructuralSoftwarePanel'
+        ,'AM.view.maintenance.software.SoftwareLicensePanel'
 		,'AM.model.maintenance.asset.info.AssetTypeTreeNode'
         ,'AM.view.maintenance.asset.info.AssetCmdbController'
     ]
@@ -39,12 +42,11 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                     ,store: assetTreeStore
                     ,columns:[
                         {
-                            xtype: 'treecolumn',
-                            text: 'Name',
-                            dataIndex: 'name',
-                            flex: 1,
-                            sortable: true,
-                            renderer: function(value, metaData, record) {
+                            xtype: 'treecolumn'
+                            ,dataIndex: 'name'
+                            ,flex: 1
+                            ,sortable: true
+                            ,renderer: function(value, metaData, record) {
                                 return record.get('name')+'('+record.get('code')+')'
                             }
                         }
@@ -72,9 +74,39 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                         {
                             xtype: 'maintenance.hardware.MachinePanel'
                             ,itemId: 'ASSET_HOST_GRID'
-                            ,frame: true
+                            // ,frame: true
                             ,reference: 'ASSET_HOST_GRID'
                             ,store: machineStore
+                        }
+                        ,{
+                            xtype: 'maintenance.hardware.NetworkDevicePanel'
+                            ,itemId: 'ASSET_NETWORK_GRID'
+                            // ,frame: true
+                            ,reference: 'ASSET_NETWORK_GRID'
+                        }
+                        ,{
+                            xtype: 'maintenance.hardware.NetworkDevicePanel'
+                            ,itemId: 'ASSET_NETWORK_GRID'
+                            // ,frame: true
+                            ,reference: 'ASSET_NETWORK_GRID'
+                        }
+                        ,{
+                            xtype: 'maintenance.software.BusinessSoftwarePanel'
+                            ,itemId: 'ASSET_BIZ_SW_GRID'
+                            // ,frame: true
+                            ,reference: 'ASSET_BIZ_SW_GRID'
+                        }
+                        ,{
+                            xtype: 'maintenance.software.InfrastructuralSoftwarePanel'
+                            ,itemId: 'ASSET_INFRA_SW_GRID'
+                            // ,frame: true
+                            ,reference: 'ASSET_INFRA_SW_GRID'
+                        }
+                        ,{
+                            xtype: 'maintenance.software.SoftwareLicensePanel'
+                            ,itemId: 'ASSET_SVC_LIC_GRID'
+                            // ,frame: true
+                            ,reference: 'ASSET_SVC_LIC_GRID'
                         }
                         , {
 		                    xtype:'panel'

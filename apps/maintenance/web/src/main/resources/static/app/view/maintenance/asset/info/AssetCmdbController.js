@@ -26,8 +26,12 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbController', {
             panel = me.lookup('OTHER_GRID');
             panel.setTitle("暂不支持类型:"+topNode.get('name'))
         }else{
-            var searchWindow = panel.lookup('searchWindow')
             var typeCode = record.get('code') == record.get('parentCode')?null:record.get('code')
+
+            var addWindow = panel.lookup('mainAddWindow')
+            addWindow.down('#typeCodeField').setValue(typeCode);
+
+            var searchWindow = panel.lookup('mainSearchWindow')
             searchWindow.down('#typeCodeField').setValue(typeCode);
             searchWindow.onSearchButtonClick();
             console.log(searchWindow);
@@ -83,7 +87,10 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbController', {
     }
     ,addChildRecord:function(view, rowIndex, colIndex){
 
+	    view.getSelectionModel().deselectAll()
+
         var record = view.getStore().getAt(rowIndex);
+
         var form = this.lookupReference('detailForm');
         var submitButton = this.lookupReference('submitButton');
         if (!record) {

@@ -1,8 +1,9 @@
 Ext.define('AM.view.maintenance.hardware.MachinePanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'maintenance.hardware.MachinePanel'
-    , title: '服务器'
-    , layout: 'fit'
+    //, title: '服务器'
+    , layout: 'border'
+    ,frame:false
     , requires: [
         'AM.view.maintenance.hardware.MachineController'
         , 'AM.view.maintenance.hardware.MachineAddWindow'
@@ -15,8 +16,10 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
         var me = this;
 
         Ext.apply(me, {
-            items: [{
+            items: [
+                {
                 xtype: 'grid'
+                ,region:'center'
                 , columnLines: true
                 , store: Ext.create('AM.store.maintenance.hardware.MachineStore')
                 , columns:
@@ -413,7 +416,21 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
                     }
                 ,
                 items: []
-            }]
+            }
+            ,{
+            xtype: 'tabpanel'
+                ,region: 'south'
+                ,height: '40%'
+                ,split:true
+                ,collapsed: false
+                ,collapsible: true
+                ,title:'对象详情'
+                ,reference: 'detailTabPanel'
+                ,items:[
+                        {xtype:'panel', title:'a'},{xtype:'panel', title:'b'}
+                    ]
+            }
+            ]
         });
 
 
@@ -429,7 +446,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
         })
         me.add({
             xtype: 'maintenance.hardware.MachineSearchWindow',
-            reference: 'searchWindow',
+            reference: 'mainSearchWindow',
             listeners: {saved: 'doSearch'}
         })
         me.add({xtype: 'maintenance.hardware.MachineDetailWindow', reference: 'machineDetailWindow'})
@@ -531,7 +548,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
     , showSearchWindow: function (button, e, options) {
         var me = options.scope;
 
-        var searchWindow = me.lookupReference('searchWindow');
+        var searchWindow = me.lookupReference('mainSearchWindow');
         searchWindow.show(button);
     }
     , setStore: function (store) {
