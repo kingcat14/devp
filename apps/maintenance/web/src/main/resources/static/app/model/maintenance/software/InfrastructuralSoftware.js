@@ -1,10 +1,10 @@
 Ext.define('AM.model.maintenance.software.InfrastructuralSoftware', {
-    extend: 'Ext.data.Model',
-    proxy: {
-        type: "rest",
-        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
-        headers:{"Accept":"application/json"},
-        url: 'software/infrastructuralSoftware'
+    extend: 'Ext.data.Model'
+    ,proxy: {
+        type: "rest"
+        ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+        ,headers:{"Accept":"application/json"}
+        ,url: 'software/infrastructuralSoftware'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -63,12 +63,6 @@ Ext.define('AM.model.maintenance.software.InfrastructuralSoftware', {
             ,critical:true
         }
     	,{
-            name: 'typeName'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'hardwareModel'
             ,type:'string'
             ,allowNull:true
@@ -76,12 +70,6 @@ Ext.define('AM.model.maintenance.software.InfrastructuralSoftware', {
         }
     	,{
             name: 'softwareModel'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'version'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -234,12 +222,6 @@ Ext.define('AM.model.maintenance.software.InfrastructuralSoftware', {
             ,critical:true
         }
     	,{
-            name: 'parasCode'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'attachment'
             ,type:'string'
             ,allowNull:true
@@ -248,12 +230,6 @@ Ext.define('AM.model.maintenance.software.InfrastructuralSoftware', {
     	,{
             name: 'acquisitionProvider'
             ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'recordState'
-            ,type:'int'
             ,allowNull:true
             ,critical:true
         }

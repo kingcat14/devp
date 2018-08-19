@@ -1,10 +1,10 @@
 Ext.define('AM.model.maintenance.software.BusinessSoftware', {
-    extend: 'Ext.data.Model',
-    proxy: {
-        type: "rest",
-        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
-        headers:{"Accept":"application/json"},
-        url: 'software/businessSoftware'
+    extend: 'Ext.data.Model'
+    ,proxy: {
+        type: "rest"
+        ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+        ,headers:{"Accept":"application/json"}
+        ,url: 'software/businessSoftware'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -63,12 +63,6 @@ Ext.define('AM.model.maintenance.software.BusinessSoftware', {
             ,critical:true
         }
     	,{
-            name: 'typeName'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'hardwareModel'
             ,type:'string'
             ,allowNull:true
@@ -76,12 +70,6 @@ Ext.define('AM.model.maintenance.software.BusinessSoftware', {
         }
     	,{
             name: 'softwareModel'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'version'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -235,12 +223,6 @@ Ext.define('AM.model.maintenance.software.BusinessSoftware', {
         }
     	,{
             name: 'attachment'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'parasCode'
             ,type:'string'
             ,allowNull:true
             ,critical:true

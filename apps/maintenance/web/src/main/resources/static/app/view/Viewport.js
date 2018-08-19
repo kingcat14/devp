@@ -7,10 +7,10 @@ Ext.define('AM.view.Viewport', {
 		'AM.view.main.MainContentPanel',
 		'AM.view.dashboard.Dashboard',
         'AM.view.ux.FileUploadPanel'
-	],
-    layout: 'border',
-	bodyCls: 'app-dashboard',
-    items: [
+	]
+    ,layout: 'border'
+	,bodyCls: 'app-dashboard'
+    ,items: [
 	    {
 		    xtype: 'mainHeadercontainer',
 		    region: 'north'

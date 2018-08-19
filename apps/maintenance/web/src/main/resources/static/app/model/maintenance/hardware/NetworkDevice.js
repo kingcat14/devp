@@ -1,10 +1,10 @@
 Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
-    extend: 'Ext.data.Model',
-    proxy: {
-        type: "rest",
-        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
-        headers:{"Accept":"application/json"},
-        url: 'hardware/networkDevice'
+    extend: 'Ext.data.Model'
+    ,proxy: {
+        type: "rest"
+        ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+        ,headers:{"Accept":"application/json"}
+        ,url: 'hardware/networkDevice'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -52,12 +52,6 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
         }
     	,{
             name: 'typeCode'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'typeName'
             ,type:'string'
             ,allowNull:true
             ,critical:true

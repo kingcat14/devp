@@ -1,10 +1,10 @@
 Ext.define('AM.model.maintenance.software.SoftwareLicense', {
-    extend: 'Ext.data.Model',
-    proxy: {
-        type: "rest",
-        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
-        headers:{"Accept":"application/json"},
-        url: 'software/softwareLicense'
+    extend: 'Ext.data.Model'
+    ,proxy: {
+        type: "rest"
+        ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+        ,headers:{"Accept":"application/json"}
+        ,url: 'software/softwareLicense'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -57,19 +57,7 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
             ,critical:true
         }
     	,{
-            name: 'recordState'
-            ,type:'int'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'typeCode'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'typeName'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -82,12 +70,6 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
         }
     	,{
             name: 'softwareModel'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'version'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -126,18 +108,6 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
         }
     	,{
             name: 'assetLocation'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'intAccessAddr'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'extAccessAddr'
             ,type:'string'
             ,allowNull:true
             ,critical:true
@@ -241,12 +211,6 @@ Ext.define('AM.model.maintenance.software.SoftwareLicense', {
         }
     	,{
             name: 'attachment'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'parasCode'
             ,type:'string'
             ,allowNull:true
             ,critical:true

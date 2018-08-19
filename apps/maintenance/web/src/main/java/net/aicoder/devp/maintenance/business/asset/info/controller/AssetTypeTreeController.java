@@ -4,6 +4,7 @@ import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import net.aicoder.devp.maintenance.business.asset.info.domain.AssetType;
 import net.aicoder.devp.maintenance.business.asset.info.dto.AssetTypeCondition;
 import net.aicoder.devp.maintenance.business.asset.info.service.AssetTypeService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +36,7 @@ public class AssetTypeTreeController {
 	 * @return
 	 */
 	@RequestMapping("/tree")
-	public List<AssetTypeTreeNode> tree(){
+	public List<AssetTypeTreeNode> tree(String parentCode){
 
 		HashMap<String, AssetTypeTreeNode> nodeMap = new HashMap<>();
 
@@ -62,10 +63,22 @@ public class AssetTypeTreeController {
 
 		//拼装节点
 		for(AssetType assetType:assetTypeList){
+
+			//定级节点就直接跳过了
+			if(assetType.getCode().equals(assetType.getParentCode())){
+				continue;
+			}
 			AssetTypeTreeNode parentNode = nodeMap.get(assetType.getParentCode());
 			if(parentNode != null){
 				parentNode.addChild(nodeMap.get(assetType.getCode()));
 			}
+		}
+
+
+		if(StringUtils.isNotEmpty(parentCode)){
+			ArrayList<AssetTypeTreeNode> result = new ArrayList<>();
+			result.add(nodeMap.get(parentCode));
+			return result;
 		}
 		return topNodeList;
 	}

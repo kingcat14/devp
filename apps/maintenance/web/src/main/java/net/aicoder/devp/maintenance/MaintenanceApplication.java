@@ -16,6 +16,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.client.RestTemplate;
 
 @Import({TypedApiResponseBodyHandler.class, RestApiExceptionHandler.class
@@ -26,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 		,"net.aicoder.devp.product.client"
 		,"net.aicoder.devp.deploy.client"})
 @EnableCircuitBreaker
+@EnableRedisHttpSession
 public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
