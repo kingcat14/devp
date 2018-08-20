@@ -55,12 +55,6 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,fieldLabel: '类型代码'
                         }
                         ,{
-                            itemId: 'typeNameField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'typeName'
-                            ,fieldLabel: '类型名称'
-                        }
-                        ,{
                             itemId: 'hardwareModelField'
                             ,padding: '5 0 0 5'
                             ,name: 'hardwareModel'
@@ -231,12 +225,12 @@ Ext.define('AM.view.maintenance.hardware.MachineDetailWindow', {
                             ,name: 'acquisitionProvider'
                             ,fieldLabel: '供应商'
                         }
-                        // ,{
-                        //     itemId: 'recordStateField'
-                        //     ,padding: '5 0 0 5'
-                        //     ,name: 'recordState'
-                        //     ,fieldLabel: '记录状态'
-                        // }
+                        ,{
+                            itemId: 'recordStateField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'recordState'
+                            ,fieldLabel: '记录状态'
+                        }
                         ,{
                             anchor: '98% 70%'
                             ,itemId: 'descriptionField'

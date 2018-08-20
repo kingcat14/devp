@@ -32,4 +32,8 @@ management:
   security:
     enabled: true
 
+swagger:
+  enabled: true
+  base-package: net.aicoder.devp.maintenance
+
 

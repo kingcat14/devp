@@ -179,8 +179,7 @@ public class NetworkDeviceController {
             headMap.put("code" ,"代码");
             headMap.put("alias" ,"别名");
             headMap.put("description" ,"描述");
-            headMap.put("typeCode" ,"类型代码");
-            headMap.put("typeName" ,"类型名称");
+            headMap.put("typeCode" ,"类型");
             headMap.put("hardwareModel" ,"硬件型号");
             headMap.put("softwareModel" ,"软件型号");
             headMap.put("status" ,"状态");

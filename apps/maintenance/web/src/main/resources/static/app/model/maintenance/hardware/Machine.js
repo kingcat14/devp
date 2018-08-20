@@ -1,10 +1,10 @@
 Ext.define('AM.model.maintenance.hardware.Machine', {
-    extend: 'Ext.data.Model',
-    proxy: {
-        type: "rest",
-        writer:{writeRecordId:false, partialDataOptions:{changes:false}},
-        headers:{"Accept":"application/json"},
-        url: 'hardware/machine'
+    extend: 'Ext.data.Model'
+    ,proxy: {
+        type: "rest"
+        ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
+        ,headers:{"Accept":"application/json"}
+        ,url: 'hardware/machine'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -19,6 +19,12 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
             name: 'id'
             ,type:'string'
             ,allowNull:true
+        }
+    	,{
+            name: 'tid'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
         }
     	,{
             name: 'etype'
@@ -52,12 +58,6 @@ Ext.define('AM.model.maintenance.hardware.Machine', {
         }
     	,{
             name: 'typeCode'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'typeName'
             ,type:'string'
             ,allowNull:true
             ,critical:true

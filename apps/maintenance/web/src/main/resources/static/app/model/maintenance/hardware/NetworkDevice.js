@@ -21,6 +21,12 @@ Ext.define('AM.model.maintenance.hardware.NetworkDevice', {
             ,allowNull:true
         }
     	,{
+            name: 'tid'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'etype'
             ,type:'string'
             ,allowNull:true

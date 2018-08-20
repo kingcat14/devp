@@ -1,8 +1,10 @@
 package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.platform.business.application.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,8 @@ import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
 import com.yunkang.saas.platform.business.common.service.SimpleConfigService;
 import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,9 +30,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * 管理服务器
@@ -141,6 +145,76 @@ public class MachineController {
 		return pageContent;
 
 	}
+
+	/**
+     * 导出服务器列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出服务器列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(MachineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
+
+        PageSearchRequest<MachineCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<MachineVO> content = this.list(pageSearchRequest);
+
+        List<MachineVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(MachineVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+    
+            headMap.put("name" ,"名称");
+            headMap.put("code" ,"代码");
+            headMap.put("alias" ,"别名");
+            headMap.put("description" ,"描述");
+            headMap.put("typeCode" ,"类型代码");
+            headMap.put("hardwareModel" ,"硬件型号");
+            headMap.put("softwareModel" ,"软件型号");
+            headMap.put("status" ,"状态");
+            headMap.put("createDate" ,"创建时间");
+            headMap.put("expireDate" ,"到期时间");
+            headMap.put("assetProject" ,"所属项目");
+            headMap.put("assetArea" ,"所属区域");
+            headMap.put("assetLocation" ,"资产位置");
+            headMap.put("intAccessAddr" ,"内部访问地址");
+            headMap.put("extAccessAddr" ,"外部访问地址");
+            headMap.put("acquisitionMode" ,"获取方式");
+            headMap.put("acquisitionDesc" ,"获取方式说明");
+            headMap.put("assetDept" ,"归属部门");
+            headMap.put("assetManager" ,"资产负责人");
+            headMap.put("useDept" ,"使用部门");
+            headMap.put("useManager" ,"使用负责人");
+            headMap.put("opsDept" ,"维护部门");
+            headMap.put("opsManager" ,"维护负责人");
+            headMap.put("bizLine" ,"业务线");
+            headMap.put("bizManager" ,"业务代表");
+            headMap.put("goliveDate" ,"启用时间");
+            headMap.put("majorCust" ,"主要客户");
+            headMap.put("custManager" ,"客户代表");
+            headMap.put("custUsage" ,"使用情况");
+            headMap.put("notes" ,"备注");
+            headMap.put("parasCode" ,"参数定义标识");
+            headMap.put("acquisitionProvider" ,"供应商");
+            headMap.put("recordState" ,"记录状态");
+
+        String title = new String("服务器");
+        String fileName = new String(("服务器_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+
+    }
+
 
 	private MachineVO initViewProperty( MachineVO vo){
 

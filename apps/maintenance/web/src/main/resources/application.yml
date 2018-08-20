@@ -1,8 +1,9 @@
-sys:
-  module: maintenance  #模块
-  name: maintenance-web #应用
-  displayName:
+application:
+  product: null #产品
+  module: maintenance #模块
+  name: web
   id: 11202
+  uploadFilePath:
 
 server:
   port: 11202
@@ -17,6 +18,7 @@ eureka:
     lease-renewal-interval-in-seconds: 3
     lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}:@project.version@
 spring:
   jpa:
     hibernate:
@@ -30,7 +32,7 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
   application:
-    name: ${sys.name}
+    name: ${application.product}-${application.module}-${application.name}
   profiles:
     active: local #环境配置- local：本地 dev：开发环境 qa：测试环境 uat：用户测试 pd：生产环境
   cloud:
@@ -48,4 +50,5 @@ spring:
 logging:
   file: logs/${spring.application.name}.log
 
-
+swagger:
+  enabled: false

@@ -20,13 +20,7 @@ public class NetworkDeviceValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(NetworkDeviceAddDto.class.equals(aClass))
-			return true;
-		if(NetworkDeviceEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -52,12 +46,8 @@ public class NetworkDeviceValidator implements Validator {
 		//把校验信息注册到Error的实现类里
 		//验证必填
 		if (null == networkDevice.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户编号不能为空");
+			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
 		}
-		if(StringUtils.isEmpty(networkDevice.getEtype())){
-			errors.rejectValue("etype", "EMPTY_ETYPE", "元素类型不能为空");
-		}
-       
 		if(StringUtils.isEmpty(networkDevice.getName())){
 			errors.rejectValue("name", "EMPTY_NAME", "名称不能为空");
 		}
@@ -76,25 +66,14 @@ public class NetworkDeviceValidator implements Validator {
 		if(StringUtils.length(networkDevice.getAlias()) > 255){
 			errors.rejectValue("alias", null, "别名最长255个字符");
 		}
-		if(StringUtils.length(networkDevice.getDescription()) > 255){
-			errors.rejectValue("description", null, "描述最长255个字符");
-		}
 		if(StringUtils.length(networkDevice.getTypeCode()) > 255){
-			errors.rejectValue("typeCode", null, "类型代码最长255个字符");
+			errors.rejectValue("typeCode", null, "类型最长255个字符");
 		}
-		if(StringUtils.length(networkDevice.getTypeName()) > 255){
-			errors.rejectValue("typeName", null, "类型名称最长255个字符");
-		}
-
 		if(StringUtils.length(networkDevice.getHardwareModel()) > 255){
 			errors.rejectValue("hardwareModel", null, "硬件型号最长255个字符");
 		}
 		if(StringUtils.length(networkDevice.getSoftwareModel()) > 255){
 			errors.rejectValue("softwareModel", null, "软件型号最长255个字符");
-		}
-
-		if(StringUtils.length(networkDevice.getStatus()) > 255){
-			errors.rejectValue("status", null, "状态最长255个字符");
 		}
 		if(StringUtils.length(networkDevice.getAssetProject()) > 255){
 			errors.rejectValue("assetProject", null, "所属项目最长255个字符");
@@ -155,6 +134,9 @@ public class NetworkDeviceValidator implements Validator {
 		}
 		if(StringUtils.length(networkDevice.getParasCode()) > 255){
 			errors.rejectValue("parasCode", null, "参数定义标识最长255个字符");
+		}
+		if(StringUtils.length(networkDevice.getAcquisitionProvider()) > 255){
+			errors.rejectValue("acquisitionProvider", null, "供应商最长255个字符");
 		}
 	}
 }

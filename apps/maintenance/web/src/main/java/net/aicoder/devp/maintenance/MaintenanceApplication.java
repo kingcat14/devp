@@ -3,6 +3,7 @@ package net.aicoder.devp.maintenance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.spring4all.swagger.EnableSwagger2Doc;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;
 import com.yunkang.saas.security.local.config.LocalSecurityAutoConfiguration;
 import net.aicoder.devp.maintenance.config.TypedApiResponseBodyHandler;
@@ -28,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 		,"net.aicoder.devp.deploy.client"})
 @EnableCircuitBreaker
 @EnableRedisHttpSession
+@EnableSwagger2Doc
 public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {

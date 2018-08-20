@@ -1,8 +1,8 @@
 Ext.define('AM.controller.maintenance.hardware.MachineController', {
     extend: 'Ext.app.Controller'
     ,init: function(application) {
-        // this.initPanel(application);
-        this.initMainPanel(application);
+        this.initPanel(application);
+        //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
         var center = application.getController('main.MainController').getMainContentPanel();

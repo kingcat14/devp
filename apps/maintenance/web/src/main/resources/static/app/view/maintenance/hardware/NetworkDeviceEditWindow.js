@@ -52,6 +52,16 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                             ,items:[
                                 ,{
                                     xtype: 'textfield'
+                                    ,hidden: true
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'etypeField'
+                                    ,name: 'etype'
+                                    ,fieldLabel: '元素类型'
+                                }
+                                ,{
+                                    xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
@@ -84,8 +94,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:true
-                                    ,allowBlank:false
-                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
                                     ,fieldLabel: '类型'
@@ -116,7 +126,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'displayName'
-                                    ,valueField:'value'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true

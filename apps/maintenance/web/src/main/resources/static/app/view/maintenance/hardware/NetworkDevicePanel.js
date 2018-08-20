@@ -58,12 +58,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'typeCode'
                             ,text: '类型'
                             
@@ -101,12 +95,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                             ,format: 'Y-m-d'
                             ,dataIndex: 'expireDate'
                             ,text: '到期时间'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'assetProject'
-                            ,text: '所属项目'
                             
                         }
                         ,{
@@ -150,12 +138,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'custUsage'
                             ,text: '使用情况'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'acquisitionProvider'
-                            ,text: '供应商'
                             ,flex:1
                         }
                         ,{
