@@ -143,6 +143,8 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeMainController', {
     ,addChildRecord:function(view, rowIndex, colIndex){
 
         var record = view.getStore().getAt(rowIndex);
+        this.lookupReference('assetTypeTree').getSelectionModel().deselectAll();
+
         var form = this.lookupReference('detailForm');
         var submitButton = this.lookupReference('submitButton');
         if (!record) {
