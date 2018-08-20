@@ -9,16 +9,18 @@ import java.util.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.validation.constraints.Size;
-
 
 @ApiModel(value = "查询网络设备使用的DTO")
 public class NetworkDeviceCondition extends SaaSCondition{
 
-    @ApiModelProperty(value = "元素类型", required = true)
-    private String etype;
-    @ApiModelProperty(value = "租户编号")
-    private Long tid;
+	@ApiModelProperty(value = "租户id")
+	private Long tid;
+	@ApiModelProperty(value = "租户id最大值")
+	private Long tidMax;
+	@ApiModelProperty(value = "租户id最小值")
+	private Long tidMin;
+	@ApiModelProperty(value = "元素类型")
+	private String etype;
 	@ApiModelProperty(value = "名称", notes = "[名称]-资产名称")
 	private String name;
 	@ApiModelProperty(value = "代码", notes = "[代码]-资产代码")
@@ -27,16 +29,14 @@ public class NetworkDeviceCondition extends SaaSCondition{
 	private String alias;
 	@ApiModelProperty(value = "描述", notes = "[描述]-资产描述")
 	private String description;
-	@ApiModelProperty(value = "类型代码", notes = "[类型代码]")
+	@ApiModelProperty(value = "类型", notes = "[类型代码]")
 	private String typeCode;
-	@ApiModelProperty(value = "类型名称", notes = "[类型名称]-冗余字段，方便显示")
-	private String typeName;
 	@ApiModelProperty(value = "硬件型号", notes = "[硬件型号]-硬件型号")
 	private String hardwareModel;
 	@ApiModelProperty(value = "软件型号", notes = "[软件型号]-软件型号,如：操作系统类型")
 	private String softwareModel;
 	@ApiModelProperty(value = "状态", notes = "[状态]-未到货,使用中,备用件,维修中,已借出,已报废")
-	private String statusCode;
+	private String status;
 	@ApiModelProperty(value = "创建时间", notes = "[创建时间]-启用时间(产品首次上线时间)")
 	private Date createDate;
 	@ApiModelProperty(value = "起始创建时间")
@@ -104,22 +104,38 @@ public class NetworkDeviceCondition extends SaaSCondition{
 	@ApiModelProperty(value = "供应商")
 	private String acquisitionProvider;
 
-    public Long getTid() {
-        return tid;
-    }
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+
+	public Long getTidMin(){
+		return tidMin;
+	}
+	public void setTidMin(Long tidMin) {
+		this.tidMin = tidMin;
+	}
+
+	public Long getTidMax(){
+		return tidMax;
+	}
+	public void setTidMax(Long tidMax) {
+		this.tidMax = tidMax;
+	}
 
 
-    public String getEtype() {
-        return etype;
-    }
-    public void setEtype(String etype) {
-        this.etype = etype;
-    }
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
+	}
 
-    public String getName(){
+
+	public String getName(){
 		return name;
 	}
 	public void setName(String name) {
@@ -159,14 +175,6 @@ public class NetworkDeviceCondition extends SaaSCondition{
 	}
 
 
-	public String getTypeName(){
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-
-
 	public String getHardwareModel(){
 		return hardwareModel;
 	}
@@ -183,11 +191,11 @@ public class NetworkDeviceCondition extends SaaSCondition{
 	}
 
 
-	public String getStatusCode(){
-		return statusCode;
+	public String getStatus(){
+		return status;
 	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

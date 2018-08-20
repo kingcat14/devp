@@ -29,18 +29,14 @@ public class BusinessSoftwareCondition extends SaaSCondition{
 	private String alias;
 	@ApiModelProperty(value = "描述", notes = "[描述]-资产描述")
 	private String description;
-	@ApiModelProperty(value = "类型代码", notes = "[类型代码]")
-	private String typeCodeCode;
-	@ApiModelProperty(value = "类型名称", notes = "[类型名称]-冗余字段，方便显示")
-	private String typeName;
+	@ApiModelProperty(value = "类型", notes = "[类型代码]")
+	private String typeCode;
 	@ApiModelProperty(value = "硬件型号", notes = "[硬件型号]-硬件型号")
 	private String hardwareModel;
 	@ApiModelProperty(value = "软件型号", notes = "[软件型号]-软件型号,如：操作系统类型")
 	private String softwareModel;
-	@ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
-	private String version;
 	@ApiModelProperty(value = "状态", notes = "[状态]-未到货,使用中,备用件,维修中,已借出,已报废")
-	private String statusCode;
+	private String status;
 	@ApiModelProperty(value = "创建时间", notes = "[创建时间]-启用时间(产品首次上线时间)")
 	private Date createDate;
 	@ApiModelProperty(value = "起始创建时间")
@@ -103,8 +99,6 @@ public class BusinessSoftwareCondition extends SaaSCondition{
 	private Long prdRidMax;
 	@ApiModelProperty(value = "关联产品记录编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "参数定义标识", notes = "[参数定义标识]-扩展参数定义的标识")
-	private String parasCode;
 	@ApiModelProperty(value = "供应商")
 	private String acquisitionProvider;
 
@@ -171,19 +165,11 @@ public class BusinessSoftwareCondition extends SaaSCondition{
 	}
 
 
-	public String getTypeCodeCode(){
-		return typeCodeCode;
+	public String getTypeCode(){
+		return typeCode;
 	}
-	public void setTypeCodeCode(String typeCodeCode) {
-		this.typeCodeCode = typeCodeCode;
-	}
-
-
-	public String getTypeName(){
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
 	}
 
 
@@ -203,19 +189,11 @@ public class BusinessSoftwareCondition extends SaaSCondition{
 	}
 
 
-	public String getVersion(){
-		return version;
+	public String getStatus(){
+		return status;
 	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-
-	public String getStatusCode(){
-		return statusCode;
-	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
@@ -450,14 +428,6 @@ public class BusinessSoftwareCondition extends SaaSCondition{
 	}
 	public void setPrdRidMax(Long prdRidMax) {
 		this.prdRidMax = prdRidMax;
-	}
-
-
-	public String getParasCode(){
-		return parasCode;
-	}
-	public void setParasCode(String parasCode) {
-		this.parasCode = parasCode;
 	}
 
 

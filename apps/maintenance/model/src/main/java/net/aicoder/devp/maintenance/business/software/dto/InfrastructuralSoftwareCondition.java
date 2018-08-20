@@ -19,7 +19,7 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-服务器主机ASSET_HOST, 网络设备ASSET_NETWORK, 基础软件ASSET_INFRA_SW, 服务及许可ASSET_SVC_LIC, 业务软件ASSET_BIZ_SW, 其它ASSET_OTHERS")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-服务器主机ASSET_HOST,网络设备ASSET_NETWORK,基础软件ASSET_INFRA_SW,服务及许可ASSET_SVC_LIC,业务软件ASSET_BIZ_SW,其它ASSET_OTHERS ")
 	private String etype;
 	@ApiModelProperty(value = "名称", notes = "[名称]-资产名称")
 	private String name;
@@ -29,18 +29,14 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	private String alias;
 	@ApiModelProperty(value = "描述", notes = "[描述]-资产描述")
 	private String description;
-	@ApiModelProperty(value = "类型代码", notes = "[类型代码]")
+	@ApiModelProperty(value = "类型", notes = "[类型代码]")
 	private String typeCode;
-	@ApiModelProperty(value = "类型名称", notes = "[类型名称]-冗余字段，方便显示")
-	private String typeName;
 	@ApiModelProperty(value = "硬件型号", notes = "[硬件型号]-硬件型号")
 	private String hardwareModel;
 	@ApiModelProperty(value = "软件型号", notes = "[软件型号]-软件型号,如：操作系统类型")
 	private String softwareModel;
-	@ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
-	private String version;
 	@ApiModelProperty(value = "状态", notes = "[状态]-未到货,使用中,备用件,维修中,已借出,已报废")
-	private String statusCode;
+	private String status;
 	@ApiModelProperty(value = "创建时间", notes = "[创建时间]-启用时间(产品首次上线时间)")
 	private Date createDate;
 	@ApiModelProperty(value = "起始创建时间")
@@ -97,14 +93,14 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	private String custUsage;
 	@ApiModelProperty(value = "备注", notes = "[备注]")
 	private String notes;
+	@ApiModelProperty(value = "关联产品记录编号", notes = "[关联产品记录编号]")
+	private Long prdRid;
+	@ApiModelProperty(value = "关联产品记录编号最大值")
+	private Long prdRidMax;
+	@ApiModelProperty(value = "关联产品记录编号最小值")
+	private Long prdRidMin;
 	@ApiModelProperty(value = "供应商")
 	private String acquisitionProvider;
-	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
-	private Integer recordState;
-	@ApiModelProperty(value = "记录状态最大值")
-	private Integer recordStateMax;
-	@ApiModelProperty(value = "记录状态最小值")
-	private Integer recordStateMin;
 
 
 	public Long getTid(){
@@ -177,14 +173,6 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	}
 
 
-	public String getTypeName(){
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-
-
 	public String getHardwareModel(){
 		return hardwareModel;
 	}
@@ -201,19 +189,11 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	}
 
 
-	public String getVersion(){
-		return version;
+	public String getStatus(){
+		return status;
 	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-
-	public String getStatusCode(){
-		return statusCode;
-	}
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
@@ -429,33 +409,33 @@ public class InfrastructuralSoftwareCondition extends SaaSCondition{
 	}
 
 
+	public Long getPrdRid(){
+		return prdRid;
+	}
+	public void setPrdRid(Long prdRid) {
+		this.prdRid = prdRid;
+	}
+
+	public Long getPrdRidMin(){
+		return prdRidMin;
+	}
+	public void setPrdRidMin(Long prdRidMin) {
+		this.prdRidMin = prdRidMin;
+	}
+
+	public Long getPrdRidMax(){
+		return prdRidMax;
+	}
+	public void setPrdRidMax(Long prdRidMax) {
+		this.prdRidMax = prdRidMax;
+	}
+
+
 	public String getAcquisitionProvider(){
 		return acquisitionProvider;
 	}
 	public void setAcquisitionProvider(String acquisitionProvider) {
 		this.acquisitionProvider = acquisitionProvider;
-	}
-
-
-	public Integer getRecordState(){
-		return recordState;
-	}
-	public void setRecordState(Integer recordState) {
-		this.recordState = recordState;
-	}
-
-	public Integer getRecordStateMin(){
-		return recordStateMin;
-	}
-	public void setRecordStateMin(Integer recordStateMin) {
-		this.recordStateMin = recordStateMin;
-	}
-
-	public Integer getRecordStateMax(){
-		return recordStateMax;
-	}
-	public void setRecordStateMax(Integer recordStateMax) {
-		this.recordStateMax = recordStateMax;
 	}
 
 
