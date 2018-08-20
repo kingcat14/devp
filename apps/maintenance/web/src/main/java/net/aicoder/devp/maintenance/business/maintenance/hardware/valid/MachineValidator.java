@@ -70,9 +70,6 @@ public class MachineValidator implements Validator {
 		if(StringUtils.length(machine.getAlias()) > 255){
 			errors.rejectValue("alias", null, "别名最长255个字符");
 		}
-		if(StringUtils.length(machine.getTypeCode()) > 255){
-			errors.rejectValue("typeCode", null, "类型代码最长255个字符");
-		}
 		if(StringUtils.length(machine.getHardwareModel()) > 255){
 			errors.rejectValue("hardwareModel", null, "硬件型号最长255个字符");
 		}

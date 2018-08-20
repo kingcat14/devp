@@ -208,11 +208,11 @@ public class MachineAddDto {
 	}
 
 	public String getTypeCode(){
-		return typeCode;
-	}
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
+        return typeCode;
+    }
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
 	public String getHardwareModel(){
 		return hardwareModel;

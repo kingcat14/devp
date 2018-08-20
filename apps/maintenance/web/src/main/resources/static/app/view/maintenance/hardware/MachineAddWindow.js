@@ -3,6 +3,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
     ,xtype: 'maintenance.hardware.MachineAddWindow'
     ,requires:[
         'AM.store.application.common.SimpleConfigStore'
+        ,'AM.store.maintenance.asset.info.AssetTypeStore'
 
     ]
     ,autoScroll: true
@@ -102,9 +103,14 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
 
 
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition()
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
@@ -557,7 +563,6 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
-        model.set('typeCode',this.down('#typeCodeField').getValue());
         this.down('form').getForm().loadRecord(model);
 
         this.down('#fileuploadpanel-attachment').reset(model);

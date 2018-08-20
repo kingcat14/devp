@@ -2,6 +2,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.hardware.MachineEditWindow'
     ,requires:[
+        'AM.store.maintenance.asset.info.AssetTypeStore'
     ],
     autoScroll: true,
     height: '60%',
@@ -91,9 +92,14 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                                     ,fieldLabel: '别名'
                                 }
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'

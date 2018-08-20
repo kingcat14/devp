@@ -78,7 +78,6 @@ Ext.define('AM.view.maintenance.hardware.MachineController', {
     ,onExportButtonClick: function(button, e, options) {
 
         var me = this;
-
         var searchWindow = me.lookupReference('mainSearchWindow');
         var condition = searchWindow.getCondition();
         if(!condition){

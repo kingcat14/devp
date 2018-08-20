@@ -29,8 +29,8 @@ public class MachineCondition extends SaaSCondition{
 	private String alias;
 	@ApiModelProperty(value = "描述", notes = "[描述]-资产描述")
 	private String description;
-	@ApiModelProperty(value = "类型代码", notes = "[类型代码]")
-	private String typeCode;
+    @ApiModelProperty(value = "类型代码", notes = "[类型代码]")
+    private String typeCode;
 	@ApiModelProperty(value = "硬件型号", notes = "[硬件型号]-硬件型号")
 	private String hardwareModel;
 	@ApiModelProperty(value = "软件型号", notes = "[软件型号]-软件型号,如：操作系统类型")
@@ -173,12 +173,12 @@ public class MachineCondition extends SaaSCondition{
 	}
 
 
-	public String getTypeCode(){
-		return typeCode;
-	}
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
+    public String getTypeCode(){
+        return typeCode;
+    }
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
 
 	public String getHardwareModel(){
@@ -203,7 +203,6 @@ public class MachineCondition extends SaaSCondition{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public Date getCreateDate(){
 		return createDate;

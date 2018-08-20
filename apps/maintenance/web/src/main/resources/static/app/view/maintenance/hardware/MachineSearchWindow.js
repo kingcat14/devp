@@ -64,7 +64,12 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
                         }
 
                         ,{
-                            xtype: 'textfield'
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
                             ,itemId: 'typeCodeField'
                             ,fieldLabel: '类型代码'
                         }
@@ -389,6 +394,8 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
         var aliasField = me.down("#aliasField");
         var descriptionField = me.down("#descriptionField");
         var typeCodeField = me.down("#typeCodeField");
+        var typeCodeMaxField = me.down("#typeCodeMaxField");
+        var typeCodeMinField = me.down("#typeCodeMinField");
         var hardwareModelField = me.down("#hardwareModelField");
         var softwareModelField = me.down("#softwareModelField");
         var statusField = me.down("#statusField");

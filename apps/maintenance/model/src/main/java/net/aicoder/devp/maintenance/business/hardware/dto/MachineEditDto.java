@@ -18,11 +18,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class MachineEditDto {
 
 
-
 	/**元素类型*/
 	@ApiModelProperty(value = "元素类型", required = false, notes = "[元素类型]-服务器主机ASSET_HOST,网络设备ASSET_NETWORK,基础软件ASSET_INFRA_SW,服务及许可ASSET_SVC_LIC,业务软件ASSET_BIZ_SW,其它ASSET_OTHERS")
 	private String etype;
-
 
 
 	/**名称*/
@@ -30,11 +28,9 @@ public class MachineEditDto {
 	private String name;
 
 
-
 	/**代码*/
 	@ApiModelProperty(value = "代码", required = false, notes = "[代码]-资产代码")
 	private String code;
-
 
 
 	/**别名*/
@@ -42,11 +38,9 @@ public class MachineEditDto {
 	private String alias;
 
 
-
 	/**描述*/
 	@ApiModelProperty(value = "描述", required = false, notes = "[描述]-资产描述")
 	private String description;
-
 
 
 	/**类型代码*/
@@ -54,11 +48,9 @@ public class MachineEditDto {
 	private String typeCode;
 
 
-
 	/**硬件型号*/
 	@ApiModelProperty(value = "硬件型号", required = false, notes = "[硬件型号]-硬件型号")
 	private String hardwareModel;
-
 
 
 	/**软件型号*/
@@ -66,11 +58,9 @@ public class MachineEditDto {
 	private String softwareModel;
 
 
-
 	/**状态*/
 	@ApiModelProperty(value = "状态", required = false, notes = "[状态]-未到货,使用中,备用件,维修中,已借出,已报废")
     private String status;
-
 
 
 	/**创建时间*/
@@ -79,12 +69,10 @@ public class MachineEditDto {
 	private Date createDate;
 
 
-
 	/**到期时间*/
 	@ApiModelProperty(value = "到期时间", required = false, notes = "[到期时间]-到期或报废时间")
 	@Temporal(TemporalType.DATE)
 	private Date expireDate;
-
 
 
 	/**所属项目*/
@@ -92,11 +80,9 @@ public class MachineEditDto {
 	private String assetProject;
 
 
-
 	/**所属区域*/
 	@ApiModelProperty(value = "所属区域", required = false, notes = "[所属区域]")
 	private String assetArea;
-
 
 
 	/**资产位置*/
@@ -104,11 +90,9 @@ public class MachineEditDto {
 	private String assetLocation;
 
 
-
 	/**内部访问地址*/
 	@ApiModelProperty(value = "内部访问地址", required = false, notes = "[内部访问地址]-内部访问地址，如：内网IP")
 	private String intAccessAddr;
-
 
 
 	/**外部访问地址*/
@@ -116,11 +100,9 @@ public class MachineEditDto {
 	private String extAccessAddr;
 
 
-
 	/**获取方式*/
 	@ApiModelProperty(value = "获取方式", required = false, notes = "[获取方式]-自主开发,外包开发,联合开发,产品采购,产品租用,其它")
 	private String acquisitionMode;
-
 
 
 	/**获取方式说明*/
@@ -128,11 +110,9 @@ public class MachineEditDto {
 	private String acquisitionDesc;
 
 
-
 	/**归属部门*/
 	@ApiModelProperty(value = "归属部门", required = false, notes = "[归属部门]")
 	private String assetDept;
-
 
 
 	/**资产负责人*/
@@ -140,11 +120,9 @@ public class MachineEditDto {
 	private String assetManager;
 
 
-
 	/**使用部门*/
 	@ApiModelProperty(value = "使用部门", required = false, notes = "[使用部门]")
 	private String useDept;
-
 
 
 	/**使用负责人*/
@@ -152,11 +130,9 @@ public class MachineEditDto {
 	private String useManager;
 
 
-
 	/**维护部门*/
 	@ApiModelProperty(value = "维护部门", required = false, notes = "[维护部门]")
 	private String opsDept;
-
 
 
 	/**维护负责人*/
@@ -164,17 +140,14 @@ public class MachineEditDto {
 	private String opsManager;
 
 
-
 	/**业务线*/
 	@ApiModelProperty(value = "业务线", required = false, notes = "[业务线]")
 	private String bizLine;
 
 
-
 	/**业务代表*/
 	@ApiModelProperty(value = "业务代表", required = false, notes = "[业务代表]")
 	private String bizManager;
-
 
 
 	/**启用时间*/
@@ -183,11 +156,9 @@ public class MachineEditDto {
 	private Date goliveDate;
 
 
-
 	/**主要客户*/
 	@ApiModelProperty(value = "主要客户", required = false, notes = "[主要客户]")
 	private String majorCust;
-
 
 
 	/**客户代表*/
@@ -195,11 +166,9 @@ public class MachineEditDto {
 	private String custManager;
 
 
-
 	/**使用情况*/
 	@ApiModelProperty(value = "使用情况", required = false, notes = "[使用情况]-客户使用情况，如客户流量、使用频度等")
 	private String custUsage;
-
 
 
 	/**备注*/
@@ -207,11 +176,9 @@ public class MachineEditDto {
 	private String notes;
 
 
-
 	/**关联产品记录编号*/
 	@ApiModelProperty(value = "关联产品记录编号", required = false, notes = "[关联产品记录编号]")
 	private Long prdRid;
-
 
 
 	/**参数定义标识*/
@@ -219,12 +186,9 @@ public class MachineEditDto {
 	private String parasCode;
 
 
-
 	/**供应商*/
 	@ApiModelProperty(value = "供应商", required = false)
 	private String acquisitionProvider;
-
-
 
 
 
@@ -276,11 +240,11 @@ public class MachineEditDto {
 
 
 	public String getTypeCode(){
-		return typeCode;
-	}
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
-	}
+        return typeCode;
+    }
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
 
 	public String getHardwareModel(){

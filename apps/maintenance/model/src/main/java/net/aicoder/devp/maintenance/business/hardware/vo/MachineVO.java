@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
 import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
+import net.aicoder.devp.maintenance.business.asset.info.vo.AssetTypeVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -45,6 +46,7 @@ public class MachineVO {
     /**类型代码*/
     @ApiModelProperty(value = "类型代码", notes = "[类型代码]")
     private String typeCode;
+    private AssetTypeVO typeCodeVO;
 
 
     /**硬件型号*/
@@ -219,6 +221,12 @@ public class MachineVO {
     }
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
+    }
+    public AssetTypeVO getTypeCodeVO(){
+        return typeCodeVO;
+    }
+    public void setTypeCodeVO(AssetTypeVO typeCodeVO) {
+        this.typeCodeVO = typeCodeVO;
     }
 
     public String getHardwareModel(){
