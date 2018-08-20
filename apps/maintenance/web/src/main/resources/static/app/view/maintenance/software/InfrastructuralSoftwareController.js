@@ -75,6 +75,32 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareController', {
         searchWindow.onSearchButtonClick();
 
     }
+    ,onExportButtonClick: function(button, e, options) {
+
+        var me = this;
+        var searchWindow = me.lookupReference('mainSearchWindow');
+        var condition = searchWindow.getCondition();
+        if(!condition){
+            condition = {searchCondition:{}};
+        }
+        if (!Ext.fly('formFly')) {
+            var frm = document.createElement('form');
+            frm.id = 'formFly';
+            frm.className = 'x-hidden';
+            document.body.appendChild(frm);
+        }
+        console.log(condition)
+        Ext.Ajax.request({
+            disableCaching: true
+            ,url: "software/infrastructuralSoftware/export"
+            ,method: "POST"
+            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
+            ,params:condition
+            ,isUpload: true
+            ,form: Ext.fly('formFly')
+        });
+
+    }
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
         var addWindow = me.lookupReference('mainAddWindow');

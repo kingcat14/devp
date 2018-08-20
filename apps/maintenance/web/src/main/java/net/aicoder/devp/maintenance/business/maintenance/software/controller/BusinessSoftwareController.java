@@ -1,6 +1,7 @@
 package net.aicoder.devp.maintenance.business.maintenance.software.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -61,6 +62,7 @@ public class BusinessSoftwareController {
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(businessSoftwareValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
@@ -179,10 +181,9 @@ public class BusinessSoftwareController {
             headMap.put("code" ,"代码");
             headMap.put("alias" ,"别名");
             headMap.put("description" ,"描述");
-            headMap.put("typeCode" ,"类型代码");
+            headMap.put("typeCode" ,"类型");
             headMap.put("hardwareModel" ,"硬件型号");
             headMap.put("softwareModel" ,"软件型号");
-            headMap.put("version" ,"版本");
             headMap.put("status" ,"状态");
             headMap.put("createDate" ,"创建时间");
             headMap.put("expireDate" ,"到期时间");
@@ -208,9 +209,9 @@ public class BusinessSoftwareController {
             headMap.put("notes" ,"备注");
             headMap.put("acquisitionProvider" ,"供应商");
 
-        String title = new String("应用软件_".getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title + DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date()), headMap, jsonArray, response);
-
+        String title = new String("应用软件");
+        String fileName = new String(("应用软件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
 
     }
 
@@ -219,15 +220,7 @@ public class BusinessSoftwareController {
 
 	   
 
-		SimpleConfig typeCodeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("ASSET-CMDB-TYPECODE", vo.getTypeCode());
-
-		if(typeCodeSimpleConfig!=null) {
-
-		    SimpleConfigVO typeCodeSimpleConfigVO = new SimpleConfigVO();
-		    BeanUtils.copyProperties(typeCodeSimpleConfig, typeCodeSimpleConfigVO);
-		    vo.setTypeCodeVO(typeCodeSimpleConfigVO);
-		}
-		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("MACHINE-STATUS", vo.getStatus());
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("BUSINESSSOFTWARE-STATUS", vo.getStatus());
 
 		if(statusSimpleConfig!=null) {
 

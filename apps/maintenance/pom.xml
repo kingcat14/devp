@@ -33,17 +33,7 @@
             </dependency>
             <dependency>
                 <groupId>net.aicoder.devp.maintenance</groupId>
-                <artifactId>maintenance-config</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.aicoder.devp.maintenance</groupId>
-                <artifactId>maintenance-rdc</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.aicoder.devp.maintenance</groupId>
-                <artifactId>maintenance-asset</artifactId>
+                <artifactId>maintenance-business</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -98,11 +88,9 @@
             </properties>
             <modules>
                 <module>web</module>
-                <module>config</module>
-                <module>rdc</module>
                 <module>model</module>
                 <module>client</module>
-                <module>asset</module>
+                <module>business</module>
             </modules>
         </profile>
     </profiles>

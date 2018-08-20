@@ -22,9 +22,9 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
 
         var assetTreeStore = Ext.create('Ext.data.TreeStore', {autoLoad:false, model:'AM.model.maintenance.asset.info.AssetTypeTreeNode', nodeParam:'id'});
 
-		var machineStore = Ext.create('AM.store.maintenance.hardware.MachineStore');
-		machineStore.proxy.extraParams={searchCondition:{}};
-		machineStore.load();
+		// var machineStore = Ext.create('AM.store.maintenance.hardware.MachineStore');
+		// machineStore.proxy.extraParams={searchCondition:{}};
+		// machineStore.load();
 
 	    Ext.apply(me, {
 		    items: [
@@ -61,7 +61,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                     ]
                     ,listeners: {
                         itemclick: 'onTreepanelItemClick'
-                        //,afterrender: 'loadTypeTree'
+                        ,afterrender: 'loadTypeTree'
                     }
 
                 }
@@ -76,7 +76,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                             ,itemId: 'ASSET_HOST_GRID'
                             // ,frame: true
                             ,reference: 'ASSET_HOST_GRID'
-                            ,store: machineStore
+                            // ,store: machineStore
                         }
                         ,{
                             xtype: 'maintenance.hardware.NetworkDevicePanel'

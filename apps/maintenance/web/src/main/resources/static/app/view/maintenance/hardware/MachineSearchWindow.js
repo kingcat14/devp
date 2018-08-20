@@ -375,9 +375,8 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
     }
     ,onRestButtonClick: function (button, e, options) {
         var me = this;
-        var typeCode = this.down('#typeCodeField').getValue()
         me.down('form').getForm().reset();
-        this.down('#typeCodeField').setValue(typeCode)
+
         me.fireEvent('saved');
 
 

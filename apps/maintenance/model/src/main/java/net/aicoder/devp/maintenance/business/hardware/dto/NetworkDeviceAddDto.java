@@ -10,8 +10,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
-
 /**
  * 网络设备
  * @author icode
@@ -19,53 +17,40 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增网络设备使用的DTO")
 public class NetworkDeviceAddDto {
 
-	/**租户编号*/
-	@ApiModelProperty(value = "租户编号", required = true)
+    /**租户id*/
+	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
 
     /**元素类型*/
 	@ApiModelProperty(value = "元素类型", required = false)
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
     /**名称*/
-	@NotNull(message = "名称不能为空")
-	@ApiModelProperty(value = "名称", required = true, notes = "[名称]-资产名称")
-	@Size(max = 255, message = "名称超长，最多255个字符")
+	@ApiModelProperty(value = "名称", required = false, notes = "[名称]-资产名称")
 	private String name;
 
     /**代码*/
 	@ApiModelProperty(value = "代码", required = false, notes = "[代码]-资产代码")
-	@Size(max = 255, message = "代码超长，最多255个字符")
 	private String code;
 
     /**别名*/
 	@ApiModelProperty(value = "别名", required = false, notes = "[别名]-资产别名")
-	@Size(max = 255, message = "别名超长，最多255个字符")
 	private String alias;
 
     /**描述*/
 	@ApiModelProperty(value = "描述", required = false, notes = "[描述]-资产描述")
 	private String description;
 
-    /**类型代码*/
-	@ApiModelProperty(value = "类型代码", required = false, notes = "[类型代码]")
-	@Size(max = 255, message = "类型代码超长，最多255个字符")
+    /**类型*/
+	@ApiModelProperty(value = "类型", required = true, notes = "[类型代码]")
 	private String typeCode;
-
-    /**类型名称*/
-	@ApiModelProperty(value = "类型名称", required = false, notes = "[类型名称]-冗余字段，方便显示")
-	@Size(max = 255, message = "类型名称超长，最多255个字符")
-	private String typeName;
 
     /**硬件型号*/
 	@ApiModelProperty(value = "硬件型号", required = false, notes = "[硬件型号]-硬件型号")
-	@Size(max = 255, message = "硬件型号超长，最多255个字符")
 	private String hardwareModel;
 
     /**软件型号*/
 	@ApiModelProperty(value = "软件型号", required = false, notes = "[软件型号]-软件型号,如：操作系统类型")
-	@Size(max = 255, message = "软件型号超长，最多255个字符")
 	private String softwareModel;
 
     /**状态*/
@@ -84,77 +69,62 @@ public class NetworkDeviceAddDto {
 
     /**所属项目*/
 	@ApiModelProperty(value = "所属项目", required = false, notes = "[所属项目]")
-	@Size(max = 255, message = "所属项目超长，最多255个字符")
 	private String assetProject;
 
     /**所属区域*/
 	@ApiModelProperty(value = "所属区域", required = false, notes = "[所属区域]")
-	@Size(max = 255, message = "所属区域超长，最多255个字符")
 	private String assetArea;
 
     /**资产位置*/
 	@ApiModelProperty(value = "资产位置", required = false, notes = "[资产位置]")
-	@Size(max = 255, message = "资产位置超长，最多255个字符")
 	private String assetLocation;
 
     /**内部访问地址*/
 	@ApiModelProperty(value = "内部访问地址", required = false, notes = "[内部访问地址]-内部访问地址，如：内网IP")
-	@Size(max = 255, message = "内部访问地址超长，最多255个字符")
 	private String intAccessAddr;
 
     /**外部访问地址*/
 	@ApiModelProperty(value = "外部访问地址", required = false, notes = "[外部访问地址]-外部访问地址，如：外网IP")
-	@Size(max = 255, message = "外部访问地址超长，最多255个字符")
 	private String extAccessAddr;
 
     /**获取方式*/
 	@ApiModelProperty(value = "获取方式", required = false, notes = "[获取方式]-自主开发,外包开发,联合开发,产品采购,产品租用,其它")
-	@Size(max = 255, message = "获取方式超长，最多255个字符")
 	private String acquisitionMode;
 
     /**获取方式说明*/
 	@ApiModelProperty(value = "获取方式说明", required = false, notes = "[获取方式说明]")
-	@Size(max = 255, message = "获取方式说明超长，最多255个字符")
 	private String acquisitionDesc;
 
     /**归属部门*/
 	@ApiModelProperty(value = "归属部门", required = false, notes = "[归属部门]")
-	@Size(max = 255, message = "归属部门超长，最多255个字符")
 	private String assetDept;
 
     /**资产负责人*/
 	@ApiModelProperty(value = "资产负责人", required = false, notes = "[资产负责人]")
-	@Size(max = 255, message = "资产负责人超长，最多255个字符")
 	private String assetManager;
 
     /**使用部门*/
 	@ApiModelProperty(value = "使用部门", required = false, notes = "[使用部门]")
-	@Size(max = 255, message = "使用部门超长，最多255个字符")
 	private String useDept;
 
     /**使用负责人*/
 	@ApiModelProperty(value = "使用负责人", required = false, notes = "[使用负责人]")
-	@Size(max = 255, message = "使用负责人超长，最多255个字符")
 	private String useManager;
 
     /**维护部门*/
 	@ApiModelProperty(value = "维护部门", required = false, notes = "[维护部门]")
-	@Size(max = 255, message = "维护部门超长，最多255个字符")
 	private String opsDept;
 
     /**维护负责人*/
 	@ApiModelProperty(value = "维护负责人", required = false, notes = "[维护负责人]")
-	@Size(max = 255, message = "维护负责人超长，最多255个字符")
 	private String opsManager;
 
     /**业务线*/
 	@ApiModelProperty(value = "业务线", required = false, notes = "[业务线]")
-	@Size(max = 255, message = "业务线超长，最多255个字符")
 	private String bizLine;
 
     /**业务代表*/
 	@ApiModelProperty(value = "业务代表", required = false, notes = "[业务代表]")
-	@Size(max = 255, message = "业务代表超长，最多255个字符")
 	private String bizManager;
 
     /**启用时间*/
@@ -164,22 +134,18 @@ public class NetworkDeviceAddDto {
 
     /**主要客户*/
 	@ApiModelProperty(value = "主要客户", required = false, notes = "[主要客户]")
-	@Size(max = 255, message = "主要客户超长，最多255个字符")
 	private String majorCust;
 
     /**客户代表*/
 	@ApiModelProperty(value = "客户代表", required = false, notes = "[客户代表]")
-	@Size(max = 255, message = "客户代表超长，最多255个字符")
 	private String custManager;
 
     /**使用情况*/
 	@ApiModelProperty(value = "使用情况", required = false, notes = "[使用情况]-客户使用情况，如客户流量、使用频度等")
-	@Size(max = 255, message = "使用情况超长，最多255个字符")
 	private String custUsage;
 
     /**备注*/
 	@ApiModelProperty(value = "备注", required = false, notes = "[备注]")
-	@Size(max = 255, message = "备注超长，最多255个字符")
 	private String notes;
 
     /**关联产品编号*/
@@ -188,15 +154,14 @@ public class NetworkDeviceAddDto {
 
     /**参数定义标识*/
 	@ApiModelProperty(value = "参数定义标识", required = false, notes = "[参数定义标识]-扩展参数定义的标识")
-	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
 	private String parasCode;
 
     /**供应商*/
 	@ApiModelProperty(value = "供应商", required = false)
-	@Size(max = 255, message = "供应商超长，最多255个字符")
 	private String acquisitionProvider;
 
-	public Long getTid() {
+
+	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
@@ -243,13 +208,6 @@ public class NetworkDeviceAddDto {
 	}
 	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
-	}
-
-	public String getTypeName(){
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
 	}
 
 	public String getHardwareModel(){

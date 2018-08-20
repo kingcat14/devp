@@ -1,6 +1,7 @@
 package net.aicoder.devp.maintenance.business.maintenance.hardware.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -61,6 +62,7 @@ public class MachineController {
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(machineValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**

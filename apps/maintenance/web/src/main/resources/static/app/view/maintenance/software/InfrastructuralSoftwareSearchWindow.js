@@ -13,11 +13,6 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
-        var infrastructuralSoftwareTypeCodeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
-        infrastructuralSoftwareTypeCodeStore.proxy.isSynchronous = true;
-        infrastructuralSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-TYPECODE'}};
-        infrastructuralSoftwareTypeCodeStore.load();
-
         var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
         infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-STATUS'}};
@@ -69,12 +64,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
                         }
 
                         ,{
-                            xtype: 'combobox'
-                            ,store: infrastructuralSoftwareTypeCodeStore
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'displayName'
-                            ,valueField:'value'
+                            xtype: 'textfield'
                             ,itemId: 'typeCodeField'
                             ,fieldLabel: '类型'
                         }

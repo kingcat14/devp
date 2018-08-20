@@ -32,8 +32,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                                 ,tooltip: '详情'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
-                                    me.getSelectionModel().deselectAll()
-                                    me.getSelectionModel().select(record)
+                                    grid.getSelectionModel().deselectAll()
+                                    grid.getSelectionModel().select(record)
                                     me.showDetailWindow(record, this);
                                 }
                             }]
@@ -238,10 +238,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                                     ,iconCls: 'search'
                                     ,text: '导出'
                                     ,listeners: {
-                                        click: {
-                                            fn: me.onExportButtonClick
-                                            ,scope: me
-                                        }
+                                        click: 'onExportButtonClick'
                                     }
                                 }
                             ]
@@ -274,51 +271,6 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
 
         me.callParent(arguments);
     }
-    ,onSimpleSearchButtonClick: function(button, e, options) {
-        var me = this;
-        var panel = options.scope;
-
-        var toolbar = this.down('toolbar')
-
-        var nameField = me.down("#nameField");
-        var codeField = me.down("#codeField");
-        var condition = {
-                    name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
-                    ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
-        };
-        this.store.proxy.extraParams = {searchCondition:condition};
-        this.store.load({
-            params:{
-                page:0
-            }
-        });
-    }
-
-    ,onExportButtonClick: function(button, e, options) {
-
-        var condition = this.store.proxy.extraParams;
-        if(!condition){
-            condition = {searchCondition:{}};
-        }
-        if (!Ext.fly('formFly')) {
-            var frm = document.createElement('form');
-            frm.id = 'formFly';
-            frm.className = 'x-hidden';
-            document.body.appendChild(frm);
-        }
-        console.log(condition)
-        Ext.Ajax.request({
-            disableCaching: true
-            ,url: "hardware/networkDevice/export"
-            ,method: "POST"
-            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
-            ,isUpload: true
-            ,form: Ext.fly('formFly')
-        });
-
-    }
-
 
     ,showDetailWindow: function(model, targetComponent) {
         var me = this;
@@ -327,30 +279,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
         detailWindow.show(targetComponent);
         return detailWindow;
     }
-    ,setStore: function(store) {
-        this.reconfigure(store);
-        this.down('pagingtoolbar').bindStore(store);
 
-        this.store=store;
-    }
     ,onBeforeShow:function(abstractcomponent, options) {
-	    this.store.reload({scope: this,callback: function(){}});
+	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
-    ,onPanelBeforeHide: function(abstractcomponent, options) {
-    	var me = this;
-
-    	if(me.searchWindow){
-    		me.searchWindow.hide();
-    	}
-    	if(me.detailWindow){
-    		me.detailWindow.hide();
-    	}
-    	if(me.editWindow){
-    		me.editWindow.hide();
-    	}
-    	if(me.addWindow){
-    		me.addWindow.hide();
-    	}
-    }
-
 });
