@@ -27,6 +27,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 	    Resource resource999 = new Resource();
+		resource999.setHidden(true);
 	    resource999.setId(999L);
 		resource999.setCode(999L);
 	    resource999.setParentCode(Resource.TOP_NODE_ID);
@@ -36,6 +37,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999);
 
 	    Resource resource999001 = new Resource();
+		resource999001.setHidden(true);
 	    resource999001.setId(999001L);
 		resource999001.setCode(999001L);
 	    resource999001.setParentCode(999L);
@@ -45,6 +47,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999001);
 
 	    Resource resource999001001 = new Resource();
+		resource999001001.setHidden(true);
 	    resource999001001.setId(999001001L);
 		resource999001001.setCode(999001001L);
 	    resource999001001.setParentCode(999001L);
@@ -55,6 +58,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999001001);
 
 	    Resource resource999001002 = new Resource();
+		resource999001002.setHidden(true);
 	    resource999001002.setId(999001002L);
 		resource999001002.setCode(999001002L);
 	    resource999001002.setParentCode(999001L);
@@ -65,6 +69,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999001002);
 
 	    Resource resource999001003 = new Resource();
+		resource999001003.setHidden(true);
 	    resource999001003.setId(999001003L);
 		resource999001003.setCode(999001003L);
 	    resource999001003.setParentCode(999001L);
@@ -75,6 +80,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999001003);
 
 	    Resource resource999002 = new Resource();
+		resource999002.setHidden(true);
 	    resource999002.setId(999002L);
 		resource999002.setCode(999002L);
 	    resource999002.setParentCode(999L);
@@ -84,6 +90,7 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    checkResource(resource999002);
 
 	    Resource resource999002001 = new Resource();
+		resource999002001.setHidden(true);
 	    resource999002001.setId(999002001L);
 		resource999002001.setCode(999002001L);
 	    resource999002001.setParentCode(999002L);

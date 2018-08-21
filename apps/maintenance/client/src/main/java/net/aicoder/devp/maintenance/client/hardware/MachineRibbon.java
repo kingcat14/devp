@@ -151,6 +151,7 @@ public class MachineRibbon {
         String url = "http://"+host+"/ops/devpOpsAssetCmdb/list";
         return restTemplate.postForObject(url, pageSearchRequest, MachinePageResult.class);
     }
+
     public MachinePageResult listFail(PageSearchRequest<MachineCondition> pageSearchRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
@@ -160,7 +161,4 @@ public class MachineRibbon {
         result.setMessage("系统繁忙，请稍后再试");
         return result;
     }
-
-
-
 }

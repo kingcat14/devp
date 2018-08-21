@@ -43,7 +43,7 @@ public class ResourceVO {
 
     /** 所属应用 */
     @ApiModelProperty(value = "所属应用")
-    private Long appId;
+    private String appCode;
     /**资源代码*/
     @ApiModelProperty(value = "资源代码")
     private Long code;
@@ -103,13 +103,12 @@ public class ResourceVO {
         this.id = id;
     }
 
-    public Long getAppId() {
-        return appId;
+    public String getAppCode() {
+        return appCode;
     }
-    public void setAppId(Long appId) {
-        this.appId = appId;
+    public void setAppCode(String appCode) {
+        this.appCode = appCode;
     }
-
 
     public Long getParentCode() {
         return parentCode;

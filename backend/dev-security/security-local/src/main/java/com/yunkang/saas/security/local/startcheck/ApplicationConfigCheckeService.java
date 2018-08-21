@@ -31,10 +31,10 @@ public class ApplicationConfigCheckeService implements CommandLineRunner {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfigCheckeService.class);
 
-	@Value("${sys.id:-1}")
-	private long sysId;
+	@Value("${application.code:-1}")
+	private String appCode;
 
-	@Value("${sys.displayName:未设置}")
+	@Value("${application.displayName:未设置}")
 	private String displayName;
 	@Autowired
     private AppService appService;
@@ -46,27 +46,17 @@ public class ApplicationConfigCheckeService implements CommandLineRunner {
 
     	//每个新应用, 都有个应用管理员
     	App app = new App();
-    	app.setId(sysId);
-		app.setCode(sysId+"");
+		app.setCode(appCode+"");
     	app.setName(displayName);
 		app.setVisible(false);
 		app.setOnBoardTime(new Date());
     	check(app);
 
 
-		Role role = new Role();
-		role.setId(sysId);
-		role.setName("应用管理员");
-		role.setTenantId(Constants.TENANT_ID_PLATFOMR);
-		role.setAppId(sysId);
-		role.setDescription("应用管理员");
-		check(role);
-
-
     }
     private void check(App target){
 	    LOGGER.info("[check]:{}", target);
-		App entity = appService.find(target.getId());
+		App entity = appService.findByCode(target.getCode());
     	if(entity == null){
 			appService.merge(target);
 	    }

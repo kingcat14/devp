@@ -74,7 +74,7 @@ public class ResourceManageController {
 	private List<ResourceTreeNode> getResourceTreeNodes(Resource parentResource) {
 		ResourceCondition condition = new ResourceCondition();
 		condition.setParentCode(parentResource.getCode());
-		condition.setAppId(parentResource.getAppId());
+		condition.setAppCode(parentResource.getAppCode());
 
 		List<Resource> resourceList = resourceService.findAll(condition);
 		LOGGER.info(resourceList.toString());
@@ -145,7 +145,7 @@ public class ResourceManageController {
 
 		Resource parentResource = new Resource();
 		parentResource.setCode(-1L);
-		parentResource.setAppId(app.getId());
+		parentResource.setAppCode(app.getCode());
 		return this.getResourceTreeNodes(parentResource);
 
 	}

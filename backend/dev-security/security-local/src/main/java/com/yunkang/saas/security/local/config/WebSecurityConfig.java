@@ -2,7 +2,6 @@ package com.yunkang.saas.security.local.config;
 
 
 import com.yunkang.saas.platform.config.PlatformConfig;
-import com.yunkang.saas.platform.config.ResourceConfig;
 import com.yunkang.saas.security.local.business.authorize.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -44,7 +43,7 @@ import java.io.IOException;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableJpaRepositories(basePackages = {"com.yunkang.saas.security"})
 @EntityScan({"com.yunkang.saas.security"})
-@Import({ResourceConfig.class, PlatformConfig.class})
+@Import({PlatformConfig.class})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //	@Autowired
@@ -52,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 	@Value("${security.basic.enabled:true}")
-	private boolean notInTest;
+	private boolean securityEnable;
 
 
 	@Override
@@ -66,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				,"/ext_*/**/*"
 		};
 
-		if(!notInTest){
+		if(!securityEnable){
 			String[] testMatchers = {"/security/login/authenticate", "/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
 					, "/**.html","/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js","/**/*.html"
 					, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"

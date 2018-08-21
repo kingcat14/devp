@@ -28,12 +28,7 @@
             </dependency>
             <dependency>
                 <groupId>net.aicoder.devp.product</groupId>
-                <artifactId>product-product</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.aicoder.devp.product</groupId>
-                <artifactId>product-sys</artifactId>
+                <artifactId>product-business</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -65,9 +60,8 @@
             <modules>
                 <module>model</module>
                 <module>web</module>
-                <module>product</module>
+                <module>business</module>
                 <module>client</module>
-                <module>sys</module>
             </modules>
         </profile>
         <profile>

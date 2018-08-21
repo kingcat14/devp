@@ -159,7 +159,7 @@ public class RoleController {
 			vo.setTenantVO(tenantVO);
 		}
 
-		App app = appService.find(role.getAppId());
+		App app = appService.findByCode(role.getAppCode());
 		if(app != null){
 			AppVO appVO = new AppVO();
 			BeanUtils.copyProperties(app, appVO);

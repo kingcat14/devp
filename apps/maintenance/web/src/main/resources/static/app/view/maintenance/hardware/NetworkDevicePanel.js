@@ -9,6 +9,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
         ,'AM.view.maintenance.hardware.NetworkDeviceEditWindow'
         ,'AM.view.maintenance.hardware.NetworkDeviceSearchWindow'
         ,'AM.view.maintenance.hardware.NetworkDeviceDetailWindow'
+        ,'AM.store.maintenance.hardware.NetworkDeviceStore'
     ]
     ,controller: 'maintenance.hardware.NetworkDeviceController'
     ,initComponent: function() {

@@ -31,10 +31,10 @@ Ext.define('AM.view.platform.platform.application.ApplicationPasswordDetailWindo
                     }
                     ,items: [
                         ,{
-                            itemId: 'appIdField'
+                            itemId: 'appCodeField'
                             ,padding: '5 0 0 5'
-                            ,name: 'appId'
-                            ,fieldLabel: '应用Id'
+                            ,name: 'appCode'
+                            ,fieldLabel: '应用代码'
                             ,renderer: function (value, field) {
 
                                 var record = me.down('form').getForm().getRecord();

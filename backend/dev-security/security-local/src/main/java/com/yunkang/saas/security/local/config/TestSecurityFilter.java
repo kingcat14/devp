@@ -21,7 +21,7 @@ import java.util.Collections;
 public class TestSecurityFilter implements Filter {
 
     @Value("${security.basic.enabled:true}")
-    private boolean notInTest;
+    private boolean securityEnabled;
 
     @Autowired
     private SecurityUtil securityUtil;
@@ -34,7 +34,7 @@ public class TestSecurityFilter implements Filter {
   
     @Override  
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if(!notInTest && securityUtil.getAccount() == null){
+        if(!securityEnabled && securityUtil.getAccount() == null){
             this.initTestAccount();
         }
         filterChain.doFilter(servletRequest, servletResponse);  

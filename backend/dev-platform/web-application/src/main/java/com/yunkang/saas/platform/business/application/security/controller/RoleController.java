@@ -132,7 +132,7 @@ public class RoleController {
 		if(pageSearchRequest.getSearchCondition() == null){
 			pageSearchRequest.setSearchCondition(new RoleCondition());
 		}
-		pageSearchRequest.getSearchCondition().setAppId(saaSUtil.getAppId());
+		pageSearchRequest.getSearchCondition().setAppCode(saaSUtil.getAppCode());
 		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
 
 		Page<Role> page = roleService.find(pageSearchRequest.getSearchCondition(), pageRequest);

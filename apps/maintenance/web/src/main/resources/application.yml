@@ -2,7 +2,7 @@ application:
   product: null #产品
   module: maintenance #模块
   name: web
-  id: 11202
+  code: 11202
 
 server:
   port: 11202

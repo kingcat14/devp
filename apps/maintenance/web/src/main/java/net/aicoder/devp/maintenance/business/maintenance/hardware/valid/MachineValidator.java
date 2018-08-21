@@ -3,12 +3,10 @@ package net.aicoder.devp.maintenance.business.maintenance.hardware.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.maintenance.business.hardware.dto.MachineAddDto;
-import net.aicoder.devp.maintenance.business.hardware.dto.MachineEditDto;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Service
 public class MachineValidator implements Validator {
@@ -33,6 +31,9 @@ public class MachineValidator implements Validator {
 	    if(obj instanceof MachineAddDto){
             this.validateAddDto((MachineAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+
+		}
 	}
 
 	/**

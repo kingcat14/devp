@@ -46,14 +46,13 @@ public class RoleResourceRelationManageController {
 	List<RoleResourceCheckTreeNode> getTree(
 			@RequestParam(required=true, value="id") Long id
 			,@RequestParam(required=true,value="roleId",defaultValue = "-1") Long roleId
-			,@RequestParam(required=true,value="appId",defaultValue = "-1") Long appId){
+			,@RequestParam(required=true,value="appCode",defaultValue = "-1") String appCode){
 
 		//不是根节点不处理
-
 		Resource parentResource = null;
 		if(id == -1){
 			parentResource = new Resource();
-			parentResource.setAppId(appId);
+			parentResource.setAppCode(appCode);
 		}else{
 			parentResource = resourceService.find(id);
 		}
@@ -64,7 +63,7 @@ public class RoleResourceRelationManageController {
 		 */
 		//1.
 		ResourceCondition resourceCondition = new ResourceCondition();
-		resourceCondition.setAppId(appId);
+		resourceCondition.setAppCode(appCode);
 		resourceCondition.setParentCode(parentResource.getParentCode());//如果是根节点，则会查询所有的子节点
 		List<Resource> resourceList = resourceService.findAll(resourceCondition);
 		//先排个序

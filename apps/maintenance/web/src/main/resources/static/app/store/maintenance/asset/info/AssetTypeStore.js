@@ -59,8 +59,10 @@ Ext.define('AM.store.maintenance.asset.info.AssetTypeStore', {
         operation.setPage(operation.getPage() - 1);
 
     }
-    ,applyCondition:function(){
-        return this;x
+    ,applyCondition:function(condition){
+        condition = condition || {}
+        this.proxy.setExtraParam("searchCondition", condition);
+        return this;
     }
 
 });

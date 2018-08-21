@@ -33,7 +33,7 @@ public class RoleVO {
     private TenantVO tenantVO;
 
     @ApiModelProperty(value = "应用")
-    private Long appId;
+    private String appCode;
     private AppVO appVO;
 
 
@@ -65,11 +65,11 @@ public class RoleVO {
         this.tenantVO = tenantVO;
     }
 
-    public Long getAppId() {
-        return appId;
+    public String getAppCode() {
+        return appCode;
     }
-    public void setAppId(Long appId) {
-        this.appId = appId;
+    public void setAppCode(String appCode) {
+        this.appCode = appCode;
     }
 
     public AppVO getAppVO() {

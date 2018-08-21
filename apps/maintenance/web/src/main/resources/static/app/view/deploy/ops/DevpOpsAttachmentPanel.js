@@ -4,6 +4,7 @@ Ext.define('AM.view.deploy.ops.DevpOpsAttachmentPanel', {
     ,title: '附件定义'
     ,requires: [
         'AM.view.deploy.ops.DevpOpsAttachmentController'
+        ,'AM.store.deploy.ops.DevpOpsAttachmentStore'
         ,'AM.view.deploy.ops.DevpOpsAttachmentAddWindow'
         ,'AM.view.deploy.ops.DevpOpsAttachmentEditWindow'
         ,'AM.view.deploy.ops.DevpOpsAttachmentSearchWindow'
@@ -14,7 +15,8 @@ Ext.define('AM.view.deploy.ops.DevpOpsAttachmentPanel', {
         var me = this;
 
         Ext.apply(me, {
-            columnLines: true
+            store:Ext.create('AM.store.deploy.ops.DevpOpsAttachmentStore', {autoLoad:true})
+            ,columnLines: true
             ,columns: [
                 {
                     xtype: 'gridcolumn'

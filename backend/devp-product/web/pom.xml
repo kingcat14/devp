@@ -18,11 +18,7 @@
         </dependency>
         <dependency>
             <groupId>net.aicoder.devp.product</groupId>
-            <artifactId>product-product</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.aicoder.devp.product</groupId>
-            <artifactId>product-sys</artifactId>
+            <artifactId>product-business</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

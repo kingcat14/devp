@@ -14,7 +14,7 @@ public class ResourceTreeNode extends ResourceVO {
 	public ResourceTreeNode(ResourceVO resource){
 
 		this.setId(resource.getId());
-		this.setAppId(resource.getAppId());
+		this.setAppCode(resource.getAppCode());
 		this.setName(resource.getName());
 		this.setCode(resource.getCode());
 		this.setUrl(resource.getUrl());
@@ -28,7 +28,7 @@ public class ResourceTreeNode extends ResourceVO {
 	public ResourceTreeNode(AppVO appVO){
 
 		this.setId(appVO.getId());
-		this.setAppId(appVO.getId());
+		this.setAppCode(appVO.getCode());
 		this.setName("(应用)"+appVO.getName());
 		this.setCode(-1L);
 		this.setUrl(null);

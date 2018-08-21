@@ -85,12 +85,6 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                             ,reference: 'ASSET_NETWORK_GRID'
                         }
                         ,{
-                            xtype: 'maintenance.hardware.NetworkDevicePanel'
-                            ,itemId: 'ASSET_NETWORK_GRID'
-                            // ,frame: true
-                            ,reference: 'ASSET_NETWORK_GRID'
-                        }
-                        ,{
                             xtype: 'maintenance.software.BusinessSoftwarePanel'
                             ,itemId: 'ASSET_BIZ_SW_GRID'
                             // ,frame: true

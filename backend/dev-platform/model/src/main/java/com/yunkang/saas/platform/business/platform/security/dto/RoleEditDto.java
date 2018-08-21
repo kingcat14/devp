@@ -44,7 +44,7 @@ public class RoleEditDto {
 	private Long tenantId;
 
 	@ApiModelProperty(value = "应用")
-	private Long appId;
+	private String appCode;
 
 
 	public String getName(){
@@ -75,11 +75,11 @@ public class RoleEditDto {
 		this.tenantId = tenantId;
 	}
 
-	public Long getAppId() {
-		return appId;
+	public String getAppCode() {
+		return appCode;
 	}
-	public void setAppId(Long appId) {
-		this.appId = appId;
+	public void setAppCode(String appCode) {
+		this.appCode = appCode;
 	}
 
 	@Override

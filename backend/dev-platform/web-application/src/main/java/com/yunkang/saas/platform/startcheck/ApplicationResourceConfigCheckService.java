@@ -22,15 +22,14 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	@Autowired
     private ResourceService resourceService;
 
-	@Value("${sys.id:-1}")
-	private Long appId;
+	@Value("${application.code:-1}")
+	private String appCode;
 
     @Override
     public void run(String... args) throws Exception {
 
 	    Resource resource998 = new Resource();
-	    resource998.setId(998L);
-		resource998.setAppId(appId);
+		resource998.setAppCode(appCode);
 		resource998.setCode(998L);
 	    resource998.setParentCode(Resource.TOP_NODE_ID);
 	    resource998.setName("系统管理");
@@ -39,8 +38,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	    checkResource(resource998);
 
 	    Resource resource998001 = new Resource();
-	    resource998001.setId(998001L);
-		resource998001.setAppId(appId);
+
+		resource998001.setAppCode(appCode);
 		resource998001.setCode(998001L);
 	    resource998001.setParentCode(998L);
 	    resource998001.setName("安全配置");
@@ -58,8 +57,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 //	    checkResource(resource998001001);
 
 	    Resource resource998001002 = new Resource();
-	    resource998001002.setId(998001002L);
-		resource998001002.setAppId(appId);
+
+		resource998001002.setAppCode(appCode);
 		resource998001002.setCode(998001002L);
 	    resource998001002.setParentCode(998001L);
 	    resource998001002.setName("角色管理");
@@ -69,8 +68,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	    checkResource(resource998001002);
 
 	    Resource resource998001003 = new Resource();
-	    resource998001003.setId(998001003L);
-		resource998001003.setAppId(appId);
+
+		resource998001003.setAppCode(appCode);
 		resource998001003.setCode(998001003L);
 	    resource998001003.setParentCode(998001L);
 	    resource998001003.setName("账号管理");
@@ -80,8 +79,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	    checkResource(resource998001003);
 
 	    Resource resource998002 = new Resource();
-	    resource998002.setId(998002L);
-		resource998002.setAppId(appId);
+
+		resource998002.setAppCode(appCode);
 		resource998002.setCode(998002L);
 	    resource998002.setParentCode(998L);
 	    resource998002.setName("参数配置");
@@ -90,8 +89,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	    checkResource(resource998002);
 
 	    Resource resource998002001 = new Resource();
-	    resource998002001.setId(998002001L);
-		resource998002001.setAppId(appId);
+
+		resource998002001.setAppCode(appCode);
 		resource998002001.setCode(998002001L);
 	    resource998002001.setParentCode(998002L);
 	    resource998002001.setName("业务参数配置");
@@ -100,12 +99,11 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 	    resource998002001.setOrderIndex(1);
 	    checkResource(resource998002001);
 
-
     }
 
     private void checkResource(Resource resource){
 	    LOGGER.info("[check resource]:{}", resource);
-    	Resource resource1 = resourceService.find(resource.getId());
+    	Resource resource1 = resourceService.findByCodeAndAppCode(resource);
     	if(resource1 == null){
     		resourceService.merge(resource);
 	    }

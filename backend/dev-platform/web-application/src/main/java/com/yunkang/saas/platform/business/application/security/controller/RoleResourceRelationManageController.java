@@ -62,7 +62,7 @@ public class RoleResourceRelationManageController {
 		Resource parentResource;
 		if(id == -1){
 			parentResource = new Resource();
-			parentResource.setAppId(saaSUtil.getAppId());
+			parentResource.setAppCode(saaSUtil.getAppCode());
 		}else{
 			parentResource = resourceService.find(id);
 		}
@@ -74,7 +74,7 @@ public class RoleResourceRelationManageController {
 		//1.
 		ResourceCondition resourceCondition = new ResourceCondition();
 		resourceCondition.setHidden(false);
-		resourceCondition.setAppId(saaSUtil.getAppId());
+		resourceCondition.setAppCode(saaSUtil.getAppCode());
 		resourceCondition.setParentCode(parentResource.getParentCode());//如果是根节点，则会查询所有的子节点
 		List<Resource> resourceList = resourceService.findAll(resourceCondition);
 		//先排个序

@@ -11,11 +11,6 @@ Ext.define('AM.controller.maintenance.hardware.MachineController', {
         if(!machinePanel){
             machinePanel = Ext.create('AM.view.maintenance.hardware.MachinePanel', {closable:true});
 
-            var machineStore = Ext.create('AM.store.maintenance.hardware.MachineStore');
-            machineStore.proxy.extraParams={searchCondition:{}};
-            machinePanel.setStore(machineStore);
-            machineStore.load();
-
             center.add(machinePanel);
             center.setActiveTab(machinePanel);
         }

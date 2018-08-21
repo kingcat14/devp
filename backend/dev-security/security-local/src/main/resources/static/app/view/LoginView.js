@@ -57,7 +57,8 @@ Ext.define('AM.view.LoginView', {
                             ,name: 'password'
                             ,emptyText: '请输入用户密码'
                             ,inputType: 'password'
-                        }]
+                        }
+                        ]
                         ,fbar: [
                             ,'->',{ xtype: 'button', text: '登录',listeners: {
                                     click: 'onLoginClick'

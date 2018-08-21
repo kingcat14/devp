@@ -73,7 +73,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
                             ,emptyText:'点击选择应用'
                             ,store: Ext.create("AM.store.platform.platform.application.AppStore", {autoLoad:true, pageSize: 1000})
                             ,displayField:'name'
-                            ,valueField:'id'
+                            ,valueField:'code'
                             ,itemId:'simpleSearchAppField'
                             ,queryMode:'local'
                             ,typeAhead: true
@@ -119,7 +119,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'appId'
+                            ,dataIndex: 'appCode'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("appVO")?record.get("appVO").name:'';
                             }
@@ -256,7 +256,7 @@ Ext.define('AM.view.platform.security.RolePanel', {
         var simpleSearchAppField = panel.down("#simpleSearchAppField");
 		var searchCondition = {name:simpleSearchField.getValue()
             ,tenantId:simpleSearchTenantField.getValue()
-            ,appId:simpleSearchAppField.getValue()
+            ,appCode:simpleSearchAppField.getValue()
 		}
 
 		this.store.proxy.extraParams={searchCondition:searchCondition};

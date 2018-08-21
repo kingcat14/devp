@@ -9,6 +9,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicensePanel', {
         ,'AM.view.maintenance.software.SoftwareLicenseEditWindow'
         ,'AM.view.maintenance.software.SoftwareLicenseSearchWindow'
         ,'AM.view.maintenance.software.SoftwareLicenseDetailWindow'
+        ,'AM.store.maintenance.software.SoftwareLicenseStore'
     ]
     ,controller: 'maintenance.software.SoftwareLicenseController'
     ,initComponent: function() {

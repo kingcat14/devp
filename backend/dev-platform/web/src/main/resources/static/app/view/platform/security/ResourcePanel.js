@@ -43,8 +43,10 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 							dock: 'top',
 							items: [
 								{
-									xtype: 'button',
-									handler: function(button, event) {
+									xtype: 'button'
+									,iconCls: 'add'
+									,text: '新增'
+									,handler: function(button, event) {
 
 										var grid = this.up('grid');
 
@@ -54,26 +56,25 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 										var tree = grid.previousSibling('treepanel');
 										var parentResource = tree.getSelectionModel( ).getLastSelected();
 										var parentCode = parentResource?parentResource.get('code'):-1;
-                                        var appId = parentResource?parentResource.get('appId'):-1;
+                                        var appCode = parentResource?parentResource.get('appCode'):-1;
 
 										// Create a model instance
 										var r = Ext.create('AM.model.platform.security.Resource', {
 											name: '<resource_name>'
                                             ,parentCode: parentCode
-                                            ,appId: appId
+                                            ,appCode: appCode
 											,orderIndex: 1
 											,type:'function'
 											// ,hidden:false
 
 										});
-										//r.save()
+
+										r.save()
 
 										grid.getStore().insert(grid.getStore().getCount(), r);
 										rowEditing.startEdit(r, 0);
                                         //grid.getStore().sync();
-									},
-									iconCls: 'add',
-									text: '新增'
+									}
 								},
 								{
 									xtype: 'button',
@@ -114,7 +115,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 							,dataIndex: 'code'
 							,text: 'CODE'
 							,editor: {
-								xtype: 'textfield'
+								xtype: 'numberfield'
 							}
 						},
 						{
@@ -224,14 +225,14 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 		}
 
 		var parentCode = record.get('code');
-        var appId = record.get('appId');
-		var condition = Ext.JSON.encode({parentCode:parentCode, appId:appId});
+        var appCode = record.get('appCode');
+		var condition = Ext.JSON.encode({parentCode:parentCode, appCode:appCode});
 		//this.resourceStore.proxy.setUrl ("platform/security/resource/rest/"+parentId);
 		// this.resourceStore.proxy.extraParams={condition:condition};
-		//this.resourceStore.proxy.extraParams={searchCondition:{parentCode:parentCode, appId:appId}};
+		//this.resourceStore.proxy.extraParams={searchCondition:{parentCode:parentCode, appCode:appCode}};
 		this.resourceStore.load({
             params:{
-                searchCondition:{parentCode:parentCode, appId:appId}
+                searchCondition:{parentCode:parentCode, appCode:appCode}
 			}
 
 		});
@@ -239,28 +240,30 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 	},
 
 	onGridpanelEdit: function(editor, e, options) {
+        var me = this;
 
-		var me = this;
-		this.resourceStore.sync({
-			success:function(){
-				Ext.MsgUtil.show('操作成功','保存资源信息成功');
+        me.resourceStore.sync({
+            success:function(){
+                Ext.MsgUtil.show('操作成功','保存资源信息成功');
 
-				var tree = me.down('treepanel');
+                var tree = me.down('treepanel');
 
-				var path = tree.getSelectionModel( ).getLastSelected().getPath();
+                var path = tree.getSelectionModel( ).getLastSelected().getPath();
 
-				tree.getStore().load({
-					callback:function(records, operation, success){
-						if(success){
-							Ext.MsgUtil.show('操作成功','同步资源树成功');
+                tree.getStore().load({
+                    callback:function(records, operation, success){
+                        if(success){
+                            Ext.MsgUtil.show('操作成功','同步资源树成功');
 
-							tree.selectPath(path);
-						}
+                            tree.selectPath(path);
+                        }
 
-					}
-				});
-			}
-		});
+                    }
+                });
+            }
+        });
+
+
 
 	},
 

@@ -38,7 +38,7 @@ Ext.define('AM.model.platform.security.Resource', {
             ,critical:true
         }
         ,{
-            name: 'appId'
+            name: 'appCode'
             ,type:'string'
             ,allowNull:false
             ,critical:true

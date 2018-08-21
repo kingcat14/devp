@@ -17,7 +17,7 @@ public class ResourceAddDto {
 
 	/** 所属应用 */
 	@ApiModelProperty(value = "所属应用")
-	private Long appId;
+	private String appCode;
 
     /**
 	 * 资源名
@@ -93,11 +93,11 @@ public class ResourceAddDto {
 		this.code = code;
 	}
 
-	public Long getAppId() {
-		return appId;
+	public String getAppCode() {
+		return appCode;
 	}
-	public void setAppId(Long appId) {
-		this.appId = appId;
+	public void setAppCode(String appCode) {
+		this.appCode = appCode;
 	}
 
 	public Long getParentCode() {

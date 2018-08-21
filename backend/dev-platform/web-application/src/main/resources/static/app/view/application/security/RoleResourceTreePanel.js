@@ -141,8 +141,13 @@ Ext.define('AM.view.application.security.RoleResourceTreePanel', {
 
     ,setRole : function(role){
         var me = this;me.show();
+        if(me.down('treepanel').getStore().isLoading()){
+            Ext.MsgUtil.show('角色加载中', '操作太快!');
+            return;
+        }
         me.role = role;
 		me.setTitle('为角色' + role.get('name') + '分配资源');
+
 
 		me.down('treepanel').getStore().proxy.extraParams={roleId:role.get('id')};
 		//me.down('treepanel').expandAll();
@@ -155,7 +160,7 @@ Ext.define('AM.view.application.security.RoleResourceTreePanel', {
 
 		me.down('treepanel').getStore().removeAll(true);
 		me.down('treepanel').getStore().setRoot({expanded: true, name:'Root', id: '-1'})
-		me.down('treepanel').expandAll();
+		// me.down('treepanel').expandAll();
 
 
 		// me.roleResourceRelationStore.proxy.extraParams={searchCondition:{"a":"123",roleId:role.get('id')}};
@@ -173,22 +178,4 @@ Ext.define('AM.view.application.security.RoleResourceTreePanel', {
 		// 	me.show();
 		// });
     }
-    ,aaa: function () {
-        var me = this;
-		me.roleResourceRelationStore.proxy.extraParams={searchCondition:{"a":"123",roleId:me.role.get('id')}};
-		me.roleResourceRelationStore.pageSize = 1000;
-
-		me.roleResourceRelationStore.load(function(records, operation, success) {
-			console.log("roleResourceRelationStore success");
-			me.roleResourceRelationStore.each(function(record){
-			    console.log("resourceId:"+record.get('resourceId'))
-				var resource = me.down('treepanel').getStore().getById(record.get('resourceId'));
-				console.log("resource name:"+resource.get("name"));
-				resource.set('checked', true);
-			});
-
-			me.show();
-		});
-	}
-
 });

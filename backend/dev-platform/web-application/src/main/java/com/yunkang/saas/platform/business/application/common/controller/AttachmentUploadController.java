@@ -5,6 +5,7 @@ package com.yunkang.saas.platform.business.application.common.controller;
 import com.yunkang.saas.platform.business.common.domain.Attachment;
 import com.yunkang.saas.platform.business.common.dto.FileIputResponse;
 import com.yunkang.saas.platform.business.common.service.AttachmentService;
+import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AttachmentUploadController {
 	@Autowired
 	private AttachmentService attachementService;
 
-	@Value("${UPLOAD.FILE.PATH:/Users/gonghongrui/studio/git_aicoder/devp/apps/maintenance/web/attachment}")
+	@Value("${application.uploadFilePath:/Users/gonghongrui/studio/git_aicoder/devp/apps/maintenance/web/attachment}")
 	public void setUploadPath(String uploadFilePath) {
 		uploadPath = uploadFilePath;
 	}

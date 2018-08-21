@@ -3,7 +3,7 @@ Ext.define('AM.view.main.MainContentPanel', {
     extend: 'Ext.tab.Panel',
     alias: 'widget.mainContentPanel',
 	requires:[
-
+        'AM.view.maintenance.asset.info.AssetCmdbPanel'
 	]
 	,defaults: {
 		//bodyPadding: 10,

@@ -45,22 +45,24 @@ Ext.define('AM.view.main.FunctionController', {
 	,alias: 'controller.main-Function',
 
 	loadFunctionTree: function () {
-
-		var myMask = new Ext.LoadMask(this.getView(), {msg:"Please wait..."});
-		myMask.show();
+		this.getView().mask();
+		// var myMask = new Ext.LoadMask(this.getView(), {msg:"Please wait..."});
+		// myMask.show();
 		Ext.Ajax.request({
 			url: 'security/login/getResource',
 			method: 'POST',
 			scope:this,
 			success:this.onSuccess,
-			failure: this.onFailure,
-			mask:myMask
+			failure: this.onFailure
+			// ,mask:myMask
 		});
 
 	}
 	,onFailure: function(response, opts) {
+
 		console.log('server-side failure with status code ' + response.status);
-		opts.mask.hide()
+		// opts.mask.hide()
+        this.getView().unmask();
 		if(401 == response.status){
             window.location="login.html";
 		}else {
@@ -69,7 +71,8 @@ Ext.define('AM.view.main.FunctionController', {
     }
 	,onSuccess: function (response, opts) {
 
-		opts.mask.hide()
+		// opts.mask.hide()
+        this.getView().unmask();
 		var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.application.security.ResourceTreeNode').getProxy().getReader().read(response);
 
 		var resourceList = resultSet.getRecords();
@@ -85,7 +88,8 @@ Ext.define('AM.view.main.FunctionController', {
 	,onReturn: function (options, success, response) {
 
 		if (success) {
-			options.mask.hide()
+			// options.mask.hide()
+            this.getView().unmask();
 			var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.application.security.ResourceTreeNode').getProxy().getReader().read(response);
 
 			var resourceList = resultSet.getRecords();

@@ -10,20 +10,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class SaaSUtil {
 
-    @Value("${sys.id:-1}")
-    private Long appId;
+    @Value("${application.code:-1}")
+    private String appCode;
 
     @Autowired(required = false)
     private SecurityUtil securityUtil;
+
+
+    @Autowired(required = true)
+    private ApplicationProperties applicationProperties;
 
     /**
      * 设置租户ID和应用ID
      * @param saaSEntity
      */
     public void fillSaaSEntity(SaaSEntity saaSEntity){
-
         Account account = securityUtil.getAccount();
-        saaSEntity.setAppId(appId);
         saaSEntity.setTenantId(account.getTenantId());
     }
 
@@ -31,13 +33,8 @@ public class SaaSUtil {
         return securityUtil.getAccount();
     }
 
-
-
-    public Long getAppId() {
-        return appId;
+    public String getAppCode() {
+        return applicationProperties.getCode();
     }
 
-    public void setAppId(Long appId) {
-        this.appId = appId;
-    }
 }

@@ -57,7 +57,6 @@ Ext.define('AM.store.maintenance.hardware.MachineStore', {
     ,beforeload :function(store, operation, eOpts ){
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
-
     }
 
 });

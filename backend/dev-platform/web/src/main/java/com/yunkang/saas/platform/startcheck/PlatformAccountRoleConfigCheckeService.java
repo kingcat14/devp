@@ -67,7 +67,6 @@ public class PlatformAccountRoleConfigCheckeService implements CommandLineRunner
 		accountPassword.setPassword(passwordEncoder.encode("123456"));
 		check(accountPassword);
 
-
 		AccountRoleRelation accountRoleRelation = new AccountRoleRelation();
 		accountRoleRelation.setAccountId(1L);
 		accountRoleRelation.setRoleId(1L);

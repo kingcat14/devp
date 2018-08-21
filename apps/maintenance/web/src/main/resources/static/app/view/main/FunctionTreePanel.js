@@ -4,6 +4,7 @@ Ext.define('AM.view.main.FunctionTreePanel', {
     extend: 'Ext.tree.Panel',
 	requires: [
         //'AM.store.security.AllResourceTreeStore'
+
 	],
     alias: 'widget.mainFunctionTreePanel',
     width: 150,

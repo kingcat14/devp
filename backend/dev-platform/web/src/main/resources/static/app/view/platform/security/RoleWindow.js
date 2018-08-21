@@ -83,13 +83,13 @@ Ext.define('AM.view.platform.security.RoleWindow', {
                                             typeAhead:false,
                                             editable:false,
                                             displayField:'name',
-                                            valueField:'id',
+                                            valueField:'code',
                                             allowBlank:false,
                                             afterLabelTextTpl: [
                                                 '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                                             ],
-                                            itemId: 'appIdField',
-                                            name: 'appId',
+                                            itemId: 'appCodeField',
+                                            name: 'appCode',
                                             fieldLabel: '所属应用'
 
                                         }

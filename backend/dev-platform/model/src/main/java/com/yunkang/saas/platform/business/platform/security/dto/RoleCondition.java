@@ -16,6 +16,7 @@ public class RoleCondition extends SaaSCondition {
 	private String name;
 	private String code;
 	private String description;
+	private String appCode;
 
 	public String getName(){
 		return name;
@@ -38,6 +39,12 @@ public class RoleCondition extends SaaSCondition {
 		this.description = description;
 	}
 
+	public String getAppCode() {
+		return appCode;
+	}
+	public void setAppCode(String appCode) {
+		this.appCode = appCode;
+	}
 
 	public Long getId() {
 		return id;

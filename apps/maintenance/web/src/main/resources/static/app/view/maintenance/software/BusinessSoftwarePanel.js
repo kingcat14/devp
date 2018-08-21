@@ -9,6 +9,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
         ,'AM.view.maintenance.software.BusinessSoftwareEditWindow'
         ,'AM.view.maintenance.software.BusinessSoftwareSearchWindow'
         ,'AM.view.maintenance.software.BusinessSoftwareDetailWindow'
+        ,'AM.store.maintenance.software.BusinessSoftwareStore'
     ]
     ,controller: 'maintenance.software.BusinessSoftwareController'
     ,initComponent: function() {

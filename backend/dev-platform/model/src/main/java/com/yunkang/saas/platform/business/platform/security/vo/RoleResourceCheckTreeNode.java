@@ -21,6 +21,7 @@ public class RoleResourceCheckTreeNode implements Serializable {
 	private Long parentCode;
 	private Long code;
 	protected boolean leaf;
+	protected boolean expanded;
 	protected List<RoleResourceCheckTreeNode> children;
 
 	/**
@@ -113,16 +114,25 @@ public class RoleResourceCheckTreeNode implements Serializable {
 		this.code = code;
 	}
 
+	public boolean isExpanded() {
+		return expanded;
+	}
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
+	}
+
 	public List<RoleResourceCheckTreeNode> getChildren() {
 		return children;
 	}
 	public void setChildren(List<RoleResourceCheckTreeNode> children) {
 		this.children = children;
+		this.expanded = true;
 	}
 	public void addChild(RoleResourceCheckTreeNode resource){
 		if(CollectionUtils.isEmpty(children)){
 			children = new ArrayList<>();
 		}
 		children.add(resource);
+		this.expanded = true;
 	}
 }

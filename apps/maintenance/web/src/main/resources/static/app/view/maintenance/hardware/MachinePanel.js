@@ -9,6 +9,7 @@ Ext.define('AM.view.maintenance.hardware.MachinePanel', {
         ,'AM.view.maintenance.hardware.MachineEditWindow'
         ,'AM.view.maintenance.hardware.MachineSearchWindow'
         ,'AM.view.maintenance.hardware.MachineDetailWindow'
+        ,'AM.store.maintenance.hardware.MachineStore'
     ]
     ,controller: 'maintenance.hardware.MachineController'
     ,initComponent: function() {

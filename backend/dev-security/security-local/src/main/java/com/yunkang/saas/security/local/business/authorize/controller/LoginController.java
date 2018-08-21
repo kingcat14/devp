@@ -120,7 +120,6 @@ public class LoginController {
 
 		return response;
 
-
 	}
 
 	/**
@@ -147,11 +146,6 @@ public class LoginController {
 
 		return ResourceUtil.convert(result);
 
-
 	}
-
-
-
-
 
 }

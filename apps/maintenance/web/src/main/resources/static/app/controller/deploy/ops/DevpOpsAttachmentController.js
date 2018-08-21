@@ -11,10 +11,10 @@ Ext.define('AM.controller.deploy.ops.DevpOpsAttachmentController', {
         if(!devpOpsAttachmentPanel){
             devpOpsAttachmentPanel = Ext.create('AM.view.deploy.ops.DevpOpsAttachmentPanel', {closable:true});
 
-            var devpOpsAttachmentStore = Ext.create('AM.store.deploy.ops.DevpOpsAttachmentStore');
-            devpOpsAttachmentStore.proxy.extraParams={searchCondition:{}};
-            devpOpsAttachmentPanel.setStore(devpOpsAttachmentStore);
-            devpOpsAttachmentStore.load();
+            // var devpOpsAttachmentStore = Ext.create('AM.store.deploy.ops.DevpOpsAttachmentStore');
+            // devpOpsAttachmentStore.proxy.extraParams={searchCondition:{}};
+            // devpOpsAttachmentPanel.setStore(devpOpsAttachmentStore);
+            // devpOpsAttachmentStore.load();
 
             center.add(devpOpsAttachmentPanel);
             center.setActiveTab(devpOpsAttachmentPanel);

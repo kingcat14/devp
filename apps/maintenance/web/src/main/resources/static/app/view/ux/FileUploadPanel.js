@@ -2,7 +2,7 @@ Ext.define('AM.view.ux.FileUploadPanel', {
     extend: 'Ext.grid.Panel'
     ,xtype: 'fileuploadpanel'
     // ,frame:true
-
+    ,requires:['AM.store.deploy.ops.DevpOpsAttachmentStore']
     ,initComponent: function() {
         var me = this;
 

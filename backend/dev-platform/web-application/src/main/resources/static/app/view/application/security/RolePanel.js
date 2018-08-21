@@ -46,7 +46,7 @@ Ext.define('AM.view.application.security.RolePanel', {
                                         view.getSelectionModel( ).select(record);
 
                                         me.down('applicationSecurityRoleResourceTreePanel').setRole(record);
-                                        me.down('applicationSecurityRoleResourceTreePanel').expand()
+                                        me.down('applicationSecurityRoleResourceTreePanel').show()
 
 										// if(!me.window){
 										// 	me.window = Ext.widget('applicationSecurityRoleResourceTreeWindow');
@@ -187,7 +187,7 @@ Ext.define('AM.view.application.security.RolePanel', {
                     	,region:'east'
 						,split:true
 						,collapsed: false
-						,collapsible: true
+						,collapsible: false
 						,width:400
                 }
 			],

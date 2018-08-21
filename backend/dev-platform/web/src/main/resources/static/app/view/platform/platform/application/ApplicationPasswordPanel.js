@@ -156,6 +156,17 @@ Ext.define('AM.view.platform.platform.application.ApplicationPasswordPanel', {
                                 }
                             }
                         }
+                        ,{
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '导出'
+                            ,listeners: {
+                                click: {
+                                    fn: me.onExportButtonClick
+                                    ,scope: me
+                                }
+                            }
+                        }
                     ]
                 },
                 {
@@ -203,6 +214,24 @@ Ext.define('AM.view.platform.platform.application.ApplicationPasswordPanel', {
                 page:0
             }
         });
+    }
+    ,onExportButtonClick: function(button, e, options) {
+
+        var condition = this.store.proxy.extraParams;
+        if(!condition){
+            condition = {searchCondition:{}};
+        }
+        console.log(condition)
+        Ext.Ajax.request({
+            disableCaching: true
+            ,url: "/test/ztBug/export"
+            ,method: "POST"
+            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
+            ,params:condition
+            ,isUpload: true
+            ,form: Ext.fly('formFly')
+        });
+
     }
 	,onAddButtonClick: function(button, e, options) {
 

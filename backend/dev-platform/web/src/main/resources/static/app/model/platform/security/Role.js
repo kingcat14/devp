@@ -30,7 +30,7 @@ Ext.define('AM.model.platform.security.Role', {
             ,critical:true
         }
         ,{
-            name: 'appId'
+            name: 'appCode'
             ,type:'string'
             ,allowNull:false
             ,critical:true

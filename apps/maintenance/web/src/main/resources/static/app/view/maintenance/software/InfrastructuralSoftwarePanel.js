@@ -9,6 +9,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
         ,'AM.view.maintenance.software.InfrastructuralSoftwareEditWindow'
         ,'AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow'
         ,'AM.view.maintenance.software.InfrastructuralSoftwareDetailWindow'
+        ,'AM.store.maintenance.software.InfrastructuralSoftwareStore'
     ]
     ,controller: 'maintenance.software.InfrastructuralSoftwareController'
     ,initComponent: function() {
