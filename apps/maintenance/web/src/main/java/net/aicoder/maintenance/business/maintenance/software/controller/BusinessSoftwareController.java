@@ -221,7 +221,7 @@ public class BusinessSoftwareController {
 
 	   
 
-		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("BUSINESSSOFTWARE-STATUS", vo.getStatus());
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("OPS_ASSET_STATUS", vo.getStatus());
 
 		if(statusSimpleConfig!=null) {
 

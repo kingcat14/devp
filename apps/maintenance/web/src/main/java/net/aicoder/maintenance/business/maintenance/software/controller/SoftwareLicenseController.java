@@ -219,7 +219,7 @@ public class SoftwareLicenseController {
 
 	   
 
-		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("SOFTWARELICENSE-STATUS", vo.getStatus());
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("OPS_ASSET_STATUS", vo.getStatus());
 
 		if(statusSimpleConfig!=null) {
 

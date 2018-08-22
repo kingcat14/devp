@@ -223,7 +223,7 @@ public class MachineController {
 
 	   
 
-		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("MACHINE-STATUS", vo.getStatus());
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("OPS_ASSET_STATUS", vo.getStatus());
 
 		if(statusSimpleConfig!=null) {
 

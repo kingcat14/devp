@@ -221,7 +221,7 @@ public class InfrastructuralSoftwareController {
 
 	   
 
-		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("INFRASTRUCTURALSOFTWARE-STATUS", vo.getStatus());
+		SimpleConfig statusSimpleConfig = simpleConfigService.findByConfigTypeAndCode("OPS_ASSET_STATUS", vo.getStatus());
 
 		if(statusSimpleConfig!=null) {
 
