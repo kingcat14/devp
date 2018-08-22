@@ -1,66 +1,75 @@
 package net.aicoder.devp.business.ops.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 @ApiModel(value = "查询资产分组使用的DTO")
-public class DevpOpsAssetGroupCondition implements Serializable{
+public class DevpOpsAssetGroupCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-ASSET_GROUP")
 	private String etype;
-	@ApiModelProperty(value = "名称")
+	@ApiModelProperty(value = "名称", notes = "[名称]-资产分组名称")
 	private String name;
-	@ApiModelProperty(value = "代码")
+	@ApiModelProperty(value = "代码", notes = "[代码]-资产分组代码")
 	private String code;
-	@ApiModelProperty(value = "别名")
+	@ApiModelProperty(value = "别名", notes = "[别名]-资产分组别名")
 	private String alias;
-	@ApiModelProperty(value = "描述")
+	@ApiModelProperty(value = "描述", notes = "[描述]-资产分组描述")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "类型代码")
+	@ApiModelProperty(value = "类型代码", notes = "[类型代码]")
 	private String typeCode;
-	@ApiModelProperty(value = "类型名称")
+	@ApiModelProperty(value = "类型名称", notes = "[类型名称]-冗余字段，方便显示")
 	private String typeName;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]-(保留)")
 	private String stereotype;
-	@ApiModelProperty(value = "访问控制范围")
+	@ApiModelProperty(value = "访问控制范围", notes = "[访问控制范围]-(保留)")
 	private String scope;
-	@ApiModelProperty(value = "版本")
+	@ApiModelProperty(value = "版本", notes = "[版本]-(保留)")
 	private String version;
-	@ApiModelProperty(value = "阶段")
+	@ApiModelProperty(value = "阶段", notes = "[阶段]-(保留)")
 	private String phase;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "状态", notes = "[状态]-(保留)")
 	private String status;
-	@ApiModelProperty(value = "父记录编号")
+	@ApiModelProperty(value = "父记录编号", notes = "[父记录编号]")
 	private Long parentRid;
 	@ApiModelProperty(value = "父记录编号最大值")
 	private Long parentRidMax;
 	@ApiModelProperty(value = "父记录编号最小值")
 	private Long parentRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "参数定义标识")
+	@ApiModelProperty(value = "参数定义标识", notes = "[参数定义标识]-扩展参数定义的标识")
 	private String parasCode;
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
+	private String createUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -252,6 +261,38 @@ public class DevpOpsAssetGroupCondition implements Serializable{
 	}
 	public void setParasCode(String parasCode) {
 		this.parasCode = parasCode;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

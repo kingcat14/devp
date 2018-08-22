@@ -77,11 +77,5 @@ public class DevpPrdLinePrdValidator implements Validator {
 		if(StringUtils.length(devpPrdLinePrd.getScope()) > 255){
 			errors.rejectValue("scope", null, "范围最长255个字符");
 		}
-		if(StringUtils.length(devpPrdLinePrd.getCreateUcode()) > 255){
-			errors.rejectValue("createUcode", null, "创建用户代码最长255个字符");
-		}
-		if(StringUtils.length(devpPrdLinePrd.getCmodifyUcode()) > 255){
-			errors.rejectValue("cmodifyUcode", null, "修改用户代码最长255个字符");
-		}
 	}
 }

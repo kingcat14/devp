@@ -2,6 +2,8 @@ package net.aicoder.devp.business.product.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -9,129 +11,133 @@ import java.util.List;
 
 
 /**
-* 产品线定义的值对象
+* 产品线的值对象
 */
-@ApiModel(value = "展现产品线定义的值对象")
+@ApiModel(value = "展现产品线的值对象")
 public class DevpPrdPrdlineVO {
 
     @ApiModelProperty(value = "记录id")
     private Long id;
 
-    @ApiModelProperty(value = "产品线代码")
-    /**
-    * 产品线代码
-    * 
-    */
-    private String code;
 
-    @ApiModelProperty(value = "产品线名称")
-    /**
-    * 产品线名称
-    * 
-    */
+    @ApiModelProperty(value = "租户编号", notes = "[租户编号]")
+    private Long tid;
+
+
+    /**etype*/
+    @ApiModelProperty(value = "etype", notes = "")
+    private String etype;
+
+
+    /**产品线名称*/
+    @ApiModelProperty(value = "产品线名称", notes = "[产品线名称]")
     private String name;
 
-    @ApiModelProperty(value = "产品线别名")
-    /**
-    * 产品线别名
-    * 
-    */
+
+    /**产品线代码*/
+    @ApiModelProperty(value = "产品线代码", notes = "[产品线代码]")
+    private String code;
+
+
+    /**产品线别名*/
+    @ApiModelProperty(value = "产品线别名", notes = "[产品线别名]")
     private String alias;
 
-    @ApiModelProperty(value = "产品线描述")
-    /**
-    * 产品线描述
-    * 
-    */
+
+    /**产品线描述*/
+    @ApiModelProperty(value = "产品线描述", notes = "[产品线描述]")
     private String description;
 
-    @ApiModelProperty(value = "产品线类型")
-    /**
-    * 产品线类型
-    * 
-    */
+
+    /**产品线类型*/
+    @ApiModelProperty(value = "产品线类型", notes = "[产品线类型]-(保留)")
     private String type;
 
-    @ApiModelProperty(value = "领域")
-    /**
-    * 领域
-    * 
-    */
+
+    /**领域*/
+    @ApiModelProperty(value = "领域", notes = "[领域]-所属领域")
     private String domain;
 
-    @ApiModelProperty(value = "构造型")
-    /**
-    * 构造型
-    * 
-    */
+
+    /**构造型*/
+    @ApiModelProperty(value = "构造型", notes = "[构造型]-(保留)")
     private String stereotype;
 
-    @ApiModelProperty(value = "访问控制范围")
-    /**
-    * 访问控制范围
-    * 
-    */
+
+    /**访问控制范围*/
+    @ApiModelProperty(value = "访问控制范围", notes = "[访问控制范围]-访问控制范围:共享产品，租户内共享,私有产品")
     private String scope;
 
-    @ApiModelProperty(value = "版本")
-    /**
-    * 版本
-    * 
-    */
+
+    /**版本*/
+    @ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
     private String version;
 
-    @ApiModelProperty(value = "阶段")
-    /**
-    * 阶段
-    * 
-    */
+
+    /**阶段*/
+    @ApiModelProperty(value = "阶段", notes = "[阶段]-产品调研,产品设计,产品开发,试运行,产品维护,产品停用")
     private String phase;
 
-    @ApiModelProperty(value = "状态")
-    /**
-    * 状态
-    * 
-    */
+
+    /**状态*/
+    @ApiModelProperty(value = "状态", notes = "[状态]-未开始,进行中,已完成,暂停,取消")
     private String status;
 
-    @ApiModelProperty(value = "父产品线编号")
-    /**
-    * 父产品线编号
-    * 
-    */
+
+    @ApiModelProperty(value = "父产品线编号", notes = "[父产品线编号]")
     private Long parentRid;
 
-    @ApiModelProperty(value = "顺序号")
-    /**
-    * 顺序号
-    * 
-    */
+
+    @ApiModelProperty(value = "顺序号", notes = "[顺序号]")
     private Integer seq;
 
-    @ApiModelProperty(value = "记录状态")
-    /**
-    * 记录状态
-    * 
-    */
+
+    @ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
     private Integer recordState;
 
-    @ApiModelProperty(value = "创建用户代码")
-    /**
-    * 创建用户代码
-    * 
-    */
+
+    /**创建用户代码*/
+    @ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
     private String createUcode;
 
-    @ApiModelProperty(value = "修改用户代码")
-    /**
-    * 修改用户代码
-    * 
-    */
+
+    /**创建用户姓名*/
+    @ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+    private String createUname;
+
+
+    /**修改用户代码*/
+    @ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
     private String modifyUcode;
+
+
+    /**修改用户姓名*/
+    @ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+    private String modifyUname;
 
     @ApiModelProperty(value = "产品线包含的产品")
     private List<DevpPrdProductVO> productList;
 
+    public Long getTid(){
+        return tid;
+    }
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
+
+    public String getEtype(){
+        return etype;
+    }
+    public void setEtype(String etype) {
+        this.etype = etype;
+    }
+
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode(){
         return code;
@@ -139,95 +145,117 @@ public class DevpPrdPrdlineVO {
     public void setCode(String code) {
         this.code = code;
     }
-    public String getName(){
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+
     public String getAlias(){
         return alias;
     }
     public void setAlias(String alias) {
         this.alias = alias;
     }
+
     public String getDescription(){
         return description;
     }
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getType(){
         return type;
     }
     public void setType(String type) {
         this.type = type;
     }
+
     public String getDomain(){
         return domain;
     }
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
     public String getStereotype(){
         return stereotype;
     }
     public void setStereotype(String stereotype) {
         this.stereotype = stereotype;
     }
+
     public String getScope(){
         return scope;
     }
     public void setScope(String scope) {
         this.scope = scope;
     }
+
     public String getVersion(){
         return version;
     }
     public void setVersion(String version) {
         this.version = version;
     }
+
     public String getPhase(){
         return phase;
     }
     public void setPhase(String phase) {
         this.phase = phase;
     }
+
     public String getStatus(){
         return status;
     }
     public void setStatus(String status) {
         this.status = status;
     }
+
     public Long getParentRid(){
         return parentRid;
     }
     public void setParentRid(Long parentRid) {
         this.parentRid = parentRid;
     }
+
     public Integer getSeq(){
         return seq;
     }
     public void setSeq(Integer seq) {
         this.seq = seq;
     }
+
     public Integer getRecordState(){
         return recordState;
     }
     public void setRecordState(Integer recordState) {
         this.recordState = recordState;
     }
+
     public String getCreateUcode(){
         return createUcode;
     }
     public void setCreateUcode(String createUcode) {
         this.createUcode = createUcode;
     }
+
+    public String getCreateUname(){
+        return createUname;
+    }
+    public void setCreateUname(String createUname) {
+        this.createUname = createUname;
+    }
+
     public String getModifyUcode(){
         return modifyUcode;
     }
     public void setModifyUcode(String modifyUcode) {
         this.modifyUcode = modifyUcode;
+    }
+
+    public String getModifyUname(){
+        return modifyUname;
+    }
+    public void setModifyUname(String modifyUname) {
+        this.modifyUname = modifyUname;
     }
 
     public List<DevpPrdProductVO> getProductList() {
@@ -237,12 +265,12 @@ public class DevpPrdPrdlineVO {
         this.productList = productList;
     }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     @Override
     public String toString() {

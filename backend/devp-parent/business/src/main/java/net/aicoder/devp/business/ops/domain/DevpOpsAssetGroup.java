@@ -1,5 +1,6 @@
 package net.aicoder.devp.business.ops.domain;
 
+import com.yunkang.saas.common.jpa.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
@@ -39,6 +40,10 @@ public class DevpOpsAssetGroup extends BaseEntity{
 	public static final String PROPERTY_PARENT_RID = "parentRid";
 	public static final String PROPERTY_SEQ = "seq";
 	public static final String PROPERTY_PARAS_CODE = "parasCode";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 
 
     @Id
@@ -50,16 +55,14 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
     * 元素类型
     * [元素类型]-ASSET_GROUP
     */
-    @Column(name = "etype")
-	@NotNull(message = "元素类型不能为空")
+    @Column(name = "etype", nullable = false, updatable = true)
 	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
@@ -67,8 +70,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 名称
     * [名称]-资产分组名称
     */
-    @Column(name = "name")
-	@NotNull(message = "名称不能为空")
+    @Column(name = "name", nullable = false, updatable = true)
 	@Size(max = 255, message = "名称超长，最多255个字符")
 	private String name;
 
@@ -76,7 +78,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 代码
     * [代码]-资产分组代码
     */
-    @Column(name = "code")
+    @Column(name = "code", nullable = true, updatable = true)
 	@Size(max = 255, message = "代码超长，最多255个字符")
 	private String code;
 
@@ -84,7 +86,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 别名
     * [别名]-资产分组别名
     */
-    @Column(name = "alias")
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "别名超长，最多255个字符")
 	private String alias;
 
@@ -92,7 +94,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 描述
     * [描述]-资产分组描述
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "描述超长，最多255个字符")
 	private String description;
 
@@ -100,14 +102,14 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 类型代码
     * [类型代码]
     */
-    @Column(name = "type_code")
+    @Column(name = "type_code", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型代码超长，最多255个字符")
 	private String typeCode;
 
@@ -115,7 +117,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 类型名称
     * [类型名称]-冗余字段，方便显示
     */
-    @Column(name = "type_name")
+    @Column(name = "type_name", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型名称超长，最多255个字符")
 	private String typeName;
 
@@ -123,7 +125,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 构造型
     * [构造型]-(保留)
     */
-    @Column(name = "stereotype")
+    @Column(name = "stereotype", nullable = true, updatable = true)
 	@Size(max = 255, message = "构造型超长，最多255个字符")
 	private String stereotype;
 
@@ -131,7 +133,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 访问控制范围
     * [访问控制范围]-(保留)
     */
-    @Column(name = "scope")
+    @Column(name = "scope", nullable = true, updatable = true)
 	@Size(max = 255, message = "访问控制范围超长，最多255个字符")
 	private String scope;
 
@@ -139,7 +141,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 版本
     * [版本]-(保留)
     */
-    @Column(name = "version")
+    @Column(name = "version", nullable = true, updatable = true)
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
 
@@ -147,7 +149,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 阶段
     * [阶段]-(保留)
     */
-    @Column(name = "phase")
+    @Column(name = "phase", nullable = true, updatable = true)
 	@Size(max = 255, message = "阶段超长，最多255个字符")
 	private String phase;
 
@@ -155,7 +157,7 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 状态
     * [状态]-(保留)
     */
-    @Column(name = "status")
+    @Column(name = "status", nullable = true, updatable = true)
 	@Size(max = 255, message = "状态超长，最多255个字符")
 	private String status;
 
@@ -163,23 +165,55 @@ public class DevpOpsAssetGroup extends BaseEntity{
     * 父记录编号
     * [父记录编号]
     */
-    @Column(name = "parent_rid")
+    @Column(name = "parent_rid", nullable = true, updatable = true)
 	private Long parentRid;
 
     /**
     * 顺序号
     * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
 
     /**
     * 参数定义标识
     * [参数定义标识]-扩展参数定义的标识
     */
-    @Column(name = "paras_code")
+    @Column(name = "paras_code", nullable = true, updatable = true)
 	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
 	private String parasCode;
+
+    /**
+    * 创建用户代码
+    * [创建用户代码]
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * 创建用户姓名
+    * [创建用户姓名]
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * 修改用户代码
+    * [修改用户代码]
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
 
 	public Long getTid(){
 		return tid;
@@ -298,6 +332,34 @@ public class DevpOpsAssetGroup extends BaseEntity{
 	}
 	public void setParasCode(String parasCode) {
 		this.parasCode = parasCode;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

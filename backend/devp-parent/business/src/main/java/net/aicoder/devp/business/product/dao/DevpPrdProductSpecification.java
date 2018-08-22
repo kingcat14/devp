@@ -1,22 +1,20 @@
 package net.aicoder.devp.business.product.dao;
 
-import net.aicoder.devp.business.product.domain.DevpPrdProduct;
 import net.aicoder.devp.business.product.dto.DevpPrdProductCondition;
-
+import net.aicoder.devp.business.product.domain.DevpPrdProduct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class DevpPrdProductSpecification implements Specification<DevpPrdProduct>{
 
-	DevpPrdProductCondition condition;
+	private DevpPrdProductCondition condition;
 
 	public DevpPrdProductSpecification(DevpPrdProductCondition condition){
 		this.condition = condition;
@@ -29,10 +27,11 @@ public class DevpPrdProductSpecification implements Specification<DevpPrdProduct
 		if(condition==null){
 			return null;
 		}
-       
+
 		tryAddTidPredicate(predicateList, root, cb);
-		tryAddCodePredicate(predicateList, root, cb);
+		tryAddEtypePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
+		tryAddCodePredicate(predicateList, root, cb);
 		tryAddAliasPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
@@ -56,28 +55,44 @@ public class DevpPrdProductSpecification implements Specification<DevpPrdProduct
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddRecordStatePredicate(predicateList, root, cb);
 		tryAddCreateUcodePredicate(predicateList, root, cb);
+		tryAddCreateUnamePredicate(predicateList, root, cb);
 		tryAddCmodifyUcodePredicate(predicateList, root, cb);
+		tryAddModifyUnamePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
 		pre = predicateList.toArray(pre);
 		return cb.and(pre);
-	}
+    }
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpPrdProduct.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
+
+		if (null != condition.getTidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpPrdProduct.PROPERTY_TID).as(Long.class), condition.getTidMax()));
+		}
+
+		if (null != condition.getTidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpPrdProduct.PROPERTY_TID).as(Long.class), condition.getTidMin()));
+		}
 	}
-	private void tryAddCodePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getCode())){
-			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
+	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getEtype())){
+			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_ETYPE).as(String.class), "%"+condition.getEtype()+"%"));
 		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
 			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
+		}
+	}
+	private void tryAddCodePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCode())){
+			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
 		}
 	}
 	private void tryAddAliasPredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
@@ -148,7 +163,6 @@ public class DevpPrdProductSpecification implements Specification<DevpPrdProduct
 		if (null != condition.getGoliveEnd() ) {
 			predicateList.add(cb.lessThan(root.get(DevpPrdProduct.PROPERTY_GOLIVE).as(Date.class), condition.getGoliveEnd()));
 		}
-
 	}
 	private void tryAddMajorCustPredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getMajorCust())){
@@ -196,8 +210,17 @@ public class DevpPrdProductSpecification implements Specification<DevpPrdProduct
 		}
 	}
 	private void tryAddRecordStatePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+
 		if (null != condition.getRecordState() ) {
 			predicateList.add(cb.equal(root.get(DevpPrdProduct.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
+		}
+
+		if (null != condition.getRecordStateMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpPrdProduct.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMax()));
+		}
+
+		if (null != condition.getRecordStateMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpPrdProduct.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMin()));
 		}
 	}
 	private void tryAddCreateUcodePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
@@ -205,9 +228,19 @@ public class DevpPrdProductSpecification implements Specification<DevpPrdProduct
 			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_CREATE_UCODE).as(String.class), "%"+condition.getCreateUcode()+"%"));
 		}
 	}
+	private void tryAddCreateUnamePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUname())){
+			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_CREATE_UNAME).as(String.class), "%"+condition.getCreateUname()+"%"));
+		}
+	}
 	private void tryAddCmodifyUcodePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCmodifyUcode())){
 			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_CMODIFY_UCODE).as(String.class), "%"+condition.getCmodifyUcode()+"%"));
+		}
+	}
+	private void tryAddModifyUnamePredicate(List<Predicate> predicateList, Root<DevpPrdProduct> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUname())){
+			predicateList.add(cb.like(root.get(DevpPrdProduct.PROPERTY_MODIFY_UNAME).as(String.class), "%"+condition.getModifyUname()+"%"));
 		}
 	}
 }

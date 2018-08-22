@@ -99,7 +99,7 @@ public class DevpSysDpyResInstValidator implements Validator {
 		if(StringUtils.length(devpSysDpyResInst.getDpyDescription()) > 255){
 			errors.rejectValue("dpyDescription", null, "部署说明最长255个字符");
 		}
-		if(StringUtils.length(devpSysDpyResInst.getAccessAddr()) > 255){
+		if(StringUtils.length(devpSysDpyResInst.getIntAccessAddr()) > 255){
 			errors.rejectValue("accessAddr", null, "访问地址最长255个字符");
 		}
 		if(StringUtils.length(devpSysDpyResInst.getStatus()) > 255){

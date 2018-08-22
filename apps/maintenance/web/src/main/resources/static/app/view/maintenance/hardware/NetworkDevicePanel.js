@@ -20,7 +20,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDevicePanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.maintenance.hardware.NetworkDeviceStore')
+                    ,store: Ext.create('AM.store.maintenance.hardware.NetworkDeviceStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [

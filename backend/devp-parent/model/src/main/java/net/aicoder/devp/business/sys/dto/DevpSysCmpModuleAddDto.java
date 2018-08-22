@@ -2,11 +2,9 @@ package net.aicoder.devp.business.sys.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -16,108 +14,73 @@ import javax.validation.constraints.Size;
 @ApiModel(value = "新增组件对应模块使用的DTO")
 public class DevpSysCmpModuleAddDto {
 
-    /**
-	 * 租户编号
-	 * [租户编号]
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
+    /**租户编号*/
+	@ApiModelProperty(value = "租户编号", required = false, notes = "[租户编号]")
 	private Long tid;
 
-    /**
-	 * 元素类型
-	 * [元素类型]- SYS_CMP_MDU // 组件对应模块
-     */
-	@NotNull(message = "元素类型不能为空")
-	@ApiModelProperty(value = "元素类型", required = true)
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
+    /**元素类型*/
+	@ApiModelProperty(value = "元素类型", required = false, notes = "[元素类型]- SYS_CMP_MDU // 组件对应模块")
 	private String etype;
 
-    /**
-	 * 对应关系名称
-	 * [对应关系名称]
-     */
-	@ApiModelProperty(value = "对应关系名称", required = false)
-	@Size(max = 255, message = "对应关系名称超长，最多255个字符")
+    /**对应关系名称*/
+	@ApiModelProperty(value = "对应关系名称", required = false, notes = "[对应关系名称]")
 	private String name;
 
-    /**
-	 * 对应关系代码
-	 * [对应关系代码]
-     */
-	@ApiModelProperty(value = "对应关系代码", required = false)
-	@Size(max = 255, message = "对应关系代码超长，最多255个字符")
+    /**对应关系代码*/
+	@ApiModelProperty(value = "对应关系代码", required = false, notes = "[对应关系代码]")
 	private String code;
 
-    /**
-	 * 对应关系别名
-	 * [对应关系别名]
-     */
-	@ApiModelProperty(value = "对应关系别名", required = false)
-	@Size(max = 255, message = "对应关系别名超长，最多255个字符")
+    /**对应关系别名*/
+	@ApiModelProperty(value = "对应关系别名", required = false, notes = "[对应关系别名]")
 	private String alias;
 
-    /**
-	 * 对应关系描述
-	 * [对应关系描述]
-     */
-	@ApiModelProperty(value = "对应关系描述", required = false)
-	@Size(max = 255, message = "对应关系描述超长，最多255个字符")
+    /**对应关系描述*/
+	@ApiModelProperty(value = "对应关系描述", required = false, notes = "[对应关系描述]")
 	private String description;
 
-    /**
-	 * 记录状态
-	 * [记录状态]-0-失效;1-生效;缺省为1
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
+    /**记录状态*/
+	@ApiModelProperty(value = "记录状态", required = false, notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 
-    /**
-	 * 类型
-	 * [类型]
-     */
-	@ApiModelProperty(value = "类型", required = false)
-	@Size(max = 255, message = "类型超长，最多255个字符")
+    /**类型*/
+	@ApiModelProperty(value = "类型", required = false, notes = "[类型]")
 	private String type;
 
-    /**
-	 * 子类型
-	 * [子类型]
-     */
-	@ApiModelProperty(value = "子类型", required = false)
-	@Size(max = 255, message = "子类型超长，最多255个字符")
+    /**子类型*/
+	@ApiModelProperty(value = "子类型", required = false, notes = "[子类型]")
 	private String subType;
 
-    /**
-	 * 产品编号
-	 * [产品编号]
-     */
-	@NotNull(message = "产品编号不能为空")
-	@ApiModelProperty(value = "产品编号", required = true)
+    /**产品编号*/
+	@ApiModelProperty(value = "产品编号", required = false, notes = "[产品编号]")
 	private Long prdRid;
 
-    /**
-	 * 组件编号
-	 * [组件编号]
-     */
-	@NotNull(message = "组件编号不能为空")
-	@ApiModelProperty(value = "组件编号", required = true)
+    /**组件编号*/
+	@ApiModelProperty(value = "组件编号", required = false, notes = "[组件编号]")
 	private Long cmpRid;
 
-    /**
-	 * 模块编号
-	 * [模块编号]
-     */
-	@NotNull(message = "模块编号不能为空")
-	@ApiModelProperty(value = "模块编号", required = true)
+    /**模块编号*/
+	@ApiModelProperty(value = "模块编号", required = false, notes = "[模块编号]")
 	private Long mduRid;
 
-    /**
-	 * 顺序号
-	 * [顺序号]
-     */
-	@ApiModelProperty(value = "顺序号", required = false)
+    /**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false, notes = "[顺序号]")
 	private Integer seq;
+
+    /**创建用户代码*/
+	@ApiModelProperty(value = "创建用户代码", required = false, notes = "[创建用户代码]")
+	private String createUcode;
+
+    /**创建用户姓名*/
+	@ApiModelProperty(value = "创建用户姓名", required = false, notes = "[创建用户姓名]")
+	private String createUname;
+
+    /**修改用户代码*/
+	@ApiModelProperty(value = "修改用户代码", required = false, notes = "[修改用户代码]")
+	private String modifyUcode;
+
+    /**修改用户姓名*/
+	@ApiModelProperty(value = "修改用户姓名", required = false, notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -209,6 +172,34 @@ public class DevpSysCmpModuleAddDto {
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

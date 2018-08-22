@@ -7,8 +7,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
-
 /**
  * 部署主机节点
  * @author icode
@@ -16,151 +14,101 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增部署主机节点使用的DTO")
 public class DevpSysDpyHostAddDto {
 
-    /**
-	 * 租户编号
-	 * [租户编号]
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
+    /**租户编号*/
+	@ApiModelProperty(value = "租户编号", required = false, notes = "[租户编号]")
 	private Long tid;
 
-    /**
-	 * 元素类型
-	 * [元素类型]-SYS_DPY_RES_INST // 关联资源实例
-     */
-	@NotNull(message = "元素类型不能为空")
-	@ApiModelProperty(value = "元素类型", required = true)
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
+    /**元素类型*/
+	@ApiModelProperty(value = "元素类型", required = false, notes = "[元素类型]-SYS_DPY_RES_INST // 关联资源实例")
 	private String etype;
 
-    /**
-	 * 系统元素名称
-	 * [系统元素名称]
-     */
-	@ApiModelProperty(value = "系统元素名称", required = false)
-	@Size(max = 255, message = "系统元素名称超长，最多255个字符")
+    /**系统元素名称*/
+	@ApiModelProperty(value = "系统元素名称", required = false, notes = "[系统元素名称]")
 	private String name;
 
-    /**
-	 * 系统元素代码
-	 * [系统元素代码]
-     */
-	@ApiModelProperty(value = "系统元素代码", required = false)
-	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
+    /**系统元素代码*/
+	@ApiModelProperty(value = "系统元素代码", required = false, notes = "[系统元素代码]")
 	private String code;
 
-    /**
-	 * 系统元素别名
-	 * [系统元素别名]
-     */
-	@ApiModelProperty(value = "系统元素别名", required = false)
-	@Size(max = 255, message = "系统元素别名超长，最多255个字符")
+    /**系统元素别名*/
+	@ApiModelProperty(value = "系统元素别名", required = false, notes = "[系统元素别名]")
 	private String alias;
 
-    /**
-	 * 系统元素描述
-	 * [系统元素描述]
-     */
-	@ApiModelProperty(value = "系统元素描述", required = false)
-	@Size(max = 255, message = "系统元素描述超长，最多255个字符")
+    /**系统元素描述*/
+	@ApiModelProperty(value = "系统元素描述", required = false, notes = "[系统元素描述]")
 	private String description;
 
-    /**
-	 * 记录状态
-	 * [记录状态]-0-失效;1-生效;缺省为1
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
+    /**记录状态*/
+	@ApiModelProperty(value = "记录状态", required = false, notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 
-    /**
-	 * 主机标识
-	 * [主机标识]-同一个部署方案中不能重复
-     */
-	@NotNull(message = "主机标识不能为空")
-	@ApiModelProperty(value = "主机标识", required = true)
-	@Size(max = 255, message = "主机标识超长，最多255个字符")
+    /**主机标识*/
+	@ApiModelProperty(value = "主机标识", required = false, notes = "[主机标识]-同一个部署方案中不能重复")
 	private String flag;
 
-    /**
-	 * 类型
-	 * [类型]
-     */
-	@ApiModelProperty(value = "类型", required = false)
-	@Size(max = 255, message = "类型超长，最多255个字符")
+    /**类型*/
+	@ApiModelProperty(value = "类型", required = false, notes = "[类型]")
 	private String type;
 
-    /**
-	 * 子类型
-	 * [子类型]
-     */
-	@ApiModelProperty(value = "子类型", required = false)
-	@Size(max = 255, message = "子类型超长，最多255个字符")
+    /**子类型*/
+	@ApiModelProperty(value = "子类型", required = false, notes = "[子类型]")
 	private String subType;
 
-    /**
-	 * 状态
-	 * [状态]
-     */
-	@ApiModelProperty(value = "状态", required = false)
-	@Size(max = 255, message = "状态超长，最多255个字符")
+    /**状态*/
+	@ApiModelProperty(value = "状态", required = false, notes = "[状态]")
 	private String status;
 
-    /**
-	 * 备注
-	 * [备注]
-     */
-	@ApiModelProperty(value = "备注", required = false)
-	@Size(max = 255, message = "备注超长，最多255个字符")
+    /**内部访问地址*/
+	@ApiModelProperty(value = "内部访问地址", required = false, notes = "[内部访问地址]-内部访问地址，如：内网IP")
+	private String intAccessAddr;
+
+    /**外部访问地址*/
+	@ApiModelProperty(value = "外部访问地址", required = false, notes = "[外部访问地址]-内部访问地址，如：内网IP")
+	private String extAccessAddr;
+
+    /**备注*/
+	@ApiModelProperty(value = "备注", required = false, notes = "[备注]")
 	private String notes;
 
-    /**
-	 * 产品编号
-	 * [产品编号]
-     */
-	@NotNull(message = "产品编号不能为空")
-	@ApiModelProperty(value = "产品编号", required = true)
+    /**产品编号*/
+	@ApiModelProperty(value = "产品编号", required = false, notes = "[产品编号]")
 	private Long prdRid;
 
-    /**
-	 * 部署方案编号
-	 * [部署方案编号]
-     */
-	@NotNull(message = "部署方案编号不能为空")
-	@ApiModelProperty(value = "部署方案编号", required = true)
+    /**部署方案编号*/
+	@ApiModelProperty(value = "部署方案编号", required = false, notes = "[部署方案编号]")
 	private Long schemeRid;
 
-    /**
-	 * 顺序号
-	 * [顺序号]
-     */
-	@ApiModelProperty(value = "顺序号", required = false)
+    /**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false, notes = "[顺序号]")
 	private Integer seq;
 
-    /**
-	 * 关联IT资产编号
-	 * [关联IT资产编号]
-     */
-	@NotNull(message = "关联IT资产编号不能为空")
-	@ApiModelProperty(value = "关联IT资产编号", required = true)
+    /**关联IT资产编号*/
+	@ApiModelProperty(value = "关联IT资产编号", required = false, notes = "[关联IT资产编号]")
 	private Long assetRid;
 
-    /**
-	 * 关联IT资产元素类型
-	 * [关联IT资产元素类型]
-     */
-	@NotNull(message = "关联IT资产元素类型不能为空")
-	@ApiModelProperty(value = "关联IT资产元素类型", required = true)
-	@Size(max = 255, message = "关联IT资产元素类型超长，最多255个字符")
+    /**关联IT资产元素类型*/
+	@ApiModelProperty(value = "关联IT资产元素类型", required = false, notes = "[关联IT资产元素类型]")
 	private String assetEtype;
 
-    /**
-	 * 关联IT资产类型代码
-	 * [关联IT资产类型代码]
-     */
-	@NotNull(message = "关联IT资产类型代码不能为空")
-	@ApiModelProperty(value = "关联IT资产类型代码", required = true)
-	@Size(max = 255, message = "关联IT资产类型代码超长，最多255个字符")
+    /**关联IT资产类型代码*/
+	@ApiModelProperty(value = "关联IT资产类型代码", required = false, notes = "[关联IT资产类型代码]")
 	private String assetTypeCode;
+
+    /**创建用户代码*/
+	@ApiModelProperty(value = "创建用户代码", required = false, notes = "[创建用户代码]")
+	private String createUcode;
+
+    /**创建用户姓名*/
+	@ApiModelProperty(value = "创建用户姓名", required = false, notes = "[创建用户姓名]")
+	private String createUname;
+
+    /**修改用户代码*/
+	@ApiModelProperty(value = "修改用户代码", required = false, notes = "[修改用户代码]")
+	private String modifyUcode;
+
+    /**修改用户姓名*/
+	@ApiModelProperty(value = "修改用户姓名", required = false, notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -240,6 +188,20 @@ public class DevpSysDpyHostAddDto {
 		this.status = status;
 	}
 
+	public String getIntAccessAddr(){
+		return intAccessAddr;
+	}
+	public void setIntAccessAddr(String intAccessAddr) {
+		this.intAccessAddr = intAccessAddr;
+	}
+
+	public String getExtAccessAddr(){
+		return extAccessAddr;
+	}
+	public void setExtAccessAddr(String extAccessAddr) {
+		this.extAccessAddr = extAccessAddr;
+	}
+
 	public String getNotes(){
 		return notes;
 	}
@@ -287,6 +249,34 @@ public class DevpSysDpyHostAddDto {
 	}
 	public void setAssetTypeCode(String assetTypeCode) {
 		this.assetTypeCode = assetTypeCode;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

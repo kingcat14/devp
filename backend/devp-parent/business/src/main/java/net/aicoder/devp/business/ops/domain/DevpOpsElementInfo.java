@@ -1,5 +1,6 @@
 package net.aicoder.devp.business.ops.domain;
 
+import com.yunkang.saas.common.jpa.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -8,16 +9,16 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
 /**
- * 系统元素扩充信息
+ * 运维元素扩充信息
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_ops_element_info", comment = "[系统元素扩充信息]")
+@Table(appliesTo = "devp_ops_element_info", comment = "[运维元素扩充信息]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsElementInfo extends BaseEntity{
@@ -44,6 +45,10 @@ public class DevpOpsElementInfo extends BaseEntity{
 	public static final String PROPERTY_INFO_VALUE5 = "infoValue5";
 	public static final String PROPERTY_NOTES = "notes";
 	public static final String PROPERTY_PARAS_CODE = "parasCode";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 
 
     @Id
@@ -55,16 +60,14 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
     * 元素类型
     * [元素类型]
     */
-    @Column(name = "etype")
-	@NotNull(message = "元素类型不能为空")
+    @Column(name = "etype", nullable = false, updatable = true)
 	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
@@ -72,8 +75,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息代码
     * [扩展信息代码]
     */
-    @Column(name = "code")
-	@NotNull(message = "扩展信息代码不能为空")
+    @Column(name = "code", nullable = false, updatable = true)
 	@Size(max = 255, message = "扩展信息代码超长，最多255个字符")
 	private String code;
 
@@ -81,7 +83,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息名称
     * [扩展信息名称]-显示名称
     */
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息名称超长，最多255个字符")
 	private String name;
 
@@ -89,7 +91,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息别名
     * [扩展信息别名]
     */
-    @Column(name = "alias")
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息别名超长，最多255个字符")
 	private String alias;
 
@@ -97,7 +99,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息描述
     * [扩展信息描述]-对应当前属性值
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息描述超长，最多255个字符")
 	private String description;
 
@@ -105,37 +107,35 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 元素编号
     * [元素编号]
     */
-    @Column(name = "elm_rid")
-	@NotNull(message = "元素编号不能为空")
+    @Column(name = "elm_rid", nullable = false, updatable = true)
 	private Long elmRid;
 
     /**
     * 元素实例编号
     * [元素实例编号]-缺省值为0
     */
-    @Column(name = "inst_rid")
-	@NotNull(message = "元素实例编号不能为空")
+    @Column(name = "inst_rid", nullable = false, updatable = true)
 	private Long instRid;
 
     /**
     * 顺序号
     * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
 
     /**
     * 扩展信息代码1
     * [扩展信息代码1]
     */
-    @Column(name = "info_code1")
+    @Column(name = "info_code1", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息代码1超长，最多255个字符")
 	private String infoCode1;
 
@@ -143,7 +143,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息值1
     * [扩展信息值1]
     */
-    @Column(name = "info_value1")
+    @Column(name = "info_value1", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息值1超长，最多255个字符")
 	private String infoValue1;
 
@@ -151,7 +151,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息代码2
     * [扩展信息代码2]
     */
-    @Column(name = "info_code2")
+    @Column(name = "info_code2", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息代码2超长，最多255个字符")
 	private String infoCode2;
 
@@ -159,7 +159,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息值2
     * [扩展信息值2]
     */
-    @Column(name = "info_value2")
+    @Column(name = "info_value2", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息值2超长，最多255个字符")
 	private String infoValue2;
 
@@ -167,7 +167,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息代码3
     * [扩展信息代码3]
     */
-    @Column(name = "info_code3")
+    @Column(name = "info_code3", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息代码3超长，最多255个字符")
 	private String infoCode3;
 
@@ -175,7 +175,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息值3
     * [扩展信息值3]
     */
-    @Column(name = "info_value3")
+    @Column(name = "info_value3", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息值3超长，最多255个字符")
 	private String infoValue3;
 
@@ -183,7 +183,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息代码4
     * [扩展信息代码4]
     */
-    @Column(name = "info_code4")
+    @Column(name = "info_code4", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息代码4超长，最多255个字符")
 	private String infoCode4;
 
@@ -191,7 +191,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息值4
     * [扩展信息值4]
     */
-    @Column(name = "info_value4")
+    @Column(name = "info_value4", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息值4超长，最多255个字符")
 	private String infoValue4;
 
@@ -199,7 +199,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息代码5
     * [扩展信息代码5]
     */
-    @Column(name = "info_code5")
+    @Column(name = "info_code5", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息代码5超长，最多255个字符")
 	private String infoCode5;
 
@@ -207,7 +207,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 扩展信息值5
     * [扩展信息值5]
     */
-    @Column(name = "info_value5")
+    @Column(name = "info_value5", nullable = true, updatable = true)
 	@Size(max = 255, message = "扩展信息值5超长，最多255个字符")
 	private String infoValue5;
 
@@ -215,7 +215,7 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 备注
     * [备注]
     */
-    @Column(name = "notes")
+    @Column(name = "notes", nullable = true, updatable = true)
 	@Size(max = 255, message = "备注超长，最多255个字符")
 	private String notes;
 
@@ -223,9 +223,41 @@ public class DevpOpsElementInfo extends BaseEntity{
     * 参数定义标识
     * [参数定义标识]-扩展参数定义的标识
     */
-    @Column(name = "paras_code")
+    @Column(name = "paras_code", nullable = true, updatable = true)
 	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
 	private String parasCode;
+
+    /**
+    * 创建用户代码
+    * [创建用户代码]
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * 创建用户姓名
+    * [创建用户姓名]
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * 修改用户代码
+    * [修改用户代码]
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
 
 	public Long getTid(){
 		return tid;
@@ -379,6 +411,34 @@ public class DevpOpsElementInfo extends BaseEntity{
 	}
 	public void setParasCode(String parasCode) {
 		this.parasCode = parasCode;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

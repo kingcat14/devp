@@ -1,23 +1,25 @@
 package net.aicoder.devp.business.ops.domain;
 
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.jpa.BaseEntity;
+import java.util.*;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
 /**
- * 资产定义
+ * IT资产配置数据库
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_ops_asset_cmdb", comment = "[资产定义]")
+@Table(appliesTo = "devp_ops_asset_cmdb", comment = "[IT资产配置数据库]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsAssetCmdb extends BaseEntity{
@@ -62,6 +64,10 @@ public class DevpOpsAssetCmdb extends BaseEntity{
 	public static final String PROPERTY_PRD_TID = "prdTid";
 	public static final String PROPERTY_PRD_RID = "prdRid";
 	public static final String PROPERTY_PARAS_CODE = "parasCode";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 	public static final String PROPERTY_ACQUISITION_PROVIDER = "acquisitionProvider";
 
 
@@ -74,133 +80,125 @@ public class DevpOpsAssetCmdb extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false, nullable = false)
-//	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
-    * 元素类型
-    * [元素类型]-服务器主机ASSET_HOST,
-网络设备ASSET_NETWORK,
-基础软件ASSET_INFRA_SW,
-服务及许可ASSET_SVC_LIC,
-业务软件ASSET_BIZ_SW,
-其它ASSET_OTHERS
+    * etype
+    * 
     */
-    @Column(name = "etype")
-	@NotNull(message = "元素类型不能为空")
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
+    @Column(name = "etype", nullable = true, updatable = true)
+	@Size(max = 255, message = "etype超长，最多255个字符")
 	private String etype;
 
     /**
-    * 名称
-    * [名称]-资产名称
+    * name
+    * 
     */
-    @Column(name = "name")
-	@NotNull(message = "名称不能为空")
-	@Size(max = 255, message = "名称超长，最多255个字符")
+    @Column(name = "name", nullable = true, updatable = true)
+	@Size(max = 255, message = "name超长，最多255个字符")
 	private String name;
 
     /**
-    * 代码
-    * [代码]-资产代码
+    * code
+    * 
     */
-    @Column(name = "code")
-	@Size(max = 255, message = "代码超长，最多255个字符")
+    @Column(name = "code", nullable = true, updatable = true)
+	@Size(max = 255, message = "code超长，最多255个字符")
 	private String code;
 
     /**
-    * 别名
-    * [别名]-资产别名
+    * alias
+    * 
     */
-    @Column(name = "alias")
-	@Size(max = 255, message = "别名超长，最多255个字符")
+    @Column(name = "alias", nullable = true, updatable = true)
+	@Size(max = 255, message = "alias超长，最多255个字符")
 	private String alias;
 
     /**
-    * 描述
-    * [描述]-资产描述
+    * description
+    * 
     */
-    @Column(name = "description")
-	@Size(max = 255, message = "描述超长，最多255个字符")
+    @Column(name = "description", nullable = true, updatable = true)
+	@Size(max = 255, message = "description超长，最多255个字符")
 	private String description;
 
     /**
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
-    * 类型代码
-    * [类型代码]
+    * type_code
+    * 
     */
-    @Column(name = "type_code")
-	@Size(max = 255, message = "类型代码超长，最多255个字符")
+    @Column(name = "type_code", nullable = true, updatable = true)
+	@Size(max = 255, message = "type_code超长，最多255个字符")
 	private String typeCode;
 
     /**
-    * 类型名称
-    * [类型名称]-冗余字段，方便显示
+    * type_name
+    * 
     */
-    @Column(name = "type_name")
-	@Size(max = 255, message = "类型名称超长，最多255个字符")
+    @Column(name = "type_name", nullable = true, updatable = true)
+	@Size(max = 255, message = "type_name超长，最多255个字符")
 	private String typeName;
 
     /**
-    * 构造型
-    * [构造型]-(保留)
+    * stereotype
+    * 
     */
-    @Column(name = "stereotype")
-	@Size(max = 255, message = "构造型超长，最多255个字符")
+    @Column(name = "stereotype", nullable = true, updatable = true)
+	@Size(max = 255, message = "stereotype超长，最多255个字符")
 	private String stereotype;
 
     /**
-    * 范围
-    * [范围]-(保留)
+    * scope
+    * 
     */
-    @Column(name = "scope")
-	@Size(max = 255, message = "范围超长，最多255个字符")
+    @Column(name = "scope", nullable = true, updatable = true)
+	@Size(max = 255, message = "scope超长，最多255个字符")
 	private String scope;
 
     /**
-    * 硬件型号
-    * [硬件型号]-硬件型号
+    * hardware_model
+    * 
     */
-    @Column(name = "hardware_model")
-	@Size(max = 255, message = "硬件型号超长，最多255个字符")
+    @Column(name = "hardware_model", nullable = true, updatable = true)
+	@Size(max = 255, message = "hardware_model超长，最多255个字符")
 	private String hardwareModel;
 
     /**
-    * 软件型号
-    * [软件型号]-软件型号,如：操作系统类型
+    * software_model
+    * 
     */
-    @Column(name = "software_model")
-	@Size(max = 255, message = "软件型号超长，最多255个字符")
+    @Column(name = "software_model", nullable = true, updatable = true)
+	@Size(max = 255, message = "software_model超长，最多255个字符")
 	private String softwareModel;
 
     /**
-    * 版本
-    * [版本]-当前版本
+    * version
+    * 
     */
-    @Column(name = "version")
-	@Size(max = 255, message = "版本超长，最多255个字符")
+    @Column(name = "version", nullable = true, updatable = true)
+	@Size(max = 255, message = "version超长，最多255个字符")
 	private String version;
 
     /**
-    * 状态
-    * [状态]-未到货,使用中,备用件,维修中,已借出,已报废
+    * status
+    * 
     */
-    @Column(name = "status")
-	@Size(max = 255, message = "状态超长，最多255个字符")
+    @Column(name = "status", nullable = true, updatable = true)
+	@Size(max = 255, message = "status超长，最多255个字符")
 	private String status;
 
     /**
     * 创建时间
     * [创建时间]-启用时间(产品首次上线时间)
     */
-    @Column(name = "create_date")
+    @Column(name = "create_date", nullable = true, updatable = true)
 	@Temporal(TemporalType.DATE)
 	private Date createDate;
 
@@ -208,197 +206,231 @@ public class DevpOpsAssetCmdb extends BaseEntity{
     * 到期时间
     * [到期时间]-到期或报废时间
     */
-    @Column(name = "expire_date")
+    @Column(name = "expire_date", nullable = true, updatable = true)
 	@Temporal(TemporalType.DATE)
 	private Date expireDate;
 
     /**
-    * 所属项目
-    * [所属项目]
+    * asset_project
+    * 
     */
-    @Column(name = "asset_project")
-	@Size(max = 255, message = "所属项目超长，最多255个字符")
+    @Column(name = "asset_project", nullable = true, updatable = true)
+	@Size(max = 255, message = "asset_project超长，最多255个字符")
 	private String assetProject;
 
     /**
-    * 所属区域
-    * [所属区域]
+    * asset_area
+    * 
     */
-    @Column(name = "asset_area")
-	@Size(max = 255, message = "所属区域超长，最多255个字符")
+    @Column(name = "asset_area", nullable = true, updatable = true)
+	@Size(max = 255, message = "asset_area超长，最多255个字符")
 	private String assetArea;
 
     /**
-    * 资产位置
-    * [资产位置]
+    * asset_location
+    * 
     */
-    @Column(name = "asset_location")
-	@Size(max = 255, message = "资产位置超长，最多255个字符")
+    @Column(name = "asset_location", nullable = true, updatable = true)
+	@Size(max = 255, message = "asset_location超长，最多255个字符")
 	private String assetLocation;
 
     /**
-    * 内部访问地址
-    * [内部访问地址]-内部访问地址，如：内网IP
+    * int_access_addr
+    * 
     */
-    @Column(name = "int_access_addr")
-	@Size(max = 255, message = "内部访问地址超长，最多255个字符")
+    @Column(name = "int_access_addr", nullable = true, updatable = true)
+	@Size(max = 255, message = "int_access_addr超长，最多255个字符")
 	private String intAccessAddr;
 
     /**
-    * 外部访问地址
-    * [外部访问地址]-外部访问地址，如：外网IP
+    * ext_access_addr
+    * 
     */
-    @Column(name = "ext_access_addr")
-	@Size(max = 255, message = "外部访问地址超长，最多255个字符")
+    @Column(name = "ext_access_addr", nullable = true, updatable = true)
+	@Size(max = 255, message = "ext_access_addr超长，最多255个字符")
 	private String extAccessAddr;
 
     /**
-    * 获取方式
-    * [获取方式]-自主开发,外包开发,联合开发,产品采购,产品租用,其它
+    * acquisition_mode
+    * 
     */
-    @Column(name = "acquisition_mode")
-	@Size(max = 255, message = "获取方式超长，最多255个字符")
+    @Column(name = "acquisition_mode", nullable = true, updatable = true)
+	@Size(max = 255, message = "acquisition_mode超长，最多255个字符")
 	private String acquisitionMode;
 
     /**
-    * 获取方式说明
-    * [获取方式说明]
+    * acquisition_desc
+    * 
     */
-    @Column(name = "acquisition_desc")
-	@Size(max = 255, message = "获取方式说明超长，最多255个字符")
+    @Column(name = "acquisition_desc", nullable = true, updatable = true)
+	@Size(max = 255, message = "acquisition_desc超长，最多255个字符")
 	private String acquisitionDesc;
 
     /**
-    * 归属部门
-    * [归属部门]
+    * asset_dept
+    * 
     */
-    @Column(name = "asset_dept")
-	@Size(max = 255, message = "归属部门超长，最多255个字符")
+    @Column(name = "asset_dept", nullable = true, updatable = true)
+	@Size(max = 255, message = "asset_dept超长，最多255个字符")
 	private String assetDept;
 
     /**
-    * 资产负责人
-    * [资产负责人]
+    * asset_manager
+    * 
     */
-    @Column(name = "asset_manager")
-	@Size(max = 255, message = "资产负责人超长，最多255个字符")
+    @Column(name = "asset_manager", nullable = true, updatable = true)
+	@Size(max = 255, message = "asset_manager超长，最多255个字符")
 	private String assetManager;
 
     /**
-    * 使用部门
-    * [使用部门]
+    * use_dept
+    * 
     */
-    @Column(name = "use_dept")
-	@Size(max = 255, message = "使用部门超长，最多255个字符")
+    @Column(name = "use_dept", nullable = true, updatable = true)
+	@Size(max = 255, message = "use_dept超长，最多255个字符")
 	private String useDept;
 
     /**
-    * 使用负责人
-    * [使用负责人]
+    * use_manager
+    * 
     */
-    @Column(name = "use_manager")
-	@Size(max = 255, message = "使用负责人超长，最多255个字符")
+    @Column(name = "use_manager", nullable = true, updatable = true)
+	@Size(max = 255, message = "use_manager超长，最多255个字符")
 	private String useManager;
 
     /**
-    * 维护部门
-    * [维护部门]
+    * ops_dept
+    * 
     */
-    @Column(name = "ops_dept")
-	@Size(max = 255, message = "维护部门超长，最多255个字符")
+    @Column(name = "ops_dept", nullable = true, updatable = true)
+	@Size(max = 255, message = "ops_dept超长，最多255个字符")
 	private String opsDept;
 
     /**
-    * 维护负责人
-    * [维护负责人]
+    * ops_manager
+    * 
     */
-    @Column(name = "ops_manager")
-	@Size(max = 255, message = "维护负责人超长，最多255个字符")
+    @Column(name = "ops_manager", nullable = true, updatable = true)
+	@Size(max = 255, message = "ops_manager超长，最多255个字符")
 	private String opsManager;
 
     /**
-    * 业务线
-    * [业务线]
+    * biz_line
+    * 
     */
-    @Column(name = "biz_line")
-	@Size(max = 255, message = "业务线超长，最多255个字符")
+    @Column(name = "biz_line", nullable = true, updatable = true)
+	@Size(max = 255, message = "biz_line超长，最多255个字符")
 	private String bizLine;
 
     /**
-    * 业务代表
-    * [业务代表]
+    * biz_manager
+    * 
     */
-    @Column(name = "biz_manager")
-	@Size(max = 255, message = "业务代表超长，最多255个字符")
+    @Column(name = "biz_manager", nullable = true, updatable = true)
+	@Size(max = 255, message = "biz_manager超长，最多255个字符")
 	private String bizManager;
 
     /**
     * 启用时间
     * [启用时间]-启用时间(产品首次上线时间)
     */
-    @Column(name = "golive_date")
+    @Column(name = "golive_date", nullable = true, updatable = true)
 	@Temporal(TemporalType.DATE)
 	private Date goliveDate;
 
     /**
-    * 主要客户
-    * [主要客户]
+    * major_cust
+    * 
     */
-    @Column(name = "major_cust")
-	@Size(max = 255, message = "主要客户超长，最多255个字符")
+    @Column(name = "major_cust", nullable = true, updatable = true)
+	@Size(max = 255, message = "major_cust超长，最多255个字符")
 	private String majorCust;
 
     /**
-    * 客户代表
-    * [客户代表]
+    * cust_manager
+    * 
     */
-    @Column(name = "cust_manager")
-	@Size(max = 255, message = "客户代表超长，最多255个字符")
+    @Column(name = "cust_manager", nullable = true, updatable = true)
+	@Size(max = 255, message = "cust_manager超长，最多255个字符")
 	private String custManager;
 
     /**
-    * 使用情况
-    * [使用情况]-客户使用情况，如客户流量、使用频度等
+    * cust_usage
+    * 
     */
-    @Column(name = "cust_usage")
-	@Size(max = 255, message = "使用情况超长，最多255个字符")
+    @Column(name = "cust_usage", nullable = true, updatable = true)
+	@Size(max = 255, message = "cust_usage超长，最多255个字符")
 	private String custUsage;
 
-	/**
-	 * 供应商
-	 */
-	@Column(name = "acquisition_provider")
-	@Size(max = 255, message = "供应商超长，最多255个字符")
-	private String acquisitionProvider;
     /**
-    * 备注
-    * [备注]
+    * notes
+    * 
     */
-    @Column(name = "notes")
-	@Size(max = 255, message = "备注超长，最多255个字符")
+    @Column(name = "notes", nullable = true, updatable = true)
+	@Size(max = 255, message = "notes超长，最多255个字符")
 	private String notes;
 
     /**
     * 关联产品租户编号
     * [关联产品租户编号]
     */
-    @Column(name = "prd_tid")
+    @Column(name = "prd_tid", nullable = true, updatable = true)
 	private Long prdTid;
 
     /**
     * 关联产品记录编号
     * [关联产品记录编号]
     */
-    @Column(name = "prd_rid")
+    @Column(name = "prd_rid", nullable = true, updatable = true)
 	private Long prdRid;
 
     /**
-    * 参数定义标识
-    * [参数定义标识]-扩展参数定义的标识
+    * paras_code
+    * 
     */
-    @Column(name = "paras_code")
-	@Size(max = 255, message = "参数定义标识超长，最多255个字符")
+    @Column(name = "paras_code", nullable = true, updatable = true)
+	@Size(max = 255, message = "paras_code超长，最多255个字符")
 	private String parasCode;
+
+    /**
+    * create_ucode
+    * 
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "create_ucode超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * create_uname
+    * 
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "create_uname超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * modify_ucode
+    * 
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "modify_ucode超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * modify_uname
+    * 
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "modify_uname超长，最多255个字符")
+	private String modifyUname;
+
+    /**
+    * acquisition_provider
+    * 
+    */
+    @Column(name = "acquisition_provider", nullable = true, updatable = true)
+	@Size(max = 255, message = "acquisition_provider超长，最多255个字符")
+	private String acquisitionProvider;
 
 	public Long getTid(){
 		return tid;
@@ -680,12 +712,41 @@ public class DevpOpsAssetCmdb extends BaseEntity{
 		this.parasCode = parasCode;
 	}
 
-	public String getAcquisitionProvider() {
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
+	}
+
+	public String getAcquisitionProvider(){
 		return acquisitionProvider;
 	}
 	public void setAcquisitionProvider(String acquisitionProvider) {
 		this.acquisitionProvider = acquisitionProvider;
 	}
+
 
 	public Long getId() {
 		return id;

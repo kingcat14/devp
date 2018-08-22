@@ -2,11 +2,9 @@ package net.aicoder.devp.business.product.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -16,148 +14,111 @@ import javax.validation.constraints.Size;
 @ApiModel(value = "修改产品干系人使用的DTO")
 public class DevpPrdPersonEditDto {
 
-    /**
-	 * 租户编号
-	 * 
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
+
+	/**租户编号*/
+	@ApiModelProperty(value = "租户编号", required = false, notes = "[租户编号]")
 	private Long tid;
 
-    /**
-	 * 用户代码
-	 * 
-     */
-	@NotNull(message = "用户代码不能为空")
-	@ApiModelProperty(value = "用户代码", required = true)
-	@Size(max = 255, message = "用户代码超长，最多255个字符")
+
+	/**etype*/
+	@ApiModelProperty(value = "etype", required = false, notes = "")
+	private String etype;
+
+
+	/**用户代码*/
+	@ApiModelProperty(value = "用户代码", required = false, notes = "[用户代码]")
 	private String code;
 
-    /**
-	 * 用户名称
-	 * 
-     */
-	@NotNull(message = "用户名称不能为空")
-	@ApiModelProperty(value = "用户名称", required = true)
-	@Size(max = 255, message = "用户名称超长，最多255个字符")
+
+	/**用户名称*/
+	@ApiModelProperty(value = "用户名称", required = false, notes = "[用户名称]")
 	private String name;
 
-    /**
-	 * 用户别名
-	 * 
-     */
-	@ApiModelProperty(value = "用户别名", required = false)
-	@Size(max = 255, message = "用户别名超长，最多255个字符")
+
+	/**用户别名*/
+	@ApiModelProperty(value = "用户别名", required = false, notes = "[用户别名]")
 	private String alias;
 
-    /**
-	 * 用户描述
-	 * 
-     */
-	@ApiModelProperty(value = "用户描述", required = false)
-	@Size(max = 255, message = "用户描述超长，最多255个字符")
+
+	/**用户描述*/
+	@ApiModelProperty(value = "用户描述", required = false, notes = "[用户描述]")
 	private String description;
 
-    /**
-	 * 关联元素类型
-	 * 
-     */
-	@NotNull(message = "关联元素类型不能为空")
-	@ApiModelProperty(value = "关联元素类型", required = true)
-	@Size(max = 255, message = "关联元素类型超长，最多255个字符")
+
+	/**关联元素类型*/
+	@ApiModelProperty(value = "关联元素类型", required = false, notes = "[关联元素类型]-prdline-产品线、product-产品")
 	private String nexusType;
 
-    /**
-	 * 关联元素编号
-	 * 
-     */
-	@NotNull(message = "关联元素编号不能为空")
-	@ApiModelProperty(value = "关联元素编号", required = true)
+
+	/**关联元素编号*/
+	@ApiModelProperty(value = "关联元素编号", required = false, notes = "[关联元素编号]")
 	private Long nexusRid;
 
-    /**
-	 * 顺序号
-	 * 
-     */
-	@ApiModelProperty(value = "顺序号", required = false)
+
+	/**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false, notes = "[顺序号]")
 	private Integer seq;
 
-    /**
-	 * 用户编号
-	 * 
-     */
-	@NotNull(message = "用户编号不能为空")
-	@ApiModelProperty(value = "用户编号", required = true)
+
+	/**用户编号*/
+	@ApiModelProperty(value = "用户编号", required = false, notes = "[用户编号]")
 	private Long uid;
 
-    /**
-	 * 用户类型
-	 * 
-     */
-	@ApiModelProperty(value = "用户类型", required = false)
-	@Size(max = 255, message = "用户类型超长，最多255个字符")
+
+	/**用户类型*/
+	@ApiModelProperty(value = "用户类型", required = false, notes = "[用户类型]")
 	private String type;
 
-    /**
-	 * 用户角色
-	 * 
-     */
-	@ApiModelProperty(value = "用户角色", required = false)
-	@Size(max = 255, message = "用户角色超长，最多255个字符")
+
+	/**用户类型*/
+	@ApiModelProperty(value = "用户类型", required = false, notes = "[用户类型]")
 	private String role;
 
-    /**
-	 * 状态
-	 * 
-     */
-	@ApiModelProperty(value = "状态", required = false)
-	@Size(max = 255, message = "状态超长，最多255个字符")
+
+	/**状态*/
+	@ApiModelProperty(value = "状态", required = false, notes = "[状态]")
 	private String status;
 
-    /**
-	 * 用户租户编号
-	 * 
-     */
-	@ApiModelProperty(value = "用户租户编号", required = false)
+
+	/**用户租户编号*/
+	@ApiModelProperty(value = "用户租户编号", required = false, notes = "[用户租户编号]-为未来交易撮合预留")
 	private Long userTid;
 
-    /**
-	 * 组织编号
-	 * 
-     */
-	@ApiModelProperty(value = "组织编号", required = false)
+
+	/**组织编号*/
+	@ApiModelProperty(value = "组织编号", required = false, notes = "[组织编号]")
 	private Long orgRid;
 
-    /**
-	 * 组织名称
-	 * 
-     */
-	@ApiModelProperty(value = "组织名称", required = false)
-	@Size(max = 255, message = "组织名称超长，最多255个字符")
+
+	/**组织名称*/
+	@ApiModelProperty(value = "组织名称", required = false, notes = "[组织名称]")
 	private String orgName;
 
-    /**
-	 * 记录状态
-	 * 
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
+
+	/**记录状态*/
+	@ApiModelProperty(value = "记录状态", required = false, notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 
-    /**
-	 * 创建用户代码
-	 * 
-     */
-	@ApiModelProperty(value = "创建用户代码", required = false)
-	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+
+	/**创建用户代码*/
+	@ApiModelProperty(value = "创建用户代码", required = false, notes = "[创建用户代码]")
 	private String createUcode;
 
-    /**
-	 * 修改用户代码
-	 * 
-     */
-	@ApiModelProperty(value = "修改用户代码", required = false)
-	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+
+	/**创建用户姓名*/
+	@ApiModelProperty(value = "创建用户姓名", required = false, notes = "[创建用户姓名]")
+	private String createUname;
+
+
+	/**修改用户代码*/
+	@ApiModelProperty(value = "修改用户代码", required = false, notes = "[修改用户代码]")
 	private String modifyUcode;
+
+
+	/**修改用户姓名*/
+	@ApiModelProperty(value = "修改用户姓名", required = false, notes = "[修改用户姓名]")
+	private String modifyUname;
+
 
 
 	public Long getTid(){
@@ -167,12 +128,22 @@ public class DevpPrdPersonEditDto {
 		this.tid = tid;
 	}
 
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
+	}
+
+
 	public String getCode(){
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 
 	public String getName(){
 		return name;
@@ -181,12 +152,14 @@ public class DevpPrdPersonEditDto {
 		this.name = name;
 	}
 
+
 	public String getAlias(){
 		return alias;
 	}
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
+
 
 	public String getDescription(){
 		return description;
@@ -195,12 +168,14 @@ public class DevpPrdPersonEditDto {
 		this.description = description;
 	}
 
+
 	public String getNexusType(){
 		return nexusType;
 	}
 	public void setNexusType(String nexusType) {
 		this.nexusType = nexusType;
 	}
+
 
 	public Long getNexusRid(){
 		return nexusRid;
@@ -209,12 +184,14 @@ public class DevpPrdPersonEditDto {
 		this.nexusRid = nexusRid;
 	}
 
+
 	public Integer getSeq(){
 		return seq;
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
+
 
 	public Long getUid(){
 		return uid;
@@ -223,12 +200,14 @@ public class DevpPrdPersonEditDto {
 		this.uid = uid;
 	}
 
+
 	public String getType(){
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
 	}
+
 
 	public String getRole(){
 		return role;
@@ -237,12 +216,14 @@ public class DevpPrdPersonEditDto {
 		this.role = role;
 	}
 
+
 	public String getStatus(){
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 
 	public Long getUserTid(){
 		return userTid;
@@ -251,12 +232,14 @@ public class DevpPrdPersonEditDto {
 		this.userTid = userTid;
 	}
 
+
 	public Long getOrgRid(){
 		return orgRid;
 	}
 	public void setOrgRid(Long orgRid) {
 		this.orgRid = orgRid;
 	}
+
 
 	public String getOrgName(){
 		return orgName;
@@ -265,12 +248,14 @@ public class DevpPrdPersonEditDto {
 		this.orgName = orgName;
 	}
 
+
 	public Integer getRecordState(){
 		return recordState;
 	}
 	public void setRecordState(Integer recordState) {
 		this.recordState = recordState;
 	}
+
 
 	public String getCreateUcode(){
 		return createUcode;
@@ -279,11 +264,28 @@ public class DevpPrdPersonEditDto {
 		this.createUcode = createUcode;
 	}
 
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
 	public String getModifyUcode(){
 		return modifyUcode;
 	}
 	public void setModifyUcode(String modifyUcode) {
 		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

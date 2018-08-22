@@ -7,156 +7,99 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
-
 /**
- * 附件定义
+ * 附件
  * @author icode
  */
-@ApiModel(value = "新增附件定义使用的DTO")
+@ApiModel(value = "新增附件使用的DTO")
 public class DevpOpsAttachmentAddDto {
 
-    /**
-	 * 租户编号
-	 * [租户编号]
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
+    /**租户编号*/
+	@ApiModelProperty(value = "租户编号", required = false, notes = "[租户编号]")
 	private Long tid;
 
-    /**
-	 * 元素类型
-	 * [元素类型]
-     */
-	@ApiModelProperty(value = "元素类型", required = false)
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
+    /**元素类型*/
+	@ApiModelProperty(value = "元素类型", required = false, notes = "[元素类型]")
 	private String etype;
 
-    /**
-	 * 附件代码
-	 * [附件代码]
-     */
-	@ApiModelProperty(value = "附件代码", required = false)
-	@Size(max = 255, message = "附件代码超长，最多255个字符")
+    /**附件代码*/
+	@ApiModelProperty(value = "附件代码", required = false, notes = "[附件代码]")
 	private String code;
 
-    /**
-	 * 附件名称
-	 * [附件名称]
-     */
-	@ApiModelProperty(value = "附件名称", required = false)
-	@Size(max = 255, message = "附件名称超长，最多255个字符")
+    /**附件名称*/
+	@ApiModelProperty(value = "附件名称", required = false, notes = "[附件名称]")
 	private String name;
 
-    /**
-	 * 附件别名
-	 * [附件别名]
-     */
-	@ApiModelProperty(value = "附件别名", required = false)
-	@Size(max = 255, message = "附件别名超长，最多255个字符")
+    /**附件别名*/
+	@ApiModelProperty(value = "附件别名", required = false, notes = "[附件别名]")
 	private String alias;
 
-    /**
-	 * 附件描述
-	 * [附件描述]
-     */
-	@ApiModelProperty(value = "附件描述", required = false)
-	@Size(max = 255, message = "附件描述超长，最多255个字符")
+    /**附件描述*/
+	@ApiModelProperty(value = "附件描述", required = false, notes = "[附件描述]")
 	private String description;
 
-    /**
-	 * 记录状态
-	 * [记录状态]-0-失效;1-生效;缺省为1
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
+    /**记录状态*/
+	@ApiModelProperty(value = "记录状态", required = false, notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 
-    /**
-	 * 类型代码
-	 * [类型代码]
-     */
-	@ApiModelProperty(value = "类型代码", required = false)
-	@Size(max = 255, message = "类型代码超长，最多255个字符")
+    /**类型代码*/
+	@ApiModelProperty(value = "类型代码", required = false, notes = "[类型代码]")
 	private String typeCode;
 
-    /**
-	 * 类型名称
-	 * [类型名称]-冗余字段，方便显示
-     */
-	@ApiModelProperty(value = "类型名称", required = false)
-	@Size(max = 255, message = "类型名称超长，最多255个字符")
+    /**类型名称*/
+	@ApiModelProperty(value = "类型名称", required = false, notes = "[类型名称]-冗余字段，方便显示")
 	private String typeName;
 
-    /**
-	 * 文件类型
-	 * [文件类型]
-     */
-	@ApiModelProperty(value = "文件类型", required = false)
-	@Size(max = 255, message = "文件类型超长，最多255个字符")
+    /**文件类型*/
+	@ApiModelProperty(value = "文件类型", required = false, notes = "[文件类型]")
 	private String fileType;
 
-    /**
-	 * 访问方式
-	 * [访问方式]
-     */
-	@ApiModelProperty(value = "访问方式", required = false)
-	@Size(max = 255, message = "访问方式超长，最多255个字符")
+    /**访问方式*/
+	@ApiModelProperty(value = "访问方式", required = false, notes = "[访问方式]")
 	private String accessType;
 
-    /**
-	 * 访问域
-	 * [访问域]
-     */
-	@ApiModelProperty(value = "访问域", required = false)
-	@Size(max = 255, message = "访问域超长，最多255个字符")
+    /**访问域*/
+	@ApiModelProperty(value = "访问域", required = false, notes = "[访问域]")
 	private String domain;
 
-    /**
-	 * 访问地址
-	 * [访问地址]
-     */
-	@ApiModelProperty(value = "访问地址", required = false)
-	@Size(max = 255, message = "访问地址超长，最多255个字符")
+    /**访问地址*/
+	@ApiModelProperty(value = "访问地址", required = false, notes = "[访问地址]")
 	private String address;
 
-    /**
-	 * 附件版本
-	 * [附件版本]-当前版本
-     */
-	@ApiModelProperty(value = "附件版本", required = false)
-	@Size(max = 255, message = "附件版本超长，最多255个字符")
+    /**附件版本*/
+	@ApiModelProperty(value = "附件版本", required = false, notes = "[附件版本]-当前版本")
 	private String fileVersion;
 
-    /**
-	 * 关联记录类型
-	 * [关联记录类型]
-     */
-	@NotNull(message = "关联记录类型不能为空")
-	@ApiModelProperty(value = "关联记录类型", required = true)
-	@Size(max = 255, message = "关联记录类型超长，最多255个字符")
+    /**关联记录类型*/
+	@ApiModelProperty(value = "关联记录类型", required = false, notes = "[关联记录类型]")
 	private String nexusType;
 
-    /**
-	 * 关联记录编号
-	 * [关联记录编号]
-     */
-	@NotNull(message = "关联记录编号不能为空")
-	@ApiModelProperty(value = "关联记录编号", required = true)
+    /**关联记录编号*/
+	@ApiModelProperty(value = "关联记录编号", required = false, notes = "[关联记录编号]")
 	private Long nexusRid;
 
-    /**
-	 * 顺序号
-	 * [顺序号]
-     */
-	@ApiModelProperty(value = "顺序号", required = false)
+    /**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false, notes = "[顺序号]")
 	private Integer seq;
 
-    /**
-	 * 修改用户代码
-	 * [修改用户代码]
-     */
-	@ApiModelProperty(value = "修改用户代码", required = false)
-	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+    /**创建用户代码*/
+	@ApiModelProperty(value = "创建用户代码", required = false, notes = "[创建用户代码]")
+	private String createUcode;
+
+    /**创建用户姓名*/
+	@ApiModelProperty(value = "创建用户姓名", required = false, notes = "[创建用户姓名]")
+	private String createUname;
+
+    /**修改用户代码*/
+	@ApiModelProperty(value = "修改用户代码", required = false, notes = "[修改用户代码]")
+	private String modifyUcode;
+
+    /**修改用户姓名*/
+	@ApiModelProperty(value = "修改用户姓名", required = false, notes = "[修改用户姓名]")
+	private String modifyUname;
+
+    /**cmodify_ucode*/
+	@ApiModelProperty(value = "cmodify_ucode", required = false, notes = "")
 	private String cmodifyUcode;
 
 
@@ -277,6 +220,34 @@ public class DevpOpsAttachmentAddDto {
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 	public String getCmodifyUcode(){

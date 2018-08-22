@@ -23,6 +23,7 @@ Ext.define('AM.store.maintenance.hardware.NetworkDeviceStore', {
                 ,actionMethods:{read:'POST'}
                 ,api:{read:"hardware/networkDevice/list"}
                 ,paramsAsJson:true
+                ,extraParams:{searchCondition:{}}
                 ,listeners: {
                     exception: {
                         fn: me.onAjaxproxyException
@@ -58,6 +59,11 @@ Ext.define('AM.store.maintenance.hardware.NetworkDeviceStore', {
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
 
+    }
+    ,applyCondition:function(condition){
+        condition = condition || {}
+        this.proxy.setExtraParam("searchCondition", condition);
+        return this;
     }
 
 });

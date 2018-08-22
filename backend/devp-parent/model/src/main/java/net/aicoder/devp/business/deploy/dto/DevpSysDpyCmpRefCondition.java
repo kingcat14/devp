@@ -1,110 +1,119 @@
 package net.aicoder.devp.business.deploy.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 @ApiModel(value = "查询系统元素间关系使用的DTO")
-public class DevpSysDpyCmpRefCondition implements Serializable{
+public class DevpSysDpyCmpRefCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-SYS_DPY_CMP_REF // 部署组件关联元素")
 	private String etype;
-	@ApiModelProperty(value = "对应关系代码")
+	@ApiModelProperty(value = "对应关系代码", notes = "[对应关系代码]")
 	private String code;
-	@ApiModelProperty(value = "对应关系名称")
+	@ApiModelProperty(value = "对应关系名称", notes = "[对应关系名称]")
 	private String name;
-	@ApiModelProperty(value = "对应关系别名")
+	@ApiModelProperty(value = "对应关系别名", notes = "[对应关系别名]")
 	private String alias;
-	@ApiModelProperty(value = "对应关系描述")
+	@ApiModelProperty(value = "对应关系描述", notes = "[对应关系描述]")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "产品编号")
+	@ApiModelProperty(value = "产品编号", notes = "[产品编号]")
 	private Long prdRid;
 	@ApiModelProperty(value = "产品编号最大值")
 	private Long prdRidMax;
 	@ApiModelProperty(value = "产品编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "部署方案编号")
+	@ApiModelProperty(value = "部署方案编号", notes = "[部署方案编号]")
 	private Long schemeRid;
 	@ApiModelProperty(value = "部署方案编号最大值")
 	private Long schemeRidMax;
 	@ApiModelProperty(value = "部署方案编号最小值")
 	private Long schemeRidMin;
-	@ApiModelProperty(value = "组件编号")
+	@ApiModelProperty(value = "组件编号", notes = "[组件编号]")
 	private Long cmpRid;
 	@ApiModelProperty(value = "组件编号最大值")
 	private Long cmpRidMax;
 	@ApiModelProperty(value = "组件编号最小值")
 	private Long cmpRidMin;
-	@ApiModelProperty(value = "关联元素类型")
+	@ApiModelProperty(value = "关联元素类型", notes = "[关联元素类型]")
 	private Long refEtype;
 	@ApiModelProperty(value = "关联元素类型最大值")
 	private Long refEtypeMax;
 	@ApiModelProperty(value = "关联元素类型最小值")
 	private Long refEtypeMin;
-	@ApiModelProperty(value = "关联产品编号")
+	@ApiModelProperty(value = "关联产品编号", notes = "[关联产品编号]")
 	private Long refPrdRid;
 	@ApiModelProperty(value = "关联产品编号最大值")
 	private Long refPrdRidMax;
 	@ApiModelProperty(value = "关联产品编号最小值")
 	private Long refPrdRidMin;
-	@ApiModelProperty(value = "关联元素编号")
+	@ApiModelProperty(value = "关联元素编号", notes = "[关联元素编号]")
 	private Long refElmRid;
 	@ApiModelProperty(value = "关联元素编号最大值")
 	private Long refElmRidMax;
 	@ApiModelProperty(value = "关联元素编号最小值")
 	private Long refElmRidMin;
-	@ApiModelProperty(value = "关联元素实例编号")
+	@ApiModelProperty(value = "关联元素实例编号", notes = "[关联元素实例编号]-缺省值为0")
 	private Long refInstRid;
 	@ApiModelProperty(value = "关联元素实例编号最大值")
 	private Long refInstRidMax;
 	@ApiModelProperty(value = "关联元素实例编号最小值")
 	private Long refInstRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "类型")
+	@ApiModelProperty(value = "类型", notes = "[类型]-关联类型：部署到、连接、调用")
 	private String type;
-	@ApiModelProperty(value = "子类型")
+	@ApiModelProperty(value = "子类型", notes = "[子类型]-连接时：双向[-o)-]，请求[)-],提供[-o]")
 	private String subType;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]-(保留)")
 	private String stereotype;
-	@ApiModelProperty(value = "范围")
+	@ApiModelProperty(value = "范围", notes = "[范围]-(保留)")
 	private String scope;
-	@ApiModelProperty(value = "方向")
+	@ApiModelProperty(value = "方向", notes = "[方向]-(保留)")
 	private String direction;
-	@ApiModelProperty(value = "来源对应数量")
+	@ApiModelProperty(value = "来源对应数量", notes = "[来源对应数量]-0/1/ * /0..1/0..* /1..*")
 	private String srcMulti;
-	@ApiModelProperty(value = "来源角色")
+	@ApiModelProperty(value = "来源角色", notes = "[来源角色]")
 	private String srcRole;
-	@ApiModelProperty(value = "来源角色类型")
+	@ApiModelProperty(value = "来源角色类型", notes = "[来源角色类型]")
 	private String srcRoleType;
-	@ApiModelProperty(value = "目标对应数量")
+	@ApiModelProperty(value = "目标对应数量", notes = "[目标对应数量]-0/1/ * /0..1/0..* /1..*")
 	private String destMulti;
-	@ApiModelProperty(value = "目标角色")
+	@ApiModelProperty(value = "目标角色", notes = "[目标角色]")
 	private String destRole;
-	@ApiModelProperty(value = "目标角色类型")
+	@ApiModelProperty(value = "目标角色类型", notes = "[目标角色类型]")
 	private String destRoleType;
-	@ApiModelProperty(value = "属性对应关系")
+	@ApiModelProperty(value = "属性对应关系", notes = "[属性对应关系]-(保留)")
 	private String attrRelation;
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
+	private String createUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -460,6 +469,38 @@ public class DevpSysDpyCmpRefCondition implements Serializable{
 	}
 	public void setAttrRelation(String attrRelation) {
 		this.attrRelation = attrRelation;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

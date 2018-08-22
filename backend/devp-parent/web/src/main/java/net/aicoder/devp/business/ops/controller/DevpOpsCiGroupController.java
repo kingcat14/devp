@@ -1,20 +1,25 @@
 package net.aicoder.devp.business.ops.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.ops.domain.DevpOpsCiGroup;
-import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupCondition;
+import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupEditDto;
 import net.aicoder.devp.business.ops.service.DevpOpsCiGroupService;
 import net.aicoder.devp.business.ops.valid.DevpOpsCiGroupValidator;
 import net.aicoder.devp.business.ops.vo.DevpOpsCiGroupVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,15 +30,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
- * 管理资产项目分组映射
+ * 管理资产项目分组
  * @author icode
  */
-@Api(description = "资产项目分组映射", tags = "DevpOpsCiGroup")
+@Api(description = "资产项目分组", tags = "DevpOpsCiGroup")
 @RestController
 @RequestMapping(value = "/ops/devpOpsCiGroup")
 public class DevpOpsCiGroupController {
@@ -48,17 +54,18 @@ public class DevpOpsCiGroupController {
 	@Autowired
 	private DevpOpsCiGroupValidator devpOpsCiGroupValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpOpsCiGroupValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
-	 * 新增资产项目分组映射
+	 * 新增资产项目分组
 	 * @param devpOpsCiGroupAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增资产项目分组映射", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增资产项目分组", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsCiGroupVO add(@RequestBody @Valid DevpOpsCiGroupAddDto devpOpsCiGroupAddDto){
@@ -71,10 +78,10 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 删除资产项目分组映射,id以逗号分隔
+	 * 删除资产项目分组,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除资产项目分组映射", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除资产项目分组", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -88,12 +95,12 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 更新资产项目分组映射
+	 * 更新资产项目分组
 	 * @param devpOpsCiGroupEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产资产项目分组映射(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产资产项目分组(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpOpsCiGroupVO update(@RequestBody @Valid DevpOpsCiGroupEditDto devpOpsCiGroupEditDto, @PathVariable Long id){
 		DevpOpsCiGroup devpOpsCiGroup = new DevpOpsCiGroup();
@@ -106,11 +113,11 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 根据ID查询资产项目分组映射
+	 * 根据ID查询资产项目分组
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询资产项目分组映射", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询资产项目分组", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpOpsCiGroupVO get(@PathVariable Long id) {
 
@@ -121,11 +128,11 @@ public class DevpOpsCiGroupController {
 	}
 
 	/**
-	 * 查询资产项目分组映射列表
+	 * 查询资产项目分组列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询资产项目分组映射列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询资产项目分组列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpOpsCiGroupVO> list(@RequestBody PageSearchRequest<DevpOpsCiGroupCondition> pageSearchRequest){
 
@@ -149,13 +156,50 @@ public class DevpOpsCiGroupController {
 
 	}
 
-	private DevpOpsCiGroupVO initViewProperty(DevpOpsCiGroup devpOpsCiGroup){
-	    DevpOpsCiGroupVO vo = new DevpOpsCiGroupVO();
+	/**
+     * 导出资产项目分组列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出资产项目分组列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpOpsCiGroupCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpOpsCiGroupCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpOpsCiGroupVO> content = this.list(pageSearchRequest);
+
+        List<DevpOpsCiGroupVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpOpsCiGroupVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("资产项目分组");
+        String fileName = new String(("资产项目分组_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpOpsCiGroupVO initViewProperty(DevpOpsCiGroup devpOpsCiGroup){
+
+	    DevpOpsCiGroupVO vo = new DevpOpsCiGroupVO();
         BeanUtils.copyProperties(devpOpsCiGroup, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

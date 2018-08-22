@@ -11,11 +11,6 @@ Ext.define('AM.controller.maintenance.software.InfrastructuralSoftwareController
         if(!infrastructuralSoftwarePanel){
             infrastructuralSoftwarePanel = Ext.create('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {closable:true});
 
-            var infrastructuralSoftwareStore = Ext.create('AM.store.maintenance.software.InfrastructuralSoftwareStore');
-            infrastructuralSoftwareStore.proxy.extraParams={searchCondition:{}};
-            infrastructuralSoftwarePanel.setStore(infrastructuralSoftwareStore);
-            infrastructuralSoftwareStore.load();
-
             center.add(infrastructuralSoftwarePanel);
             center.setActiveTab(infrastructuralSoftwarePanel);
         }

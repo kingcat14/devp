@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.deploy.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.deploy.domain.DevpSysDpyResources;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesEditDto;
-
+import net.aicoder.devp.business.deploy.domain.DevpSysDpyResources;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpSysDpyResourcesValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpSysDpyResourcesAddDto.class.equals(aClass))
-			return true;
-		if(DevpSysDpyResourcesEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -53,21 +45,6 @@ public class DevpSysDpyResourcesValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysDpyResources.getTid() ) {
-			errors.rejectValue(DevpSysDpyResources.PROPERTY_TID, "EMPTY_"+DevpSysDpyResources.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyResources.getEtype())){
-			errors.rejectValue(DevpSysDpyResources.PROPERTY_ETYPE, "EMPTY_"+DevpSysDpyResources.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyResources.getName())){
-			errors.rejectValue(DevpSysDpyResources.PROPERTY_NAME, "EMPTY_"+DevpSysDpyResources.PROPERTY_NAME, "系统元素名称不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyResources.getCode())){
-			errors.rejectValue(DevpSysDpyResources.PROPERTY_CODE, "EMPTY_"+DevpSysDpyResources.PROPERTY_CODE, "系统元素代码不能为空");
-		}
-		if (null == devpSysDpyResources.getPrdRid() ) {
-			errors.rejectValue(DevpSysDpyResources.PROPERTY_PRD_RID, "EMPTY_"+DevpSysDpyResources.PROPERTY_PRD_RID, "产品编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpSysDpyResources.getEtype()) > 255){
@@ -108,6 +85,18 @@ public class DevpSysDpyResourcesValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysDpyResources.getNotes()) > 255){
 			errors.rejectValue(DevpSysDpyResources.PROPERTY_NOTES,null,"备注最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResources.getCreateUcode()) > 255){
+			errors.rejectValue(DevpSysDpyResources.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResources.getCreateUname()) > 255){
+			errors.rejectValue(DevpSysDpyResources.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResources.getModifyUcode()) > 255){
+			errors.rejectValue(DevpSysDpyResources.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResources.getModifyUname()) > 255){
+			errors.rejectValue(DevpSysDpyResources.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

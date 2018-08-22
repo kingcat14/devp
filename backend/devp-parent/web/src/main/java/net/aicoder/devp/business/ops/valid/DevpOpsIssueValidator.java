@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.ops.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.ops.domain.DevpOpsIssue;
 import net.aicoder.devp.business.ops.dto.DevpOpsIssueAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsIssueEditDto;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsIssue;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpOpsIssueValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpOpsIssueAddDto.class.equals(aClass))
-			return true;
-		if(DevpOpsIssueEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -53,18 +45,6 @@ public class DevpOpsIssueValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpOpsIssue.getTid() ) {
-			errors.rejectValue(DevpOpsIssue.PROPERTY_TID, "EMPTY_"+DevpOpsIssue.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsIssue.getEtype())){
-			errors.rejectValue(DevpOpsIssue.PROPERTY_ETYPE, "EMPTY_"+DevpOpsIssue.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsIssue.getNexusType())){
-			errors.rejectValue(DevpOpsIssue.PROPERTY_NEXUS_TYPE, "EMPTY_"+DevpOpsIssue.PROPERTY_NEXUS_TYPE, "关联记录类型不能为空");
-		}
-		if (null == devpOpsIssue.getNexusRid() ) {
-			errors.rejectValue(DevpOpsIssue.PROPERTY_NEXUS_RID, "EMPTY_"+DevpOpsIssue.PROPERTY_NEXUS_RID, "关联记录编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpOpsIssue.getEtype()) > 255){
@@ -106,8 +86,20 @@ public class DevpOpsIssueValidator implements Validator {
 		if(StringUtils.length(devpOpsIssue.getParasCode()) > 255){
 			errors.rejectValue(DevpOpsIssue.PROPERTY_PARAS_CODE,null,"参数定义标识最长255个字符");
 		}
+		if(StringUtils.length(devpOpsIssue.getCreateUcode()) > 255){
+			errors.rejectValue(DevpOpsIssue.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsIssue.getCreateUname()) > 255){
+			errors.rejectValue(DevpOpsIssue.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpOpsIssue.getModifyUcode()) > 255){
+			errors.rejectValue(DevpOpsIssue.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsIssue.getModifyUname()) > 255){
+			errors.rejectValue(DevpOpsIssue.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
+		}
 		if(StringUtils.length(devpOpsIssue.getCmodifyUcode()) > 255){
-			errors.rejectValue(DevpOpsIssue.PROPERTY_CMODIFY_UCODE,null,"修改用户代码最长255个字符");
+			errors.rejectValue(DevpOpsIssue.PROPERTY_CMODIFY_UCODE,null,"cmodify_ucode最长255个字符");
 		}
 	}
 }

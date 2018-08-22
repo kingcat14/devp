@@ -1,15 +1,14 @@
 package net.aicoder.devp.business.sys.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.sys.domain.DevpSysCmpModule;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpModuleAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpModuleEditDto;
-
+import net.aicoder.devp.business.sys.domain.DevpSysCmpModule;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 @Service
 public class DevpSysCmpModuleValidator implements Validator {
@@ -21,13 +20,7 @@ public class DevpSysCmpModuleValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpSysCmpModuleAddDto.class.equals(aClass))
-			return true;
-		if(DevpSysCmpModuleEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -52,21 +45,6 @@ public class DevpSysCmpModuleValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysCmpModule.getTid() ) {
-			errors.rejectValue(DevpSysCmpModule.PROPERTY_TID, "EMPTY_"+DevpSysCmpModule.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysCmpModule.getEtype())){
-			errors.rejectValue(DevpSysCmpModule.PROPERTY_ETYPE, "EMPTY_"+DevpSysCmpModule.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if (null == devpSysCmpModule.getPrdRid() ) {
-			errors.rejectValue(DevpSysCmpModule.PROPERTY_PRD_RID, "EMPTY_"+DevpSysCmpModule.PROPERTY_PRD_RID, "产品编号不能为空");
-		}
-		if (null == devpSysCmpModule.getCmpRid() ) {
-			errors.rejectValue(DevpSysCmpModule.PROPERTY_CMP_RID, "EMPTY_"+DevpSysCmpModule.PROPERTY_CMP_RID, "组件编号不能为空");
-		}
-		if (null == devpSysCmpModule.getMduRid() ) {
-			errors.rejectValue(DevpSysCmpModule.PROPERTY_MDU_RID, "EMPTY_"+DevpSysCmpModule.PROPERTY_MDU_RID, "模块编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpSysCmpModule.getEtype()) > 255){
@@ -89,6 +67,18 @@ public class DevpSysCmpModuleValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysCmpModule.getSubType()) > 255){
 			errors.rejectValue(DevpSysCmpModule.PROPERTY_SUB_TYPE,null,"子类型最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmpModule.getCreateUcode()) > 255){
+			errors.rejectValue(DevpSysCmpModule.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmpModule.getCreateUname()) > 255){
+			errors.rejectValue(DevpSysCmpModule.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmpModule.getModifyUcode()) > 255){
+			errors.rejectValue(DevpSysCmpModule.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmpModule.getModifyUname()) > 255){
+			errors.rejectValue(DevpSysCmpModule.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

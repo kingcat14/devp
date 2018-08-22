@@ -1,7 +1,7 @@
 Ext.define('AM.view.application.common.SimpleConfigPanel', {
     extend: 'Ext.grid.Panel'
     ,xtype: 'application.common.SimpleConfigPanel'
-    ,title: '通用配置'
+    ,title: '配置项'
     ,requires: [
         'AM.view.application.common.SimpleConfigController'
         ,'AM.view.application.common.SimpleConfigAddWindow'

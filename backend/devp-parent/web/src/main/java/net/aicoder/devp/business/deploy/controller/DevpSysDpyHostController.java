@@ -1,20 +1,25 @@
 package net.aicoder.devp.business.deploy.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyHost;
-import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostCondition;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostEditDto;
 import net.aicoder.devp.business.deploy.service.DevpSysDpyHostService;
 import net.aicoder.devp.business.deploy.valid.DevpSysDpyHostValidator;
 import net.aicoder.devp.business.deploy.vo.DevpSysDpyHostVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,9 +30,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * 管理部署主机节点
@@ -48,9 +54,10 @@ public class DevpSysDpyHostController {
 	@Autowired
 	private DevpSysDpyHostValidator devpSysDpyHostValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpSysDpyHostValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
@@ -82,7 +89,7 @@ public class DevpSysDpyHostController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpyHostService.delete(Long.valueOf(id));
+			devpSysDpyHostService.delete(Long.parseLong(id));
 		}
 
 	}
@@ -149,13 +156,50 @@ public class DevpSysDpyHostController {
 
 	}
 
-	private DevpSysDpyHostVO initViewProperty(DevpSysDpyHost devpSysDpyHost){
-	    DevpSysDpyHostVO vo = new DevpSysDpyHostVO();
+	/**
+     * 导出部署主机节点列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出部署主机节点列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpSysDpyHostCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpSysDpyHostCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpSysDpyHostVO> content = this.list(pageSearchRequest);
+
+        List<DevpSysDpyHostVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpSysDpyHostVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("部署主机节点");
+        String fileName = new String(("部署主机节点_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpSysDpyHostVO initViewProperty(DevpSysDpyHost devpSysDpyHost){
+
+	    DevpSysDpyHostVO vo = new DevpSysDpyHostVO();
         BeanUtils.copyProperties(devpSysDpyHost, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

@@ -1,19 +1,25 @@
 package net.aicoder.devp.business.product.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.product.domain.DevpPrdProduct;
-import net.aicoder.devp.business.product.dto.DevpPrdProductAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdProductCondition;
+import net.aicoder.devp.business.product.dto.DevpPrdProductAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdProductEditDto;
 import net.aicoder.devp.business.product.service.DevpPrdProductService;
 import net.aicoder.devp.business.product.valid.DevpPrdProductValidator;
 import net.aicoder.devp.business.product.vo.DevpPrdProductVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -21,18 +27,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
- * 管理产品定义
+ * 管理产品
  * @author icode
  */
-@Api(description = "产品定义", tags = "DevpPrdProduct")
+@Api(description = "产品", tags = "DevpPrdProduct")
 @RestController
 @RequestMapping(value = "/product/devpPrdProduct")
 public class DevpPrdProductController {
@@ -47,17 +54,18 @@ public class DevpPrdProductController {
 	@Autowired
 	private DevpPrdProductValidator devpPrdProductValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpPrdProductValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
-	 * 新增产品定义
+	 * 新增产品
 	 * @param devpPrdProductAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增产品定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增产品", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdProductVO add(@RequestBody @Valid DevpPrdProductAddDto devpPrdProductAddDto){
@@ -70,10 +78,10 @@ public class DevpPrdProductController {
 	}
 
 	/**
-	 * 删除产品定义,id以逗号分隔
+	 * 删除产品,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除产品定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除产品", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -87,12 +95,12 @@ public class DevpPrdProductController {
 	}
 
 	/**
-	 * 更新产品定义
+	 * 更新产品
 	 * @param devpPrdProductEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产产品定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产产品(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpPrdProductVO update(@RequestBody @Valid DevpPrdProductEditDto devpPrdProductEditDto, @PathVariable Long id){
 		DevpPrdProduct devpPrdProduct = new DevpPrdProduct();
@@ -105,11 +113,11 @@ public class DevpPrdProductController {
 	}
 
 	/**
-	 * 根据ID查询产品定义
+	 * 根据ID查询产品
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询产品定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询产品", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpPrdProductVO get(@PathVariable Long id) {
 
@@ -120,11 +128,11 @@ public class DevpPrdProductController {
 	}
 
 	/**
-	 * 查询产品定义列表
+	 * 查询产品列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询产品定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询产品列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpPrdProductVO> list(@RequestBody PageSearchRequest<DevpPrdProductCondition> pageSearchRequest){
 
@@ -148,13 +156,50 @@ public class DevpPrdProductController {
 
 	}
 
-	private DevpPrdProductVO initViewProperty(DevpPrdProduct devpPrdProduct){
-	    DevpPrdProductVO vo = new DevpPrdProductVO();
+	/**
+     * 导出产品列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出产品列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpPrdProductCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpPrdProductCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpPrdProductVO> content = this.list(pageSearchRequest);
+
+        List<DevpPrdProductVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpPrdProductVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("产品");
+        String fileName = new String(("产品_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpPrdProductVO initViewProperty(DevpPrdProduct devpPrdProduct){
+
+	    DevpPrdProductVO vo = new DevpPrdProductVO();
         BeanUtils.copyProperties(devpPrdProduct, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

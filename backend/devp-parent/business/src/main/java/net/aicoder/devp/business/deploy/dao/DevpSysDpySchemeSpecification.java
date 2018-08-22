@@ -1,8 +1,7 @@
 package net.aicoder.devp.business.deploy.dao;
 
-import net.aicoder.devp.business.deploy.domain.DevpSysDpyScheme;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeCondition;
-
+import net.aicoder.devp.business.deploy.domain.DevpSysDpyScheme;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -47,6 +46,10 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddPrdRidPredicate(predicateList, root, cb);
 		tryAddSeqPredicate(predicateList, root, cb);
+		tryAddCreateUcodePredicate(predicateList, root, cb);
+		tryAddCreateUnamePredicate(predicateList, root, cb);
+		tryAddModifyUcodePredicate(predicateList, root, cb);
+		tryAddModifyUnamePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -56,8 +59,17 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTid()));
+		}
+
+		if (null != condition.getTidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTidMax()));
+		}
+
+		if (null != condition.getTidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
@@ -86,8 +98,17 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 		}
 	}
 	private void tryAddRecordStatePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+
 		if (null != condition.getRecordState() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
+		}
+
+		if (null != condition.getRecordStateMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyScheme.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMax()));
+		}
+
+		if (null != condition.getRecordStateMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysDpyScheme.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMin()));
 		}
 	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
@@ -136,13 +157,51 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 		}
 	}
 	private void tryAddPrdRidPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+
 		if (null != condition.getPrdRid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRid()));
 		}
+
+		if (null != condition.getPrdRidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyScheme.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRidMax()));
+		}
+
+		if (null != condition.getPrdRidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysDpyScheme.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRidMin()));
+		}
 	}
 	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+
 		if (null != condition.getSeq() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_SEQ).as(Integer.class), condition.getSeq()));
+		}
+
+		if (null != condition.getSeqMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyScheme.PROPERTY_SEQ).as(Integer.class), condition.getSeqMax()));
+		}
+
+		if (null != condition.getSeqMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysDpyScheme.PROPERTY_SEQ).as(Integer.class), condition.getSeqMin()));
+		}
+	}
+	private void tryAddCreateUcodePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUcode())){
+			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_CREATE_UCODE).as(String.class), "%"+condition.getCreateUcode()+"%"));
+		}
+	}
+	private void tryAddCreateUnamePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUname())){
+			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_CREATE_UNAME).as(String.class), "%"+condition.getCreateUname()+"%"));
+		}
+	}
+	private void tryAddModifyUcodePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUcode())){
+			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_MODIFY_UCODE).as(String.class), "%"+condition.getModifyUcode()+"%"));
+		}
+	}
+	private void tryAddModifyUnamePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUname())){
+			predicateList.add(cb.like(root.get(DevpSysDpyScheme.PROPERTY_MODIFY_UNAME).as(String.class), "%"+condition.getModifyUname()+"%"));
 		}
 	}
 }

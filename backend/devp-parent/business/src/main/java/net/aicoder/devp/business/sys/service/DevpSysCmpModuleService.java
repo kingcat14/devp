@@ -1,13 +1,13 @@
 package net.aicoder.devp.business.sys.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
-
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.devp.business.sys.dao.DevpSysCmpModuleDao;
 import net.aicoder.devp.business.sys.dao.DevpSysCmpModuleSpecification;
 import net.aicoder.devp.business.sys.domain.DevpSysCmpModule;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpModuleCondition;
-
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("devpSysCmpModuleService")
-public class DevpSysCmpModuleService  extends CrudService<DevpSysCmpModule, DevpSysCmpModuleCondition, DevpSysCmpModuleDao> {
+public class DevpSysCmpModuleService  extends GenericCrudService<DevpSysCmpModule, Long, DevpSysCmpModuleCondition, DevpSysCmpModuleDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysCmpModuleService.class);
 
@@ -27,7 +27,7 @@ public class DevpSysCmpModuleService  extends CrudService<DevpSysCmpModule, Devp
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , DevpSysCmpModule.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC, DevpSysCmpModule.PROPERTY_TID);
 		return sort;
 	}
 }

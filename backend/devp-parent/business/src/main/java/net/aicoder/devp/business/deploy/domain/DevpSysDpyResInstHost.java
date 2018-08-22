@@ -1,5 +1,6 @@
 package net.aicoder.devp.business.deploy.domain;
 
+import com.yunkang.saas.common.jpa.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -8,7 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
@@ -39,6 +40,10 @@ public class DevpSysDpyResInstHost extends BaseEntity{
 	public static final String PROPERTY_INST_RID = "instRid";
 	public static final String PROPERTY_SEQ = "seq";
 	public static final String PROPERTY_HOST_RID = "hostRid";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 
 
     @Id
@@ -50,16 +55,14 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
     * 元素类型
     * [元素类型]-SYS_DPY_RES_INST // 关联资源实例
     */
-    @Column(name = "etype")
-	@NotNull(message = "元素类型不能为空")
+    @Column(name = "etype", nullable = false, updatable = true)
 	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
@@ -67,8 +70,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 系统元素名称
     * [系统元素名称]
     */
-    @Column(name = "name")
-	@NotNull(message = "系统元素名称不能为空")
+    @Column(name = "name", nullable = false, updatable = true)
 	@Size(max = 255, message = "系统元素名称超长，最多255个字符")
 	private String name;
 
@@ -76,7 +78,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 系统元素代码
     * [系统元素代码]
     */
-    @Column(name = "code")
+    @Column(name = "code", nullable = true, updatable = true)
 	@Size(max = 255, message = "系统元素代码超长，最多255个字符")
 	private String code;
 
@@ -84,7 +86,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 系统元素别名
     * [系统元素别名]
     */
-    @Column(name = "alias")
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "系统元素别名超长，最多255个字符")
 	private String alias;
 
@@ -92,7 +94,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 系统元素描述
     * [系统元素描述]
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "系统元素描述超长，最多255个字符")
 	private String description;
 
@@ -100,14 +102,14 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 主机标识
     * [主机标识]-同一个部署方案中不能重复
     */
-    @Column(name = "flag")
+    @Column(name = "flag", nullable = true, updatable = true)
 	@Size(max = 255, message = "主机标识超长，最多255个字符")
 	private String flag;
 
@@ -115,7 +117,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 类型
     * [类型]
     */
-    @Column(name = "type")
+    @Column(name = "type", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型超长，最多255个字符")
 	private String type;
 
@@ -123,7 +125,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 子类型
     * [子类型]
     */
-    @Column(name = "sub_type")
+    @Column(name = "sub_type", nullable = true, updatable = true)
 	@Size(max = 255, message = "子类型超长，最多255个字符")
 	private String subType;
 
@@ -131,7 +133,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 状态
     * [状态]
     */
-    @Column(name = "status")
+    @Column(name = "status", nullable = true, updatable = true)
 	@Size(max = 255, message = "状态超长，最多255个字符")
 	private String status;
 
@@ -139,7 +141,7 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 备注
     * [备注]
     */
-    @Column(name = "notes")
+    @Column(name = "notes", nullable = true, updatable = true)
 	@Size(max = 255, message = "备注超长，最多255个字符")
 	private String notes;
 
@@ -147,40 +149,68 @@ public class DevpSysDpyResInstHost extends BaseEntity{
     * 产品编号
     * [产品编号]
     */
-    @Column(name = "prd_rid")
-	@NotNull(message = "产品编号不能为空")
+    @Column(name = "prd_rid", nullable = false, updatable = true)
 	private Long prdRid;
 
     /**
     * 部署方案编号
     * [部署方案编号]
     */
-    @Column(name = "scheme_rid")
-	@NotNull(message = "部署方案编号不能为空")
+    @Column(name = "scheme_rid", nullable = false, updatable = true)
 	private Long schemeRid;
 
     /**
     * 关联资源实例编号
     * [关联资源实例编号]
     */
-    @Column(name = "inst_rid")
-	@NotNull(message = "关联资源实例编号不能为空")
+    @Column(name = "inst_rid", nullable = false, updatable = true)
 	private Long instRid;
 
     /**
     * 顺序号
     * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
 
     /**
     * 关联主机编号
     * [关联主机编号]-对应devp_sys_dpy_host的记录编号
     */
-    @Column(name = "host_rid")
-	@NotNull(message = "关联主机编号不能为空")
+    @Column(name = "host_rid", nullable = false, updatable = true)
 	private Long hostRid;
+
+    /**
+    * 创建用户代码
+    * [创建用户代码]
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * 创建用户姓名
+    * [创建用户姓名]
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * 修改用户代码
+    * [修改用户代码]
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
 
 	public Long getTid(){
 		return tid;
@@ -299,6 +329,34 @@ public class DevpSysDpyResInstHost extends BaseEntity{
 	}
 	public void setHostRid(Long hostRid) {
 		this.hostRid = hostRid;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

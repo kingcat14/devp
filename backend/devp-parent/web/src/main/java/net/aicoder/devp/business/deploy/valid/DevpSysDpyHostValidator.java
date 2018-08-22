@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.deploy.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.deploy.domain.DevpSysDpyHost;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostEditDto;
-
+import net.aicoder.devp.business.deploy.domain.DevpSysDpyHost;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpSysDpyHostValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpSysDpyHostAddDto.class.equals(aClass))
-			return true;
-		if(DevpSysDpyHostEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -53,30 +45,6 @@ public class DevpSysDpyHostValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysDpyHost.getTid() ) {
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_TID, "EMPTY_"+DevpSysDpyHost.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyHost.getEtype())){
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_ETYPE, "EMPTY_"+DevpSysDpyHost.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyHost.getFlag())){
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_FLAG, "EMPTY_"+DevpSysDpyHost.PROPERTY_FLAG, "主机标识不能为空");
-		}
-		if (null == devpSysDpyHost.getPrdRid() ) {
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_PRD_RID, "EMPTY_"+DevpSysDpyHost.PROPERTY_PRD_RID, "产品编号不能为空");
-		}
-		if (null == devpSysDpyHost.getSchemeRid() ) {
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_SCHEME_RID, "EMPTY_"+DevpSysDpyHost.PROPERTY_SCHEME_RID, "部署方案编号不能为空");
-		}
-		if (null == devpSysDpyHost.getAssetRid() ) {
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_ASSET_RID, "EMPTY_"+DevpSysDpyHost.PROPERTY_ASSET_RID, "关联IT资产编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyHost.getAssetEtype())){
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_ASSET_ETYPE, "EMPTY_"+DevpSysDpyHost.PROPERTY_ASSET_ETYPE, "关联IT资产元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyHost.getAssetTypeCode())){
-			errors.rejectValue(DevpSysDpyHost.PROPERTY_ASSET_TYPE_CODE, "EMPTY_"+DevpSysDpyHost.PROPERTY_ASSET_TYPE_CODE, "关联IT资产类型代码不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpSysDpyHost.getEtype()) > 255){
@@ -106,6 +74,12 @@ public class DevpSysDpyHostValidator implements Validator {
 		if(StringUtils.length(devpSysDpyHost.getStatus()) > 255){
 			errors.rejectValue(DevpSysDpyHost.PROPERTY_STATUS,null,"状态最长255个字符");
 		}
+		if(StringUtils.length(devpSysDpyHost.getIntAccessAddr()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_INT_ACCESS_ADDR,null,"内部访问地址最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyHost.getExtAccessAddr()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_EXT_ACCESS_ADDR,null,"外部访问地址最长255个字符");
+		}
 		if(StringUtils.length(devpSysDpyHost.getNotes()) > 255){
 			errors.rejectValue(DevpSysDpyHost.PROPERTY_NOTES,null,"备注最长255个字符");
 		}
@@ -114,6 +88,18 @@ public class DevpSysDpyHostValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysDpyHost.getAssetTypeCode()) > 255){
 			errors.rejectValue(DevpSysDpyHost.PROPERTY_ASSET_TYPE_CODE,null,"关联IT资产类型代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyHost.getCreateUcode()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyHost.getCreateUname()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyHost.getModifyUcode()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyHost.getModifyUname()) > 255){
+			errors.rejectValue(DevpSysDpyHost.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

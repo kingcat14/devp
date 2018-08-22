@@ -11,11 +11,6 @@ Ext.define('AM.controller.maintenance.hardware.NetworkDeviceController', {
         if(!networkDevicePanel){
             networkDevicePanel = Ext.create('AM.view.maintenance.hardware.NetworkDevicePanel', {closable:true});
 
-            var networkDeviceStore = Ext.create('AM.store.maintenance.hardware.NetworkDeviceStore');
-            networkDeviceStore.proxy.extraParams={searchCondition:{}};
-            networkDevicePanel.setStore(networkDeviceStore);
-            networkDeviceStore.load();
-
             center.add(networkDevicePanel);
             center.setActiveTab(networkDevicePanel);
         }

@@ -1,13 +1,11 @@
 package net.aicoder.devp.business.ops.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
-
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.devp.business.ops.dao.DevpOpsParasDefineDao;
 import net.aicoder.devp.business.ops.dao.DevpOpsParasDefineSpecification;
 import net.aicoder.devp.business.ops.domain.DevpOpsParasDefine;
 import net.aicoder.devp.business.ops.dto.DevpOpsParasDefineCondition;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("devpOpsParasDefineService")
-public class DevpOpsParasDefineService  extends CrudService<DevpOpsParasDefine, DevpOpsParasDefineCondition, DevpOpsParasDefineDao> {
+public class DevpOpsParasDefineService  extends GenericCrudService<DevpOpsParasDefine, Long, DevpOpsParasDefineCondition, DevpOpsParasDefineDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpOpsParasDefineService.class);
 
@@ -29,7 +27,7 @@ public class DevpOpsParasDefineService  extends CrudService<DevpOpsParasDefine, 
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , DevpOpsParasDefine.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC, DevpOpsParasDefine.PROPERTY_TID);
 		return sort;
 	}
 }

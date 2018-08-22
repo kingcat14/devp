@@ -1,5 +1,6 @@
 package net.aicoder.devp.business.ops.domain;
 
+import com.yunkang.saas.common.jpa.BaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -8,16 +9,16 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
 import org.hibernate.validator.constraints.NotEmpty;
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
 
 
 /**
- * 附件定义
+ * 附件
  * @author icode
  */
 @Entity
-@Table(appliesTo = "devp_ops_attachment", comment = "[附件定义]")
+@Table(appliesTo = "devp_ops_attachment", comment = "[附件]")
 //@DynamicUpdate
 //@DynamicInsert
 public class DevpOpsAttachment extends BaseEntity{
@@ -39,6 +40,10 @@ public class DevpOpsAttachment extends BaseEntity{
 	public static final String PROPERTY_NEXUS_TYPE = "nexusType";
 	public static final String PROPERTY_NEXUS_RID = "nexusRid";
 	public static final String PROPERTY_SEQ = "seq";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 	public static final String PROPERTY_CMODIFY_UCODE = "cmodifyUcode";
 
 
@@ -51,15 +56,14 @@ public class DevpOpsAttachment extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
     * 元素类型
     * [元素类型]
     */
-    @Column(name = "etype")
+    @Column(name = "etype", nullable = true, updatable = true)
 	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
@@ -67,7 +71,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 附件代码
     * [附件代码]
     */
-    @Column(name = "code")
+    @Column(name = "code", nullable = true, updatable = true)
 	@Size(max = 255, message = "附件代码超长，最多255个字符")
 	private String code;
 
@@ -75,7 +79,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 附件名称
     * [附件名称]
     */
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, updatable = true)
 	@Size(max = 255, message = "附件名称超长，最多255个字符")
 	private String name;
 
@@ -83,7 +87,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 附件别名
     * [附件别名]
     */
-    @Column(name = "alias")
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "附件别名超长，最多255个字符")
 	private String alias;
 
@@ -91,7 +95,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 附件描述
     * [附件描述]
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "附件描述超长，最多255个字符")
 	private String description;
 
@@ -99,14 +103,14 @@ public class DevpOpsAttachment extends BaseEntity{
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 类型代码
     * [类型代码]
     */
-    @Column(name = "type_code")
+    @Column(name = "type_code", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型代码超长，最多255个字符")
 	private String typeCode;
 
@@ -114,7 +118,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 类型名称
     * [类型名称]-冗余字段，方便显示
     */
-    @Column(name = "type_name")
+    @Column(name = "type_name", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型名称超长，最多255个字符")
 	private String typeName;
 
@@ -122,7 +126,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 文件类型
     * [文件类型]
     */
-    @Column(name = "file_type")
+    @Column(name = "file_type", nullable = true, updatable = true)
 	@Size(max = 255, message = "文件类型超长，最多255个字符")
 	private String fileType;
 
@@ -130,7 +134,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 访问方式
     * [访问方式]
     */
-    @Column(name = "access_type")
+    @Column(name = "access_type", nullable = true, updatable = true)
 	@Size(max = 255, message = "访问方式超长，最多255个字符")
 	private String accessType;
 
@@ -138,7 +142,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 访问域
     * [访问域]
     */
-    @Column(name = "domain")
+    @Column(name = "domain", nullable = true, updatable = true)
 	@Size(max = 255, message = "访问域超长，最多255个字符")
 	private String domain;
 
@@ -146,7 +150,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 访问地址
     * [访问地址]
     */
-    @Column(name = "address")
+    @Column(name = "address", nullable = true, updatable = true)
 	@Size(max = 255, message = "访问地址超长，最多255个字符")
 	private String address;
 
@@ -154,7 +158,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 附件版本
     * [附件版本]-当前版本
     */
-    @Column(name = "file_version")
+    @Column(name = "file_version", nullable = true, updatable = true)
 	@Size(max = 255, message = "附件版本超长，最多255个字符")
 	private String fileVersion;
 
@@ -162,8 +166,7 @@ public class DevpOpsAttachment extends BaseEntity{
     * 关联记录类型
     * [关联记录类型]
     */
-    @Column(name = "nexus_type")
-	@NotNull(message = "关联记录类型不能为空")
+    @Column(name = "nexus_type", nullable = true, updatable = true)
 	@Size(max = 255, message = "关联记录类型超长，最多255个字符")
 	private String nexusType;
 
@@ -171,23 +174,54 @@ public class DevpOpsAttachment extends BaseEntity{
     * 关联记录编号
     * [关联记录编号]
     */
-    @Column(name = "nexus_rid")
-	@NotNull(message = "关联记录编号不能为空")
+    @Column(name = "nexus_rid", nullable = true, updatable = true)
 	private Long nexusRid;
 
     /**
     * 顺序号
     * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
+
+    /**
+    * 创建用户代码
+    * [创建用户代码]
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * 创建用户姓名
+    * [创建用户姓名]
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
 
     /**
     * 修改用户代码
     * [修改用户代码]
     */
-    @Column(name = "cmodify_ucode")
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
+
+    /**
+    * cmodify_ucode
+    * 
+    */
+    @Column(name = "cmodify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "cmodify_ucode超长，最多255个字符")
 	private String cmodifyUcode;
 
 	public Long getTid(){
@@ -307,6 +341,34 @@ public class DevpOpsAttachment extends BaseEntity{
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 	public String getCmodifyUcode(){

@@ -1,19 +1,25 @@
 package net.aicoder.devp.business.product.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.product.domain.DevpPrdPrdline;
-import net.aicoder.devp.business.product.dto.DevpPrdPrdlineAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineCondition;
+import net.aicoder.devp.business.product.dto.DevpPrdPrdlineAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineEditDto;
 import net.aicoder.devp.business.product.service.DevpPrdPrdlineService;
 import net.aicoder.devp.business.product.valid.DevpPrdPrdlineValidator;
 import net.aicoder.devp.business.product.vo.DevpPrdPrdlineVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -21,18 +27,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
- * 管理产品线定义
+ * 管理产品线
  * @author icode
  */
-@Api(description = "产品线定义", tags = "DevpPrdPrdline")
+@Api(description = "产品线", tags = "DevpPrdPrdline")
 @RestController
 @RequestMapping(value = "/product/devpPrdPrdline")
 public class DevpPrdPrdlineController {
@@ -47,17 +54,18 @@ public class DevpPrdPrdlineController {
 	@Autowired
 	private DevpPrdPrdlineValidator devpPrdPrdlineValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpPrdPrdlineValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
-	 * 新增产品线定义
+	 * 新增产品线
 	 * @param devpPrdPrdlineAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增产品线定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增产品线", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpPrdPrdlineVO add(@RequestBody @Valid DevpPrdPrdlineAddDto devpPrdPrdlineAddDto){
@@ -70,10 +78,10 @@ public class DevpPrdPrdlineController {
 	}
 
 	/**
-	 * 删除产品线定义,id以逗号分隔
+	 * 删除产品线,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除产品线定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除产品线", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -87,12 +95,12 @@ public class DevpPrdPrdlineController {
 	}
 
 	/**
-	 * 更新产品线定义
+	 * 更新产品线
 	 * @param devpPrdPrdlineEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产产品线定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产产品线(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpPrdPrdlineVO update(@RequestBody @Valid DevpPrdPrdlineEditDto devpPrdPrdlineEditDto, @PathVariable Long id){
 		DevpPrdPrdline devpPrdPrdline = new DevpPrdPrdline();
@@ -105,11 +113,11 @@ public class DevpPrdPrdlineController {
 	}
 
 	/**
-	 * 根据ID查询产品线定义
+	 * 根据ID查询产品线
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询产品线定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询产品线", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpPrdPrdlineVO get(@PathVariable Long id) {
 
@@ -120,11 +128,11 @@ public class DevpPrdPrdlineController {
 	}
 
 	/**
-	 * 查询产品线定义列表
+	 * 查询产品线列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询产品线定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询产品线列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpPrdPrdlineVO> list(@RequestBody PageSearchRequest<DevpPrdPrdlineCondition> pageSearchRequest){
 
@@ -148,13 +156,50 @@ public class DevpPrdPrdlineController {
 
 	}
 
-	private DevpPrdPrdlineVO initViewProperty(DevpPrdPrdline devpPrdPrdline){
-	    DevpPrdPrdlineVO vo = new DevpPrdPrdlineVO();
+	/**
+     * 导出产品线列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出产品线列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpPrdPrdlineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpPrdPrdlineCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpPrdPrdlineVO> content = this.list(pageSearchRequest);
+
+        List<DevpPrdPrdlineVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpPrdPrdlineVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("产品线");
+        String fileName = new String(("产品线_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpPrdPrdlineVO initViewProperty(DevpPrdPrdline devpPrdPrdline){
+
+	    DevpPrdPrdlineVO vo = new DevpPrdPrdlineVO();
         BeanUtils.copyProperties(devpPrdPrdline, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

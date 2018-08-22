@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.ops.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.ops.domain.DevpOpsElementInfo;
 import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoEditDto;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsElementInfo;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpOpsElementInfoValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpOpsElementInfoAddDto.class.equals(aClass))
-			return true;
-		if(DevpOpsElementInfoEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -45,7 +37,7 @@ public class DevpOpsElementInfoValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpOpsElementInfo 系统元素扩充信息
+     * @param devpOpsElementInfo 运维元素扩充信息
      * @param errors
      */
 	public void validateDevpOpsElementInfoAddDto(DevpOpsElementInfoAddDto devpOpsElementInfo, Errors errors) {
@@ -53,21 +45,6 @@ public class DevpOpsElementInfoValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpOpsElementInfo.getTid() ) {
-			errors.rejectValue(DevpOpsElementInfo.PROPERTY_TID, "EMPTY_"+DevpOpsElementInfo.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsElementInfo.getEtype())){
-			errors.rejectValue(DevpOpsElementInfo.PROPERTY_ETYPE, "EMPTY_"+DevpOpsElementInfo.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsElementInfo.getCode())){
-			errors.rejectValue(DevpOpsElementInfo.PROPERTY_CODE, "EMPTY_"+DevpOpsElementInfo.PROPERTY_CODE, "扩展信息代码不能为空");
-		}
-		if (null == devpOpsElementInfo.getElmRid() ) {
-			errors.rejectValue(DevpOpsElementInfo.PROPERTY_ELM_RID, "EMPTY_"+DevpOpsElementInfo.PROPERTY_ELM_RID, "元素编号不能为空");
-		}
-		if (null == devpOpsElementInfo.getInstRid() ) {
-			errors.rejectValue(DevpOpsElementInfo.PROPERTY_INST_RID, "EMPTY_"+DevpOpsElementInfo.PROPERTY_INST_RID, "元素实例编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpOpsElementInfo.getEtype()) > 255){
@@ -120,6 +97,18 @@ public class DevpOpsElementInfoValidator implements Validator {
 		}
 		if(StringUtils.length(devpOpsElementInfo.getParasCode()) > 255){
 			errors.rejectValue(DevpOpsElementInfo.PROPERTY_PARAS_CODE,null,"参数定义标识最长255个字符");
+		}
+		if(StringUtils.length(devpOpsElementInfo.getCreateUcode()) > 255){
+			errors.rejectValue(DevpOpsElementInfo.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsElementInfo.getCreateUname()) > 255){
+			errors.rejectValue(DevpOpsElementInfo.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpOpsElementInfo.getModifyUcode()) > 255){
+			errors.rejectValue(DevpOpsElementInfo.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsElementInfo.getModifyUname()) > 255){
+			errors.rejectValue(DevpOpsElementInfo.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

@@ -26,6 +26,7 @@ Ext.define('AM.view.application.common.SimpleConfigTypeMainPanel', {
 				    ,region: 'center'
 				    ,itemId: 'simpleConfigTypeGrid'
 					,reference: 'simpleConfigTypeGrid'
+					,title:'配置类型'
 				    ,store: simpleConfigTypeStore
 					,listeners: {
 						itemdblclick: 'onMainPanelRowClick'
@@ -33,12 +34,12 @@ Ext.define('AM.view.application.common.SimpleConfigTypeMainPanel', {
 			    }
 			    ,{
 		    		xtype: 'application.common.SimpleConfigPanel'
-					,region: 'south'
+					,region: 'east'
                     ,reference: 'simpleConfigPanel'
                     ,split:true
                     ,collapsed: true
                     ,collapsible: true
-					,height:'50%'
+					,width:'50%'
                     ,title:'配置项'
 					,store:Ext.create('AM.store.application.common.SimpleConfigStore', {pageSize:1000})
 

@@ -7,8 +7,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
-
 /**
  * 运维元素扩充信息
  * @author icode
@@ -16,78 +14,57 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增运维元素扩充信息使用的DTO")
 public class DevpOpsParasDefineAddDto {
 
-    /**
-	 * 租户编号
-	 * [租户编号]
-     */
-	@NotNull(message = "租户编号不能为空")
-	@ApiModelProperty(value = "租户编号", required = true)
+    /**租户编号*/
+	@ApiModelProperty(value = "租户编号", required = false, notes = "[租户编号]")
 	private Long tid;
 
-    /**
-	 * 元素类型
-	 * [元素类型]
-     */
-	@NotNull(message = "元素类型不能为空")
-	@ApiModelProperty(value = "元素类型", required = true)
-	@Size(max = 255, message = "元素类型超长，最多255个字符")
+    /**元素类型*/
+	@ApiModelProperty(value = "元素类型", required = false, notes = "[元素类型]")
 	private String etype;
 
-    /**
-	 * 扩展信息代码
-	 * [扩展信息代码]-参数定义标识，对应paras_id
-     */
-	@NotNull(message = "扩展信息代码不能为空")
-	@ApiModelProperty(value = "扩展信息代码", required = true)
-	@Size(max = 255, message = "扩展信息代码超长，最多255个字符")
+    /**扩展信息代码*/
+	@ApiModelProperty(value = "扩展信息代码", required = false, notes = "[扩展信息代码]-参数定义标识，对应paras_id")
 	private String code;
 
-    /**
-	 * 扩展信息名称
-	 * [扩展信息名称]-显示名称
-     */
-	@ApiModelProperty(value = "扩展信息名称", required = false)
-	@Size(max = 255, message = "扩展信息名称超长，最多255个字符")
+    /**扩展信息名称*/
+	@ApiModelProperty(value = "扩展信息名称", required = false, notes = "[扩展信息名称]-显示名称")
 	private String name;
 
-    /**
-	 * 扩展信息别名
-	 * [扩展信息别名]
-     */
-	@ApiModelProperty(value = "扩展信息别名", required = false)
-	@Size(max = 255, message = "扩展信息别名超长，最多255个字符")
+    /**扩展信息别名*/
+	@ApiModelProperty(value = "扩展信息别名", required = false, notes = "[扩展信息别名]")
 	private String alias;
 
-    /**
-	 * 扩展信息描述
-	 * [扩展信息描述]-对应当前属性值
-     */
-	@ApiModelProperty(value = "扩展信息描述", required = false)
-	@Size(max = 255, message = "扩展信息描述超长，最多255个字符")
+    /**扩展信息描述*/
+	@ApiModelProperty(value = "扩展信息描述", required = false, notes = "[扩展信息描述]-对应当前属性值")
 	private String description;
 
-    /**
-	 * 记录状态
-	 * [记录状态]-0-失效;1-生效;缺省为1
-     */
-	@ApiModelProperty(value = "记录状态", required = false)
+    /**记录状态*/
+	@ApiModelProperty(value = "记录状态", required = false, notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 
-    /**
-	 * 内容
-	 * [内容]
-     */
-	@ApiModelProperty(value = "内容", required = false)
-	@Size(max = 255, message = "内容超长，最多255个字符")
+    /**内容*/
+	@ApiModelProperty(value = "内容", required = false, notes = "[内容]")
 	private String content;
 
-    /**
-	 * 备注
-	 * [备注]
-     */
-	@ApiModelProperty(value = "备注", required = false)
-	@Size(max = 255, message = "备注超长，最多255个字符")
+    /**备注*/
+	@ApiModelProperty(value = "备注", required = false, notes = "[备注]")
 	private String notes;
+
+    /**创建用户代码*/
+	@ApiModelProperty(value = "创建用户代码", required = false, notes = "[创建用户代码]")
+	private String createUcode;
+
+    /**创建用户姓名*/
+	@ApiModelProperty(value = "创建用户姓名", required = false, notes = "[创建用户姓名]")
+	private String createUname;
+
+    /**修改用户代码*/
+	@ApiModelProperty(value = "修改用户代码", required = false, notes = "[修改用户代码]")
+	private String modifyUcode;
+
+    /**修改用户姓名*/
+	@ApiModelProperty(value = "修改用户姓名", required = false, notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -151,6 +128,34 @@ public class DevpOpsParasDefineAddDto {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

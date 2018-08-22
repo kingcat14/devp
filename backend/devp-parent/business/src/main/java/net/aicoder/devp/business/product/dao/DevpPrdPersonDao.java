@@ -1,10 +1,9 @@
 package net.aicoder.devp.business.product.dao;
 
 import com.yunkang.saas.common.jpa.BaseDao;
-
 import net.aicoder.devp.business.product.domain.DevpPrdPerson;
-
 import org.springframework.stereotype.Repository;
+
 
 
 /**

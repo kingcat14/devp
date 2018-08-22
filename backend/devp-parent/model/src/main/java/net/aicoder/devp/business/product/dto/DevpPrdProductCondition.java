@@ -1,83 +1,90 @@
 package net.aicoder.devp.business.product.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.*;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.util.Date;
 
+@ApiModel(value = "查询产品使用的DTO")
+public class DevpPrdProductCondition extends SaaSCondition{
 
-@ApiModel(value = "查询产品定义使用的DTO")
-public class DevpPrdProductCondition implements Serializable{
-
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "产品代码")
-	private String code;
-	@ApiModelProperty(value = "产品名称")
+	@ApiModelProperty(value = "etype", notes = "")
+	private String etype;
+	@ApiModelProperty(value = "产品名称", notes = "[产品名称]")
 	private String name;
-	@ApiModelProperty(value = "产品别名")
+	@ApiModelProperty(value = "产品代码", notes = "[产品代码]")
+	private String code;
+	@ApiModelProperty(value = "产品别名", notes = "[产品别名]")
 	private String alias;
-	@ApiModelProperty(value = "产品描述")
+	@ApiModelProperty(value = "产品描述", notes = "[产品描述]")
 	private String description;
-	@ApiModelProperty(value = "产品类型")
+	@ApiModelProperty(value = "产品类型", notes = "[产品类型]-系统平台、平台应用、中台服务、后台服务、技术组件、独立应用、工具")
 	private String type;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]")
 	private String stereotype;
-	@ApiModelProperty(value = "范围")
+	@ApiModelProperty(value = "范围", notes = "[范围]-访问控制范围:共享产品，租户内共享,私有产品")
 	private String scope;
-	@ApiModelProperty(value = "所属部门")
+	@ApiModelProperty(value = "所属部门", notes = "[所属部门]")
 	private String prdDept;
-	@ApiModelProperty(value = "产品负责人")
+	@ApiModelProperty(value = "产品负责人", notes = "[产品负责人]")
 	private String prdOwner;
-	@ApiModelProperty(value = "开发负责人")
+	@ApiModelProperty(value = "开发负责人", notes = "[开发负责人]")
 	private String devManager;
-	@ApiModelProperty(value = "维护负责人")
+	@ApiModelProperty(value = "维护负责人", notes = "[维护负责人]")
 	private String opsManager;
-	@ApiModelProperty(value = "业务线")
+	@ApiModelProperty(value = "业务线", notes = "[业务线]")
 	private String bizLine;
-	@ApiModelProperty(value = "业务代表")
+	@ApiModelProperty(value = "业务代表", notes = "[业务代表]")
 	private String bizManager;
-	@ApiModelProperty(value = "启用时间")
+	@ApiModelProperty(value = "启用时间", notes = "[启用时间]-启用时间(产品首次上线时间)")
 	private Date golive;
 	@ApiModelProperty(value = "起始启用时间")
 	private Date goliveStart;
 	@ApiModelProperty(value = "结束启用时间")
 	private Date goliveEnd;
-	@ApiModelProperty(value = "主要客户")
+	@ApiModelProperty(value = "主要客户", notes = "[主要客户]")
 	private String majorCust;
-	@ApiModelProperty(value = "客户代表")
+	@ApiModelProperty(value = "客户代表", notes = "[客户代表]")
 	private String custManager;
-	@ApiModelProperty(value = "客户使用情况")
+	@ApiModelProperty(value = "客户使用情况", notes = "[客户使用情况]-客户使用情况，如客户流量、使用频度等")
 	private String custUsage;
-	@ApiModelProperty(value = "获取方式")
+	@ApiModelProperty(value = "获取方式", notes = "[获取方式]-自主开发,外包开发,联合开发,产品采购,产品租用,其它")
 	private String acquisitionMode;
-	@ApiModelProperty(value = "获取方式说明")
+	@ApiModelProperty(value = "获取方式说明", notes = "[获取方式说明]")
 	private String acquisitionDesc;
-	@ApiModelProperty(value = "版本")
+	@ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
 	private String version;
-	@ApiModelProperty(value = "阶段")
+	@ApiModelProperty(value = "阶段", notes = "[阶段]-产品调研,产品设计,产品开发,试运行,产品维护,产品停用")
 	private String phase;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "状态", notes = "[状态]-未开始,进行中,已完成,暂停,取消")
 	private String status;
-	@ApiModelProperty(value = "备注")
+	@ApiModelProperty(value = "备注", notes = "[备注]")
 	private String notes;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
 	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
 	private String cmodifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -102,11 +109,11 @@ public class DevpPrdProductCondition implements Serializable{
 	}
 
 
-	public String getCode(){
-		return code;
+	public String getEtype(){
+		return etype;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -115,6 +122,14 @@ public class DevpPrdProductCondition implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 
@@ -328,11 +343,27 @@ public class DevpPrdProductCondition implements Serializable{
 	}
 
 
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
 	public String getCmodifyUcode(){
 		return cmodifyUcode;
 	}
 	public void setCmodifyUcode(String cmodifyUcode) {
 		this.cmodifyUcode = cmodifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

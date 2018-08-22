@@ -1,64 +1,71 @@
 package net.aicoder.devp.business.product.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
 
+@ApiModel(value = "查询产品所属产品线使用的DTO")
+public class DevpPrdLinePrdCondition extends SaaSCondition{
 
-@ApiModel(value = "查询产品所属产品线定义使用的DTO")
-public class DevpPrdLinePrdCondition implements Serializable{
-
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "代码")
+	@ApiModelProperty(value = "etype", notes = "")
+	private String etype;
+	@ApiModelProperty(value = "代码", notes = "[代码]")
 	private String code;
-	@ApiModelProperty(value = "名称")
+	@ApiModelProperty(value = "名称", notes = "[名称]")
 	private String name;
-	@ApiModelProperty(value = "别名")
+	@ApiModelProperty(value = "别名", notes = "[别名]")
 	private String alias;
-	@ApiModelProperty(value = "描述")
+	@ApiModelProperty(value = "描述", notes = "[描述]-产品与系统的关联特性描述")
 	private String description;
-	@ApiModelProperty(value = "产品线编号")
+	@ApiModelProperty(value = "产品线编号", notes = "[产品线编号]")
 	private Long lineRid;
 	@ApiModelProperty(value = "产品线编号最大值")
 	private Long lineRidMax;
 	@ApiModelProperty(value = "产品线编号最小值")
 	private Long lineRidMin;
-	@ApiModelProperty(value = "产品编号")
+	@ApiModelProperty(value = "产品编号", notes = "[产品编号]")
 	private Long prdRid;
 	@ApiModelProperty(value = "产品编号最大值")
 	private Long prdRidMax;
 	@ApiModelProperty(value = "产品编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "类型")
+	@ApiModelProperty(value = "类型", notes = "[类型]-(保留)")
 	private String type;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]-(保留)")
 	private String stereotype;
-	@ApiModelProperty(value = "范围")
+	@ApiModelProperty(value = "范围", notes = "[范围]-访问控制范围:共享产品，租户内共享,私有产品")
 	private String scope;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
 	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
-	private String cmodifyUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -80,6 +87,14 @@ public class DevpPrdLinePrdCondition implements Serializable{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
+	}
+
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -235,11 +250,27 @@ public class DevpPrdLinePrdCondition implements Serializable{
 	}
 
 
-	public String getCmodifyUcode(){
-		return cmodifyUcode;
+	public String getCreateUname(){
+		return createUname;
 	}
-	public void setCmodifyUcode(String cmodifyUcode) {
-		this.cmodifyUcode = cmodifyUcode;
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

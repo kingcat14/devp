@@ -11,11 +11,6 @@ Ext.define('AM.controller.maintenance.software.BusinessSoftwareController', {
         if(!businessSoftwarePanel){
             businessSoftwarePanel = Ext.create('AM.view.maintenance.software.BusinessSoftwarePanel', {closable:true});
 
-            var businessSoftwareStore = Ext.create('AM.store.maintenance.software.BusinessSoftwareStore');
-            businessSoftwareStore.proxy.extraParams={searchCondition:{}};
-            businessSoftwarePanel.setStore(businessSoftwareStore);
-            businessSoftwareStore.load();
-
             center.add(businessSoftwarePanel);
             center.setActiveTab(businessSoftwarePanel);
         }

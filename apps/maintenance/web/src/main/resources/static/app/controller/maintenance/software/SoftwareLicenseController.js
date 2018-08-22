@@ -11,11 +11,6 @@ Ext.define('AM.controller.maintenance.software.SoftwareLicenseController', {
         if(!softwareLicensePanel){
             softwareLicensePanel = Ext.create('AM.view.maintenance.software.SoftwareLicensePanel', {closable:true});
 
-            var softwareLicenseStore = Ext.create('AM.store.maintenance.software.SoftwareLicenseStore');
-            softwareLicenseStore.proxy.extraParams={searchCondition:{}};
-            softwareLicensePanel.setStore(softwareLicenseStore);
-            softwareLicenseStore.load();
-
             center.add(softwareLicensePanel);
             center.setActiveTab(softwareLicensePanel);
         }

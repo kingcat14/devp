@@ -1,129 +1,137 @@
 package net.aicoder.devp.business.ops.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 import java.util.*;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.validation.constraints.Size;
 
+@ApiModel(value = "查询IT资产配置数据库使用的DTO")
+public class DevpOpsAssetCmdbCondition extends SaaSCondition{
 
-@ApiModel(value = "查询资产定义使用的DTO")
-public class DevpOpsAssetCmdbCondition implements Serializable{
-
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "etype", notes = "")
 	private String etype;
-	@ApiModelProperty(value = "名称")
+	@ApiModelProperty(value = "name", notes = "")
 	private String name;
-	@ApiModelProperty(value = "代码")
+	@ApiModelProperty(value = "code", notes = "")
 	private String code;
-	@ApiModelProperty(value = "别名")
+	@ApiModelProperty(value = "alias", notes = "")
 	private String alias;
-	@ApiModelProperty(value = "描述")
+	@ApiModelProperty(value = "description", notes = "")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "类型代码")
+	@ApiModelProperty(value = "type_code", notes = "")
 	private String typeCode;
-	@ApiModelProperty(value = "类型名称")
+	@ApiModelProperty(value = "type_name", notes = "")
 	private String typeName;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "stereotype", notes = "")
 	private String stereotype;
-	@ApiModelProperty(value = "范围")
+	@ApiModelProperty(value = "scope", notes = "")
 	private String scope;
-	@ApiModelProperty(value = "硬件型号")
+	@ApiModelProperty(value = "hardware_model", notes = "")
 	private String hardwareModel;
-	@ApiModelProperty(value = "软件型号")
+	@ApiModelProperty(value = "software_model", notes = "")
 	private String softwareModel;
-	@ApiModelProperty(value = "版本")
+	@ApiModelProperty(value = "version", notes = "")
 	private String version;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "status", notes = "")
 	private String status;
-	@ApiModelProperty(value = "创建时间")
+	@ApiModelProperty(value = "创建时间", notes = "[创建时间]-启用时间(产品首次上线时间)")
 	private Date createDate;
 	@ApiModelProperty(value = "起始创建时间")
 	private Date createDateStart;
 	@ApiModelProperty(value = "结束创建时间")
 	private Date createDateEnd;
-	@ApiModelProperty(value = "到期时间")
+	@ApiModelProperty(value = "到期时间", notes = "[到期时间]-到期或报废时间")
 	private Date expireDate;
 	@ApiModelProperty(value = "起始到期时间")
 	private Date expireDateStart;
 	@ApiModelProperty(value = "结束到期时间")
 	private Date expireDateEnd;
-	@ApiModelProperty(value = "所属项目")
+	@ApiModelProperty(value = "asset_project", notes = "")
 	private String assetProject;
-	@ApiModelProperty(value = "所属区域")
+	@ApiModelProperty(value = "asset_area", notes = "")
 	private String assetArea;
-	@ApiModelProperty(value = "资产位置")
+	@ApiModelProperty(value = "asset_location", notes = "")
 	private String assetLocation;
-	@ApiModelProperty(value = "内部访问地址")
+	@ApiModelProperty(value = "int_access_addr", notes = "")
 	private String intAccessAddr;
-	@ApiModelProperty(value = "外部访问地址")
+	@ApiModelProperty(value = "ext_access_addr", notes = "")
 	private String extAccessAddr;
-	@ApiModelProperty(value = "获取方式")
+	@ApiModelProperty(value = "acquisition_mode", notes = "")
 	private String acquisitionMode;
-	@ApiModelProperty(value = "获取方式说明")
+	@ApiModelProperty(value = "acquisition_desc", notes = "")
 	private String acquisitionDesc;
-	@ApiModelProperty(value = "归属部门")
+	@ApiModelProperty(value = "asset_dept", notes = "")
 	private String assetDept;
-	@ApiModelProperty(value = "资产负责人")
+	@ApiModelProperty(value = "asset_manager", notes = "")
 	private String assetManager;
-	@ApiModelProperty(value = "使用部门")
+	@ApiModelProperty(value = "use_dept", notes = "")
 	private String useDept;
-	@ApiModelProperty(value = "使用负责人")
+	@ApiModelProperty(value = "use_manager", notes = "")
 	private String useManager;
-	@ApiModelProperty(value = "维护部门")
+	@ApiModelProperty(value = "ops_dept", notes = "")
 	private String opsDept;
-	@ApiModelProperty(value = "维护负责人")
+	@ApiModelProperty(value = "ops_manager", notes = "")
 	private String opsManager;
-	@ApiModelProperty(value = "业务线")
+	@ApiModelProperty(value = "biz_line", notes = "")
 	private String bizLine;
-	@ApiModelProperty(value = "业务代表")
+	@ApiModelProperty(value = "biz_manager", notes = "")
 	private String bizManager;
-	@ApiModelProperty(value = "启用时间")
+	@ApiModelProperty(value = "启用时间", notes = "[启用时间]-启用时间(产品首次上线时间)")
 	private Date goliveDate;
 	@ApiModelProperty(value = "起始启用时间")
 	private Date goliveDateStart;
 	@ApiModelProperty(value = "结束启用时间")
 	private Date goliveDateEnd;
-	@ApiModelProperty(value = "主要客户")
+	@ApiModelProperty(value = "major_cust", notes = "")
 	private String majorCust;
-	@ApiModelProperty(value = "客户代表")
+	@ApiModelProperty(value = "cust_manager", notes = "")
 	private String custManager;
-	@ApiModelProperty(value = "使用情况")
+	@ApiModelProperty(value = "cust_usage", notes = "")
 	private String custUsage;
-	@ApiModelProperty(value = "备注")
+	@ApiModelProperty(value = "notes", notes = "")
 	private String notes;
-	@ApiModelProperty(value = "关联产品租户编号")
+	@ApiModelProperty(value = "关联产品租户编号", notes = "[关联产品租户编号]")
 	private Long prdTid;
 	@ApiModelProperty(value = "关联产品租户编号最大值")
 	private Long prdTidMax;
 	@ApiModelProperty(value = "关联产品租户编号最小值")
 	private Long prdTidMin;
-	@ApiModelProperty(value = "关联产品记录编号")
+	@ApiModelProperty(value = "关联产品记录编号", notes = "[关联产品记录编号]")
 	private Long prdRid;
 	@ApiModelProperty(value = "关联产品记录编号最大值")
 	private Long prdRidMax;
 	@ApiModelProperty(value = "关联产品记录编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "参数定义标识")
+	@ApiModelProperty(value = "paras_code", notes = "")
 	private String parasCode;
-	@ApiModelProperty(value = "供应商")
+	@ApiModelProperty(value = "create_ucode", notes = "")
+	private String createUcode;
+	@ApiModelProperty(value = "create_uname", notes = "")
+	private String createUname;
+	@ApiModelProperty(value = "modify_ucode", notes = "")
+	private String modifyUcode;
+	@ApiModelProperty(value = "modify_uname", notes = "")
+	private String modifyUname;
+	@ApiModelProperty(value = "acquisition_provider", notes = "")
 	private String acquisitionProvider;
+
 
 	public Long getTid(){
 		return tid;
@@ -320,13 +328,6 @@ public class DevpOpsAssetCmdbCondition implements Serializable{
 		this.assetProject = assetProject;
 	}
 
-	public String getAcquisitionProvider() {
-		return acquisitionProvider;
-	}
-
-	public void setAcquisitionProvider(String acquisitionProvider) {
-		this.acquisitionProvider = acquisitionProvider;
-	}
 
 	public String getAssetArea(){
 		return assetArea;
@@ -541,6 +542,46 @@ public class DevpOpsAssetCmdbCondition implements Serializable{
 	}
 	public void setParasCode(String parasCode) {
 		this.parasCode = parasCode;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
+	}
+
+
+	public String getAcquisitionProvider(){
+		return acquisitionProvider;
+	}
+	public void setAcquisitionProvider(String acquisitionProvider) {
+		this.acquisitionProvider = acquisitionProvider;
 	}
 
 

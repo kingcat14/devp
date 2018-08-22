@@ -1,15 +1,14 @@
 package net.aicoder.devp.business.sys.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.sys.domain.DevpSysCmp;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpEditDto;
-
+import net.aicoder.devp.business.sys.domain.DevpSysCmp;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 @Service
 public class DevpSysCmpValidator implements Validator {
@@ -21,13 +20,7 @@ public class DevpSysCmpValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpSysCmpAddDto.class.equals(aClass))
-			return true;
-		if(DevpSysCmpEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -52,18 +45,6 @@ public class DevpSysCmpValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysCmp.getTid() ) {
-			errors.rejectValue(DevpSysCmp.PROPERTY_TID, "EMPTY_"+DevpSysCmp.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysCmp.getEtype())){
-			errors.rejectValue(DevpSysCmp.PROPERTY_ETYPE, "EMPTY_"+DevpSysCmp.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysCmp.getName())){
-			errors.rejectValue(DevpSysCmp.PROPERTY_NAME, "EMPTY_"+DevpSysCmp.PROPERTY_NAME, "系统元素名称不能为空");
-		}
-		if (null == devpSysCmp.getPrdRid() ) {
-			errors.rejectValue(DevpSysCmp.PROPERTY_PRD_RID, "EMPTY_"+DevpSysCmp.PROPERTY_PRD_RID, "产品编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpSysCmp.getEtype()) > 255){
@@ -104,6 +85,18 @@ public class DevpSysCmpValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysCmp.getNotes()) > 255){
 			errors.rejectValue(DevpSysCmp.PROPERTY_NOTES,null,"备注最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmp.getCreateUcode()) > 255){
+			errors.rejectValue(DevpSysCmp.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmp.getCreateUname()) > 255){
+			errors.rejectValue(DevpSysCmp.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmp.getModifyUcode()) > 255){
+			errors.rejectValue(DevpSysCmp.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysCmp.getModifyUname()) > 255){
+			errors.rejectValue(DevpSysCmp.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

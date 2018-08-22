@@ -1,7 +1,7 @@
 Ext.define('AM.view.application.common.SimpleConfigTypePanel', {
     extend: 'Ext.grid.Panel'
     ,xtype: 'application.common.SimpleConfigTypePanel'
-    ,title: '通用配置类型'
+    ,title: '配置类型'
     ,requires: [
         'AM.view.application.common.SimpleConfigTypeController'
         ,'AM.view.application.common.SimpleConfigTypeAddWindow'
@@ -164,10 +164,7 @@ Ext.define('AM.view.application.common.SimpleConfigTypePanel', {
                     fn: me.onPanelBeforeHide
                     ,scope: me
                 }
-                ,itemdblclick: {
-                    fn: me.onItemDblClick
-                    ,scope: me
-                }
+
             }
             ,items:[]
         });
@@ -243,12 +240,7 @@ Ext.define('AM.view.application.common.SimpleConfigTypePanel', {
             ,scope:me.getStore()
         });
     }
-    ,onItemDblClick: function(tablepanel, record, item, index, e, options) {
-        var me = this;
-        options.src=item;
-        var editWindow = me.showEditWindow(record, item);
-        editWindow.setTitle('修改通用配置类型信息');
-    }
+
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
         var addWindow = me.lookupReference('simpleConfigTypeAddWindow');

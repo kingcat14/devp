@@ -20,7 +20,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicensePanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.maintenance.software.SoftwareLicenseStore')
+                    ,store: Ext.create('AM.store.maintenance.software.SoftwareLicenseStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [

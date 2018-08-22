@@ -20,7 +20,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.maintenance.software.InfrastructuralSoftwareStore')
+                    ,store: Ext.create('AM.store.maintenance.software.InfrastructuralSoftwareStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [

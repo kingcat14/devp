@@ -1,20 +1,25 @@
 package net.aicoder.devp.business.deploy.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyResources;
-import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesCondition;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesEditDto;
 import net.aicoder.devp.business.deploy.service.DevpSysDpyResourcesService;
 import net.aicoder.devp.business.deploy.valid.DevpSysDpyResourcesValidator;
 import net.aicoder.devp.business.deploy.vo.DevpSysDpyResourcesVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,9 +30,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
  * 管理部署关联资源
@@ -48,9 +54,10 @@ public class DevpSysDpyResourcesController {
 	@Autowired
 	private DevpSysDpyResourcesValidator devpSysDpyResourcesValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpSysDpyResourcesValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
@@ -82,7 +89,7 @@ public class DevpSysDpyResourcesController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			devpSysDpyResourcesService.delete(Long.valueOf(id));
+			devpSysDpyResourcesService.delete(Long.parseLong(id));
 		}
 
 	}
@@ -149,13 +156,50 @@ public class DevpSysDpyResourcesController {
 
 	}
 
-	private DevpSysDpyResourcesVO initViewProperty(DevpSysDpyResources devpSysDpyResources){
-	    DevpSysDpyResourcesVO vo = new DevpSysDpyResourcesVO();
+	/**
+     * 导出部署关联资源列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出部署关联资源列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpSysDpyResourcesCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpSysDpyResourcesCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpSysDpyResourcesVO> content = this.list(pageSearchRequest);
+
+        List<DevpSysDpyResourcesVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpSysDpyResourcesVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("部署关联资源");
+        String fileName = new String(("部署关联资源_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpSysDpyResourcesVO initViewProperty(DevpSysDpyResources devpSysDpyResources){
+
+	    DevpSysDpyResourcesVO vo = new DevpSysDpyResourcesVO();
         BeanUtils.copyProperties(devpSysDpyResources, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

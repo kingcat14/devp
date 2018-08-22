@@ -74,32 +74,32 @@ Ext.define('AM.view.maintenance.asset.info.AssetCmdbPanel', {
                         {
                             xtype: 'maintenance.hardware.MachinePanel'
                             ,itemId: 'ASSET_HOST_GRID'
-                            // ,frame: true
+                            ,frame: true
                             ,reference: 'ASSET_HOST_GRID'
                             // ,store: machineStore
                         }
                         ,{
                             xtype: 'maintenance.hardware.NetworkDevicePanel'
                             ,itemId: 'ASSET_NETWORK_GRID'
-                            // ,frame: true
+                            ,frame: true
                             ,reference: 'ASSET_NETWORK_GRID'
                         }
                         ,{
                             xtype: 'maintenance.software.BusinessSoftwarePanel'
                             ,itemId: 'ASSET_BIZ_SW_GRID'
-                            // ,frame: true
+                            ,frame: true
                             ,reference: 'ASSET_BIZ_SW_GRID'
                         }
                         ,{
                             xtype: 'maintenance.software.InfrastructuralSoftwarePanel'
                             ,itemId: 'ASSET_INFRA_SW_GRID'
-                            // ,frame: true
+                            ,frame: true
                             ,reference: 'ASSET_INFRA_SW_GRID'
                         }
                         ,{
                             xtype: 'maintenance.software.SoftwareLicensePanel'
                             ,itemId: 'ASSET_SVC_LIC_GRID'
-                            // ,frame: true
+                            ,frame: true
                             ,reference: 'ASSET_SVC_LIC_GRID'
                         }
                         , {

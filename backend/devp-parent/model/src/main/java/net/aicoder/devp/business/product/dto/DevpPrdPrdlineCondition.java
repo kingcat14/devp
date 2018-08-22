@@ -1,67 +1,102 @@
 package net.aicoder.devp.business.product.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
 
+@ApiModel(value = "查询产品线使用的DTO")
+public class DevpPrdPrdlineCondition extends SaaSCondition{
 
-@ApiModel(value = "查询产品线定义使用的DTO")
-public class DevpPrdPrdlineCondition implements Serializable{
-
-	@ApiModelProperty(value = "产品线代码")
-	private String code;
-	@ApiModelProperty(value = "产品线名称")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
+	private Long tid;
+	@ApiModelProperty(value = "租户编号最大值")
+	private Long tidMax;
+	@ApiModelProperty(value = "租户编号最小值")
+	private Long tidMin;
+	@ApiModelProperty(value = "etype", notes = "")
+	private String etype;
+	@ApiModelProperty(value = "产品线名称", notes = "[产品线名称]")
 	private String name;
-	@ApiModelProperty(value = "产品线别名")
+	@ApiModelProperty(value = "产品线代码", notes = "[产品线代码]")
+	private String code;
+	@ApiModelProperty(value = "产品线别名", notes = "[产品线别名]")
 	private String alias;
-	@ApiModelProperty(value = "产品线描述")
+	@ApiModelProperty(value = "产品线描述", notes = "[产品线描述]")
 	private String description;
-	@ApiModelProperty(value = "产品线类型")
+	@ApiModelProperty(value = "产品线类型", notes = "[产品线类型]-(保留)")
 	private String type;
-	@ApiModelProperty(value = "领域")
+	@ApiModelProperty(value = "领域", notes = "[领域]-所属领域")
 	private String domain;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]-(保留)")
 	private String stereotype;
-	@ApiModelProperty(value = "访问控制范围")
+	@ApiModelProperty(value = "访问控制范围", notes = "[访问控制范围]-访问控制范围:共享产品，租户内共享,私有产品")
 	private String scope;
-	@ApiModelProperty(value = "版本")
+	@ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
 	private String version;
-	@ApiModelProperty(value = "阶段")
+	@ApiModelProperty(value = "阶段", notes = "[阶段]-产品调研,产品设计,产品开发,试运行,产品维护,产品停用")
 	private String phase;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "状态", notes = "[状态]-未开始,进行中,已完成,暂停,取消")
 	private String status;
-	@ApiModelProperty(value = "父产品线编号")
+	@ApiModelProperty(value = "父产品线编号", notes = "[父产品线编号]")
 	private Long parentRid;
 	@ApiModelProperty(value = "父产品线编号最大值")
 	private Long parentRidMax;
 	@ApiModelProperty(value = "父产品线编号最小值")
 	private Long parentRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
 	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
 	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
-	public String getCode(){
-		return code;
+	public Long getTid(){
+		return tid;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+
+	public Long getTidMin(){
+		return tidMin;
+	}
+	public void setTidMin(Long tidMin) {
+		this.tidMin = tidMin;
+	}
+
+	public Long getTidMax(){
+		return tidMax;
+	}
+	public void setTidMax(Long tidMax) {
+		this.tidMax = tidMax;
+	}
+
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -70,6 +105,14 @@ public class DevpPrdPrdlineCondition implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 
@@ -219,11 +262,27 @@ public class DevpPrdPrdlineCondition implements Serializable{
 	}
 
 
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
 	public String getModifyUcode(){
 		return modifyUcode;
 	}
 	public void setModifyUcode(String modifyUcode) {
 		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

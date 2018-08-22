@@ -1,13 +1,11 @@
 package net.aicoder.devp.business.deploy.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
-
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.devp.business.deploy.dao.DevpSysDpyResourcesDao;
 import net.aicoder.devp.business.deploy.dao.DevpSysDpyResourcesSpecification;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyResources;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResourcesCondition;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("devpSysDpyResourcesService")
-public class DevpSysDpyResourcesService  extends CrudService<DevpSysDpyResources, DevpSysDpyResourcesCondition, DevpSysDpyResourcesDao> {
+public class DevpSysDpyResourcesService  extends GenericCrudService<DevpSysDpyResources, Long, DevpSysDpyResourcesCondition, DevpSysDpyResourcesDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysDpyResourcesService.class);
 
@@ -29,7 +27,7 @@ public class DevpSysDpyResourcesService  extends CrudService<DevpSysDpyResources
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , DevpSysDpyResources.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC, DevpSysDpyResources.PROPERTY_TID);
 		return sort;
 	}
 }

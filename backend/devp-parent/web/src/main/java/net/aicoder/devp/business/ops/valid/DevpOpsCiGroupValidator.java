@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.ops.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.ops.domain.DevpOpsCiGroup;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupEditDto;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsCiGroup;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpOpsCiGroupValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpOpsCiGroupAddDto.class.equals(aClass))
-			return true;
-		if(DevpOpsCiGroupEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -45,7 +37,7 @@ public class DevpOpsCiGroupValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpOpsCiGroup 资产项目分组映射
+     * @param devpOpsCiGroup 资产项目分组
      * @param errors
      */
 	public void validateDevpOpsCiGroupAddDto(DevpOpsCiGroupAddDto devpOpsCiGroup, Errors errors) {
@@ -53,18 +45,6 @@ public class DevpOpsCiGroupValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpOpsCiGroup.getTid() ) {
-			errors.rejectValue(DevpOpsCiGroup.PROPERTY_TID, "EMPTY_"+DevpOpsCiGroup.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsCiGroup.getEtype())){
-			errors.rejectValue(DevpOpsCiGroup.PROPERTY_ETYPE, "EMPTY_"+DevpOpsCiGroup.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if (null == devpOpsCiGroup.getGroupRid() ) {
-			errors.rejectValue(DevpOpsCiGroup.PROPERTY_GROUP_RID, "EMPTY_"+DevpOpsCiGroup.PROPERTY_GROUP_RID, "分组记录编号不能为空");
-		}
-		if (null == devpOpsCiGroup.getCiRid() ) {
-			errors.rejectValue(DevpOpsCiGroup.PROPERTY_CI_RID, "EMPTY_"+DevpOpsCiGroup.PROPERTY_CI_RID, "资产记录编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpOpsCiGroup.getEtype()) > 255){
@@ -91,8 +71,17 @@ public class DevpOpsCiGroupValidator implements Validator {
 		if(StringUtils.length(devpOpsCiGroup.getParasCode()) > 255){
 			errors.rejectValue(DevpOpsCiGroup.PROPERTY_PARAS_CODE,null,"参数定义标识最长255个字符");
 		}
+		if(StringUtils.length(devpOpsCiGroup.getCreateUcode()) > 255){
+			errors.rejectValue(DevpOpsCiGroup.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsCiGroup.getCreateUname()) > 255){
+			errors.rejectValue(DevpOpsCiGroup.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
 		if(StringUtils.length(devpOpsCiGroup.getCmodifyUcode()) > 255){
 			errors.rejectValue(DevpOpsCiGroup.PROPERTY_CMODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsCiGroup.getModifyUname()) > 255){
+			errors.rejectValue(DevpOpsCiGroup.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

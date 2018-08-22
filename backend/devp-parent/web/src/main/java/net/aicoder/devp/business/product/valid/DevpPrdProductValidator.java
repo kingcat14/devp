@@ -1,15 +1,14 @@
 package net.aicoder.devp.business.product.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.product.domain.DevpPrdProduct;
 import net.aicoder.devp.business.product.dto.DevpPrdProductAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdProductEditDto;
-
+import net.aicoder.devp.business.product.domain.DevpPrdProduct;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 @Service
 public class DevpPrdProductValidator implements Validator {
@@ -21,13 +20,7 @@ public class DevpPrdProductValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpPrdProductAddDto.class.equals(aClass))
-			return true;
-		if(DevpPrdProductEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return DevpPrdProduct.class.equals(aClass);
+		return true;
 	}
 
 	/**
@@ -37,37 +30,31 @@ public class DevpPrdProductValidator implements Validator {
 	 */
 	@Override
 	public void validate(Object obj, Errors errors) {
-	    if(obj instanceof DevpPrdProduct){
-            this.validateDevpPrdProduct((DevpPrdProduct)obj, errors);
+	    if(obj instanceof DevpPrdProductAddDto){
+            this.validateDevpPrdProductAddDto((DevpPrdProductAddDto)obj, errors);
         }
 	}
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpPrdProduct 产品定义
+     * @param devpPrdProduct 产品
      * @param errors
      */
-	public void validateDevpPrdProduct(DevpPrdProduct devpPrdProduct, Errors errors) {
+	public void validateDevpPrdProductAddDto(DevpPrdProductAddDto devpPrdProduct, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpPrdProduct.getTid() ) {
-			errors.rejectValue(DevpPrdProduct.PROPERTY_TID, "EMPTY_"+DevpPrdProduct.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpPrdProduct.getCode())){
-			errors.rejectValue(DevpPrdProduct.PROPERTY_CODE, "EMPTY_"+DevpPrdProduct.PROPERTY_CODE, "产品代码不能为空");
-		}
-		if(StringUtils.isEmpty(devpPrdProduct.getName())){
-			errors.rejectValue(DevpPrdProduct.PROPERTY_NAME, "EMPTY_"+DevpPrdProduct.PROPERTY_NAME, "产品名称不能为空");
-		}
 
 		//验证长度
-		if(StringUtils.length(devpPrdProduct.getCode()) > 255){
-			errors.rejectValue(DevpPrdProduct.PROPERTY_CODE,null,"产品代码最长255个字符");
+		if(StringUtils.length(devpPrdProduct.getEtype()) > 255){
+			errors.rejectValue(DevpPrdProduct.PROPERTY_ETYPE,null,"etype最长255个字符");
 		}
 		if(StringUtils.length(devpPrdProduct.getName()) > 255){
 			errors.rejectValue(DevpPrdProduct.PROPERTY_NAME,null,"产品名称最长255个字符");
+		}
+		if(StringUtils.length(devpPrdProduct.getCode()) > 255){
+			errors.rejectValue(DevpPrdProduct.PROPERTY_CODE,null,"产品代码最长255个字符");
 		}
 		if(StringUtils.length(devpPrdProduct.getAlias()) > 255){
 			errors.rejectValue(DevpPrdProduct.PROPERTY_ALIAS,null,"产品别名最长255个字符");
@@ -132,8 +119,14 @@ public class DevpPrdProductValidator implements Validator {
 		if(StringUtils.length(devpPrdProduct.getCreateUcode()) > 255){
 			errors.rejectValue(DevpPrdProduct.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
 		}
+		if(StringUtils.length(devpPrdProduct.getCreateUname()) > 255){
+			errors.rejectValue(DevpPrdProduct.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
 		if(StringUtils.length(devpPrdProduct.getCmodifyUcode()) > 255){
 			errors.rejectValue(DevpPrdProduct.PROPERTY_CMODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpPrdProduct.getModifyUname()) > 255){
+			errors.rejectValue(DevpPrdProduct.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

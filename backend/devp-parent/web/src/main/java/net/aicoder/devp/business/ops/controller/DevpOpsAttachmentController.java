@@ -1,20 +1,25 @@
 package net.aicoder.devp.business.ops.controller;
 
+import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.devp.business.ops.domain.DevpOpsAttachment;
-import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentCondition;
+import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentEditDto;
 import net.aicoder.devp.business.ops.service.DevpOpsAttachmentService;
 import net.aicoder.devp.business.ops.valid.DevpOpsAttachmentValidator;
 import net.aicoder.devp.business.ops.vo.DevpOpsAttachmentVO;
 
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,15 +30,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 /**
- * 管理附件定义
+ * 管理附件
  * @author icode
  */
-@Api(description = "附件定义", tags = "DevpOpsAttachment")
+@Api(description = "附件", tags = "DevpOpsAttachment")
 @RestController
 @RequestMapping(value = "/ops/devpOpsAttachment")
 public class DevpOpsAttachmentController {
@@ -48,17 +54,18 @@ public class DevpOpsAttachmentController {
 	@Autowired
 	private DevpOpsAttachmentValidator devpOpsAttachmentValidator;
 
-    @InitBinder
+	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(devpOpsAttachmentValidator);
+		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
 	/**
-	 * 新增附件定义
+	 * 新增附件
 	 * @param devpOpsAttachmentAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增附件定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增附件", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsAttachmentVO add(@RequestBody @Valid DevpOpsAttachmentAddDto devpOpsAttachmentAddDto){
@@ -71,10 +78,10 @@ public class DevpOpsAttachmentController {
 	}
 
 	/**
-	 * 删除附件定义,id以逗号分隔
+	 * 删除附件,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除附件定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除附件", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -88,12 +95,12 @@ public class DevpOpsAttachmentController {
 	}
 
 	/**
-	 * 更新附件定义
+	 * 更新附件
 	 * @param devpOpsAttachmentEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产附件定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产附件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpOpsAttachmentVO update(@RequestBody @Valid DevpOpsAttachmentEditDto devpOpsAttachmentEditDto, @PathVariable Long id){
 		DevpOpsAttachment devpOpsAttachment = new DevpOpsAttachment();
@@ -106,11 +113,11 @@ public class DevpOpsAttachmentController {
 	}
 
 	/**
-	 * 根据ID查询附件定义
+	 * 根据ID查询附件
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询附件定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询附件", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpOpsAttachmentVO get(@PathVariable Long id) {
 
@@ -121,11 +128,11 @@ public class DevpOpsAttachmentController {
 	}
 
 	/**
-	 * 查询附件定义列表
+	 * 查询附件列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询附件定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询附件列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpOpsAttachmentVO> list(@RequestBody PageSearchRequest<DevpOpsAttachmentCondition> pageSearchRequest){
 
@@ -149,13 +156,50 @@ public class DevpOpsAttachmentController {
 
 	}
 
-	private DevpOpsAttachmentVO initViewProperty(DevpOpsAttachment devpOpsAttachment){
-	    DevpOpsAttachmentVO vo = new DevpOpsAttachmentVO();
+	/**
+     * 导出附件列表
+     * @param condition
+     * @param response
+     */
+    @ApiOperation(value = "导出", notes = "根据条件导出附件列表", httpMethod = "POST")
+    @RequestMapping("/export")
+    public void export(DevpOpsAttachmentCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
+        PageSearchRequest<DevpOpsAttachmentCondition> pageSearchRequest = new PageSearchRequest<>();
+        pageSearchRequest.setPage(0);
+        pageSearchRequest.setLimit(Integer.MAX_VALUE);
+        pageSearchRequest.setSearchCondition(condition);
+
+        PageContent<DevpOpsAttachmentVO> content = this.list(pageSearchRequest);
+
+        List<DevpOpsAttachmentVO> voList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(content.getContent())){
+            voList.addAll(content.getContent());
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for(DevpOpsAttachmentVO vo : voList){
+            jsonArray.add(vo);
+        }
+
+        Map<String,String> headMap = new LinkedHashMap<String,String>();
+
+
+        String title = new String("附件");
+        String fileName = new String(("附件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
+    }
+
+	private DevpOpsAttachmentVO initViewProperty(DevpOpsAttachment devpOpsAttachment){
+
+	    DevpOpsAttachmentVO vo = new DevpOpsAttachmentVO();
         BeanUtils.copyProperties(devpOpsAttachment, vo);
+
 
 	    //初始化其他对象
         return vo;
+
+
 	}
 
 

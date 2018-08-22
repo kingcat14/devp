@@ -1,15 +1,14 @@
 package net.aicoder.devp.business.product.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.product.domain.DevpPrdPrdline;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineEditDto;
-
+import net.aicoder.devp.business.product.domain.DevpPrdPrdline;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 @Service
 public class DevpPrdPrdlineValidator implements Validator {
@@ -21,13 +20,7 @@ public class DevpPrdPrdlineValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpPrdPrdlineAddDto.class.equals(aClass))
-			return true;
-		if(DevpPrdPrdlineEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return DevpPrdPrdline.class.equals(aClass);
+		return true;
 	}
 
 	/**
@@ -37,34 +30,31 @@ public class DevpPrdPrdlineValidator implements Validator {
 	 */
 	@Override
 	public void validate(Object obj, Errors errors) {
-	    if(obj instanceof DevpPrdPrdline){
-            this.validateDevpPrdPrdline((DevpPrdPrdline)obj, errors);
+	    if(obj instanceof DevpPrdPrdlineAddDto){
+            this.validateDevpPrdPrdlineAddDto((DevpPrdPrdlineAddDto)obj, errors);
         }
 	}
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpPrdPrdline 产品线定义
+     * @param devpPrdPrdline 产品线
      * @param errors
      */
-	public void validateDevpPrdPrdline(DevpPrdPrdline devpPrdPrdline, Errors errors) {
+	public void validateDevpPrdPrdlineAddDto(DevpPrdPrdlineAddDto devpPrdPrdline, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if(StringUtils.isEmpty(devpPrdPrdline.getCode())){
-			errors.rejectValue(DevpPrdPrdline.PROPERTY_CODE, "EMPTY_"+DevpPrdPrdline.PROPERTY_CODE, "产品线代码不能为空");
-		}
-		if(StringUtils.isEmpty(devpPrdPrdline.getName())){
-			errors.rejectValue(DevpPrdPrdline.PROPERTY_NAME, "EMPTY_"+DevpPrdPrdline.PROPERTY_NAME, "产品线名称不能为空");
-		}
 
 		//验证长度
-		if(StringUtils.length(devpPrdPrdline.getCode()) > 255){
-			errors.rejectValue(DevpPrdPrdline.PROPERTY_CODE,null,"产品线代码最长255个字符");
+		if(StringUtils.length(devpPrdPrdline.getEtype()) > 255){
+			errors.rejectValue(DevpPrdPrdline.PROPERTY_ETYPE,null,"etype最长255个字符");
 		}
 		if(StringUtils.length(devpPrdPrdline.getName()) > 255){
 			errors.rejectValue(DevpPrdPrdline.PROPERTY_NAME,null,"产品线名称最长255个字符");
+		}
+		if(StringUtils.length(devpPrdPrdline.getCode()) > 255){
+			errors.rejectValue(DevpPrdPrdline.PROPERTY_CODE,null,"产品线代码最长255个字符");
 		}
 		if(StringUtils.length(devpPrdPrdline.getAlias()) > 255){
 			errors.rejectValue(DevpPrdPrdline.PROPERTY_ALIAS,null,"产品线别名最长255个字符");
@@ -96,8 +86,14 @@ public class DevpPrdPrdlineValidator implements Validator {
 		if(StringUtils.length(devpPrdPrdline.getCreateUcode()) > 255){
 			errors.rejectValue(DevpPrdPrdline.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
 		}
+		if(StringUtils.length(devpPrdPrdline.getCreateUname()) > 255){
+			errors.rejectValue(DevpPrdPrdline.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
 		if(StringUtils.length(devpPrdPrdline.getModifyUcode()) > 255){
 			errors.rejectValue(DevpPrdPrdline.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpPrdPrdline.getModifyUname()) > 255){
+			errors.rejectValue(DevpPrdPrdline.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

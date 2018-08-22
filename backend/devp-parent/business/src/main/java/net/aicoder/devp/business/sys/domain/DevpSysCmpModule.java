@@ -1,15 +1,16 @@
 package net.aicoder.devp.business.sys.domain;
 
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.jpa.BaseEntity;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
@@ -35,6 +36,10 @@ public class DevpSysCmpModule extends BaseEntity{
 	public static final String PROPERTY_CMP_RID = "cmpRid";
 	public static final String PROPERTY_MDU_RID = "mduRid";
 	public static final String PROPERTY_SEQ = "seq";
+	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
+	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 
 
     @Id
@@ -46,16 +51,14 @@ public class DevpSysCmpModule extends BaseEntity{
     * 租户编号
     * [租户编号]
     */
-    @Column(name = "tid", updatable = false)
-	@NotNull(message = "租户编号不能为空")
+    @Column(name = "tid", nullable = false, updatable = true)
 	private Long tid;
 
     /**
     * 元素类型
     * [元素类型]- SYS_CMP_MDU // 组件对应模块
     */
-    @Column(name = "etype")
-	@NotNull(message = "元素类型不能为空")
+    @Column(name = "etype", nullable = false, updatable = true)
 	@Size(max = 255, message = "元素类型超长，最多255个字符")
 	private String etype;
 
@@ -63,7 +66,7 @@ public class DevpSysCmpModule extends BaseEntity{
     * 对应关系名称
     * [对应关系名称]
     */
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, updatable = true)
 	@Size(max = 255, message = "对应关系名称超长，最多255个字符")
 	private String name;
 
@@ -71,7 +74,7 @@ public class DevpSysCmpModule extends BaseEntity{
     * 对应关系代码
     * [对应关系代码]
     */
-    @Column(name = "code")
+    @Column(name = "code", nullable = true, updatable = true)
 	@Size(max = 255, message = "对应关系代码超长，最多255个字符")
 	private String code;
 
@@ -79,7 +82,7 @@ public class DevpSysCmpModule extends BaseEntity{
     * 对应关系别名
     * [对应关系别名]
     */
-    @Column(name = "alias")
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "对应关系别名超长，最多255个字符")
 	private String alias;
 
@@ -87,7 +90,7 @@ public class DevpSysCmpModule extends BaseEntity{
     * 对应关系描述
     * [对应关系描述]
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "对应关系描述超长，最多255个字符")
 	private String description;
 
@@ -95,14 +98,14 @@ public class DevpSysCmpModule extends BaseEntity{
     * 记录状态
     * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 类型
     * [类型]
     */
-    @Column(name = "type")
+    @Column(name = "type", nullable = true, updatable = true)
 	@Size(max = 255, message = "类型超长，最多255个字符")
 	private String type;
 
@@ -110,7 +113,7 @@ public class DevpSysCmpModule extends BaseEntity{
     * 子类型
     * [子类型]
     */
-    @Column(name = "sub_type")
+    @Column(name = "sub_type", nullable = true, updatable = true)
 	@Size(max = 255, message = "子类型超长，最多255个字符")
 	private String subType;
 
@@ -118,32 +121,61 @@ public class DevpSysCmpModule extends BaseEntity{
     * 产品编号
     * [产品编号]
     */
-    @Column(name = "prd_rid")
-	@NotNull(message = "产品编号不能为空")
+    @Column(name = "prd_rid", nullable = false, updatable = true)
 	private Long prdRid;
 
     /**
     * 组件编号
     * [组件编号]
     */
-    @Column(name = "cmp_rid")
-	@NotNull(message = "组件编号不能为空")
+    @Column(name = "cmp_rid", nullable = false, updatable = true)
 	private Long cmpRid;
 
     /**
     * 模块编号
     * [模块编号]
     */
-    @Column(name = "mdu_rid")
-	@NotNull(message = "模块编号不能为空")
+    @Column(name = "mdu_rid", nullable = false, updatable = true)
 	private Long mduRid;
 
     /**
     * 顺序号
     * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
+
+    /**
+    * 创建用户代码
+    * [创建用户代码]
+    */
+    @Column(name = "create_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
+	private String createUcode;
+
+    /**
+    * 创建用户姓名
+    * [创建用户姓名]
+    */
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * 修改用户代码
+    * [修改用户代码]
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
+	private String modifyUcode;
+
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
 
 	public Long getTid(){
 		return tid;
@@ -234,6 +266,34 @@ public class DevpSysCmpModule extends BaseEntity{
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

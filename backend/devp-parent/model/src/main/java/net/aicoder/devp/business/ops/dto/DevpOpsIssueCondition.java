@@ -1,73 +1,82 @@
 package net.aicoder.devp.business.ops.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 @ApiModel(value = "查询问题记录使用的DTO")
-public class DevpOpsIssueCondition implements Serializable{
+public class DevpOpsIssueCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]")
 	private String etype;
-	@ApiModelProperty(value = "问题代码")
+	@ApiModelProperty(value = "问题代码", notes = "[问题代码]")
 	private String code;
-	@ApiModelProperty(value = "问题名称")
+	@ApiModelProperty(value = "问题名称", notes = "[问题名称]")
 	private String name;
-	@ApiModelProperty(value = "问题别名")
+	@ApiModelProperty(value = "问题别名", notes = "[问题别名]")
 	private String alias;
-	@ApiModelProperty(value = "问题描述")
+	@ApiModelProperty(value = "问题描述", notes = "[问题描述]")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "问题类型")
+	@ApiModelProperty(value = "问题类型", notes = "[问题类型]")
 	private String type;
-	@ApiModelProperty(value = "问题说明")
+	@ApiModelProperty(value = "问题说明", notes = "[问题说明]")
 	private String issue;
-	@ApiModelProperty(value = "问题回复")
+	@ApiModelProperty(value = "问题回复", notes = "[问题回复]")
 	private String reply;
-	@ApiModelProperty(value = "处理状态")
+	@ApiModelProperty(value = "处理状态", notes = "[处理状态]")
 	private String status;
-	@ApiModelProperty(value = "是否有附件")
+	@ApiModelProperty(value = "是否有附件", notes = "[是否有附件]-0:无，1:有")
 	private Integer hasAttachment;
 	@ApiModelProperty(value = "是否有附件最大值")
 	private Integer hasAttachmentMax;
 	@ApiModelProperty(value = "是否有附件最小值")
 	private Integer hasAttachmentMin;
-	@ApiModelProperty(value = "关联记录类型")
+	@ApiModelProperty(value = "关联记录类型", notes = "[关联记录类型]")
 	private String nexusType;
-	@ApiModelProperty(value = "关联记录编号")
+	@ApiModelProperty(value = "关联记录编号", notes = "[关联记录编号]")
 	private Long nexusRid;
 	@ApiModelProperty(value = "关联记录编号最大值")
 	private Long nexusRidMax;
 	@ApiModelProperty(value = "关联记录编号最小值")
 	private Long nexusRidMin;
-	@ApiModelProperty(value = "关联记录版本")
+	@ApiModelProperty(value = "关联记录版本", notes = "[关联记录版本]-关联记录所对应的版本")
 	private String nexusVersion;
-	@ApiModelProperty(value = "关联记录阶段")
+	@ApiModelProperty(value = "关联记录阶段", notes = "[关联记录阶段]-关联记录所对应的阶段")
 	private String nexusPhase;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "参数定义标识")
+	@ApiModelProperty(value = "参数定义标识", notes = "[参数定义标识]-扩展参数定义的标识")
 	private String parasCode;
-	@ApiModelProperty(value = "修改用户代码")
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
+	private String createUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
+	@ApiModelProperty(value = "cmodify_ucode", notes = "")
 	private String cmodifyUcode;
 
 
@@ -282,6 +291,38 @@ public class DevpOpsIssueCondition implements Serializable{
 	}
 	public void setParasCode(String parasCode) {
 		this.parasCode = parasCode;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

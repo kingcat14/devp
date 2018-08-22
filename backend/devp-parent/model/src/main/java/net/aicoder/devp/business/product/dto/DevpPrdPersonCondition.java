@@ -1,80 +1,87 @@
 package net.aicoder.devp.business.product.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-
 
 @ApiModel(value = "查询产品干系人使用的DTO")
-public class DevpPrdPersonCondition implements Serializable{
+public class DevpPrdPersonCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "用户代码")
+	@ApiModelProperty(value = "etype", notes = "")
+	private String etype;
+	@ApiModelProperty(value = "用户代码", notes = "[用户代码]")
 	private String code;
-	@ApiModelProperty(value = "用户名称")
+	@ApiModelProperty(value = "用户名称", notes = "[用户名称]")
 	private String name;
-	@ApiModelProperty(value = "用户别名")
+	@ApiModelProperty(value = "用户别名", notes = "[用户别名]")
 	private String alias;
-	@ApiModelProperty(value = "用户描述")
+	@ApiModelProperty(value = "用户描述", notes = "[用户描述]")
 	private String description;
-	@ApiModelProperty(value = "关联元素类型")
+	@ApiModelProperty(value = "关联元素类型", notes = "[关联元素类型]-prdline-产品线、product-产品")
 	private String nexusType;
-	@ApiModelProperty(value = "关联元素编号")
+	@ApiModelProperty(value = "关联元素编号", notes = "[关联元素编号]")
 	private Long nexusRid;
 	@ApiModelProperty(value = "关联元素编号最大值")
 	private Long nexusRidMax;
 	@ApiModelProperty(value = "关联元素编号最小值")
 	private Long nexusRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
-	@ApiModelProperty(value = "用户编号")
+	@ApiModelProperty(value = "用户编号", notes = "[用户编号]")
 	private Long uid;
 	@ApiModelProperty(value = "用户编号最大值")
 	private Long uidMax;
 	@ApiModelProperty(value = "用户编号最小值")
 	private Long uidMin;
-	@ApiModelProperty(value = "用户类型")
+	@ApiModelProperty(value = "用户类型", notes = "[用户类型]")
 	private String type;
-	@ApiModelProperty(value = "用户角色")
+	@ApiModelProperty(value = "用户类型", notes = "[用户类型]")
 	private String role;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "状态", notes = "[状态]")
 	private String status;
-	@ApiModelProperty(value = "用户租户编号")
+	@ApiModelProperty(value = "用户租户编号", notes = "[用户租户编号]-为未来交易撮合预留")
 	private Long userTid;
 	@ApiModelProperty(value = "用户租户编号最大值")
 	private Long userTidMax;
 	@ApiModelProperty(value = "用户租户编号最小值")
 	private Long userTidMin;
-	@ApiModelProperty(value = "组织编号")
+	@ApiModelProperty(value = "组织编号", notes = "[组织编号]")
 	private Long orgRid;
 	@ApiModelProperty(value = "组织编号最大值")
 	private Long orgRidMax;
 	@ApiModelProperty(value = "组织编号最小值")
 	private Long orgRidMin;
-	@ApiModelProperty(value = "组织名称")
+	@ApiModelProperty(value = "组织名称", notes = "[组织名称]")
 	private String orgName;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "创建用户代码")
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
 	private String createUcode;
-	@ApiModelProperty(value = "修改用户代码")
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
 	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -96,6 +103,14 @@ public class DevpPrdPersonCondition implements Serializable{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
+	}
+
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 
@@ -311,11 +326,27 @@ public class DevpPrdPersonCondition implements Serializable{
 	}
 
 
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
 	public String getModifyUcode(){
 		return modifyUcode;
 	}
 	public void setModifyUcode(String modifyUcode) {
 		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

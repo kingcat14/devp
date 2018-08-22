@@ -132,45 +132,6 @@ public class DevpPrdPrdlineController {
 	}
 
 
-	/**
-	 * 查询产品线
-	 * @param pageSearchRequest
-	 * @return
-	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询产品线及包含的产品", httpMethod = "POST")
-	@PostMapping("/tree")
-	public PageContent<DevpPrdPrdlineVO> tree(@RequestBody PageSearchRequest<DevpPrdPrdlineCondition> pageSearchRequest){
-
-		PageContent<DevpPrdPrdlineVO> pageContent = devpPrdPrdlineRibbonService.list(pageSearchRequest);
-
-		for(DevpPrdPrdlineVO lineVo : pageContent.getContent()){
-			List<DevpPrdProductVO> productVOList = this.findProductListForLine(lineVo.getId());
-			lineVo.setProductList(productVOList);
-		}
 
 
-		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
-		return pageContent;
-
-	}
-
-	private List<DevpPrdProductVO> findProductListForLine(Long lineId){
-		DevpPrdLinePrdCondition condition = new DevpPrdLinePrdCondition();
-		condition.setLineRid(lineId);
-
-		PageSearchRequest<DevpPrdLinePrdCondition> productCondition = new PageSearchRequest<>();
-		productCondition.setSearchCondition(condition);
-		productCondition.setLimit(10000);
-		productCondition.setPage(0);
-
-		PageContent<DevpPrdLinePrdVO>  devpPrdLinePrdVOPageContent = this.devpPrdLinePrdRibbonService.list(productCondition);
-
-		List<DevpPrdProductVO> result = new ArrayList<>();
-		for(DevpPrdLinePrdVO vo : devpPrdLinePrdVOPageContent.getContent()){
-			DevpPrdProductVO productVO = this.devpPrdProductRibbonService.find(vo.getPrdRid());
-			result.add(productVO);
-		}
-
-		return result;
-	}
 }

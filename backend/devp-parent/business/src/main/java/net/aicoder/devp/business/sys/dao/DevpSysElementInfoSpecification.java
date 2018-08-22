@@ -1,17 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.domain.DevpSysElementInfo;
 import net.aicoder.devp.business.sys.dto.DevpSysElementInfoCondition;
-
+import net.aicoder.devp.business.sys.domain.DevpSysElementInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DevpSysElementInfoSpecification implements Specification<DevpSysElementInfo>{
 
@@ -40,6 +39,11 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 		tryAddDataTypePredicate(predicateList, root, cb);
 		tryAddInfoValuePredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
+		tryAddCreateUcodePredicate(predicateList, root, cb);
+		tryAddCreateUnamePredicate(predicateList, root, cb);
+		tryAddModifyUcodePredicate(predicateList, root, cb);
+		tryAddModifyUnamePredicate(predicateList, root, cb);
+		tryAddSeqPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -49,8 +53,17 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
+		}
+
+		if (null != condition.getTidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysElementInfo.PROPERTY_TID).as(Long.class), condition.getTidMax()));
+		}
+
+		if (null != condition.getTidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysElementInfo.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
@@ -79,13 +92,31 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 		}
 	}
 	private void tryAddRecordStatePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getRecordState() ) {
 			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
 		}
+
+		if (null != condition.getRecordStateMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMax()));
+		}
+
+		if (null != condition.getRecordStateMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMin()));
+		}
 	}
 	private void tryAddObjRidPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getObjRid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_OBJ_RID).as(Long.class), condition.getObjRid()));
+		}
+
+		if (null != condition.getObjRidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysElementInfo.PROPERTY_OBJ_RID).as(Long.class), condition.getObjRidMax()));
+		}
+
+		if (null != condition.getObjRidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysElementInfo.PROPERTY_OBJ_RID).as(Long.class), condition.getObjRidMin()));
 		}
 	}
 	private void tryAddDataTypePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
@@ -101,6 +132,40 @@ public class DevpSysElementInfoSpecification implements Specification<DevpSysEle
 	private void tryAddNotesPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getNotes())){
 			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_NOTES).as(String.class), "%"+condition.getNotes()+"%"));
+		}
+	}
+	private void tryAddCreateUcodePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUcode())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_CREATE_UCODE).as(String.class), "%"+condition.getCreateUcode()+"%"));
+		}
+	}
+	private void tryAddCreateUnamePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUname())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_CREATE_UNAME).as(String.class), "%"+condition.getCreateUname()+"%"));
+		}
+	}
+	private void tryAddModifyUcodePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUcode())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_MODIFY_UCODE).as(String.class), "%"+condition.getModifyUcode()+"%"));
+		}
+	}
+	private void tryAddModifyUnamePredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUname())){
+			predicateList.add(cb.like(root.get(DevpSysElementInfo.PROPERTY_MODIFY_UNAME).as(String.class), "%"+condition.getModifyUname()+"%"));
+		}
+	}
+	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<DevpSysElementInfo> root, CriteriaBuilder cb){
+
+		if (null != condition.getSeq() ) {
+			predicateList.add(cb.equal(root.get(DevpSysElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeq()));
+		}
+
+		if (null != condition.getSeqMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeqMax()));
+		}
+
+		if (null != condition.getSeqMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpSysElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeqMin()));
 		}
 	}
 }

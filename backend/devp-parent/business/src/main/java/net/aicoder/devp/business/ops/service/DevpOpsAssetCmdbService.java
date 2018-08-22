@@ -1,13 +1,11 @@
 package net.aicoder.devp.business.ops.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
-
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.devp.business.ops.dao.DevpOpsAssetCmdbDao;
 import net.aicoder.devp.business.ops.dao.DevpOpsAssetCmdbSpecification;
 import net.aicoder.devp.business.ops.domain.DevpOpsAssetCmdb;
 import net.aicoder.devp.business.ops.dto.DevpOpsAssetCmdbCondition;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("devpOpsAssetCmdbService")
-public class DevpOpsAssetCmdbService  extends CrudService<DevpOpsAssetCmdb, DevpOpsAssetCmdbCondition, DevpOpsAssetCmdbDao> {
+public class DevpOpsAssetCmdbService  extends GenericCrudService<DevpOpsAssetCmdb, Long, DevpOpsAssetCmdbCondition, DevpOpsAssetCmdbDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpOpsAssetCmdbService.class);
 
@@ -29,7 +27,7 @@ public class DevpOpsAssetCmdbService  extends CrudService<DevpOpsAssetCmdb, Devp
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , DevpOpsAssetCmdb.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC, DevpOpsAssetCmdb.PROPERTY_TID);
 		return sort;
 	}
 }

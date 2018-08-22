@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.ops.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.ops.domain.DevpOpsAttachment;
 import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsAttachmentEditDto;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsAttachment;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpOpsAttachmentValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpOpsAttachmentAddDto.class.equals(aClass))
-			return true;
-		if(DevpOpsAttachmentEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -45,7 +37,7 @@ public class DevpOpsAttachmentValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param devpOpsAttachment 附件定义
+     * @param devpOpsAttachment 附件
      * @param errors
      */
 	public void validateDevpOpsAttachmentAddDto(DevpOpsAttachmentAddDto devpOpsAttachment, Errors errors) {
@@ -53,15 +45,6 @@ public class DevpOpsAttachmentValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpOpsAttachment.getTid() ) {
-			errors.rejectValue(DevpOpsAttachment.PROPERTY_TID, "EMPTY_"+DevpOpsAttachment.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsAttachment.getNexusType())){
-			errors.rejectValue(DevpOpsAttachment.PROPERTY_NEXUS_TYPE, "EMPTY_"+DevpOpsAttachment.PROPERTY_NEXUS_TYPE, "关联记录类型不能为空");
-		}
-		if (null == devpOpsAttachment.getNexusRid() ) {
-			errors.rejectValue(DevpOpsAttachment.PROPERTY_NEXUS_RID, "EMPTY_"+DevpOpsAttachment.PROPERTY_NEXUS_RID, "关联记录编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpOpsAttachment.getEtype()) > 255){
@@ -103,8 +86,20 @@ public class DevpOpsAttachmentValidator implements Validator {
 		if(StringUtils.length(devpOpsAttachment.getNexusType()) > 255){
 			errors.rejectValue(DevpOpsAttachment.PROPERTY_NEXUS_TYPE,null,"关联记录类型最长255个字符");
 		}
+		if(StringUtils.length(devpOpsAttachment.getCreateUcode()) > 255){
+			errors.rejectValue(DevpOpsAttachment.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsAttachment.getCreateUname()) > 255){
+			errors.rejectValue(DevpOpsAttachment.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpOpsAttachment.getModifyUcode()) > 255){
+			errors.rejectValue(DevpOpsAttachment.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsAttachment.getModifyUname()) > 255){
+			errors.rejectValue(DevpOpsAttachment.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
+		}
 		if(StringUtils.length(devpOpsAttachment.getCmodifyUcode()) > 255){
-			errors.rejectValue(DevpOpsAttachment.PROPERTY_CMODIFY_UCODE,null,"修改用户代码最长255个字符");
+			errors.rejectValue(DevpOpsAttachment.PROPERTY_CMODIFY_UCODE,null,"cmodify_ucode最长255个字符");
 		}
 	}
 }

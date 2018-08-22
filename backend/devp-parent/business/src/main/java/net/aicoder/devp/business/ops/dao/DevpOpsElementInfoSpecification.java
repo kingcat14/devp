@@ -1,8 +1,7 @@
 package net.aicoder.devp.business.ops.dao;
 
-import net.aicoder.devp.business.ops.domain.DevpOpsElementInfo;
 import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoCondition;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsElementInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -51,6 +50,10 @@ public class DevpOpsElementInfoSpecification implements Specification<DevpOpsEle
 		tryAddInfoValue5Predicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddParasCodePredicate(predicateList, root, cb);
+		tryAddCreateUcodePredicate(predicateList, root, cb);
+		tryAddCreateUnamePredicate(predicateList, root, cb);
+		tryAddModifyUcodePredicate(predicateList, root, cb);
+		tryAddModifyUnamePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -60,8 +63,17 @@ public class DevpOpsElementInfoSpecification implements Specification<DevpOpsEle
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsElementInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
+		}
+
+		if (null != condition.getTidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsElementInfo.PROPERTY_TID).as(Long.class), condition.getTidMax()));
+		}
+
+		if (null != condition.getTidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpOpsElementInfo.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
@@ -90,23 +102,59 @@ public class DevpOpsElementInfoSpecification implements Specification<DevpOpsEle
 		}
 	}
 	private void tryAddRecordStatePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getRecordState() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordState()));
 		}
+
+		if (null != condition.getRecordStateMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMax()));
+		}
+
+		if (null != condition.getRecordStateMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpOpsElementInfo.PROPERTY_RECORD_STATE).as(Integer.class), condition.getRecordStateMin()));
+		}
 	}
 	private void tryAddElmRidPredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getElmRid() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsElementInfo.PROPERTY_ELM_RID).as(Long.class), condition.getElmRid()));
 		}
+
+		if (null != condition.getElmRidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsElementInfo.PROPERTY_ELM_RID).as(Long.class), condition.getElmRidMax()));
+		}
+
+		if (null != condition.getElmRidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpOpsElementInfo.PROPERTY_ELM_RID).as(Long.class), condition.getElmRidMin()));
+		}
 	}
 	private void tryAddInstRidPredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getInstRid() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsElementInfo.PROPERTY_INST_RID).as(Long.class), condition.getInstRid()));
 		}
+
+		if (null != condition.getInstRidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsElementInfo.PROPERTY_INST_RID).as(Long.class), condition.getInstRidMax()));
+		}
+
+		if (null != condition.getInstRidMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpOpsElementInfo.PROPERTY_INST_RID).as(Long.class), condition.getInstRidMin()));
+		}
 	}
 	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+
 		if (null != condition.getSeq() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeq()));
+		}
+
+		if (null != condition.getSeqMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeqMax()));
+		}
+
+		if (null != condition.getSeqMin() ) {
+			predicateList.add(cb.lessThan(root.get(DevpOpsElementInfo.PROPERTY_SEQ).as(Integer.class), condition.getSeqMin()));
 		}
 	}
 	private void tryAddInfoCode1Predicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
@@ -167,6 +215,26 @@ public class DevpOpsElementInfoSpecification implements Specification<DevpOpsEle
 	private void tryAddParasCodePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getParasCode())){
 			predicateList.add(cb.like(root.get(DevpOpsElementInfo.PROPERTY_PARAS_CODE).as(String.class), "%"+condition.getParasCode()+"%"));
+		}
+	}
+	private void tryAddCreateUcodePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUcode())){
+			predicateList.add(cb.like(root.get(DevpOpsElementInfo.PROPERTY_CREATE_UCODE).as(String.class), "%"+condition.getCreateUcode()+"%"));
+		}
+	}
+	private void tryAddCreateUnamePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCreateUname())){
+			predicateList.add(cb.like(root.get(DevpOpsElementInfo.PROPERTY_CREATE_UNAME).as(String.class), "%"+condition.getCreateUname()+"%"));
+		}
+	}
+	private void tryAddModifyUcodePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUcode())){
+			predicateList.add(cb.like(root.get(DevpOpsElementInfo.PROPERTY_MODIFY_UCODE).as(String.class), "%"+condition.getModifyUcode()+"%"));
+		}
+	}
+	private void tryAddModifyUnamePredicate(List<Predicate> predicateList, Root<DevpOpsElementInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getModifyUname())){
+			predicateList.add(cb.like(root.get(DevpOpsElementInfo.PROPERTY_MODIFY_UNAME).as(String.class), "%"+condition.getModifyUname()+"%"));
 		}
 	}
 }

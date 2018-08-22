@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.deploy.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.deploy.domain.DevpSysDpyResInstHost;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResInstHostAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResInstHostEditDto;
-
+import net.aicoder.devp.business.deploy.domain.DevpSysDpyResInstHost;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpSysDpyResInstHostValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpSysDpyResInstHostAddDto.class.equals(aClass))
-			return true;
-		if(DevpSysDpyResInstHostEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -53,27 +45,6 @@ public class DevpSysDpyResInstHostValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpSysDpyResInstHost.getTid() ) {
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_TID, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyResInstHost.getEtype())){
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_ETYPE, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpSysDpyResInstHost.getName())){
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_NAME, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_NAME, "系统元素名称不能为空");
-		}
-		if (null == devpSysDpyResInstHost.getPrdRid() ) {
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_PRD_RID, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_PRD_RID, "产品编号不能为空");
-		}
-		if (null == devpSysDpyResInstHost.getSchemeRid() ) {
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_SCHEME_RID, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_SCHEME_RID, "部署方案编号不能为空");
-		}
-		if (null == devpSysDpyResInstHost.getInstRid() ) {
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_INST_RID, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_INST_RID, "关联资源实例编号不能为空");
-		}
-		if (null == devpSysDpyResInstHost.getHostRid() ) {
-			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_HOST_RID, "EMPTY_"+DevpSysDpyResInstHost.PROPERTY_HOST_RID, "关联主机编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpSysDpyResInstHost.getEtype()) > 255){
@@ -105,6 +76,18 @@ public class DevpSysDpyResInstHostValidator implements Validator {
 		}
 		if(StringUtils.length(devpSysDpyResInstHost.getNotes()) > 255){
 			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_NOTES,null,"备注最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResInstHost.getCreateUcode()) > 255){
+			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResInstHost.getCreateUname()) > 255){
+			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResInstHost.getModifyUcode()) > 255){
+			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_MODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpSysDpyResInstHost.getModifyUname()) > 255){
+			errors.rejectValue(DevpSysDpyResInstHost.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

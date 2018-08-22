@@ -1,11 +1,9 @@
 package net.aicoder.devp.business.ops.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
-import net.aicoder.devp.business.ops.domain.DevpOpsRequirement;
 import net.aicoder.devp.business.ops.dto.DevpOpsRequirementAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsRequirementEditDto;
-
+import net.aicoder.devp.business.ops.domain.DevpOpsRequirement;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -22,13 +20,7 @@ public class DevpOpsRequirementValidator implements Validator {
 	 */
 	@Override
 	public boolean supports(Class<?> aClass) {
-		if(DevpOpsRequirementAddDto.class.equals(aClass))
-			return true;
-		if(DevpOpsRequirementEditDto.class.equals(aClass))
-			return true;
-		if(PageSearchRequest.class.equals(aClass))
-			return true;
-		return false;
+		return true;
 	}
 
 	/**
@@ -53,18 +45,6 @@ public class DevpOpsRequirementValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == devpOpsRequirement.getTid() ) {
-			errors.rejectValue(DevpOpsRequirement.PROPERTY_TID, "EMPTY_"+DevpOpsRequirement.PROPERTY_TID, "租户编号不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsRequirement.getEtype())){
-			errors.rejectValue(DevpOpsRequirement.PROPERTY_ETYPE, "EMPTY_"+DevpOpsRequirement.PROPERTY_ETYPE, "元素类型不能为空");
-		}
-		if(StringUtils.isEmpty(devpOpsRequirement.getNexusType())){
-			errors.rejectValue(DevpOpsRequirement.PROPERTY_NEXUS_TYPE, "EMPTY_"+DevpOpsRequirement.PROPERTY_NEXUS_TYPE, "关联记录类型不能为空");
-		}
-		if (null == devpOpsRequirement.getNexusRid() ) {
-			errors.rejectValue(DevpOpsRequirement.PROPERTY_NEXUS_RID, "EMPTY_"+DevpOpsRequirement.PROPERTY_NEXUS_RID, "关联记录编号不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(devpOpsRequirement.getEtype()) > 255){
@@ -91,9 +71,6 @@ public class DevpOpsRequirementValidator implements Validator {
 		if(StringUtils.length(devpOpsRequirement.getTypeName()) > 255){
 			errors.rejectValue(DevpOpsRequirement.PROPERTY_TYPE_NAME,null,"类型名称最长255个字符");
 		}
-		if(StringUtils.length(devpOpsRequirement.getContent()) > 255){
-			errors.rejectValue(DevpOpsRequirement.PROPERTY_CONTENT,null,"内容最长255个字符");
-		}
 		if(StringUtils.length(devpOpsRequirement.getStereotype()) > 255){
 			errors.rejectValue(DevpOpsRequirement.PROPERTY_STEREOTYPE,null,"构造型最长255个字符");
 		}
@@ -108,6 +85,18 @@ public class DevpOpsRequirementValidator implements Validator {
 		}
 		if(StringUtils.length(devpOpsRequirement.getStatus()) > 255){
 			errors.rejectValue(DevpOpsRequirement.PROPERTY_STATUS,null,"状态最长255个字符");
+		}
+		if(StringUtils.length(devpOpsRequirement.getCreateUcode()) > 255){
+			errors.rejectValue(DevpOpsRequirement.PROPERTY_CREATE_UCODE,null,"创建用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsRequirement.getCreateUname()) > 255){
+			errors.rejectValue(DevpOpsRequirement.PROPERTY_CREATE_UNAME,null,"创建用户姓名最长255个字符");
+		}
+		if(StringUtils.length(devpOpsRequirement.getCmodifyUcode()) > 255){
+			errors.rejectValue(DevpOpsRequirement.PROPERTY_CMODIFY_UCODE,null,"修改用户代码最长255个字符");
+		}
+		if(StringUtils.length(devpOpsRequirement.getModifyUname()) > 255){
+			errors.rejectValue(DevpOpsRequirement.PROPERTY_MODIFY_UNAME,null,"修改用户姓名最长255个字符");
 		}
 	}
 }

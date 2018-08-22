@@ -1,90 +1,99 @@
 package net.aicoder.devp.business.sys.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-
 
 @ApiModel(value = "查询系统组件使用的DTO")
-public class DevpSysCmpCondition implements Serializable{
+public class DevpSysCmpCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]- SYSTEM// 系统 SUB_SYS// 子系统 SYS_CMP// 组件 ")
 	private String etype;
-	@ApiModelProperty(value = "系统元素名称")
+	@ApiModelProperty(value = "系统元素名称", notes = "[系统元素名称]")
 	private String name;
-	@ApiModelProperty(value = "系统元素代码")
+	@ApiModelProperty(value = "系统元素代码", notes = "[系统元素代码]")
 	private String code;
-	@ApiModelProperty(value = "系统元素别名")
+	@ApiModelProperty(value = "系统元素别名", notes = "[系统元素别名]")
 	private String alias;
-	@ApiModelProperty(value = "系统元素描述")
+	@ApiModelProperty(value = "系统元素描述", notes = "[系统元素描述]")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "类型")
+	@ApiModelProperty(value = "类型", notes = "[类型]")
 	private String type;
-	@ApiModelProperty(value = "子类型")
+	@ApiModelProperty(value = "子类型", notes = "[子类型]")
 	private String subType;
-	@ApiModelProperty(value = "构造型")
+	@ApiModelProperty(value = "构造型", notes = "[构造型]")
 	private String stereotype;
-	@ApiModelProperty(value = "范围")
+	@ApiModelProperty(value = "范围", notes = "[范围]-访问控制范围:产品内可见，同模块可见，模块内可见")
 	private String scope;
-	@ApiModelProperty(value = "版本")
+	@ApiModelProperty(value = "版本", notes = "[版本]-当前版本")
 	private String version;
-	@ApiModelProperty(value = "阶段")
+	@ApiModelProperty(value = "阶段", notes = "[阶段]-系统调研,系统设计,系统开发,试运行,系统运维,已停用")
 	private String phase;
-	@ApiModelProperty(value = "状态")
+	@ApiModelProperty(value = "状态", notes = "[状态]-未开始,进行中,已完成,暂停,取消")
 	private String status;
-	@ApiModelProperty(value = "备注")
+	@ApiModelProperty(value = "备注", notes = "[备注]")
 	private String notes;
-	@ApiModelProperty(value = "可安装组件")
+	@ApiModelProperty(value = "可安装组件", notes = "[可安装组件]-是否为可安装组件，0:不可独立安装；1：可安装")
 	private Integer installable;
 	@ApiModelProperty(value = "可安装组件最大值")
 	private Integer installableMax;
 	@ApiModelProperty(value = "可安装组件最小值")
 	private Integer installableMin;
-	@ApiModelProperty(value = "共享组件")
+	@ApiModelProperty(value = "共享组件", notes = "[共享组件]-是否为共享组件，0:不共享；1：共享")
 	private Integer sharedComponent;
 	@ApiModelProperty(value = "共享组件最大值")
 	private Integer sharedComponentMax;
 	@ApiModelProperty(value = "共享组件最小值")
 	private Integer sharedComponentMin;
-	@ApiModelProperty(value = "共享服务")
+	@ApiModelProperty(value = "共享服务", notes = "[共享服务]-是否提供共享服务，0:不共享；1：共享")
 	private Integer sharedService;
 	@ApiModelProperty(value = "共享服务最大值")
 	private Integer sharedServiceMax;
 	@ApiModelProperty(value = "共享服务最小值")
 	private Integer sharedServiceMin;
-	@ApiModelProperty(value = "产品编号")
+	@ApiModelProperty(value = "产品编号", notes = "[产品编号]")
 	private Long prdRid;
 	@ApiModelProperty(value = "产品编号最大值")
 	private Long prdRidMax;
 	@ApiModelProperty(value = "产品编号最小值")
 	private Long prdRidMin;
-	@ApiModelProperty(value = "父包编号")
+	@ApiModelProperty(value = "父包编号", notes = "[父包编号]")
 	private Long parentRid;
 	@ApiModelProperty(value = "父包编号最大值")
 	private Long parentRidMax;
 	@ApiModelProperty(value = "父包编号最小值")
 	private Long parentRidMin;
-	@ApiModelProperty(value = "顺序号")
+	@ApiModelProperty(value = "顺序号", notes = "[顺序号]")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
 	private Integer seqMax;
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
+	private String createUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -364,6 +373,38 @@ public class DevpSysCmpCondition implements Serializable{
 	}
 	public void setSeqMax(Integer seqMax) {
 		this.seqMax = seqMax;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

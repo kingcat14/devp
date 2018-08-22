@@ -1,42 +1,51 @@
 package net.aicoder.devp.business.ops.dto;
 
+import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 @ApiModel(value = "查询运维元素扩充信息使用的DTO")
-public class DevpOpsParasDefineCondition implements Serializable{
+public class DevpOpsParasDefineCondition extends SaaSCondition{
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
 	@ApiModelProperty(value = "租户编号最大值")
 	private Long tidMax;
 	@ApiModelProperty(value = "租户编号最小值")
 	private Long tidMin;
-	@ApiModelProperty(value = "元素类型")
+	@ApiModelProperty(value = "元素类型", notes = "[元素类型]")
 	private String etype;
-	@ApiModelProperty(value = "扩展信息代码")
+	@ApiModelProperty(value = "扩展信息代码", notes = "[扩展信息代码]-参数定义标识，对应paras_id")
 	private String code;
-	@ApiModelProperty(value = "扩展信息名称")
+	@ApiModelProperty(value = "扩展信息名称", notes = "[扩展信息名称]-显示名称")
 	private String name;
-	@ApiModelProperty(value = "扩展信息别名")
+	@ApiModelProperty(value = "扩展信息别名", notes = "[扩展信息别名]")
 	private String alias;
-	@ApiModelProperty(value = "扩展信息描述")
+	@ApiModelProperty(value = "扩展信息描述", notes = "[扩展信息描述]-对应当前属性值")
 	private String description;
-	@ApiModelProperty(value = "记录状态")
+	@ApiModelProperty(value = "记录状态", notes = "[记录状态]-0-失效;1-生效;缺省为1")
 	private Integer recordState;
 	@ApiModelProperty(value = "记录状态最大值")
 	private Integer recordStateMax;
 	@ApiModelProperty(value = "记录状态最小值")
 	private Integer recordStateMin;
-	@ApiModelProperty(value = "内容")
+	@ApiModelProperty(value = "内容", notes = "[内容]")
 	private String content;
-	@ApiModelProperty(value = "备注")
+	@ApiModelProperty(value = "备注", notes = "[备注]")
 	private String notes;
+	@ApiModelProperty(value = "创建用户代码", notes = "[创建用户代码]")
+	private String createUcode;
+	@ApiModelProperty(value = "创建用户姓名", notes = "[创建用户姓名]")
+	private String createUname;
+	@ApiModelProperty(value = "修改用户代码", notes = "[修改用户代码]")
+	private String modifyUcode;
+	@ApiModelProperty(value = "修改用户姓名", notes = "[修改用户姓名]")
+	private String modifyUname;
 
 
 	public Long getTid(){
@@ -136,6 +145,38 @@ public class DevpOpsParasDefineCondition implements Serializable{
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+
+	public String getCreateUcode(){
+		return createUcode;
+	}
+	public void setCreateUcode(String createUcode) {
+		this.createUcode = createUcode;
+	}
+
+
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
+
+	public String getModifyUcode(){
+		return modifyUcode;
+	}
+	public void setModifyUcode(String modifyUcode) {
+		this.modifyUcode = modifyUcode;
+	}
+
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 

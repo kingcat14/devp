@@ -1,27 +1,32 @@
 package net.aicoder.devp.business.product.domain;
 
-import com.yunkang.saas.common.framework.eo.BaseEntity;
+import com.yunkang.saas.common.jpa.BaseEntity;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Table;
+import org.hibernate.validator.constraints.NotEmpty;
+import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 /**
- * 产品线定义
+ * 产品线
  * @author icode
  */
 @Entity
-@Table
+@Table(appliesTo = "devp_prd_prdline", comment = "[产品线]")
+//@DynamicUpdate
+//@DynamicInsert
 public class DevpPrdPrdline extends BaseEntity{
 
-	public static final String PROPERTY_CODE = "code";
+	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_ETYPE = "etype";
 	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_ALIAS = "alias";
 	public static final String PROPERTY_DESCRIPTION = "description";
 	public static final String PROPERTY_TYPE = "type";
@@ -35,7 +40,9 @@ public class DevpPrdPrdline extends BaseEntity{
 	public static final String PROPERTY_SEQ = "seq";
 	public static final String PROPERTY_RECORD_STATE = "recordState";
 	public static final String PROPERTY_CREATE_UCODE = "createUcode";
+	public static final String PROPERTY_CREATE_UNAME = "createUname";
 	public static final String PROPERTY_MODIFY_UCODE = "modifyUcode";
+	public static final String PROPERTY_MODIFY_UNAME = "modifyUname";
 
 
     @Id
@@ -44,137 +51,173 @@ public class DevpPrdPrdline extends BaseEntity{
 
 
     /**
-    * 产品线代码
+    * 租户编号
+    * [租户编号]
+    */
+    @Column(name = "tid", nullable = false, updatable = true)
+	private Long tid;
+
+    /**
+    * etype
     * 
     */
-    @Column(name = "code")
-	@NotNull(message = "产品线代码不能为空")
-	@Size(max = 255, message = "产品线代码超长，最多255个字符")
-	private String code;
+    @Column(name = "etype", nullable = true, updatable = true)
+	@Size(max = 255, message = "etype超长，最多255个字符")
+	private String etype;
 
     /**
     * 产品线名称
-    * 
+    * [产品线名称]
     */
-    @Column(name = "name")
-	@NotNull(message = "产品线名称不能为空")
+    @Column(name = "name", nullable = false, updatable = true)
 	@Size(max = 255, message = "产品线名称超长，最多255个字符")
 	private String name;
 
     /**
-    * 产品线别名
-    * 
+    * 产品线代码
+    * [产品线代码]
     */
-    @Column(name = "alias")
+    @Column(name = "code", nullable = true, updatable = true)
+	@Size(max = 255, message = "产品线代码超长，最多255个字符")
+	private String code;
+
+    /**
+    * 产品线别名
+    * [产品线别名]
+    */
+    @Column(name = "alias", nullable = true, updatable = true)
 	@Size(max = 255, message = "产品线别名超长，最多255个字符")
 	private String alias;
 
     /**
     * 产品线描述
-    * 
+    * [产品线描述]
     */
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "产品线描述超长，最多255个字符")
 	private String description;
 
     /**
     * 产品线类型
-    * 
+    * [产品线类型]-(保留)
     */
-    @Column(name = "type")
+    @Column(name = "type", nullable = true, updatable = true)
 	@Size(max = 255, message = "产品线类型超长，最多255个字符")
 	private String type;
 
     /**
     * 领域
-    * 
+    * [领域]-所属领域
     */
-    @Column(name = "domain")
+    @Column(name = "domain", nullable = true, updatable = true)
 	@Size(max = 255, message = "领域超长，最多255个字符")
 	private String domain;
 
     /**
     * 构造型
-    * 
+    * [构造型]-(保留)
     */
-    @Column(name = "stereotype")
+    @Column(name = "stereotype", nullable = true, updatable = true)
 	@Size(max = 255, message = "构造型超长，最多255个字符")
 	private String stereotype;
 
     /**
     * 访问控制范围
-    * 
+    * [访问控制范围]-访问控制范围:共享产品，租户内共享,私有产品
     */
-    @Column(name = "scope")
+    @Column(name = "scope", nullable = true, updatable = true)
 	@Size(max = 255, message = "访问控制范围超长，最多255个字符")
 	private String scope;
 
     /**
     * 版本
-    * 
+    * [版本]-当前版本
     */
-    @Column(name = "version")
+    @Column(name = "version", nullable = true, updatable = true)
 	@Size(max = 255, message = "版本超长，最多255个字符")
 	private String version;
 
     /**
     * 阶段
-    * 
+    * [阶段]-产品调研,产品设计,产品开发,试运行,产品维护,产品停用
     */
-    @Column(name = "phase")
+    @Column(name = "phase", nullable = true, updatable = true)
 	@Size(max = 255, message = "阶段超长，最多255个字符")
 	private String phase;
 
     /**
     * 状态
-    * 
+    * [状态]-未开始,进行中,已完成,暂停,取消
     */
-    @Column(name = "status")
+    @Column(name = "status", nullable = true, updatable = true)
 	@Size(max = 255, message = "状态超长，最多255个字符")
 	private String status;
 
     /**
     * 父产品线编号
-    * 
+    * [父产品线编号]
     */
-    @Column(name = "parent_rid")
+    @Column(name = "parent_rid", nullable = true, updatable = true)
 	private Long parentRid;
 
     /**
     * 顺序号
-    * 
+    * [顺序号]
     */
-    @Column(name = "seq")
+    @Column(name = "seq", nullable = true, updatable = true)
 	private Integer seq;
 
     /**
     * 记录状态
-    * 
+    * [记录状态]-0-失效;1-生效;缺省为1
     */
-    @Column(name = "record_state")
+    @Column(name = "record_state", nullable = true, updatable = true)
 	private Integer recordState;
 
     /**
     * 创建用户代码
-    * 
+    * [创建用户代码]
     */
-    @Column(name = "create_ucode")
+    @Column(name = "create_ucode", nullable = true, updatable = true)
 	@Size(max = 255, message = "创建用户代码超长，最多255个字符")
 	private String createUcode;
 
     /**
-    * 修改用户代码
-    * 
+    * 创建用户姓名
+    * [创建用户姓名]
     */
-    @Column(name = "modify_ucode")
+    @Column(name = "create_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "创建用户姓名超长，最多255个字符")
+	private String createUname;
+
+    /**
+    * 修改用户代码
+    * [修改用户代码]
+    */
+    @Column(name = "modify_ucode", nullable = true, updatable = true)
 	@Size(max = 255, message = "修改用户代码超长，最多255个字符")
 	private String modifyUcode;
 
-	public String getCode(){
-		return code;
+    /**
+    * 修改用户姓名
+    * [修改用户姓名]
+    */
+    @Column(name = "modify_uname", nullable = true, updatable = true)
+	@Size(max = 255, message = "修改用户姓名超长，最多255个字符")
+	private String modifyUname;
+
+	public Long getTid(){
+		return tid;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+
+	public String getEtype(){
+		return etype;
+	}
+	public void setEtype(String etype) {
+		this.etype = etype;
 	}
 
 	public String getName(){
@@ -182,6 +225,13 @@ public class DevpPrdPrdline extends BaseEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getAlias(){
@@ -275,11 +325,25 @@ public class DevpPrdPrdline extends BaseEntity{
 		this.createUcode = createUcode;
 	}
 
+	public String getCreateUname(){
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+
 	public String getModifyUcode(){
 		return modifyUcode;
 	}
 	public void setModifyUcode(String modifyUcode) {
 		this.modifyUcode = modifyUcode;
+	}
+
+	public String getModifyUname(){
+		return modifyUname;
+	}
+	public void setModifyUname(String modifyUname) {
+		this.modifyUname = modifyUname;
 	}
 
 
