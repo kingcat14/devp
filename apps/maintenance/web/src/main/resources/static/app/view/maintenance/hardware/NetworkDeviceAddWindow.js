@@ -67,8 +67,8 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
@@ -107,7 +107,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceAddWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true

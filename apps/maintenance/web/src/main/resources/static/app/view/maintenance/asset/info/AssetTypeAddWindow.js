@@ -62,7 +62,7 @@ Ext.define('AM.view.maintenance.asset.info.AssetTypeAddWindow', {
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'

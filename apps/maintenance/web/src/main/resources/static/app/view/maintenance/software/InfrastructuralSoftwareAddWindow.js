@@ -17,10 +17,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var infrastructuralSoftwareTypeCodeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
-        infrastructuralSoftwareTypeCodeStore.proxy.isSynchronous = true;
-        infrastructuralSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-TYPECODE'}};
-        infrastructuralSoftwareTypeCodeStore.load();
+
         var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
         infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTROPS_ASSET_STATUS'}};
@@ -59,8 +56,8 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
@@ -99,7 +96,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
