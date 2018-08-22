@@ -2,10 +2,8 @@ package net.aicoder.maintenance.business.maintenance.hardware.valid;
 
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-
 import net.aicoder.maintenance.business.hardware.dto.NetworkDeviceAddDto;
 import net.aicoder.maintenance.business.hardware.dto.NetworkDeviceEditDto;
-
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
