@@ -19,7 +19,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
 
         var businessSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         businessSoftwareStatusStore.proxy.isSynchronous = true;
-        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'BUSINESSSOFTWARE-STATUS'}};
+        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         businessSoftwareStatusStore.load();
         Ext.apply(me, {
             items: [
@@ -90,14 +90,19 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
 
 
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '类型代码'
                                 }
 
 

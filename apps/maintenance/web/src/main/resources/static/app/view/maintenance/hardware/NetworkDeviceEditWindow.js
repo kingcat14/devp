@@ -17,7 +17,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
 
         var networkDeviceStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         networkDeviceStatusStore.proxy.isSynchronous = true;
-        networkDeviceStatusStore.proxy.extraParams={searchCondition:{configType:'NETWORKDEVICE-STATUS'}};
+        networkDeviceStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         networkDeviceStatusStore.load();
 
         Ext.apply(me, {
@@ -91,14 +91,19 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
                                     ,fieldLabel: '别名'
                                 }
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '类型代码'
                                 }
                                 ,{
                                     xtype: 'textfield'

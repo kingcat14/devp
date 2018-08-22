@@ -23,7 +23,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
         infrastructuralSoftwareTypeCodeStore.load();
         var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
-        infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-STATUS'}};
+        infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTROPS_ASSET_STATUS'}};
         infrastructuralSoftwareStatusStore.load();
         Ext.apply(me, {
             items: [
@@ -95,18 +95,18 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: infrastructuralSoftwareTypeCodeStore
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'displayName'
-                                    ,valueField:'value'
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '类型代码'
                                 }
 
 

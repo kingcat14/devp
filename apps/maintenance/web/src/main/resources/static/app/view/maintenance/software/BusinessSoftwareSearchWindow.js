@@ -15,7 +15,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareSearchWindow', {
         var me = this;
         var businessSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         businessSoftwareStatusStore.proxy.isSynchronous = true;
-        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'BUSINESSSOFTWARE-STATUS'}};
+        businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         businessSoftwareStatusStore.load();
 
         Ext.apply(me, {

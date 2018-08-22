@@ -17,12 +17,12 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareEditWindow', {
 
         var infrastructuralSoftwareTypeCodeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         infrastructuralSoftwareTypeCodeStore.proxy.isSynchronous = true;
-        infrastructuralSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-TYPECODE'}};
+        infrastructuralSoftwareTypeCodeStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         infrastructuralSoftwareTypeCodeStore.load();
 
         var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
-        infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTRUCTURALSOFTWARE-STATUS'}};
+        infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         infrastructuralSoftwareStatusStore.load();
 
         Ext.apply(me, {
@@ -108,18 +108,18 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareEditWindow', {
                                 }
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: infrastructuralSoftwareTypeCodeStore
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'displayName'
-                                    ,valueField:'value'
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:true
+                                    ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '类型代码'
                                 }
                                 ,{
                                     xtype: 'textfield'

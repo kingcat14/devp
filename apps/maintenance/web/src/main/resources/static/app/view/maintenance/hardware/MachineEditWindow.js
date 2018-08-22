@@ -18,7 +18,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
 
         var machineStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         machineStatusStore.proxy.isSynchronous = true;
-        machineStatusStore.proxy.extraParams={searchCondition:{configType:'MACHINE-STATUS'}};
+        machineStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         machineStatusStore.load();
 
         Ext.apply(me, {
@@ -93,7 +93,7 @@ Ext.define('AM.view.maintenance.hardware.MachineEditWindow', {
                                 }
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore")
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'

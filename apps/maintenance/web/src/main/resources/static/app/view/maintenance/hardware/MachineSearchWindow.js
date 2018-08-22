@@ -15,7 +15,7 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
         var me = this;
         var machineStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         machineStatusStore.proxy.isSynchronous = true;
-        machineStatusStore.proxy.extraParams={searchCondition:{configType:'MACHINE-STATUS'}};
+        machineStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         machineStatusStore.load();
 
         Ext.apply(me, {

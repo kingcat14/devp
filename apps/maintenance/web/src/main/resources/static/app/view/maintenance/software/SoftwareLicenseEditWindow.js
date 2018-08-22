@@ -17,7 +17,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
 
         var softwareLicenseStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
         softwareLicenseStatusStore.proxy.isSynchronous = true;
-        softwareLicenseStatusStore.proxy.extraParams={searchCondition:{configType:'SOFTWARELICENSE-STATUS'}};
+        softwareLicenseStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         softwareLicenseStatusStore.load();
 
         Ext.apply(me, {
@@ -102,14 +102,19 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
                                     ,fieldLabel: '别名'
                                 }
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.maintenance.asset.info.AssetTypeStore").applyCondition({})
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeCodeField'
                                     ,name: 'typeCode'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '类型代码'
                                 }
                                 ,{
                                     xtype: 'textfield'
