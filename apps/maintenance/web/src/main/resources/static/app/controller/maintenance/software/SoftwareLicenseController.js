@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.software.SoftwareLicenseController', {
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var softwareLicensePanel = center.child('maintenance\\.software\\.SoftwareLicensePanel');
         if(!softwareLicensePanel){
@@ -22,7 +22,7 @@ Ext.define('AM.controller.maintenance.software.SoftwareLicenseController', {
         center.setActiveTab(softwareLicensePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var softwareLicensePanel = center.child('maintenance\\.software\\.SoftwareLicenseMainPanel');
          if(!softwareLicensePanel){

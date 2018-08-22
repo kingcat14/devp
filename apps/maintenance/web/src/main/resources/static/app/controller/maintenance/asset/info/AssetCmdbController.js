@@ -4,7 +4,7 @@ Ext.define('AM.controller.maintenance.asset.info.AssetCmdbController', {
         this.initPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var assetCmdbPanel = center.child('maintenance\\.asset\\.info\\.AssetCmdbPanel');
         if(!assetCmdbPanel){

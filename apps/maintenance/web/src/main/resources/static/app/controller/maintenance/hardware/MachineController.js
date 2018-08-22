@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.hardware.MachineController', {
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var machinePanel = center.child('maintenance\\.hardware\\.MachinePanel');
         if(!machinePanel){
@@ -17,7 +17,7 @@ Ext.define('AM.controller.maintenance.hardware.MachineController', {
         center.setActiveTab(machinePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var machinePanel = center.child('maintenance\\.hardware\\.MachineMainPanel');
          if(!machinePanel){

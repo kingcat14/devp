@@ -7,8 +7,8 @@ import com.yunkang.saas.platform.business.platform.security.dto.AccountCondition
 import com.yunkang.saas.platform.business.platform.security.service.AccountPasswordService;
 import com.yunkang.saas.platform.business.platform.security.service.AccountService;
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
-import com.yunkang.saas.security.model.vo.LoginRequest;
-import com.yunkang.saas.security.model.vo.LoginResult;
+import com.yunkang.saas.security.model.LoginRequest;
+import com.yunkang.saas.security.model.LoginResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

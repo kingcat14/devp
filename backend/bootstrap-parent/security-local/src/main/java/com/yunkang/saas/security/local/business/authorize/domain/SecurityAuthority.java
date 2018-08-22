@@ -1,5 +1,6 @@
 package com.yunkang.saas.security.local.business.authorize.domain;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -7,8 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class SecurityAuthority implements GrantedAuthority {
 
+	public SecurityAuthority(String authority){
+		this.authority = authority;
+	}
+
+	private  String authority;
+
 	@Override
 	public String getAuthority() {
-		return null;
+		return authority;
 	}
 }

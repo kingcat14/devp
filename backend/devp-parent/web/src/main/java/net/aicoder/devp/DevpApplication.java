@@ -1,5 +1,6 @@
 package net.aicoder.devp;
 
+import com.yunkang.saas.common.framework.web.controller.ApiResponseBodyHandler;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;
 import com.yunkang.saas.common.framework.web.controller.TypedApiResponseBodyHandler;
 import org.springframework.boot.ExitCodeGenerator;
@@ -7,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@Import({TypedApiResponseBodyHandler.class, RestApiExceptionHandler.class})
+@Import({ApiResponseBodyHandler.class, RestApiExceptionHandler.class})
 @SpringBootApplication()
 public class DevpApplication implements ExitCodeGenerator {
 

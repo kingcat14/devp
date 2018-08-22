@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.hardware.NetworkDeviceController', {
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var networkDevicePanel = center.child('maintenance\\.hardware\\.NetworkDevicePanel');
         if(!networkDevicePanel){
@@ -22,7 +22,7 @@ Ext.define('AM.controller.maintenance.hardware.NetworkDeviceController', {
         center.setActiveTab(networkDevicePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var networkDevicePanel = center.child('maintenance\\.hardware\\.NetworkDeviceMainPanel');
          if(!networkDevicePanel){

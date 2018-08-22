@@ -36,4 +36,6 @@ swagger:
   enabled: true
   base-package: net.aicoder.devp.maintenance
 
-
+hystrix:
+  metrics:
+    enabled: false

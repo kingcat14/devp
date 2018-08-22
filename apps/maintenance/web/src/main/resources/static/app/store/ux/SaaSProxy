@@ -1,4 +1,0 @@
-Ext.define('Ext.data.proxy.SaaSAjax', {
-    requires: ['Ext.Ajax']
-    ,extend: 'Ext.data.proxy.Server'
-    ,alias: 'proxy.saasAjax'

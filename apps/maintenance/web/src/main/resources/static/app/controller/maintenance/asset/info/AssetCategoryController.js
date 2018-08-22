@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.asset.info.AssetCategoryController', {
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var assetCategoryPanel = center.child('maintenance\\.asset\\.info\\.AssetCategoryPanel');
         if(!assetCategoryPanel){
@@ -22,7 +22,7 @@ Ext.define('AM.controller.maintenance.asset.info.AssetCategoryController', {
         center.setActiveTab(assetCategoryPanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var assetCategoryPanel = center.child('maintenance\\.asset\\.info\\.AssetCategoryMainPanel');
          if(!assetCategoryPanel){

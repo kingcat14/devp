@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.software.BusinessSoftwareController', {
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var businessSoftwarePanel = center.child('maintenance\\.software\\.BusinessSoftwarePanel');
         if(!businessSoftwarePanel){
@@ -22,7 +22,7 @@ Ext.define('AM.controller.maintenance.software.BusinessSoftwareController', {
         center.setActiveTab(businessSoftwarePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var businessSoftwarePanel = center.child('maintenance\\.software\\.BusinessSoftwareMainPanel');
          if(!businessSoftwarePanel){

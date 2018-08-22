@@ -5,7 +5,7 @@ Ext.define('AM.controller.maintenance.software.InfrastructuralSoftwareController
         //this.initMainPanel(application);
     }
     ,initPanel: function(application) {
-        var center = application.getController('main.MainController').getMainContentPanel();
+        var center = application.getController('application.framework.MainController').getMainContentPanel();
 
         var infrastructuralSoftwarePanel = center.child('maintenance\\.software\\.InfrastructuralSoftwarePanel');
         if(!infrastructuralSoftwarePanel){
@@ -22,7 +22,7 @@ Ext.define('AM.controller.maintenance.software.InfrastructuralSoftwareController
         center.setActiveTab(infrastructuralSoftwarePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var infrastructuralSoftwarePanel = center.child('maintenance\\.software\\.InfrastructuralSoftwareMainPanel');
          if(!infrastructuralSoftwarePanel){

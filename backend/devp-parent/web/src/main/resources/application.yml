@@ -1,5 +1,5 @@
 sys:
-  module: deploy  #模块
+  module: devp  #模块
   name: web #应用
 server:
   port: 11115
@@ -16,7 +16,7 @@ eureka:
     prefer-ip-address: true
 spring:
   application:
-    name: ${sys.module}
+    name: devp
   profiles:
     active: local #环境配置- local：本地 dev：开发环境 qa：测试环境 uat：用户测试 pd：生产环境
   cloud:

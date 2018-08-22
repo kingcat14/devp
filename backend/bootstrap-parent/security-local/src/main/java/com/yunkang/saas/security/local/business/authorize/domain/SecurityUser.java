@@ -4,11 +4,10 @@ package com.yunkang.saas.security.local.business.authorize.domain;
 import com.yunkang.saas.platform.business.platform.security.domain.Account;
 import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.platform.business.resource.domain.Resource;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by gonghongrui on 2017/1/10.
@@ -17,14 +16,30 @@ public class SecurityUser implements UserDetails {
 
 	private Account account;
 	private String password;
+	private Set<SecurityAuthority> authorities = new HashSet<>();
 
 	public SecurityUser(Account account, List<Resource> resourceList){
 		this.account = account;
+
+		if(CollectionUtils.isNotEmpty(resourceList)) {
+			for (Resource resource : resourceList) {
+				authorities.add(new SecurityAuthority(resource.getUrl()));
+			}
+
+		}
+	}
+
+	public SecurityUser(Account account){
+
+		this.account = account;
+
 	}
 
 	public SecurityUser(Account account, AccountPassword accountPassword, List<Resource> resourceList){
-		this.account = account;
+
+		this(account, resourceList);
 		this.password = accountPassword.getPassword();
+
 	}
 
 	public Account getAccount() {
@@ -67,8 +82,9 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return account.getEnable();
 	}
+
 
 
 }
