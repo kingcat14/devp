@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.ops.dto.DevpOpsAssetCmdbAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsAssetCmdbEditDto;
+import net.aicoder.devp.business.ops.dto.DevpOpsAssetCmdbCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsAssetCmdb;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpOpsAssetCmdbValidator implements Validator {
 	    if(obj instanceof DevpOpsAssetCmdbAddDto){
             this.validateDevpOpsAssetCmdbAddDto((DevpOpsAssetCmdbAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpOpsAssetCmdbCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpOpsAssetCmdbCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

@@ -184,6 +184,27 @@ public class DevpPrdPersonController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"etype");
+            headMap.put("code" ,"用户代码");
+            headMap.put("name" ,"用户名称");
+            headMap.put("alias" ,"用户别名");
+            headMap.put("description" ,"用户描述");
+            headMap.put("nexusType" ,"关联元素类型");
+            headMap.put("nexusRid" ,"关联元素编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("uid" ,"用户编号");
+            headMap.put("type" ,"用户类型");
+            headMap.put("role" ,"用户类型");
+            headMap.put("status" ,"状态");
+            headMap.put("userTid" ,"用户租户编号");
+            headMap.put("orgRid" ,"组织编号");
+            headMap.put("orgName" ,"组织名称");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("产品干系人");
         String fileName = new String(("产品干系人_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

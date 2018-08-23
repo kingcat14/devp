@@ -3,6 +3,7 @@ package net.aicoder.devp.business.deploy.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeEditDto;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeCondition;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyScheme;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysDpySchemeValidator implements Validator {
 	    if(obj instanceof DevpSysDpySchemeAddDto){
             this.validateDevpSysDpySchemeAddDto((DevpSysDpySchemeAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysDpySchemeCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysDpySchemeCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

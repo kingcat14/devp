@@ -184,6 +184,36 @@ public class DevpPrdProductController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"etype");
+            headMap.put("name" ,"产品名称");
+            headMap.put("code" ,"产品代码");
+            headMap.put("alias" ,"产品别名");
+            headMap.put("description" ,"产品描述");
+            headMap.put("type" ,"产品类型");
+            headMap.put("stereotype" ,"构造型");
+            headMap.put("scope" ,"范围");
+            headMap.put("prdDept" ,"所属部门");
+            headMap.put("prdOwner" ,"产品负责人");
+            headMap.put("devManager" ,"开发负责人");
+            headMap.put("opsManager" ,"维护负责人");
+            headMap.put("bizLine" ,"业务线");
+            headMap.put("bizManager" ,"业务代表");
+            headMap.put("golive" ,"启用时间");
+            headMap.put("majorCust" ,"主要客户");
+            headMap.put("custManager" ,"客户代表");
+            headMap.put("custUsage" ,"客户使用情况");
+            headMap.put("acquisitionMode" ,"获取方式");
+            headMap.put("acquisitionDesc" ,"获取方式说明");
+            headMap.put("version" ,"版本");
+            headMap.put("phase" ,"阶段");
+            headMap.put("status" ,"状态");
+            headMap.put("notes" ,"备注");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("cmodifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("产品");
         String fileName = new String(("产品_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

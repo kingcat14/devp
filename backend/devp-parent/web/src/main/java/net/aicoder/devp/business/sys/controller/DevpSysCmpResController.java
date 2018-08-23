@@ -184,6 +184,21 @@ public class DevpSysCmpResController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"对应关系代码");
+            headMap.put("name" ,"对应关系名称");
+            headMap.put("alias" ,"对应关系别名");
+            headMap.put("description" ,"对应关系描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("cmpRid" ,"组件编号");
+            headMap.put("resRid" ,"资源编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("组件关联资源");
         String fileName = new String(("组件关联资源_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

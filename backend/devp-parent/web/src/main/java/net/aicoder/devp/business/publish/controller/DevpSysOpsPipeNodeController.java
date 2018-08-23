@@ -184,6 +184,32 @@ public class DevpSysOpsPipeNodeController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("name" ,"系统元素名称");
+            headMap.put("code" ,"系统元素代码");
+            headMap.put("alias" ,"系统元素别名");
+            headMap.put("description" ,"系统元素描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("type" ,"类型");
+            headMap.put("subType" ,"子类型");
+            headMap.put("execModel" ,"执行方式");
+            headMap.put("execSeq" ,"执行顺序");
+            headMap.put("returnCode" ,"返回码");
+            headMap.put("execStatus" ,"执行状态");
+            headMap.put("notes" ,"备注");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("schemeRid" ,"部署方案编号");
+            headMap.put("pipelineRid" ,"流水线编号");
+            headMap.put("cmpRid" ,"组件编号");
+            headMap.put("taskRid" ,"任务编号");
+            headMap.put("parentRid" ,"父节点编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("defaultPipeline" ,"缺省选中流水线");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("流水线执行节点");
         String fileName = new String(("流水线执行节点_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

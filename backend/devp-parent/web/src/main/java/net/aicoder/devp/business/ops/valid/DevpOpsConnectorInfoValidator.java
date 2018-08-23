@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.ops.dto.DevpOpsConnectorInfoAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsConnectorInfoEditDto;
+import net.aicoder.devp.business.ops.dto.DevpOpsConnectorInfoCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsConnectorInfo;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpOpsConnectorInfoValidator implements Validator {
 	    if(obj instanceof DevpOpsConnectorInfoAddDto){
             this.validateDevpOpsConnectorInfoAddDto((DevpOpsConnectorInfoAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpOpsConnectorInfoCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpOpsConnectorInfoCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

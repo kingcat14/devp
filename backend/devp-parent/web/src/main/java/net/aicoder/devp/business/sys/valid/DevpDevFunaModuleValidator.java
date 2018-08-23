@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpDevFunaModuleAddDto;
 import net.aicoder.devp.business.sys.dto.DevpDevFunaModuleEditDto;
+import net.aicoder.devp.business.sys.dto.DevpDevFunaModuleCondition;
 import net.aicoder.devp.business.sys.domain.DevpDevFunaModule;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpDevFunaModuleValidator implements Validator {
 	    if(obj instanceof DevpDevFunaModuleAddDto){
             this.validateDevpDevFunaModuleAddDto((DevpDevFunaModuleAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpDevFunaModuleCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpDevFunaModuleCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

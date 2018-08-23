@@ -184,6 +184,29 @@ public class DevpDevFunaModuleController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("name" ,"模块名称");
+            headMap.put("code" ,"模块代码");
+            headMap.put("alias" ,"模块别名");
+            headMap.put("description" ,"模块描述");
+            headMap.put("mduFlag" ,"模块标志");
+            headMap.put("type" ,"类型");
+            headMap.put("stereotype" ,"构造型");
+            headMap.put("scope" ,"访问控制范围");
+            headMap.put("actor" ,"使用者");
+            headMap.put("priority" ,"优先级");
+            headMap.put("version" ,"版本");
+            headMap.put("phase" ,"阶段");
+            headMap.put("status" ,"状态");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("parentRid" ,"父模块编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("notes" ,"备注");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("功能模块");
         String fileName = new String(("功能模块_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

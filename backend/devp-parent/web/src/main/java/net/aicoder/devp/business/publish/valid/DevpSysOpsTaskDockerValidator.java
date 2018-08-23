@@ -3,6 +3,7 @@ package net.aicoder.devp.business.publish.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.publish.dto.DevpSysOpsTaskDockerAddDto;
 import net.aicoder.devp.business.publish.dto.DevpSysOpsTaskDockerEditDto;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsTaskDockerCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsTaskDocker;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysOpsTaskDockerValidator implements Validator {
 	    if(obj instanceof DevpSysOpsTaskDockerAddDto){
             this.validateDevpSysOpsTaskDockerAddDto((DevpSysOpsTaskDockerAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysOpsTaskDockerCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysOpsTaskDockerCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

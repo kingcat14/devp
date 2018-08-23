@@ -184,6 +184,37 @@ public class DevpSysDpyCmpRefController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"对应关系代码");
+            headMap.put("name" ,"对应关系名称");
+            headMap.put("alias" ,"对应关系别名");
+            headMap.put("description" ,"对应关系描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("schemeRid" ,"部署方案编号");
+            headMap.put("cmpRid" ,"组件编号");
+            headMap.put("refEtype" ,"关联元素类型");
+            headMap.put("refPrdRid" ,"关联产品编号");
+            headMap.put("refElmRid" ,"关联元素编号");
+            headMap.put("refInstRid" ,"关联元素实例编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("type" ,"类型");
+            headMap.put("subType" ,"子类型");
+            headMap.put("stereotype" ,"构造型");
+            headMap.put("scope" ,"范围");
+            headMap.put("direction" ,"方向");
+            headMap.put("srcMulti" ,"来源对应数量");
+            headMap.put("srcRole" ,"来源角色");
+            headMap.put("srcRoleType" ,"来源角色类型");
+            headMap.put("destMulti" ,"目标对应数量");
+            headMap.put("destRole" ,"目标角色");
+            headMap.put("destRoleType" ,"目标角色类型");
+            headMap.put("attrRelation" ,"属性对应关系");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("系统元素间关系");
         String fileName = new String(("系统元素间关系_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

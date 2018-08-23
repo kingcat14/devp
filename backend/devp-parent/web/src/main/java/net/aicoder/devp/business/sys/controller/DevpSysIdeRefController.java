@@ -184,6 +184,26 @@ public class DevpSysIdeRefController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("name" ,"系统元素名称");
+            headMap.put("code" ,"系统元素代码");
+            headMap.put("alias" ,"系统元素别名");
+            headMap.put("description" ,"系统元素描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("type" ,"类型");
+            headMap.put("subType" ,"子类型");
+            headMap.put("version" ,"版本");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("ideRid" ,"开发工程编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("nexusEtype" ,"关联记录类型");
+            headMap.put("refPrdRid" ,"关联产品编号");
+            headMap.put("refElmRid" ,"关联元素编号");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("开发工程引用组件");
         String fileName = new String(("开发工程引用组件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

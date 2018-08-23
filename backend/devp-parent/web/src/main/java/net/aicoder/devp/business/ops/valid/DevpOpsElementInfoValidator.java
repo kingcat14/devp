@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoEditDto;
+import net.aicoder.devp.business.ops.dto.DevpOpsElementInfoCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsElementInfo;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpOpsElementInfoValidator implements Validator {
 	    if(obj instanceof DevpOpsElementInfoAddDto){
             this.validateDevpOpsElementInfoAddDto((DevpOpsElementInfoAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpOpsElementInfoCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpOpsElementInfoCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

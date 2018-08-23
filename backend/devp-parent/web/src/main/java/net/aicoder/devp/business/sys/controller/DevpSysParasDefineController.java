@@ -184,6 +184,19 @@ public class DevpSysParasDefineController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"扩展信息代码");
+            headMap.put("name" ,"扩展信息名称");
+            headMap.put("alias" ,"扩展信息别名");
+            headMap.put("description" ,"扩展信息描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("content" ,"内容");
+            headMap.put("notes" ,"备注");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("系统元素扩充信息");
         String fileName = new String(("系统元素扩充信息_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

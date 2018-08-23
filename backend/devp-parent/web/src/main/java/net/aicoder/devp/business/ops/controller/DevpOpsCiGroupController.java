@@ -184,6 +184,23 @@ public class DevpOpsCiGroupController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("name" ,"名称");
+            headMap.put("code" ,"代码");
+            headMap.put("alias" ,"别名");
+            headMap.put("description" ,"描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("typeCode" ,"类型代码");
+            headMap.put("typeName" ,"类型名称");
+            headMap.put("groupRid" ,"分组记录编号");
+            headMap.put("ciRid" ,"资产记录编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("parasCode" ,"参数定义标识");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("cmodifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("资产项目分组");
         String fileName = new String(("资产项目分组_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

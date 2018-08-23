@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpResAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysCmpResEditDto;
+import net.aicoder.devp.business.sys.dto.DevpSysCmpResCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysCmpRes;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysCmpResValidator implements Validator {
 	    if(obj instanceof DevpSysCmpResAddDto){
             this.validateDevpSysCmpResAddDto((DevpSysCmpResAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysCmpResCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysCmpResCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

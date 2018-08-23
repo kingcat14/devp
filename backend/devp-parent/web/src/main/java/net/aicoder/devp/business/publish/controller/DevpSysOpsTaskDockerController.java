@@ -184,6 +184,38 @@ public class DevpSysOpsTaskDockerController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("name" ,"系统元素名称");
+            headMap.put("code" ,"系统元素代码");
+            headMap.put("alias" ,"系统元素别名");
+            headMap.put("description" ,"系统元素描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("type" ,"类型");
+            headMap.put("subType" ,"子类型");
+            headMap.put("group" ,"所在集群");
+            headMap.put("namespace" ,"命名空间");
+            headMap.put("publishGroup" ,"发布物分组");
+            headMap.put("publishArtifact" ,"发布物");
+            headMap.put("publishVersion" ,"版本标识");
+            headMap.put("publishFile" ,"发布文件名");
+            headMap.put("instancesNum" ,"实例个数");
+            headMap.put("cpu" ,"CPU");
+            headMap.put("memory" ,"内存(G)");
+            headMap.put("serviceable" ,"发布为服务");
+            headMap.put("lbStrategy" ,"负载策略");
+            headMap.put("accessType" ,"访问类型");
+            headMap.put("status" ,"状态");
+            headMap.put("notes" ,"备注");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("schemeRid" ,"部署方案编号");
+            headMap.put("cmpRid" ,"组件编号");
+            headMap.put("taskRid" ,"任务编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("部署容器");
         String fileName = new String(("部署容器_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

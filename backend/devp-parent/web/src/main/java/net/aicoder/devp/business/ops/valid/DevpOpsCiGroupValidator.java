@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupEditDto;
+import net.aicoder.devp.business.ops.dto.DevpOpsCiGroupCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsCiGroup;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpOpsCiGroupValidator implements Validator {
 	    if(obj instanceof DevpOpsCiGroupAddDto){
             this.validateDevpOpsCiGroupAddDto((DevpOpsCiGroupAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpOpsCiGroupCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpOpsCiGroupCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

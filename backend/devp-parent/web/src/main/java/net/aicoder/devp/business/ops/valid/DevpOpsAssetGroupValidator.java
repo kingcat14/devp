@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.ops.dto.DevpOpsAssetGroupAddDto;
 import net.aicoder.devp.business.ops.dto.DevpOpsAssetGroupEditDto;
+import net.aicoder.devp.business.ops.dto.DevpOpsAssetGroupCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsAssetGroup;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpOpsAssetGroupValidator implements Validator {
 	    if(obj instanceof DevpOpsAssetGroupAddDto){
             this.validateDevpOpsAssetGroupAddDto((DevpOpsAssetGroupAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpOpsAssetGroupCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpOpsAssetGroupCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

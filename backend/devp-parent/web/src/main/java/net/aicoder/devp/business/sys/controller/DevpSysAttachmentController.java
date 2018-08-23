@@ -184,6 +184,31 @@ public class DevpSysAttachmentController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("name" ,"附件名称");
+            headMap.put("code" ,"附件代码");
+            headMap.put("alias" ,"附件别名");
+            headMap.put("description" ,"附件描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("type" ,"类型");
+            headMap.put("subType" ,"子类型");
+            headMap.put("fileType" ,"文件类型");
+            headMap.put("accessType" ,"访问方式");
+            headMap.put("workspace" ,"工作空间");
+            headMap.put("path" ,"访问路径");
+            headMap.put("fileName" ,"访问地址");
+            headMap.put("fileVersion" ,"附件版本");
+            headMap.put("objRid" ,"关联记录编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("tplRid" ,"模板编号");
+            headMap.put("fileCreater" ,"文件创建器");
+            headMap.put("fileEditor" ,"文件编辑器");
+            headMap.put("revisability" ,"是否可修改");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("cmodifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("附件");
         String fileName = new String(("附件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

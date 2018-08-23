@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpSysIdeRefAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysIdeRefEditDto;
+import net.aicoder.devp.business.sys.dto.DevpSysIdeRefCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysIdeRef;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysIdeRefValidator implements Validator {
 	    if(obj instanceof DevpSysIdeRefAddDto){
             this.validateDevpSysIdeRefAddDto((DevpSysIdeRefAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysIdeRefCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysIdeRefCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

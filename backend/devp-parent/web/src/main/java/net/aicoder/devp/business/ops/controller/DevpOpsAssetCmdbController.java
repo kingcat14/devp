@@ -36,10 +36,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
- * 管理资产定义
+ * 管理IT资产配置数据库
  * @author icode
  */
-@Api(description = "资产定义", tags = "DevpOpsAssetCmdb")
+@Api(description = "IT资产配置数据库", tags = "DevpOpsAssetCmdb")
 @RestController
 @RequestMapping(value = "/ops/devpOpsAssetCmdb")
 public class DevpOpsAssetCmdbController {
@@ -61,11 +61,11 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-	 * 新增资产定义
+	 * 新增IT资产配置数据库
 	 * @param devpOpsAssetCmdbAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增资产定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增IT资产配置数据库", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsAssetCmdbVO add(@RequestBody @Valid DevpOpsAssetCmdbAddDto devpOpsAssetCmdbAddDto){
@@ -78,10 +78,10 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-	 * 删除资产定义,id以逗号分隔
+	 * 删除IT资产配置数据库,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除资产定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除IT资产配置数据库", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -95,12 +95,12 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-	 * 更新资产定义
+	 * 更新IT资产配置数据库
 	 * @param devpOpsAssetCmdbEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产资产定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产IT资产配置数据库(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpOpsAssetCmdbVO update(@RequestBody @Valid DevpOpsAssetCmdbEditDto devpOpsAssetCmdbEditDto, @PathVariable Long id){
 		DevpOpsAssetCmdb devpOpsAssetCmdb = new DevpOpsAssetCmdb();
@@ -113,11 +113,11 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-	 * 根据ID查询资产定义
+	 * 根据ID查询IT资产配置数据库
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询资产定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询IT资产配置数据库", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpOpsAssetCmdbVO get(@PathVariable Long id) {
 
@@ -128,11 +128,11 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-	 * 查询资产定义列表
+	 * 查询IT资产配置数据库列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询资产定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询IT资产配置数据库列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpOpsAssetCmdbVO> list(@RequestBody PageSearchRequest<DevpOpsAssetCmdbCondition> pageSearchRequest){
 
@@ -157,11 +157,11 @@ public class DevpOpsAssetCmdbController {
 	}
 
 	/**
-     * 导出资产定义列表
+     * 导出IT资产配置数据库列表
      * @param condition
      * @param response
      */
-    @ApiOperation(value = "导出", notes = "根据条件导出资产定义列表", httpMethod = "POST")
+    @ApiOperation(value = "导出", notes = "根据条件导出IT资产配置数据库列表", httpMethod = "POST")
     @RequestMapping("/export")
     public void export(DevpOpsAssetCmdbCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
@@ -184,48 +184,54 @@ public class DevpOpsAssetCmdbController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
-            headMap.put("etype" ,"元素类型");
-            headMap.put("name" ,"名称");
-            headMap.put("code" ,"代码");
-            headMap.put("alias" ,"别名");
-            headMap.put("description" ,"描述");
-            headMap.put("typeCode" ,"类型代码");
-            headMap.put("typeName" ,"类型名称");
-            headMap.put("stereotype" ,"构造型");
-            headMap.put("scope" ,"范围");
-            headMap.put("hardwareModel" ,"硬件型号");
-            headMap.put("softwareModel" ,"软件型号");
-            headMap.put("version" ,"版本");
-            headMap.put("status" ,"状态");
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"etype");
+            headMap.put("name" ,"name");
+            headMap.put("code" ,"code");
+            headMap.put("alias" ,"alias");
+            headMap.put("description" ,"description");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("typeCode" ,"type_code");
+            headMap.put("typeName" ,"type_name");
+            headMap.put("stereotype" ,"stereotype");
+            headMap.put("scope" ,"scope");
+            headMap.put("hardwareModel" ,"hardware_model");
+            headMap.put("softwareModel" ,"software_model");
+            headMap.put("version" ,"version");
+            headMap.put("status" ,"status");
             headMap.put("createDate" ,"创建时间");
             headMap.put("expireDate" ,"到期时间");
-            headMap.put("assetProject" ,"所属项目");
-            headMap.put("assetArea" ,"所属区域");
-            headMap.put("assetLocation" ,"资产位置");
-            headMap.put("intAccessAddr" ,"内部访问地址");
-            headMap.put("extAccessAddr" ,"外部访问地址");
-            headMap.put("acquisitionMode" ,"获取方式");
-            headMap.put("acquisitionDesc" ,"获取方式说明");
-            headMap.put("assetDept" ,"归属部门");
-            headMap.put("assetManager" ,"资产负责人");
-            headMap.put("useDept" ,"使用部门");
-            headMap.put("useManager" ,"使用负责人");
-            headMap.put("opsDept" ,"维护部门");
-            headMap.put("opsManager" ,"维护负责人");
-            headMap.put("bizLine" ,"业务线");
-            headMap.put("bizManager" ,"业务代表");
+            headMap.put("assetProject" ,"asset_project");
+            headMap.put("assetArea" ,"asset_area");
+            headMap.put("assetLocation" ,"asset_location");
+            headMap.put("intAccessAddr" ,"int_access_addr");
+            headMap.put("extAccessAddr" ,"ext_access_addr");
+            headMap.put("acquisitionMode" ,"acquisition_mode");
+            headMap.put("acquisitionDesc" ,"acquisition_desc");
+            headMap.put("assetDept" ,"asset_dept");
+            headMap.put("assetManager" ,"asset_manager");
+            headMap.put("useDept" ,"use_dept");
+            headMap.put("useManager" ,"use_manager");
+            headMap.put("opsDept" ,"ops_dept");
+            headMap.put("opsManager" ,"ops_manager");
+            headMap.put("bizLine" ,"biz_line");
+            headMap.put("bizManager" ,"biz_manager");
             headMap.put("goliveDate" ,"启用时间");
-            headMap.put("majorCust" ,"主要客户");
-            headMap.put("custManager" ,"客户代表");
-            headMap.put("custUsage" ,"使用情况");
-            headMap.put("notes" ,"备注");
+            headMap.put("majorCust" ,"major_cust");
+            headMap.put("custManager" ,"cust_manager");
+            headMap.put("custUsage" ,"cust_usage");
+            headMap.put("notes" ,"notes");
             headMap.put("prdTid" ,"关联产品租户编号");
             headMap.put("prdRid" ,"关联产品记录编号");
-            headMap.put("parasCode" ,"参数定义标识");
-            headMap.put("acquisitionProvider" ,"供应商");
+            headMap.put("parasCode" ,"paras_code");
+            headMap.put("createUcode" ,"create_ucode");
+            headMap.put("createUname" ,"create_uname");
+            headMap.put("modifyUcode" ,"modify_ucode");
+            headMap.put("modifyUname" ,"modify_uname");
+            headMap.put("acquisitionProvider" ,"acquisition_provider");
 
-        String title = new String("资产定义");
-        String fileName = new String(("资产定义_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        String title = new String("IT资产配置数据库");
+        String fileName = new String(("IT资产配置数据库_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 

@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpSysParasDefineAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysParasDefineEditDto;
+import net.aicoder.devp.business.sys.dto.DevpSysParasDefineCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysParasDefine;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysParasDefineValidator implements Validator {
 	    if(obj instanceof DevpSysParasDefineAddDto){
             this.validateDevpSysParasDefineAddDto((DevpSysParasDefineAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysParasDefineCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysParasDefineCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

@@ -36,10 +36,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
- * 管理系统元素扩充信息定义
+ * 管理系统元素扩充信息
  * @author icode
  */
-@Api(description = "系统元素扩充信息定义", tags = "DevpSysElmInfoDefine")
+@Api(description = "系统元素扩充信息", tags = "DevpSysElmInfoDefine")
 @RestController
 @RequestMapping(value = "/sys/devpSysElmInfoDefine")
 public class DevpSysElmInfoDefineController {
@@ -61,11 +61,11 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-	 * 新增系统元素扩充信息定义
+	 * 新增系统元素扩充信息
 	 * @param devpSysElmInfoDefineAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增系统元素扩充信息定义", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增系统元素扩充信息", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysElmInfoDefineVO add(@RequestBody @Valid DevpSysElmInfoDefineAddDto devpSysElmInfoDefineAddDto){
@@ -78,10 +78,10 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-	 * 删除系统元素扩充信息定义,id以逗号分隔
+	 * 删除系统元素扩充信息,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除系统元素扩充信息定义", httpMethod = "DELETE")
+	@ApiOperation(value = "删除", notes = "删除系统元素扩充信息", httpMethod = "DELETE")
 	@DeleteMapping(value="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
@@ -95,12 +95,12 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-	 * 更新系统元素扩充信息定义
+	 * 更新系统元素扩充信息
 	 * @param devpSysElmInfoDefineEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产系统元素扩充信息定义(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改产系统元素扩充信息(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	DevpSysElmInfoDefineVO update(@RequestBody @Valid DevpSysElmInfoDefineEditDto devpSysElmInfoDefineEditDto, @PathVariable Long id){
 		DevpSysElmInfoDefine devpSysElmInfoDefine = new DevpSysElmInfoDefine();
@@ -113,11 +113,11 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-	 * 根据ID查询系统元素扩充信息定义
+	 * 根据ID查询系统元素扩充信息
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询系统元素扩充信息定义", httpMethod = "GET")
+	@ApiOperation(value = "查询", notes = "根据ID查询系统元素扩充信息", httpMethod = "GET")
 	@GetMapping(value="/{id}")
 	public  DevpSysElmInfoDefineVO get(@PathVariable Long id) {
 
@@ -128,11 +128,11 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-	 * 查询系统元素扩充信息定义列表
+	 * 查询系统元素扩充信息列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询系统元素扩充信息定义列表", httpMethod = "POST")
+	@ApiOperation(value = "查询", notes = "根据条件查询系统元素扩充信息列表", httpMethod = "POST")
 	@PostMapping("/list")
 	public PageContent<DevpSysElmInfoDefineVO> list(@RequestBody PageSearchRequest<DevpSysElmInfoDefineCondition> pageSearchRequest){
 
@@ -157,11 +157,11 @@ public class DevpSysElmInfoDefineController {
 	}
 
 	/**
-     * 导出系统元素扩充信息定义列表
+     * 导出系统元素扩充信息列表
      * @param condition
      * @param response
      */
-    @ApiOperation(value = "导出", notes = "根据条件导出系统元素扩充信息定义列表", httpMethod = "POST")
+    @ApiOperation(value = "导出", notes = "根据条件导出系统元素扩充信息列表", httpMethod = "POST")
     @RequestMapping("/export")
     public void export(DevpSysElmInfoDefineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
@@ -184,9 +184,23 @@ public class DevpSysElmInfoDefineController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"扩展信息代码");
+            headMap.put("name" ,"扩展信息名称");
+            headMap.put("alias" ,"扩展信息别名");
+            headMap.put("description" ,"扩展信息描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("dataType" ,"数据类型");
+            headMap.put("infoValue" ,"扩展信息值");
+            headMap.put("notes" ,"备注");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
-        String title = new String("系统元素扩充信息定义");
-        String fileName = new String(("系统元素扩充信息定义_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        String title = new String("系统元素扩充信息");
+        String fileName = new String(("系统元素扩充信息_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 

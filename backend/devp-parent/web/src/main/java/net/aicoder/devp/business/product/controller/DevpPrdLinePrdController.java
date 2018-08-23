@@ -184,6 +184,23 @@ public class DevpPrdLinePrdController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"etype");
+            headMap.put("code" ,"代码");
+            headMap.put("name" ,"名称");
+            headMap.put("alias" ,"别名");
+            headMap.put("description" ,"描述");
+            headMap.put("lineRid" ,"产品线编号");
+            headMap.put("prdRid" ,"产品编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("type" ,"类型");
+            headMap.put("stereotype" ,"构造型");
+            headMap.put("scope" ,"范围");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("产品所属产品线");
         String fileName = new String(("产品所属产品线_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

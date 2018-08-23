@@ -184,6 +184,32 @@ public class DevpOpsElementInfoController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"扩展信息代码");
+            headMap.put("name" ,"扩展信息名称");
+            headMap.put("alias" ,"扩展信息别名");
+            headMap.put("description" ,"扩展信息描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("elmRid" ,"元素编号");
+            headMap.put("instRid" ,"元素实例编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("infoCode1" ,"扩展信息代码1");
+            headMap.put("infoValue1" ,"扩展信息值1");
+            headMap.put("infoCode2" ,"扩展信息代码2");
+            headMap.put("infoValue2" ,"扩展信息值2");
+            headMap.put("infoCode3" ,"扩展信息代码3");
+            headMap.put("infoValue3" ,"扩展信息值3");
+            headMap.put("infoCode4" ,"扩展信息代码4");
+            headMap.put("infoValue4" ,"扩展信息值4");
+            headMap.put("infoCode5" ,"扩展信息代码5");
+            headMap.put("infoValue5" ,"扩展信息值5");
+            headMap.put("notes" ,"备注");
+            headMap.put("parasCode" ,"参数定义标识");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
 
         String title = new String("运维元素扩充信息");
         String fileName = new String(("运维元素扩充信息_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

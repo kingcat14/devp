@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpSysElmInfoDefineAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysElmInfoDefineEditDto;
+import net.aicoder.devp.business.sys.dto.DevpSysElmInfoDefineCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysElmInfoDefine;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysElmInfoDefineValidator implements Validator {
 	    if(obj instanceof DevpSysElmInfoDefineAddDto){
             this.validateDevpSysElmInfoDefineAddDto((DevpSysElmInfoDefineAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysElmInfoDefineCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysElmInfoDefineCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

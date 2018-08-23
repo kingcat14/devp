@@ -3,7 +3,9 @@ package net.aicoder.maintenance.business.deploy.deploy.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostAddDto;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostCondition;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyHostEditDto;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -39,6 +41,15 @@ public class DevpSysDpyHostValidator implements Validator {
 	    if(obj instanceof DevpSysDpyHostAddDto){
             this.validateAddDto((DevpSysDpyHostAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+        	this.validateSearchDto((PageSearchRequest)obj);
+		}
+	}
+
+	public void validateSearchDto(PageSearchRequest<DevpSysDpyHostCondition> search){
+		if(search.getSearchCondition() == null){
+			search.setSearchCondition(new DevpSysDpyHostCondition());
+		}
 	}
 
 	/**

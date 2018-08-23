@@ -3,6 +3,7 @@ package net.aicoder.devp.business.publish.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.publish.dto.DevpSysOpsPipelineAddDto;
 import net.aicoder.devp.business.publish.dto.DevpSysOpsPipelineEditDto;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsPipelineCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsPipeline;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysOpsPipelineValidator implements Validator {
 	    if(obj instanceof DevpSysOpsPipelineAddDto){
             this.validateDevpSysOpsPipelineAddDto((DevpSysOpsPipelineAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysOpsPipelineCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysOpsPipelineCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

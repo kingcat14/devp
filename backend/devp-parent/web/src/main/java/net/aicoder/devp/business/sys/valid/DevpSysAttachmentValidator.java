@@ -3,6 +3,7 @@ package net.aicoder.devp.business.sys.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.sys.dto.DevpSysAttachmentAddDto;
 import net.aicoder.devp.business.sys.dto.DevpSysAttachmentEditDto;
+import net.aicoder.devp.business.sys.dto.DevpSysAttachmentCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysAttachment;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysAttachmentValidator implements Validator {
 	    if(obj instanceof DevpSysAttachmentAddDto){
             this.validateDevpSysAttachmentAddDto((DevpSysAttachmentAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysAttachmentCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysAttachmentCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

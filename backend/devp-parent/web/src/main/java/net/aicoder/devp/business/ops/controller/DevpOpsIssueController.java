@@ -184,6 +184,29 @@ public class DevpOpsIssueController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"问题代码");
+            headMap.put("name" ,"问题名称");
+            headMap.put("alias" ,"问题别名");
+            headMap.put("description" ,"问题描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("type" ,"问题类型");
+            headMap.put("issue" ,"问题说明");
+            headMap.put("reply" ,"问题回复");
+            headMap.put("status" ,"处理状态");
+            headMap.put("hasAttachment" ,"是否有附件");
+            headMap.put("nexusType" ,"关联记录类型");
+            headMap.put("nexusRid" ,"关联记录编号");
+            headMap.put("nexusVersion" ,"关联记录版本");
+            headMap.put("nexusPhase" ,"关联记录阶段");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("parasCode" ,"参数定义标识");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
+            headMap.put("cmodifyUcode" ,"cmodify_ucode");
 
         String title = new String("问题记录");
         String fileName = new String(("问题记录_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

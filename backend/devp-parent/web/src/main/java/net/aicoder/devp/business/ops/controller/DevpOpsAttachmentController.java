@@ -184,6 +184,28 @@ public class DevpOpsAttachmentController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
+            headMap.put("tid" ,"租户编号");
+            headMap.put("etype" ,"元素类型");
+            headMap.put("code" ,"附件代码");
+            headMap.put("name" ,"附件名称");
+            headMap.put("alias" ,"附件别名");
+            headMap.put("description" ,"附件描述");
+            headMap.put("recordState" ,"记录状态");
+            headMap.put("typeCode" ,"类型代码");
+            headMap.put("typeName" ,"类型名称");
+            headMap.put("fileType" ,"文件类型");
+            headMap.put("accessType" ,"访问方式");
+            headMap.put("domain" ,"访问域");
+            headMap.put("address" ,"访问地址");
+            headMap.put("fileVersion" ,"附件版本");
+            headMap.put("nexusType" ,"关联记录类型");
+            headMap.put("nexusRid" ,"关联记录编号");
+            headMap.put("seq" ,"顺序号");
+            headMap.put("createUcode" ,"创建用户代码");
+            headMap.put("createUname" ,"创建用户姓名");
+            headMap.put("modifyUcode" ,"修改用户代码");
+            headMap.put("modifyUname" ,"修改用户姓名");
+            headMap.put("cmodifyUcode" ,"cmodify_ucode");
 
         String title = new String("附件");
         String fileName = new String(("附件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

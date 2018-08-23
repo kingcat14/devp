@@ -3,6 +3,7 @@ package net.aicoder.devp.business.deploy.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResExecenvAddDto;
 import net.aicoder.devp.business.deploy.dto.DevpSysDpyResExecenvEditDto;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpyResExecenvCondition;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyResExecenv;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpSysDpyResExecenvValidator implements Validator {
 	    if(obj instanceof DevpSysDpyResExecenvAddDto){
             this.validateDevpSysDpyResExecenvAddDto((DevpSysDpyResExecenvAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpSysDpyResExecenvCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpSysDpyResExecenvCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口

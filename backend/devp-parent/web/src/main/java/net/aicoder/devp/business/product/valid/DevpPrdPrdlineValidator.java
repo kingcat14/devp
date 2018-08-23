@@ -3,6 +3,7 @@ package net.aicoder.devp.business.product.valid;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineAddDto;
 import net.aicoder.devp.business.product.dto.DevpPrdPrdlineEditDto;
+import net.aicoder.devp.business.product.dto.DevpPrdPrdlineCondition;
 import net.aicoder.devp.business.product.domain.DevpPrdPrdline;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -33,7 +34,16 @@ public class DevpPrdPrdlineValidator implements Validator {
 	    if(obj instanceof DevpPrdPrdlineAddDto){
             this.validateDevpPrdPrdlineAddDto((DevpPrdPrdlineAddDto)obj, errors);
         }
+        if(obj instanceof PageSearchRequest){
+            this.validateSearchDto((PageSearchRequest)obj);
+        }
 	}
+	
+    public void validateSearchDto(PageSearchRequest<DevpPrdPrdlineCondition> search){
+        if(search.getSearchCondition() == null){
+            search.setSearchCondition(new DevpPrdPrdlineCondition());
+        }
+    }
 
 	/**
      * 实现Validator中的validate接口
