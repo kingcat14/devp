@@ -1,0 +1,1 @@
+scp target/icode4-0.0.1-SNAPSHOT.jar appuser@192.168.14.46:/usr/local/gonghr/apache-tomcat-9.0.11/webapps/ROOT
