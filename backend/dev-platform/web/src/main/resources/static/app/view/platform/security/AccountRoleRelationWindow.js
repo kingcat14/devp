@@ -109,32 +109,49 @@ Ext.define('AM.view.platform.security.AccountRoleRelationWindow', {
     }
     ,setAccount: function(record){
 
+
         var window = this;
 
-        window.setTitle('可用角色类表');
+        window.setTitle('可用角色');
 		window.down('grid').getSelectionModel( ).deselectAll();
 
 		//call the show immediately,so it will render the ui
 		window.show();
-		window.down('grid').getStore().reload();
+		window.down('grid').getStore().reload({
+            params:{searchCondition:{tenantId:record.get('tenantId')}}
+            ,callback: function(records, operation, success) {
+                if(success){
+                    var accountRoleStore = window.accountRoleStore;
+                    console.log(record)
 
-		var accountRoleStore = this.accountRoleStore;
+                    var condition = {accountId:record.get('id')};
+                    accountRoleStore.proxy.extraParams = {searchCondition:condition};
+                    accountRoleStore.pageSize = 1000;
+                    accountRoleStore.load({
+                        callback:function(){
+                            accountRoleStore.each(function(rec){
+                                var roleId = rec.get('roleId');
+                                console.log('roleId:'+roleId)
+                                var role = window.down('grid').getStore().getById(rec.get('roleId'));
+                                console.log(role);
+                                window.down('grid').getSelectionModel().select(role, true);
+                            });
+                            window.user = record;
+                            window.show();
+                        }
+                    });
+                }else{
+                    var error = operation.getError();
+                    if(error.status){
+                        error = error.status + ' ' + error.statusText;
+                    }
+                    //Ext.Msg.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+                    Ext.Msg.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+                }
+            }
+        });
 
-		var condition = {accountId:record.get('id')};
-		accountRoleStore.proxy.extraParams = {searchCondition:condition};
-		accountRoleStore.pageSize = 1000;
-		accountRoleStore.load({
-			callback:function(){
-				accountRoleStore.each(function(rec){
-					var roleId = rec.get('roleId');
-					var role = window.down('grid').getStore().getById(rec.get('roleId'));
 
-					window.down('grid').getSelectionModel().select(role,true);
-				});
-				window.user = record;
-				window.show();
-			}
-		});
     }
 
 });

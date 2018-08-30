@@ -35,7 +35,6 @@ Ext.define('AM.view.application.dashboard.UserDetailPanelController', {
 		this.getView().down('displayfield[name=mobile]').setValue(result.get('mobile'))
 		this.getView().down('displayfield[name=email]').setValue(result.get('email'))
 
-
 	}
 
 })

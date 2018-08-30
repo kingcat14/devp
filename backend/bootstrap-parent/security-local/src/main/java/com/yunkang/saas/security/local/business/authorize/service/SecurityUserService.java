@@ -1,11 +1,11 @@
 package com.yunkang.saas.security.local.business.authorize.service;
 
 
-import com.yunkang.saas.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.platform.business.platform.security.dto.AccountCondition;
-import com.yunkang.saas.platform.business.platform.security.service.AccountPasswordService;
-import com.yunkang.saas.platform.business.platform.security.service.AccountService;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountCondition;
+import com.yunkang.saas.bootstrap.business.platform.security.service.AccountPasswordService;
+import com.yunkang.saas.bootstrap.business.platform.security.service.AccountService;
 
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;

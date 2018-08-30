@@ -196,7 +196,6 @@ Ext.define('AM.view.platform.security.AccountWindow', {
             return;
         }
 
-        var id = this.down("#idField").getValue();
 
         var record = this.down('form').getForm().getRecord();
 

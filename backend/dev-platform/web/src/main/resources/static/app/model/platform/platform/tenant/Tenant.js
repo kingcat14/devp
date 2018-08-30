@@ -88,7 +88,7 @@ Ext.define('AM.model.platform.platform.tenant.Tenant', {
         }
     	,{
             name: 'status'
-            ,type:'int'
+            ,type:'bool'
             ,allowNull:false
             ,critical:true
         }

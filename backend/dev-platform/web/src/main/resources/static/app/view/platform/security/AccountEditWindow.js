@@ -99,7 +99,7 @@ Ext.define('AM.view.platform.security.AccountEditWindow', {
                                     items: [
                                         {
                                             xtype: 'combobox',
-                                            store: Ext.create("AM.store.platform.platform.tenant.TenantStore"),
+                                            store: Ext.create("AM.store.platform.platform.tenant.TenantStore", {autoLoad:true}),
                                             typeAhead:false,
                                             editable:false,
                                             displayField:'name',

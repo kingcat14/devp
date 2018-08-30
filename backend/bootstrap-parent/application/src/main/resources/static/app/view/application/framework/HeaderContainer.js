@@ -1,4 +1,3 @@
-
 Ext.define('AM.view.application.framework.HeaderContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.mainHeadercontainer',
@@ -27,6 +26,11 @@ Ext.define('AM.view.application.framework.HeaderContainer', {
             flex: 1
         }];
         this.callParent();
+    }
+    ,setTitle:function(title){
+        this.title = title;
+        this.down('#app-header-title').setHtml(title);
+        document.title = title;
     }
 
 });

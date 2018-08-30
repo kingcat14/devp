@@ -123,5 +123,8 @@ public class SoftwareLicenseValidator implements Validator {
 		if(StringUtils.length(softwareLicense.getAcquisitionProvider()) > 255){
 			errors.rejectValue("acquisitionProvider", null, "供应商最长255个字符");
 		}
+		if(StringUtils.length(softwareLicense.getNotes()) > 1999){
+			errors.rejectValue("notes", null, "备注最长2000个字符");
+		}
 	}
 }

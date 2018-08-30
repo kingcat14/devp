@@ -37,6 +37,7 @@ Ext.define('AM.view.platform.platform.tenant.TenantEditWindow', {
                             afterLabelTextTpl: [
                             '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
                             ],
+                            editable:false,
                             itemId: 'tenantCodeField',
                             name: 'tenantCode',
                             fieldLabel: '租户代号'
@@ -134,12 +135,15 @@ Ext.define('AM.view.platform.platform.tenant.TenantEditWindow', {
 
                         }
                         ,{
-                            xtype: 'numberfield',
-                            allowDecimals:false,
-                            allowBlank:false,
-                            afterLabelTextTpl: [
-                            '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'
+                            xtype: 'combobox',
+                            store: [
+                                [true,'是'],
+                                [false,'否']
                             ],
+                            value:true,
+                            typeAhead:false,
+                            editable:false,
+                            allowBlank:true,
                             itemId: 'statusField',
                             name: 'status',
                             fieldLabel: '状态'

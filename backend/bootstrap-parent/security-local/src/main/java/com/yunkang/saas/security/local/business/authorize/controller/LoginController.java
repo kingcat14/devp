@@ -1,15 +1,14 @@
 package com.yunkang.saas.security.local.business.authorize.controller;
 
-import com.yunkang.saas.common.framework.exception.BusinessException;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
-import com.yunkang.saas.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordRequest;
-import com.yunkang.saas.platform.business.platform.security.dto.UpdatePasswordResponse;
-import com.yunkang.saas.platform.business.platform.security.service.AccountManageService;
-import com.yunkang.saas.platform.business.resource.vo.ResourceTreeNode;
-import com.yunkang.saas.platform.business.resource.domain.Resource;
-import com.yunkang.saas.platform.business.resource.service.ResourceService;
-import com.yunkang.saas.platform.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.business.platform.security.dto.UpdatePasswordRequest;
+import com.yunkang.saas.bootstrap.business.platform.security.dto.UpdatePasswordResponse;
+import com.yunkang.saas.bootstrap.business.platform.security.service.AccountManageService;
+import com.yunkang.saas.bootstrap.business.resource.vo.ResourceTreeNode;
+import com.yunkang.saas.bootstrap.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.business.resource.service.ResourceUtil;
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
 import com.yunkang.saas.security.local.business.authorize.service.LoginService;
 import com.yunkang.saas.security.model.LoginRequest;
@@ -37,7 +36,6 @@ import java.util.List;
 public class LoginController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
-
 
 	@Autowired
 	private SecurityUtil securityUtil;
@@ -83,19 +81,18 @@ public class LoginController {
 
 		Account account =  securityUtil.getAccount();
 
-		if(account==null){
-			if(this.notInTest){
-				account = new Account();
-				account.setName("测试中");
-				account.setNickName("虚拟用户");
-				return account;
-			}else {
-				throw new BusinessException("security", "account", "not login", "用户未登陆");
-			}
-		}
+//		if(account==null){
+//			if(this.notInTest){
+//				account = new Account();
+//				account.setName("测试中");
+//				account.setNickName("虚拟用户");
+//				return account;
+//			}else {
+//				throw new BusinessException("security", "account", "not login", "用户未登陆");
+//			}
+//		}
 
 		return account;
-
 
 	}
 

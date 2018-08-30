@@ -1,9 +1,9 @@
 package com.yunkang.saas.security.local.business.authorize.domain;
 
 
-import com.yunkang.saas.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.platform.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.business.resource.domain.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 

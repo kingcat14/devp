@@ -1,7 +1,7 @@
 package com.yunkang.saas.security.local.business.authorize;
 
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
-import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.context.SecurityContextHolder;

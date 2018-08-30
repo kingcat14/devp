@@ -31,6 +31,11 @@
                 <artifactId>application</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yunkang.saas.bootstrap</groupId>
+                <artifactId>common-business</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -62,6 +67,7 @@
                 <module>web</module>
                 <module>security-local</module>
                 <module>application</module>
+                <module>common</module>
             </modules>
         </profile>
 

@@ -3,7 +3,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
     alias: 'widget.mainContentPanel',
 	requires:[
         'AM.view.application.dashboard.Dashboard'
-	    ,'AM.view.maintenance.asset.info.AssetCmdbPanel'
+	    //,'AM.view.maintenance.asset.info.AssetCmdbPanel'
 
 	]
 	,defaults: {
@@ -54,11 +54,23 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 	    this.insert(0,dashboard);
 	    this.setActiveTab(0);
 
-        var assetCmdbPanel = Ext.create("AM.view.maintenance.asset.info.AssetCmdbPanel",{
-            closable:true
-        })
-        this.insert(1,assetCmdbPanel);
-        this.setActiveTab(1);
+	    for(var i in Ext.dashboard){
+            var panel = Ext.create(Ext.dashboard[i],{
+                    closable:true
+                })
+            console.log(i)
+            this.insert(1,panel);
+
+        }
+        if(Ext.dashboard.length > 0){
+            //this.setActiveTab(1);
+        }
+
+        // var assetCmdbPanel = Ext.create("AM.view.maintenance.asset.info.AssetCmdbPanel",{
+        //     closable:true
+        // })
+        // this.insert(1,assetCmdbPanel);
+        // this.setActiveTab(1);
 
 
     }

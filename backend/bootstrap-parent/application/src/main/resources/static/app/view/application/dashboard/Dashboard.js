@@ -60,7 +60,6 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 					]
 				}
 
-
 			]
 		}
 	]

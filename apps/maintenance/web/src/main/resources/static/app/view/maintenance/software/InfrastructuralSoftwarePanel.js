@@ -63,12 +63,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwarePanel', {
                             ,text: '类型'
                             
                         }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'hardwareModel'
-                            ,text: '硬件型号'
-                            
-                        }
+
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'softwareModel'

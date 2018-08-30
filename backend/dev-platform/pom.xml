@@ -46,7 +46,6 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-utils</artifactId>
@@ -71,12 +70,9 @@
             </properties>
             <modules>
                 <module>model</module>
-                <module>web</module>
-                <!--<module>web-application</module>-->
-                <module>client</module>
-                <!--<module>platform</module>-->
-                <!--<module>resource</module>-->
                 <module>business</module>
+                <module>web</module>
+                <module>client</module>
             </modules>
         </profile>
         <profile>

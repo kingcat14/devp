@@ -1,7 +1,7 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.platform.config.PlatformConfig;
+import com.yunkang.saas.bootstrap.application.config.PlatformConfig;
 import com.yunkang.saas.security.local.business.authorize.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

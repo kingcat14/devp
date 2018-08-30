@@ -46,7 +46,7 @@ Ext.define('AM.view.platform.security.RoleEditWindow', {
                                             ,itemId: 'tenantField'
                                             ,padding: '5 0 0 5'
                                             ,name: 'tenantVO'
-                                            ,fieldLabel: '租户类型'
+                                            ,fieldLabel: '所属租户'
                                             ,renderer: function (value, field) {
 
                                                 // var record = me.down('form').getForm().getRecord();
@@ -79,7 +79,7 @@ Ext.define('AM.view.platform.security.RoleEditWindow', {
                                             ,itemId: 'appField'
                                             ,padding: '5 0 0 5'
                                             ,name: 'appVO'
-                                            ,fieldLabel: '租户类型'
+                                            ,fieldLabel: '所属应用'
                                             ,renderer: function (value, field) {
 
                                                 // var record = me.down('form').getForm().getRecord();

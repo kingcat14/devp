@@ -129,5 +129,8 @@ public class InfrastructuralSoftwareValidator implements Validator {
 		if(StringUtils.length(infrastructuralSoftware.getAcquisitionProvider()) > 255){
 			errors.rejectValue("acquisitionProvider", null, "供应商最长255个字符");
 		}
+		if(StringUtils.length(infrastructuralSoftware.getNotes()) > 1999){
+			errors.rejectValue("notes", null, "备注最长2000个字符");
+		}
 	}
 }

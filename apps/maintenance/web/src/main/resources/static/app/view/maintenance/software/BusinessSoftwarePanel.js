@@ -65,12 +65,6 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwarePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'hardwareModel'
-                            ,text: '硬件型号'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'softwareModel'
                             ,text: '软件型号'
                             

@@ -563,6 +563,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
+        model.set('typeCode', this.down('#typeCodeField').getValue());
         this.down('form').getForm().loadRecord(model);
 
         this.down('#fileuploadpanel-attachment').reset(model);

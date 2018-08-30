@@ -1,8 +1,8 @@
 package com.yunkang.saas.security.local.config;
 
 
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
-import com.yunkang.saas.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
 import com.yunkang.saas.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

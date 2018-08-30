@@ -1,7 +1,7 @@
 Ext.define('AM.view.maintenance.asset.info.AssetCmdbController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-
+        'AM.view.ux.FileUploadPanel'
 	]
 	,alias: 'controller.maintenance.asset.info.AssetCmdbController'
 

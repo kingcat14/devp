@@ -96,13 +96,14 @@ Ext.define('AM.view.platform.platform.tenant.TenantPanel', {
                     ,text: '域名前缀'
                     
                 }
-
                 ,{
-                    xtype: 'numbercolumn'
+                    xtype: 'booleancolumn'
                     ,dataIndex: 'status'
-                    ,format:'0,000'
-                    ,text: '状态'
-                    ,flex:1
+                    ,trueText: '是'
+                    ,falseText: '否'
+                    ,emptyCellText :'不确定'
+                    ,text: '已启用'
+
                 }
                 ,{
                     xtype: 'actioncolumn'

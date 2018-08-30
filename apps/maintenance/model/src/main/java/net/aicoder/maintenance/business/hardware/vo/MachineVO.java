@@ -1,14 +1,12 @@
 package net.aicoder.maintenance.business.hardware.vo;
 
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import net.aicoder.maintenance.business.asset.info.vo.AssetTypeVO;
 
 import java.util.*;
-import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

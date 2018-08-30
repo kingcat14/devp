@@ -1,0 +1,1 @@
+Ext.dashboard=['AM.view.maintenance.asset.info.AssetCmdbPanel']

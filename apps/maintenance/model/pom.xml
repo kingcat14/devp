@@ -21,6 +21,10 @@
             <groupId>com.yunkang.saas.platform</groupId>
             <artifactId>platform-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yunkang.saas.bootstrap</groupId>
+            <artifactId>common-model</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

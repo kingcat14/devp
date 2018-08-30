@@ -24,14 +24,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Import({TypedApiResponseBodyHandler.class, RestApiExceptionHandler.class
 		,LocalSecurityAutoConfiguration.class})
-//@Import({RestApiExceptionHandler.class})
 @SpringBootApplication(scanBasePackages={
 		"net.aicoder.maintenance"
 		,"net.aicoder.devp.client"})
 @EnableCircuitBreaker
 @EnableRedisHttpSession
 @EnableSwagger2Doc
-
 public class MaintenanceApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {

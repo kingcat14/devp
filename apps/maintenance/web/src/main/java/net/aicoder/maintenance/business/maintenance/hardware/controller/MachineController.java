@@ -1,12 +1,14 @@
 package net.aicoder.maintenance.business.maintenance.hardware.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
-import com.yunkang.saas.platform.business.application.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,9 +19,7 @@ import net.aicoder.maintenance.business.hardware.vo.MachineVO;
 import net.aicoder.maintenance.business.maintenance.hardware.service.MachineRibbonService;
 import net.aicoder.maintenance.business.maintenance.hardware.valid.MachineValidator;
 
-import com.yunkang.saas.platform.business.common.domain.SimpleConfig;
-import com.yunkang.saas.platform.business.common.service.SimpleConfigService;
-import com.yunkang.saas.platform.business.common.vo.SimpleConfigVO;
+
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
@@ -46,7 +45,6 @@ import java.util.*;
 public class MachineController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
-
 
 	@Autowired
 	private SaaSUtil saaSUtil;

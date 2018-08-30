@@ -1,6 +1,6 @@
 package net.aicoder.maintenance.business.asset.info.controller;
 
-import com.yunkang.saas.platform.business.application.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 
 import net.aicoder.maintenance.business.asset.info.domain.AssetType;
 import net.aicoder.maintenance.business.asset.info.dto.AssetTypeCondition;

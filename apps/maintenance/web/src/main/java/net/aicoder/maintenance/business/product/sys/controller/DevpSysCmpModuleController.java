@@ -2,7 +2,7 @@ package net.aicoder.maintenance.business.product.sys.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.platform.business.application.authorize.SecurityUtil;
+import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
