@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.app.SecurityConfigAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.app.AppBaseInfoStore'
 
     ]

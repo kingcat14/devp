@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.env.MachineAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true

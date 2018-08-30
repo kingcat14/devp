@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.app.AppBaseInfoAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
 
     ]

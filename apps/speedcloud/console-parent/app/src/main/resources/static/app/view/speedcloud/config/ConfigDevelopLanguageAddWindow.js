@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.config.ConfigDevelopLanguageAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.config.ConfigDevelopLanguageAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true

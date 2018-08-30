@@ -16,7 +16,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepertoryEditWindow', {
     initComponent: function () {
         var me = this;
 
-        var codeRepertoryTypeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var codeRepertoryTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
         codeRepertoryTypeStore.proxy.isSynchronous = true;
         codeRepertoryTypeStore.proxy.extraParams={searchCondition:{configType:'CODEREPERTORY-TYPE'}};
         codeRepertoryTypeStore.load();

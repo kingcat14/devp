@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepertoryAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.app.CodeRepertoryAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.config.DevelopTypeStore'
 
     ]
@@ -18,7 +18,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepertoryAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var codeRepertoryTypeStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var codeRepertoryTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
         codeRepertoryTypeStore.proxy.isSynchronous = true;
         codeRepertoryTypeStore.proxy.extraParams={searchCondition:{configType:'CODEREPERTORY-TYPE'}};
         codeRepertoryTypeStore.load();

@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.config.ConfigDevelopLanguageVersionAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.config.ConfigDevelopLanguageVersionAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.config.ConfigDevelopLanguageStore'
 
     ]

@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.env.EnvMachineAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.env.AppEnvConfigStore'
         ,'AM.store.speedcloud.env.MachineStore'
 
