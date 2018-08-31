@@ -35,6 +35,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
+                            xtype: 'textfield'
+                            ,itemId: 'nameField'
+                            ,fieldLabel: '任务名称'
+                        }
+
+                        ,{
                             xtype: 'combobox'
                             ,store: Ext.create("AM.store.speedcloud.pipeline.PipelineStageStore")
                             ,typeAhead:false
@@ -140,6 +146,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
+        var nameField = me.down("#nameField");
         var stageField = me.down("#stageField");
         var execOrderField = me.down("#execOrderField");
         var execOrderMaxField = me.down("#execOrderMaxField");
@@ -147,7 +154,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskSearchWindow', {
         var taskTypeField = me.down("#taskTypeField");
 
         var condition = {
-            stage:Ext.isEmpty(stageField.getValue())?null:stageField.getValue()
+            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            ,stage:Ext.isEmpty(stageField.getValue())?null:stageField.getValue()
             ,execOrder:Ext.isNumber(execOrderField.getValue())?execOrderField.getValue():null
             ,execOrderMax:Ext.isNumber(execOrderMaxField.getValue())?execOrderMaxField.getValue():null
             ,execOrderMin:Ext.isNumber(execOrderMinField.getValue())?execOrderMinField.getValue():null

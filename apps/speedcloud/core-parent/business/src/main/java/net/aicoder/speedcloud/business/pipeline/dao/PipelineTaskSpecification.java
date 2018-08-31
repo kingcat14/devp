@@ -28,6 +28,7 @@ public class PipelineTaskSpecification implements Specification<PipelineTask>{
 			return null;
 		}
 
+		tryAddNamePredicate(predicateList, root, cb);
 		tryAddStagePredicate(predicateList, root, cb);
 		tryAddExecOrderPredicate(predicateList, root, cb);
 		tryAddTaskTypePredicate(predicateList, root, cb);
@@ -39,6 +40,11 @@ public class PipelineTaskSpecification implements Specification<PipelineTask>{
     }
 
 
+	private void tryAddNamePredicate(List<Predicate> predicateList, Root<PipelineTask> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getName())){
+			predicateList.add(cb.like(root.get(PipelineTask.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
+		}
+	}
 	private void tryAddStagePredicate(List<Predicate> predicateList, Root<PipelineTask> root, CriteriaBuilder cb){
 	    if (null != condition.getStage() ) {
             predicateList.add(cb.equal(root.get(PipelineTask.PROPERTY_STAGE).as(Long.class), condition.getStage()));

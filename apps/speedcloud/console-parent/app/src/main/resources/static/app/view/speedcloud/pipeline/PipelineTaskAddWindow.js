@@ -50,6 +50,18 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskAddWindow', {
                             ,items:[
 
                                 ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '任务名称'
+                                }
+
+
+                                ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.pipeline.PipelineStageStore")
                                     ,typeAhead:false
@@ -71,8 +83,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskAddWindow', {
                                     ,allowDecimals:false
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'execOrderField'
                                     ,name: 'execOrder'
                                     ,fieldLabel: '执行排序'

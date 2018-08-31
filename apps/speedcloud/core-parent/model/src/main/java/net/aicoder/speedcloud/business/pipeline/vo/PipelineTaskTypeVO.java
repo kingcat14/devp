@@ -30,6 +30,11 @@ public class PipelineTaskTypeVO {
     private String name;
 
 
+    /**展现顺序*/
+    @ApiModelProperty(value = "展现顺序")
+    private String viewOrder;
+
+
     public String getCode(){
         return code;
     }
@@ -42,6 +47,13 @@ public class PipelineTaskTypeVO {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getViewOrder(){
+        return viewOrder;
+    }
+    public void setViewOrder(String viewOrder) {
+        this.viewOrder = viewOrder;
     }
 
 

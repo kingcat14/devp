@@ -16,6 +16,8 @@ public class PipelineTaskTypeCondition extends SaaSCondition{
 	private String code;
 	@ApiModelProperty(value = "类型名称")
 	private String name;
+	@ApiModelProperty(value = "展现顺序")
+	private String viewOrder;
 
 
 	public String getCode(){
@@ -31,6 +33,14 @@ public class PipelineTaskTypeCondition extends SaaSCondition{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getViewOrder(){
+		return viewOrder;
+	}
+	public void setViewOrder(String viewOrder) {
+		this.viewOrder = viewOrder;
 	}
 
 

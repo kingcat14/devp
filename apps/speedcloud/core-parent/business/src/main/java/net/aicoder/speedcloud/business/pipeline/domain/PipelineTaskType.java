@@ -24,6 +24,7 @@ public class PipelineTaskType extends BaseEntity{
 
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_NAME = "name";
+	public static final String PROPERTY_VIEW_ORDER = "viewOrder";
 
 
     @Id
@@ -47,6 +48,14 @@ public class PipelineTaskType extends BaseEntity{
 	@Size(max = 255, message = "类型名称超长，最多255个字符")
 	private String name;
 
+    /**
+    * 展现顺序
+    * 
+    */
+    @Column(name = "view_order", nullable = true, updatable = true)
+	@Size(max = 255, message = "展现顺序超长，最多255个字符")
+	private String viewOrder;
+
 	public String getCode(){
 		return code;
 	}
@@ -59,6 +68,13 @@ public class PipelineTaskType extends BaseEntity{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getViewOrder(){
+		return viewOrder;
+	}
+	public void setViewOrder(String viewOrder) {
+		this.viewOrder = viewOrder;
 	}
 
 

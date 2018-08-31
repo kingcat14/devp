@@ -49,6 +49,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskTypePanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '类型名称'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'viewOrder'
+                            ,text: '展现顺序'
                             ,flex:1
                         }
                         ,{

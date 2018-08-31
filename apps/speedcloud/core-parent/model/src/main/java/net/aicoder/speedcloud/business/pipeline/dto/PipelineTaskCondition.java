@@ -12,6 +12,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "查询任务使用的DTO")
 public class PipelineTaskCondition extends SaaSCondition{
 
+	@ApiModelProperty(value = "任务名称")
+	private String name;
     @ApiModelProperty(value = "所属阶段")
     private Long stage;
 	@ApiModelProperty(value = "执行排序")
@@ -22,6 +24,14 @@ public class PipelineTaskCondition extends SaaSCondition{
 	private Integer execOrderMin;
     @ApiModelProperty(value = "任务类型")
     private Long taskType;
+
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
 
     public Long getStage(){

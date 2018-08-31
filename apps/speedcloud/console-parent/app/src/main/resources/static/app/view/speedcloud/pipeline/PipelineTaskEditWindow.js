@@ -48,6 +48,16 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskEditWindow', {
                             ,defaults:{width:'100%'}
                             ,items:[
                                 ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '任务名称'
+                                }
+                                ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.pipeline.PipelineStageStore")
                                     ,typeAhead:false
@@ -164,6 +174,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskEditWindow', {
 
     }
     ,onBeforeShow:function() {
+       
         this.down('#stageField').getStore().reload();
        
        

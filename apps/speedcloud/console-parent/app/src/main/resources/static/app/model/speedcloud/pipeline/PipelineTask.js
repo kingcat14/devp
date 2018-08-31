@@ -21,6 +21,12 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineTask', {
             ,allowNull:true
         }
     	,{
+            name: 'name'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'stage'
             ,type:'string'
             ,allowNull:true

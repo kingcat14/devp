@@ -65,6 +65,16 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskTypeEditWindow', {
                                     ,name: 'name'
                                     ,fieldLabel: '类型名称'
                                 }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'viewOrderField'
+                                    ,name: 'viewOrder'
+                                    ,fieldLabel: '展现顺序'
+                                }
                             ]
 
                         }
@@ -141,6 +151,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskTypeEditWindow', {
 
     }
     ,onBeforeShow:function() {
+       
        
        
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});

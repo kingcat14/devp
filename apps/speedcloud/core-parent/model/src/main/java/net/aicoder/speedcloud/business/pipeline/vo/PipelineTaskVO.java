@@ -22,6 +22,11 @@ public class PipelineTaskVO {
     private Long id;
 
 
+    /**任务名称*/
+    @ApiModelProperty(value = "任务名称")
+    private String name;
+
+
     /**所属阶段*/
     @ApiModelProperty(value = "所属阶段")
     private Long stage;
@@ -37,6 +42,13 @@ public class PipelineTaskVO {
     private Long taskType;
     private PipelineTaskTypeVO taskTypeVO;
 
+
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Long getStage(){
         return stage;

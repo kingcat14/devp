@@ -22,6 +22,10 @@ public class PipelineTaskTypeAddDto {
 	@ApiModelProperty(value = "类型名称", required = false)
 	private String name;
 
+    /**展现顺序*/
+	@ApiModelProperty(value = "展现顺序", required = false)
+	private String viewOrder;
+
 
 	public String getCode(){
 		return code;
@@ -35,6 +39,13 @@ public class PipelineTaskTypeAddDto {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getViewOrder(){
+		return viewOrder;
+	}
+	public void setViewOrder(String viewOrder) {
+		this.viewOrder = viewOrder;
 	}
 
 

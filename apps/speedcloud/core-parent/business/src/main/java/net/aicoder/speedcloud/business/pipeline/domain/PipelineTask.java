@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 //@DynamicInsert
 public class PipelineTask extends BaseEntity{
 
+	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_STAGE = "stage";
 	public static final String PROPERTY_EXEC_ORDER = "execOrder";
 	public static final String PROPERTY_TASK_TYPE = "taskType";
@@ -31,6 +32,14 @@ public class PipelineTask extends BaseEntity{
     @Column(name = "id")
     private Long id;
 
+
+    /**
+    * 任务名称
+    * 
+    */
+    @Column(name = "name", nullable = false, updatable = true)
+	@Size(max = 255, message = "任务名称超长，最多255个字符")
+	private String name;
 
     /**
     * 所属阶段
@@ -52,6 +61,13 @@ public class PipelineTask extends BaseEntity{
     */
     @Column(name = "task_type", nullable = true, updatable = true)
 	private Long taskType;
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Long getStage(){
 		return stage;

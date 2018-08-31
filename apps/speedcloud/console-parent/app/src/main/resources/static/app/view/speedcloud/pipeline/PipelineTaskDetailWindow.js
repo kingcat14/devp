@@ -31,6 +31,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskDetailWindow', {
                     }
                     ,items: [
                         ,{
+                            itemId: 'nameField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'name'
+                            ,fieldLabel: '任务名称'
+                        }
+                        ,{
                             itemId: 'stageField'
                             ,padding: '5 0 0 5'
                             ,name: 'stage'

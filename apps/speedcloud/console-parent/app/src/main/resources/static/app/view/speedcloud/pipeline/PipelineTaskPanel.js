@@ -41,6 +41,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
+                            ,dataIndex: 'name'
+                            ,text: '任务名称'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
                             ,dataIndex: 'stage'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("stageVO")?record.get("stageVO").name:'';

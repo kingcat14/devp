@@ -32,5 +32,11 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineTaskType', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'viewOrder'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

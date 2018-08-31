@@ -70,6 +70,18 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineTaskTypeAddWindow', {
                                     ,fieldLabel: '类型名称'
                                 }
 
+
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'viewOrderField'
+                                    ,name: 'viewOrder'
+                                    ,fieldLabel: '展现顺序'
+                                }
+
                             ]
                         }
                     ]

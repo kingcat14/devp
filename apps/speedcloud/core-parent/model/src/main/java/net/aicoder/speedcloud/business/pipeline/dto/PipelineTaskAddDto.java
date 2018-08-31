@@ -14,6 +14,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增任务使用的DTO")
 public class PipelineTaskAddDto {
 
+    /**任务名称*/
+	@ApiModelProperty(value = "任务名称", required = true)
+	private String name;
+
     /**所属阶段*/
 	@ApiModelProperty(value = "所属阶段", required = true)
 	private Long stage;
@@ -26,6 +30,13 @@ public class PipelineTaskAddDto {
 	@ApiModelProperty(value = "任务类型", required = true)
 	private Long taskType;
 
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Long getStage(){
         return stage;
