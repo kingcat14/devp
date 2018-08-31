@@ -18,8 +18,8 @@ public class CodeBaseInfoAddDto {
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
 
-    /**代码库ID*/
-	@ApiModelProperty(value = "代码库ID", required = false, notes = " ")
+    /**代码库*/
+	@ApiModelProperty(value = "代码库", required = false, notes = " ")
 	private Long codeRepertory;
 
     /**开发语言*/
@@ -38,10 +38,10 @@ public class CodeBaseInfoAddDto {
 		this.tid = tid;
 	}
 
-	public Long getCodeRepertory(){
+	public Long getCodeRepository(){
         return codeRepertory;
     }
-    public void setCodeRepertory(Long codeRepertory) {
+    public void setCodeRepository(Long codeRepertory) {
         this.codeRepertory = codeRepertory;
     }
 

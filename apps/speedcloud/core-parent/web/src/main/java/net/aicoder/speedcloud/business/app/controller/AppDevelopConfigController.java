@@ -19,9 +19,9 @@ import net.aicoder.speedcloud.business.app.vo.AppDevelopConfigVO;
 import net.aicoder.speedcloud.business.app.domain.AppBaseInfo;
 import net.aicoder.speedcloud.business.app.service.AppBaseInfoService;
 import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
-import net.aicoder.speedcloud.business.app.domain.CodeRepertory;
-import net.aicoder.speedcloud.business.app.service.CodeRepertoryService;
-import net.aicoder.speedcloud.business.app.vo.CodeRepertoryVO;
+import net.aicoder.speedcloud.business.app.domain.CodeRepository;
+import net.aicoder.speedcloud.business.app.service.CodeRepositoryService;
+import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
 
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
@@ -59,7 +59,7 @@ public class AppDevelopConfigController {
 	@Autowired
 	private AppBaseInfoService appBaseInfoService;
 	@Autowired
-	private CodeRepertoryService codeRepertoryService;
+	private CodeRepositoryService codeRepertoryService;
 
 	@Autowired
 	private AppDevelopConfigValidator appDevelopConfigValidator;
@@ -237,11 +237,11 @@ public class AppDevelopConfigController {
 
 	private void initCodePropertyGroup(AppDevelopConfigVO appDevelopConfigVO, AppDevelopConfig appDevelopConfig){
 	
-		CodeRepertory code = codeRepertoryService.find(appDevelopConfig.getCode());
+		CodeRepository code = codeRepertoryService.find(appDevelopConfig.getCode());
 		if(code == null){
 			return;
 		}
-		CodeRepertoryVO codeVO = new CodeRepertoryVO();
+		CodeRepositoryVO codeVO = new CodeRepositoryVO();
 		BeanUtils.copyProperties(code, codeVO);
 
 		appDevelopConfigVO.setCodeVO(codeVO);

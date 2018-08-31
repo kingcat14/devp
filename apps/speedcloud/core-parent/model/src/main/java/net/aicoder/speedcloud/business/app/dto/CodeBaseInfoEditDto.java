@@ -15,8 +15,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CodeBaseInfoEditDto {
 
 
-	/**代码库ID*/
-	@ApiModelProperty(value = "代码库ID", required = false, notes = " ")
+	/**代码库*/
+	@ApiModelProperty(value = "代码库", required = false, notes = " ")
 	private Long codeRepertory;
 
 
@@ -31,10 +31,10 @@ public class CodeBaseInfoEditDto {
 
 
 
-	public Long getCodeRepertory(){
+	public Long getCodeRepository(){
         return codeRepertory;
     }
-    public void setCodeRepertory(Long codeRepertory) {
+    public void setCodeRepository(Long codeRepertory) {
         this.codeRepertory = codeRepertory;
     }
 

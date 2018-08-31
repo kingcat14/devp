@@ -3,7 +3,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
     ,xtype: 'speedcloud.app.CodeBaseInfoAddWindow'
     ,requires:[
         'AM.store.common.SimpleConfigStore'
-        ,'AM.store.speedcloud.app.CodeRepertoryStore'
+        ,'AM.store.speedcloud.app.CodeRepositoryStore'
 
     ]
     ,autoScroll: true
@@ -50,7 +50,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepertoryStore")
+                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'url'
@@ -61,7 +61,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeRepertoryField'
                                     ,name: 'codeRepertory'
-                                    ,fieldLabel: '代码库ID'
+                                    ,fieldLabel: '代码库'
                                 }
 
 

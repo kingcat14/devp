@@ -41,7 +41,7 @@ public class CodeBaseInfo extends BaseEntity{
 	private Long tid;
 
     /**
-    * 代码库ID
+    * 代码库
     *  
     */
     @Column(name = "code_repertory", nullable = true, updatable = true)
@@ -70,10 +70,10 @@ public class CodeBaseInfo extends BaseEntity{
 		this.tid = tid;
 	}
 
-	public Long getCodeRepertory(){
+	public Long getCodeRepository(){
 		return codeRepertory;
 	}
-	public void setCodeRepertory(Long codeRepertory) {
+	public void setCodeRepository(Long codeRepertory) {
 		this.codeRepertory = codeRepertory;
 	}
 

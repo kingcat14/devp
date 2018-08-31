@@ -41,12 +41,6 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'tid'
-                            ,text: '租户id'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'app'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("appVO")?record.get("appVO").name:'';

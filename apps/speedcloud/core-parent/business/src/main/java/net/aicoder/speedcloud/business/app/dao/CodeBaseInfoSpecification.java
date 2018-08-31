@@ -29,7 +29,7 @@ public class CodeBaseInfoSpecification implements Specification<CodeBaseInfo>{
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
-		tryAddCodeRepertoryPredicate(predicateList, root, cb);
+		tryAddCodeRepositoryPredicate(predicateList, root, cb);
 		tryAddLanguagePredicate(predicateList, root, cb);
 		tryAddLanguageLevelPredicate(predicateList, root, cb);
 
@@ -54,9 +54,9 @@ public class CodeBaseInfoSpecification implements Specification<CodeBaseInfo>{
 			predicateList.add(cb.lessThan(root.get(CodeBaseInfo.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
-	private void tryAddCodeRepertoryPredicate(List<Predicate> predicateList, Root<CodeBaseInfo> root, CriteriaBuilder cb){
-	    if (null != condition.getCodeRepertory() ) {
-            predicateList.add(cb.equal(root.get(CodeBaseInfo.PROPERTY_CODE_REPERTORY).as(Long.class), condition.getCodeRepertory()));
+	private void tryAddCodeRepositoryPredicate(List<Predicate> predicateList, Root<CodeBaseInfo> root, CriteriaBuilder cb){
+	    if (null != condition.getCodeRepository() ) {
+            predicateList.add(cb.equal(root.get(CodeBaseInfo.PROPERTY_CODE_REPERTORY).as(Long.class), condition.getCodeRepository()));
         }
 	}
 	private void tryAddLanguagePredicate(List<Predicate> predicateList, Root<CodeBaseInfo> root, CriteriaBuilder cb){

@@ -36,13 +36,13 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
                     ,items:[
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepertoryStore")
+                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
                             ,typeAhead:false
                             ,editable:false
                             ,displayField:'url'
                             ,valueField:'id'
                             ,itemId: 'codeRepertoryField'
-                            ,fieldLabel: '代码库ID'
+                            ,fieldLabel: '代码库'
                         }
 
                         ,{
@@ -123,8 +123,6 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
 
         var me = this;
         var codeRepertoryField = me.down("#codeRepertoryField");
-        var codeRepertoryMaxField = me.down("#codeRepertoryMaxField");
-        var codeRepertoryMinField = me.down("#codeRepertoryMinField");
         var languageField = me.down("#languageField");
         var languageLevelField = me.down("#languageLevelField");
 

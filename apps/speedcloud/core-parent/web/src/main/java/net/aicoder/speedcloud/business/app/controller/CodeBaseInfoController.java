@@ -16,9 +16,10 @@ import net.aicoder.speedcloud.business.app.dto.CodeBaseInfoEditDto;
 import net.aicoder.speedcloud.business.app.service.CodeBaseInfoService;
 import net.aicoder.speedcloud.business.app.valid.CodeBaseInfoValidator;
 import net.aicoder.speedcloud.business.app.vo.CodeBaseInfoVO;
-import net.aicoder.speedcloud.business.app.domain.CodeRepertory;
-import net.aicoder.speedcloud.business.app.service.CodeRepertoryService;
-import net.aicoder.speedcloud.business.app.vo.CodeRepertoryVO;
+import net.aicoder.speedcloud.business.app.domain.CodeRepository;
+import net.aicoder.speedcloud.business.app.service.CodeRepositoryService;
+import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
+
 
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
@@ -54,7 +55,8 @@ public class CodeBaseInfoController {
 	private CodeBaseInfoService codeBaseInfoService;
 
 	@Autowired
-	private CodeRepertoryService codeRepertoryService;
+	private CodeRepositoryService codeRepositoryService;
+
 
 	@Autowired
 	private CodeBaseInfoValidator codeBaseInfoValidator;
@@ -189,7 +191,7 @@ public class CodeBaseInfoController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
-            headMap.put("codeRepertory" ,"代码库ID");
+            headMap.put("codeRepertory" ,"代码库");
             headMap.put("language" ,"开发语言");
             headMap.put("languageLevel" ,"语言级别");
 
@@ -205,25 +207,25 @@ public class CodeBaseInfoController {
 
 
 	    //初始化其他对象
-	    initCodeRepertoryPropertyGroup(vo, codeBaseInfo);
+	    initCodeRepositoryPropertyGroup(vo, codeBaseInfo);
         return vo;
-
 
 	}
 
 
-	private void initCodeRepertoryPropertyGroup(CodeBaseInfoVO codeBaseInfoVO, CodeBaseInfo codeBaseInfo){
+	private void initCodeRepositoryPropertyGroup(CodeBaseInfoVO codeBaseInfoVO, CodeBaseInfo codeBaseInfo){
 	
-		CodeRepertory codeRepertory = codeRepertoryService.find(codeBaseInfo.getCodeRepertory());
+		CodeRepository codeRepertory = codeRepositoryService.find(codeBaseInfo.getCodeRepository());
 		if(codeRepertory == null){
 			return;
 		}
-		CodeRepertoryVO codeRepertoryVO = new CodeRepertoryVO();
+		CodeRepositoryVO codeRepertoryVO = new CodeRepositoryVO();
 		BeanUtils.copyProperties(codeRepertory, codeRepertoryVO);
 
-		codeBaseInfoVO.setCodeRepertoryVO(codeRepertoryVO);
+		codeBaseInfoVO.setCodeRepositoryVO(codeRepertoryVO);
 
 	}
 
 
 }
+

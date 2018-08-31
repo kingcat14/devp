@@ -34,7 +34,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoDetailWindow', {
                             itemId: 'codeRepertoryField'
                             ,padding: '5 0 0 5'
                             ,name: 'codeRepertory'
-                            ,fieldLabel: '代码库ID'
+                            ,fieldLabel: '代码库'
                             ,renderer: function (value, field) {
 
                                 var record = me.down('form').getForm().getRecord();

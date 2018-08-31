@@ -35,25 +35,6 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidField'
-                            ,fieldLabel: '租户id'
-                        }
-                        ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidMaxField'
-                            ,fieldLabel: '租户id'
-                        }
-                        ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidMinField'
-                            ,fieldLabel: '租户id'
-                        }
-
-                        ,{
                             xtype: 'combobox'
                             ,store: Ext.create("AM.store.speedcloud.app.AppBaseInfoStore")
                             ,typeAhead:false
@@ -141,9 +122,6 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var tidField = me.down("#tidField");
-        var tidMaxField = me.down("#tidMaxField");
-        var tidMinField = me.down("#tidMinField");
         var appField = me.down("#appField");
         var appMaxField = me.down("#appMaxField");
         var appMinField = me.down("#appMinField");
@@ -151,10 +129,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigSearchWindow', {
         var itemValueField = me.down("#itemValueField");
 
         var condition = {
-            tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,tidMax:Ext.isNumber(tidMaxField.getValue())?tidMaxField.getValue():null
-            ,tidMin:Ext.isNumber(tidMinField.getValue())?tidMinField.getValue():null
-            ,app:Ext.isEmpty(appField.getValue())?null:appField.getValue()
+            app:Ext.isEmpty(appField.getValue())?null:appField.getValue()
             ,itemName:Ext.isEmpty(itemNameField.getValue())?null:itemNameField.getValue()
             ,itemValue:Ext.isEmpty(itemValueField.getValue())?null:itemValueField.getValue()
         };

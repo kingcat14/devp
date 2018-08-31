@@ -3,7 +3,7 @@ package net.aicoder.speedcloud.business.app.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
-import net.aicoder.speedcloud.business.app.vo.CodeRepertoryVO;
+import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -31,7 +31,7 @@ public class AppDevelopConfigVO {
     /**代码*/
     @ApiModelProperty(value = "代码", notes = "")
     private Long code;
-    private CodeRepertoryVO codeVO;
+    private CodeRepositoryVO codeVO;
 
 
     /**测试环境DB*/
@@ -73,10 +73,10 @@ public class AppDevelopConfigVO {
     public void setCode(Long code) {
         this.code = code;
     }
-    public CodeRepertoryVO getCodeVO(){
+    public CodeRepositoryVO getCodeVO(){
         return codeVO;
     }
-    public void setCodeVO(CodeRepertoryVO codeVO) {
+    public void setCodeVO(CodeRepositoryVO codeVO) {
         this.codeVO = codeVO;
     }
 

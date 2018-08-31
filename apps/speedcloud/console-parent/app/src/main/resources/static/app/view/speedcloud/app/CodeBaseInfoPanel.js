@@ -45,7 +45,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoPanel', {
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("codeRepertoryVO")?record.get("codeRepertoryVO").url:'';
                             }
-                            ,text: '代码库ID'
+                            ,text: '代码库'
                             
                         }
                         ,{

@@ -27,7 +27,7 @@ public class CodeBaseInfoService  extends GenericCrudService<CodeBaseInfo, Long,
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, CodeBaseInfo.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.DESC, CodeBaseInfo.PROPERTY_CODE_REPERTORY);
 		return sort;
 	}
 }

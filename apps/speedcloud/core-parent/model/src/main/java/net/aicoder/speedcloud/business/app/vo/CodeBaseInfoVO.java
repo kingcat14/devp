@@ -2,7 +2,7 @@ package net.aicoder.speedcloud.business.app.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.aicoder.speedcloud.business.app.vo.CodeRepertoryVO;
+import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -21,10 +21,10 @@ public class CodeBaseInfoVO {
     private Long id;
 
 
-    /**代码库ID*/
-    @ApiModelProperty(value = "代码库ID", notes = " ")
+    /**代码库*/
+    @ApiModelProperty(value = "代码库", notes = " ")
     private Long codeRepertory;
-    private CodeRepertoryVO codeRepertoryVO;
+    private CodeRepositoryVO codeRepertoryVO;
 
 
     /**开发语言*/
@@ -37,16 +37,16 @@ public class CodeBaseInfoVO {
     private String languageLevel;
 
 
-    public Long getCodeRepertory(){
+    public Long getCodeRepository(){
         return codeRepertory;
     }
-    public void setCodeRepertory(Long codeRepertory) {
+    public void setCodeRepository(Long codeRepertory) {
         this.codeRepertory = codeRepertory;
     }
-    public CodeRepertoryVO getCodeRepertoryVO(){
+    public CodeRepositoryVO getCodeRepositoryVO(){
         return codeRepertoryVO;
     }
-    public void setCodeRepertoryVO(CodeRepertoryVO codeRepertoryVO) {
+    public void setCodeRepositoryVO(CodeRepositoryVO codeRepertoryVO) {
         this.codeRepertoryVO = codeRepertoryVO;
     }
 

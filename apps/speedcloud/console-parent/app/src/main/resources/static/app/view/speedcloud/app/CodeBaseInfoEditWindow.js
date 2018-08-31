@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.app.CodeBaseInfoEditWindow'
     ,requires:[
-        'AM.store.speedcloud.app.CodeRepertoryStore'
+        'AM.store.speedcloud.app.CodeRepositoryStore'
     ],
     autoScroll: true,
     height: '60%',
@@ -48,7 +48,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
                             ,items:[
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepertoryStore")
+                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'url'
@@ -59,7 +59,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeRepertoryField'
                                     ,name: 'codeRepertory'
-                                    ,fieldLabel: '代码库ID'
+                                    ,fieldLabel: '代码库'
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -158,6 +158,9 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#codeRepertoryField').getStore().reload();
+       
+       
+       
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

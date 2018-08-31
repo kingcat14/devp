@@ -49,19 +49,6 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
                             ,items:[
 
                                 ,{
-                                    xtype: 'numberfield'
-                                    ,allowDecimals:false
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'tidField'
-                                    ,name: 'tid'
-                                    ,fieldLabel: '租户id'
-                                }
-
-
-                                ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.app.AppBaseInfoStore")
                                     ,typeAhead:false

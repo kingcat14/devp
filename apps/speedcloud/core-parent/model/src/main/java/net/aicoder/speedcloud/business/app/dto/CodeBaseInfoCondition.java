@@ -18,7 +18,7 @@ public class CodeBaseInfoCondition extends SaaSCondition{
 	private Long tidMax;
 	@ApiModelProperty(value = "租户id最小值")
 	private Long tidMin;
-    @ApiModelProperty(value = "代码库ID", notes = " ")
+    @ApiModelProperty(value = "代码库", notes = " ")
     private Long codeRepertory;
 	@ApiModelProperty(value = "开发语言")
 	private String language;
@@ -48,10 +48,10 @@ public class CodeBaseInfoCondition extends SaaSCondition{
 	}
 
 
-    public Long getCodeRepertory(){
+    public Long getCodeRepository(){
         return codeRepertory;
     }
-    public void setCodeRepertory(Long codeRepertory) {
+    public void setCodeRepository(Long codeRepertory) {
         this.codeRepertory = codeRepertory;
     }
 
