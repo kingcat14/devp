@@ -22,8 +22,6 @@ public class ResourceUtil {
             @Override
             public int compare(Resource o1, Resource o2) {
 
-
-
                 o1.setOrderIndex(o1.getOrderIndex()==null?0:o1.getOrderIndex());
                 o2.setOrderIndex(o2.getOrderIndex()==null?0:o2.getOrderIndex());
 
@@ -32,10 +30,12 @@ public class ResourceUtil {
                     return o1.getParentCode().compareTo(o2.getParentCode());
                 }
 
-                //如果父节点ID一样
-
-                //如果排序相等，则比较ID
-                return o1.getOrderIndex().compareTo(o2.getOrderIndex());
+                //如果父节点ID一样。比较排序
+                if( o1.getOrderIndex().compareTo(o2.getOrderIndex()) != 0){
+                    return  o1.getOrderIndex().compareTo(o2.getOrderIndex());
+                }
+                //如果排序相等，则比较Code
+                return o1.getCode().compareTo(o2.getCode());
             }
         });
     }
