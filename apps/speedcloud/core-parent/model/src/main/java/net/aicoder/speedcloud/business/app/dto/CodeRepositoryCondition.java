@@ -18,6 +18,8 @@ public class CodeRepositoryCondition extends SaaSCondition{
 	private Long tidMax;
 	@ApiModelProperty(value = "租户id最小值")
 	private Long tidMin;
+	@ApiModelProperty(value = "名称")
+	private String name;
 	@ApiModelProperty(value = "类型", notes = "git,svn")
 	private String type;
 	@ApiModelProperty(value = "url")
@@ -28,6 +30,8 @@ public class CodeRepositoryCondition extends SaaSCondition{
 	private String username;
 	@ApiModelProperty(value = "密码")
 	private String password;
+	@ApiModelProperty(value = "描述")
+	private String description;
 
 
 	public Long getTid(){
@@ -49,6 +53,14 @@ public class CodeRepositoryCondition extends SaaSCondition{
 	}
 	public void setTidMax(Long tidMax) {
 		this.tidMax = tidMax;
+	}
+
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
@@ -89,6 +101,14 @@ public class CodeRepositoryCondition extends SaaSCondition{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

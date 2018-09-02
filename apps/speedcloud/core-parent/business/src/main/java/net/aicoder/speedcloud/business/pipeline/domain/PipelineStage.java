@@ -22,15 +22,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 //@DynamicInsert
 public class PipelineStage extends BaseEntity{
 
+	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_PIPELINE = "pipeline";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_FLOW_TYPE = "flowType";
+	public static final String PROPERTY_EXEC_MODE = "execMode";
 
 
     @Id
     @Column(name = "id")
     private Long id;
 
+
+    /**
+    * 租户id
+    * 
+    */
+    @Column(name = "tid", nullable = false, updatable = false)
+	private Long tid;
 
     /**
     * 所属流水线
@@ -54,6 +63,20 @@ public class PipelineStage extends BaseEntity{
     @Column(name = "flow_type", nullable = true, updatable = true)
 	private String flowType;
 
+    /**
+    * 执行方式
+    * 并行、串行、
+    */
+    @Column(name = "exec_mode", nullable = true, updatable = true)
+	private String execMode;
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+
 	public Long getPipeline(){
 		return pipeline;
 	}
@@ -73,6 +96,13 @@ public class PipelineStage extends BaseEntity{
 	}
 	public void setFlowType(String flowType) {
 		this.flowType = flowType;
+	}
+
+	public String getExecMode(){
+		return execMode;
+	}
+	public void setExecMode(String execMode) {
+		this.execMode = execMode;
 	}
 
 

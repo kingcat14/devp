@@ -57,6 +57,9 @@ public class CodeRepositoryValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(codeRepository.getName()) > 255){
+			errors.rejectValue(CodeRepository.PROPERTY_NAME,null,"名称最长255个字符");
+		}
 		if(StringUtils.length(codeRepository.getUrl()) > 255){
 			errors.rejectValue(CodeRepository.PROPERTY_URL,null,"url最长255个字符");
 		}

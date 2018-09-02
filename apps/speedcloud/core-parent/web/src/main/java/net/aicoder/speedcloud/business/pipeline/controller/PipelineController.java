@@ -19,9 +19,9 @@ import net.aicoder.speedcloud.business.pipeline.dto.PipelineEditDto;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
 import net.aicoder.speedcloud.business.pipeline.valid.PipelineValidator;
 import net.aicoder.speedcloud.business.pipeline.vo.PipelineVO;
-import net.aicoder.speedcloud.business.app.domain.CodeRepository;
-import net.aicoder.speedcloud.business.app.service.CodeRepositoryService;
-import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
+import net.aicoder.speedcloud.business.project.domain.Project;
+import net.aicoder.speedcloud.business.project.service.ProjectService;
+import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 
 
 import com.alibaba.fastjson.JSONArray;
@@ -58,7 +58,7 @@ public class PipelineController {
 	private PipelineService pipelineService;
 
 	@Autowired
-	private CodeRepositoryService codeRepositoryService;
+	private ProjectService projectService;
 
     @Autowired
     private SimpleConfigService simpleConfigService;
@@ -198,7 +198,7 @@ public class PipelineController {
 
             headMap.put("name" ,"流水线名称");
             headMap.put("type" ,"类型");
-            headMap.put("codeRepository" ,"代码库");
+            headMap.put("project" ,"所属产品");
 
         String title = new String("流水线");
         String fileName = new String(("流水线_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -219,22 +219,22 @@ public class PipelineController {
 		}
 
 	    //初始化其他对象
-	    initCodeRepositoryPropertyGroup(vo, pipeline);
+	    initProjectPropertyGroup(vo, pipeline);
         return vo;
 
 	}
 
 
-	private void initCodeRepositoryPropertyGroup(PipelineVO pipelineVO, Pipeline pipeline){
+	private void initProjectPropertyGroup(PipelineVO pipelineVO, Pipeline pipeline){
 	
-		CodeRepository codeRepository = codeRepositoryService.find(pipeline.getCodeRepository());
-		if(codeRepository == null){
+		Project project = projectService.find(pipeline.getProject());
+		if(project == null){
 			return;
 		}
-		CodeRepositoryVO codeRepositoryVO = new CodeRepositoryVO();
-		BeanUtils.copyProperties(codeRepository, codeRepositoryVO);
+		ProjectVO projectVO = new ProjectVO();
+		BeanUtils.copyProperties(project, projectVO);
 
-		pipelineVO.setCodeRepositoryVO(codeRepositoryVO);
+		pipelineVO.setProjectVO(projectVO);
 
 	}
 

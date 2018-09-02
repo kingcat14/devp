@@ -56,11 +56,11 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'codeRepository'
+                            ,dataIndex: 'project'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("codeRepositoryVO")?record.get("codeRepositoryVO").url:'';
+                                return record.get("projectVO")?record.get("projectVO").name:'';
                             }
-                            ,text: '代码库'
+                            ,text: '所属产品'
                             ,flex:1
                         }
                         ,{

@@ -27,6 +27,12 @@ Ext.define('AM.model.speedcloud.app.CodeRepository', {
             ,critical:true
         }
     	,{
+            name: 'name'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
             name: 'type'
             ,type:'string'
             ,allowNull:true
@@ -52,6 +58,12 @@ Ext.define('AM.model.speedcloud.app.CodeRepository', {
         }
     	,{
             name: 'password'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'description'
             ,type:'string'
             ,allowNull:true
             ,critical:true

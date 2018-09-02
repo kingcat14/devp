@@ -41,6 +41,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
+                            ,dataIndex: 'name'
+                            ,text: '名称'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
                             ,dataIndex: 'type'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("typeVO")?record.get("typeVO").displayName:'';
@@ -67,6 +73,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'username'
                             ,text: '用户名'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'description'
+                            ,text: '描述'
                             ,flex:1
                         }
                         ,{

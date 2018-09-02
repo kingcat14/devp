@@ -27,7 +27,7 @@ public class CodeRepositoryService  extends GenericCrudService<CodeRepository, L
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, CodeRepository.PROPERTY_TYPE);
+		Sort sort = new Sort(Sort.Direction.DESC, CodeRepository.PROPERTY_NAME);
 		return sort;
 	}
 }

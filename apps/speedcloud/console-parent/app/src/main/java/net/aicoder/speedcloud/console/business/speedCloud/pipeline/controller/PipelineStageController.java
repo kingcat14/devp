@@ -74,6 +74,7 @@ public class PipelineStageController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineStageVO add(@RequestBody PipelineStageAddDto pipelineStageAddDto){
+    	pipelineStageAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  pipelineStageRibbonService.add(pipelineStageAddDto);
 	}
 
@@ -136,6 +137,7 @@ public class PipelineStageController {
 			condition = new PipelineStageCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
+        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<PipelineStageVO> pageContent = pipelineStageRibbonService.list(pageSearchRequest);
 		for(PipelineStageVO vo : pageContent.getContent()){
 			initViewProperty(vo);
@@ -178,6 +180,7 @@ public class PipelineStageController {
             headMap.put("pipeline" ,"所属流水线");
             headMap.put("name" ,"阶段名称");
             headMap.put("flowType" ,"流转方式");
+            headMap.put("execMode" ,"执行方式");
 
         String title = new String("阶段");
         String fileName = new String(("阶段_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -197,6 +200,14 @@ public class PipelineStageController {
 		    SimpleConfigVO flowTypeSimpleConfigVO = new SimpleConfigVO();
 		    BeanUtils.copyProperties(flowTypeSimpleConfig, flowTypeSimpleConfigVO);
 		    vo.setFlowTypeVO(flowTypeSimpleConfigVO);
+		}
+		SimpleConfig execModeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGE-EXECMODE", vo.getExecMode());
+
+		if(execModeSimpleConfig!=null) {
+
+		    SimpleConfigVO execModeSimpleConfigVO = new SimpleConfigVO();
+		    BeanUtils.copyProperties(execModeSimpleConfig, execModeSimpleConfigVO);
+		    vo.setExecModeVO(execModeSimpleConfigVO);
 		}
 
 	   

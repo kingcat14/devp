@@ -14,6 +14,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增阶段使用的DTO")
 public class PipelineStageAddDto {
 
+    /**租户id*/
+	@ApiModelProperty(value = "租户id", required = false)
+	private Long tid;
+
     /**所属流水线*/
 	@ApiModelProperty(value = "所属流水线", required = false)
 	private Long pipeline;
@@ -26,6 +30,17 @@ public class PipelineStageAddDto {
 	@ApiModelProperty(value = "流转方式", required = false, notes = "流转到下一阶段方式:自动、手动")
     private String flowType;
 
+    /**执行方式*/
+	@ApiModelProperty(value = "执行方式", required = false, notes = "并行、串行、")
+    private String execMode;
+
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
 	public Long getPipeline(){
         return pipeline;
@@ -46,6 +61,13 @@ public class PipelineStageAddDto {
     }
     public void setFlowType(String flowType) {
         this.flowType = flowType;
+    }
+
+    public String getExecMode(){
+        return execMode;
+    }
+    public void setExecMode(String execMode) {
+        this.execMode = execMode;
     }
 
 

@@ -21,6 +21,12 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStage', {
             ,allowNull:true
         }
     	,{
+            name: 'tid'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'pipeline'
             ,type:'string'
             ,allowNull:true
@@ -34,6 +40,12 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStage', {
         }
     	,{
             name: 'flowType'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'execMode'
             ,type:'string'
             ,allowNull:true
             ,critical:true

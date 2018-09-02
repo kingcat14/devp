@@ -23,11 +23,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CodeRepository extends BaseEntity{
 
 	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
 	public static final String PROPERTY_URL = "url";
 	public static final String PROPERTY_DEVELOP_TYPE = "developType";
 	public static final String PROPERTY_USERNAME = "username";
 	public static final String PROPERTY_PASSWORD = "password";
+	public static final String PROPERTY_DESCRIPTION = "description";
 
 
     @Id
@@ -41,6 +43,14 @@ public class CodeRepository extends BaseEntity{
     */
     @Column(name = "tid", nullable = false, updatable = false)
 	private Long tid;
+
+    /**
+    * 名称
+    * 
+    */
+    @Column(name = "name", nullable = true, updatable = true)
+	@Size(max = 255, message = "名称超长，最多255个字符")
+	private String name;
 
     /**
     * 类型
@@ -80,11 +90,25 @@ public class CodeRepository extends BaseEntity{
 	@Size(max = 255, message = "密码超长，最多255个字符")
 	private String password;
 
+    /**
+    * 描述
+    * 
+    */
+    @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
+	private String description;
+
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getType(){
@@ -120,6 +144,13 @@ public class CodeRepository extends BaseEntity{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

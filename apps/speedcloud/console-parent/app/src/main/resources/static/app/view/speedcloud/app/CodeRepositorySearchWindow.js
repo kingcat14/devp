@@ -40,6 +40,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
+                            xtype: 'textfield'
+                            ,itemId: 'nameField'
+                            ,fieldLabel: '名称'
+                        }
+
+                        ,{
                             xtype: 'combobox'
                             ,store: codeRepositoryTypeStore
                             ,typeAhead:false
@@ -71,6 +77,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
                             xtype: 'textfield'
                             ,itemId: 'usernameField'
                             ,fieldLabel: '用户名'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'descriptionField'
+                            ,fieldLabel: '描述'
                         }
 
                             ]
@@ -138,16 +150,20 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
     ,getCondition: function(){
 
         var me = this;
+        var nameField = me.down("#nameField");
         var typeField = me.down("#typeField");
         var urlField = me.down("#urlField");
         var developTypeField = me.down("#developTypeField");
         var usernameField = me.down("#usernameField");
+        var descriptionField = me.down("#descriptionField");
 
         var condition = {
-            type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
+            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
             ,url:Ext.isEmpty(urlField.getValue())?null:urlField.getValue()
             ,developType:Ext.isEmpty(developTypeField.getValue())?null:developTypeField.getValue()
             ,username:Ext.isEmpty(usernameField.getValue())?null:usernameField.getValue()
+            ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
         };
 
         return condition;

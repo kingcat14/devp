@@ -25,9 +25,9 @@ public class PipelineEditDto {
     private String type;
 
 
-	/**代码库*/
-	@ApiModelProperty(value = "代码库", required = false, notes = "")
-	private Long codeRepository;
+	/**所属产品*/
+	@ApiModelProperty(value = "所属产品", required = false)
+	private Long project;
 
 
 
@@ -47,11 +47,11 @@ public class PipelineEditDto {
     }
 
 
-	public Long getCodeRepository(){
-        return codeRepository;
+	public Long getProject(){
+        return project;
     }
-    public void setCodeRepository(Long codeRepository) {
-        this.codeRepository = codeRepository;
+    public void setProject(Long project) {
+        this.project = project;
     }
 
 

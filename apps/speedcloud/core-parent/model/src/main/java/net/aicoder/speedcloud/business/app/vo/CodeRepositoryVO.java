@@ -22,6 +22,11 @@ public class CodeRepositoryVO {
     private Long id;
 
 
+    /**名称*/
+    @ApiModelProperty(value = "名称")
+    private String name;
+
+
     /**类型*/
     @ApiModelProperty(value = "类型", notes = "git,svn")
     private String type;
@@ -43,6 +48,18 @@ public class CodeRepositoryVO {
     @ApiModelProperty(value = "用户名")
     private String username;
 
+
+    /**描述*/
+    @ApiModelProperty(value = "描述")
+    private String description;
+
+
+    public String getName(){
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getType(){
         return type;
@@ -82,6 +99,13 @@ public class CodeRepositoryVO {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 

@@ -179,7 +179,7 @@ public class PipelineController {
     
             headMap.put("name" ,"流水线名称");
             headMap.put("type" ,"类型");
-            headMap.put("codeRepository" ,"代码库");
+            headMap.put("project" ,"所属产品");
 
         String title = new String("流水线");
         String fileName = new String(("流水线_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

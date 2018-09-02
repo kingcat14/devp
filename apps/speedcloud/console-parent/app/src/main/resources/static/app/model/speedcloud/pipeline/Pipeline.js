@@ -39,7 +39,7 @@ Ext.define('AM.model.speedcloud.pipeline.Pipeline', {
             ,critical:true
         }
     	,{
-            name: 'codeRepository'
+            name: 'project'
             ,type:'string'
             ,allowNull:true
             ,critical:true

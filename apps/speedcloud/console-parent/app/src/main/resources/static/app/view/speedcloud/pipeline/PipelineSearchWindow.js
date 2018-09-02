@@ -58,13 +58,13 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineSearchWindow', {
 
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
+                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
                             ,typeAhead:false
                             ,editable:false
-                            ,displayField:'url'
+                            ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'codeRepositoryField'
-                            ,fieldLabel: '代码库'
+                            ,itemId: 'projectField'
+                            ,fieldLabel: '所属产品'
                         }
 
                             ]
@@ -134,12 +134,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineSearchWindow', {
         var me = this;
         var nameField = me.down("#nameField");
         var typeField = me.down("#typeField");
-        var codeRepositoryField = me.down("#codeRepositoryField");
+        var projectField = me.down("#projectField");
 
         var condition = {
             name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
-            ,codeRepository:Ext.isEmpty(codeRepositoryField.getValue())?null:codeRepositoryField.getValue()
+            ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
         };
 
         return condition;

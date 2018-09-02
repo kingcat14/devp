@@ -22,8 +22,8 @@ public class PipelineCondition extends SaaSCondition{
 	private String name;
 	@ApiModelProperty(value = "类型")
 	private String type;
-    @ApiModelProperty(value = "代码库", notes = "")
-    private Long codeRepository;
+    @ApiModelProperty(value = "所属产品")
+    private Long project;
 
 
 	public Long getTid(){
@@ -64,11 +64,11 @@ public class PipelineCondition extends SaaSCondition{
 	}
 
 
-    public Long getCodeRepository(){
-        return codeRepository;
+    public Long getProject(){
+        return project;
     }
-    public void setCodeRepository(Long codeRepository) {
-        this.codeRepository = codeRepository;
+    public void setProject(Long project) {
+        this.project = project;
     }
 
 

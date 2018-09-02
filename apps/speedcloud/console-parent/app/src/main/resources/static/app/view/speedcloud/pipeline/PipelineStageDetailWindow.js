@@ -54,6 +54,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageDetailWindow', {
                             ,name: 'flowType'
                             ,fieldLabel: '流转方式'
                         }
+                        ,{
+                            itemId: 'execModeField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'execMode'
+                            ,fieldLabel: '执行方式'
+                        }
                     ]
                 }
             ]

@@ -39,6 +39,12 @@ public class PipelineStageVO {
     private SimpleConfigVO flowTypeVO;
 
 
+    /**执行方式*/
+    @ApiModelProperty(value = "执行方式", notes = "并行、串行、")
+    private String execMode;
+    private SimpleConfigVO execModeVO;
+
+
     public Long getPipeline(){
         return pipeline;
     }
@@ -70,6 +76,19 @@ public class PipelineStageVO {
     }
     public void setFlowTypeVO(SimpleConfigVO flowTypeVO) {
         this.flowTypeVO = flowTypeVO;
+    }
+
+    public String getExecMode(){
+        return execMode;
+    }
+    public void setExecMode(String execMode) {
+        this.execMode = execMode;
+    }
+    public SimpleConfigVO getExecModeVO(){
+        return execModeVO;
+    }
+    public void setExecModeVO(SimpleConfigVO execModeVO) {
+        this.execModeVO = execModeVO;
     }
 
 

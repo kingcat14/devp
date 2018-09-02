@@ -3,7 +3,7 @@ package net.aicoder.speedcloud.business.pipeline.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
-import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
+import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -33,10 +33,10 @@ public class PipelineVO {
     private SimpleConfigVO typeVO;
 
 
-    /**代码库*/
-    @ApiModelProperty(value = "代码库", notes = "")
-    private Long codeRepository;
-    private CodeRepositoryVO codeRepositoryVO;
+    /**所属产品*/
+    @ApiModelProperty(value = "所属产品")
+    private Long project;
+    private ProjectVO projectVO;
 
 
     public String getName(){
@@ -59,17 +59,17 @@ public class PipelineVO {
         this.typeVO = typeVO;
     }
 
-    public Long getCodeRepository(){
-        return codeRepository;
+    public Long getProject(){
+        return project;
     }
-    public void setCodeRepository(Long codeRepository) {
-        this.codeRepository = codeRepository;
+    public void setProject(Long project) {
+        this.project = project;
     }
-    public CodeRepositoryVO getCodeRepositoryVO(){
-        return codeRepositoryVO;
+    public ProjectVO getProjectVO(){
+        return projectVO;
     }
-    public void setCodeRepositoryVO(CodeRepositoryVO codeRepositoryVO) {
-        this.codeRepositoryVO = codeRepositoryVO;
+    public void setProjectVO(ProjectVO projectVO) {
+        this.projectVO = projectVO;
     }
 
 

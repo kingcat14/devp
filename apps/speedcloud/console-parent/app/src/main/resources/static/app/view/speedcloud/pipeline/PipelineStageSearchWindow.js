@@ -18,6 +18,11 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageSearchWindow', {
         pipelineStageFlowTypeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGE-FLOWTYPE'}};
         pipelineStageFlowTypeStore.load();
 
+        var pipelineStageExecModeStore = Ext.create("AM.store.common.SimpleConfigStore")
+        pipelineStageExecModeStore.proxy.isSynchronous = true;
+        pipelineStageExecModeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGE-EXECMODE'}};
+        pipelineStageExecModeStore.load();
+
         Ext.apply(me, {
             items: [
                 {
@@ -65,6 +70,17 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageSearchWindow', {
                             ,valueField:'value'
                             ,itemId: 'flowTypeField'
                             ,fieldLabel: '流转方式'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: pipelineStageExecModeStore
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'displayName'
+                            ,valueField:'value'
+                            ,itemId: 'execModeField'
+                            ,fieldLabel: '执行方式'
                         }
 
                             ]
@@ -135,11 +151,13 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageSearchWindow', {
         var pipelineField = me.down("#pipelineField");
         var nameField = me.down("#nameField");
         var flowTypeField = me.down("#flowTypeField");
+        var execModeField = me.down("#execModeField");
 
         var condition = {
             pipeline:Ext.isEmpty(pipelineField.getValue())?null:pipelineField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,flowType:Ext.isEmpty(flowTypeField.getValue())?null:flowTypeField.getValue()
+            ,execMode:Ext.isEmpty(execModeField.getValue())?null:execModeField.getValue()
         };
 
         return condition;

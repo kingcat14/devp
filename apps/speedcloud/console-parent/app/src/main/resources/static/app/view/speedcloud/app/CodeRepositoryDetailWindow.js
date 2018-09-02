@@ -31,6 +31,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
                     }
                     ,items: [
                         ,{
+                            itemId: 'nameField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'name'
+                            ,fieldLabel: '名称'
+                        }
+                        ,{
                             itemId: 'typeField'
                             ,padding: '5 0 0 5'
                             ,name: 'type'
@@ -59,6 +65,14 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'username'
                             ,fieldLabel: '用户名'
+                        }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
                         }
                     ]
                 }

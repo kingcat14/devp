@@ -52,6 +52,16 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
                             ,defaults:{width:'100%'}
                             ,items:[
                                 ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '名称'
+                                }
+                                ,{
                                     xtype: 'combobox'
                                     ,store: codeRepositoryTypeStore
                                     ,typeAhead:false
@@ -113,6 +123,16 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
                                 }
                             ]
 
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'descriptionField',
+                            padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
                         }
                     ]
                 }
@@ -187,10 +207,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
 
     }
     ,onBeforeShow:function() {
+       
         this.down('#typeField').getStore().reload();
        
        
         this.down('#developTypeField').getStore().reload();
+       
        
        
        

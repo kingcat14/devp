@@ -22,6 +22,10 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageAddWindow', {
         pipelineStageFlowTypeStore.proxy.isSynchronous = true;
         pipelineStageFlowTypeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGE-FLOWTYPE'}};
         pipelineStageFlowTypeStore.load();
+        var pipelineStageExecModeStore = Ext.create("AM.store.common.SimpleConfigStore")
+        pipelineStageExecModeStore.proxy.isSynchronous = true;
+        pipelineStageExecModeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGE-EXECMODE'}};
+        pipelineStageExecModeStore.load();
         Ext.apply(me, {
             items: [
                 {
@@ -97,6 +101,23 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageAddWindow', {
                                     ,fieldLabel: '流转方式'
                                 }
 
+
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: pipelineStageExecModeStore
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'displayName'
+                                    ,valueField:'code'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'execModeField'
+                                    ,name: 'execMode'
+                                    ,fieldLabel: '执行方式'
+                                }
+
                             ]
                         }
                     ]
@@ -169,6 +190,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageAddWindow', {
     ,onBeforeShow:function() {
         this.down('#pipelineField').getStore().reload();
         this.down('#flowTypeField').getStore().reload();
+        this.down('#execModeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

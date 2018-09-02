@@ -177,10 +177,12 @@ public class CodeRepositoryController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
+            headMap.put("name" ,"名称");
             headMap.put("type" ,"类型");
             headMap.put("url" ,"url");
             headMap.put("developType" ,"开发模式");
             headMap.put("username" ,"用户名");
+            headMap.put("description" ,"描述");
 
         String title = new String("代码库");
         String fileName = new String(("代码库_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

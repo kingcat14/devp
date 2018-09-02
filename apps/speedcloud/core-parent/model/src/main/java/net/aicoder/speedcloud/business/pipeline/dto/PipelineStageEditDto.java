@@ -30,6 +30,11 @@ public class PipelineStageEditDto {
     private String flowType;
 
 
+	/**执行方式*/
+	@ApiModelProperty(value = "执行方式", required = false, notes = "并行、串行、")
+    private String execMode;
+
+
 
 	public Long getPipeline(){
         return pipeline;
@@ -52,6 +57,14 @@ public class PipelineStageEditDto {
     }
     public void setFlowType(String flowType) {
         this.flowType = flowType;
+    }
+
+
+    public String getExecMode(){
+        return execMode;
+    }
+    public void setExecMode(String execMode) {
+        this.execMode = execMode;
     }
 
 

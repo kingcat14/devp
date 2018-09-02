@@ -31,7 +31,7 @@ public class PipelineSpecification implements Specification<Pipeline>{
 		tryAddTidPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
-		tryAddCodeRepositoryPredicate(predicateList, root, cb);
+		tryAddProjectPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -64,9 +64,9 @@ public class PipelineSpecification implements Specification<Pipeline>{
 			predicateList.add(cb.equal(root.get(Pipeline.PROPERTY_TYPE).as(String.class), condition.getType()));
 		}
 	}
-	private void tryAddCodeRepositoryPredicate(List<Predicate> predicateList, Root<Pipeline> root, CriteriaBuilder cb){
-	    if (null != condition.getCodeRepository() ) {
-            predicateList.add(cb.equal(root.get(Pipeline.PROPERTY_CODE_REPOSITORY).as(Long.class), condition.getCodeRepository()));
+	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<Pipeline> root, CriteriaBuilder cb){
+	    if (null != condition.getProject() ) {
+            predicateList.add(cb.equal(root.get(Pipeline.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
         }
 	}
 }

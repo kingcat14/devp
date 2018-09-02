@@ -40,16 +40,16 @@ public class CodeRepositoryValidator implements Validator {
      * @param codeRepository 代码库
      * @param errors
      */
-	public void validateAddDto(CodeRepositoryAddDto codeRepository, Errors errors) {
+		public void validateAddDto(CodeRepositoryAddDto codeRepository, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == codeRepository.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
+		if(StringUtils.length(codeRepository.getName()) > 255){
+			errors.rejectValue("name", null, "名称最长255个字符");
+		}
 		if(StringUtils.length(codeRepository.getUrl()) > 255){
 			errors.rejectValue("url", null, "url最长255个字符");
 		}

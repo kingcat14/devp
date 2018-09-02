@@ -18,6 +18,10 @@ public class CodeRepositoryAddDto {
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
 
+    /**名称*/
+	@ApiModelProperty(value = "名称", required = false)
+	private String name;
+
     /**类型*/
 	@ApiModelProperty(value = "类型", required = false, notes = "git,svn")
     private String type;
@@ -38,12 +42,23 @@ public class CodeRepositoryAddDto {
 	@ApiModelProperty(value = "密码", required = false)
 	private String password;
 
+    /**描述*/
+	@ApiModelProperty(value = "描述", required = false)
+	private String description;
+
 
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
     public String getType(){
@@ -79,6 +94,13 @@ public class CodeRepositoryAddDto {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

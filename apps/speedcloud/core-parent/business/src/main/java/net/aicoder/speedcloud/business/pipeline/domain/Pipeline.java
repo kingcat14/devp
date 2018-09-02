@@ -25,7 +25,7 @@ public class Pipeline extends BaseEntity{
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
-	public static final String PROPERTY_CODE_REPOSITORY = "codeRepository";
+	public static final String PROPERTY_PROJECT = "project";
 
 
     @Id
@@ -56,11 +56,11 @@ public class Pipeline extends BaseEntity{
 	private String type;
 
     /**
-    * 代码库
+    * 所属产品
     * 
     */
-    @Column(name = "code_repository", nullable = true, updatable = true)
-	private Long codeRepository;
+    @Column(name = "project", nullable = true, updatable = true)
+	private Long project;
 
 	public Long getTid(){
 		return tid;
@@ -83,11 +83,11 @@ public class Pipeline extends BaseEntity{
 		this.type = type;
 	}
 
-	public Long getCodeRepository(){
-		return codeRepository;
+	public Long getProject(){
+		return project;
 	}
-	public void setCodeRepository(Long codeRepository) {
-		this.codeRepository = codeRepository;
+	public void setProject(Long project) {
+		this.project = project;
 	}
 
 

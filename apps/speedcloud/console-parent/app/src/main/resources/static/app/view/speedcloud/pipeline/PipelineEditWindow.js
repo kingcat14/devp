@@ -2,7 +2,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.pipeline.PipelineEditWindow'
     ,requires:[
-        'AM.store.speedcloud.app.CodeRepositoryStore'
+        'AM.store.speedcloud.project.ProjectStore'
     ],
     autoScroll: true,
     height: '60%',
@@ -78,18 +78,18 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditWindow', {
                                 }
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
+                                    ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'url'
+                                    ,displayField:'name'
                                     ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'codeRepositoryField'
-                                    ,name: 'codeRepository'
-                                    ,fieldLabel: '代码库'
+                                    ,itemId: 'projectField'
+                                    ,name: 'project'
+                                    ,fieldLabel: '所属产品'
                                 }
                             ]
 
@@ -170,7 +170,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditWindow', {
        
         this.down('#typeField').getStore().reload();
        
-        this.down('#codeRepositoryField').getStore().reload();
+        this.down('#projectField').getStore().reload();
        
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }

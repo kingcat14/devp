@@ -29,11 +29,13 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
+		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
 		tryAddUrlPredicate(predicateList, root, cb);
 		tryAddDevelopTypePredicate(predicateList, root, cb);
 		tryAddUsernamePredicate(predicateList, root, cb);
 		tryAddPasswordPredicate(predicateList, root, cb);
+		tryAddDescriptionPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -54,6 +56,11 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 
 		if (null != condition.getTidMin() ) {
 			predicateList.add(cb.lessThan(root.get(CodeRepository.PROPERTY_TID).as(Long.class), condition.getTidMin()));
+		}
+	}
+	private void tryAddNamePredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getName())){
+			predicateList.add(cb.like(root.get(CodeRepository.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
 		}
 	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
@@ -79,6 +86,11 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 	private void tryAddPasswordPredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getPassword())){
 			predicateList.add(cb.like(root.get(CodeRepository.PROPERTY_PASSWORD).as(String.class), "%"+condition.getPassword()+"%"));
+		}
+	}
+	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDescription())){
+			predicateList.add(cb.like(root.get(CodeRepository.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
 		}
 	}
 }

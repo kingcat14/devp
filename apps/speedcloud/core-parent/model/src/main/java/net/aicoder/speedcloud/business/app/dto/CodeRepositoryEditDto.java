@@ -15,6 +15,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CodeRepositoryEditDto {
 
 
+	/**名称*/
+	@ApiModelProperty(value = "名称", required = false)
+	private String name;
+
+
 	/**类型*/
 	@ApiModelProperty(value = "类型", required = false, notes = "git,svn")
     private String type;
@@ -39,6 +44,19 @@ public class CodeRepositoryEditDto {
 	@ApiModelProperty(value = "密码", required = false)
 	private String password;
 
+
+	/**描述*/
+	@ApiModelProperty(value = "描述", required = false)
+	private String description;
+
+
+
+	public String getName(){
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
 
     public String getType(){
@@ -78,6 +96,14 @@ public class CodeRepositoryEditDto {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

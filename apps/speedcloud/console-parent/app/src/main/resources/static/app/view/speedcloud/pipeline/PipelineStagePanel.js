@@ -61,6 +61,15 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStagePanel', {
                                 return record.get("flowTypeVO")?record.get("flowTypeVO").displayName:'';
                             }
                             ,text: '流转方式'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'execMode'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("execModeVO")?record.get("execModeVO").displayName:'';
+                            }
+                            ,text: '执行方式'
                             ,flex:1
                         }
                         ,{
