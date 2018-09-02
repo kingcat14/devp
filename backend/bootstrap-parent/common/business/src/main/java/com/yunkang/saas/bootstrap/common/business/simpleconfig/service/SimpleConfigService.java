@@ -35,7 +35,7 @@ public class SimpleConfigService  extends GenericCrudService<SimpleConfig, Long,
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC , SimpleConfig.PROPERTY_CONFIG_TYPE);
+		Sort sort = new Sort(Sort.Direction.ASC , SimpleConfig.PROPERTY_V_INDEX);
 		return sort;
 	}
 }
