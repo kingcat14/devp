@@ -6,8 +6,6 @@ import net.aicoder.speedcloud.business.app.dao.AppBaseInfoDao;
 import net.aicoder.speedcloud.business.app.dao.AppBaseInfoSpecification;
 import net.aicoder.speedcloud.business.app.domain.AppBaseInfo;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoCondition;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;

@@ -1,4 +1,6 @@
-package net.aicoder.speedcloud.apapter.yunkang;
+package net.aicoder.speedcloud.apapter.yunkang.client.dto;
+
+import net.aicoder.speedcloud.apapter.yunkang.StringParma;
 
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class CreateJobAction {
     private String desc;
     private String jobName;
     private List<String> shellCmd;
-    private List<StringParma> stringParmas;
+    private List<StringParma> stringParms;
 
     public String getDesc() {
         return desc;
@@ -30,10 +32,10 @@ public class CreateJobAction {
         this.shellCmd = shellCmd;
     }
 
-    public List<StringParma> getStringParmas() {
-        return stringParmas;
+    public List<StringParma> getStringParms() {
+        return stringParms;
     }
-    public void setStringParmas(List<StringParma> stringParmas) {
-        this.stringParmas = stringParmas;
+    public void setStringParms(List<StringParma> stringParms) {
+        this.stringParms = stringParms;
     }
 }

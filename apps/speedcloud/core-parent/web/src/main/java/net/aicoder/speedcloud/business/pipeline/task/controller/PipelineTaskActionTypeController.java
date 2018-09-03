@@ -191,6 +191,7 @@ public class PipelineTaskActionTypeController {
             headMap.put("viewOrder" ,"展现顺序");
             headMap.put("memo" ,"说明");
             headMap.put("description" ,"描述");
+            headMap.put("content" ,"脚本内容");
 
         String title = new String("操作类型");
         String fileName = new String(("操作类型_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

@@ -14,11 +14,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("pipelineExecInstanceNodeParamService")
 public class PipelineExecInstanceNodeParamService  extends GenericCrudService<PipelineExecInstanceNodeParam, Long, PipelineExecInstanceNodeParamCondition, PipelineExecInstanceNodeParamDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineExecInstanceNodeParamService.class);
+
+	public List<PipelineExecInstanceNodeParam> findByInstanceNode(long instanceNode){
+		return dao.findByNode(instanceNode);
+	}
 
 	@Override
 	public Specification<PipelineExecInstanceNodeParam> getSpecification(PipelineExecInstanceNodeParamCondition condition) {

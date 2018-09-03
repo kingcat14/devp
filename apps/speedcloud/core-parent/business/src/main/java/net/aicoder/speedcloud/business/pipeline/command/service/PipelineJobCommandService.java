@@ -14,11 +14,23 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("pipelineJobCommandService")
 public class PipelineJobCommandService  extends GenericCrudService<PipelineJobCommand, Long, PipelineJobCommandCondition, PipelineJobCommandDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineJobCommandService.class);
+
+	/**
+	 * 查询某租户没处理的任务
+	 * @param tid
+	 * @return
+	 */
+	public List<PipelineJobCommand> findWaitJob(Long tid){
+		return dao.findByTidAndStatus(tid, "WAIT");
+	}
+
 
 	@Override
 	public Specification<PipelineJobCommand> getSpecification(PipelineJobCommandCondition condition) {

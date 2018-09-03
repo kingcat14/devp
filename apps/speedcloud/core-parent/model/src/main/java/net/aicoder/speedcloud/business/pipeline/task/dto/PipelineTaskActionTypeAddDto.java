@@ -38,6 +38,10 @@ public class PipelineTaskActionTypeAddDto {
 	@ApiModelProperty(value = "描述", required = false)
 	private String description;
 
+    /**脚本内容*/
+	@ApiModelProperty(value = "脚本内容", required = false, notes = "")
+	private String content;
+
 
 	public Long getTid(){
 		return tid;
@@ -79,6 +83,13 @@ public class PipelineTaskActionTypeAddDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 

@@ -34,6 +34,7 @@ public class PipelineTaskActionTypeSpecification implements Specification<Pipeli
 		tryAddViewOrderPredicate(predicateList, root, cb);
 		tryAddMemoPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
+		tryAddContentPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -79,6 +80,11 @@ public class PipelineTaskActionTypeSpecification implements Specification<Pipeli
 	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<PipelineTaskActionType> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getDescription())){
 			predicateList.add(cb.like(root.get(PipelineTaskActionType.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
+		}
+	}
+	private void tryAddContentPredicate(List<Predicate> predicateList, Root<PipelineTaskActionType> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getContent())){
+			predicateList.add(cb.like(root.get(PipelineTaskActionType.PROPERTY_CONTENT).as(String.class), "%"+condition.getContent()+"%"));
 		}
 	}
 }

@@ -16,12 +16,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service("pipelineExecInstanceService")
 public class PipelineExecInstanceService  extends GenericCrudService<PipelineExecInstance, Long, PipelineExecInstanceCondition, PipelineExecInstanceDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineExecInstanceService.class);
-
 
 	@Override
 	public Specification<PipelineExecInstance> getSpecification(PipelineExecInstanceCondition condition) {

@@ -1,5 +1,8 @@
 package net.aicoder.speedcloud.apapter.yunkang.client;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Result {
 
     private String errorMsg;
@@ -32,4 +35,10 @@ public class Result {
     public void setFlag(String flag) {
         this.flag = flag;
     }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
 }

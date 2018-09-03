@@ -98,6 +98,16 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionTypeEditWindow', 
                             fieldLabel: '描述',
                             labelAlign: 'top'
                         }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'contentField',
+                            padding: '5 0 0 5',
+                            name: 'content',
+                            fieldLabel: '脚本内容',
+                            labelAlign: 'top'
+                        }
                     ]
                 }
             ],
@@ -171,6 +181,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionTypeEditWindow', 
 
     }
     ,onBeforeShow:function() {
+       
        
        
        

@@ -56,5 +56,11 @@ Ext.define('AM.model.speedcloud.pipeline.task.PipelineTaskActionType', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'content'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

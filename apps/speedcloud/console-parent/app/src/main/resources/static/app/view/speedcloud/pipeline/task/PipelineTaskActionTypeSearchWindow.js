@@ -58,6 +58,12 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionTypeSearchWindow'
                             ,fieldLabel: '描述'
                         }
 
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'contentField'
+                            ,fieldLabel: '脚本内容'
+                        }
+
                             ]
                 }
             ],
@@ -127,12 +133,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionTypeSearchWindow'
         var nameField = me.down("#nameField");
         var memoField = me.down("#memoField");
         var descriptionField = me.down("#descriptionField");
+        var contentField = me.down("#contentField");
 
         var condition = {
             code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,memo:Ext.isEmpty(memoField.getValue())?null:memoField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
+            ,content:Ext.isEmpty(contentField.getValue())?null:contentField.getValue()
         };
 
         return condition;

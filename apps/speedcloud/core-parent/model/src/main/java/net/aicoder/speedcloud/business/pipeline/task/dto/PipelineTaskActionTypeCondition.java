@@ -28,6 +28,8 @@ public class PipelineTaskActionTypeCondition extends SaaSCondition{
 	private String memo;
 	@ApiModelProperty(value = "描述")
 	private String description;
+	@ApiModelProperty(value = "脚本内容", notes = "")
+	private String content;
 
 
 	public Long getTid(){
@@ -89,6 +91,14 @@ public class PipelineTaskActionTypeCondition extends SaaSCondition{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 

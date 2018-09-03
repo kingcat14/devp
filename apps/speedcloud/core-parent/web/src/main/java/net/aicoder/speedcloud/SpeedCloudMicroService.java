@@ -7,10 +7,12 @@ import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Import({ApiResponseBodyHandler.class, RestApiExceptionHandler.class})
 @EnableSwagger2Doc
 @SpringBootApplication()
+@EnableScheduling
 public class SpeedCloudMicroService implements ExitCodeGenerator {
 
 	public static void main(String[] args) {

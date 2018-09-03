@@ -28,6 +28,7 @@ public class PipelineTaskActionType extends BaseEntity{
 	public static final String PROPERTY_VIEW_ORDER = "viewOrder";
 	public static final String PROPERTY_MEMO = "memo";
 	public static final String PROPERTY_DESCRIPTION = "description";
+	public static final String PROPERTY_CONTENT = "content";
 
 
     @Id
@@ -81,6 +82,13 @@ public class PipelineTaskActionType extends BaseEntity{
     @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
 	private String description;
 
+    /**
+    * 脚本内容
+    * 
+    */
+    @Column(name = "content", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
+	private String content;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -121,6 +129,13 @@ public class PipelineTaskActionType extends BaseEntity{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 

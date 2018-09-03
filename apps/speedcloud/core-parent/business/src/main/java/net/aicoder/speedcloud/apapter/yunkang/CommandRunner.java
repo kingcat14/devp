@@ -2,14 +2,18 @@ package net.aicoder.speedcloud.apapter.yunkang;
 
 import net.aicoder.speedcloud.apapter.yunkang.client.Result;
 import net.aicoder.speedcloud.apapter.yunkang.client.YunkangClient;
+import net.aicoder.speedcloud.apapter.yunkang.client.dto.CreateJobAction;
 import net.aicoder.speedcloud.business.pipeline.command.domain.PipelineJobCommand;
+import net.aicoder.speedcloud.business.pipeline.command.service.PipelineJobCommandService;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTaskAction;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTaskParam;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskActionService;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskParamService;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +37,26 @@ public class CommandRunner {
     @Autowired
     private YunkangClient yunkangClient;
 
+    @Autowired
+    private PipelineJobCommandService pipelineJobCommandService;
+
+    @Scheduled(cron = "0 * * * * *")
+    public void schedual(){
+
+        List<PipelineJobCommand> commandList = pipelineJobCommandService.findWaitJob(1L);
+
+        for(PipelineJobCommand command : commandList){
+
+            if(CollectionUtils.isEmpty(commandList)){
+                return;
+            }
+
+            run(command);
+            pipelineJobCommandService.merge(command);
+        }
+
+    }
+
     public void run(PipelineJobCommand pipelineJobCommand){
 
         if("CREATE".equals(pipelineJobCommand.getType())){
@@ -53,7 +77,29 @@ public class CommandRunner {
      */
     public void createJob(PipelineJobCommand command){
 
-        PipelineTask task = pipelineTaskService.find(command.getTask());
+        CreateJobAction createJobAction = buildCreateJobAction(command.getTask());
+
+        Result result = yunkangClient.create(createJobAction);
+
+        command.setResult(result.getFlag()+":"+result.getErrorMsg());
+        command.setStatus("FINISH");
+
+    }
+
+    public void updateJob(PipelineJobCommand command){
+
+        CreateJobAction createJobAction = buildCreateJobAction(command.getTask());
+
+        Result result = yunkangClient.create(createJobAction);
+
+        command.setResult(result.getFlag()+":"+result.getErrorMsg());
+        command.setStatus("FINISH");
+
+    }
+
+
+    private CreateJobAction buildCreateJobAction(Long taskId){
+        PipelineTask task = pipelineTaskService.find(taskId);
 
         List<PipelineTaskParam> pipelineTaskParamList = pipelineTaskParamService.findByTask(task.getId());
         List<PipelineTaskAction> pipelineTaskActionList = pipelineTaskActionService.findByTask(task.getId());
@@ -79,13 +125,10 @@ public class CommandRunner {
         createJobAction.setDesc(task.getDescription());
         createJobAction.setJobName(task.getId()+"");
         createJobAction.setShellCmd(shellCmdList);
-        createJobAction.setStringParmas(stringParmaList);
-
-        Result result = yunkangClient.create(createJobAction);
-
-        command.setResult(result.getFlag());
-        command.setStatus("FINISH");
-
+        createJobAction.setStringParms(stringParmaList);
+        return createJobAction;
     }
+
+
 
 }

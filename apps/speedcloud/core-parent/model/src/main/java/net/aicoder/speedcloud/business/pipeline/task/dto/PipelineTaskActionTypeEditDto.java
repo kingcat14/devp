@@ -40,6 +40,11 @@ public class PipelineTaskActionTypeEditDto {
 	private String description;
 
 
+	/**脚本内容*/
+	@ApiModelProperty(value = "脚本内容", required = false, notes = "")
+	private String content;
+
+
 
 	public String getCode(){
 		return code;
@@ -78,6 +83,14 @@ public class PipelineTaskActionTypeEditDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 
