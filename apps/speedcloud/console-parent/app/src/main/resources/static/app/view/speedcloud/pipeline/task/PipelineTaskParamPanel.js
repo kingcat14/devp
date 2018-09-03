@@ -41,9 +41,9 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'taskType'
+                            ,dataIndex: 'task'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("taskTypeVO")?record.get("taskTypeVO").name:'';
+                                return record.get("taskVO")?record.get("taskVO").name:'';
                             }
                             ,text: '所属任务'
                             

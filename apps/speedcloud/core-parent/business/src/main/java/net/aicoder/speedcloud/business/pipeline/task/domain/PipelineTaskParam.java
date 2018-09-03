@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PipelineTaskParam extends BaseEntity{
 
 	public static final String PROPERTY_TID = "tid";
-	public static final String PROPERTY_TASK_TYPE = "taskType";
+	public static final String PROPERTY_TASK = "task";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
 	public static final String PROPERTY_DEFAULT_VALUE = "defaultValue";
@@ -50,8 +50,8 @@ public class PipelineTaskParam extends BaseEntity{
     * 所属任务
     * 
     */
-    @Column(name = "task_type", nullable = true, updatable = true)
-	private Long taskType;
+    @Column(name = "task", nullable = true, updatable = true)
+	private Long task;
 
     /**
     * 参数名称
@@ -122,11 +122,11 @@ public class PipelineTaskParam extends BaseEntity{
 		this.tid = tid;
 	}
 
-	public Long getTaskType(){
-		return taskType;
+	public Long getTask(){
+		return task;
 	}
-	public void setTaskType(Long taskType) {
-		this.taskType = taskType;
+	public void setTask(Long task) {
+		this.task = task;
 	}
 
 	public String getName(){

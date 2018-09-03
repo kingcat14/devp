@@ -29,7 +29,7 @@ public class PipelineTaskParamSpecification implements Specification<PipelineTas
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
-		tryAddTaskTypePredicate(predicateList, root, cb);
+		tryAddTaskPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
 		tryAddDefaultValuePredicate(predicateList, root, cb);
@@ -60,9 +60,9 @@ public class PipelineTaskParamSpecification implements Specification<PipelineTas
 			predicateList.add(cb.lessThan(root.get(PipelineTaskParam.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
-	private void tryAddTaskTypePredicate(List<Predicate> predicateList, Root<PipelineTaskParam> root, CriteriaBuilder cb){
-	    if (null != condition.getTaskType() ) {
-            predicateList.add(cb.equal(root.get(PipelineTaskParam.PROPERTY_TASK_TYPE).as(Long.class), condition.getTaskType()));
+	private void tryAddTaskPredicate(List<Predicate> predicateList, Root<PipelineTaskParam> root, CriteriaBuilder cb){
+	    if (null != condition.getTask() ) {
+            predicateList.add(cb.equal(root.get(PipelineTaskParam.PROPERTY_TASK).as(Long.class), condition.getTask()));
         }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<PipelineTaskParam> root, CriteriaBuilder cb){

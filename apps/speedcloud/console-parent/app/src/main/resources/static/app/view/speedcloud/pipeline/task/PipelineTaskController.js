@@ -73,7 +73,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         var record = selections[0];
 
         //创建一个执行对象
-        var taskExecConfig = {runnerId:record.get('id'), runnerType:'TASK'}
+        var taskExecConfig = {executeTargetId:record.get('id'), executeTargetType:'TASK'}
         var taskExec = Ext.create('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', taskExecConfig);
         taskExec.save()
     }

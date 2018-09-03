@@ -31,15 +31,15 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamDetailWindow', {
                     }
                     ,items: [
                         ,{
-                            itemId: 'taskTypeField'
+                            itemId: 'taskField'
                             ,padding: '5 0 0 5'
-                            ,name: 'taskType'
+                            ,name: 'task'
                             ,fieldLabel: '所属任务'
                             ,renderer: function (value, field) {
 
                                 var record = me.down('form').getForm().getRecord();
 
-                                return record.get('taskTypeVO').name;
+                                return record.get('taskVO').name;
                             }
                         }
                         ,{

@@ -19,7 +19,7 @@ public class PipelineTaskParamCondition extends SaaSCondition{
 	@ApiModelProperty(value = "租户id最小值")
 	private Long tidMin;
     @ApiModelProperty(value = "所属任务", notes = "")
-    private Long taskType;
+    private Long task;
 	@ApiModelProperty(value = "参数名称")
 	private String name;
 	@ApiModelProperty(value = "参数类型", notes = "字符或者枚举")
@@ -64,11 +64,11 @@ public class PipelineTaskParamCondition extends SaaSCondition{
 	}
 
 
-    public Long getTaskType(){
-        return taskType;
+    public Long getTask(){
+        return task;
     }
-    public void setTaskType(Long taskType) {
-        this.taskType = taskType;
+    public void setTask(Long task) {
+        this.task = task;
     }
 
 

@@ -14,12 +14,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("pipelineTaskParamService")
 public class PipelineTaskParamService  extends GenericCrudService<PipelineTaskParam, Long, PipelineTaskParamCondition, PipelineTaskParamDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineTaskParamService.class);
 
+	public List<PipelineTaskParam> findByTask(Long taskId){
+		return dao.findByTask(taskId);
+	}
 	@Override
 	public Specification<PipelineTaskParam> getSpecification(PipelineTaskParamCondition condition) {
 		return new PipelineTaskParamSpecification(condition);
@@ -27,7 +32,7 @@ public class PipelineTaskParamService  extends GenericCrudService<PipelineTaskPa
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, PipelineTaskParam.PROPERTY_TASK_TYPE);
+		Sort sort = new Sort(Sort.Direction.DESC, PipelineTaskParam.PROPERTY_TASK);
 		return sort;
 	}
 }

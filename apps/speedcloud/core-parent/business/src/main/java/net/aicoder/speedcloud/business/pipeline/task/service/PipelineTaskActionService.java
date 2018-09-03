@@ -14,11 +14,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("pipelineTaskActionService")
 public class PipelineTaskActionService  extends GenericCrudService<PipelineTaskAction, Long, PipelineTaskActionCondition, PipelineTaskActionDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineTaskActionService.class);
+
+
+	public List<PipelineTaskAction> findByTask(Long taskId){
+		return dao.findByTask(taskId);
+	}
 
 	@Override
 	public Specification<PipelineTaskAction> getSpecification(PipelineTaskActionCondition condition) {

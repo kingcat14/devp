@@ -20,7 +20,7 @@ public class PipelineTaskParamAddDto {
 
     /**所属任务*/
 	@ApiModelProperty(value = "所属任务", required = false, notes = "")
-	private Long taskType;
+	private Long task;
 
     /**参数名称*/
 	@ApiModelProperty(value = "参数名称", required = false)
@@ -62,11 +62,11 @@ public class PipelineTaskParamAddDto {
 		this.tid = tid;
 	}
 
-	public Long getTaskType(){
-        return taskType;
+	public Long getTask(){
+        return task;
     }
-    public void setTaskType(Long taskType) {
-        this.taskType = taskType;
+    public void setTask(Long task) {
+        this.task = task;
     }
 
 	public String getName(){

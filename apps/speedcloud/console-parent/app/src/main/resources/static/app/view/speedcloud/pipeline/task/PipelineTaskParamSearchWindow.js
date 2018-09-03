@@ -41,7 +41,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamSearchWindow', {
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'taskTypeField'
+                            ,itemId: 'taskField'
                             ,fieldLabel: '所属任务'
                         }
 
@@ -172,7 +172,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var taskTypeField = me.down("#taskTypeField");
+        var taskField = me.down("#taskField");
         var nameField = me.down("#nameField");
         var typeField = me.down("#typeField");
         var defaultValueField = me.down("#defaultValueField");
@@ -184,7 +184,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamSearchWindow', {
         var enumValueField = me.down("#enumValueField");
 
         var condition = {
-            taskType:Ext.isEmpty(taskTypeField.getValue())?null:taskTypeField.getValue()
+            task:Ext.isEmpty(taskField.getValue())?null:taskField.getValue()
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
             ,defaultValue:Ext.isEmpty(defaultValueField.getValue())?null:defaultValueField.getValue()

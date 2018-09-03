@@ -172,7 +172,7 @@ public class PipelineTaskParamController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
-            headMap.put("taskType" ,"所属任务");
+            headMap.put("task" ,"所属任务");
             headMap.put("name" ,"参数名称");
             headMap.put("type" ,"参数类型");
             headMap.put("defaultValue" ,"默认值");

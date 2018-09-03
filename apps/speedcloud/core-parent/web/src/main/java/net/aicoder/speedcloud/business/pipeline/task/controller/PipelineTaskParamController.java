@@ -191,7 +191,7 @@ public class PipelineTaskParamController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
-            headMap.put("taskType" ,"所属任务");
+            headMap.put("task" ,"所属任务");
             headMap.put("name" ,"参数名称");
             headMap.put("type" ,"参数类型");
             headMap.put("defaultValue" ,"默认值");
@@ -213,22 +213,22 @@ public class PipelineTaskParamController {
 
 
 	    //初始化其他对象
-	    initTaskTypePropertyGroup(vo, pipelineTaskParam);
+	    initTaskPropertyGroup(vo, pipelineTaskParam);
         return vo;
 
 	}
 
 
-	private void initTaskTypePropertyGroup(PipelineTaskParamVO pipelineTaskParamVO, PipelineTaskParam pipelineTaskParam){
+	private void initTaskPropertyGroup(PipelineTaskParamVO pipelineTaskParamVO, PipelineTaskParam pipelineTaskParam){
 	
-		PipelineTask taskType = pipelineTaskService.find(pipelineTaskParam.getTaskType());
-		if(taskType == null){
+		PipelineTask task = pipelineTaskService.find(pipelineTaskParam.getTask());
+		if(task == null){
 			return;
 		}
-		PipelineTaskVO taskTypeVO = new PipelineTaskVO();
-		BeanUtils.copyProperties(taskType, taskTypeVO);
+		PipelineTaskVO taskVO = new PipelineTaskVO();
+		BeanUtils.copyProperties(task, taskVO);
 
-		pipelineTaskParamVO.setTaskTypeVO(taskTypeVO);
+		pipelineTaskParamVO.setTaskVO(taskVO);
 
 	}
 

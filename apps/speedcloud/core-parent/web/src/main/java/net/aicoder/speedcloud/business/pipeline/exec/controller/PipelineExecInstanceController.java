@@ -13,6 +13,7 @@ import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceAddDto;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceEditDto;
+import net.aicoder.speedcloud.business.pipeline.exec.service.ExecAction;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceService;
 import net.aicoder.speedcloud.business.pipeline.exec.valid.PipelineExecInstanceValidator;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
@@ -47,6 +48,9 @@ public class PipelineExecInstanceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineExecInstanceController.class);
 
+	@Autowired
+	private	ExecAction execAction;
+
 
 	@Autowired
 	private PipelineExecInstanceService pipelineExecInstanceService;
@@ -74,7 +78,8 @@ public class PipelineExecInstanceController {
 		PipelineExecInstance pipelineExecInstance = new PipelineExecInstance();
 		BeanUtils.copyProperties(pipelineExecInstanceAddDto, pipelineExecInstance);
 
-		pipelineExecInstanceService.add(pipelineExecInstance);
+		//pipelineExecInstanceService.add(pipelineExecInstance);
+		execAction.createExec(pipelineExecInstance);
 
 		return  initViewProperty(pipelineExecInstance);
 	}

@@ -28,6 +28,7 @@ public class PipelineTaskAction extends BaseEntity{
 	public static final String PROPERTY_MEMO = "memo";
 	public static final String PROPERTY_EXEC_INDEX = "execIndex";
 	public static final String PROPERTY_TYPE = "type";
+	public static final String PROPERTY_CONTENT = "content";
 
 
     @Id
@@ -79,6 +80,14 @@ public class PipelineTaskAction extends BaseEntity{
     @Column(name = "type", nullable = true, updatable = true)
 	private Long type;
 
+    /**
+    * 内容
+    * 脚本内容
+    */
+    @Column(name = "content", nullable = true, updatable = true)
+	@Size(max = 255, message = "内容超长，最多255个字符")
+	private String content;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -119,6 +128,13 @@ public class PipelineTaskAction extends BaseEntity{
 	}
 	public void setType(Long type) {
 		this.type = type;
+	}
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 

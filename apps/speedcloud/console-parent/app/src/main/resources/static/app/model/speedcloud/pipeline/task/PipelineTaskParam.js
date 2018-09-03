@@ -27,7 +27,7 @@ Ext.define('AM.model.speedcloud.pipeline.task.PipelineTaskParam', {
             ,critical:true
         }
     	,{
-            name: 'taskType'
+            name: 'task'
             ,type:'string'
             ,allowNull:true
             ,critical:true

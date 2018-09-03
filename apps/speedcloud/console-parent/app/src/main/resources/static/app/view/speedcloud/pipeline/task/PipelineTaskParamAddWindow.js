@@ -59,8 +59,8 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamAddWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'taskTypeField'
-                                    ,name: 'taskType'
+                                    ,itemId: 'taskField'
+                                    ,name: 'task'
                                     ,fieldLabel: '所属任务'
                                 }
 
@@ -226,7 +226,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskParamAddWindow', {
 
     }
     ,onBeforeShow:function() {
-        this.down('#taskTypeField').getStore().reload();
+        this.down('#taskField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

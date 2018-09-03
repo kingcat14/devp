@@ -23,8 +23,8 @@ public class PipelineTaskParamVO {
 
     /**所属任务*/
     @ApiModelProperty(value = "所属任务", notes = "")
-    private Long taskType;
-    private PipelineTaskVO taskTypeVO;
+    private Long task;
+    private PipelineTaskVO taskVO;
 
 
     /**参数名称*/
@@ -65,17 +65,17 @@ public class PipelineTaskParamVO {
     private String value;
 
 
-    public Long getTaskType(){
-        return taskType;
+    public Long getTask(){
+        return task;
     }
-    public void setTaskType(Long taskType) {
-        this.taskType = taskType;
+    public void setTask(Long task) {
+        this.task = task;
     }
-    public PipelineTaskVO getTaskTypeVO(){
-        return taskTypeVO;
+    public PipelineTaskVO getTaskVO(){
+        return taskVO;
     }
-    public void setTaskTypeVO(PipelineTaskVO taskTypeVO) {
-        this.taskTypeVO = taskTypeVO;
+    public void setTaskVO(PipelineTaskVO taskVO) {
+        this.taskVO = taskVO;
     }
 
     public String getName(){
