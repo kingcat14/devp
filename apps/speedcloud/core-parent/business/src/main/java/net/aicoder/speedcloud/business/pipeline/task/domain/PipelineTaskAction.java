@@ -81,11 +81,10 @@ public class PipelineTaskAction extends BaseEntity{
 	private Long type;
 
     /**
-    * 内容
+    * 脚本内容
     * 脚本内容
     */
-    @Column(name = "content", nullable = true, updatable = true)
-	@Size(max = 255, message = "内容超长，最多255个字符")
+    @Column(name = "content", nullable = true, updatable = true, length=19999, columnDefinition = "TEXT")
 	private String content;
 
 	public Long getTid(){
