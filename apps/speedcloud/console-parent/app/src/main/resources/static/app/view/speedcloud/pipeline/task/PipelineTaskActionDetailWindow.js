@@ -72,6 +72,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionDetailWindow', {
                                 return record.get('typeVO').name;
                             }
                         }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'contentField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'content'
+                            ,fieldLabel: '脚本内容'
+                            ,labelAlign: 'top'
+                        }
                     ]
                 }
             ]

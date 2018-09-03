@@ -34,6 +34,7 @@ public class PipelineTaskActionSpecification implements Specification<PipelineTa
 		tryAddMemoPredicate(predicateList, root, cb);
 		tryAddExecIndexPredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
+		tryAddContentPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -89,6 +90,11 @@ public class PipelineTaskActionSpecification implements Specification<PipelineTa
 	    if (null != condition.getType() ) {
             predicateList.add(cb.equal(root.get(PipelineTaskAction.PROPERTY_TYPE).as(Long.class), condition.getType()));
         }
+	}
+	private void tryAddContentPredicate(List<Predicate> predicateList, Root<PipelineTaskAction> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getContent())){
+			predicateList.add(cb.like(root.get(PipelineTaskAction.PROPERTY_CONTENT).as(String.class), "%"+condition.getContent()+"%"));
+		}
 	}
 }
 

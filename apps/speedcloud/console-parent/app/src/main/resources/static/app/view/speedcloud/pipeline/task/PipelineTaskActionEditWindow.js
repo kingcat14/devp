@@ -111,6 +111,16 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditWindow', {
                             ]
 
                         }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'contentField',
+                            padding: '5 0 0 5',
+                            name: 'content',
+                            fieldLabel: '脚本内容',
+                            labelAlign: 'top'
+                        }
                     ]
                 }
             ],
@@ -190,6 +200,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditWindow', {
        
        
         this.down('#typeField').getStore().reload();
+       
        
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }

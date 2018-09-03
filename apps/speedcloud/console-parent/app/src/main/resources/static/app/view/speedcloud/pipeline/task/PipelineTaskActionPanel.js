@@ -74,6 +74,12 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionPanel', {
                                 return record.get("typeVO")?record.get("typeVO").name:'';
                             }
                             ,text: '操作类型'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'content'
+                            ,text: '脚本内容'
                             ,flex:1
                         }
                         ,{

@@ -87,6 +87,12 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionSearchWindow', {
                             ,fieldLabel: '操作类型'
                         }
 
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'contentField'
+                            ,fieldLabel: '脚本内容'
+                        }
+
                             ]
                 }
             ],
@@ -159,6 +165,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionSearchWindow', {
         var execIndexMaxField = me.down("#execIndexMaxField");
         var execIndexMinField = me.down("#execIndexMinField");
         var typeField = me.down("#typeField");
+        var contentField = me.down("#contentField");
 
         var condition = {
             task:Ext.isEmpty(taskField.getValue())?null:taskField.getValue()
@@ -168,6 +175,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionSearchWindow', {
             ,execIndexMax:Ext.isNumber(execIndexMaxField.getValue())?execIndexMaxField.getValue():null
             ,execIndexMin:Ext.isNumber(execIndexMinField.getValue())?execIndexMinField.getValue():null
             ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
+            ,content:Ext.isEmpty(contentField.getValue())?null:contentField.getValue()
         };
 
         return condition;

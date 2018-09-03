@@ -32,6 +32,8 @@ public class PipelineTaskActionCondition extends SaaSCondition{
 	private Integer execIndexMin;
     @ApiModelProperty(value = "操作类型")
     private Long type;
+	@ApiModelProperty(value = "脚本内容", notes = "脚本内容")
+	private String content;
 
 
 	public Long getTid(){
@@ -108,6 +110,14 @@ public class PipelineTaskActionCondition extends SaaSCondition{
     public void setType(Long type) {
         this.type = type;
     }
+
+
+	public String getContent(){
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 
 

@@ -177,6 +177,7 @@ public class PipelineTaskActionController {
             headMap.put("memo" ,"操作说明");
             headMap.put("execIndex" ,"执行顺序");
             headMap.put("type" ,"操作类型");
+            headMap.put("content" ,"脚本内容");
 
         String title = new String("操作");
         String fileName = new String(("操作_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

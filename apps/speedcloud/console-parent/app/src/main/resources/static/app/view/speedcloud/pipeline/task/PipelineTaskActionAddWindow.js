@@ -119,7 +119,19 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddWindow', {
                                     ,fieldLabel: '操作类型'
                                 }
 
+
+
                             ]
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'contentField',
+                            padding: '5 0 0 5',
+                            name: 'content',
+                            fieldLabel: '脚本内容',
+                            labelAlign: 'top'
                         }
                     ]
                 }
