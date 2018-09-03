@@ -1,17 +1,17 @@
-Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
+Ext.define('AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodePanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.pipeline.task.PipelineTaskPanel'
-    , title: '任务'
+    , xtype: 'speedcloud.pipeline.exec.PipelineExecInstanceNodePanel'
+    , title: '运行实例节点'
     , layout: 'border'
     , requires: [
-        'AM.view.speedcloud.pipeline.task.PipelineTaskController'
-        ,'AM.store.speedcloud.pipeline.task.PipelineTaskStore'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskAddWindow'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskEditWindow'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskSearchWindow'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailWindow'
+        'AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodeController'
+        ,'AM.store.speedcloud.pipeline.exec.PipelineExecInstanceNodeStore'
+        ,'AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodeAddWindow'
+        ,'AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodeEditWindow'
+        ,'AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodeSearchWindow'
+        ,'AM.view.speedcloud.pipeline.exec.PipelineExecInstanceNodeDetailWindow'
     ]
-    ,controller: 'speedcloud.pipeline.task.PipelineTaskController'
+    ,controller: 'speedcloud.pipeline.exec.PipelineExecInstanceNodeController'
     ,initComponent: function() {
         var me = this;
 
@@ -20,7 +20,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskStore').load()
+                    ,store: Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecInstanceNodeStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -41,69 +41,92 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
+                            ,dataIndex: 'code'
+                            ,text: '编号'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
                             ,dataIndex: 'name'
-                            ,text: '任务名称'
+                            ,text: '节点名称'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'taskType'
+                            ,dataIndex: 'nodeType'
+                            ,text: '节点类型'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'execMode'
+                            ,text: '执行方式'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'status'
+                            ,text: '运行状态'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'result'
+                            ,text: '运行结果'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'exec'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("taskTypeVO")?record.get("taskTypeVO").displayName:'';
+                                return record.get("execVO")?record.get("execVO").code:'';
                             }
-                            ,text: '任务类型'
+                            ,text: '所属实例'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'execType'
+                            ,dataIndex: 'resultMessage'
+                            ,text: '结果消息'
+                            
+                        }
+                        ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d H:i:s'
+                            ,dataIndex: 'startTime'
+                            ,text: '开始时间'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'parentId'
+                            ,text: '上级节点'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'task'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("execTypeVO")?record.get("execTypeVO").displayName:'';
+                                return record.get("taskVO")?record.get("taskVO").name:'';
                             }
-                            ,text: '执行计划'
+                            ,text: '关联任务'
                             
                         }
                         ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'taskStartTime'
-                            ,text: '执行开始时间'
+                            xtype: 'booleancolumn'
+                            ,dataIndex: 'autoStart'
+                            ,trueText: '是'
+                            ,falseText: '否'
+                            ,emptyCellText :'不确定'
+                            ,text: '自动运行'
                             
                         }
                         ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'taskDayOfWeeks'
-                            ,text: '执行日'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '任务描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'project'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectVO")?record.get("projectVO").name:'';
-                            }
-                            ,text: '所属产品'
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'execIndex'
+                            ,format:'0,000'
+                            ,text: '节点排序'
                             ,flex:1
-                        }
-                        ,{
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:35
-                            ,items: [{
-                                iconCls: 'resultset_next'
-                                ,tooltip: '执行'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.getController().onExecButtonClick();
-                                }
-                            }]
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -217,10 +240,10 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
             ]
         });
 
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskDetailWindow',reference:'mainDetailWindow'})
+        me.add({xtype:'speedcloud.pipeline.exec.PipelineExecInstanceNodeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.pipeline.exec.PipelineExecInstanceNodeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.pipeline.exec.PipelineExecInstanceNodeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'speedcloud.pipeline.exec.PipelineExecInstanceNodeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

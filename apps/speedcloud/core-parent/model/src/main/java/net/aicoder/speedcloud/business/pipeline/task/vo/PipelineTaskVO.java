@@ -1,11 +1,10 @@
 package net.aicoder.speedcloud.business.pipeline.task.vo;
 
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
+import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -59,6 +58,8 @@ public class PipelineTaskVO {
     private Long project;
     private ProjectVO projectVO;
 
+    /**最后一次执行情况*/
+    private PipelineExecInstanceVO lastExecVO;
 
     public String getName(){
         return name;
@@ -127,8 +128,14 @@ public class PipelineTaskVO {
         this.projectVO = projectVO;
     }
 
+    public PipelineExecInstanceVO getLastExecVO() {
+        return lastExecVO;
+    }
+    public void setLastExecVO(PipelineExecInstanceVO lastExecVO) {
+        this.lastExecVO = lastExecVO;
+    }
 
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

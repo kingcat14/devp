@@ -1,9 +1,9 @@
-Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
+Ext.define('AM.view.speedcloud.pipeline.exec.PipelineExecInstanceController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
 
 	]
-	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskController'
+	,alias: 'controller.speedcloud.pipeline.exec.PipelineExecInstanceController'
 
 	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
 		//点击主数据的某行
@@ -15,11 +15,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
             detailTabPanel.expand();
         }
 
+		var id = record.get('id');
+
 	}
     ,onAddButtonClick: function() {
 
         var modelConfig = {}
-        var record = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTask', modelConfig);
+        var record = Ext.create('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', modelConfig);
 
         this.showAddWindow(record);
     }
@@ -43,7 +45,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
                         if(!success)
                         	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
-                        	Ext.MsgUtil.show('操作成功','删除任务成功!');
+                        	Ext.MsgUtil.show('操作成功','删除运行计划成功!');
                     }
                 });
             }
@@ -60,22 +62,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         }
         var record = selections[0];
         me.showEditWindow(record, mainGridPanel.getView().getRow(record));
-    }
-    ,onExecButtonClick: function(){
-	    //执行task
-        var me = this;
-        var mainGridPanel = me.lookupReference('mainGridPanel');
-        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
-        if(selections.length <= 0){
-            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
-            return;
-        }
-        var record = selections[0];
-
-        //创建一个执行对象
-        var taskExecConfig = {runnerId:record.get('id'), runnerType:'TASK'}
-        var taskExec = Ext.create('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', taskExecConfig);
-        taskExec.save()
     }
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;
@@ -100,7 +86,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         console.log(condition)
         Ext.Ajax.request({
             disableCaching: true
-            ,url: "pipeline/task/pipelineTask/export"
+            ,url: "pipeline/exec/pipelineExecInstance/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
             ,params:condition

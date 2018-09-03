@@ -44,21 +44,21 @@ public class PipelineStageTaskRelation extends BaseEntity{
     * 阶段
     * 
     */
-    @Column(name = "stage", nullable = true, updatable = true)
+    @Column(name = "stage", nullable = false, updatable = true)
 	private Long stage;
 
     /**
     * 任务
     * 
     */
-    @Column(name = "task", nullable = true, updatable = true)
+    @Column(name = "task", nullable = false, updatable = true)
 	private Long task;
 
     /**
     * 执行排序
     * 
     */
-    @Column(name = "exec_order", nullable = true, updatable = true)
+    @Column(name = "exec_order", nullable = false, updatable = true)
 	private Integer execOrder;
 
 	public Long getTid(){

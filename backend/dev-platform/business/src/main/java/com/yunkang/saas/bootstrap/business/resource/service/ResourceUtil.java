@@ -24,7 +24,6 @@ public class ResourceUtil {
 
                 o1.setOrderIndex(o1.getOrderIndex()==null?0:o1.getOrderIndex());
                 o2.setOrderIndex(o2.getOrderIndex()==null?0:o2.getOrderIndex());
-
                 //先按父节点ID排序
                 if(o1.getParentCode().compareTo(o2.getParentCode()) != 0){
                     return o1.getParentCode().compareTo(o2.getParentCode());
@@ -35,6 +34,8 @@ public class ResourceUtil {
                     return  o1.getOrderIndex().compareTo(o2.getOrderIndex());
                 }
                 //如果排序相等，则比较Code
+                o1.setCode(o1.getCode()==null?0:o1.getCode());
+                o2.setCode(o2.getCode()==null?0:o2.getCode());
                 return o1.getCode().compareTo(o2.getCode());
             }
         });

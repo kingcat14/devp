@@ -1,10 +1,10 @@
-Ext.define('AM.model.speedcloud.pipeline.PipelineStageTaskRelation', {
+Ext.define('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', {
     extend: 'Ext.data.Model'
     ,proxy: {
         type: "rest"
         ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
         ,headers:{"Accept":"application/json"}
-        ,url: 'speedcloud/pipeline/pipelinestagetaskrelation'
+        ,url: 'speedcloud/pipeline/exec/pipelineexecinstance'
         ,listeners: {
             exception: {
                 fn:  function(server, response, operation, options) {
@@ -27,21 +27,40 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStageTaskRelation', {
             ,critical:true
         }
     	,{
-            name: 'stage'
+            name: 'code'
             ,type:'string'
-            ,allowNull:false
+            ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'task'
+            name: 'executeTargetId'
             ,type:'string'
-            ,allowNull:false
+            ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'execOrder'
-            ,type:'int'
-            ,allowNull:false
+            name: 'executeTargetType'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'status'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'result'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'startTime'
+            ,type:'date'
+            ,dateFormat: 'time'
+            ,allowNull:true
             ,critical:true
         }
     ]

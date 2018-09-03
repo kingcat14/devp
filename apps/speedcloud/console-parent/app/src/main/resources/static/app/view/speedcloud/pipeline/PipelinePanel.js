@@ -40,10 +40,24 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                             }]
                         }
                         ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:35
+                            ,items: [{
+                                iconCls: 'resultset_next'
+                                ,tooltip: '执行'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    grid.getSelectionModel().deselectAll()
+                                    grid.getSelectionModel().select(record)
+                                    me.getController().onEditButtonClick();
+                                }
+                            }]
+                        }
+                        ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '流水线名称'
-                            
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -52,7 +66,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                 return record.get("typeVO")?record.get("typeVO").displayName:'';
                             }
                             ,text: '类型'
-                            
                         }
                         ,{
                             xtype: 'gridcolumn'
