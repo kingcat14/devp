@@ -25,6 +25,11 @@ public class PipelineTaskParamService  extends GenericCrudService<PipelineTaskPa
 	public List<PipelineTaskParam> findByTask(Long taskId){
 		return dao.findByTask(taskId);
 	}
+
+	public  int deleteByTaskId(Long taskId){
+		return dao.deleteByTask(taskId);
+	}
+
 	@Override
 	public Specification<PipelineTaskParam> getSpecification(PipelineTaskParamCondition condition) {
 		return new PipelineTaskParamSpecification(condition);

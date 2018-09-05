@@ -12,6 +12,8 @@ import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskActionS
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskParamService;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import java.util.List;
  */
 @Service
 public class CommandRunner {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandRunner.class);
 
     @Autowired
     private PipelineTaskService pipelineTaskService;
@@ -50,8 +54,12 @@ public class CommandRunner {
             if(CollectionUtils.isEmpty(commandList)){
                 return;
             }
-
-            run(command);
+            try {
+                run(command);
+            }catch (Exception e){
+                LOGGER.error("ERROR IN RUN COMMAND:{}", command);
+                LOGGER.error("ERROR IN RUN COMMAND", e);
+            }
             pipelineJobCommandService.merge(command);
         }
 
@@ -66,7 +74,7 @@ public class CommandRunner {
 
         }
         if("DELETE".equals(pipelineJobCommand.getType())){
-
+            deleteJob(pipelineJobCommand);
         }
     }
 
@@ -80,7 +88,7 @@ public class CommandRunner {
         CreateJobAction createJobAction = buildCreateJobAction(command.getTask());
 
         Result result = yunkangClient.create(createJobAction);
-
+//
         command.setResult(result.getFlag()+":"+result.getErrorMsg());
         command.setStatus("FINISH");
 
@@ -91,6 +99,15 @@ public class CommandRunner {
         CreateJobAction createJobAction = buildCreateJobAction(command.getTask());
 
         Result result = yunkangClient.create(createJobAction);
+
+        command.setResult(result.getFlag()+":"+result.getErrorMsg());
+        command.setStatus("FINISH");
+
+    }
+
+    public void deleteJob(PipelineJobCommand command){
+
+        Result result = yunkangClient.delete(command.getTask()+"");
 
         command.setResult(result.getFlag()+":"+result.getErrorMsg());
         command.setStatus("FINISH");

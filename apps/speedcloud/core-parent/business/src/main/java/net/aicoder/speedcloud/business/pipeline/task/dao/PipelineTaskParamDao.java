@@ -16,5 +16,5 @@ import java.util.List;
 public interface PipelineTaskParamDao extends BaseDao<PipelineTaskParam, Long>{
 
     List<PipelineTaskParam> findByTask(Long task);
-
+    int deleteByTask(Long taskId);
 }

@@ -193,10 +193,10 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigPanel', {
             ]
         });
 
-        me.add({xtype:'speedcloud.app.AppDevelopConfigAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.app.AppDevelopConfigEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.app.AppDevelopConfigSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.app.AppDevelopConfigDetailWindow',reference:'mainDetailWindow'})
+        // me.add({xtype:'speedcloud.app.AppDevelopConfigAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        // me.add({xtype:'speedcloud.app.AppDevelopConfigEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        // me.add({xtype:'speedcloud.app.AppDevelopConfigSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        // me.add({xtype:'speedcloud.app.AppDevelopConfigDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

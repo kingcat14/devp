@@ -43,7 +43,17 @@ public class JobRunner {
         List<PipelineExecInstanceNode> nodeList = pipelineExecInstanceNodeService.findPreparedJob(1L);
 
         for(PipelineExecInstanceNode node : nodeList){
-            runJob(node);
+            try{
+                runJob(node);
+            }catch(Exception e){
+                node.setResult("FAIL");
+            }finally {
+                node.setStatus("FINISH");
+                pipelineExecInstanceNodeService.merge(node);
+            }
+
+            //runJob(node);
+
         }
 
     }
@@ -75,7 +85,8 @@ public class JobRunner {
         }
 
         Result result = yunkangClient.exec(node.getTask()+"", execParamList);
-
+        node.setResult(result.getFlag());
+        node.setResultMessage(result.getErrorMsg());
         System.out.println(result);
     }
 }

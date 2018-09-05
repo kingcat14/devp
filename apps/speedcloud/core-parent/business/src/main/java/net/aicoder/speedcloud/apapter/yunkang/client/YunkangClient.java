@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.apapter.yunkang.client;
 
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.CreateJobAction;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.ExecParam;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -37,8 +38,12 @@ public class YunkangClient {
 
     public Result exec(String jobId, List<ExecParam> execParamList){
 
-        String url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId+"/param";
 
+        String url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId;
+        //
+        if(CollectionUtils.isNotEmpty(execParamList)){
+            url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId+"/param";
+        }
         return restTemplate.postForObject(url, execParamList, Result.class);
 
     }

@@ -59,11 +59,12 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
                     closable:true
                 })
             console.log(i)
-            this.insert(1,panel);
+            //this.insert(1,panel);
+            this.add(panel)
 
         }
         if(Ext.dashboard.length > 0){
-            //this.setActiveTab(1);
+            this.setActiveTab(1);
         }
 
         // var assetCmdbPanel = Ext.create("AM.view.maintenance.asset.info.AssetCmdbPanel",{

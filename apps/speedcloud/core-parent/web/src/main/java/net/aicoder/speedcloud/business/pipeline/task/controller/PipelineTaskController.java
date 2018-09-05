@@ -13,9 +13,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
-import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskCondition;
-import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskAddDto;
-import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskEditDto;
+import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTaskAction;
+import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTaskParam;
+import net.aicoder.speedcloud.business.pipeline.task.dto.*;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
 import net.aicoder.speedcloud.business.pipeline.task.valid.PipelineTaskValidator;
 import net.aicoder.speedcloud.business.pipeline.task.vo.PipelineTaskVO;
@@ -81,13 +81,19 @@ public class PipelineTaskController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineTaskVO add(@RequestBody @Valid PipelineTaskAddDto pipelineTaskAddDto){
+
+		List<PipelineTaskAction> actionList = getPipelineTaskActions(pipelineTaskAddDto.getActions(), pipelineTaskAddDto.getTid());
+
+		List<PipelineTaskParam> paramList = getPipelineTaskParams(pipelineTaskAddDto.getParams(), pipelineTaskAddDto.getTid());
+
 		PipelineTask pipelineTask = new PipelineTask();
 		BeanUtils.copyProperties(pipelineTaskAddDto, pipelineTask);
 
-		pipelineTaskService.add(pipelineTask);
+		pipelineTaskService.create(pipelineTask, actionList, paramList);
 
 		return  initViewProperty(pipelineTask);
 	}
+
 
 	/**
 	 * 删除任务,id以逗号分隔
@@ -103,7 +109,6 @@ public class PipelineTaskController {
 		for (String id : ids ){
 			pipelineTaskService.delete(Long.parseLong(id));
 		}
-
 	}
 
 	/**
@@ -115,10 +120,14 @@ public class PipelineTaskController {
 	@ApiOperation(value = "修改", notes = "修改产任务(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	PipelineTaskVO update(@RequestBody @Valid PipelineTaskEditDto pipelineTaskEditDto, @PathVariable Long id){
-		PipelineTask pipelineTask = new PipelineTask();
+		PipelineTask pipelineTask = pipelineTaskService.find(id);
 		BeanUtils.copyProperties(pipelineTaskEditDto, pipelineTask);
+
+		List<PipelineTaskAction> actionList = getPipelineTaskActions(pipelineTaskEditDto.getActions(), pipelineTask.getTid());
+		List<PipelineTaskParam> paramList = getPipelineTaskParams(pipelineTaskEditDto.getParams(), pipelineTask.getTid());
+
 		pipelineTask.setId(id);
-		pipelineTaskService.merge(pipelineTask);
+		pipelineTaskService.update(pipelineTask, actionList, paramList);
 
 		PipelineTaskVO vo = initViewProperty(pipelineTask);
 		return  vo;
@@ -247,6 +256,39 @@ public class PipelineTaskController {
 
 		pipelineTaskVO.setProjectVO(projectVO);
 
+	}
+
+
+	private List<PipelineTaskAction> getPipelineTaskActions(List<PipelineTaskActionAddDto> actionAddDtoList, Long tid) {
+		List<PipelineTaskAction> actionList = new ArrayList<>();
+		if(CollectionUtils.isNotEmpty(actionAddDtoList)){
+			PipelineTaskAction pipelineTaskAction;
+			for(PipelineTaskActionAddDto actionAddDto : actionAddDtoList){
+				pipelineTaskAction = new PipelineTaskAction();
+				BeanUtils.copyProperties(actionAddDto, pipelineTaskAction);
+				pipelineTaskAction.setTid(tid);
+
+				actionList.add(pipelineTaskAction);
+			}
+		}
+		return actionList;
+	}
+
+	private List<PipelineTaskParam> getPipelineTaskParams(List<PipelineTaskParamAddDto> paramAddDtoList, Long tid) {
+		List<PipelineTaskParam> paramList = new ArrayList<>();
+		if(CollectionUtils.isNotEmpty(paramAddDtoList)){
+
+			PipelineTaskParam pipelineTaskParam;
+			for(PipelineTaskParamAddDto paramAddDto : paramAddDtoList){
+
+				pipelineTaskParam = new PipelineTaskParam();
+				BeanUtils.copyProperties(paramAddDto, pipelineTaskParam);
+				pipelineTaskParam.setTid(tid);
+
+				paramList.add(pipelineTaskParam);
+			}
+		}
+		return paramList;
 	}
 
 

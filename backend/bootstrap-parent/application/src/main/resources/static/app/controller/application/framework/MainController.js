@@ -25,14 +25,14 @@ Ext.define('AM.controller.application.framework.MainController', {
 		this.control({
 			'viewport > userlist': {
 				itemdblclick: this.editUser
-			},
-
-			'mainFunctionTreePanel': {
-				itemclick: this.onTreepanelItemClick
-			},
-			'mainContentPanel > #functionPanel > mainfunctionview': {
-				itemclick: this.onFunctionPanelItemClick
 			}
+
+			,'mainFunctionTreePanel': {
+				itemclick: this.onTreepanelItemClick
+			}
+			// ,'mainContentPanel > #functionPanel > mainfunctionview': {
+			// 	itemclick: this.onFunctionPanelItemClick
+			// }
 		});
 
 		this.application = application;

@@ -27,6 +27,9 @@ public class PipelineTaskActionService  extends GenericCrudService<PipelineTaskA
 		return dao.findByTask(taskId);
 	}
 
+	public  int deleteByTaskId(Long taskId){
+		return dao.deleteByTask(taskId);
+	}
 	@Override
 	public Specification<PipelineTaskAction> getSpecification(PipelineTaskActionCondition condition) {
 		return new PipelineTaskActionSpecification(condition);

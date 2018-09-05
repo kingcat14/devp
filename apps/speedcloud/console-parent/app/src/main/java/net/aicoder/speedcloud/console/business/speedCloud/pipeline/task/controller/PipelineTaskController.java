@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
+import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskActionAddDto;
 import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskAddDto;
 import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskCondition;
 import net.aicoder.speedcloud.business.pipeline.task.dto.PipelineTaskEditDto;
@@ -77,6 +78,12 @@ public class PipelineTaskController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineTaskVO add(@RequestBody PipelineTaskAddDto pipelineTaskAddDto){
     	pipelineTaskAddDto.setTid(saaSUtil.getAccount().getTenantId());
+    	if(CollectionUtils.isNotEmpty(pipelineTaskAddDto.getActions())){
+    		List<PipelineTaskActionAddDto> actionAddDtoList = pipelineTaskAddDto.getActions();
+    		for(PipelineTaskActionAddDto actionAddDto : actionAddDtoList){
+    			actionAddDto.setTid(saaSUtil.getAccount().getId());
+			}
+		}
 		return  pipelineTaskRibbonService.add(pipelineTaskAddDto);
 	}
 

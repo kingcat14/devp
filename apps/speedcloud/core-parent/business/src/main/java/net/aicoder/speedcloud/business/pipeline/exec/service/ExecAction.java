@@ -68,6 +68,7 @@ public class ExecAction {
 		/*
 		 * 1.得到当前任务所使用的参数，取默认值
 		 * 2.生成一个任务节点
+		 * 3.开始这个节点
 		 */
 		instance.setExecuteTargetType("TASK");
 		instance.setExecuteTargetId(pipelineTask.getId());
@@ -76,7 +77,9 @@ public class ExecAction {
 
 		execService.add(instance);
 
-		execNodeAction.createTaskExecNode(instance, instance.getExecuteTargetId(), 1);
+
+		PipelineExecInstanceNode node = execNodeAction.createTaskExecNode(instance, instance.getExecuteTargetId(), 1);
+		execNodeAction.start(node);
 
 
 	}

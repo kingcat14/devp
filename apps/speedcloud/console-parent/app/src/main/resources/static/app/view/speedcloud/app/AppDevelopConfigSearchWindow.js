@@ -47,7 +47,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigSearchWindow', {
 
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepertoryStore")
+                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
                             ,typeAhead:false
                             ,editable:false
                             ,displayField:'url'

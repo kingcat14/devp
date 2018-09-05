@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 
 /**
  * 任务
@@ -49,7 +51,13 @@ public class PipelineTaskEditDto {
 	@ApiModelProperty(value = "所属产品", required = false)
 	private Long project;
 
+	/**步骤的操作列表*/
+	@ApiModelProperty(value = "步骤的操作列表", required = true)
+	List<PipelineTaskActionAddDto> actions;
 
+	/**步骤的参数列表*/
+	@ApiModelProperty(value = "步骤的参数列表", required = true)
+	List<PipelineTaskParamAddDto> params;
 
 	public String getName(){
 		return name;
@@ -106,6 +114,19 @@ public class PipelineTaskEditDto {
         this.project = project;
     }
 
+	public List<PipelineTaskActionAddDto> getActions() {
+		return actions;
+	}
+	public void setActions(List<PipelineTaskActionAddDto> actions) {
+		this.actions = actions;
+	}
+
+	public List<PipelineTaskParamAddDto> getParams() {
+		return params;
+	}
+	public void setParams(List<PipelineTaskParamAddDto> params) {
+		this.params = params;
+	}
 
 	@Override
 	public String toString() {

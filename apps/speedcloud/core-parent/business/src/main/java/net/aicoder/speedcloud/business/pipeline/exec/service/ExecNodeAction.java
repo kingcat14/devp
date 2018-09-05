@@ -48,7 +48,7 @@ public class ExecNodeAction {
 	 * @param instance
 	 * @param taskId
 	 */
-	public void createTaskExecNode(PipelineExecInstance instance, Long taskId, int execIndex){
+	public PipelineExecInstanceNode createTaskExecNode(PipelineExecInstance instance, Long taskId, int execIndex){
 
 		PipelineTask pipelineTask = pipelineTaskService.find(taskId);
 
@@ -63,7 +63,7 @@ public class ExecNodeAction {
 		node.setExecIndex(execIndex);
 		node.setExecMode("SERIALIZED");
 		node.setTid(instance.getTid());
-		node.setStatus("WAITING");
+		node.setStatus(PipelineExecInstanceNodeStatus.WAIT);
 
 		execNodeService.add(node);
 
@@ -81,6 +81,20 @@ public class ExecNodeAction {
 		}
 
 		pipelineExecInstanceNodeParamService.add(nodeParamList);
+
+		return node;
 	}
+
+
+
+	/**
+	 * 开始执行一个节点
+	 * @param node
+	 */
+	public void start(PipelineExecInstanceNode node){
+		node.setStatus(PipelineExecInstanceNodeStatus.PREPARED);
+		execNodeService.merge(node);
+	}
+
 
 }

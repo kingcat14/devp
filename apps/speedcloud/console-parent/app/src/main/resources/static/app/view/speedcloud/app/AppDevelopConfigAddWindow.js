@@ -4,7 +4,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.app.AppBaseInfoStore'
-        ,'AM.store.speedcloud.app.CodeRepertoryStore'
+        ,'AM.store.speedcloud.app.CodeRepositoryStore'
 
     ]
     ,autoScroll: true
@@ -68,7 +68,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepertoryStore")
+                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'url'

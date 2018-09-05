@@ -17,4 +17,5 @@ public interface PipelineTaskActionDao extends BaseDao<PipelineTaskAction, Long>
 
     List<PipelineTaskAction> findByTask(Long taskId);
 
+    int deleteByTask(Long taskId);
 }
