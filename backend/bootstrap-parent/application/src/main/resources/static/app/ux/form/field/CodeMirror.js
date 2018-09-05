@@ -39,55 +39,27 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         'Ext.util.DelayedTask'
     ],
 
-    // This template includes a `\n` after `<textarea>` opening tag so that an
-    // initial value starting with `\n` does not lose its first character when
-    // the markup is parsed. Both textareas below have the same value:
-    //
-    //     <textarea>initial value</textarea>
-    //
-    //     <textarea>
-    //     initial value
-    //     </textarea>
-    //
+    mode:'javascript',
+    theme:'eclipse',
     fieldSubTpl: [
         '<textarea id="{id}" data-ref="inputEl" {inputAttrTpl}',
-            '<tpl if="name"> name="{name}"</tpl>',
-            '<tpl if="placeholder"> placeholder="{placeholder}"</tpl>',
-            '<tpl if="maxLength !== undefined"> maxlength="{maxLength}"</tpl>',
-            '<tpl if="readOnly"> readonly="readonly"</tpl>',
-            '<tpl if="disabled"> disabled="disabled"</tpl>',
-            '<tpl if="tabIdx != null"> tabindex="{tabIdx}"</tpl>',
-            ' class="{fieldCls} {typeCls} {typeCls}-{ui} {inputCls}" ',
-            '<tpl if="fieldStyle"> style="{fieldStyle}"</tpl>',
-            '<tpl foreach="ariaElAttributes"> {$}="{.}"</tpl>',
-            '<tpl foreach="inputElAriaAttributes"> {$}="{.}"</tpl>',
-            ' autocomplete="off">\n',
-            '<tpl if="value">{[Ext.util.Format.htmlEncode(values.value)]}</tpl>',
+        '<tpl if="name"> name="{name}"</tpl>',
+        '<tpl if="placeholder"> placeholder="{placeholder}"</tpl>',
+        '<tpl if="maxLength !== undefined"> maxlength="{maxLength}"</tpl>',
+        '<tpl if="readOnly"> readonly="readonly"</tpl>',
+        '<tpl if="disabled"> disabled="disabled"</tpl>',
+        '<tpl if="tabIdx != null"> tabindex="{tabIdx}"</tpl>',
+        ' class="{fieldCls} {typeCls} {typeCls}-{ui} {inputCls}" ',
+        '<tpl if="fieldStyle"> style="{fieldStyle}"</tpl>',
+        '<tpl foreach="ariaElAttributes"> {$}="{.}"</tpl>',
+        '<tpl foreach="inputElAriaAttributes"> {$}="{.}"</tpl>',
+        ' autocomplete="off">\n',
+        '<tpl if="value">{[Ext.util.Format.htmlEncode(values.value)]}</tpl>',
         '</textarea>',
         {
             disableFormats: true
         }
     ],
-
-    /**
-     * @cfg {Number} growMin
-     * The minimum height to allow when {@link #grow}=true
-     */
-    growMin: 60,
-
-    /**
-     * @cfg {Number} growMax
-     * The maximum height to allow when {@link #grow}=true
-     */
-    growMax: 1000,
-
-    /**
-     * @cfg {String} growAppend
-     * A string that will be appended to the field's current value for the purposes of calculating the target field
-     * size. Only used when the {@link #grow} config is true. Defaults to a newline for TextArea to ensure there is
-     * always a space below the current line.
-     */
-    growAppend: '\n-',
 
     /**
      * @cfg {Boolean} enterIsSpecial
@@ -149,22 +121,50 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         if (me.needsMaxCheck) {
             me.inputEl.on('paste', me.onPaste, me);
         }
-
-        //this.codeMirrorEditor = new CodeMirror.fromTextArea(document.getElementById(me.id+'-inputEl'), {});
         me.codeMirrorEditor = new CodeMirror.fromTextArea(Ext.getDom(me.id+'-inputEl')
-                ,{
-                    value: "function myScript(){return 100;}\n"
-                    ,mode:  "javascript"
-                    ,lineNumbers: true
-                    //,theme:'idea'
-                    ,matchBrackets: true
-                    ,continueComments: "Enter"
-                }
-            );
+            ,{
+                mode:  me.mode
+                ,lineNumbers: true
+                ,theme:me.theme
+                ,matchBrackets: true
+                ,continueComments: "Enter"
+            }
+        );
         me.codeMirrorEditor.setSize('auto','500px');
 
     },
+    setTheme:function(theme){
+        if(this.codeMirrorEditor){
+            return this.codeMirrorEditor.setOption('theme', theme);
+        }
+    },
+    setMode:function(mode){
+        if(this.codeMirrorEditor){
+            return this.codeMirrorEditor.setOption('mode', mode);
+        }
+    },
+    setModeByFileName:function(fileName){
 
+        var fileName = Ext.valueFrom(fileName, "")
+
+        var mode = 'javascript';
+
+        if(fileName.lastIndexOf(".java")>=0){
+            mode = 'text/x-java';
+        }else if(fileName.lastIndexOf(".xml")>=0){
+            mode = 'text/html';
+        }else if(fileName.lastIndexOf(".yml")>=0){
+            mode = 'text/yaml';
+        }else if(fileName.lastIndexOf(".yml")>=0){
+            mode = 'text/yaml'
+        }
+
+        this.mode = mode;
+
+        if(this.codeMirrorEditor){
+            return this.codeMirrorEditor.setOption('mode', mode);
+        }
+    },
     // The following overrides deal with an issue whereby some browsers
     // will strip carriage returns from the textarea input, while others
     // will not. Since there's no way to be sure where to insert returns,
@@ -179,6 +179,14 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         return this.stripReturns(value);
     },
 
+    setValue: function(value) {
+        if(this.codeMirrorEditor){
+
+            this.codeMirrorEditor.setValue(Ext.valueFrom(value, ''));
+
+        }
+        return this;
+    },
     getValue: function(){
         //return this.stripReturns(this.callParent());
         //console.log(this.codeMirrorEditor.getValue())
@@ -277,44 +285,19 @@ Ext.define('AM.ux.form.field.CodeMirror', {
      * field height allowed. This only takes effect if {@link #grow} = true, and fires the
      * {@link #autosize} event if the height changes.
      */
-    autoSize: function() {
-        var me = this,
-            inputEl, height, curWidth, value;
 
-        if (me.grow && me.rendered && me.getSizeModel().height.auto) {
-            inputEl = me.inputEl;
-            //subtract border/padding to get the available width for the text
-            curWidth = inputEl.getWidth(true);
+    onResize: function(width, height, oldWidth, oldHeight) {
+        var me = this;
 
-            value = Ext.util.Format.htmlEncode(inputEl.dom.value) || '&#160;';
-            value += me.growAppend;
+        if(me.rendered && this.codeMirrorEditor){
+            console.log('CodeMirror valueToRaw:'+this.codeMirrorEditor.getValue())
 
-            // Translate newlines to <br> tags
-            value = value.replace(/\n/g, '<br/>');
-
-            height = Ext.util.TextMetrics.measure(inputEl, value, curWidth).height +
-                inputEl.getPadding('tb') +
-                // The element that has the border depends on theme - inputWrap (classic)
-                // or triggerWrap (neptune)
-                me.inputWrap.getBorderWidth('tb') + me.triggerWrap.getBorderWidth('tb');
-
-            height = Math.min(Math.max(height, me.growMin), me.growMax);
-
-            inputEl.setStyle('overflow-y', height >= me.growMax ? 'auto' : 'hidden');
-            me.bodyEl.setHeight(height);
-
-            me.updateLayout();
-
-            me.fireEvent('autosize', me, height);
-            console.log("autoSize")
-            if(me.codeMirrorEditor){
-                console.log(" codeMirrorEditor autoSize")
-                me.codeMirrorEditor.setSize('auto',height);
-            }
+            me.codeMirrorEditor.setSize(width-2, height-25);
         }
+        me.callParent([width, height, oldWidth, oldHeight]);
     },
-
     doDestroy: function() {
+
         var task = this.pasteTask;
 
         if (task) {

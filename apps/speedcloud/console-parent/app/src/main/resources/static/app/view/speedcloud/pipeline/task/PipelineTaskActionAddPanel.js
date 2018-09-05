@@ -70,13 +70,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
                             xtype: 'codemirrorfield',
                             itemId: 'contentField',
                             padding: '5 0 0 5',
-                            // maxHeight: 500,
-                            //height:1000,
+                            flex:1,
                             name: 'content',
                             fieldLabel: '脚本内容',
-                            labelAlign: 'right'
+                            labelAlign: 'right',
+                            mode:'text/x-sh'
+                            //,theme:'dracula'
                             // ,flex:1
-                            // ,fieldStyle:'font-family: monospace;'
                         }
                     ]
                 }
