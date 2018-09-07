@@ -84,11 +84,10 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 
         var panel = this.lookup(tabConfig.reference);
 
-        if(panel){
-
-            return;
+        if(!panel){
+            panel = this.add(tabConfig)
         }
-        panel = this.add(tabConfig)
+
         this.setActiveTab(panel);
     }
 });
