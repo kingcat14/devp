@@ -12,7 +12,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 		closable: true,
 		//border: false
 	}
-
+    ,referenceHolder:true
     ,initComponent: function() {
         var me = this;
 
@@ -22,6 +22,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
                     fn: me.onTabpanelBeforeRender,
                     scope: me
                 }
+                ,createMainTabPanel: {fn:me.createMainTabPanel, scope:me }
             }
         });
 
@@ -75,5 +76,19 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 
 
     }
+    ,createMainTabPanel: function(srcView, tabConfig){
+        if(!tabConfig.reference){
+            Ext.MessageBox.alert('创建tab页失败', '页面配置必须包含reference属性');
+            return;
+        }
 
+        var panel = this.lookup(tabConfig.reference);
+
+        if(panel){
+
+            return;
+        }
+        panel = this.add(tabConfig)
+        this.setActiveTab(panel);
+    }
 });

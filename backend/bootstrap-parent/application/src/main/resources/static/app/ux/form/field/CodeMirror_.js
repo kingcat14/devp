@@ -39,7 +39,7 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         'Ext.util.DelayedTask'
     ],
 
-    mode:'gfm',
+    mode:'javascript',
     theme:'eclipse',
     fieldSubTpl: [
         '<textarea id="{id}" data-ref="inputEl" {inputAttrTpl}',
@@ -84,55 +84,6 @@ Ext.define('AM.ux.form.field.CodeMirror', {
     ariaAttributes: {
         'aria-multiline': true
     },
-
-    //<debug>
-    constructor: function(config) {
-        this.callParent([config]);
-        if (this.cols) {
-            Ext.log.warn('Ext.form.field.TextArea "cols" config was removed in Ext 5.0. Please specify a "width" or use a layout instead.');
-        }
-
-        if (this.rows) {
-            Ext.log.warn('Ext.form.field.TextArea "rows" config was removed in Ext 5.0. Please specify a "height" or use a layout instead.');
-        }
-    },
-    //</debug>
-
-    getSubTplData: function(fieldData) {
-        var me = this,
-            fieldStyle = me.getFieldStyle(),
-            ret = me.callParent(arguments);
-
-        if (me.grow) {
-            if (me.preventScrollbars) {
-                ret.fieldStyle = (fieldStyle||'') + ';overflow:hidden;height:' + me.growMin + 'px';
-            }
-        }
-
-        return ret;
-    },
-
-    afterRender: function () {
-        var me = this;
-
-        me.callParent(arguments);
-
-        me.needsMaxCheck = me.enforceMaxLength && me.maxLength !== Number.MAX_VALUE && !Ext.supports.TextAreaMaxLength;
-        if (me.needsMaxCheck) {
-            me.inputEl.on('paste', me.onPaste, me);
-        }
-        me.codeMirrorEditor = new CodeMirror.fromTextArea(Ext.getDom(me.id+'-inputEl')
-            ,{
-                mode:  me.mode
-                ,lineNumbers: true
-                ,theme:me.theme
-                ,matchBrackets: true
-                ,continueComments: "Enter"
-            }
-        );
-        me.codeMirrorEditor.setSize('auto','500px');
-
-    },
     setTheme:function(theme){
         if(this.codeMirrorEditor){
             return this.codeMirrorEditor.setOption('theme', theme);
@@ -147,16 +98,16 @@ Ext.define('AM.ux.form.field.CodeMirror', {
 
         var fileName = Ext.valueFrom(fileName, "")
 
-        var mode = 'gfm';
+        var mode = 'javascript';
 
         if(fileName.lastIndexOf(".java")>=0){
             mode = 'text/x-java';
         }else if(fileName.lastIndexOf(".xml")>=0){
             mode = 'text/html';
         }else if(fileName.lastIndexOf(".yml")>=0){
+            mode = 'text/yaml';
+        }else if(fileName.lastIndexOf(".yml")>=0){
             mode = 'text/yaml'
-        }else if(fileName.lastIndexOf(".properties")>=0){
-            mode = 'text/x-properties'
         }
 
         this.mode = mode;
@@ -165,66 +116,105 @@ Ext.define('AM.ux.form.field.CodeMirror', {
             return this.codeMirrorEditor.setOption('mode', mode);
         }
     },
+    //<debug>
+    constructor: function(config) {
+        this.callParent([config]);
+        if (this.cols) {
+            Ext.log.warn('Ext.form.field.TextArea "cols" config was removed in Ext 5.0. Please specify a "width" or use a layout instead.');
+        }
 
+        if (this.rows) {
+            Ext.log.warn('Ext.form.field.TextArea "rows" config was removed in Ext 5.0. Please specify a "height" or use a layout instead.');
+        }
+    },
+    //</debug>
+
+    getSubTplData: function(fieldData) {
+        console.log("Code Mirror : getSubTplData")
+        var me = this,
+            fieldStyle = me.getFieldStyle(),
+            ret = me.callParent(arguments);
+        return ret;
+    },
+
+    afterRender: function () {
+        var me = this;
+
+        me.callParent(arguments);
+
+        me.needsMaxCheck = me.enforceMaxLength && me.maxLength !== Number.MAX_VALUE && !Ext.supports.TextAreaMaxLength;
+        if (me.needsMaxCheck) {
+            me.inputEl.on('paste', me.onPaste, me);
+        }
+        if(!me.codeMirrorEditor) {
+            me.codeMirrorEditor = new CodeMirror.fromTextArea(Ext.getDom(me.id + '-inputEl')
+                , {
+                    mode: me.mode
+                    , lineNumbers: true
+                    // ,theme:me.theme
+                    , matchBrackets: true
+                    , continueComments: "Enter"
+                }
+            );
+            me.codeMirrorEditor.setSize('auto', '500px');
+        }
+
+    },
+
+    // The following overrides deal with an issue whereby some browsers
+    // will strip carriage returns from the textarea input, while others
+    // will not. Since there's no way to be sure where to insert returns,
+    // the best solution is to strip them out in all cases to ensure that
+    // the behaviour is consistent in a cross browser fashion. As such,
+    // we override in all cases when setting the value to control this.
     transformRawValue: function(value){
+        console.log("CodeMirror transformRawValue")
+        if(this.codeMirrorEditor){
+            return this.codeMirrorEditor.getValue();
+        }
+        return this.stripReturns(value);
+    },
+    getValue: function(){
+        //return this.stripReturns(this.callParent());
+        //console.log(this.codeMirrorEditor.getValue())
+        console.log("CodeMirror getValue")
+        if(this.codeMirrorEditor){
+            console.log("CodeMirror getValue in editor")
+            return this.codeMirrorEditor.getValue();
+        }
+
+    },
+
+    valueToRaw: function(value){
+        console.log("CodeMirror valueToRaw")
+        if(this.codeMirrorEditor){
+            return this.codeMirrorEditor.getValue();
+        }
+        value = this.stripReturns(value);
+        return this.callParent([value]);
+    },
+
+    stripReturns: function(value){
+        if (value && typeof value === 'string') {
+            value = value.replace(this.returnRe, '');
+        }
         return value;
     },
+
     setValue: function(value) {
         var me = this;
+
         me.setRawValue(me.valueToRaw(value));
+
         if(this.codeMirrorEditor){
+            console.log("Ext.valueFrom:"+Ext.valueFrom(value, ''))
             this.codeMirrorEditor.setValue(Ext.valueFrom(value, ''));
+            this.codeMirrorEditor.setValue(value)
         }
+
         return me.mixins.field.setValue.call(me, value);
     },
-    setRawValue: function(value) {
-        var me = this,
-            rawValue = me.rawValue;
 
-        if (!me.transformRawValue.$nullFn) {
-            value = me.transformRawValue(value);
-        }
-
-        value = Ext.valueFrom(value, '');
-
-        if (rawValue === undefined || rawValue !== value) {
-            me.rawValue = value;
-
-            // Some Field subclasses may not render an inputEl
-            if (me.inputEl) {
-                me.bindChangeEvents(false);
-                me.inputEl.dom.value = value;
-                me.bindChangeEvents(true);
-            }
-        }
-
-        if (me.rendered && me.reference) {
-            me.publishState('rawValue', value);
-        }
-
-        return value;
-    },
-    getValue: function() {
-        var me = this,
-            val = me.rawToValue(me.processRawValue(me.getRawValue()));
-        me.value = val;
-        return val;
-    },
-
-    getRawValue: function() {
-        console.log('CodeMirror getRawValue')
-
-        var me = this,
-            v = Ext.valueFrom(me.rawValue, '');
-
-        if(this.codeMirrorEditor){
-            v = this.codeMirrorEditor.getValue();
-        }
-        console.log("v:"+v);
-        me.rawValue = v;
-        console.log("me.rawValue："+me.rawValue)
-        return v;
-    },
     getModelData: function(includeEmptyText, isSubmitting) {
         var me = this,
             data = null;
@@ -240,6 +230,8 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         }
         return data;
     },
+
+
 
     onPaste: function(){
         var me = this;
@@ -260,31 +252,7 @@ Ext.define('AM.ux.form.field.CodeMirror', {
             me.setValue(value);
         }
     },
-    startCheckChangeTask: function() {console.log('startCheckChangeTask')
-        var me = this,
-            task = me.checkChangeTask;
 
-        if (!task) {
-            me.checkChangeTask = task = new Ext.util.DelayedTask(me.doCheckChangeTask, me);
-        }
-        if (!me.bindNotifyListener) {
-            // We continually create/destroy the listener as needed (see doCheckChangeTask) because we're listening
-            // to a global event, so we don't want the event to be triggered unless absolutely necessary. In this case,
-            // we only need to fix the value when we have a pending change to check.
-            me.bindNotifyListener = Ext.on('beforebindnotify', me.onBeforeNotify, me, {destroyable: true});
-        }
-        task.delay(me.checkChangeBuffer);
-    },
-
-    doCheckChangeTask: function() {console.log('doCheckChangeTask')
-        var bindNotifyListener = this.bindNotifyListener;
-
-        if (bindNotifyListener) {
-            bindNotifyListener.destroy();
-            this.bindNotifyListener = null;
-        }
-        this.checkChange();
-    },
     /**
      * @private
      */
@@ -327,7 +295,6 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         var me = this;
 
         if(me.rendered && this.codeMirrorEditor){
-            console.log('CodeMirror valueToRaw:'+this.codeMirrorEditor.getValue())
 
             me.codeMirrorEditor.setSize(width-2, height-25);
         }

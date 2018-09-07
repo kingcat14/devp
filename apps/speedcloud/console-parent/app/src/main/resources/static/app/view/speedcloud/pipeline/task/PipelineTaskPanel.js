@@ -6,15 +6,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
     , requires: [
         'AM.view.speedcloud.pipeline.task.PipelineTaskController'
         ,'AM.store.speedcloud.pipeline.task.PipelineTaskStore'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskAddWindow'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskEditWindow'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskSearchWindow'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailWindow'
     ]
     ,controller: 'speedcloud.pipeline.task.PipelineTaskController'
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
@@ -38,6 +36,29 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                                     me.showDetailWindow(record, this);
                                 }
                             }]
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:35
+                            ,items: [{
+                                iconCls: 'resultset_next'
+                                ,tooltip: '执行'
+                                ,handler: function(grid, rowIndex, colIndex) {
+                                    var record = grid.getStore().getAt(rowIndex);
+                                    grid.getSelectionModel().deselectAll()
+                                    grid.getSelectionModel().select(record)
+                                    me.getController().onExecButtonClick();
+                                }
+                            }]
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'project'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("projectVO")?record.get("projectVO").name:'';
+                            }
+                            ,text: '所属产品'
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -79,32 +100,10 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'description'
                             ,text: '任务描述'
+                            ,flex:1
                             
                         }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'project'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectVO")?record.get("projectVO").name:'';
-                            }
-                            ,text: '所属产品'
-                            ,flex:1
-                        }
-                        ,{
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:35
-                            ,items: [{
-                                iconCls: 'resultset_next'
-                                ,tooltip: '执行'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.getController().onExecButtonClick();
-                                }
-                            }]
-                        }
+
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
@@ -204,21 +203,22 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                     ]
                     ,selModel: 'checkboxmodel'
                     ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
+                        itemdblclick:'onMainPanelRowClick'
                     }
                 }
             ]
+            ,listeners: {
+                beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+                ,beforehide: {
+                    fn: me.onPanelBeforeHide
+                    ,scope: me
+                }
+            }
         });
 
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.pipeline.task.PipelineTaskSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
         me.add({xtype:'speedcloud.pipeline.task.PipelineTaskDetailWindow',reference:'mainDetailWindow'})
 
@@ -232,8 +232,11 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
         detailWindow.show(targetComponent);
         return detailWindow;
     }
-
+    ,onPanelBeforeHide:function () {
+        console.log('onPanelBeforeHide')
+    }
     ,onBeforeShow:function(abstractcomponent, options) {
+        console.log('onBeforeShow')
 	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -32,6 +32,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -76,7 +77,7 @@ public class PipelineTaskController {
 	@ApiOperation(value = "新增", notes = "新增任务", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	public PipelineTaskVO add(@RequestBody PipelineTaskAddDto pipelineTaskAddDto){
+	public PipelineTaskVO add(@RequestBody @Valid PipelineTaskAddDto pipelineTaskAddDto){
     	pipelineTaskAddDto.setTid(saaSUtil.getAccount().getTenantId());
     	if(CollectionUtils.isNotEmpty(pipelineTaskAddDto.getActions())){
     		List<PipelineTaskActionAddDto> actionAddDtoList = pipelineTaskAddDto.getActions();

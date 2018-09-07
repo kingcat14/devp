@@ -1,29 +1,66 @@
 Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-
+        'AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel'
 	]
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskController'
 
 	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
 		//点击主数据的某行
 		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
-
+        me.createTaskTabOnMainContenPanel(record, record.get(id));
 	}
     ,onAddButtonClick: function() {
 
-        var modelConfig = {}
+        var modelConfig = {name:'_新增'}
+
         var record = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTask', modelConfig);
+        this.createTaskTabOnMainContenPanel(record, Ext.id());
 
-        this.showAddWindow(record);
+	}
+    /**在系统主面板创建Tab页*/
+    ,createTaskTabOnMainContenPanel:function(record, referenceId){
+        this.fireViewEvent('createMainTabPanel', this.getView()
+            ,{
+                xtype:'speedcloud.pipeline.task.PipelineTaskEditPanel'
+                , reference:'PipelineTaskEditPanel_'+referenceId
+                // , title:record.get('name')
+                , viewModel:{
+                    data:{record:record, taskDayOfWeeksArray:{}, taskStartTime:{}}
+                    ,formulas:{
+                        'taskDayOfWeeksArray':{
+                            get: function (get) {
+                                var array = Ext.valueFrom(get('record.taskDayOfWeeks'),'').split(",");
+                                for(var i in array){
+                                    array[i] = Ext.Number.from(array[i], 999);
+                                }
+                                return {taskDayOfWeeks:array};
+                            }
+                            ,set: function (value) {
+                                console.log(value)
+                                var result = value.taskDayOfWeeks;
+                                if(Ext.isArray(value.taskDayOfWeeks)){
+                                    result = value.taskDayOfWeeks.join(",")
+                                }
+                                this.set('record.taskDayOfWeeks', result)
+                            }
+                        }
+                        ,'taskStartTime':{
+                            bind: '{record.taskStartTime}'
+                            ,get: function (taskStartTime) {return taskStartTime;}
+                            ,set: function (value) {
+                                var taskStartTime = Ext.Date.format(value, 'H:i');
+                                this.data.record.set('taskStartTime', taskStartTime);
+                            }}
+                    }
+                    ,stores:{
+                        actionStore:Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskActionStore').applyCondition({task:Ext.isNumeric(record.get('id'))?record.get('id')+"":-999}).load()
+                        ,paramStore:Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskParamStore').applyCondition({task:Ext.isNumeric(record.get('id'))?record.get('id')+"":-999}).load()
+                    }
+                }
+            }
+        );
     }
-
     ,onDeleteButtonClick: function(button, e, options) {
         var me = this;
         var mainGridPanel = me.lookupReference('mainGridPanel');
@@ -59,7 +96,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
             return;
         }
         var record = selections[0];
-        me.showEditWindow(record, mainGridPanel.getView().getRow(record));
+        me.createTaskTabOnMainContenPanel(record, record.get(id));
     }
     ,onExecButtonClick: function(){
 	    //执行task

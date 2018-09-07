@@ -16,6 +16,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
     ,title: '添加新操作'
     ,maximizable: true
     ,closeAction: 'hide'
+    ,referenceHolder:true
     ,initComponent: function () {
         var me = this;
 
@@ -52,7 +53,8 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '操作名称'
-                                    ,listeners:{change:{fn:me.updateRecord, scope: me}}
+                                    ,bind:'{record.name}'
+                                    // ,listeners:{change:{fn:me.updateRecord, scope: me}}
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -62,12 +64,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'memoField'
                                     ,name: 'memo'
+                                    ,bind:'{record.memo}'
                                     ,fieldLabel: '操作说明'
                                 }
                             ]
                         }
                         ,{
                             xtype: 'codemirrorfield',
+                            // xtype: 'textarea',
                             itemId: 'contentField',
                             padding: '5 0 0 5',
                             flex:1,
@@ -75,36 +79,31 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
                             fieldLabel: '脚本内容',
                             labelAlign: 'right',
                             mode:'text/x-sh'
+                            ,reference:'contentField'
+                            ,bind:'{record.content}'
                             //,theme:'dracula'
                             // ,flex:1
+                            ,listeners: {
+                                focusleave: {
+                                    fn:me.updateContent
+                                    ,scope:me
+                                }
+                            }
                         }
                     ]
                 }
             ]
-            ,listeners: {
-                beforeshow: me.onBeforeShow
-                ,beforehide: me.updateRecord
-                ,focusleave:me.updateRecord
-            }
+
         });
 
         me.callParent(arguments);
     }
-    ,setModel: function (model) {
-        if(!model){
-            Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
-            return;
-        }
-        this.down('form').getForm().loadRecord(model);
+    ,updateContent: function(){
+        console.log('form updateContent')
+        var contentField =  this.lookup('contentField')
+        console.log(contentField.getValue());
+        this.viewModel.data.record.set("content", contentField.getValue())
+        console.log(this.viewModel.data.record)
+    }
 
-    }
-    ,onBeforeShow:function() {
-        // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
-    }
-    ,updateRecord: function(){
-        this.down('form').getForm().updateRecord();
-        console.log("contentField:"+this.down('#contentField').getValue())
-        this.down('form').getRecord().set("content", this.down('#contentField').getValue())
-        this.down('form').getRecord().commit();
-    }
 });

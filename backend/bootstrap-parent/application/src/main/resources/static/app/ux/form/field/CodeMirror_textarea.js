@@ -30,17 +30,25 @@
  * use any reasonable method to attempt to re-insert these, they will automatically be
  * stripped out to ensure the behaviour is consistent across browser.
  */
-Ext.define('AM.ux.form.field.CodeMirror', {
+Ext.define('Ext.form.field.TextArea', {
     extend:'Ext.form.field.Text',
-    alias: ['widget.codemirrorfield', 'widget.codemirror'],
-    alternateClassName: 'Ext.form.CodeMirror',
+    alias: ['widget.textareafield', 'widget.textarea'],
+    alternateClassName: 'Ext.form.TextArea',
     requires: [
         'Ext.XTemplate',
         'Ext.util.DelayedTask'
     ],
 
-    mode:'gfm',
-    theme:'eclipse',
+    // This template includes a `\n` after `<textarea>` opening tag so that an
+    // initial value starting with `\n` does not lose its first character when
+    // the markup is parsed. Both textareas below have the same value:
+    //
+    //     <textarea>initial value</textarea>
+    //
+    //     <textarea>
+    //     initial value
+    //     </textarea>
+    //
     fieldSubTpl: [
         '<textarea id="{id}" data-ref="inputEl" {inputAttrTpl}',
         '<tpl if="name"> name="{name}"</tpl>',
@@ -60,6 +68,26 @@ Ext.define('AM.ux.form.field.CodeMirror', {
             disableFormats: true
         }
     ],
+
+    /**
+     * @cfg {Number} growMin
+     * The minimum height to allow when {@link #grow}=true
+     */
+    growMin: 60,
+
+    /**
+     * @cfg {Number} growMax
+     * The maximum height to allow when {@link #grow}=true
+     */
+    growMax: 1000,
+
+    /**
+     * @cfg {String} growAppend
+     * A string that will be appended to the field's current value for the purposes of calculating the target field
+     * size. Only used when the {@link #grow} config is true. Defaults to a newline for TextArea to ensure there is
+     * always a space below the current line.
+     */
+    growAppend: '\n-',
 
     /**
      * @cfg {Boolean} enterIsSpecial
@@ -121,124 +149,32 @@ Ext.define('AM.ux.form.field.CodeMirror', {
         if (me.needsMaxCheck) {
             me.inputEl.on('paste', me.onPaste, me);
         }
-        me.codeMirrorEditor = new CodeMirror.fromTextArea(Ext.getDom(me.id+'-inputEl')
-            ,{
-                mode:  me.mode
-                ,lineNumbers: true
-                ,theme:me.theme
-                ,matchBrackets: true
-                ,continueComments: "Enter"
-            }
-        );
-        me.codeMirrorEditor.setSize('auto','500px');
-
-    },
-    setTheme:function(theme){
-        if(this.codeMirrorEditor){
-            return this.codeMirrorEditor.setOption('theme', theme);
-        }
-    },
-    setMode:function(mode){
-        if(this.codeMirrorEditor){
-            return this.codeMirrorEditor.setOption('mode', mode);
-        }
-    },
-    setModeByFileName:function(fileName){
-
-        var fileName = Ext.valueFrom(fileName, "")
-
-        var mode = 'gfm';
-
-        if(fileName.lastIndexOf(".java")>=0){
-            mode = 'text/x-java';
-        }else if(fileName.lastIndexOf(".xml")>=0){
-            mode = 'text/html';
-        }else if(fileName.lastIndexOf(".yml")>=0){
-            mode = 'text/yaml'
-        }else if(fileName.lastIndexOf(".properties")>=0){
-            mode = 'text/x-properties'
-        }
-
-        this.mode = mode;
-
-        if(this.codeMirrorEditor){
-            return this.codeMirrorEditor.setOption('mode', mode);
-        }
     },
 
+    // The following overrides deal with an issue whereby some browsers
+    // will strip carriage returns from the textarea input, while others
+    // will not. Since there's no way to be sure where to insert returns,
+    // the best solution is to strip them out in all cases to ensure that
+    // the behaviour is consistent in a cross browser fashion. As such,
+    // we override in all cases when setting the value to control this.
     transformRawValue: function(value){
+        return this.stripReturns(value);
+    },
+
+    getValue: function(){
+        return this.stripReturns(this.callParent());
+    },
+
+    valueToRaw: function(value){
+        value = this.stripReturns(value);
+        return this.callParent([value]);
+    },
+
+    stripReturns: function(value){
+        if (value && typeof value === 'string') {
+            value = value.replace(this.returnRe, '');
+        }
         return value;
-    },
-    setValue: function(value) {
-        var me = this;
-        me.setRawValue(me.valueToRaw(value));
-        if(this.codeMirrorEditor){
-            this.codeMirrorEditor.setValue(Ext.valueFrom(value, ''));
-        }
-        return me.mixins.field.setValue.call(me, value);
-    },
-    setRawValue: function(value) {
-        var me = this,
-            rawValue = me.rawValue;
-
-        if (!me.transformRawValue.$nullFn) {
-            value = me.transformRawValue(value);
-        }
-
-        value = Ext.valueFrom(value, '');
-
-        if (rawValue === undefined || rawValue !== value) {
-            me.rawValue = value;
-
-            // Some Field subclasses may not render an inputEl
-            if (me.inputEl) {
-                me.bindChangeEvents(false);
-                me.inputEl.dom.value = value;
-                me.bindChangeEvents(true);
-            }
-        }
-
-        if (me.rendered && me.reference) {
-            me.publishState('rawValue', value);
-        }
-
-        return value;
-    },
-    getValue: function() {
-        var me = this,
-            val = me.rawToValue(me.processRawValue(me.getRawValue()));
-        me.value = val;
-        return val;
-    },
-
-    getRawValue: function() {
-        console.log('CodeMirror getRawValue')
-
-        var me = this,
-            v = Ext.valueFrom(me.rawValue, '');
-
-        if(this.codeMirrorEditor){
-            v = this.codeMirrorEditor.getValue();
-        }
-        console.log("v:"+v);
-        me.rawValue = v;
-        console.log("me.rawValue："+me.rawValue)
-        return v;
-    },
-    getModelData: function(includeEmptyText, isSubmitting) {
-        var me = this,
-            data = null;
-
-        // Note that we need to check if this operation is being called from a Submit action because displayfields aren't
-        // to be submitted,  but they can call this to get their model data.
-        if (!me.disabled && (me.submitValue || !isSubmitting)) {
-            data = {};
-            data[me.getFieldIdentifier()] = me.getValue();
-            if(this.codeMirrorEditor){
-                data[me.getFieldIdentifier()] = this.codeMirrorEditor.getValue();
-            }
-        }
-        return data;
     },
 
     onPaste: function(){
@@ -260,31 +196,7 @@ Ext.define('AM.ux.form.field.CodeMirror', {
             me.setValue(value);
         }
     },
-    startCheckChangeTask: function() {console.log('startCheckChangeTask')
-        var me = this,
-            task = me.checkChangeTask;
 
-        if (!task) {
-            me.checkChangeTask = task = new Ext.util.DelayedTask(me.doCheckChangeTask, me);
-        }
-        if (!me.bindNotifyListener) {
-            // We continually create/destroy the listener as needed (see doCheckChangeTask) because we're listening
-            // to a global event, so we don't want the event to be triggered unless absolutely necessary. In this case,
-            // we only need to fix the value when we have a pending change to check.
-            me.bindNotifyListener = Ext.on('beforebindnotify', me.onBeforeNotify, me, {destroyable: true});
-        }
-        task.delay(me.checkChangeBuffer);
-    },
-
-    doCheckChangeTask: function() {console.log('doCheckChangeTask')
-        var bindNotifyListener = this.bindNotifyListener;
-
-        if (bindNotifyListener) {
-            bindNotifyListener.destroy();
-            this.bindNotifyListener = null;
-        }
-        this.checkChange();
-    },
     /**
      * @private
      */
@@ -322,19 +234,39 @@ Ext.define('AM.ux.form.field.CodeMirror', {
      * field height allowed. This only takes effect if {@link #grow} = true, and fires the
      * {@link #autosize} event if the height changes.
      */
+    autoSize: function() {
+        var me = this,
+            inputEl, height, curWidth, value;
 
-    onResize: function(width, height, oldWidth, oldHeight) {
-        var me = this;
+        if (me.grow && me.rendered && me.getSizeModel().height.auto) {
+            inputEl = me.inputEl;
+            //subtract border/padding to get the available width for the text
+            curWidth = inputEl.getWidth(true);
 
-        if(me.rendered && this.codeMirrorEditor){
-            console.log('CodeMirror valueToRaw:'+this.codeMirrorEditor.getValue())
+            value = Ext.util.Format.htmlEncode(inputEl.dom.value) || '&#160;';
+            value += me.growAppend;
 
-            me.codeMirrorEditor.setSize(width-2, height-25);
+            // Translate newlines to <br> tags
+            value = value.replace(/\n/g, '<br/>');
+
+            height = Ext.util.TextMetrics.measure(inputEl, value, curWidth).height +
+                inputEl.getPadding('tb') +
+                // The element that has the border depends on theme - inputWrap (classic)
+                // or triggerWrap (neptune)
+                me.inputWrap.getBorderWidth('tb') + me.triggerWrap.getBorderWidth('tb');
+
+            height = Math.min(Math.max(height, me.growMin), me.growMax);
+
+            inputEl.setStyle('overflow-y', height >= me.growMax ? 'auto' : 'hidden');
+            me.bodyEl.setHeight(height);
+
+            me.updateLayout();
+
+            me.fireEvent('autosize', me, height);
         }
-        me.callParent([width, height, oldWidth, oldHeight]);
     },
-    doDestroy: function() {
 
+    doDestroy: function() {
         var task = this.pasteTask;
 
         if (task) {

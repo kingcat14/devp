@@ -1,1 +1,1 @@
-Ext.dashboard=['AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel']
+Ext.dashboard=['AM.view.speedcloud.pipeline.task.PipelineTaskPanel']

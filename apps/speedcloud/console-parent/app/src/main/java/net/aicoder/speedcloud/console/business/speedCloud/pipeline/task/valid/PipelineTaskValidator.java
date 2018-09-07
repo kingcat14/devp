@@ -48,7 +48,9 @@ public class PipelineTaskValidator implements Validator {
 		if(StringUtils.isEmpty(pipelineTask.getName())){
 			errors.rejectValue("name", "EMPTY_NAME", "任务名称不能为空");
 		}
-		
+		if(StringUtils.isEmpty(pipelineTask.getExecType())){
+			errors.rejectValue("execType", "EMPTY_EXEC_TYPE", "任务执行方式不能为空");
+		}
 
 		//验证长度
 		if(StringUtils.length(pipelineTask.getName()) > 255){

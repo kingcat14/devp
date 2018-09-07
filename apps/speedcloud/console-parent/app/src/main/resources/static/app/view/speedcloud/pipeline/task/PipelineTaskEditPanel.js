@@ -1,24 +1,27 @@
-Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
+Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
     extend: 'Ext.panel.Panel'
-    ,xtype: 'speedcloud.pipeline.task.PipelineTaskAddPanel'
+    ,xtype: 'speedcloud.pipeline.task.PipelineTaskEditPanel'
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskAction'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskAddPanelController'
+        ,'AM.view.speedcloud.pipeline.task.PipelineTaskEditController'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskParam'
     ]
     ,layout: 'border'
-    ,title: '添加新任务'
+    // ,title: '修改新任务'
     ,maximizable: true
     ,closeAction: 'hide'
     ,referenceHolder:true
     ,bodyPadding:10
+    ,bind:{title:'任务{record.name}'}
+    // ,bind:{title:'任务名称:{title}'}
     ,bodyCls: 'app-dashboard'
-    ,controller: 'speedcloud.pipeline.task.PipelineTaskAddPanelController'
-    ,viewModel:{data:{title:'_'}}
+    ,controller: 'speedcloud.pipeline.task.PipelineTaskEditController'
+    // ,viewModel:{data:{}}
     ,initComponent: function () {
+
         var me = this;
 
         var pipelineTaskTaskTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
@@ -29,11 +32,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
         Ext.apply(me, {
             items: [
                 {
-                    xtype:'panel', region:'west', width:'30%',bind:{title:'任务名称:{title}'},autoScroll:true, collapsible:true, split: true
+                    xtype:'panel', region:'west', width:'30%',bind:{title:'任务名称:{record.name}'},autoScroll:true, collapsible:true, split: true
                     ,frame:true
                     ,items:[
                         {
-                            xtype:'grid', title:'', store:Ext.create('Ext.data.Store', {model: 'AM.model.speedcloud.pipeline.task.PipelineTaskAction'})
+                            xtype:'grid', title:''
+
+                            ,bind:{store:"{actionStore}"}
                             ,reference:'actionGrid'
                             ,columnLines:true
                             ,columns:[
@@ -46,7 +51,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                     xtype: 'gridcolumn'
                                     ,dataIndex: 'name'
                                     // ,text: '操作名称'
-                                    ,flex:1
+                                    // ,flex:1
                                 }
                                 ,{
                                     xtype: 'actioncolumn'
@@ -76,14 +81,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
 
                                             if(selectedRecord != record){
                                                 grid.getSelectionModel().select(selectedRecord)
-                                                contentPanel.getLayout().setActiveItem(selectedRecord.panel)
+                                                contentCardPanel.getLayout().setActiveItem(selectedRecord.panel)
                                                 return;
                                             }
                                             var nextRecord = grid.getStore().getAt(rowIndex)
 
                                             if(nextRecord){
                                                 grid.getSelectionModel().select(nextRecord)
-                                                contentPanel.getLayout().setActiveItem(nextRecord.panel)
+                                                contentCardPanel.getLayout().setActiveItem(nextRecord.panel)
                                             }
                                         }
                                     }]
@@ -101,16 +106,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                             var grid = me.down('grid');
                                             grid.getStore().add(action);
 
+                                            var contentCardPanel = me.down('#contentCardPanel');
 
-                                            var contentPanel = me.down('#contentPanel');
-
-                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {frame:true});
-                                            panel.setModel(action);
-
+                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {viewModel:{data:{record:action}}, frame:true});
                                             action.panel = panel;
 
-                                            contentPanel.add(panel);
-                                            contentPanel.getLayout().setActiveItem(panel)
+                                            contentCardPanel.add(panel);
+                                            contentCardPanel.getLayout().setActiveItem(panel)
 
                                         }
                                     }
@@ -118,9 +120,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                             ]
                             ,listeners:{
                                 rowclick:function(table, record, element, rowIndex, e, eOpts){
-                                    var contentPanel = me.lookup('contentPanel');
+                                    var contentCardPanel = me.lookup('contentCardPanel');
+
                                     if(!record.dropped) {
-                                        contentPanel.getLayout().setActiveItem(record.panel)
+                                        if(!record.panel){
+                                            record.panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {viewModel:{data:{record:record}}, frame:true});
+                                        }
+                                        contentCardPanel.getLayout().setActiveItem(record.panel)
+
                                     }
                                 }
                             }
@@ -136,20 +143,16 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                         {
                             iconCls: 'x-fa fa-wrench'
                             ,callback:function(){
-                                var contentPanel = me.lookup('contentPanel');
-                                contentPanel.getLayout().setActiveItem(0)
+                                var contentCardPanel = me.lookup('contentCardPanel');
+                                contentCardPanel.getLayout().setActiveItem(0)
                             }
                         }
                     ]
-                    ,listeners:{
-                        click:function(){console.log('click')}
-                    }
                 }
-
                 ,{
                     xtype:'panel', region:'center', layout: 'card', collapsible:false
-                    ,reference:'contentPanel'
-                    ,itemId:'contentPanel'
+                    ,reference:'contentCardPanel'
+                    ,itemId:'contentCardPanel'
                     ,items:[
                         {
                             xtype:'panel'
@@ -164,7 +167,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                     ,title:''
                                     ,reference:'taskFormPanel'
                                     // ,layout:'vbox'
-                                    ,bind:{title:'{title}'}
+                                    ,bind:{title:'{record.name}'}
                                     ,fieldDefaults: {
                                         labelAlign: 'right'
                                         ,msgTarget: 'side'
@@ -186,7 +189,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                             ,reference:'nameField'
                                             ,name: 'name'
                                             ,fieldLabel: '任务名称'
-                                            ,bind:'{title}'
+                                            ,bind:'{record.name}'
                                         }
                                         ,{
                                             xtype: 'combobox'
@@ -201,7 +204,9 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                             ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                             ,itemId: 'projectField'
                                             ,name: 'project'
+                                            ,reference:'project'
                                             ,fieldLabel: '所属产品'
+                                            ,bind:'{record.project}'
                                         }
                                         ,{
                                             xtype: 'textfield'
@@ -210,6 +215,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                             ,name: 'description'
                                             ,fieldLabel: '任务描述'
                                             ,flex:1
+                                            ,bind:'{record.description}'
                                         }
                                         ,{
                                             xtype: 'combobox'
@@ -228,46 +234,31 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                         }
                                         ,{
                                             xtype:'fieldset'
+                                            ,collapsible:true
                                             ,title: '执行计划'
                                             ,items:[
                                                 ,{
                                                     xtype: 'radiogroup'
                                                     ,hidden: false
                                                     ,readOnly:false
-                                                    ,allowBlank:true
+                                                    ,allowBlank:false
                                                     ,itemId: 'execTypeField'
                                                     ,name: 'execType'
+                                                    ,reference:'execType'
+                                                    ,simpleValue: true
                                                     ,fieldLabel: '执行方式'
                                                     ,defaults:{padding: '0 0 0 0'}
+                                                    // ,publishes: 'value'
+                                                    ,bind:'{record.execType}'
                                                     ,items: [
                                                         {boxLabel: '手工', inputValue: 'MANUAL', checked: true,}
                                                         ,{boxLabel: '每日定时执行', inputValue: 'DAILY'}
                                                         ,{boxLabel: '每周定时执行', inputValue: 'WEEKLY'}
                                                     ]
-                                                    ,listeners:{
-                                                        change:{
-                                                            fn:function(field, newValue, oldValue){
-                                                                console.log(newValue)
-
-                                                                me.lookup('taskDayOfWeeksField').hide()
-                                                                me.lookup('taskStartTimeField').hide()
-
-                                                                if('DAILY' == newValue.execType){
-                                                                    console.log('in DAILY')
-                                                                    me.lookup('taskStartTimeField').show()
-                                                                }
-                                                                if('WEEKLY' == newValue.execType){
-                                                                    console.log('in WEEKLY')
-                                                                    me.lookup('taskDayOfWeeksField').show()
-                                                                    me.lookup('taskStartTimeField').show()
-                                                                }
-                                                            }
-                                                            , scope:me}
-                                                    }
                                                 }
                                                 ,{
                                                     xtype: 'checkboxgroup'
-                                                    ,hidden: true
+                                                    ,bind:{hidden: '{record.execType!="WEEKLY"}', value:'{taskDayOfWeeksArray}'}
                                                     ,readOnly:false
                                                     ,allowBlank:true
                                                     ,afterLabelTextTpl: []
@@ -290,6 +281,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                                 ,{
                                                     xtype: 'timefield'
                                                     ,format: 'H:i'
+                                                    ,bind:{hidden: '{record.execType=="MANUAL" || !record.execType}', value:'{taskStartTime}'}
                                                     ,increment: 15
                                                     ,hidden: true
                                                     ,readOnly:false
@@ -314,6 +306,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                     ,margin:10
                                     ,frame:true
                                     ,flex:1
+                                    ,bind:{store:"{paramStore}"}
                                     ,reference:'taskParamGrid'
                                     ,columns:[
                                         {
@@ -330,7 +323,8 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
                                             ,dataIndex: 'type'
                                             ,text: '参数类型'
                                             ,editor: {
-                                                xtype: 'textfield'
+                                                xtype: 'combo'
+                                                ,store:[['string','字符类型'],['enum','枚举类型']]
                                             }
                                         }
                                         ,{
@@ -440,7 +434,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
         me.callParent(arguments);
     }
 
-
     ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
@@ -450,10 +443,11 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanel', {
         this.down('form').getForm().loadRecord(model);
     }
     ,onBeforeShow:function() {
+
         this.down('#taskTypeField').getStore().reload();
 
         this.down('#projectField').getStore().reload();
-        // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
+
     }
 
 });

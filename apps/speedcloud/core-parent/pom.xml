@@ -72,6 +72,7 @@
                 <module>web</module>
                 <module>client</module>
                 <module>business</module>
+                <module>jenkins</module>
             </modules>
         </profile>
         <profile>

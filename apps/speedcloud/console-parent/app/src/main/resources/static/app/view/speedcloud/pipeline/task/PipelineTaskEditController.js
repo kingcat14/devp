@@ -1,13 +1,12 @@
-Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanelController', {
+Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
         'AM.model.speedcloud.pipeline.task.PipelineTaskParam'
 	]
-	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskAddPanelController'
-
+	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskEditController'
 
     ,onAddTaskParamClick:function(){
-        var modelConfig = {}
+        var modelConfig = {defaultValue:'defaultValue'}
         var taskParam = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTaskParam', modelConfig);
         this.lookup('taskParamGrid').getStore().add(taskParam);
 
@@ -16,12 +15,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanelController', {
         grid.getStore().getAt(rowIndex).drop();
     }
 
-
     ,onTaskSaveButtonClick:function(){
 
 	    var me = this;
-        var pipelineTask = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTask');
-	    this.lookup("taskFormPanel").updateRecord(pipelineTask);
+        var pipelineTask = this.getViewModel().data.record;
+
+        if(!pipelineTask) {
+            pipelineTask = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTask');
+        }
 
 	    console.log(pipelineTask)
         if (!this.lookup("taskFormPanel").getForm().isValid()) {
@@ -51,17 +52,15 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanelController', {
             }
         }
 
-        var taskStartTimeValue = me.lookup('taskStartTimeField').getValue();
-        var taskStartTime = Ext.Date.format(taskStartTimeValue, 'H:i');
-        pipelineTask.set('taskStartTime', taskStartTime)
-
         //开始处理任务包含的操作
         var actionList = [];
-        var actionStore = this.lookup('actionGrid').getStore();
+        console.log(this.getViewModel())
+        var actionStore = this.getViewModel().getStore('actionStore');
         var i = 0;
         actionStore.each(function(action){
             action.set('execIndex', i++)
             actionList.push(action.getData())
+
         })
 
         if(actionList == null || actionList.length == 0){
@@ -69,18 +68,23 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskAddPanelController', {
             return;
         }
 
-        console.log(pipelineTask);
         pipelineTask.set('actions', actionList);
-        console.log(Ext.encode(pipelineTask))
+        console.log(actionList)
 
-
+        var paramStore = this.getViewModel().getStore('paramStore');
+        var paramList = [];
+        i = 0;
+        paramStore.each(function(param){
+            param.set("viewOrder", i)
+            paramList.push(param.getData())
+        })
+        pipelineTask.set('params', paramList);
 
         pipelineTask.save({
             success: function () {
                 Ext.MsgUtil.show('操作成功', '保存任务成功!');
-                me.hide();
+                me.getView().destroy();
             }
         });
-
     }
 })
