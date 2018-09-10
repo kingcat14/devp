@@ -7,7 +7,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
         'AM.view.speedcloud.pipeline.task.PipelineTaskController'
         ,'AM.store.speedcloud.pipeline.task.PipelineTaskStore'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskSearchWindow'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailWindow'
     ]
     ,controller: 'speedcloud.pipeline.task.PipelineTaskController'
     ,initComponent: function() {
@@ -33,7 +32,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
+                                    me.getController().onDetailButtonClick();
                                 }
                             }]
                         }
@@ -64,7 +63,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '任务名称'
-                            
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -88,20 +86,17 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'taskStartTime'
                             ,text: '执行开始时间'
-                            
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'taskDayOfWeeks'
                             ,text: '执行日'
-                            
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'description'
                             ,text: '任务描述'
                             ,flex:1
-                            
                         }
 
                         ,{
@@ -220,7 +215,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
         });
 
         me.add({xtype:'speedcloud.pipeline.task.PipelineTaskSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.pipeline.task.PipelineTaskDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

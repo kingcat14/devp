@@ -2,6 +2,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
         'AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel'
+        ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel'
 	]
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskController'
 
@@ -86,6 +87,30 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
             }
             ,scope:me.getStore()
         });
+    }
+    ,onDetailButtonClick: function(){
+        var me = this;
+        var mainGridPanel = me.lookupReference('mainGridPanel');
+        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
+        if(selections.length <= 0){
+            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            return;
+        }
+        var record = selections[0];
+
+
+        this.fireViewEvent('createMainTabPanel', this.getView()
+            ,{
+                xtype: 'speedcloud.pipeline.task.PipelineTaskDetailPanel'
+                ,reference:'PipelineTaskDetailPanel_'+record.getId()
+                , viewModel: {
+                    data: {record: record}
+                    ,stores:{
+                        execInstanceStore:Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecInstanceStore').applyCondition({executeTargetId:record.getId()}).load()
+                    }
+                }
+            }
+        )
     }
 	,onEditButtonClick: function(){
         var me = this;

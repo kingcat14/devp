@@ -6,7 +6,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditController', {
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskEditController'
 
     ,onAddTaskParamClick:function(){
-        var modelConfig = {defaultValue:'defaultValue'}
+        var modelConfig = {defaultValue:'defaultValue', type:'String'}
         var taskParam = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTaskParam', modelConfig);
         this.lookup('taskParamGrid').getStore().add(taskParam);
 

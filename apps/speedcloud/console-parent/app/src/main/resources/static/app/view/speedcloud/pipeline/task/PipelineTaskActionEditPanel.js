@@ -1,6 +1,6 @@
-Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {
+Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {
     extend: 'Ext.panel.Panel'
-    ,xtype: 'speedcloud.pipeline.task.PipelineTaskActionAddPanel'
+    ,xtype: 'speedcloud.pipeline.task.PipelineTaskActionEditPanel'
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.pipeline.task.PipelineTaskActionTypeStore'

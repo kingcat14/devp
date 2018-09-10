@@ -5,7 +5,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskAction'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel'
+        ,'AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskEditController'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskParam'
     ]
@@ -51,7 +51,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                     xtype: 'gridcolumn'
                                     ,dataIndex: 'name'
                                     // ,text: '操作名称'
-                                    // ,flex:1
+                                    ,flex:1
                                 }
                                 ,{
                                     xtype: 'actioncolumn'
@@ -70,10 +70,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             record.panel.destroy();
                                             record.drop();
 
-                                            var contentPanel = me.down('#contentPanel');
-
-
-                                            console.log(selectedRecord==record)
+                                            var contentCardPanel = me.down('#contentCardPanel');
 
                                             if(!selectedRecord){
                                                 return;
@@ -108,7 +105,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
 
                                             var contentCardPanel = me.down('#contentCardPanel');
 
-                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {viewModel:{data:{record:action}}, frame:true});
+                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {viewModel:{data:{record:action}}, frame:true});
                                             action.panel = panel;
 
                                             contentCardPanel.add(panel);
@@ -124,7 +121,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
 
                                     if(!record.dropped) {
                                         if(!record.panel){
-                                            record.panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddPanel', {viewModel:{data:{record:record}}, frame:true});
+                                            record.panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {viewModel:{data:{record:record}}, frame:true});
                                         }
                                         contentCardPanel.getLayout().setActiveItem(record.panel)
 
@@ -324,7 +321,21 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             ,text: '参数类型'
                                             ,editor: {
                                                 xtype: 'combo'
-                                                ,store:[['string','字符类型'],['enum','枚举类型']]
+                                                // ,value:'字符类型'
+                                                ,forceSelection:true
+                                                ,allowBlank:false
+                                                ,editable:false
+                                                ,displayField:'name'
+                                                ,valueField:'value'
+                                                ,store:{data:[
+                                                    {value:'String',name:'字符类型'}
+                                                    ,{value:'enum',name:'枚举类型'}
+                                                ]}
+                                            }
+                                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value == 'String') return '字符类型'
+                                                if(value == 'enum') return '枚举类型'
+                                                return value
                                             }
                                         }
                                         ,{
@@ -380,14 +391,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             ,clicksToEdit: 1
                                         }
                                     ]
-                                    ,listeners: {
-                                        edit:{
-                                            fn: function(editor, e) {
-                                                // commit the changes right after editing finished
-                                                e.record.commit();
-                                            }
-                                        }
-                                    }
+
                                 }
                             ]
                         }
