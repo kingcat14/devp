@@ -4,9 +4,12 @@ package com.yunkang.saas.security.local.config;
 import com.yunkang.saas.bootstrap.application.config.PlatformConfig;
 import com.yunkang.saas.security.local.business.authorize.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -19,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -118,6 +122,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean(org.springframework.security.crypto.password.PasswordEncoder.class)
 	public PasswordEncoder passwordEncoder() {
 		//密码加密
 		return new StandardPasswordEncoder();
@@ -125,6 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean(UserDetailsService.class)
 	SecurityUserService securityUserService() {
 		return new SecurityUserService();
 	}

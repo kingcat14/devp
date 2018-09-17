@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -43,6 +43,9 @@ public class PipelineStageVO {
     @ApiModelProperty(value = "执行方式", notes = "并行、串行、")
     private String execMode;
     private SimpleConfigVO execModeVO;
+
+
+    private List<PipelineStageNodeVO> pipelineStageNodeVOList;
 
 
     public Long getPipeline(){
@@ -91,8 +94,14 @@ public class PipelineStageVO {
         this.execModeVO = execModeVO;
     }
 
+    public List<PipelineStageNodeVO> getPipelineStageNodeVOList() {
+        return pipelineStageNodeVOList;
+    }
+    public void setPipelineStageNodeVOList(List<PipelineStageNodeVO> pipelineStageNodeVOList) {
+        this.pipelineStageNodeVOList = pipelineStageNodeVOList;
+    }
 
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

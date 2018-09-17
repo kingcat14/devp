@@ -13,7 +13,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
 	}
     ,onAddButtonClick: function() {
 
-        var modelConfig = {name:'_新增'}
+        var modelConfig = {name:'_新增', execType:'MANUAL'}
 
         var record = Ext.create('AM.model.speedcloud.pipeline.task.PipelineTask', modelConfig);
         this.createTaskTabOnMainContenPanel(record, Ext.id());

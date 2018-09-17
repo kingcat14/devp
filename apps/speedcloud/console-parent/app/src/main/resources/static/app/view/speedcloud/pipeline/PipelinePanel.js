@@ -6,15 +6,13 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
     , requires: [
         'AM.view.speedcloud.pipeline.PipelineController'
         ,'AM.store.speedcloud.pipeline.PipelineStore'
-        ,'AM.view.speedcloud.pipeline.PipelineAddWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineEditWindow'
         ,'AM.view.speedcloud.pipeline.PipelineSearchWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineDetailWindow'
+
     ]
     ,controller: 'speedcloud.pipeline.PipelineController'
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
@@ -174,24 +172,22 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
-                    }
+
                 }
             ]
+            ,listeners: {
+                beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+                ,beforehide: {
+                    fn: me.onPanelBeforeHide
+                    ,scope: me
+                }
+            }
         });
 
-        me.add({xtype:'speedcloud.pipeline.PipelineAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.pipeline.PipelineSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }
@@ -205,6 +201,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
     }
 
     ,onBeforeShow:function(abstractcomponent, options) {
-	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
+	    this.lookup('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

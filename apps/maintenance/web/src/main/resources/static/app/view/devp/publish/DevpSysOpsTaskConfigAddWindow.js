@@ -2,7 +2,7 @@ Ext.define('AM.view.devp.publish.DevpSysOpsTaskConfigAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'devp.publish.DevpSysOpsTaskConfigAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true

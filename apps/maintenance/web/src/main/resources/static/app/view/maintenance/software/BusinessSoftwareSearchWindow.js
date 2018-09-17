@@ -13,7 +13,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
-        var businessSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var businessSoftwareStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         businessSoftwareStatusStore.proxy.isSynchronous = true;
         businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         businessSoftwareStatusStore.load();

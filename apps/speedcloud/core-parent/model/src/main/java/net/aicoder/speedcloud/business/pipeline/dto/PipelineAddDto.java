@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 
 /**
  * 流水线
@@ -30,6 +32,11 @@ public class PipelineAddDto {
 	@ApiModelProperty(value = "所属产品", required = false)
 	private Long project;
 
+	/**包含的阶段*/
+	private List<PipelineStageAddDto> stageList;
+
+	/**包含的参数*/
+	private List<PipelineParamAddDto> paramList;
 
 	public Long getTid(){
 		return tid;
@@ -59,6 +66,19 @@ public class PipelineAddDto {
         this.project = project;
     }
 
+	public List<PipelineStageAddDto> getStageList() {
+		return stageList;
+	}
+	public void setStageList(List<PipelineStageAddDto> stageList) {
+		this.stageList = stageList;
+	}
+
+	public List<PipelineParamAddDto> getParamList() {
+		return paramList;
+	}
+	public void setParamList(List<PipelineParamAddDto> paramList) {
+		this.paramList = paramList;
+	}
 
 	@Override
 	public String toString() {

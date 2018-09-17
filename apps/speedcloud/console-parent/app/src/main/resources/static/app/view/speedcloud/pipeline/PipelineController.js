@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-
+        'AM.view.speedcloud.pipeline.PipelineEditPanel'
 	]
 	,alias: 'controller.speedcloud.pipeline.PipelineController'
 
@@ -9,21 +9,36 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
 		//点击主数据的某行
 		var me = this;
 
-
 		var detailTabPanel = me.lookup('detailTabPanel');
 		if(detailTabPanel) {
             detailTabPanel.expand();
         }
 
-		var id = record.get('id');
 
 	}
+
     ,onAddButtonClick: function() {
 
         var modelConfig = {}
-        var record = Ext.create('AM.model.speedcloud.pipeline.Pipeline', modelConfig);
-
-        this.showAddWindow(record);
+        var pipeline = Ext.create('AM.model.speedcloud.pipeline.Pipeline', modelConfig);
+        console.log(11)
+        this.createPipelineTabOnMainContenPanel(pipeline, Ext.id());
+    }
+    /**在系统主面板创建Tab页*/
+    ,createPipelineTabOnMainContenPanel:function(record, referenceId){
+        console.log('fireViewEvent:createMainTabPanel');
+        this.fireViewEvent('createMainTabPanel', this.getView()
+            ,{
+                xtype:'speedcloud.pipeline.PipelineEditPanel'
+                , reference:'PipelineEditPanel_'+referenceId
+                , viewModel:{
+                    data:{record:record}
+                    ,stores:{
+                        paramStore:Ext.create('AM.store.speedcloud.pipeline.PipelineParamStore').applyCondition({pipeline:Ext.isNumeric(record.get('id'))?record.get('id')+"":-999}).load()
+                    }
+                }
+            }
+        );
     }
 
     ,onDeleteButtonClick: function(button, e, options) {

@@ -13,7 +13,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
-        var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var infrastructuralSoftwareStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
         infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         infrastructuralSoftwareStatusStore.load();

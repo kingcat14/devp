@@ -15,7 +15,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseEditWindow', {
     initComponent: function () {
         var me = this;
 
-        var softwareLicenseStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var softwareLicenseStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         softwareLicenseStatusStore.proxy.isSynchronous = true;
         softwareLicenseStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         softwareLicenseStatusStore.load();

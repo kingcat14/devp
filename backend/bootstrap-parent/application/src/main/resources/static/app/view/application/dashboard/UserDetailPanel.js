@@ -2,7 +2,7 @@ Ext.define('AM.view.application.dashboard.UserDetailPanel', {
 	extend: 'Ext.form.Panel'
 	,alias: 'widget.form-register'
 	,requires:['AM.view.application.dashboard.UserDetailPanelController','AM.model.application.security.Account']
-	,xtype:'form-register'
+	,xtype:'portlet-userDetail'
 	,controller:'application.dashboard.UserDetailPanelController'
 
 	,frame: true

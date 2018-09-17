@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -37,6 +37,10 @@ public class PipelineVO {
     @ApiModelProperty(value = "所属产品")
     private Long project;
     private ProjectVO projectVO;
+
+
+    private List<PipelineStageVO> stageVOList;
+    private List<PipelineParamVO> paramVOList;
 
 
     public String getName(){
@@ -72,8 +76,21 @@ public class PipelineVO {
         this.projectVO = projectVO;
     }
 
+    public List<PipelineStageVO> getStageVOList() {
+        return stageVOList;
+    }
+    public void setStageVOList(List<PipelineStageVO> stageVOList) {
+        this.stageVOList = stageVOList;
+    }
 
-	public Long getId() {
+    public List<PipelineParamVO> getParamVOList() {
+        return paramVOList;
+    }
+    public void setParamVOList(List<PipelineParamVO> paramVOList) {
+        this.paramVOList = paramVOList;
+    }
+
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

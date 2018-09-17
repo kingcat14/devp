@@ -2,7 +2,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.software.SoftwareLicenseAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true
@@ -17,7 +17,7 @@ Ext.define('AM.view.maintenance.software.SoftwareLicenseAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var softwareLicenseStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var softwareLicenseStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         softwareLicenseStatusStore.proxy.isSynchronous = true;
         softwareLicenseStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         softwareLicenseStatusStore.load();

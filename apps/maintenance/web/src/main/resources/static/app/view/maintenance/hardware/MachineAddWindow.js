@@ -2,7 +2,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.hardware.MachineAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
         ,'AM.store.maintenance.asset.info.AssetTypeStore'
 
     ]
@@ -18,7 +18,7 @@ Ext.define('AM.view.maintenance.hardware.MachineAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var machineStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var machineStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         machineStatusStore.proxy.isSynchronous = true;
         machineStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         machineStatusStore.load();

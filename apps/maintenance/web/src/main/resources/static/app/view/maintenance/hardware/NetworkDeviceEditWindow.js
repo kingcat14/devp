@@ -15,7 +15,7 @@ Ext.define('AM.view.maintenance.hardware.NetworkDeviceEditWindow', {
     initComponent: function () {
         var me = this;
 
-        var networkDeviceStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var networkDeviceStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         networkDeviceStatusStore.proxy.isSynchronous = true;
         networkDeviceStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         networkDeviceStatusStore.load();

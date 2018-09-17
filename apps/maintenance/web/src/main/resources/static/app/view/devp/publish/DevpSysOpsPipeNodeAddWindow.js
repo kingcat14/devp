@@ -2,7 +2,7 @@ Ext.define('AM.view.devp.publish.DevpSysOpsPipeNodeAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'devp.publish.DevpSysOpsPipeNodeAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true

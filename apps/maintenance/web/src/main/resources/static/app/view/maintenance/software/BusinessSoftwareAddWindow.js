@@ -2,7 +2,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.software.BusinessSoftwareAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true
@@ -17,7 +17,7 @@ Ext.define('AM.view.maintenance.software.BusinessSoftwareAddWindow', {
     ,initComponent: function () {
         var me = this;
 
-        var businessSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var businessSoftwareStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         businessSoftwareStatusStore.proxy.isSynchronous = true;
         businessSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         businessSoftwareStatusStore.load();

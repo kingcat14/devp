@@ -1,9 +1,10 @@
 package net.aicoder.speedcloud.business.pipeline.dao;
 
 import com.yunkang.saas.common.jpa.BaseDao;
-import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("pipelineStageDao")
 public interface PipelineStageDao extends BaseDao<PipelineStage, Long>{
-
+    int deleteByPipeline(Long pipelineId);
+    List<PipelineStage> findByPipeline(Long pipelineId);
 
 }

@@ -18,9 +18,10 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 			,items: [{
 				xtype: 'button',
 
-				text: 'Project Summary'
+				text: 'Project Summary	qw'
 			}]
-		},{
+		}
+		,{
 			xtype:'container'
 			,defaults: {
 				frame: true,
@@ -41,7 +42,7 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 					}
 					,items:[
 						{
-							xtype:'form-register'
+							xtype:'portlet-userDetail'
 						}
 					]
 				}
@@ -56,7 +57,20 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 						margin: '0 10 10 0'
 					}
 					,items:[
+						{
+							xtype:'grid'
+							,title:'测试'
+							,columns:[
+								{
+									xtype:'gridcolumn'
+									,text:'name'
+                                    ,dataIndex:'name'
+								}
+							]
+                            ,selModel: 'checkboxmodel'
+                            ,store:[{name:'a'}]
 
+						}
 					]
 				}
 

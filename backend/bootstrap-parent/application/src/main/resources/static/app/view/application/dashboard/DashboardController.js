@@ -18,8 +18,6 @@ Ext.define('AM.view.application.dashboard.DashboardController', {
 
 				var app = Ext.decode(response.responseText)
 
-
-
 			}
         });
     }

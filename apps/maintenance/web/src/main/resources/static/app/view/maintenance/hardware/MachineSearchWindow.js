@@ -13,7 +13,7 @@ Ext.define('AM.view.maintenance.hardware.MachineSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
-        var machineStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var machineStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         machineStatusStore.proxy.isSynchronous = true;
         machineStatusStore.proxy.extraParams={searchCondition:{configType:'OPS_ASSET_STATUS'}};
         machineStatusStore.load();

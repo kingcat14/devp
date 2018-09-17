@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 
 /**
  * 阶段
@@ -33,6 +35,9 @@ public class PipelineStageAddDto {
     /**执行方式*/
 	@ApiModelProperty(value = "执行方式", required = false, notes = "并行、串行、")
     private String execMode;
+
+	/**节点包含的节点*/
+	private List<PipelineStageNodeAddDto> nodeList;
 
 
 	public Long getTid(){
@@ -70,6 +75,12 @@ public class PipelineStageAddDto {
         this.execMode = execMode;
     }
 
+	public List<PipelineStageNodeAddDto> getNodeList() {
+		return nodeList;
+	}
+	public void setNodeList(List<PipelineStageNodeAddDto> nodeList) {
+		this.nodeList = nodeList;
+	}
 
 	@Override
 	public String toString() {

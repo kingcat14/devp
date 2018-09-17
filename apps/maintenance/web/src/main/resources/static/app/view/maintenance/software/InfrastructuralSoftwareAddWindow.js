@@ -2,7 +2,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'maintenance.software.InfrastructuralSoftwareAddWindow'
     ,requires:[
-        'AM.store.application.common.SimpleConfigStore'
+        'AM.store.common.SimpleConfigStore'
 
     ]
     ,autoScroll: true
@@ -18,7 +18,7 @@ Ext.define('AM.view.maintenance.software.InfrastructuralSoftwareAddWindow', {
         var me = this;
 
 
-        var infrastructuralSoftwareStatusStore = Ext.create("AM.store.application.common.SimpleConfigStore")
+        var infrastructuralSoftwareStatusStore = Ext.create("AM.store.common.SimpleConfigStore")
         infrastructuralSoftwareStatusStore.proxy.isSynchronous = true;
         infrastructuralSoftwareStatusStore.proxy.extraParams={searchCondition:{configType:'INFRASTROPS_ASSET_STATUS'}};
         infrastructuralSoftwareStatusStore.load();

@@ -10,9 +10,7 @@ import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.business.pipeline.dto.PipelineCondition;
-import net.aicoder.speedcloud.business.pipeline.dto.PipelineAddDto;
-import net.aicoder.speedcloud.business.pipeline.dto.PipelineEditDto;
+import net.aicoder.speedcloud.business.pipeline.dto.*;
 import net.aicoder.speedcloud.business.pipeline.vo.PipelineVO;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.service.PipelineRibbonService;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.valid.PipelineValidator;
@@ -33,6 +31,7 @@ import org.springframework.web.bind.WebDataBinder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.nio.channels.Pipe;
 import java.util.*;
 
 /**
@@ -74,7 +73,29 @@ public class PipelineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineVO add(@RequestBody PipelineAddDto pipelineAddDto){
+
     	pipelineAddDto.setTid(saaSUtil.getAccount().getTenantId());
+
+    	//处理参数的tid
+    	if(CollectionUtils.isNotEmpty(pipelineAddDto.getParamList())){
+    		for(PipelineParamAddDto paramAddDto : pipelineAddDto.getParamList()){
+				paramAddDto.setTid(pipelineAddDto.getTid());
+			}
+		}
+		//处理阶段的tid
+		if(CollectionUtils.isNotEmpty(pipelineAddDto.getStageList())){
+			for(PipelineStageAddDto stageAddDto : pipelineAddDto.getStageList()){
+				stageAddDto.setTid(pipelineAddDto.getTid());
+
+				//处理阶段节点的tid
+				if(CollectionUtils.isNotEmpty(stageAddDto.getNodeList())){
+					for(PipelineStageNodeAddDto stageNodeAddDto : stageAddDto.getNodeList()){
+						stageNodeAddDto.setTid(pipelineAddDto.getTid());
+					}
+				}
+			}
+		}
+
 		return  pipelineRibbonService.add(pipelineAddDto);
 	}
 

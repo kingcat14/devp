@@ -32,7 +32,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
         Ext.apply(me, {
             items: [
                 {
-                    xtype:'panel', region:'west', width:'30%',bind:{title:'任务名称:{record.name}'},autoScroll:true, collapsible:true, split: true
+                    xtype:'panel'
+                    , region:'west'
+                    , width:'30%'
+                    ,bind:{title:'任务名称:{record.name}'}
+                    ,autoScroll:true
+                    , collapsible:true
+                    , split: true
                     ,frame:true
                     ,items:[
                         {
@@ -221,10 +227,11 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             ,editable:false
                                             ,displayField:'displayName'
                                             ,valueField:'code'
-                                            ,hidden: true
+                                            ,hidden: false
                                             ,readOnly:false
-                                            ,allowBlank:true
-                                            ,afterLabelTextTpl: []
+                                            ,allowBlank:false
+                                            ,forceSelection:true
+                                            ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                             ,itemId: 'taskTypeField'
                                             ,name: 'taskType'
                                             ,fieldLabel: '任务类型'
@@ -405,14 +412,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                     xtype:'container'
                     ,layout:'center'
                     ,dock: 'bottom'
-                    ,items:
-                {
-                    xtype: 'toolbar',
+                    ,items: {
+                        xtype: 'toolbar',
 
-                    //ui: 'footer',
-                    // layout:'center',
-                    align:'center'
-                    ,items: [
+                        //ui: 'footer',
+                        // layout:'center',
+                        align:'center'
+                        ,items: [
                         '->',{
                             xtype: 'button'
                             // ,iconCls: 'accept'
@@ -427,7 +433,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                             xtype:'button',text:'取消',scale: 'large'
                         }
                     ]
-                }
+                    }
                 }
             ]
             ,listeners: {

@@ -81,10 +81,8 @@ public class PipelineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineVO add(@RequestBody @Valid PipelineAddDto pipelineAddDto){
-		Pipeline pipeline = new Pipeline();
-		BeanUtils.copyProperties(pipelineAddDto, pipeline);
 
-		pipelineService.add(pipeline);
+		Pipeline pipeline = pipelineService.create(pipelineAddDto);
 
 		return  initViewProperty(pipeline);
 	}
@@ -115,10 +113,9 @@ public class PipelineController {
 	@ApiOperation(value = "修改", notes = "修改产流水线(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
 	public	PipelineVO update(@RequestBody @Valid PipelineEditDto pipelineEditDto, @PathVariable Long id){
-		Pipeline pipeline = new Pipeline();
-		BeanUtils.copyProperties(pipelineEditDto, pipeline);
-		pipeline.setId(id);
-		pipelineService.merge(pipeline);
+
+		pipelineEditDto.setId(id);
+		Pipeline pipeline = pipelineService.update(pipelineEditDto);
 
 		PipelineVO vo = initViewProperty(pipeline);
 		return  vo;
