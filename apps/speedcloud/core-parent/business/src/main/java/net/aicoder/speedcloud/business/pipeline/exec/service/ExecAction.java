@@ -1,11 +1,17 @@
 package net.aicoder.speedcloud.business.pipeline.exec.service;
 
 
+import net.aicoder.speedcloud.business.pipeline.constant.ExecuteTargetType;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecInstanceStatus;
+import net.aicoder.speedcloud.business.pipeline.domain.Pipeline;
+import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
+import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
-
+/**
+ * 执行的自定义操作
+ */
 @Service("execAction")
 public class ExecAction {
 
@@ -33,6 +42,9 @@ public class ExecAction {
 
 	@Autowired
 	private PipelineService pipelineService;
+
+	@Autowired
+	private PipelineStageService pipelineStageService;
 
 
 	@Autowired
@@ -54,6 +66,9 @@ public class ExecAction {
 		if("TASK".equals(instance.getExecuteTargetType())){
 			createTaskExec(instance);
 		}
+		if("PIPELINE".equals(instance.getExecuteTargetType())){
+			createPipelineExec(instance);
+		}
 
 	}
 
@@ -70,22 +85,56 @@ public class ExecAction {
 		 * 2.生成一个任务节点
 		 * 3.开始这个节点
 		 */
-		instance.setExecuteTargetType("TASK");
+		instance.setExecuteTargetType(ExecuteTargetType.TASK);
 		instance.setExecuteTargetId(pipelineTask.getId());
 		instance.setStartTime(new Date());
-		instance.setStatus("RUNNING");
+		instance.setStatus(PipelineExecInstanceStatus.RUNNING);
 
 		execService.add(instance);
 
-
-		PipelineExecInstanceNode node = execNodeAction.createTaskExecNode(instance, instance.getExecuteTargetId(), 1);
-		execNodeAction.start(node);
+		PipelineExecInstanceNode node = execNodeAction.createTaskExecNode(instance, pipelineTask.getId(), 1);
+		execNodeAction.runNode(node);
 
 
 	}
 
+	/**
+	 * 给一个流水线创建执行请求
+	 * @param instance
+	 */
+	private void createPipelineExec(PipelineExecInstance instance){
 
-	private void createPipelineExec(Long pipeline){
+		/*
+		 * 1.找到流水线
+		 * 2.找到流水线参数
+		 * 3.设置执行实例参数
+		 * 4.创建执行实例节点
+		 */
+
+		Pipeline pipeline = pipelineService.find(instance.getExecuteTargetId());
+
+		instance.setExecuteTargetType(ExecuteTargetType.PIPELINE);
+		instance.setExecuteTargetId(pipeline.getId());
+		instance.setStartTime(new Date());
+		instance.setStatus(PipelineExecInstanceStatus.RUNNING);
+
+		execService.add(instance);
+
+		List<PipelineStage> stageList = pipelineStageService.findForPipeline(instance.getExecuteTargetId());
+
+		PipelineExecInstanceNode firstStageNode = null;
+
+        PipelineExecInstanceNode tempNode = execNodeAction.createPipelineExecNode(instance, pipeline.getId());
+        execNodeAction.runNode(firstStageNode);
+
+		for(int i = 0; CollectionUtils.isNotEmpty(stageList) && (i < CollectionUtils.size(stageList)) ; i++){
+			PipelineStage pipelineStage = stageList.get(i);
+
+			if(firstStageNode == null){
+				firstStageNode = tempNode;
+			}
+		}
+		execNodeAction.runNode(firstStageNode);
 
 	}
 
