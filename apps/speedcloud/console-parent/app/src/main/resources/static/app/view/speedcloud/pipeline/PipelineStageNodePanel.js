@@ -6,10 +6,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodePanel', {
     , requires: [
         'AM.view.speedcloud.pipeline.PipelineStageNodeController'
         ,'AM.store.speedcloud.pipeline.PipelineStageNodeStore'
-        ,'AM.view.speedcloud.pipeline.PipelineStageNodeAddWindow'
         ,'AM.view.speedcloud.pipeline.PipelineStageNodeEditWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineStageNodeSearchWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineStageNodeDetailWindow'
     ]
     ,controller: 'speedcloud.pipeline.PipelineStageNodeController'
     ,initComponent: function() {
@@ -198,10 +195,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodePanel', {
 			}
         });
 
-        me.add({xtype:'speedcloud.pipeline.PipelineStageNodeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.pipeline.PipelineStageNodeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineStageNodeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineStageNodeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

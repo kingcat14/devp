@@ -9,6 +9,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
     ,onAddPipelineParamClick:function(){
         var modelConfig = {defaultValue:'defaultValue', type:'String'}
         var pipelineParam = Ext.create('AM.model.speedcloud.pipeline.PipelineParam', modelConfig);
+
         this.lookup('pipelineParamGrid').getStore().add(pipelineParam);
 
     }
@@ -18,10 +19,11 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
     }
     ,onAddStageButtonClick:function(button, event){
+
+	    var me = this;
 	    var buttonPanel = button.up('panel');
-	    console.log(buttonPanel.getId());
-	    var pipelineStagePanel = this.lookup('pipelineStagePanel');
-        console.log(pipelineStagePanel.items.getCount())
+
+	    var pipelineStagePanel = this.lookup('pipelineStageListPanel');
 
         var index = 0;
         for(var i =0; i < pipelineStagePanel.items.getCount();i++){
@@ -31,29 +33,14 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
             }
         }
 
-        pipelineStagePanel.insert(index + 1, {
-            xtype:'panel'
-            // ,layout:'fit'
-            ,width:50
-            ,dockedItems: [
-            {
-                xtype: 'toolbar'
-                ,dock: 'bottom'
-                , layout:'fit'
-                ,items:{
-                    xtype: 'button'
-                    // ,scale:'medium'
-                    ,iconCls: 'x-fa fa-plus-circle orange'
-                    ,style:{color:'blue'}
-                    ,handler:'onAddStageButtonClick'
-                }
-            }]
+        console.log('index:'+index);
 
-        })
-        pipelineStagePanel.insert(index + 1, this.addStagePanel())
 
-        var stageCount = this.lookup('endStageContainer').getViewModel().get('stageCount');
-        this.lookup('endStageContainer').getViewModel().set('stageCount', stageCount+1);
+
+        var stageStore = this.getViewModel().getStore('stageStore');
+        var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'Stage_'+stageStore.getCount(), execMode:'SERIALIZED'})
+        stageStore.add(stage);
+        me.addStagePanelGroup(stage, index+1);
 
     }
     ,onDeleteStageButtonClick:function(stagePanel, tool){
@@ -63,15 +50,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 	    Ext.MessageBox.confirm('Confirm', '你确定要删除这个阶段吗?', function(btn){
             console.log(btn)
             if(btn=='yes'){
+                stagePanel.getViewModel().get('stage').drop();
                 stagePanel.nextSibling().destroy();
                 stagePanel.destroy();
-                var stageCount = me.lookup('endStageContainer').getViewModel().get('stageCount');
-                me.lookup('endStageContainer').getViewModel().set('stageCount', stageCount-1);
             }
 
         }, this);
-
-
     }
     ,onDeleteStageNodeClick:function (grid, rowIndex, colIndex){
         Ext.MessageBox.confirm('Confirm', '你确定要删除这个任务码?', function(btn){
@@ -96,14 +80,126 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
         me.showStageNodeEditWindow(grid, stageNodeStore, stageNode);
 
     }
-    ,onAddPipelineStageNodeClick:function(){
-        console.log('onAddPipelineStageNodeClick')
-    }
-    ,addStagePanel:function(){
+
+    ,editStage:function(stagePanel, tool){
 
 	    var me = this;
 
-	    var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'22'})
+	    var stage = stagePanel.getViewModel().get('stage')
+
+	    var stageWindow = me.lookup('stageWindow');
+        stageWindow.getViewModel().set('stage', stage);
+
+        stageWindow.show(tool)
+	}
+    ,addStageNode:function(button){
+
+        var me = this;
+
+        var stagePanel = button.up('panel').up('panel');
+        var stageNodeStore = stagePanel.getViewModel().getStore('stageNodeStore');
+
+
+        me.showStageNodeEditWindow(button, stageNodeStore);
+    }
+    ,showStageNodeEditWindow:function (sourceCmp, stageNodeStore, stageNode) {
+
+	    var me = this;
+        var stageNodeWindow = me.lookup('stageNodeWindow');
+        stageNodeWindow.getViewModel().set('stageNodeStore', stageNodeStore);
+        stageNodeWindow.getViewModel().set('stageNode', stageNode);
+        stageNodeWindow.show(sourceCmp)
+    }
+    ,onPipelineSaveButtonClick:function(){
+
+	    var me = this;
+        var stageList = [];
+        var paramList = [];
+
+
+	    var pipeline = this.getViewModel().get('record');
+        pipeline.set("stageList", stageList);
+        pipeline.set("paramList", paramList);
+
+        var pipelineStagePanel = this.lookup('pipelineStageListPanel');
+        console.log(pipelineStagePanel.items.getCount())
+
+        for(var i =0; i < pipelineStagePanel.items.getCount(); i++){
+
+            var panel = pipelineStagePanel.items.getAt(i);
+
+            if(panel.getViewModel() && panel.getViewModel().get('stage')){
+
+                var stage = panel.getViewModel().get('stage')
+                var stageNodeStore = panel.getViewModel().getStore('stageNodeStore');
+
+                var stageJson = stage.getData();
+                console.log('stageJson')
+                console.log(stageJson)
+                stageJson.nodeList = [];
+                stageNodeStore.each(function(node){
+
+                    stageJson.nodeList.push(node.getData());
+
+                });
+
+                stageList.push(stageJson);
+            }
+        }
+
+        if(stageList.length == 0){
+            Ext.MessageBox.alert('提交失败', '至少需要一个阶段');
+            return;
+        }
+
+
+        var paramStore = this.getViewModel().getStore('paramStore')
+        paramStore.each(function (param) {
+            paramList.push(param.getData())
+        })
+
+        console.log(pipeline)
+
+        pipeline.save({
+            success: function () {
+                Ext.MsgUtil.show('操作成功', '保存任务成功!');
+                //me.getView().destroy();
+            }
+        });
+    }
+
+    ,addStagePanelGroup:function(stage, index){
+        var me = this;
+        var pipelineStagePanel = me.lookup('pipelineStageListPanel');
+
+        //加号
+        pipelineStagePanel.insert(index, {
+            xtype:'panel'
+            // ,layout:'fit'
+            ,width:50
+            ,dockedItems: [
+                {
+                    xtype: 'toolbar'
+                    , dock: 'bottom'
+                    , layout:'fit'
+                    , items:{
+                        xtype: 'button'
+                        // ,scale:'medium'
+                        ,iconCls: 'x-fa fa-plus-circle orange'
+                        ,style:{color:'blue'}
+                        ,handler:'onAddStageButtonClick'
+                    }
+                }]
+        })
+
+        var stagePanel = me.createStagePanel(stage)
+        pipelineStagePanel.insert(index, stagePanel)
+    }
+    ,createStagePanel:function(stage){
+
+        var me = this;
+
+
         var panel = {
             xtype:'panel'
             , title:'Stage'
@@ -114,7 +210,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
             , viewModel:{
                 data:{stage:stage}
                 ,stores:{
-                    stageNodeStore:Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeStore')
+                    stageNodeStore:Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeStore').applyCondition({stage:(!stage.phantom)?stage.get('id')+"":-999}).load()
                 }
             }
             , tools:[{type:'gear', callback:'editStage'},{ iconCls:'x-fa fa-minus-circle', callback:'onDeleteStageButtonClick'}]
@@ -171,93 +267,28 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                     ]
                 }
             ]
+
         }
         return panel;
     }
-    ,editStage:function(stagePanel, tool){
 
-	    var me = this;
-
-	    var stage = stagePanel.getViewModel().get('stage')
-
-	    var stageWindow = me.lookup('stageWindow');
-        stageWindow.getViewModel().set('stage', stage);
-
-        stageWindow.show(tool)
-	}
-    ,addStageNode:function(button){
-
+    ,initPipelinePanel: function(){
         var me = this;
+        console.log('controller init')
 
-        var stagePanel = button.up('panel').up('panel');
-        var stageNodeStore = stagePanel.getViewModel().getStore('stageNodeStore');
-
-
-        me.showStageNodeEditWindow(button, stageNodeStore);
-    }
-    ,showStageNodeEditWindow:function (sourceCmp, stageNodeStore, stageNode) {
-
-	    var me = this;
-        var stageNodeWindow = me.lookup('stageNodeWindow');
-        stageNodeWindow.getViewModel().set('stageNodeStore', stageNodeStore);
-        stageNodeWindow.getViewModel().set('stageNode', stageNode);
-        stageNodeWindow.show(sourceCmp)
-    }
-    ,onPipelineSaveButtonClick:function(){
-
-	    var me = this;
-        var stageList = [];
-        var paramList = [];
-
-
-	    var pipeline = this.getViewModel().get('record');
-        pipeline.set("stageList", stageList);
-        pipeline.set("paramList", paramList);
-
-        var pipelineStagePanel = this.lookup('pipelineStagePanel');
-        console.log(pipelineStagePanel.items.getCount())
-
-        for(var i =0; i < pipelineStagePanel.items.getCount(); i++){
-
-            var panel = pipelineStagePanel.items.getAt(i);
-
-            if(panel.getViewModel() && panel.getViewModel().get('stage')){
-
-                var stage = panel.getViewModel().get('stage')
-                var stageNodeStore = panel.getViewModel().getStore('stageNodeStore');
-
-                var stageJson = stage.getData();
-                console.log('stageJson')
-                console.log(stageJson)
-                stageJson.nodeList = [];
-                stageNodeStore.each(function(node){
-
-                    stageJson.nodeList.push(node.getData());
-
-                });
-
-                stageList.push(stageJson);
-            }
-        }
-
-        if(stageList.length == 0){
-            Ext.MessageBox.alert('提交失败', '至少需要一个阶段');
-            return;
-        }
-
-
-        var paramStore = this.getViewModel().getStore('paramStore')
-        paramStore.each(function (param) {
-            paramList.push(param.getData())
+        var stageStore = this.getViewModel().getStore('stageStore');
+        stageStore.on('datachanged', function(store, records){
+            console.log('datachangeddatachangeddatachangeddatachangeddatachanged')
+            me.lookup('endStageContainer').getViewModel().set('stageCount', stageStore.getCount());
         })
-
-        console.log(pipeline)
-
-        pipeline.save({
-            success: function () {
-                Ext.MsgUtil.show('操作成功', '保存任务成功!');
-                //me.getView().destroy();
-            }
-        });
+        stageStore.on('load', function(store, records){
+            var i = 0;
+            store.each(function(record){
+                console.log("add stage")
+                console.log(record)
+                i+=2;
+                me.addStagePanelGroup(record, i)
+            })
+        })
     }
 })

@@ -16,6 +16,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
         var me = this;
 
         Ext.apply(me, {
+            // controller: 'speedcloud.pipeline.PipelineEditController'
             items: [
                 {
                     xtype:'form'
@@ -24,6 +25,10 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                     // ,title:'基本信息'
                     ,split: false
                     ,bodyPadding:10
+                    ,fieldDefaults: {
+                        labelStyle: 'font-weight: bold;'
+                        ,fieldStyle: 'font-weight: bold;'
+                    }
                     ,items:[
                         {
                             xtype:'container'
@@ -35,35 +40,41 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                 ,'font-weight': 'bold'
                                 ,'max-width': '90%'
                             }
-                            ,html:'<div>新建流水线</div>'
+
+                            //,tpl:'<div><tpl if="project">编辑<tpl else>新建</tpl>流水线:{name}</div>'
+                            // ,bind:'{record}'
+                            ,bind:{html:'<div>{!phantom?"编辑":"新建"}流水线</div>'}
                         }
                         ,{
                             xtype: 'textfield'
                             ,hidden: false
                             ,readOnly:false
                             ,allowBlank:false
+                            ,forceSelection:true
                             ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                             ,itemId: 'nameField'
                             ,reference:'nameField'
                             ,name: 'name'
-                            ,fieldLabel: '任务名称'
+                            ,emptyText:'输入流水线名称'
+                            ,fieldLabel: '流水线名称'
                             ,bind:'{record.name}'
                         }
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
+                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore").load()
                             ,typeAhead:false
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
                             ,hidden: false
-                            ,readOnly:false
+                            // ,readOnly:true
                             ,allowBlank:true
                             ,afterLabelTextTpl: []
                             ,itemId: 'projectField'
                             ,name: 'project'
-                            ,bind:'{record.project}'
+                            // ,bind:'{record.project}'
                             ,fieldLabel: '所属产品'
+                            ,bind:{readOnly:'{!phantom}',value:'{record.project}'}
                         }
                         ,{
                             xtype:'container'
@@ -108,7 +119,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                     ,region:'center'
                     ,layout:'hbox'
                     ,bodyPadding:10
-                    ,reference:'pipelineStagePanel'
+                    ,reference:'pipelineStageListPanel'
                     ,scrollable:true
                     ,items:[
                         {
@@ -116,16 +127,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                             ,title:'开始'
                             ,layout:'vbox'
                             // ,bodyPadding:10
-                            ,tools: [
-                                {
-                                    type:'close'
-                                    // iconCls: 'x-fa fa-wrench'
-                                    ,callback:function(){
-                                        var contentCardPanel = me.lookup('contentCardPanel');
-                                        contentCardPanel.getLayout().setActiveItem(0)
-                                    }
-                                }
-                            ]
                             ,items:[
                                 {
                                     xtype:'container'
@@ -236,18 +237,28 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                         ,'font-weight': 'bold'
                                         ,'max-width': '90%'
                                     }
-                                    //,html: '<div>流水线现有{stageCount}个阶段</div>'
                                     ,bind:{html:'流水线现有{stageCount}个阶段'}
+                                    // ,bind:{html:'流水线现有{stageCount}个阶段', store:'stageStore'}
+                                    // ,listeners:{
+                                    //     datachanged:function(){alert(1)}
+                                    // }
 
                                 }
                             ]
                         }
-
                     ]
                 }
             ]
 
-
+            ,listeners:{
+                added:function(panel, container){
+                    console.log("panel.id:"+panel.getId())
+                    console.log(panel)
+                    console.log("container.id:"+container.getId())
+                    console.log(container)
+                    me.getController().initPipelinePanel()
+                }
+            }
 
         });
         me.add({xtype:'speedcloud.pipeline.PipelineEditStageWindow',reference:'stageWindow'})

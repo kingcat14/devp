@@ -21,20 +21,27 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
 
         var modelConfig = {}
         var pipeline = Ext.create('AM.model.speedcloud.pipeline.Pipeline', modelConfig);
-        console.log(11)
+        console.log("phantom:"+pipeline.phantom)
+        console.log(pipeline)
         this.createPipelineTabOnMainContenPanel(pipeline, Ext.id());
     }
     /**在系统主面板创建Tab页*/
     ,createPipelineTabOnMainContenPanel:function(record, referenceId){
-        console.log('fireViewEvent:createMainTabPanel');
+
+        var me = this;
+
         this.fireViewEvent('createMainTabPanel', this.getView()
             ,{
                 xtype:'speedcloud.pipeline.PipelineEditPanel'
                 , reference:'PipelineEditPanel_'+referenceId
                 , viewModel:{
-                    data:{record:record}
+                    data:{
+                        record:record
+                        ,"phantom":record.phantom
+                    }
                     ,stores:{
                         paramStore:Ext.create('AM.store.speedcloud.pipeline.PipelineParamStore').applyCondition({pipeline:Ext.isNumeric(record.get('id'))?record.get('id')+"":-999}).load()
+                        ,stageStore:Ext.create('AM.store.speedcloud.pipeline.PipelineStageStore').applyCondition({pipeline:Ext.isNumeric(record.get('id'))?record.get('id')+"":-999}).load()
                     }
                 }
             }
@@ -67,7 +74,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
             ,scope:me.getStore()
         });
     }
-	,onEditButtonClick: function(){
+
+    ,onEditButtonClick: function(){
         var me = this;
         var mainGridPanel = me.lookupReference('mainGridPanel');
         var selections = mainGridPanel.getSelectionModel( ).getSelection( );
@@ -76,53 +84,30 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
             return;
         }
         var record = selections[0];
-        me.showEditWindow(record, mainGridPanel.getView().getRow(record));
+        console.log("phantom:"+record.phantom)
+        this.createPipelineTabOnMainContenPanel(record, record.getId());
+    }
+
+    ,onExecButtonClick: function(){
+        //执行task
+        var me = this;
+        var mainGridPanel = me.lookupReference('mainGridPanel');
+        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
+        if(selections.length <= 0){
+            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            return;
+        }
+        var record = selections[0];
+
+        //创建一个执行对象
+        var taskExecConfig = {executeTargetId:record.get('id'), executeTargetType:'PIPELINE'}
+        var taskExec = Ext.create('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', taskExecConfig);
+        taskExec.save()
     }
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;
         var searchWindow = me.lookupReference('mainSearchWindow');
         searchWindow.onSearchButtonClick();
-
-    }
-    ,onExportButtonClick: function(button, e, options) {
-
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        var condition = searchWindow.getCondition();
-        if(!condition){
-            condition = {searchCondition:{}};
-        }
-        if (!Ext.fly('formFly')) {
-            var frm = document.createElement('form');
-            frm.id = 'formFly';
-            frm.className = 'x-hidden';
-            document.body.appendChild(frm);
-        }
-        console.log(condition)
-        Ext.Ajax.request({
-            disableCaching: true
-            ,url: "pipeline/pipeline/export"
-            ,method: "POST"
-            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
-            ,isUpload: true
-            ,form: Ext.fly('formFly')
-        });
-
-    }
-    ,showAddWindow: function(model, targetComponent) {
-        var me = this;
-        var addWindow = me.lookupReference('mainAddWindow');
-        addWindow.setModel(model);
-        addWindow.show(targetComponent);
-        return addWindow;
-    }
-    ,showEditWindow: function(model, targetComponent) {
-        var me = this;
-        var editWindow = me.lookupReference('mainEditWindow');
-        editWindow.setModel(model);
-        editWindow.show(targetComponent);
-        return editWindow;
     }
     ,showSearchWindow: function() {
         var me = this;

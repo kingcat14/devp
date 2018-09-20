@@ -6,10 +6,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineParamPanel', {
     , requires: [
         'AM.view.speedcloud.pipeline.PipelineParamController'
         ,'AM.store.speedcloud.pipeline.PipelineParamStore'
-        ,'AM.view.speedcloud.pipeline.PipelineParamAddWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineParamEditWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineParamSearchWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineParamDetailWindow'
     ]
     ,controller: 'speedcloud.pipeline.PipelineParamController'
     ,initComponent: function() {
@@ -222,10 +218,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineParamPanel', {
 			}
         });
 
-        me.add({xtype:'speedcloud.pipeline.PipelineParamAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineParamEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineParamSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.pipeline.PipelineParamDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

@@ -85,8 +85,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditStageWindow', {
                                     ,fieldLabel: '执行方式'
                                     ,bind:'{stage.execMode}'
                                     ,items:[
-                                        {boxLabel: '串行执行', inputValue: 'SYNC', checked: true,}
-                                        ,{boxLabel: '并行执行', inputValue: 'ASYNC'}
+                                        {boxLabel: '串行执行', inputValue: 'SERIALIZED'}
+                                        ,{boxLabel: '并行执行', inputValue: 'PARALLEL'}
                                     ]
                                 }
                             ]

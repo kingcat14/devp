@@ -48,7 +48,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.getController().onEditButtonClick();
+                                    me.getController().onExecButtonClick();
                                 }
                             }]
                         }
@@ -153,14 +153,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'search'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
                                     }
                                 }
                             ]
