@@ -26,16 +26,18 @@ spring:
 
 security:
   basic:
-    enabled: true
+    enabled: false
 
 management:
   security:
-    enabled: true
+    enabled: false
 
 swagger:
   enabled: true
-  base-package: net.aicoder.devp.maintenance
+  base-package: net.aicoder.maintenance
 
 hystrix:
   metrics:
     enabled: false
+application:
+  uploadFilePath: /usr/local/gonghr/apps/devp/dev/attachment

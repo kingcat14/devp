@@ -8,6 +8,7 @@ import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.maintenance.business.asset.info.domain.AssetCategory;
 import net.aicoder.maintenance.business.asset.info.dto.AssetCategoryAddDto;
 import net.aicoder.maintenance.business.asset.info.dto.AssetCategoryCondition;
@@ -91,7 +92,6 @@ public class AssetCategoryController {
 		for (String id : ids ){
 			assetCategoryService.delete(Long.parseLong(id));
 		}
-
 	}
 
 	/**
@@ -134,6 +134,7 @@ public class AssetCategoryController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询资产大类列表", httpMethod = "POST")
 	@PostMapping("/list")
+	@ApiParam
 	public PageContent<AssetCategoryVO> list(@RequestBody PageSearchRequest<AssetCategoryCondition> pageSearchRequest){
 
 		SortCondition sortCondition = pageSearchRequest.getSortCondition();

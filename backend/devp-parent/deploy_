@@ -3,6 +3,6 @@ mvn clean package
 scp web/target/deploy-web.jar root@121.41.14.24:/studio/apps/devp/deploy
 
 scp web/target/devp-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/dev/devp
-scp web/target/deploy-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/prd/devp
+scp web/target/devp-web.jar appuser@192.168.14.46:/usr/local/gonghr/apps/devp/prd/devp
 java -Xmx256m -Xss512k -jar deploy-web.jar --spring.profiles.active=local
 nohup java -Xmx256m -Xss512k -jar deploy-web.jar --spring.profiles.active=local > /dev/null &

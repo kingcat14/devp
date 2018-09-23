@@ -6,14 +6,14 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9761/eureka
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://183.63.91.141:33060/prd_aic_devp?useSSL=false&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&allowMultiQueries=true
     username: root
     password: daan_2017
+  jpa:
+    hibernate:
+      ddl-auto: validate
   redis:
     host: localhost
     port: 6379

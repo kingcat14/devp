@@ -279,9 +279,9 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 
     private void check(Resource resource){
 	    LOGGER.info("[check resource]:{}", resource);
-    	Resource resource1 = resourceService.find(resource.getId());
+    	Resource resource1 = resourceService.findByCodeAndAppCode(resource);
     	if(resource1 == null){
-    		resourceService.merge(resource);
+    		resourceService.add(resource);
 	    }
     }
 

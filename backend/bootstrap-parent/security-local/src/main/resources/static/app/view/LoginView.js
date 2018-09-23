@@ -60,9 +60,14 @@ Ext.define('AM.view.LoginView', {
                         }
                         ]
                         ,fbar: [
-                            ,'->',{ xtype: 'button', text: '登录',listeners: {
+                            '->'
+                            ,{
+                                xtype: 'button'
+                                , text: '登录'
+                                ,listeners: {
                                     click: 'onLoginClick'
-                                } }
+                                }
+                            }
 
                             ,{ xtype: 'button', text: '忘记密码?' }
                         ]
@@ -103,23 +108,6 @@ Ext.define('AM.controller.security.LoginController', {
                 failure: 'onLoginFailure'
             });
         }
-    },
-
-    onLoginFailure: function(response) {
-
-        //console.log('failure:'+response.responseText)
-
-        var obj = Ext.decode(response.responseText);
-        // Do something
-        Ext.getBody().unmask();
-        Ext.MessageBox.alert('登录失败', obj.message+',请重新输入.');
-    },
-
-    onLoginSuccess: function() {
-
-        window.location="index.html";
-
-        //Ext.getBody().unmask();
     }
     ,login: function(options) {
         Ext.Ajax.request({
@@ -130,9 +118,8 @@ Ext.define('AM.controller.security.LoginController', {
             ,callback: this.onLoginReturn
             ,original: options
         });
-    },
-
-    onLoginReturn: function(options, success, response) {
+    }
+    ,onLoginReturn: function(options, success, response) {
         options = options.original;
         var session = this.getSession(),
             resultSet;
@@ -148,5 +135,24 @@ Ext.define('AM.controller.security.LoginController', {
 
         Ext.callback(options.failure, options.scope, [response]);
     }
+    ,onLoginFailure: function(response) {
+
+        //console.log('failure:'+response.responseText)
+
+        var obj = Ext.decode(response.responseText);
+        // Do something
+        Ext.getBody().unmask();
+        Ext.MessageBox.alert('登录失败', obj.message+',请重新输入.');
+    },
+
+    onLoginSuccess: function() {
+
+        window.location="index.html";
+
+        //Ext.getBody().unmask();
+    }
+
+
+
 
 });

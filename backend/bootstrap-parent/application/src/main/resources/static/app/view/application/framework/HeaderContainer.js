@@ -1,7 +1,7 @@
 Ext.define('AM.view.application.framework.HeaderContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.mainHeadercontainer',
-    title: '运维管理工具',
+    title: 'aiCoder提供技术支持',
     height: 52,
     layout: {
         type: 'hbox',
