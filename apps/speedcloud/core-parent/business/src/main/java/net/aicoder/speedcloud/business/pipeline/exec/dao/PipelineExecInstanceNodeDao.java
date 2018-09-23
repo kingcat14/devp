@@ -1,8 +1,8 @@
 package net.aicoder.speedcloud.business.pipeline.exec.dao;
 
 import com.yunkang.saas.common.jpa.BaseDao;
-import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,5 +17,11 @@ public interface PipelineExecInstanceNodeDao extends BaseDao<PipelineExecInstanc
 
 
     List<PipelineExecInstanceNode> findByTidAndStatus(Long tid, String status);
+
+    List<PipelineExecInstanceNode> findByParentIdOrderByExecIndex(Long parentId);
+
+    List<PipelineExecInstanceNode> findByParentIdAndStatusOrderByExecIndex(Long parentId, String status, Pageable pageable);
+
+
 
 }

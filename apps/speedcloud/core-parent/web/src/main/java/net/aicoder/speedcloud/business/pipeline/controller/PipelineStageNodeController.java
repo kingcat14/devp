@@ -13,11 +13,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNode;
+import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNodeParam;
 import net.aicoder.speedcloud.business.pipeline.dto.PipelineStageNodeCondition;
 import net.aicoder.speedcloud.business.pipeline.dto.PipelineStageNodeAddDto;
 import net.aicoder.speedcloud.business.pipeline.dto.PipelineStageNodeEditDto;
+import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeParamService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeService;
 import net.aicoder.speedcloud.business.pipeline.valid.PipelineStageNodeValidator;
+import net.aicoder.speedcloud.business.pipeline.vo.PipelineStageNodeParamVO;
 import net.aicoder.speedcloud.business.pipeline.vo.PipelineStageNodeVO;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
@@ -56,6 +59,9 @@ public class PipelineStageNodeController {
 
 	@Autowired
 	private PipelineStageNodeService pipelineStageNodeService;
+
+	@Autowired
+	private PipelineStageNodeParamService pipelineStageNodeParamService;
 
 	@Autowired
 	private PipelineStageService pipelineStageService;
@@ -222,6 +228,7 @@ public class PipelineStageNodeController {
 
 	    //初始化其他对象
 	    initStagePropertyGroup(vo, pipelineStageNode);
+		initParamPropertyGroup(vo, pipelineStageNode);
         return vo;
 
 	}
@@ -238,8 +245,28 @@ public class PipelineStageNodeController {
 
 		pipelineStageNodeVO.setStageVO(stageVO);
 
+
+
+
 	}
 
+	private void initParamPropertyGroup(PipelineStageNodeVO pipelineStageNodeVO, PipelineStageNode pipelineStageNode) {
+
+		List<PipelineStageNodeParam> pipelineStageNodeParamList = pipelineStageNodeParamService.findByNodeId(pipelineStageNode.getId());
+
+		if(CollectionUtils.isEmpty(pipelineStageNodeParamList)){
+			return ;
+		}
+
+		List<PipelineStageNodeParamVO> paramVOList = new ArrayList<>();
+		PipelineStageNodeParamVO paramVO;
+		for(PipelineStageNodeParam param : pipelineStageNodeParamList){
+			paramVO =  new PipelineStageNodeParamVO();
+			BeanUtils.copyProperties(param, paramVO);
+			paramVOList.add(paramVO);
+		}
+		pipelineStageNodeVO.setParamList(paramVOList);
+    }
 
 }
 

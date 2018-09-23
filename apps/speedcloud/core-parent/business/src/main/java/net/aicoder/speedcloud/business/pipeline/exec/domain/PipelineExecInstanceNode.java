@@ -125,9 +125,8 @@ public class PipelineExecInstanceNode extends BaseEntity{
     * 上级节点
     * 
     */
-    @Column(name = "parent_id", nullable = true, updatable = true)
-	@Size(max = 255, message = "上级节点超长，最多255个字符")
-	private String parentId;
+    @Column(name = "parent_id", nullable = true, updatable = false)
+	private Long parentId;
 
     /**
     * 关联任务
@@ -220,10 +219,10 @@ public class PipelineExecInstanceNode extends BaseEntity{
 		this.startTime = startTime;
 	}
 
-	public String getParentId(){
+	public Long getParentId(){
 		return parentId;
 	}
-	public void setParentId(String parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 

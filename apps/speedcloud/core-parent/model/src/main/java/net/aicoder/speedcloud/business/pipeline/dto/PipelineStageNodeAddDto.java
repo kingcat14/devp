@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 
 /**
  * 阶段执行节点
@@ -38,6 +40,9 @@ public class PipelineStageNodeAddDto {
 	@ApiModelProperty(value = "执行排序", required = false)
 	private Integer execOrder;
 
+	/**节点的参数列表*/
+	@ApiModelProperty(value = "节点的参数列表", required = false)
+	private List<PipelineStageNodeParamAddDto> paramList;
 
 	public Long getTid(){
 		return tid;
@@ -81,6 +86,12 @@ public class PipelineStageNodeAddDto {
 		this.execOrder = execOrder;
 	}
 
+	public List<PipelineStageNodeParamAddDto> getParamList() {
+		return paramList;
+	}
+	public void setParamList(List<PipelineStageNodeParamAddDto> paramList) {
+		this.paramList = paramList;
+	}
 
 	@Override
 	public String toString() {

@@ -88,10 +88,22 @@ public class PipelineService  extends GenericCrudService<Pipeline, Long, Pipelin
 		BeanUtils.copyProperties(pipelineEditDto, pipeline);
 		this.merge(pipeline);
 
+		//2.
 		pipelineParamService.deleteForPipeline(pipelineEditDto.getId());
+		if(CollectionUtils.isNotEmpty(pipelineEditDto.getParamList())){
+			for(PipelineParamAddDto addDto : pipelineEditDto.getParamList()){
+				addDto.setPipeline(pipeline.getId());
+			}
+		}
 		pipelineParamService.create(pipelineEditDto.getParamList());
 
+		//3.
 		pipelineStageService.deleteForPipeline(pipelineEditDto.getId());
+		if(CollectionUtils.isNotEmpty(pipelineEditDto.getStageList())){
+			for(PipelineStageAddDto addDto : pipelineEditDto.getStageList()){
+				addDto.setPipeline(pipeline.getId());
+			}
+		}
 		pipelineStageService.create(pipelineEditDto.getStageList());
 
 		return pipeline;

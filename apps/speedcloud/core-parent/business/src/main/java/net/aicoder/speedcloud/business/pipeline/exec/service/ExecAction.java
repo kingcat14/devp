@@ -4,14 +4,13 @@ package net.aicoder.speedcloud.business.pipeline.exec.service;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecuteTargetType;
 import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecInstanceStatus;
 import net.aicoder.speedcloud.business.pipeline.domain.Pipeline;
-import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
+import net.aicoder.speedcloud.business.pipeline.exec.builder.PipelineExecInstanceBuilder;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
+import net.aicoder.speedcloud.business.pipeline.exec.executor.NodeExecutorCenter;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
-import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 执行的自定义操作
@@ -34,8 +32,11 @@ public class ExecAction {
 	@Qualifier("pipelineExecInstanceService")
 	private PipelineExecInstanceService execService;
 
+
 	@Autowired
-	private PipelineExecInstanceNodeService pi;
+	private PipelineExecInstanceBuilder pipelineExecInstanceBuilder;
+
+
 
 	@Autowired
 	private PipelineTaskService pipelineTaskService;
@@ -43,8 +44,6 @@ public class ExecAction {
 	@Autowired
 	private PipelineService pipelineService;
 
-	@Autowired
-	private PipelineStageService pipelineStageService;
 
 
 	@Autowired
@@ -92,8 +91,8 @@ public class ExecAction {
 
 		execService.add(instance);
 
-		PipelineExecInstanceNode node = execNodeAction.createTaskExecNode(instance, pipelineTask.getId(), 1);
-		execNodeAction.runNode(node);
+		PipelineExecInstanceNode node = pipelineExecInstanceBuilder.buildTaskInstance(instance, pipelineTask.getId());
+		execNodeAction.execute(node);
 
 
 	}
@@ -120,21 +119,8 @@ public class ExecAction {
 
 		execService.add(instance);
 
-		List<PipelineStage> stageList = pipelineStageService.findForPipeline(instance.getExecuteTargetId());
-
-		PipelineExecInstanceNode firstStageNode = null;
-
-        PipelineExecInstanceNode tempNode = execNodeAction.createPipelineExecNode(instance, pipeline.getId());
-        execNodeAction.runNode(firstStageNode);
-
-		for(int i = 0; CollectionUtils.isNotEmpty(stageList) && (i < CollectionUtils.size(stageList)) ; i++){
-			PipelineStage pipelineStage = stageList.get(i);
-
-			if(firstStageNode == null){
-				firstStageNode = tempNode;
-			}
-		}
-		execNodeAction.runNode(firstStageNode);
+		PipelineExecInstanceNode node = pipelineExecInstanceBuilder.buildPipelineInstance(instance, pipeline.getId());
+		execNodeAction.execute(node);
 
 	}
 

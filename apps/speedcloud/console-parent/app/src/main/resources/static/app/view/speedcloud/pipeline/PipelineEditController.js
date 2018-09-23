@@ -66,22 +66,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
 
     }
-    ,onEditStageNodeClick:function (grid, rowIndex, colIndex){
-
-        var me = this;
-
-        var stageNode = grid.getStore().getAt(rowIndex);
-
-        var stagePanel = grid.up('grid').up('panel');
-        console.log(stagePanel)
-        var stageNodeStore = stagePanel.getViewModel().getStore('stageNodeStore');
-        console.log(stageNodeStore)
-
-        me.showStageNodeEditWindow(grid, stageNodeStore, stageNode);
-
-    }
-
-    ,editStage:function(stagePanel, tool){
+    ,onEditStageButtonClick:function(stagePanel, tool){
 
 	    var me = this;
 
@@ -92,7 +77,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
         stageWindow.show(tool)
 	}
-    ,addStageNode:function(button){
+    ,onAddStageNodeButtonClick:function(button){
 
         var me = this;
 
@@ -102,12 +87,26 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
         me.showStageNodeEditWindow(button, stageNodeStore);
     }
+    ,onEditStageNodeClick:function (grid, rowIndex, colIndex){
+
+        var me = this;
+
+        var stageNode = grid.getStore().getAt(rowIndex);
+
+        var stagePanel = grid.up('grid').up('panel');
+        var stageNodeStore = stagePanel.getViewModel().getStore('stageNodeStore');
+
+
+        me.showStageNodeEditWindow(grid, stageNodeStore, stageNode);
+
+    }
     ,showStageNodeEditWindow:function (sourceCmp, stageNodeStore, stageNode) {
 
 	    var me = this;
         var stageNodeWindow = me.lookup('stageNodeWindow');
         stageNodeWindow.getViewModel().set('stageNodeStore', stageNodeStore);
         stageNodeWindow.getViewModel().set('stageNode', stageNode);
+        stageNodeWindow.getViewModel().set('sourceCmp', sourceCmp);
         stageNodeWindow.show(sourceCmp)
     }
     ,onPipelineSaveButtonClick:function(){
@@ -134,11 +133,11 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                 var stageNodeStore = panel.getViewModel().getStore('stageNodeStore');
 
                 var stageJson = stage.getData();
-                console.log('stageJson')
-                console.log(stageJson)
+
                 stageJson.nodeList = [];
                 stageNodeStore.each(function(node){
-
+                    console.log(node)
+                    console.log(node.getData())
                     stageJson.nodeList.push(node.getData());
 
                 });
@@ -185,7 +184,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                     , items:{
                         xtype: 'button'
                         // ,scale:'medium'
-                        ,iconCls: 'x-fa fa-plus-circle orange'
+                        ,iconCls: 'fas fa-plus-circle orange'
                         ,style:{color:'blue'}
                         ,handler:'onAddStageButtonClick'
                     }
@@ -198,8 +197,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
     ,createStagePanel:function(stage){
 
         var me = this;
-
-
         var panel = {
             xtype:'panel'
             , title:'Stage'
@@ -213,7 +210,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                     stageNodeStore:Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeStore').applyCondition({stage:(!stage.phantom)?stage.get('id')+"":-999}).load()
                 }
             }
-            , tools:[{type:'gear', callback:'editStage'},{ iconCls:'x-fa fa-minus-circle', callback:'onDeleteStageButtonClick'}]
+            , tools:[{type:'gear', callback:'onEditStageButtonClick'},{ iconCls:'x-fa fa-minus-circle', callback:'onDeleteStageButtonClick'}]
             , items:[
                 {
                     xtype:'grid'
@@ -227,7 +224,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                             ,editor: {
                                 xtype: 'textfield'
                             }
-
                         }
                         , {
                             xtype: 'actioncolumn'
@@ -260,7 +256,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                                 ,text: '添加任务'
                                 ,bodyCls:'red'
                                 ,listeners: {
-                                    click: 'addStageNode'
+                                    click: 'onAddStageNodeButtonClick'
                                 }
                             }
                         }
@@ -274,21 +270,17 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
     ,initPipelinePanel: function(){
         var me = this;
-        console.log('controller init')
 
         var stageStore = this.getViewModel().getStore('stageStore');
         stageStore.on('datachanged', function(store, records){
-            console.log('datachangeddatachangeddatachangeddatachangeddatachanged')
+
             me.lookup('endStageContainer').getViewModel().set('stageCount', stageStore.getCount());
         })
         stageStore.on('load', function(store, records){
-            var i = 0;
-            store.each(function(record){
-                console.log("add stage")
-                console.log(record)
-                i+=2;
-                me.addStagePanelGroup(record, i)
-            })
+
+            for(var i in records){
+                me.addStagePanelGroup(records[i], i*2 + 2)
+            }
         })
     }
 })

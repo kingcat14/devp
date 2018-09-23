@@ -2,11 +2,13 @@ package net.aicoder.speedcloud.console.business.speedCloud.pipeline.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
+import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
+import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,24 +16,18 @@ import net.aicoder.speedcloud.business.pipeline.dto.*;
 import net.aicoder.speedcloud.business.pipeline.vo.PipelineVO;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.service.PipelineRibbonService;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.valid.PipelineValidator;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.nio.channels.Pipe;
 import java.util.*;
 
 /**
@@ -64,40 +60,6 @@ public class PipelineController {
 		webDataBinder.registerCustomEditor(Date.class, new DateConverter());
 	}
 
-	/**
-	 * 新增流水线
-	 * @param pipelineAddDto
-	 * @return
-	 */
-	@ApiOperation(value = "新增", notes = "新增流水线", httpMethod = "POST")
-	@PostMapping
-	@ResponseStatus( HttpStatus.CREATED )
-	public PipelineVO add(@RequestBody PipelineAddDto pipelineAddDto){
-
-    	pipelineAddDto.setTid(saaSUtil.getAccount().getTenantId());
-
-    	//处理参数的tid
-    	if(CollectionUtils.isNotEmpty(pipelineAddDto.getParamList())){
-    		for(PipelineParamAddDto paramAddDto : pipelineAddDto.getParamList()){
-				paramAddDto.setTid(pipelineAddDto.getTid());
-			}
-		}
-		//处理阶段的tid
-		if(CollectionUtils.isNotEmpty(pipelineAddDto.getStageList())){
-			for(PipelineStageAddDto stageAddDto : pipelineAddDto.getStageList()){
-				stageAddDto.setTid(pipelineAddDto.getTid());
-
-				//处理阶段节点的tid
-				if(CollectionUtils.isNotEmpty(stageAddDto.getNodeList())){
-					for(PipelineStageNodeAddDto stageNodeAddDto : stageAddDto.getNodeList()){
-						stageNodeAddDto.setTid(pipelineAddDto.getTid());
-					}
-				}
-			}
-		}
-
-		return  pipelineRibbonService.add(pipelineAddDto);
-	}
 
 	/**
 	 * 删除流水线,id以逗号分隔
@@ -116,20 +78,7 @@ public class PipelineController {
 
 	}
 
-	/**
-	 * 更新流水线
-	 * @param pipelineEditDto
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "修改", notes = "修改产流水线(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public PipelineVO update(@RequestBody PipelineEditDto pipelineEditDto, @ApiParam(value = "要查询的流水线id") @PathVariable Long id){
 
-		PipelineVO vo = pipelineRibbonService.merge(id, pipelineEditDto);
-
-		return  vo;
-	}
 
 	/**
 	 * 根据ID查询流水线

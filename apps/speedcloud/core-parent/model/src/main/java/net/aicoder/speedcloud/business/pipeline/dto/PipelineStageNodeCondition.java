@@ -14,10 +14,6 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "名称")
 	private String name;
     @ApiModelProperty(value = "阶段")
@@ -26,16 +22,8 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 	private String nodeType;
 	@ApiModelProperty(value = "节点节点ID")
 	private Long nodeId;
-	@ApiModelProperty(value = "节点节点ID最大值")
-	private Long nodeIdMax;
-	@ApiModelProperty(value = "节点节点ID最小值")
-	private Long nodeIdMin;
 	@ApiModelProperty(value = "执行排序")
 	private Integer execOrder;
-	@ApiModelProperty(value = "执行排序最大值")
-	private Integer execOrderMax;
-	@ApiModelProperty(value = "执行排序最小值")
-	private Integer execOrderMin;
 
 
 	public Long getTid(){
@@ -43,20 +31,6 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
-	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
 	}
 
 
@@ -91,21 +65,6 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 		this.nodeId = nodeId;
 	}
 
-	public Long getNodeIdMin(){
-		return nodeIdMin;
-	}
-	public void setNodeIdMin(Long nodeIdMin) {
-		this.nodeIdMin = nodeIdMin;
-	}
-
-	public Long getNodeIdMax(){
-		return nodeIdMax;
-	}
-	public void setNodeIdMax(Long nodeIdMax) {
-		this.nodeIdMax = nodeIdMax;
-	}
-
-
 	public Integer getExecOrder(){
 		return execOrder;
 	}
@@ -113,19 +72,6 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 		this.execOrder = execOrder;
 	}
 
-	public Integer getExecOrderMin(){
-		return execOrderMin;
-	}
-	public void setExecOrderMin(Integer execOrderMin) {
-		this.execOrderMin = execOrderMin;
-	}
-
-	public Integer getExecOrderMax(){
-		return execOrderMax;
-	}
-	public void setExecOrderMax(Integer execOrderMax) {
-		this.execOrderMax = execOrderMax;
-	}
 
 
 

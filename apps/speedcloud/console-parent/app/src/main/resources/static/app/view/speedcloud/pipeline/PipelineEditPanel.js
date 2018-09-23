@@ -68,7 +68,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                             ,valueField:'id'
                             ,hidden: false
                             // ,readOnly:true
-                            ,allowBlank:true
+                            ,allowBlank:false
                             ,afterLabelTextTpl: []
                             ,itemId: 'projectField'
                             ,name: 'project'
@@ -214,7 +214,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                     ,items:{
                                         xtype: 'button'
                                         // ,scale:'large'
-                                        ,iconCls: 'x-fa fa-plus-circle orange'
+                                        // ,iconCls: 'x-fa fa-plus-circle orange'
+                                        ,iconCls: 'fas fa-plus-circle orange'
                                         ,handler:'onAddStageButtonClick'
                                     }
                                 }]

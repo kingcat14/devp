@@ -235,6 +235,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             ,itemId: 'taskTypeField'
                                             ,name: 'taskType'
                                             ,fieldLabel: '任务类型'
+                                            ,bind:'{record.taskType}'
                                         }
                                         ,{
                                             xtype:'fieldset'

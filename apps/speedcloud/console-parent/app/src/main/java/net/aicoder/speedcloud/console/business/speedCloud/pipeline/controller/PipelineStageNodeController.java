@@ -66,51 +66,6 @@ public class PipelineStageNodeController {
 	}
 
 	/**
-	 * 新增阶段执行节点
-	 * @param pipelineStageNodeAddDto
-	 * @return
-	 */
-	@ApiOperation(value = "新增", notes = "新增阶段执行节点", httpMethod = "POST")
-	@PostMapping
-	@ResponseStatus( HttpStatus.CREATED )
-	public PipelineStageNodeVO add(@RequestBody PipelineStageNodeAddDto pipelineStageNodeAddDto){
-    	pipelineStageNodeAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  pipelineStageNodeRibbonService.add(pipelineStageNodeAddDto);
-	}
-
-	/**
-	 * 删除阶段执行节点,id以逗号分隔
-	 * @param idArray
-	 */
-	@ApiOperation(value = "删除", notes = "删除阶段执行节点", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
-	public void delete(@PathVariable String idArray){
-
-	    LOGGER.debug("delete pipelineStageNode :{}", idArray);
-
-		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			pipelineStageNodeRibbonService.delete(Long.parseLong(id));
-		}
-
-	}
-
-	/**
-	 * 更新阶段执行节点
-	 * @param pipelineStageNodeEditDto
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "修改", notes = "修改产阶段执行节点(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public PipelineStageNodeVO update(@RequestBody PipelineStageNodeEditDto pipelineStageNodeEditDto, @ApiParam(value = "要查询的阶段执行节点id") @PathVariable Long id){
-
-		PipelineStageNodeVO vo = pipelineStageNodeRibbonService.merge(id, pipelineStageNodeEditDto);
-
-		return  vo;
-	}
-
-	/**
 	 * 根据ID查询阶段执行节点
 	 * @param id
 	 * @return
@@ -145,54 +100,9 @@ public class PipelineStageNodeController {
 
 		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
 		return pageContent;
-
 	}
 
-	/**
-     * 导出阶段执行节点列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出阶段执行节点列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(PipelineStageNodeCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
-
-        PageSearchRequest<PipelineStageNodeCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<PipelineStageNodeVO> content = this.list(pageSearchRequest);
-
-        List<PipelineStageNodeVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(PipelineStageNodeVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-    
-            headMap.put("name" ,"名称");
-            headMap.put("stage" ,"阶段");
-            headMap.put("nodeType" ,"节点类型");
-            headMap.put("nodeId" ,"节点节点ID");
-            headMap.put("execOrder" ,"执行排序");
-
-        String title = new String("阶段执行节点");
-        String fileName = new String(("阶段执行节点_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-
-    }
-
-
 	private PipelineStageNodeVO initViewProperty( PipelineStageNodeVO vo){
-
-	   
 
 		SimpleConfig nodeTypeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGENODE-NODETYPE", vo.getNodeType());
 
@@ -203,7 +113,6 @@ public class PipelineStageNodeController {
 		    vo.setNodeTypeVO(nodeTypeSimpleConfigVO);
 		}
 
-	   
         return vo;
 
 	}

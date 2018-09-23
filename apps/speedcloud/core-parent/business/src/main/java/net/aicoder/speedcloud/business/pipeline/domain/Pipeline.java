@@ -59,7 +59,7 @@ public class Pipeline extends BaseEntity{
     * 所属产品
     * 
     */
-    @Column(name = "project", nullable = true, updatable = true)
+    @Column(name = "project", nullable = false, updatable = false)
 	private Long project;
 
 	public Long getTid(){

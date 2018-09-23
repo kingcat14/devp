@@ -70,47 +70,24 @@ public class PipelineAction {
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineVO add(@RequestBody PipelineAddDto pipelineAddDto){
 
+		long tid = saaSUtil.getAccount().getTenantId();
     	pipelineAddDto.setTid(saaSUtil.getAccount().getTenantId());
 
     	//处理参数的tid
     	if(CollectionUtils.isNotEmpty(pipelineAddDto.getParamList())){
     		for(PipelineParamAddDto paramAddDto : pipelineAddDto.getParamList()){
-				paramAddDto.setTid(pipelineAddDto.getTid());
+				paramAddDto.setTid(tid);
 			}
 		}
-		//处理阶段的tid
-		if(CollectionUtils.isNotEmpty(pipelineAddDto.getStageList())){
-			for(PipelineStageAddDto stageAddDto : pipelineAddDto.getStageList()){
-				stageAddDto.setTid(pipelineAddDto.getTid());
 
-				//处理阶段节点的tid
-				if(CollectionUtils.isNotEmpty(stageAddDto.getNodeList())){
-					for(PipelineStageNodeAddDto stageNodeAddDto : stageAddDto.getNodeList()){
-						stageNodeAddDto.setTid(pipelineAddDto.getTid());
-					}
-				}
-			}
-		}
+		handleParamTid(pipelineAddDto.getParamList());
+		handleStageTid(pipelineAddDto.getStageList());
+
 
 		return  pipelineRibbonService.add(pipelineAddDto);
 	}
 
-	/**
-	 * 删除流水线,id以逗号分隔
-	 * @param idArray
-	 */
-	@ApiOperation(value = "删除", notes = "删除流水线", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
-	public void delete(@PathVariable String idArray){
 
-	    LOGGER.debug("delete pipeline :{}", idArray);
-
-		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			pipelineRibbonService.delete(Long.parseLong(id));
-		}
-
-	}
 
 	/**
 	 * 更新流水线
@@ -122,106 +99,60 @@ public class PipelineAction {
 	@PutMapping(value="/{id}")
 	public PipelineVO update(@RequestBody PipelineEditDto pipelineEditDto, @ApiParam(value = "要查询的流水线id") @PathVariable Long id){
 
+		handleParamTid(pipelineEditDto.getParamList());
+		handleStageTid(pipelineEditDto.getStageList());
+
+
 		PipelineVO vo = pipelineRibbonService.merge(id, pipelineEditDto);
 
 		return  vo;
 	}
 
-	/**
-	 * 根据ID查询流水线
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询流水线", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public PipelineVO get(@ApiParam(value = "要查询的流水线id") @PathVariable Long id) {
 
-		PipelineVO vo = pipelineRibbonService.find(id);
-		return vo;
+	private void handleParamTid(List<PipelineParamAddDto> pipelineParamAddDtoList){
+		Long tid = saaSUtil.getAccount().getTenantId();
+		//处理参数的tid
+		if(CollectionUtils.isEmpty(pipelineParamAddDtoList)){
+			return;
+		}
+		for(PipelineParamAddDto paramAddDto : pipelineParamAddDtoList){
+			paramAddDto.setTid(tid);
+		}
+	}
+	private void handleStageTid(List<PipelineStageAddDto> stageList){
+		Long tid = saaSUtil.getAccount().getTenantId();
+		//处理阶段的tid
+		if(CollectionUtils.isEmpty(stageList)){
+			return;
+		}
+		for(PipelineStageAddDto stageAddDto : stageList){
+			stageAddDto.setTid(tid);
+			handStageNodeTid(stageAddDto.getNodeList());
+		}
 	}
 
-	/**
-	 * 查询流水线列表
-	 * @param pageSearchRequest
-	 * @return
-	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询流水线列表", httpMethod = "POST")
-	@PostMapping("/list")
-	public PageContent<PipelineVO> list(@RequestBody PageSearchRequest<PipelineCondition> pageSearchRequest){
-
-		PipelineCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new PipelineCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
-		PageContent<PipelineVO> pageContent = pipelineRibbonService.list(pageSearchRequest);
-		for(PipelineVO vo : pageContent.getContent()){
-			initViewProperty(vo);
+	private void handStageNodeTid(List<PipelineStageNodeAddDto> stageNodeAddDtoList){
+		Long tid = saaSUtil.getAccount().getTenantId();
+		//处理阶段节点的tid
+		if(CollectionUtils.isEmpty(stageNodeAddDtoList)){
+			return;
 		}
 
-		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
-		return pageContent;
-
+		for(PipelineStageNodeAddDto stageNodeAddDto : stageNodeAddDtoList){
+			stageNodeAddDto.setTid(tid);
+			handleStageNodeParamTid(stageNodeAddDto.getParamList());
+		}
 	}
 
-	/**
-     * 导出流水线列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出流水线列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(PipelineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
-
-        PageSearchRequest<PipelineCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<PipelineVO> content = this.list(pageSearchRequest);
-
-        List<PipelineVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(PipelineVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-    
-            headMap.put("name" ,"流水线名称");
-            headMap.put("type" ,"类型");
-            headMap.put("project" ,"所属产品");
-
-        String title = new String("流水线");
-        String fileName = new String(("流水线_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-
-    }
-
-
-	private PipelineVO initViewProperty( PipelineVO vo){
-
-	   
-
-		SimpleConfig typeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINE-TYPE", vo.getType());
-
-		if(typeSimpleConfig!=null) {
-
-		    SimpleConfigVO typeSimpleConfigVO = new SimpleConfigVO();
-		    BeanUtils.copyProperties(typeSimpleConfig, typeSimpleConfigVO);
-		    vo.setTypeVO(typeSimpleConfigVO);
+	private void handleStageNodeParamTid(List<PipelineStageNodeParamAddDto> pipelineStageNodeParamAddDtoList){
+		Long tid = saaSUtil.getAccount().getTenantId();
+		//处理参数的tid
+		if(CollectionUtils.isEmpty(pipelineStageNodeParamAddDtoList)){
+			return;
 		}
-
-	   
-        return vo;
-
+		for(PipelineStageNodeParamAddDto paramAddDto : pipelineStageNodeParamAddDtoList){
+			paramAddDto.setTid(tid);
+		}
 	}
-
 
 }

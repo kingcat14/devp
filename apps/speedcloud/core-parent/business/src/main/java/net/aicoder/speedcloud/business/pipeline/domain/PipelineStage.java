@@ -57,8 +57,7 @@ public class PipelineStage extends BaseEntity{
 	private String name;
 
     /**
-    * 流转方式
-    * 流转到下一阶段方式:自动、手动
+    * 流转方式:自动、手动
     */
     @Column(name = "flow_type", nullable = true, updatable = true)
 	private String flowType;
@@ -67,7 +66,7 @@ public class PipelineStage extends BaseEntity{
     * 执行方式
     * 并行、串行、
     */
-    @Column(name = "exec_mode", nullable = true, updatable = true)
+    @Column(name = "exec_mode", nullable = false, updatable = true)
 	private String execMode;
 
 	public Long getTid(){

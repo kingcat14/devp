@@ -70,7 +70,6 @@ public class PipelineStageService  extends GenericCrudService<PipelineStage, Lon
 			return 0;
 		}
 
-
 		List<PipelineStage> stageList = dao.findByPipeline(pipelineId);
 		if(CollectionUtils.isEmpty(stageList)){
 			return 0;
@@ -83,6 +82,8 @@ public class PipelineStageService  extends GenericCrudService<PipelineStage, Lon
 
 	}
 
+
+
 	@Transactional
 	public void delete(PipelineStage pipelineStage){
 		this.delete(pipelineStage.getId());
@@ -93,6 +94,11 @@ public class PipelineStageService  extends GenericCrudService<PipelineStage, Lon
 		LOGGER.debug("delete t:{}", pipelineStageId);
 		pipelineStageNodeService.deleteForStage(pipelineStageId);
 		dao.delete(pipelineStageId);
+	}
+
+
+	public List<PipelineStage> findForPipeline(Long pipelineId){
+		return dao.findByPipeline(pipelineId);
 	}
 
 	@Override

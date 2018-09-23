@@ -5,6 +5,7 @@ import net.aicoder.speedcloud.apapter.yunkang.client.YunkangClient;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.ExecParam;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNodeParam;
+import net.aicoder.speedcloud.business.pipeline.exec.service.ExecNodeAction;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeParamService;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,6 @@ public class JobRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JobRunner.class);
 
-
     @Autowired
     private PipelineExecInstanceNodeService pipelineExecInstanceNodeService;
 
@@ -34,10 +35,13 @@ public class JobRunner {
 
 
     @Autowired
+    private ExecNodeAction execNodeAction;
+
+    @Autowired
     private YunkangClient yunkangClient;
 
-
     @Scheduled(cron = "0/30 * * * * *")
+
     public void run(){
 
         List<PipelineExecInstanceNode> nodeList = pipelineExecInstanceNodeService.findPreparedJob(1L);
@@ -50,10 +54,9 @@ public class JobRunner {
             }finally {
                 node.setStatus("FINISH");
                 pipelineExecInstanceNodeService.merge(node);
+                finishJob(node);
             }
-
             //runJob(node);
-
         }
 
     }
@@ -69,8 +72,6 @@ public class JobRunner {
          * 2.得到任务参数
          * 3.调用执行
          */
-
-
         List<PipelineExecInstanceNodeParam> paramList = pipelineExecInstanceNodeParamService.findByInstanceNode(node.getId());
 
         List<ExecParam> execParamList = new ArrayList<>();
@@ -87,6 +88,18 @@ public class JobRunner {
         Result result = yunkangClient.exec(node.getTask()+"", execParamList);
         node.setResult(result.getFlag());
         node.setResultMessage(result.getErrorMsg());
-        System.out.println(result);
+
+    }
+
+    /**
+     * 结束job执行
+     * @param node
+     */
+    @Transactional
+    private void finishJob(PipelineExecInstanceNode node){
+        //TODO 这里的代码需要改成调用SpeedCloud的接口
+
+        execNodeAction.finishNode(node);
+
     }
 }

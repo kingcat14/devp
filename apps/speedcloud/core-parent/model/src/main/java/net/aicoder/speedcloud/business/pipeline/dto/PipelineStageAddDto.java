@@ -36,7 +36,8 @@ public class PipelineStageAddDto {
 	@ApiModelProperty(value = "执行方式", required = false, notes = "并行、串行、")
     private String execMode;
 
-	/**节点包含的节点*/
+	/**阶段包含的节点*/
+	@ApiModelProperty(value = "阶段包含的节点", required = false, notes = "")
 	private List<PipelineStageNodeAddDto> nodeList;
 
 
