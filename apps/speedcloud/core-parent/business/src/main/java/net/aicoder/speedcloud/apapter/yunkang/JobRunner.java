@@ -41,7 +41,7 @@ public class JobRunner {
     private YunkangClient yunkangClient;
 
     @Scheduled(cron = "0/30 * * * * *")
-
+    @Transactional
     public void run(){
 
         List<PipelineExecInstanceNode> nodeList = pipelineExecInstanceNodeService.findPreparedJob(1L);
@@ -95,7 +95,6 @@ public class JobRunner {
      * 结束job执行
      * @param node
      */
-    @Transactional
     private void finishJob(PipelineExecInstanceNode node){
         //TODO 这里的代码需要改成调用SpeedCloud的接口
 

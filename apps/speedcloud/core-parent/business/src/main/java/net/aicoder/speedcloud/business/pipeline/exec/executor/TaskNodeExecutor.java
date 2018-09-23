@@ -6,7 +6,14 @@ import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanc
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+/**
+ * 任务节点的执行逻辑
+ */
+@Component
 public class TaskNodeExecutor implements NodeExecutor {
 
     @Autowired()@Qualifier("pipelineExecInstanceNodeService")
@@ -21,9 +28,8 @@ public class TaskNodeExecutor implements NodeExecutor {
         execNodeService.merge(node);
     }
 
-    @Override
-    public void register(NodeExecutorCenter nodeExecutorCenter) {
-        this.nodeExecutorCenter = nodeExecutorCenter;
+    @PostConstruct
+    public void register() {
         nodeExecutorCenter.register(ExecInstanceNodeType.TASK, this);
     }
 

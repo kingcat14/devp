@@ -8,9 +8,15 @@ import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanc
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.Executor;
 
+/**
+ * 流水线节点的执行逻辑
+ */
+@Component
 public class PipelineNodeExecutor implements NodeExecutor {
 
     @Autowired()@Qualifier("pipelineExecInstanceNodeService")
@@ -28,9 +34,8 @@ public class PipelineNodeExecutor implements NodeExecutor {
         nodeExecutorCenter.execute(nextWaitingNode);
     }
 
-    @Override
-    public void register(NodeExecutorCenter nodeExecutorCenter) {
-        this.nodeExecutorCenter = nodeExecutorCenter;
+    @PostConstruct
+    public void register() {
         nodeExecutorCenter.register(ExecInstanceNodeType.PIPELINE, this);
     }
 

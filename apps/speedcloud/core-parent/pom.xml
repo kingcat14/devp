@@ -41,6 +41,11 @@
                 <artifactId>speedcloud-business</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.aicoder.speedcloud</groupId>
+                <artifactId>speedcloud-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

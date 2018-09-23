@@ -1,12 +1,11 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.exec.builder.NodeBuilder;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.ExecNodeAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
 @Component
@@ -39,7 +38,6 @@ public class NodeExecutorCenter {
             LOGGER.error(node.toString());
         }
     }
-
 
     public void register(String type, NodeExecutor nodeExecutor){
         this.executorMap.put(type, nodeExecutor);

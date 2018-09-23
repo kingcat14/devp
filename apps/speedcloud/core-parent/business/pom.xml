@@ -22,5 +22,9 @@
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.aicoder.speedcloud</groupId>
+            <artifactId>speedcloud-client</artifactId>
+        </dependency>
     </dependencies>
 </project>

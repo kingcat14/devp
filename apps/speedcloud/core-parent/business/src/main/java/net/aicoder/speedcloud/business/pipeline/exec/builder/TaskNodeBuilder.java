@@ -90,5 +90,7 @@ public class TaskNodeBuilder implements NodeBuilder {
     @PostConstruct
     public void register() {
         pipelineExecInstanceBuilder.register(ExecInstanceNodeType.TASK, this);
+        pipelineExecInstanceBuilder.register(ExecInstanceNodeType.TASK_COMPILE, this);
+        pipelineExecInstanceBuilder.register(ExecInstanceNodeType.TASK_DEPLOY, this);
     }
 }
