@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.console.business.speedCloud.pipeline.exec.service
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineCustomExecInstanceAddDto;
 import net.aicoder.speedcloud.client.pipeline.exec.PipelineExecInstanceRibbon;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstancePageResult;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstanceResult;
@@ -50,7 +51,6 @@ public class PipelineExecInstanceRibbonService  {
 
 	@Autowired
 	private PipelineExecInstanceRibbon pipelineExecInstanceRibbon;
-
 
 	public PipelineExecInstanceVO add(PipelineExecInstanceAddDto addDto){
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.add(addDto);

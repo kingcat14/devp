@@ -2,6 +2,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
         'AM.view.speedcloud.pipeline.PipelineEditPanel'
+        ,'AM.view.speedcloud.pipeline.PipelineExecPanel'
 	]
 	,alias: 'controller.speedcloud.pipeline.PipelineController'
 
@@ -34,6 +35,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
             ,{
                 xtype:'speedcloud.pipeline.PipelineEditPanel'
                 , reference:'PipelineEditPanel_'+referenceId
+                , title:record.phantom?'新建流水线':'流水线【'+record.get('name')+"】"
                 , viewModel:{
                     data:{
                         record:record
@@ -87,8 +89,34 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
         console.log("phantom:"+record.phantom)
         this.createPipelineTabOnMainContenPanel(record, record.getId());
     }
-
     ,onExecButtonClick: function(){
+        var me = this;
+        var mainGridPanel = me.lookupReference('mainGridPanel');
+        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
+        if(selections.length <= 0){
+            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            return;
+        }
+        var record = selections[0];
+
+        this.fireViewEvent('createMainTabPanel', this.getView()
+            ,{
+                xtype:'speedcloud.pipeline.PipelineExecPanel'
+                , reference:'PipelineExecPanel_'+record.getId()
+                , title:'流水线详情【'+record.get('name')+"】"
+                , viewModel:{
+                    data:{
+                        pipeline:record
+                    }
+                    ,stores:{
+                        paramStore:Ext.create('AM.store.speedcloud.pipeline.PipelineParamStore').applyCondition({pipeline:record.getId()}).load()
+                        ,stageStore:Ext.create('AM.store.speedcloud.pipeline.PipelineStageStore').applyCondition({pipeline:record.getId()}).load()
+                    }
+                }
+            }
+        );
+    }
+    ,onDirectExecButtonClick: function(){
         //执行task
         var me = this;
         var mainGridPanel = me.lookupReference('mainGridPanel');

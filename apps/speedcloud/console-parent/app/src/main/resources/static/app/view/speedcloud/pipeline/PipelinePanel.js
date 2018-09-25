@@ -33,7 +33,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
+                                    me.getController().onExecButtonClick();
                                 }
                             }]
                         }
@@ -48,7 +48,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.getController().onExecButtonClick();
+                                    me.getController().onDirectExecButtonClick();
                                 }
                             }]
                         }

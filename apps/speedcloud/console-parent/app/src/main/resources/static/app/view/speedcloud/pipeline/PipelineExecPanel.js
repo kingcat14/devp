@@ -1,22 +1,20 @@
-Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
+Ext.define('AM.view.speedcloud.pipeline.PipelineExecPanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.pipeline.PipelineEditPanel'
-    , title: '编辑流水线'
+    , xtype: 'speedcloud.pipeline.PipelineExecPanel'
+    , title: '流水线'
     , layout: 'border'
     , requires: [
-        'AM.view.speedcloud.pipeline.PipelineEditController'
-        ,'AM.view.speedcloud.pipeline.PipelineEditStageWindow'
-        ,'AM.view.speedcloud.pipeline.PipelineEditStageNodeWindow'
+        'AM.view.speedcloud.pipeline.PipelineExecController'
     ]
     ,bodyPadding:10
     ,bodyCls: 'app-dashboard'
-    ,controller: 'speedcloud.pipeline.PipelineEditController'
+    ,controller: 'speedcloud.pipeline.PipelineExecController'
     ,viewModel:true
     ,initComponent: function() {
         var me = this;
 
         Ext.apply(me, {
-            // controller: 'speedcloud.pipeline.PipelineEditController'
+            // controller: 'speedcloud.pipeline.PipelineExecController'
             items: [
                 {
                     xtype:'form'
@@ -46,35 +44,15 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                             ,bind:{html:'<div>{!phantom?"编辑":"新建"}流水线</div>'}
                         }
                         ,{
-                            xtype: 'textfield'
-                            ,hidden: false
-                            ,readOnly:false
-                            ,allowBlank:false
-                            ,forceSelection:true
-                            ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
-                            ,itemId: 'nameField'
-                            ,reference:'nameField'
+                            xtype: 'displayfield'
                             ,name: 'name'
-                            ,emptyText:'输入流水线名称'
                             ,fieldLabel: '流水线名称'
-                            ,bind:'{record.name}'
+                            ,bind:'{pipeline.name}'
                         }
                         ,{
-                            xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore").load()
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'name'
-                            ,valueField:'id'
-                            ,hidden: false
-                            // ,readOnly:true
-                            ,allowBlank:false
-                            ,afterLabelTextTpl: []
-                            ,itemId: 'projectField'
-                            ,name: 'project'
-                            // ,bind:'{record.project}'
+                            xtype: 'displayfield'
                             ,fieldLabel: '所属产品'
-                            ,bind:{readOnly:'{!phantom}',value:'{record.project}'}
+                            ,bind:'{pipeline.projectVO.name}'
                         }
                         ,{
                             xtype:'container'
@@ -99,14 +77,17 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                     xtype: 'button'
                                     // ,iconCls: 'accept'
                                     //,iconCls: 'x-fa fa-plus-circle'
-                                    ,text: '确定'
+                                    ,text: '全新执行'
                                     ,scale: 'large'
                                     ,listeners: {
-                                        click: 'onPipelineSaveButtonClick'
+                                        click: 'onPipelineExecButtonClick'
                                     }
                                 }
                                 ,{
-                                    xtype:'button',text:'取消',scale: 'large'
+                                    xtype:'button',text:'继续执行',scale: 'large'
+                                    ,listeners: {
+                                        click: 'onPipelineContinueExecButtonClick'
+                                    }
                                 }
                             ]
                         }
@@ -124,7 +105,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                     ,items:[
                         {
                             xtype:'panel',frame:true,width:300
-                            ,title:'开始'
+                            ,title:'1:开始'
                             ,layout:'vbox'
                             // ,bodyPadding:10
                             ,items:[
@@ -151,47 +132,18 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                         {
                                             xtype: 'gridcolumn'
                                             ,dataIndex: 'name'
-                                            // ,text: '参数列表'
+                                            ,text: '参数名'
                                             ,flex:1
-                                            ,editor: {
-                                                xtype: 'textfield'
-                                            }
                                         }
-                                        , {
-                                            xtype: 'actioncolumn'
-                                            ,menuDisabled: true
-                                            ,width:60
-                                            , items: [
-                                                {
-                                                    iconCls: 'x-fa fa-pencil'
-                                                    ,margin:'0 10 0 0'
-                                                    , tooltip: '修改'
-                                                    , handler: 'onEditPipelineParamClick'
+                                        ,{
+                                            xtype: 'gridcolumn'
+                                            ,dataIndex: 'value'
+                                            ,text: '参数值'
+                                            ,flex:1
+                                        }
 
-                                                }
-                                                ,'-'
-                                                ,{
-                                                    iconCls: 'x-fa fa-trash'
-                                                    , tooltip: '删除'
-                                                    , handler: 'onDeletePipelineParamClick'
-                                                }
-                                            ]
-                                        }
                                     ]
-                                    ,dockedItems: [
-                                        {
-                                            xtype: 'toolbar'
-                                            ,dock: 'bottom'
-                                            , layout:'fit'
-                                            ,items:{
-                                                xtype: 'button'
-                                                ,iconCls: 'x-fa fa-plus darkgreen'
-                                                ,text: '添加参数'
-                                                ,listeners: {
-                                                    click: 'onAddPipelineParamClick'
-                                                }
-                                            }
-                                        }]
+
                                     ,plugins: [
                                         {
                                             ptype: 'cellediting'
@@ -203,26 +155,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                             ]
                         }
                         ,{
-                            xtype:'panel'
-                            ,width:50
-                            ,dockedItems: [
-                                {
-                                    xtype: 'toolbar'
-                                    ,dock: 'bottom'
-                                    , layout:'fit'
-
-                                    ,items:{
-                                        xtype: 'button'
-                                        // ,scale:'large'
-                                        // ,iconCls: 'x-fa fa-plus-circle orange'
-                                        ,iconCls: 'fas fa-plus-circle orange'
-                                        ,handler:'onAddStageButtonClick'
-                                    }
-                                }]
-
-                        }
-                        ,{
                             xtype:'panel',frame:true,width:300
+                            , margin:'0 0 0 20'
                             ,title:'结束'
                             ,items:[
                                 {
@@ -253,18 +187,11 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
 
             ,listeners:{
                 added:function(panel, container){
-                    console.log("panel.id:"+panel.getId())
-                    console.log(panel)
-                    console.log("container.id:"+container.getId())
-                    console.log(container)
                     me.getController().initPipelinePanel()
                 }
             }
 
         });
-        me.add({xtype:'speedcloud.pipeline.PipelineEditStageWindow',reference:'stageWindow'})
-        me.add({xtype:'speedcloud.pipeline.PipelineEditStageNodeWindow',reference:'stageNodeWindow'})
-
         me.callParent(arguments);
     }
 

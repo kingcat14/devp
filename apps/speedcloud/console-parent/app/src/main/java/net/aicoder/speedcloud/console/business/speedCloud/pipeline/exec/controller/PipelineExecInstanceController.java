@@ -3,30 +3,26 @@ package net.aicoder.speedcloud.console.business.speedCloud.pipeline.exec.control
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
+import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceAddDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceEditDto;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.exec.service.PipelineExecInstanceRibbonService;
 import net.aicoder.speedcloud.console.business.speedCloud.pipeline.exec.valid.PipelineExecInstanceValidator;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
