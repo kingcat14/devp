@@ -1,10 +1,10 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -18,23 +18,39 @@ import java.util.List;
 @Component
 public class StageNodeExecutor implements NodeExecutor {
 
-    @Autowired()@Qualifier("pipelineExecInstanceNodeService")
-    private PipelineExecInstanceNodeService execNodeService;
+    @Autowired()@Qualifier("pipelineExecNodeService")
+    private PipelineExecNodeService execNodeService;
 
     @Autowired
     private NodeExecutorCenter nodeExecutorCenter;
 
     @Override
-    public void execute(PipelineExecInstanceNode node){
-        node.setStatus(PipelineExecInstanceNodeStatus.RUNNING);
+    public void execute(PipelineExecNode node){
+
+        //如果不是自定开始,则设置为已准备好
+        if(!node.getAutoStart()){
+            node.setStatus(PipelineExecNodeStatus.PREPARED);
+            return ;
+        }
+
+        run(node);
+    }
+
+    /**
+     * 真正执行Stage
+     * @param node
+     */
+    public void run(PipelineExecNode node){
+        node.setStatus(PipelineExecNodeStatus.RUNNING);
         execNodeService.merge(node);
 
         if(ExecMode.PARALLEL.equals(node.getExecMode())){
             runAllChildNode(node.getId());
         }else{
-            PipelineExecInstanceNode nextWaitingNode = execNodeService.findNextWaitingChildNode(node.getId());
-            //这里默认stage子任务是task,
 
+            PipelineExecNode nextWaitingNode = execNodeService.findNextWaitingChildNode(node.getId());
+
+            //这里默认stage子任务是task
             if(nextWaitingNode == null){
                 return;
             }
@@ -44,21 +60,21 @@ public class StageNodeExecutor implements NodeExecutor {
     }
 
     private void runAllChildNode(Long parentNode){
-        List<PipelineExecInstanceNode> nodeList = execNodeService.findChildNode(parentNode);
+        List<PipelineExecNode> nodeList = execNodeService.findChildNode(parentNode);
 
-        for(PipelineExecInstanceNode node : nodeList){
+        for(PipelineExecNode node : nodeList){
             runNode(node);
         }
 
     }
 
-    private void runNode(PipelineExecInstanceNode node){
+    private void runNode(PipelineExecNode node){
         nodeExecutorCenter.execute(node);
     }
 
     @PostConstruct
     public void register() {
-        nodeExecutorCenter.register(ExecInstanceNodeType.STAGE, this);
+        nodeExecutorCenter.register(ExecNodeType.STAGE, this);
     }
 
 

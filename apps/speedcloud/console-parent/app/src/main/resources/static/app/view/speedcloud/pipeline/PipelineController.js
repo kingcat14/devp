@@ -35,7 +35,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineController', {
             ,{
                 xtype:'speedcloud.pipeline.PipelineEditPanel'
                 , reference:'PipelineEditPanel_'+referenceId
-                , title:record.phantom?'新建流水线':'流水线【'+record.get('name')+"】"
+                , title:record.phantom?'新建流水线':'编辑流水线【'+record.get('name')+"】"
                 , viewModel:{
                     data:{
                         record:record

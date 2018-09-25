@@ -31,7 +31,7 @@ public class PipelineExecInstanceService  extends GenericCrudService<PipelineExe
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, PipelineExecInstance.PROPERTY_CODE);
+		Sort sort = new Sort(Sort.Direction.DESC, PipelineExecInstance.PROPERTY_START_TIME, PipelineExecInstance.PROPERTY_EXECUTE_TARGET_ID);
 		return sort;
 	}
 }

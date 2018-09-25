@@ -49,6 +49,12 @@ public class PipelineExecInstanceVO {
     @ApiModelProperty(value = "开始时间")
     private Date startTime;
 
+    /**开始时间*/
+    @ApiModelProperty(value = "结束时间")
+    private Date finishTime;
+
+    private List<PipelineExecNodeVO> nodeList;
+
 
     public String getCode(){
         return code;
@@ -92,8 +98,21 @@ public class PipelineExecInstanceVO {
         this.startTime = startTime;
     }
 
+    public Date getFinishTime() {
+        return finishTime;
+    }
+    public void setFinishTime(Date finishTime) {
+        this.finishTime = finishTime;
+    }
 
-	public Long getId() {
+    public List<PipelineExecNodeVO> getNodeList() {
+        return nodeList;
+    }
+    public void setNodeList(List<PipelineExecNodeVO> nodeList) {
+        this.nodeList = nodeList;
+    }
+
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

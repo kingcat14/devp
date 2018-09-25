@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.client.pipeline.exec;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yunkang.saas.common.framework.web.controller.RestStatus;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.*;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstancePageResult;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstanceResult;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceCondition;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceEditDto;
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamResult;
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,23 @@ public class PipelineExecInstanceRibbon {
         this.host = host;
     }
 
+
+    /**
+     * 自定义运行实例
+     * @param addDto
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "customFail")
+    public PipelineExecInstanceResult custom(PipelineExecNodeCustomAddDto addDto) {
+        String url = "http://"+host+"/speedcloud/pipeline/exec/pipelineexecinstance/custom";
+        return restTemplate.postForObject(url, addDto, PipelineExecInstanceResult.class);
+    }
+    private PipelineExecInstanceResult customFail(PipelineExecNodeCustomAddDto addDto, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
+        return errorResult();
+    }
 
     /**
      * 新增运行计划

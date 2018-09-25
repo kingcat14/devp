@@ -1,11 +1,14 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.ExecNodeAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.HashMap;
 
 @Component
@@ -15,11 +18,15 @@ public class NodeExecutorCenter {
 
     private HashMap<String, NodeExecutor> executorMap = new HashMap<>();
 
-    public void execute(PipelineExecInstanceNode node){
+    @Autowired
+    private ExecNodeAction execNodeAction;
+
+    public void execute(PipelineExecNode node){
 
         NodeExecutor nodeBuilder = executorMap.get(node.getNodeType());
 
         if(nodeBuilder != null){
+            node.setStartTime(new Date());
             nodeBuilder.execute(node);
         }else{
             LOGGER.error("try start unknown node type: {}", node.getNodeType());
@@ -27,16 +34,19 @@ public class NodeExecutorCenter {
         }
     }
 
-    public void finish(PipelineExecInstanceNode node){
+    public void finish(PipelineExecNode node){
 
-        NodeExecutor nodeBuilder = executorMap.get(node.getNodeType());
 
-        if(nodeBuilder != null){
-            nodeBuilder.execute(node);
-        }else{
-            LOGGER.error("try start unknown node type: {}", node.getNodeType());
-            LOGGER.error(node.toString());
-        }
+        execNodeAction.finishNode(node);
+
+//        NodeExecutor nodeBuilder = executorMap.get(node.getNodeType());
+//
+//        if(nodeBuilder != null){
+//            nodeBuilder.execute(node);
+//        }else{
+//            LOGGER.error("try start unknown node type: {}", node.getNodeType());
+//            LOGGER.error(node.toString());
+//        }
     }
 
     public void register(String type, NodeExecutor nodeExecutor){

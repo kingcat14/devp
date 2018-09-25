@@ -1,11 +1,12 @@
 package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecFlowType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNode;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -30,43 +31,48 @@ public class StageNodeBuilder implements NodeBuilder {
     @Autowired
     private PipelineStageNodeService pipelineStageNodeService;
 
-    @Autowired()@Qualifier("pipelineExecInstanceNodeService")
-    private PipelineExecInstanceNodeService execNodeService;
+    @Autowired()@Qualifier("pipelineExecNodeService")
+    private PipelineExecNodeService execNodeService;
 
 
     @Override
-    public PipelineExecInstanceNode createExecNode(PipelineExecInstanceNode parentNode, Long stageId, int execIndex) {
+    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long stageId, int execIndex, boolean createSubNode) {
 
         PipelineStage pipelineStage = pipelineStageService.find(stageId);
 
         //创建执行节点
-        PipelineExecInstanceNode stageExecNode = new PipelineExecInstanceNode();
-        stageExecNode.setNodeType(ExecInstanceNodeType.STAGE);
-        stageExecNode.setAutoStart(StringUtils.equalsIgnoreCase("AUTO", pipelineStage.getFlowType()));
+        PipelineExecNode stageExecNode = new PipelineExecNode();
+        stageExecNode.setNodeType(ExecNodeType.STAGE);
+        stageExecNode.setAutoStart(!StringUtils.equalsIgnoreCase(ExecFlowType.MANUAL, pipelineStage.getFlowType()));
         stageExecNode.setName(pipelineStage.getName());
         stageExecNode.setParentId(parentNode.getId());
         stageExecNode.setExec(parentNode.getExec());
-        stageExecNode.setTask(pipelineStage.getId());
+        stageExecNode.setRelationObjId(pipelineStage.getId());
         stageExecNode.setExecIndex(execIndex);
         stageExecNode.setExecMode(pipelineStage.getExecMode());
         stageExecNode.setTid(parentNode.getTid());
-        stageExecNode.setStatus(PipelineExecInstanceNodeStatus.WAIT);
+        stageExecNode.setStatus(PipelineExecNodeStatus.WAIT);
         execNodeService.add(stageExecNode);
 
+        if(createSubNode) {
+            handleSubNode(stageId, createSubNode, stageExecNode);
+        }
+        return stageExecNode;
+    }
+
+    private void handleSubNode(Long stageId, boolean createSubNode, PipelineExecNode stageExecNode) {
         //开始处理stage关联的节点
         List<PipelineStageNode> stageNodeList = pipelineStageNodeService.findByStage(stageId);
         for(int i = 0; i < CollectionUtils.size(stageNodeList); i++){
             PipelineStageNode stageNode =  stageNodeList.get(i);
-            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getNodeType(), stageNode.getId(), i);
+            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getNodeType(), stageNode.getId(), i, createSubNode);
         }
-
-        return stageExecNode;
     }
 
 
     @PostConstruct
     public void register(){
-        pipelineExecInstanceBuilder.register(ExecInstanceNodeType.STAGE, this);
+        pipelineExecInstanceBuilder.register(ExecNodeType.STAGE, this);
     }
 
 }

@@ -1,11 +1,11 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
 import net.aicoder.speedcloud.business.pipeline.exec.builder.NodeBuilder;
 import net.aicoder.speedcloud.business.pipeline.exec.builder.PipelineExecInstanceBuilder;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -19,24 +19,29 @@ import java.util.concurrent.Executor;
 @Component
 public class PipelineNodeExecutor implements NodeExecutor {
 
-    @Autowired()@Qualifier("pipelineExecInstanceNodeService")
-    private PipelineExecInstanceNodeService execNodeService;
+    @Autowired()@Qualifier("pipelineExecNodeService")
+    private PipelineExecNodeService execNodeService;
 
     @Autowired
     private NodeExecutorCenter nodeExecutorCenter;
 
     @Override
-    public void execute(PipelineExecInstanceNode node){
-        node.setStatus(PipelineExecInstanceNodeStatus.RUNNING);
+    public void execute(PipelineExecNode node){
+        node.setStatus(PipelineExecNodeStatus.RUNNING);
         execNodeService.merge(node);
 
-        PipelineExecInstanceNode nextWaitingNode = execNodeService.findNextWaitingChildNode(node.getId());
-        nodeExecutorCenter.execute(nextWaitingNode);
+        PipelineExecNode nextWaitingNode = execNodeService.findNextWaitingChildNode(node.getId());
+        if(nextWaitingNode != null ) {
+            nodeExecutorCenter.execute(nextWaitingNode);
+        }else{
+            node.setResult("SUCCESS");
+            nodeExecutorCenter.finish(node);
+        }
     }
 
     @PostConstruct
     public void register() {
-        nodeExecutorCenter.register(ExecInstanceNodeType.PIPELINE, this);
+        nodeExecutorCenter.register(ExecNodeType.PIPELINE, this);
     }
 
 

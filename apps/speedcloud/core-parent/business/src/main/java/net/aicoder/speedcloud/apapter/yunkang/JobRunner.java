@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.apapter.yunkang;
 import net.aicoder.speedcloud.apapter.yunkang.client.Result;
 import net.aicoder.speedcloud.apapter.yunkang.client.YunkangClient;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.ExecParam;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNodeParam;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNodeParam;
 import net.aicoder.speedcloud.business.pipeline.exec.service.ExecNodeAction;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeParamService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeParamService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +28,10 @@ public class JobRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(JobRunner.class);
 
     @Autowired
-    private PipelineExecInstanceNodeService pipelineExecInstanceNodeService;
+    private PipelineExecNodeService pipelineExecNodeService;
 
     @Autowired
-    private PipelineExecInstanceNodeParamService pipelineExecInstanceNodeParamService;
+    private PipelineExecNodeParamService pipelineExecNodeParamService;
 
 
     @Autowired
@@ -44,16 +44,16 @@ public class JobRunner {
     @Transactional
     public void run(){
 
-        List<PipelineExecInstanceNode> nodeList = pipelineExecInstanceNodeService.findPreparedJob(1L);
+        List<PipelineExecNode> nodeList = pipelineExecNodeService.findPreparedJob(1L);
 
-        for(PipelineExecInstanceNode node : nodeList){
+        for(PipelineExecNode node : nodeList){
             try{
                 runJob(node);
             }catch(Exception e){
                 node.setResult("FAIL");
             }finally {
                 node.setStatus("FINISH");
-                pipelineExecInstanceNodeService.merge(node);
+                pipelineExecNodeService.merge(node);
                 finishJob(node);
             }
             //runJob(node);
@@ -65,18 +65,18 @@ public class JobRunner {
      *
      * @param node
      */
-    private void runJob(PipelineExecInstanceNode node){
+    private void runJob(PipelineExecNode node){
 
         /*
          * 1.得到任务
          * 2.得到任务参数
          * 3.调用执行
          */
-        List<PipelineExecInstanceNodeParam> paramList = pipelineExecInstanceNodeParamService.findByInstanceNode(node.getId());
+        List<PipelineExecNodeParam> paramList = pipelineExecNodeParamService.findByNode(node.getId());
 
         List<ExecParam> execParamList = new ArrayList<>();
 
-        for(PipelineExecInstanceNodeParam param : paramList){
+        for(PipelineExecNodeParam param : paramList){
             ExecParam execParam = new ExecParam();
             execParam.setParamName(param.getName());
             execParam.setParamValue(param.getValue());
@@ -85,7 +85,7 @@ public class JobRunner {
             }
         }
 
-        Result result = yunkangClient.exec(node.getTask()+"", execParamList);
+        Result result = yunkangClient.exec(node.getRelationObjId()+"", execParamList);
         node.setResult(result.getFlag());
         node.setResultMessage(result.getErrorMsg());
 
@@ -95,7 +95,7 @@ public class JobRunner {
      * 结束job执行
      * @param node
      */
-    private void finishJob(PipelineExecInstanceNode node){
+    private void finishJob(PipelineExecNode node){
         //TODO 这里的代码需要改成调用SpeedCloud的接口
 
         execNodeAction.finishNode(node);

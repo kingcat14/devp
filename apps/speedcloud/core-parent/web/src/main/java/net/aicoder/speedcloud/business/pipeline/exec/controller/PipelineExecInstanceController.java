@@ -203,7 +203,7 @@ public class PipelineExecInstanceController {
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 
-	private PipelineExecInstanceVO initViewProperty(PipelineExecInstance pipelineExecInstance){
+	public PipelineExecInstanceVO initViewProperty(PipelineExecInstance pipelineExecInstance){
 
 	    PipelineExecInstanceVO vo = new PipelineExecInstanceVO();
         BeanUtils.copyProperties(pipelineExecInstance, vo);

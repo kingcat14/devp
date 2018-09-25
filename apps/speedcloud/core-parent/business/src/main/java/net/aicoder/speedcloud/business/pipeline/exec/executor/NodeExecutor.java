@@ -1,13 +1,14 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 
 /**
  * 节点执行器
  */
 public interface NodeExecutor {
 
-    void execute(PipelineExecInstanceNode node);
+    /**执行节点*/
+    void execute(PipelineExecNode node);
 
     void register();
 }

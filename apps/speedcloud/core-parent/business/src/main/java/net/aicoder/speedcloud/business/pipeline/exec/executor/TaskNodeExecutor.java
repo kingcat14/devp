@@ -1,9 +1,9 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -16,21 +16,21 @@ import javax.annotation.PostConstruct;
 @Component
 public class TaskNodeExecutor implements NodeExecutor {
 
-    @Autowired()@Qualifier("pipelineExecInstanceNodeService")
-    private PipelineExecInstanceNodeService execNodeService;
+    @Autowired()@Qualifier("pipelineExecNodeService")
+    private PipelineExecNodeService execNodeService;
 
     @Autowired
     private NodeExecutorCenter nodeExecutorCenter;
 
     @Override
-    public void execute(PipelineExecInstanceNode node){
-        node.setStatus(PipelineExecInstanceNodeStatus.PREPARED);
+    public void execute(PipelineExecNode node){
+        node.setStatus(PipelineExecNodeStatus.PREPARED);
         execNodeService.merge(node);
     }
 
     @PostConstruct
     public void register() {
-        nodeExecutorCenter.register(ExecInstanceNodeType.TASK, this);
+        nodeExecutorCenter.register(ExecNodeType.TASK, this);
     }
 
 

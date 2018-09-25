@@ -77,6 +77,13 @@ Ext.define('AM.view.speedcloud.pipeline.exec.PipelineExecInstancePanel', {
                             ,flex:1
                         }
                         ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d H:i:s'
+                            ,dataIndex: 'finishTime'
+                            ,text: '结束时间'
+                            ,flex:1
+                        }
+                        ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
                             ,width:30

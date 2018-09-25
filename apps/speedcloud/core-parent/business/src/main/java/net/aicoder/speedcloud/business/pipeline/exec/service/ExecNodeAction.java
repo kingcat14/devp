@@ -4,7 +4,7 @@ package net.aicoder.speedcloud.business.pipeline.exec.service;
 import net.aicoder.speedcloud.business.pipeline.constant.GlobalLock;
 import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecInstanceStatus;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.executor.NodeExecutorCenter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("execNodeAction")
@@ -24,22 +25,22 @@ public class ExecNodeAction {
 	@Autowired
 	private NodeExecutorCenter nodeExecutorCenter;
 
-	@Autowired()@Qualifier("pipelineExecInstanceNodeService")
-	private PipelineExecInstanceNodeService execNodeService;
+	@Autowired()@Qualifier("pipelineExecNodeService")
+	private PipelineExecNodeService execNodeService;
 
 	@Autowired
 	private PipelineExecInstanceService pipelineExecInstanceService;
 
 	@Autowired
-	private PipelineExecInstanceNodeService pipelineExecInstanceNodeService;
+	private PipelineExecNodeService pipelineExecNodeService;
 
-	public void execute(PipelineExecInstanceNode node){
+	public void execute(PipelineExecNode node){
 
 		nodeExecutorCenter.execute(node);
 	}
 
 	@Transactional
-	public void finishNode(PipelineExecInstanceNode node){
+	public void finishNode(PipelineExecNode node){
 
 		//保存node
 		node.setStatus("FINISH");
@@ -47,10 +48,10 @@ public class ExecNodeAction {
 		//TODO 这个全局锁，回头要换成使用redis或其他的跨进程的全局锁;根据所操作的节点父节点ID加锁
 		GlobalLock.lock(node.getParentId()) ;
 
-		pipelineExecInstanceNodeService.merge(node);
+		pipelineExecNodeService.merge(node);
 
 		//获取父节点
-		PipelineExecInstanceNode parentNode = pipelineExecInstanceNodeService.find(node.getParentId());
+		PipelineExecNode parentNode = pipelineExecNodeService.find(node.getParentId());
 
 		//如果有父节点
 		if(parentNode != null){
@@ -59,6 +60,8 @@ public class ExecNodeAction {
 		}else{
 			PipelineExecInstance instance = pipelineExecInstanceService.find(node.getExec());
 			instance.setStatus("FINISH");
+			instance.setResult(node.getResult());
+			instance.setFinishTime(new Date());
 			pipelineExecInstanceService.merge(instance);
 		}
 
@@ -71,7 +74,7 @@ public class ExecNodeAction {
 	 * 子节点结束
 	 * @param childNode
 	 */
-	public void childFinish(PipelineExecInstanceNode childNode){
+	public void childFinish(PipelineExecNode childNode){
 
 		/*
 		 * 1.找到子节点的父节点（作为当前节点）
@@ -82,24 +85,29 @@ public class ExecNodeAction {
 		 */
 
 		//获取父节点
-		PipelineExecInstanceNode currentNode = pipelineExecInstanceNodeService.find(childNode.getParentId());
+		PipelineExecNode currentNode = pipelineExecNodeService.find(childNode.getParentId());
 
 
 		//找到所有子节点
-		List<PipelineExecInstanceNode> nodeList = execNodeService.findChildNode(currentNode.getId());
+		List<PipelineExecNode> nodeList = execNodeService.findChildNode(currentNode.getId());
 		boolean currentNodeFinish = true;
-		for(PipelineExecInstanceNode node:nodeList){
+		boolean currentNodeFinishSuccess = true;
+		for(PipelineExecNode node:nodeList){
 			currentNodeFinish = currentNodeFinish && StringUtils.equalsIgnoreCase(PipelineExecInstanceStatus.FINISH, node.getStatus());
+			if(currentNodeFinish){
+				currentNodeFinishSuccess = currentNodeFinishSuccess && StringUtils.equalsIgnoreCase("SUCCESS", node.getResult());
+			}
 		}
 
 		//3
 		if(currentNodeFinish){
+			currentNode.setResult(currentNodeFinishSuccess?"SUCCESS":"FAILURE");
 			finishNode(currentNode);
 			return;
 		}
 
 		//4
-		PipelineExecInstanceNode nextWaitingNode = execNodeService.findNextWaitingChildNode(currentNode.getId());
+		PipelineExecNode nextWaitingNode = execNodeService.findNextWaitingChildNode(currentNode.getId());
 
 		//这里默认stage子任务是task
 		if(nextWaitingNode == null){

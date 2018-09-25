@@ -1,12 +1,12 @@
 package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
 import net.aicoder.speedcloud.business.pipeline.domain.Pipeline;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -20,8 +20,8 @@ import java.util.List;
 @Component
 public class PipelineNodeBuilder implements NodeBuilder {
 
-    @Autowired()@Qualifier("pipelineExecInstanceNodeService")
-    private PipelineExecInstanceNodeService execNodeService;
+    @Autowired()@Qualifier("pipelineExecNodeService")
+    private PipelineExecNodeService execNodeService;
 
     @Autowired
     private PipelineService pipelineService;
@@ -33,36 +33,43 @@ public class PipelineNodeBuilder implements NodeBuilder {
     private PipelineExecInstanceBuilder pipelineExecInstanceBuilder;
 
     @Override
-    public PipelineExecInstanceNode createExecNode(PipelineExecInstanceNode parentNode, Long id, int execIndex) {
+    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long id, int execIndex, boolean createSubNode) {
+
         Pipeline pipeline = pipelineService.find(id);
 
         //创建执行节点
-        PipelineExecInstanceNode pipelineExecNode = new PipelineExecInstanceNode();
-        pipelineExecNode.setNodeType(ExecInstanceNodeType.PIPELINE);
+        PipelineExecNode pipelineExecNode = new PipelineExecNode();
+        pipelineExecNode.setNodeType(ExecNodeType.PIPELINE);
         pipelineExecNode.setAutoStart(true);
         pipelineExecNode.setName(pipeline.getName());
         pipelineExecNode.setParentId(parentNode.getId());
         pipelineExecNode.setExec(parentNode.getExec());
-        pipelineExecNode.setTask(pipeline.getId());
+        pipelineExecNode.setRelationObjId(pipeline.getId());
         pipelineExecNode.setExecIndex(0);
         pipelineExecNode.setExecMode(ExecMode.SERIALIZED);
         pipelineExecNode.setTid(parentNode.getTid());
-        pipelineExecNode.setStatus(PipelineExecInstanceNodeStatus.WAIT);
+        pipelineExecNode.setStatus(PipelineExecNodeStatus.WAIT);
         execNodeService.add(pipelineExecNode);
 
-        List<PipelineStage> stageList = pipelineStageService.findForPipeline(id);
-
-        for(int i = 0; CollectionUtils.isNotEmpty(stageList) && (i < CollectionUtils.size(stageList)) ; i++){
-            PipelineStage pipelineStage = stageList.get(i);
-            pipelineExecInstanceBuilder.build(pipelineExecNode, ExecInstanceNodeType.STAGE, pipelineStage.getId(), i);
+        if(createSubNode){
+            handleSubNode(pipelineExecNode, id, createSubNode);
         }
 
         return pipelineExecNode;
     }
 
+    private void handleSubNode(PipelineExecNode pipelineExecNode, Long id, boolean createSubNode){
+        List<PipelineStage> stageList = pipelineStageService.findForPipeline(id);
+
+        for(int i = 0; CollectionUtils.isNotEmpty(stageList) && (i < CollectionUtils.size(stageList)) ; i++){
+            PipelineStage pipelineStage = stageList.get(i);
+            pipelineExecInstanceBuilder.build(pipelineExecNode, ExecNodeType.STAGE, pipelineStage.getId(), i, createSubNode);
+        }
+    }
+
 
     @PostConstruct
     public void register(){
-        pipelineExecInstanceBuilder.register(ExecInstanceNodeType.PIPELINE, this);
+        pipelineExecInstanceBuilder.register(ExecNodeType.PIPELINE, this);
     }
 }

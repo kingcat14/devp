@@ -83,12 +83,13 @@ public class PipelineExecInstance extends BaseEntity{
 	@Size(max = 255, message = "运行结果超长，最多255个字符")
 	private String result;
 
-    /**
-    * 开始时间
-    * 
-    */
+    /**开始时间*/
     @Column(name = "start_time", nullable = true, updatable = true)
 	private Date startTime;
+
+	/**结束时间*/
+	@Column(name = "finish_time", nullable = true, updatable = true)
+	private Date finishTime;
 
 	public Long getTid(){
 		return tid;
@@ -139,6 +140,12 @@ public class PipelineExecInstance extends BaseEntity{
 		this.startTime = startTime;
 	}
 
+	public Date getFinishTime() {
+		return finishTime;
+	}
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
+	}
 
 	public Long getId() {
 		return id;

@@ -1,13 +1,13 @@
 package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
-import net.aicoder.speedcloud.business.pipeline.constant.ExecInstanceNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
 import net.aicoder.speedcloud.business.pipeline.domain.Pipeline;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstanceNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceNodeStatus;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,31 +26,39 @@ public class PipelineExecInstanceBuilder {
 
     private HashMap<String, NodeBuilder> nodeBuilderMap = new HashMap<>();
 
-    public PipelineExecInstanceNode build(PipelineExecInstanceNode parentNode, String type, Long id, int execIndex){
+    public PipelineExecNode build(PipelineExecNode parentNode, String type, Long id, int execIndex, boolean createSubNode){
 
-        PipelineExecInstanceNode result = null;
+        PipelineExecNode result = null;
         NodeBuilder nodeBuilder = nodeBuilderMap.get(type);
         if(nodeBuilder != null){
-            result = nodeBuilder.createExecNode(parentNode, id, execIndex);
+            result = nodeBuilder.createExecNode(parentNode, id, execIndex, createSubNode);
         }
 
         return result;
     }
 
 
-    public PipelineExecInstanceNode buildPipelineInstance(PipelineExecInstance instance, Long id){
+    public PipelineExecNode buildTopNode(PipelineExecInstance instance, Long id, boolean createSubNode){
 
-        PipelineExecInstanceNode fakeParentNode = this.getFakeParentNode(instance);
+        PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
 
-        return this.build(fakeParentNode, ExecInstanceNodeType.PIPELINE, id, 0);
+        return this.build(fakeParentNode, instance.getExecuteTargetType(), id, 0, createSubNode);
 
     }
 
-    public PipelineExecInstanceNode buildTaskInstance(PipelineExecInstance instance, Long id){
+    public PipelineExecNode buildPipelineInstance(PipelineExecInstance instance, Long id, boolean createSubNode){
 
-        PipelineExecInstanceNode fakeParentNode = this.getFakeParentNode(instance);
+        PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
 
-        return this.build(fakeParentNode, ExecInstanceNodeType.TASK, id, 0);
+        return this.build(fakeParentNode, ExecNodeType.PIPELINE, id, 0, createSubNode);
+
+    }
+
+    public PipelineExecNode buildTaskInstance(PipelineExecInstance instance, Long id, boolean createSubNode){
+
+        PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
+
+        return this.build(fakeParentNode, ExecNodeType.TASK, id, 0, createSubNode);
     }
 
     /**
@@ -58,8 +66,8 @@ public class PipelineExecInstanceBuilder {
      * @param instance
      * @return
      */
-    private PipelineExecInstanceNode getFakeParentNode(PipelineExecInstance instance){
-        PipelineExecInstanceNode fakeParentNode = new PipelineExecInstanceNode();
+    private PipelineExecNode getFakeParentNode(PipelineExecInstance instance){
+        PipelineExecNode fakeParentNode = new PipelineExecNode();
         fakeParentNode.setTid(instance.getTid());
         fakeParentNode.setId(-1L);
         fakeParentNode.setExec(instance.getId());

@@ -3,15 +3,16 @@ package net.aicoder.speedcloud.console.business.speedCloud.pipeline.exec.service
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineCustomExecInstanceAddDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.*;
+import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeVO;
 import net.aicoder.speedcloud.client.pipeline.exec.PipelineExecInstanceRibbon;
+import net.aicoder.speedcloud.client.pipeline.exec.PipelineExecNodeRibbon;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstancePageResult;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecInstanceResult;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceCondition;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecInstanceEditDto;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
 
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodePageResult;
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeResult;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,31 +27,27 @@ public class PipelineExecInstanceRibbonService  {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineExecInstanceRibbonService.class);
 
-	/**
-	 * 得到最近一次执行情况
-	 * @param taskId
-	 * @return
-	 */
-	public PipelineExecInstanceVO getLastExec(Long taskId){
-
-		PageSearchRequest<PipelineExecInstanceCondition> pageSearchRequest = new PageSearchRequest<>();
-		PipelineExecInstanceCondition condition = new PipelineExecInstanceCondition();
-		condition.setExecuteTargetId(taskId);
-		condition.setExecuteTargetType("TASK");
-		pageSearchRequest.setSearchCondition(condition);
-		pageSearchRequest.setLimit(1);
-		PipelineExecInstancePageResult execResult = pipelineExecInstanceRibbon.list(pageSearchRequest);
-		List<PipelineExecInstanceVO> voList = execResult.getData().getContent();
-
-		PipelineExecInstanceVO result = null;
-		if(CollectionUtils.size(voList) > 0){
-			result = voList.get(0);
-		}
-		return result;
-	}
-
 	@Autowired
 	private PipelineExecInstanceRibbon pipelineExecInstanceRibbon;
+
+	@Autowired
+	private PipelineExecNodeRibbon pipelineExecNodeRibbon;
+
+	/**
+	 * 定制执行实例
+	 * @param addDto
+	 * @return
+	 */
+	public PipelineExecInstanceVO custom(PipelineExecNodeCustomAddDto addDto){
+		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.custom(addDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+		}
+		return result.getData();
+
+	}
+
 
 	public PipelineExecInstanceVO add(PipelineExecInstanceAddDto addDto){
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.add(addDto);
@@ -83,13 +80,31 @@ public class PipelineExecInstanceRibbonService  {
 		return result.getData();
 	}
 	public PipelineExecInstanceVO find(Long id){
+
+		//得到instacne
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.get(id);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 
-		return result.getData();
+		PipelineExecInstanceVO instanceVO = result.getData();
+
+		//得到instacne包含的node
+		PipelineExecNodeCondition condition = new PipelineExecNodeCondition();
+		condition.setExec(id);
+		PageSearchRequest<PipelineExecNodeCondition> pageSearchRequest = new PageSearchRequest<>();
+		pageSearchRequest.setPage(0);
+		pageSearchRequest.setLimit(Integer.MAX_VALUE);
+		pageSearchRequest.setSearchCondition(condition);
+
+
+		PipelineExecNodePageResult nodePageResult = pipelineExecNodeRibbon.list(pageSearchRequest);
+		List<PipelineExecNodeVO> nodeList = nodePageResult.getData().getContent();
+
+		instanceVO.setNodeList(nodeList);
+
+		return instanceVO;
 	}
 
 	public PageContent<PipelineExecInstanceVO> list(PageSearchRequest<PipelineExecInstanceCondition> pageSearchRequest) {
@@ -100,5 +115,29 @@ public class PipelineExecInstanceRibbonService  {
 		}
 
 		return result.getData();
+	}
+
+
+	/**
+	 * 得到最近一次执行情况
+	 * @param taskId
+	 * @return
+	 */
+	public PipelineExecInstanceVO getLastExec(Long taskId){
+
+		PageSearchRequest<PipelineExecInstanceCondition> pageSearchRequest = new PageSearchRequest<>();
+		PipelineExecInstanceCondition condition = new PipelineExecInstanceCondition();
+		condition.setExecuteTargetId(taskId);
+		condition.setExecuteTargetType("TASK");
+		pageSearchRequest.setSearchCondition(condition);
+		pageSearchRequest.setLimit(1);
+		PipelineExecInstancePageResult execResult = pipelineExecInstanceRibbon.list(pageSearchRequest);
+		List<PipelineExecInstanceVO> voList = execResult.getData().getContent();
+
+		PipelineExecInstanceVO result = null;
+		if(CollectionUtils.size(voList) > 0){
+			result = voList.get(0);
+		}
+		return result;
 	}
 }

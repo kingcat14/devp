@@ -56,8 +56,14 @@ Ext.define('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', {
             ,allowNull:true
             ,critical:true
         }
-    	,{
+        ,{
             name: 'startTime'
+            ,type:'date'
+            ,dateFormat: 'time'
+            ,allowNull:true
+            ,critical:true
+        },{
+            name: 'finishTime'
             ,type:'date'
             ,dateFormat: 'time'
             ,allowNull:true

@@ -33,12 +33,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
             }
         }
 
-        console.log('index:'+index);
-
-
-
         var stageStore = this.getViewModel().getStore('stageStore');
-        var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'Stage_'+stageStore.getCount(), execMode:'SERIALIZED'})
+        var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'Stage_'+stageStore.getCount(), execMode:'SERIALIZED', flowType:'AUTO'})
         stageStore.add(stage);
         me.addStagePanelGroup(stage, index+1);
 
