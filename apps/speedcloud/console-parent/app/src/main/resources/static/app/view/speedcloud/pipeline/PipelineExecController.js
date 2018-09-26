@@ -51,7 +51,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                             ,dataIndex:'status'
                             ,renderer:function(value, metaData, record, rowIndex, colIndex, store, view){
                                 var status = record.get('status');
-                                var result = record.get('result')
+                                var result = record.get('result');
+                                console.log(record.get('name')+":"+status+"-"+result);
                                 if(status == 'RUNNING'||status == 'PREPARED'){
                                     return '<i class="fas fa-spinner"></i>';
                                 }
@@ -226,7 +227,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             }
         }
 
-
         pipelineStagePanel.mask('开始执行');
         var instance = AM.model.speedcloud.pipeline.exec.PipelineExecInstance.create({id:customExecInstance.getId()});
 
@@ -254,6 +254,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                         var nodeList = record.get("nodeList");
                         for(var i in nodeList){
                             var node = nodeList[i];
+                            console.log(node)
                             // console.log(Ext.encode(node));
                             if(node.nodeType == "TASK"){
                                 // console.log('=============='+(node.name))

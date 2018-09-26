@@ -245,7 +245,7 @@ public class PipelineExecNodeController {
 
 	private void initTaskPropertyGroup(PipelineExecNodeVO pipelineExecNodeVO, PipelineExecNode pipelineExecNode){
 	
-		PipelineTask task = pipelineTaskService.find(pipelineExecNode.getTask());
+		PipelineTask task = pipelineTaskService.find(pipelineExecNode.getRelationObjId());
 		if(task == null){
 			return;
 		}

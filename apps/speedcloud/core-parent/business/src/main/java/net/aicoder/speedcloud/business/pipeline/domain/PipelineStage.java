@@ -27,6 +27,7 @@ public class PipelineStage extends BaseEntity{
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_FLOW_TYPE = "flowType";
 	public static final String PROPERTY_EXEC_MODE = "execMode";
+	public static final String PROPERTY_EXEC_ORDER = "execOrder";
 
 
     @Id
@@ -69,6 +70,12 @@ public class PipelineStage extends BaseEntity{
     @Column(name = "exec_mode", nullable = false, updatable = true)
 	private String execMode;
 
+	/**
+	 * 执行顺序
+	 */
+	@Column(name = "exec_order", nullable = false, updatable = true)
+    private Integer execOrder;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -104,6 +111,12 @@ public class PipelineStage extends BaseEntity{
 		this.execMode = execMode;
 	}
 
+	public Integer getExecOrder() {
+		return execOrder;
+	}
+	public void setExecOrder(Integer execOrder) {
+		this.execOrder = execOrder;
+	}
 
 	public Long getId() {
 		return id;

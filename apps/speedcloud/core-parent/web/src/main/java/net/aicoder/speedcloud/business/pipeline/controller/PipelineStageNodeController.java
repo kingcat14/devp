@@ -204,7 +204,7 @@ public class PipelineStageNodeController {
 
             headMap.put("name" ,"名称");
             headMap.put("stage" ,"阶段");
-            headMap.put("nodeType" ,"节点类型");
+            headMap.put("objType" ,"节点类型");
             headMap.put("nodeId" ,"节点节点ID");
             headMap.put("execOrder" ,"执行排序");
 

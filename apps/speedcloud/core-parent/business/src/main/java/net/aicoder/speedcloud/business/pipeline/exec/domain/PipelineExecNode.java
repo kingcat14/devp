@@ -133,7 +133,7 @@ public class PipelineExecNode extends BaseEntity{
 	private Long relationObjId;
 
 	/** 关联的stageNode*/
-	@Column(name = "stage_node", nullable = false, updatable = true)
+	@Column(name = "stage_node", nullable = true, updatable = false)
 	private Long stageNode;
 
     /**
