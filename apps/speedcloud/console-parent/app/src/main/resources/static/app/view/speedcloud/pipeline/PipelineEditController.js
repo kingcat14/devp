@@ -117,8 +117,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
         pipeline.set("paramList", paramList);
 
         var pipelineStagePanel = this.lookup('pipelineStageListPanel');
-        console.log(pipelineStagePanel.items.getCount())
 
+        var stageIndex = 0;
         for(var i =0; i < pipelineStagePanel.items.getCount(); i++){
 
             var panel = pipelineStagePanel.items.getAt(i);
@@ -128,12 +128,14 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                 var stage = panel.getViewModel().get('stage')
                 var stageNodeStore = panel.getViewModel().getStore('stageNodeStore');
 
+                stage.set("execOrder", stageIndex++);
                 var stageJson = stage.getData();
 
                 stageJson.nodeList = [];
+                var nodeIndex = 0;
                 stageNodeStore.each(function(node){
-                    console.log(node)
-                    console.log(node.getData())
+
+                    node.set('execOrder', nodeIndex++);
                     stageJson.nodeList.push(node.getData());
 
                 });

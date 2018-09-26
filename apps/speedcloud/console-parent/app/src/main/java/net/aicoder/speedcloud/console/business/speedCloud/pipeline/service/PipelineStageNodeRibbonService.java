@@ -95,7 +95,7 @@ public class PipelineStageNodeRibbonService  {
 		taskPageSearchRequest.setLimit(Integer.MAX_VALUE);
 
 		PipelineTaskCondition taskCondition = new PipelineTaskCondition();
-		taskCondition.setTaskType(pageSearchRequest.getSearchCondition().getNodeType());
+		taskCondition.setTaskType(pageSearchRequest.getSearchCondition().getObjType());
 		taskCondition.setTid(pageSearchRequest.getSearchCondition().getTid());
 
 		PipelineTaskPageResult result = pipelineTaskRibbon.list(taskPageSearchRequest);
@@ -110,8 +110,8 @@ public class PipelineStageNodeRibbonService  {
 		PipelineStageNodeVO nodeVO = null;
 		for(PipelineTaskVO taskVO : result.getData().getContent()){
 			nodeVO = new PipelineStageNodeVO();
-			nodeVO.setNodeType(taskVO.getTaskType());
-			nodeVO.setNodeId(taskVO.getId());
+			nodeVO.setObjType(taskVO.getTaskType());
+			nodeVO.setObjId(taskVO.getId());
 			nodeVO.setId(taskVO.getId());
 			resultList.add(nodeVO);
 		}

@@ -50,5 +50,11 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStage', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'execOrder'
+            ,type:'int'
+            ,allowNull:false
+            ,critical:true
+        }
     ]
 });

@@ -56,7 +56,7 @@
                                 }
                                 ,{
                                     xtype:'combo'
-                                    ,reference:'nodeTypeField'
+                                    ,reference:'objTypeField'
                                     ,store: Ext.create("AM.store.common.SimpleConfigStore").applyCondition({configType: "PIPELINETASK-TASKTYPE"}).load()
                                     ,typeAhead:false
                                     ,editable:false
@@ -68,7 +68,7 @@
                                     ,forceSelection:true
                                     ,afterLabelTextTpl: []
                                     ,value:'COMPILE'
-                                    ,name: 'nodeType'
+                                    ,name: 'objType'
                                     ,fieldLabel: '类型'
                                     ,listeners:{
                                         change:{fn:me.loadSelectableNode, scope:me}
@@ -223,8 +223,8 @@
 
             var nodeName = me.lookup('nodeNameField').getValue();
             stageNode.set('name', Ext.isEmpty(nodeName)?selection[0].get('name'):nodeName);
-            stageNode.set('nodeType', me.lookup('nodeTypeField').getValue());
-            stageNode.set('nodeId', selection[0].getId());
+            stageNode.set('objType', me.lookup('objTypeField').getValue());
+            stageNode.set('objId', selection[0].getId());
             var paramList = [];
             var selectableNodeParamStore = this.getViewModel().getStore('selectableNodeParamStore');
             selectableNodeParamStore.each(function(param){
@@ -243,11 +243,11 @@
         console.log(stageNode);
 
         me.lookup('nodeNameField').reset();
-        me.lookup('nodeTypeField').reset();
+        me.lookup('objTypeField').reset();
 
         if(stageNode){
             this.lookup('nodeNameField').setValue(stageNode.get('name'))
-            this.lookup('nodeTypeField').setValue(stageNode.get('nodeType'))
+            this.lookup('objTypeField').setValue(stageNode.get('objType'))
         }
 
         me.loadSelectableNode();
@@ -267,13 +267,13 @@
 
         var selectableNodeParamStore = this.getViewModel().getStore('selectableNodeParamStore');
 
-        var selectableNodeStore = this.getViewModel().getStore('selectableNodeStore').applyCondition({type:me.lookup('nodeTypeField').getValue()});
+        var selectableNodeStore = this.getViewModel().getStore('selectableNodeStore').applyCondition({type:me.lookup('objTypeField').getValue()});
         selectableNodeStore.load({
             scope: me
             ,callback: function(records, operation, success) {
                 if(success && stageNode) {
                     for (var i in records) {
-                        if (records[i].getId() == stageNode.get('nodeId')) {
+                        if (records[i].getId() == stageNode.get('objId')) {
 
                             selectableNodeGrid.setSelection(records[i])
 

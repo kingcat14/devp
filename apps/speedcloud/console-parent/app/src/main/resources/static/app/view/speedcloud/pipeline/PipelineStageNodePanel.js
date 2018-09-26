@@ -53,9 +53,9 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'nodeType'
+                            ,dataIndex: 'objType'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("nodeTypeVO")?record.get("nodeTypeVO").displayName:'';
+                                return record.get("objTypeVO")?record.get("objTypeVO").displayName:'';
                             }
                             ,text: '节点类型'
                             

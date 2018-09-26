@@ -104,13 +104,13 @@ public class PipelineStageNodeController {
 
 	private PipelineStageNodeVO initViewProperty( PipelineStageNodeVO vo){
 
-		SimpleConfig nodeTypeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGENODE-NODETYPE", vo.getNodeType());
+		SimpleConfig objTypeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGENODE-OBJTYPE", vo.getObjType());
 
-		if(nodeTypeSimpleConfig!=null) {
+		if(objTypeSimpleConfig!=null) {
 
-		    SimpleConfigVO nodeTypeSimpleConfigVO = new SimpleConfigVO();
-		    BeanUtils.copyProperties(nodeTypeSimpleConfig, nodeTypeSimpleConfigVO);
-		    vo.setNodeTypeVO(nodeTypeSimpleConfigVO);
+		    SimpleConfigVO objTypeSimpleConfigVO = new SimpleConfigVO();
+		    BeanUtils.copyProperties(objTypeSimpleConfig, objTypeSimpleConfigVO);
+		    vo.setObjTypeVO(objTypeSimpleConfigVO);
 		}
 
         return vo;

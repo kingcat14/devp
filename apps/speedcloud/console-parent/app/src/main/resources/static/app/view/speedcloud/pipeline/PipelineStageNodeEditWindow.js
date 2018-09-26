@@ -18,7 +18,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodeEditWindow', {
 
         var pipelineStageNodeNodeTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
         pipelineStageNodeNodeTypeStore.proxy.isSynchronous = true;
-        pipelineStageNodeNodeTypeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGENODE-NODETYPE'}};
+        pipelineStageNodeNodeTypeStore.proxy.extraParams={searchCondition:{configType:'PIPELINESTAGENODE-OBJTYPE'}};
         pipelineStageNodeNodeTypeStore.load();
 
         Ext.apply(me, {
@@ -87,8 +87,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodeEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'nodeTypeField'
-                                    ,name: 'nodeType'
+                                    ,itemId: 'objTypeField'
+                                    ,name: 'objType'
                                     ,fieldLabel: '节点类型'
                                 }
                                 ,{
@@ -192,7 +192,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodeEditWindow', {
        
         this.down('#stageField').getStore().reload();
        
-        this.down('#nodeTypeField').getStore().reload();
+        this.down('#objTypeField').getStore().reload();
        
        
        

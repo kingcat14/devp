@@ -160,7 +160,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             }
             ,success: function(record, operation) {
                 pipelineStagePanel.unmask()
-                me.flushExecStatus(record);
+                //me.flushExecStatus(record);
             }
         })
     }
@@ -188,7 +188,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                 for(var ii in selection){
                     selection[ii].set('status', 'RUNNING');
                     console.log(selection[ii]);
-                    stage.subNodeList.push({nodeId:selection[ii].get("id"), nodeType:selection[ii].get('nodeType')});
+                    stage.subNodeList.push({nodeId:selection[ii].get("id"), nodeType:selection[ii].get('objType')});
                 }
                 customExec.get('subNodeList').push(stage);
             }
