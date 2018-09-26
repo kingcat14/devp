@@ -14,16 +14,28 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
+	@ApiModelProperty(value = "租户id最大值")
+	private Long tidMax;
+	@ApiModelProperty(value = "租户id最小值")
+	private Long tidMin;
 	@ApiModelProperty(value = "名称")
 	private String name;
     @ApiModelProperty(value = "阶段")
     private Long stage;
-	@ApiModelProperty(value = "节点类型")
-	private String nodeType;
-	@ApiModelProperty(value = "节点节点ID")
-	private Long nodeId;
+	@ApiModelProperty(value = "节点类型", notes = "Task和Pipeline")
+	private String objType;
+	@ApiModelProperty(value = "节点对象", notes = "节点关联的对象的ID")
+	private Long objId;
+	@ApiModelProperty(value = "节点对象最大值")
+	private Long objIdMax;
+	@ApiModelProperty(value = "节点对象最小值")
+	private Long objIdMin;
 	@ApiModelProperty(value = "执行排序")
 	private Integer execOrder;
+	@ApiModelProperty(value = "执行排序最大值")
+	private Integer execOrderMax;
+	@ApiModelProperty(value = "执行排序最小值")
+	private Integer execOrderMin;
 
 
 	public Long getTid(){
@@ -31,6 +43,20 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public Long getTidMin(){
+		return tidMin;
+	}
+	public void setTidMin(Long tidMin) {
+		this.tidMin = tidMin;
+	}
+
+	public Long getTidMax(){
+		return tidMax;
+	}
+	public void setTidMax(Long tidMax) {
+		this.tidMax = tidMax;
 	}
 
 
@@ -50,20 +76,35 @@ public class PipelineStageNodeCondition extends SaaSCondition{
     }
 
 
-	public String getNodeType(){
-		return nodeType;
+	public String getObjType(){
+		return objType;
 	}
-	public void setNodeType(String nodeType) {
-		this.nodeType = nodeType;
+	public void setObjType(String objType) {
+		this.objType = objType;
 	}
 
 
-	public Long getNodeId(){
-		return nodeId;
+	public Long getObjId(){
+		return objId;
 	}
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	public void setObjId(Long objId) {
+		this.objId = objId;
 	}
+
+	public Long getObjIdMin(){
+		return objIdMin;
+	}
+	public void setObjIdMin(Long objIdMin) {
+		this.objIdMin = objIdMin;
+	}
+
+	public Long getObjIdMax(){
+		return objIdMax;
+	}
+	public void setObjIdMax(Long objIdMax) {
+		this.objIdMax = objIdMax;
+	}
+
 
 	public Integer getExecOrder(){
 		return execOrder;
@@ -72,6 +113,19 @@ public class PipelineStageNodeCondition extends SaaSCondition{
 		this.execOrder = execOrder;
 	}
 
+	public Integer getExecOrderMin(){
+		return execOrderMin;
+	}
+	public void setExecOrderMin(Integer execOrderMin) {
+		this.execOrderMin = execOrderMin;
+	}
+
+	public Integer getExecOrderMax(){
+		return execOrderMax;
+	}
+	public void setExecOrderMax(Integer execOrderMax) {
+		this.execOrderMax = execOrderMax;
+	}
 
 
 

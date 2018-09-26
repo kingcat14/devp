@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.List;
+
 
 
 /**
@@ -34,19 +34,17 @@ public class PipelineStageNodeVO {
 
 
     /**节点类型*/
-    @ApiModelProperty(value = "节点类型")
-    private String nodeType;
-    private SimpleConfigVO nodeTypeVO;
+    @ApiModelProperty(value = "节点类型", notes = "Task和Pipeline")
+    private String objType;
+    private SimpleConfigVO objTypeVO;
 
 
-    @ApiModelProperty(value = "节点节点ID")
-    private Long nodeId;
+    @ApiModelProperty(value = "节点对象", notes = "节点关联的对象的ID")
+    private Long objId;
 
 
     @ApiModelProperty(value = "执行排序")
     private Integer execOrder;
-
-    private List<PipelineStageNodeParamVO> ParamList;
 
 
     public String getName(){
@@ -69,24 +67,24 @@ public class PipelineStageNodeVO {
         this.stageVO = stageVO;
     }
 
-    public String getNodeType(){
-        return nodeType;
+    public String getObjType(){
+        return objType;
     }
-    public void setNodeType(String nodeType) {
-        this.nodeType = nodeType;
+    public void setObjType(String objType) {
+        this.objType = objType;
     }
-    public SimpleConfigVO getNodeTypeVO(){
-        return nodeTypeVO;
+    public SimpleConfigVO getObjTypeVO(){
+        return objTypeVO;
     }
-    public void setNodeTypeVO(SimpleConfigVO nodeTypeVO) {
-        this.nodeTypeVO = nodeTypeVO;
+    public void setObjTypeVO(SimpleConfigVO objTypeVO) {
+        this.objTypeVO = objTypeVO;
     }
 
-    public Long getNodeId(){
-        return nodeId;
+    public Long getObjId(){
+        return objId;
     }
-    public void setNodeId(Long nodeId) {
-        this.nodeId = nodeId;
+    public void setObjId(Long objId) {
+        this.objId = objId;
     }
 
     public Integer getExecOrder(){
@@ -96,14 +94,8 @@ public class PipelineStageNodeVO {
         this.execOrder = execOrder;
     }
 
-    public List<PipelineStageNodeParamVO> getParamList() {
-        return ParamList;
-    }
-    public void setParamList(List<PipelineStageNodeParamVO> paramList) {
-        ParamList = paramList;
-    }
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

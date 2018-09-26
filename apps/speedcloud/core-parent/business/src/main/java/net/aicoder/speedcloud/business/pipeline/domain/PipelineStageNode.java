@@ -25,8 +25,8 @@ public class PipelineStageNode extends BaseEntity{
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_STAGE = "stage";
-	public static final String PROPERTY_NODE_TYPE = "nodeType";
-	public static final String PROPERTY_NODE_ID = "nodeId";
+	public static final String PROPERTY_OBJ_TYPE = "objType";
+	public static final String PROPERTY_OBJ_ID = "objId";
 	public static final String PROPERTY_EXEC_ORDER = "execOrder";
 
 
@@ -46,7 +46,7 @@ public class PipelineStageNode extends BaseEntity{
     * 名称
     * 
     */
-    @Column(name = "name", nullable = true, updatable = true)
+    @Column(name = "name", nullable = false, updatable = true)
 	@Size(max = 255, message = "名称超长，最多255个字符")
 	private String name;
 
@@ -59,17 +59,17 @@ public class PipelineStageNode extends BaseEntity{
 
     /**
     * 节点类型
-    * 
+    * Task和Pipeline
     */
-    @Column(name = "node_type", nullable = true, updatable = true)
-	private String nodeType;
+    @Column(name = "obj_type", nullable = false, updatable = true)
+	private String objType;
 
     /**
-    * 节点节点ID
-    * 
+    * 节点对象
+    * 节点关联的对象的ID
     */
-    @Column(name = "node_id", nullable = true, updatable = true)
-	private Long nodeId;
+    @Column(name = "obj_id", nullable = false, updatable = true)
+	private Long objId;
 
     /**
     * 执行排序
@@ -99,18 +99,18 @@ public class PipelineStageNode extends BaseEntity{
 		this.stage = stage;
 	}
 
-	public String getNodeType(){
-		return nodeType;
+	public String getObjType(){
+		return objType;
 	}
-	public void setNodeType(String nodeType) {
-		this.nodeType = nodeType;
+	public void setObjType(String objType) {
+		this.objType = objType;
 	}
 
-	public Long getNodeId(){
-		return nodeId;
+	public Long getObjId(){
+		return objId;
 	}
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	public void setObjId(Long objId) {
+		this.objId = objId;
 	}
 
 	public Integer getExecOrder(){

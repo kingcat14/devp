@@ -6,8 +6,6 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.List;
-
 
 /**
  * 阶段执行节点
@@ -29,20 +27,17 @@ public class PipelineStageNodeAddDto {
 	private Long stage;
 
     /**节点类型*/
-	@ApiModelProperty(value = "节点类型", required = false)
-    private String nodeType;
+	@ApiModelProperty(value = "节点类型", required = false, notes = "Task和Pipeline")
+    private String objType;
 
-    /**节点节点ID*/
-	@ApiModelProperty(value = "节点节点ID", required = false)
-	private Long nodeId;
+    /**节点对象*/
+	@ApiModelProperty(value = "节点对象", required = false, notes = "节点关联的对象的ID")
+	private Long objId;
 
     /**执行排序*/
 	@ApiModelProperty(value = "执行排序", required = false)
 	private Integer execOrder;
 
-	/**节点的参数列表*/
-	@ApiModelProperty(value = "节点的参数列表", required = false)
-	private List<PipelineStageNodeParamAddDto> paramList;
 
 	public Long getTid(){
 		return tid;
@@ -65,18 +60,18 @@ public class PipelineStageNodeAddDto {
         this.stage = stage;
     }
 
-    public String getNodeType(){
-        return nodeType;
+    public String getObjType(){
+        return objType;
     }
-    public void setNodeType(String nodeType) {
-        this.nodeType = nodeType;
+    public void setObjType(String objType) {
+        this.objType = objType;
     }
 
-	public Long getNodeId(){
-		return nodeId;
+	public Long getObjId(){
+		return objId;
 	}
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	public void setObjId(Long objId) {
+		this.objId = objId;
 	}
 
 	public Integer getExecOrder(){
@@ -86,12 +81,6 @@ public class PipelineStageNodeAddDto {
 		this.execOrder = execOrder;
 	}
 
-	public List<PipelineStageNodeParamAddDto> getParamList() {
-		return paramList;
-	}
-	public void setParamList(List<PipelineStageNodeParamAddDto> paramList) {
-		this.paramList = paramList;
-	}
 
 	@Override
 	public String toString() {

@@ -26,13 +26,13 @@ public class PipelineStageNodeEditDto {
 
 
 	/**节点类型*/
-	@ApiModelProperty(value = "节点类型", required = false)
-    private String nodeType;
+	@ApiModelProperty(value = "节点类型", required = false, notes = "Task和Pipeline")
+    private String objType;
 
 
-	/**节点节点ID*/
-	@ApiModelProperty(value = "节点节点ID", required = false)
-	private Long nodeId;
+	/**节点对象*/
+	@ApiModelProperty(value = "节点对象", required = false, notes = "节点关联的对象的ID")
+	private Long objId;
 
 
 	/**执行排序*/
@@ -57,19 +57,19 @@ public class PipelineStageNodeEditDto {
     }
 
 
-    public String getNodeType(){
-        return nodeType;
+    public String getObjType(){
+        return objType;
     }
-    public void setNodeType(String nodeType) {
-        this.nodeType = nodeType;
+    public void setObjType(String objType) {
+        this.objType = objType;
     }
 
 
-	public Long getNodeId(){
-		return nodeId;
+	public Long getObjId(){
+		return objId;
 	}
-	public void setNodeId(Long nodeId) {
-		this.nodeId = nodeId;
+	public void setObjId(Long objId) {
+		this.objId = objId;
 	}
 
 

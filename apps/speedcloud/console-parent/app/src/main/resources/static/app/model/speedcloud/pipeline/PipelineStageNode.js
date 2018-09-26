@@ -29,7 +29,7 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStageNode', {
     	,{
             name: 'name'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
@@ -39,15 +39,15 @@ Ext.define('AM.model.speedcloud.pipeline.PipelineStageNode', {
             ,critical:true
         }
     	,{
-            name: 'nodeType'
+            name: 'objType'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
-            name: 'nodeId'
+            name: 'objId'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{

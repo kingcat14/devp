@@ -31,8 +31,8 @@ public class PipelineStageNodeSpecification implements Specification<PipelineSta
 		tryAddTidPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddStagePredicate(predicateList, root, cb);
-		tryAddNodeTypePredicate(predicateList, root, cb);
-		tryAddNodeIdPredicate(predicateList, root, cb);
+		tryAddObjTypePredicate(predicateList, root, cb);
+		tryAddObjIdPredicate(predicateList, root, cb);
 		tryAddExecOrderPredicate(predicateList, root, cb);
 
 
@@ -48,6 +48,13 @@ public class PipelineStageNodeSpecification implements Specification<PipelineSta
 			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
+		if (null != condition.getTidMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineStageNode.PROPERTY_TID).as(Long.class), condition.getTidMax()));
+		}
+
+		if (null != condition.getTidMin() ) {
+			predicateList.add(cb.lessThan(root.get(PipelineStageNode.PROPERTY_TID).as(Long.class), condition.getTidMin()));
+		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -59,21 +66,37 @@ public class PipelineStageNodeSpecification implements Specification<PipelineSta
             predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_STAGE).as(Long.class), condition.getStage()));
         }
 	}
-	private void tryAddNodeTypePredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getNodeType())){
-			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_NODE_TYPE).as(String.class), condition.getNodeType()));
+	private void tryAddObjTypePredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getObjType())){
+			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_OBJ_TYPE).as(String.class), condition.getObjType()));
 		}
 	}
-	private void tryAddNodeIdPredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
+	private void tryAddObjIdPredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
 
-		if (null != condition.getNodeId() ) {
-			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_NODE_ID).as(Long.class), condition.getNodeId()));
+		if (null != condition.getObjId() ) {
+			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_OBJ_ID).as(Long.class), condition.getObjId()));
+		}
+
+		if (null != condition.getObjIdMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineStageNode.PROPERTY_OBJ_ID).as(Long.class), condition.getObjIdMax()));
+		}
+
+		if (null != condition.getObjIdMin() ) {
+			predicateList.add(cb.lessThan(root.get(PipelineStageNode.PROPERTY_OBJ_ID).as(Long.class), condition.getObjIdMin()));
 		}
 	}
 	private void tryAddExecOrderPredicate(List<Predicate> predicateList, Root<PipelineStageNode> root, CriteriaBuilder cb){
 
 		if (null != condition.getExecOrder() ) {
 			predicateList.add(cb.equal(root.get(PipelineStageNode.PROPERTY_EXEC_ORDER).as(Integer.class), condition.getExecOrder()));
+		}
+
+		if (null != condition.getExecOrderMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineStageNode.PROPERTY_EXEC_ORDER).as(Integer.class), condition.getExecOrderMax()));
+		}
+
+		if (null != condition.getExecOrderMin() ) {
+			predicateList.add(cb.lessThan(root.get(PipelineStageNode.PROPERTY_EXEC_ORDER).as(Integer.class), condition.getExecOrderMin()));
 		}
 	}
 }
