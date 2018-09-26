@@ -45,10 +45,28 @@ public class TaskNodeBuilder implements NodeBuilder {
     private PipelineExecNodeParamService pipelineExecNodeParamService;
 
     @Override
-    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long nodeId, int execIndex, boolean createSubNode) {
+    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long nodeId, boolean createSubNode) {
 
         PipelineStageNode pipelineStageNode = pipelineStageNodeService.find(nodeId);
 
+        PipelineExecNode pipelineExecNode;
+        if(ExecNodeType.PIPELINE.equals(pipelineStageNode.getObjType())){
+            pipelineExecNode = getPipelineExecNode(parentNode, pipelineStageNode, createSubNode);
+        }else{
+            pipelineExecNode = getTaskExecNode(parentNode, nodeId, pipelineStageNode);
+        }
+
+        return pipelineExecNode;
+    }
+
+    private PipelineExecNode getPipelineExecNode(PipelineExecNode parentNode, PipelineStageNode pipelineStageNode, boolean createSubNode) {
+        PipelineExecNode pipelineExecNode = pipelineExecInstanceBuilder.build(parentNode, ExecNodeType.PIPELINE, pipelineStageNode.getObjId(), createSubNode);
+        pipelineExecNode.setExecIndex(pipelineExecNode.getExecIndex());
+        execNodeService.merge(pipelineExecNode);
+        return pipelineExecNode;
+    }
+
+    private PipelineExecNode getTaskExecNode(PipelineExecNode parentNode, Long nodeId, PipelineStageNode pipelineStageNode) {
         PipelineTask pipelineTask = pipelineTaskService.find(pipelineStageNode.getObjId());
 
         //创建执行节点
@@ -60,7 +78,7 @@ public class TaskNodeBuilder implements NodeBuilder {
         node.setExec(parentNode.getExec());
         node.setRelationObjId(pipelineTask.getId());
         node.setStageNode(pipelineStageNode.getId());
-        node.setExecIndex(execIndex);
+        node.setExecIndex(pipelineStageNode.getExecOrder());
         node.setExecMode(ExecMode.SERIALIZED);
         node.setTid(parentNode.getTid());
         node.setStatus(PipelineExecNodeStatus.WAIT);

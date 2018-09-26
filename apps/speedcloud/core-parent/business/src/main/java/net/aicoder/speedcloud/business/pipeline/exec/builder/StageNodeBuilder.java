@@ -36,7 +36,7 @@ public class StageNodeBuilder implements NodeBuilder {
 
 
     @Override
-    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long stageId, int execIndex, boolean createSubNode) {
+    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long stageId, boolean createSubNode) {
 
         PipelineStage pipelineStage = pipelineStageService.find(stageId);
 
@@ -48,10 +48,12 @@ public class StageNodeBuilder implements NodeBuilder {
         stageExecNode.setParentId(parentNode.getId());
         stageExecNode.setExec(parentNode.getExec());
         stageExecNode.setRelationObjId(pipelineStage.getId());
-        stageExecNode.setExecIndex(execIndex);
+//        stageExecNode.setExecIndex(execIndex);
+        stageExecNode.setExecIndex(pipelineStage.getExecOrder());
         stageExecNode.setExecMode(pipelineStage.getExecMode());
         stageExecNode.setTid(parentNode.getTid());
         stageExecNode.setStatus(PipelineExecNodeStatus.WAIT);
+
         execNodeService.add(stageExecNode);
 
         if(createSubNode) {
@@ -65,7 +67,7 @@ public class StageNodeBuilder implements NodeBuilder {
         List<PipelineStageNode> stageNodeList = pipelineStageNodeService.findByStage(stageId);
         for(int i = 0; i < CollectionUtils.size(stageNodeList); i++){
             PipelineStageNode stageNode =  stageNodeList.get(i);
-            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getObjType(), stageNode.getId(), i, createSubNode);
+            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getObjType(), stageNode.getId(), createSubNode);
         }
     }
 

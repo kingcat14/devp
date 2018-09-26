@@ -223,7 +223,7 @@ public class PipelineExecNodeController {
 
 	    //初始化其他对象
 	    initExecPropertyGroup(vo, pipelineExecNode);
-	    initTaskPropertyGroup(vo, pipelineExecNode);
+
         return vo;
 
 	}
@@ -242,19 +242,6 @@ public class PipelineExecNodeController {
 
 	}
 
-
-	private void initTaskPropertyGroup(PipelineExecNodeVO pipelineExecNodeVO, PipelineExecNode pipelineExecNode){
-	
-		PipelineTask task = pipelineTaskService.find(pipelineExecNode.getRelationObjId());
-		if(task == null){
-			return;
-		}
-		PipelineTaskVO taskVO = new PipelineTaskVO();
-		BeanUtils.copyProperties(task, taskVO);
-
-		pipelineExecNodeVO.setTaskVO(taskVO);
-
-	}
 
 
 }

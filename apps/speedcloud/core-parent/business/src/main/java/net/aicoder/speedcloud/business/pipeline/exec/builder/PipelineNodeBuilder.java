@@ -33,7 +33,7 @@ public class PipelineNodeBuilder implements NodeBuilder {
     private PipelineExecInstanceBuilder pipelineExecInstanceBuilder;
 
     @Override
-    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long id, int execIndex, boolean createSubNode) {
+    public PipelineExecNode createExecNode(PipelineExecNode parentNode, Long id, boolean createSubNode) {
 
         Pipeline pipeline = pipelineService.find(id);
 
@@ -63,7 +63,7 @@ public class PipelineNodeBuilder implements NodeBuilder {
 
         for(int i = 0; CollectionUtils.isNotEmpty(stageList) && (i < CollectionUtils.size(stageList)) ; i++){
             PipelineStage pipelineStage = stageList.get(i);
-            pipelineExecInstanceBuilder.build(pipelineExecNode, ExecNodeType.STAGE, pipelineStage.getId(), i, createSubNode);
+            pipelineExecInstanceBuilder.build(pipelineExecNode, ExecNodeType.STAGE, pipelineStage.getId(), createSubNode);
         }
     }
 

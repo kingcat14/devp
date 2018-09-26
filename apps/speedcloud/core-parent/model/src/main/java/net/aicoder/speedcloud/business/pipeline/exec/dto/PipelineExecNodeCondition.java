@@ -23,7 +23,7 @@ public class PipelineExecNodeCondition extends SaaSCondition{
 	private String code;
 	@ApiModelProperty(value = "节点名称", notes = "节点或任务的名称")
 	private String name;
-	@ApiModelProperty(value = "节点类型", notes = "阶段、任务")
+	@ApiModelProperty(value = "节点类型", notes = "流水线、阶段、任务")
 	private String nodeType;
 	@ApiModelProperty(value = "执行方式", notes = "并行、串行")
 	private String execMode;
@@ -43,8 +43,18 @@ public class PipelineExecNodeCondition extends SaaSCondition{
 	private Date startTimeEnd;
 	@ApiModelProperty(value = "上级节点")
 	private String parentId;
-    @ApiModelProperty(value = "关联对象")
-    private Long relationObjId;
+	@ApiModelProperty(value = "关联阶段节点", notes = "")
+	private Long stageNode;
+	@ApiModelProperty(value = "关联阶段节点最大值")
+	private Long stageNodeMax;
+	@ApiModelProperty(value = "关联阶段节点最小值")
+	private Long stageNodeMin;
+	@ApiModelProperty(value = "关联对象ID", notes = "具体流水线、阶段、任务的ID")
+	private Long relationObjId;
+	@ApiModelProperty(value = "关联对象ID最大值")
+	private Long relationObjIdMax;
+	@ApiModelProperty(value = "关联对象ID最小值")
+	private Long relationObjIdMin;
 	@ApiModelProperty(value = "自动运行", notes = "手动、自动")
 	private Boolean autoStart;
 	@ApiModelProperty(value = "节点排序")
@@ -169,12 +179,49 @@ public class PipelineExecNodeCondition extends SaaSCondition{
 	}
 
 
-	public Long getRelationObjId() {
+	public Long getStageNode(){
+		return stageNode;
+	}
+	public void setStageNode(Long stageNode) {
+		this.stageNode = stageNode;
+	}
+
+	public Long getStageNodeMin(){
+		return stageNodeMin;
+	}
+	public void setStageNodeMin(Long stageNodeMin) {
+		this.stageNodeMin = stageNodeMin;
+	}
+
+	public Long getStageNodeMax(){
+		return stageNodeMax;
+	}
+	public void setStageNodeMax(Long stageNodeMax) {
+		this.stageNodeMax = stageNodeMax;
+	}
+
+
+	public Long getRelationObjId(){
 		return relationObjId;
 	}
 	public void setRelationObjId(Long relationObjId) {
 		this.relationObjId = relationObjId;
 	}
+
+	public Long getRelationObjIdMin(){
+		return relationObjIdMin;
+	}
+	public void setRelationObjIdMin(Long relationObjIdMin) {
+		this.relationObjIdMin = relationObjIdMin;
+	}
+
+	public Long getRelationObjIdMax(){
+		return relationObjIdMax;
+	}
+	public void setRelationObjIdMax(Long relationObjIdMax) {
+		this.relationObjIdMax = relationObjIdMax;
+	}
+
 
 	public Boolean getAutoStart(){
 		return autoStart;

@@ -88,9 +88,15 @@ Ext.define('AM.model.speedcloud.pipeline.exec.PipelineExecNode', {
             ,critical:true
         }
     	,{
-            name: 'task'
+            name: 'stageNode'
             ,type:'string'
             ,allowNull:false
+            ,critical:true
+        }
+    	,{
+            name: 'relationObjId'
+            ,type:'string'
+            ,allowNull:true
             ,critical:true
         }
     	,{

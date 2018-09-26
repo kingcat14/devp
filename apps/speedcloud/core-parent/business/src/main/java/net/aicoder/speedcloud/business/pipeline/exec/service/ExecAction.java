@@ -73,7 +73,7 @@ public class ExecAction {
 
 		if(CollectionUtils.isNotEmpty(subNode)){
 			for(int i = 0; i< subNode.size(); i++){
-				createNode(topNode, subNode.get(i), i);
+				createNode(topNode, subNode.get(i));
 			}
 		}
 
@@ -83,9 +83,9 @@ public class ExecAction {
 		return instance;
 	}
 
-	private void createNode(PipelineExecNode parentNode, PipelineExecNodeCustomAddDto customAddDto, int execIndex){
+	private void createNode(PipelineExecNode parentNode, PipelineExecNodeCustomAddDto customAddDto){
 
-		PipelineExecNode currentNode = pipelineExecInstanceBuilder.build(parentNode, customAddDto.getNodeType(), customAddDto.getNodeId(), execIndex, false);
+		PipelineExecNode currentNode = pipelineExecInstanceBuilder.build(parentNode, customAddDto.getNodeType(), customAddDto.getNodeId(), false);
 
 		List<PipelineExecNodeCustomAddDto> subNode = customAddDto.getSubNodeList();
 		if(CollectionUtils.isEmpty(subNode)){
@@ -93,7 +93,7 @@ public class ExecAction {
 		}
 
 		for(int i = 0; i< subNode.size(); i++){
-			createNode(currentNode, subNode.get(i), i);
+			createNode(currentNode, subNode.get(i));
 		}
 
 	}

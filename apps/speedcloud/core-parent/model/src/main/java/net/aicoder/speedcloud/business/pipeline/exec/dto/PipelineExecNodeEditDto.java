@@ -29,7 +29,7 @@ public class PipelineExecNodeEditDto {
 
 
 	/**节点类型*/
-	@ApiModelProperty(value = "节点类型", required = false, notes = "阶段、任务")
+	@ApiModelProperty(value = "节点类型", required = false, notes = "流水线、阶段、任务")
 	private String nodeType;
 
 
@@ -68,9 +68,14 @@ public class PipelineExecNodeEditDto {
 	private String parentId;
 
 
-	/**关联任务*/
-	@ApiModelProperty(value = "关联任务", required = false)
-	private Long task;
+	/**关联阶段节点*/
+	@ApiModelProperty(value = "关联阶段节点", required = false, notes = "")
+	private Long stageNode;
+
+
+	/**关联对象ID*/
+	@ApiModelProperty(value = "关联对象ID", required = false, notes = "具体流水线、阶段、任务的ID")
+	private Long relationObjId;
 
 
 	/**自动运行*/
@@ -164,12 +169,20 @@ public class PipelineExecNodeEditDto {
 	}
 
 
-	public Long getTask(){
-        return task;
-    }
-    public void setTask(Long task) {
-        this.task = task;
-    }
+	public Long getStageNode(){
+		return stageNode;
+	}
+	public void setStageNode(Long stageNode) {
+		this.stageNode = stageNode;
+	}
+
+
+	public Long getRelationObjId(){
+		return relationObjId;
+	}
+	public void setRelationObjId(Long relationObjId) {
+		this.relationObjId = relationObjId;
+	}
 
 
 	public Boolean getAutoStart(){

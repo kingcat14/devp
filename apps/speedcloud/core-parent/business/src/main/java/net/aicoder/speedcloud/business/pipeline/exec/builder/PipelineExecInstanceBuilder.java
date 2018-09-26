@@ -26,12 +26,12 @@ public class PipelineExecInstanceBuilder {
 
     private HashMap<String, NodeBuilder> nodeBuilderMap = new HashMap<>();
 
-    public PipelineExecNode build(PipelineExecNode parentNode, String type, Long id, int execIndex, boolean createSubNode){
+    public PipelineExecNode build(PipelineExecNode parentNode, String type, Long id, boolean createSubNode){
 
         PipelineExecNode result = null;
         NodeBuilder nodeBuilder = nodeBuilderMap.get(type);
         if(nodeBuilder != null){
-            result = nodeBuilder.createExecNode(parentNode, id, execIndex, createSubNode);
+            result = nodeBuilder.createExecNode(parentNode, id, createSubNode);
         }
 
         return result;
@@ -42,7 +42,7 @@ public class PipelineExecInstanceBuilder {
 
         PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
 
-        return this.build(fakeParentNode, instance.getExecuteTargetType(), id, 0, createSubNode);
+        return this.build(fakeParentNode, instance.getExecuteTargetType(), id, createSubNode);
 
     }
 
@@ -50,7 +50,7 @@ public class PipelineExecInstanceBuilder {
 
         PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
 
-        return this.build(fakeParentNode, ExecNodeType.PIPELINE, id, 0, createSubNode);
+        return this.build(fakeParentNode, ExecNodeType.PIPELINE, id, createSubNode);
 
     }
 
@@ -58,7 +58,7 @@ public class PipelineExecInstanceBuilder {
 
         PipelineExecNode fakeParentNode = this.getFakeParentNode(instance);
 
-        return this.build(fakeParentNode, ExecNodeType.TASK, id, 0, createSubNode);
+        return this.build(fakeParentNode, ExecNodeType.TASK, id, createSubNode);
     }
 
     /**

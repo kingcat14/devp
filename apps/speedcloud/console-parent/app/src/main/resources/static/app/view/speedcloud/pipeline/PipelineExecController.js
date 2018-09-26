@@ -18,7 +18,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
 
         var stagePanel = me.createStagePanel(stage)
         stagePanel.title = (index+1)+":"+stage.get('name')
-        console.log('stagePanel.title:'+stagePanel.title)
+
 
         pipelineStagePanel.insert(index, stagePanel)
     }
@@ -52,19 +52,22 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                             ,renderer:function(value, metaData, record, rowIndex, colIndex, store, view){
                                 var status = record.get('status');
                                 var result = record.get('result');
-                                console.log(record.get('name')+":"+status+"-"+result);
+
+                                // metaData.tdAttr = 'bgcolor="red"'
+                                if(status == 'WAIT'){
+                                    return '<i class="far fa-clock" style="color:blue"></i>';
+                                }
                                 if(status == 'RUNNING'||status == 'PREPARED'){
-                                    return '<i class="fas fa-spinner"></i>';
+                                    return '<i class="fas fa-spinner" style="color:blue"></i>';
                                 }
                                 if(status == 'FINISH' && result == 'SUCCESS'){
-                                    metaData.tdAttr = 'bgcolor="green"'
-                                    return '<i class="fas fa-check"></i>'
+
+                                    return '<i class="fas fa-check" style="color:green"></i>'
                                 }
                                 if(status == 'FINISH' && result != 'SUCCESS'){
-                                    metaData.tdAttr = 'bgcolor="red"'
-                                    return '<i class="fas fa-times"></i>'
+                                    return '<i class="fas fa-times" style="color:red"></i>'
                                 }
-                                metaData.tdAttr = ''
+
                                 return '';
                             }
                         }
@@ -153,14 +156,14 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             pipelineStagePanel.unmask()
             return ;
         }
-        console.log(customExecInstance)
+
         customExecInstance.save({
             failure: function(record, operation) {
                 pipelineStagePanel.unmask();
             }
             ,success: function(record, operation) {
                 pipelineStagePanel.unmask()
-                //me.flushExecStatus(record);
+                me.flushExecStatus(record);
             }
         })
     }
@@ -181,13 +184,14 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
 
         for(var i = 1; i< items.length -1;i++){
             var stage = items[i]
-            console.log(stage.getTitle());
+
             var selection = stage.down('grid').getSelection();
             if(selection && selection.length > 0){
                 var stage = {nodeId:stage.getViewModel().get('stage').getId(), nodeType:'STAGE', subNodeList:[]}
                 for(var ii in selection){
-                    selection[ii].set('status', 'RUNNING');
-                    console.log(selection[ii]);
+                    selection[ii].set('status', 'WAIT');
+                    selection[ii].commit();
+
                     stage.subNodeList.push({nodeId:selection[ii].get("id"), nodeType:selection[ii].get('objType')});
                 }
                 customExec.get('subNodeList').push(stage);
@@ -245,7 +249,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                             task.stop();
                         }
 
-                        if(runCount > 100){
+                        if(runCount > 120){
                             Ext.MessageBox.alert("执行超时", "执行超时");
                             pipelineStagePanel.unmask();
                             task.stop();
@@ -254,10 +258,12 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                         var nodeList = record.get("nodeList");
                         for(var i in nodeList){
                             var node = nodeList[i];
-                            console.log(node)
-                            // console.log(Ext.encode(node));
+
                             if(node.nodeType == "TASK"){
-                                // console.log('=============='+(node.name))
+
+                                tasks[node.stageNode].set('status', node.status);
+                                tasks[node.stageNode].set('result', node.result);
+                                tasks[node.stageNode].commit();
 
                             }
                             if(node.nodeType == "TASK" && (node.status =='PREPARED' || node.status =='RUNNING')){

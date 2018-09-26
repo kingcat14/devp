@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.*;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
-import net.aicoder.speedcloud.business.pipeline.task.vo.PipelineTaskVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -34,7 +33,7 @@ public class PipelineExecNodeVO {
 
 
     /**节点类型*/
-    @ApiModelProperty(value = "节点类型", notes = "阶段、任务")
+    @ApiModelProperty(value = "节点类型", notes = "流水线、阶段、任务")
     private String nodeType;
 
 
@@ -74,10 +73,12 @@ public class PipelineExecNodeVO {
     private String parentId;
 
 
-    /**关联任务*/
-    @ApiModelProperty(value = "关联任务")
-    private Long task;
-    private PipelineTaskVO taskVO;
+    @ApiModelProperty(value = "关联阶段节点", notes = "")
+    private Long stageNode;
+
+
+    @ApiModelProperty(value = "关联对象ID", notes = "具体流水线、阶段、任务的ID")
+    private Long relationObjId;
 
 
     @ApiModelProperty(value = "自动运行", notes = "手动、自动")
@@ -164,17 +165,18 @@ public class PipelineExecNodeVO {
         this.parentId = parentId;
     }
 
-    public Long getTask(){
-        return task;
+    public Long getStageNode(){
+        return stageNode;
     }
-    public void setTask(Long task) {
-        this.task = task;
+    public void setStageNode(Long stageNode) {
+        this.stageNode = stageNode;
     }
-    public PipelineTaskVO getTaskVO(){
-        return taskVO;
+
+    public Long getRelationObjId(){
+        return relationObjId;
     }
-    public void setTaskVO(PipelineTaskVO taskVO) {
-        this.taskVO = taskVO;
+    public void setRelationObjId(Long relationObjId) {
+        this.relationObjId = relationObjId;
     }
 
     public Boolean getAutoStart(){
