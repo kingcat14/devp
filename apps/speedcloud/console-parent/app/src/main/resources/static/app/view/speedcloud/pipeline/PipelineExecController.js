@@ -58,7 +58,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                                     return '<i class="far fa-clock" style="color:blue"></i>';
                                 }
                                 if(status == 'RUNNING'||status == 'PREPARED'){
-                                    return '<i class="fas fa-spinner" style="color:blue"></i>';
+                                    return '<i class="fas fa-spinner faa-spin animated" style="color:blue"></i>';
                                 }
                                 if(status == 'FINISH' && result == 'SUCCESS'){
 
@@ -227,11 +227,17 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                 for(var ii in selection){
                     tasks[selection[ii].getId()] = selection[ii];
                 }
-
             }
         }
 
-        pipelineStagePanel.mask('开始执行');
+        var basicStatusbar = this.lookupReference('basic-statusbar');
+
+
+        // pipelineStagePanel.mask('开始执行');
+        var startNewExecButton = me.lookup('startNewExecButton');
+        startNewExecButton.setText('运行中...');
+        startNewExecButton.setIconCls("fas fa-spinner faa-spin animated");
+        startNewExecButton.disable()
         var instance = AM.model.speedcloud.pipeline.exec.PipelineExecInstance.create({id:customExecInstance.getId()});
 
         var runner = new Ext.util.TaskRunner();
@@ -245,7 +251,10 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                         runCount++;
                         if(record.get("status") == 'FINISH' ){
                             Ext.MessageBox.alert("执行完毕", "执行结果:"+record.get("result"));
-                            pipelineStagePanel.unmask();
+                            startNewExecButton.setText('全新执行');
+                            startNewExecButton.enable()
+                            startNewExecButton.setIconCls('')
+
                             task.stop();
                         }
 
@@ -261,14 +270,23 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
 
                             if(node.nodeType == "TASK"){
 
+                                if((node.status =='PREPARED' || node.status =='RUNNING') && tasks[node.stageNode].get("status") != node.status){
+                                    var statusText ;
+
+                                    if(node.status == 'PREPARED'){statusText = '准备执行';}
+                                    if(node.status == 'RUNNING'){statusText = '运行中';}
+
+                                    basicStatusbar.setStatus({
+                                        text: node.name + statusText
+                                        //, iconCls: 'x-status-error'
+                                        , clear: true // auto-clear after a set interval
+                                    });
+                                }
                                 tasks[node.stageNode].set('status', node.status);
                                 tasks[node.stageNode].set('result', node.result);
                                 tasks[node.stageNode].commit();
+                            }
 
-                            }
-                            if(node.nodeType == "TASK" && (node.status =='PREPARED' || node.status =='RUNNING')){
-                                pipelineStagePanel.mask(node.name+":"+node.status);
-                            }
                         }
                     }
                 })

@@ -79,6 +79,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecPanel', {
                                     //,iconCls: 'x-fa fa-plus-circle'
                                     ,text: '全新执行'
                                     ,scale: 'large'
+                                    ,reference: 'startNewExecButton'
                                     ,listeners: {
                                         click: 'onPipelineExecButtonClick'
                                     }
@@ -182,6 +183,13 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecPanel', {
                             ]
                         }
                     ]
+                    ,tbar: {
+                        xtype: 'statusbar'
+                        ,reference: 'basic-statusbar'
+                        ,autoClear:1500
+                        // defaults to use when the status is cleared:
+                        ,defaultText: '&nbsp;'
+                    }
                 }
             ]
 

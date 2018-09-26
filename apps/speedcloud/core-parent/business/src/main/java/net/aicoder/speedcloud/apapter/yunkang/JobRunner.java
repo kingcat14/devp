@@ -40,7 +40,7 @@ public class JobRunner {
     @Autowired
     private YunkangClient yunkangClient;
 
-    @Scheduled(cron = "0/30 * * * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     @Transactional
     public void run(){
 
