@@ -35,6 +35,11 @@ public class PipelineStageEditDto {
     private String execMode;
 
 
+	/**执行排序*/
+	@ApiModelProperty(value = "执行排序", required = false)
+	private Integer execOrder;
+
+
 
 	public Long getPipeline(){
         return pipeline;
@@ -66,6 +71,14 @@ public class PipelineStageEditDto {
     public void setExecMode(String execMode) {
         this.execMode = execMode;
     }
+
+
+	public Integer getExecOrder(){
+		return execOrder;
+	}
+	public void setExecOrder(Integer execOrder) {
+		this.execOrder = execOrder;
+	}
 
 
 	@Override

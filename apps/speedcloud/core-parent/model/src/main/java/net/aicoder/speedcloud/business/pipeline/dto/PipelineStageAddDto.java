@@ -36,10 +36,13 @@ public class PipelineStageAddDto {
 	@ApiModelProperty(value = "执行方式", required = false, notes = "并行、串行、")
     private String execMode;
 
+    /**执行排序*/
+	@ApiModelProperty(value = "执行排序", required = false)
+	private Integer execOrder;
+
 	/**阶段包含的节点*/
 	@ApiModelProperty(value = "阶段包含的节点", required = false, notes = "")
 	private List<PipelineStageNodeAddDto> nodeList;
-
 
 	public Long getTid(){
 		return tid;
@@ -75,6 +78,13 @@ public class PipelineStageAddDto {
     public void setExecMode(String execMode) {
         this.execMode = execMode;
     }
+
+	public Integer getExecOrder(){
+		return execOrder;
+	}
+	public void setExecOrder(Integer execOrder) {
+		this.execOrder = execOrder;
+	}
 
 	public List<PipelineStageNodeAddDto> getNodeList() {
 		return nodeList;

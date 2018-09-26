@@ -65,7 +65,7 @@ public class StageNodeBuilder implements NodeBuilder {
         List<PipelineStageNode> stageNodeList = pipelineStageNodeService.findByStage(stageId);
         for(int i = 0; i < CollectionUtils.size(stageNodeList); i++){
             PipelineStageNode stageNode =  stageNodeList.get(i);
-            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getNodeType(), stageNode.getId(), i, createSubNode);
+            pipelineExecInstanceBuilder.build(stageExecNode, stageNode.getObjType(), stageNode.getId(), i, createSubNode);
         }
     }
 

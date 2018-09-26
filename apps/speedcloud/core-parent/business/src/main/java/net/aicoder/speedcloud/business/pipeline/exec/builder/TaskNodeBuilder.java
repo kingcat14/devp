@@ -49,7 +49,7 @@ public class TaskNodeBuilder implements NodeBuilder {
 
         PipelineStageNode pipelineStageNode = pipelineStageNodeService.find(nodeId);
 
-        PipelineTask pipelineTask = pipelineTaskService.find(pipelineStageNode.getNodeId());
+        PipelineTask pipelineTask = pipelineTaskService.find(pipelineStageNode.getObjId());
 
         //创建执行节点
         PipelineExecNode node = new PipelineExecNode();
@@ -59,7 +59,7 @@ public class TaskNodeBuilder implements NodeBuilder {
         node.setParentId(parentNode.getId());
         node.setExec(parentNode.getExec());
         node.setRelationObjId(pipelineTask.getId());
-        node.setStageNode(pipelineStageNode.getNodeId());
+        node.setStageNode(pipelineStageNode.getId());
         node.setExecIndex(execIndex);
         node.setExecMode(ExecMode.SERIALIZED);
         node.setTid(parentNode.getTid());

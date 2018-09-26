@@ -218,12 +218,12 @@ public class PipelineStageNodeController {
 	    PipelineStageNodeVO vo = new PipelineStageNodeVO();
         BeanUtils.copyProperties(pipelineStageNode, vo);
 
-		SimpleConfig nodeTypeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGENODE-NODETYPE", pipelineStageNode.getNodeType());
+		SimpleConfig nodeTypeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINESTAGENODE-OBJTYPE", pipelineStageNode.getObjType());
 
 		if(nodeTypeSimpleConfig!=null) {
 		    SimpleConfigVO nodeTypeSimpleConfigVO = new SimpleConfigVO();
             BeanUtils.copyProperties(nodeTypeSimpleConfig, nodeTypeSimpleConfigVO);
-			vo.setNodeTypeVO(nodeTypeSimpleConfigVO);
+			vo.setObjTypeVO(nodeTypeSimpleConfigVO);
 		}
 
 	    //初始化其他对象

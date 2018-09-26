@@ -45,6 +45,10 @@ public class PipelineStageVO {
     private SimpleConfigVO execModeVO;
 
 
+    @ApiModelProperty(value = "执行排序")
+    private Integer execOrder;
+
+    @ApiModelProperty(value = "阶段包含的节点")
     private List<PipelineStageNodeVO> pipelineStageNodeVOList;
 
 
@@ -94,6 +98,13 @@ public class PipelineStageVO {
         this.execModeVO = execModeVO;
     }
 
+    public Integer getExecOrder(){
+        return execOrder;
+    }
+    public void setExecOrder(Integer execOrder) {
+        this.execOrder = execOrder;
+    }
+
     public List<PipelineStageNodeVO> getPipelineStageNodeVOList() {
         return pipelineStageNodeVOList;
     }
@@ -101,7 +112,8 @@ public class PipelineStageVO {
         this.pipelineStageNodeVOList = pipelineStageNodeVOList;
     }
 
-    public Long getId() {
+
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {

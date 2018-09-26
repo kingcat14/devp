@@ -55,10 +55,7 @@ public class PipelineStageValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		//验证长度
-		if(StringUtils.isEmpty(pipelineStage.getExecMode())){
-			errors.rejectValue(PipelineStage.PROPERTY_EXEC_MODE,null,"执行方式不能为空");
-		}
+
 		//验证长度
 		if(StringUtils.length(pipelineStage.getName()) > 255){
 			errors.rejectValue(PipelineStage.PROPERTY_NAME,null,"阶段名称最长255个字符");

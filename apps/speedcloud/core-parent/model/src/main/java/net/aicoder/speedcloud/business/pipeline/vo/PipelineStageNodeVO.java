@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -45,6 +45,8 @@ public class PipelineStageNodeVO {
 
     @ApiModelProperty(value = "执行排序")
     private Integer execOrder;
+
+    private List<PipelineStageNodeParamVO> ParamList;
 
 
     public String getName(){
@@ -94,6 +96,12 @@ public class PipelineStageNodeVO {
         this.execOrder = execOrder;
     }
 
+    public List<PipelineStageNodeParamVO> getParamList() {
+        return ParamList;
+    }
+    public void setParamList(List<PipelineStageNodeParamVO> paramList) {
+        ParamList = paramList;
+    }
 
 	public Long getId() {
 		return id;

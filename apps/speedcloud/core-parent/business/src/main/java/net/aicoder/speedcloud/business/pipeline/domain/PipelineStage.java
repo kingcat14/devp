@@ -70,9 +70,7 @@ public class PipelineStage extends BaseEntity{
     @Column(name = "exec_mode", nullable = false, updatable = true)
 	private String execMode;
 
-	/**
-	 * 执行顺序
-	 */
+	/**执行顺序*/
 	@Column(name = "exec_order", nullable = false, updatable = true)
     private Integer execOrder;
 

@@ -26,6 +26,12 @@ public class PipelineStageCondition extends SaaSCondition{
 	private String flowType;
 	@ApiModelProperty(value = "执行方式", notes = "并行、串行、")
 	private String execMode;
+	@ApiModelProperty(value = "执行排序")
+	private Integer execOrder;
+	@ApiModelProperty(value = "执行排序最大值")
+	private Integer execOrderMax;
+	@ApiModelProperty(value = "执行排序最小值")
+	private Integer execOrderMin;
 
 
 	public Long getTid(){
@@ -79,6 +85,28 @@ public class PipelineStageCondition extends SaaSCondition{
 	}
 	public void setExecMode(String execMode) {
 		this.execMode = execMode;
+	}
+
+
+	public Integer getExecOrder(){
+		return execOrder;
+	}
+	public void setExecOrder(Integer execOrder) {
+		this.execOrder = execOrder;
+	}
+
+	public Integer getExecOrderMin(){
+		return execOrderMin;
+	}
+	public void setExecOrderMin(Integer execOrderMin) {
+		this.execOrderMin = execOrderMin;
+	}
+
+	public Integer getExecOrderMax(){
+		return execOrderMax;
+	}
+	public void setExecOrderMax(Integer execOrderMax) {
+		this.execOrderMax = execOrderMax;
 	}
 
 
