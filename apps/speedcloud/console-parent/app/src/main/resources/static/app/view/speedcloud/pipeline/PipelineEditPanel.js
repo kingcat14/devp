@@ -157,6 +157,15 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                                                 xtype: 'textfield'
                                             }
                                         }
+                                        ,{
+                                            xtype: 'gridcolumn'
+                                            ,dataIndex: 'value'
+                                            // ,text: '参数列表'
+                                            ,flex:1
+                                            ,editor: {
+                                                xtype: 'textfield'
+                                            }
+                                        }
                                         , {
                                             xtype: 'actioncolumn'
                                             ,menuDisabled: true
