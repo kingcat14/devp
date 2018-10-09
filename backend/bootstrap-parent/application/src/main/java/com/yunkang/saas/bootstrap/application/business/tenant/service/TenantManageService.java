@@ -1,7 +1,6 @@
 package com.yunkang.saas.bootstrap.application.business.tenant.service;
 
 import com.yunkang.saas.bootstrap.application.business.role.ApplicationRoleService;
-import com.yunkang.saas.bootstrap.application.business.security.ApplicationProperties;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountRoleRelation;
@@ -15,6 +14,7 @@ import com.yunkang.saas.bootstrap.business.platform.tenant.domain.TenantAddEvent
 import com.yunkang.saas.bootstrap.business.platform.tenant.domain.TenantAdminAccount;
 import com.yunkang.saas.bootstrap.business.platform.tenant.service.TenantAdminAccountService;
 import com.yunkang.saas.bootstrap.business.platform.tenant.service.TenantService;
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
      * 应用新增租户
      */
     @Transactional
-    public void createTenant(Tenant tenant, String appCode){
+    public void createTenant(Tenant tenant, Integer appCode){
 
         /*
          * 1.新增租户
@@ -65,10 +65,12 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
 
     }
 
+
+
     /**
      * 租户开通应用
      */
-    public void openApplicationForTenant(Long tenantId, String appCode){
+    public void openApplicationForTenant(Long tenantId, Integer appCode){
 
         /*
          * 1.给租户创建应用管理员角色
@@ -80,11 +82,11 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
             return;
         }
 
-        Role role = roleService.findApplicationManagerForTenant(appCode, tenantId);
+        Role role = roleService.findApplicationManagerForTenant(appCode+"", tenantId);
 
         if(role == null){
             role = new Role();
-            role.setAppCode(appCode);
+            role.setAppCode(appCode+"");
             role.setName("应用管理员");
             role.setCode(RoleService.CODE_APPLICATION_MANAGER);
             role.setTenantId(tenantId);

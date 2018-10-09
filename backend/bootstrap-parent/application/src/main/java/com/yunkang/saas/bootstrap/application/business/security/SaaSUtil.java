@@ -2,6 +2,7 @@ package com.yunkang.saas.bootstrap.application.business.security;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import com.yunkang.saas.common.jpa.SaaSEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +35,7 @@ public class SaaSUtil {
     }
 
     public String getAppCode() {
-        return applicationProperties.getCode();
+        return applicationProperties.getCode()+"";
     }
 
 }

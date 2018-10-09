@@ -1,6 +1,6 @@
 package com.yunkang.saas.bootstrap.application.business.tenant.controller;
 
-import com.yunkang.saas.bootstrap.application.business.security.ApplicationProperties;
+
 import com.yunkang.saas.bootstrap.application.business.tenant.service.TenantManageService;
 import com.yunkang.saas.bootstrap.business.platform.tenant.domain.Tenant;
 import com.yunkang.saas.bootstrap.business.platform.tenant.domain.TenantType;
@@ -12,6 +12,7 @@ import com.yunkang.saas.bootstrap.business.platform.tenant.service.TenantTypeSer
 import com.yunkang.saas.bootstrap.business.platform.tenant.valid.TenantValidator;
 import com.yunkang.saas.bootstrap.business.platform.tenant.vo.TenantTypeVO;
 import com.yunkang.saas.bootstrap.business.platform.tenant.vo.TenantVO;
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;

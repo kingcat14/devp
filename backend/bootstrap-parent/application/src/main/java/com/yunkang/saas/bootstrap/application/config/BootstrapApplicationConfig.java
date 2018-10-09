@@ -3,8 +3,10 @@ package com.yunkang.saas.bootstrap.application.config;
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
 import com.yunkang.saas.bootstrap.common.config.CommonConfig;
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +37,13 @@ public class BootstrapApplicationConfig {
                 return null;
             }
         };
+    }
+
+
+    @Bean
+    @ConfigurationProperties(prefix = "application")
+    public ApplicationProperties applicationProperties(){
+        return new ApplicationProperties();
     }
 
 }

@@ -1,14 +1,18 @@
 package com.yunkang.saas.bootstrap.application.business.authorize.controller;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
-import com.yunkang.saas.bootstrap.application.business.security.ApplicationProperties;
+
 import com.yunkang.saas.bootstrap.business.platform.application.domain.App;
 import com.yunkang.saas.bootstrap.business.platform.application.service.AppService;
 import com.yunkang.saas.bootstrap.business.platform.application.vo.AppVO;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.business.platform.security.domain.Role;
 import com.yunkang.saas.bootstrap.business.platform.tenant.domain.Tenant;
 import com.yunkang.saas.bootstrap.business.platform.tenant.service.TenantService;
 import com.yunkang.saas.bootstrap.business.platform.tenant.vo.TenantVO;
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/current")
 public class CurrentApplicationController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CurrentApplicationController.class);
 
     @Autowired
     private ApplicationProperties applicationProperties;
@@ -40,7 +46,7 @@ public class CurrentApplicationController {
 
     @PostMapping("/app")
     public AppVO getApp(){
-        String appCode = applicationProperties.getCode();
+        String appCode = applicationProperties.getCode()+"";
         App app = appService.findByCode(appCode);
         AppVO appVO = new AppVO();
         BeanUtils.copyProperties(app, appVO);

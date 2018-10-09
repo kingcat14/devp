@@ -27,8 +27,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                             ,menuDisabled: true
                             ,width:35
                             ,items: [{
-                                iconCls: 'x-fa fa-eye'
-                                ,tooltip: '详情'
+                                iconCls: 'x-fa fa-cog'
+                                ,tooltip: '明细'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
@@ -42,7 +42,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                             ,menuDisabled: true
                             ,width:35
                             ,items: [{
-                                iconCls: 'resultset_next'
+                                iconCls: 'x-fa fa-caret-right'
                                 ,tooltip: '执行'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
@@ -115,7 +115,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'add'
+                                    ,iconCls: 'fas fa-plus'
                                     ,text: '新增'
                                     ,listeners: {
                                         click: 'onAddButtonClick'
@@ -123,7 +123,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'edit'
+                                    ,iconCls: 'fas fa-pen'
                                     ,text: '修改'
                                     ,listeners: {
                                         click: 'onEditButtonClick'
@@ -131,7 +131,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'delete'
+                                    ,iconCls: 'fas fa-minus-circle red'
                                     ,text: '删除'
                                     ,listeners: {
                                         click: 'onDeleteButtonClick'
@@ -140,7 +140,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
                                 ,'-'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'

@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				,"/assets/**","/fonts/**","/maps/**","/scripts/**","/styles/**","/**/*.js"
 				, "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
 				,"/**/*.css"
-				,"/ext_*/**/*"
+				,"/ext_*/**/*","/current/app"
 		};
 
 		if(!securityEnable){
