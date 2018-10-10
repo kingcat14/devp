@@ -38,5 +38,17 @@ Ext.define('AM.model.speedcloud.env.AppEnvConfig', {
             ,allowNull:false
             ,critical:true
         }
+    	,{
+            name: 'project'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'seq'
+            ,type:'int'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

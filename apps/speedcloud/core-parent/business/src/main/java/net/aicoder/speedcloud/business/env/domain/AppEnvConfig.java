@@ -25,6 +25,8 @@ public class AppEnvConfig extends BaseEntity{
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_LEVEL = "level";
+	public static final String PROPERTY_PROJECT = "project";
+	public static final String PROPERTY_SEQ = "seq";
 
 
     @Id
@@ -55,6 +57,20 @@ public class AppEnvConfig extends BaseEntity{
 	@Size(max = 255, message = "环境级别超长，最多255个字符")
 	private String level;
 
+    /**
+    * 所属项目（产品）
+    * 
+    */
+    @Column(name = "project", nullable = true, updatable = true)
+	private Long project;
+
+    /**
+    * 顺序号
+    * 
+    */
+    @Column(name = "seq", nullable = true, updatable = true)
+	private Integer seq;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -74,6 +90,20 @@ public class AppEnvConfig extends BaseEntity{
 	}
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public Long getProject(){
+		return project;
+	}
+	public void setProject(Long project) {
+		this.project = project;
+	}
+
+	public Integer getSeq(){
+		return seq;
+	}
+	public void setSeq(Integer seq) {
+		this.seq = seq;
 	}
 
 

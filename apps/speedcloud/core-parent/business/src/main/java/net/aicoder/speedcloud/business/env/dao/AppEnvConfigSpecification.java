@@ -31,6 +31,8 @@ public class AppEnvConfigSpecification implements Specification<AppEnvConfig>{
 		tryAddTidPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddLevelPredicate(predicateList, root, cb);
+		tryAddProjectPredicate(predicateList, root, cb);
+		tryAddSeqPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -61,6 +63,25 @@ public class AppEnvConfigSpecification implements Specification<AppEnvConfig>{
 	private void tryAddLevelPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getLevel())){
 			predicateList.add(cb.like(root.get(AppEnvConfig.PROPERTY_LEVEL).as(String.class), "%"+condition.getLevel()+"%"));
+		}
+	}
+	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
+	    if (null != condition.getProject() ) {
+            predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
+        }
+	}
+	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
+
+		if (null != condition.getSeq() ) {
+			predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_SEQ).as(Integer.class), condition.getSeq()));
+		}
+
+		if (null != condition.getSeqMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(AppEnvConfig.PROPERTY_SEQ).as(Integer.class), condition.getSeqMax()));
+		}
+
+		if (null != condition.getSeqMin() ) {
+			predicateList.add(cb.lessThan(root.get(AppEnvConfig.PROPERTY_SEQ).as(Integer.class), condition.getSeqMin()));
 		}
 	}
 }

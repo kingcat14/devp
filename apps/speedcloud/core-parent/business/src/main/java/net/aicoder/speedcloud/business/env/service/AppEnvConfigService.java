@@ -27,7 +27,7 @@ public class AppEnvConfigService  extends GenericCrudService<AppEnvConfig, Long,
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, AppEnvConfig.PROPERTY_TID);
+		Sort sort = new Sort(Sort.Direction.ASC, AppEnvConfig.PROPERTY_SEQ);
 		return sort;
 	}
 }

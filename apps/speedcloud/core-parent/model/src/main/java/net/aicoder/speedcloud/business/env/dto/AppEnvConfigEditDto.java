@@ -15,11 +15,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class AppEnvConfigEditDto {
 
 
-	/**租户id*/
-	@ApiModelProperty(value = "租户id", required = false)
-	private Long tid;
-
-
 	/**环境名称*/
 	@ApiModelProperty(value = "环境名称", required = false)
 	private String name;
@@ -30,13 +25,15 @@ public class AppEnvConfigEditDto {
 	private String level;
 
 
+	/**所属项目（产品）*/
+	@ApiModelProperty(value = "所属项目（产品）", required = false)
+	private Long project;
 
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
+
+	/**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false)
+	private Integer seq;
+
 
 
 	public String getName(){
@@ -52,6 +49,22 @@ public class AppEnvConfigEditDto {
 	}
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+
+	public Long getProject(){
+        return project;
+    }
+    public void setProject(Long project) {
+        this.project = project;
+    }
+
+
+	public Integer getSeq(){
+		return seq;
+	}
+	public void setSeq(Integer seq) {
+		this.seq = seq;
 	}
 
 

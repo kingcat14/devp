@@ -42,6 +42,16 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigDetailWindow', {
                             ,name: 'level'
                             ,fieldLabel: '环境级别'
                         }
+                        ,{
+                            itemId: 'projectField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'project'
+                            ,fieldLabel: '所属项目（产品）'
+                            ,renderer: function (value, field) {
+                                var record = me.down('form').getForm().getRecord();
+                                return record.get('projectVO')?record.get('projectVO').name:'';
+                            }
+                        }
                     ]
                 }
             ]

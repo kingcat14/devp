@@ -2,6 +2,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.env.AppEnvConfigEditWindow'
     ,requires:[
+        'AM.store.speedcloud.project.ProjectStore'
     ],
     autoScroll: true,
     height: '60%',
@@ -46,17 +47,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
                             ,defaults:{width:'100%'}
                             ,items:[
                                 ,{
-                                    xtype: 'numberfield'
-                                    ,allowDecimals:false
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'tidField'
-                                    ,name: 'tid'
-                                    ,fieldLabel: '租户id'
-                                }
-                                ,{
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
@@ -75,6 +65,32 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
                                     ,itemId: 'levelField'
                                     ,name: 'level'
                                     ,fieldLabel: '环境级别'
+                                }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'projectField'
+                                    ,name: 'project'
+                                    ,fieldLabel: '所属项目（产品）'
+                                }
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'seqField'
+                                    ,name: 'seq'
+                                    ,fieldLabel: '顺序号'
                                 }
                             ]
 
@@ -152,6 +168,11 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
 
     }
     ,onBeforeShow:function() {
+       
+       
+        this.down('#projectField').getStore().reload();
+       
+       
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -41,12 +41,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'tid'
-                            ,text: '租户id'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '环境名称'
                             
@@ -55,6 +49,22 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'level'
                             ,text: '环境级别'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'project'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("projectVO")?record.get("projectVO").name:'';
+                            }
+                            ,text: '所属项目（产品）'
+                            
+                        }
+                        ,{
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'seq'
+                            ,format:'0,000'
+                            ,text: '顺序号'
                             ,flex:1
                         }
                         ,{
@@ -155,18 +165,19 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
-                    }
+                    ,listeners: {}
                 }
             ]
+            ,listeners: {
+            	beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+              	,beforehide: {
+                	fn: me.onPanelBeforeHide
+                  	,scope: me
+				}
+			}
         });
 
         me.add({xtype:'speedcloud.env.AppEnvConfigAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})

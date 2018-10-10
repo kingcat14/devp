@@ -26,6 +26,14 @@ public class AppEnvConfigAddDto {
 	@ApiModelProperty(value = "环境级别", required = false)
 	private String level;
 
+    /**所属项目（产品）*/
+	@ApiModelProperty(value = "所属项目（产品）", required = false)
+	private Long project;
+
+    /**顺序号*/
+	@ApiModelProperty(value = "顺序号", required = false)
+	private Integer seq;
+
 
 	public Long getTid(){
 		return tid;
@@ -46,6 +54,20 @@ public class AppEnvConfigAddDto {
 	}
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public Long getProject(){
+        return project;
+    }
+    public void setProject(Long project) {
+        this.project = project;
+    }
+
+	public Integer getSeq(){
+		return seq;
+	}
+	public void setSeq(Integer seq) {
+		this.seq = seq;
 	}
 
 

@@ -1,11 +1,12 @@
 package net.aicoder.speedcloud.console.business.speedCloud.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,7 +21,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
@@ -35,7 +38,7 @@ import java.util.*;
  */
 @Api(description = "应用环境", tags = "AppEnvConfig")
 @RestController
-@RequestMapping(value = "/speedcloud/env/appEnvConfig")
+@RequestMapping(value = "/speedcloud/env/appenvconfig")
 public class AppEnvConfigController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppEnvConfigController.class);
@@ -66,7 +69,7 @@ public class AppEnvConfigController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public AppEnvConfigVO add(@RequestBody AppEnvConfigAddDto appEnvConfigAddDto){
-		appEnvConfigAddDto.setTid(saaSUtil.getAccount().getTenantId());
+    	appEnvConfigAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  appEnvConfigRibbonService.add(appEnvConfigAddDto);
 	}
 
@@ -129,7 +132,7 @@ public class AppEnvConfigController {
 			condition = new AppEnvConfigCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<AppEnvConfigVO> pageContent = appEnvConfigRibbonService.list(pageSearchRequest);
 		for(AppEnvConfigVO vo : pageContent.getContent()){
 			initViewProperty(vo);
@@ -171,6 +174,7 @@ public class AppEnvConfigController {
     
             headMap.put("name" ,"环境名称");
             headMap.put("level" ,"环境级别");
+            headMap.put("project" ,"所属项目（产品）");
 
         String title = new String("应用环境");
         String fileName = new String(("应用环境_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

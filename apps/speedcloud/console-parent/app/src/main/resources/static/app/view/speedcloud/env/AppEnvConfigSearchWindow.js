@@ -35,25 +35,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidField'
-                            ,fieldLabel: '租户id'
-                        }
-                        ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidMaxField'
-                            ,fieldLabel: '租户id'
-                        }
-                        ,{
-                            xtype: 'numberfield'
-                            ,allowDecimals:false
-                            ,itemId: 'tidMinField'
-                            ,fieldLabel: '租户id'
-                        }
-
-                        ,{
                             xtype: 'textfield'
                             ,itemId: 'nameField'
                             ,fieldLabel: '环境名称'
@@ -63,6 +44,36 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigSearchWindow', {
                             xtype: 'textfield'
                             ,itemId: 'levelField'
                             ,fieldLabel: '环境级别'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'projectField'
+                            ,fieldLabel: '所属项目（产品）'
+                        }
+
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'seqField'
+                            ,fieldLabel: '顺序号'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'seqMaxField'
+                            ,fieldLabel: '顺序号'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'seqMinField'
+                            ,fieldLabel: '顺序号'
                         }
 
                             ]
@@ -130,18 +141,20 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var tidField = me.down("#tidField");
-        var tidMaxField = me.down("#tidMaxField");
-        var tidMinField = me.down("#tidMinField");
         var nameField = me.down("#nameField");
         var levelField = me.down("#levelField");
+        var projectField = me.down("#projectField");
+        var seqField = me.down("#seqField");
+        var seqMaxField = me.down("#seqMaxField");
+        var seqMinField = me.down("#seqMinField");
 
         var condition = {
-            tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
-            ,tidMax:Ext.isNumber(tidMaxField.getValue())?tidMaxField.getValue():null
-            ,tidMin:Ext.isNumber(tidMinField.getValue())?tidMinField.getValue():null
-            ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
+            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,level:Ext.isEmpty(levelField.getValue())?null:levelField.getValue()
+            ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
+            ,seq:Ext.isNumber(seqField.getValue())?seqField.getValue():null
+            ,seqMax:Ext.isNumber(seqMaxField.getValue())?seqMaxField.getValue():null
+            ,seqMin:Ext.isNumber(seqMinField.getValue())?seqMinField.getValue():null
         };
 
         return condition;

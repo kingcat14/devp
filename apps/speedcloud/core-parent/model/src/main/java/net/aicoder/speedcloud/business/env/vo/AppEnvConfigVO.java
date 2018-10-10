@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.business.env.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -30,6 +31,16 @@ public class AppEnvConfigVO {
     private String level;
 
 
+    /**所属项目（产品）*/
+    @ApiModelProperty(value = "所属项目（产品）")
+    private Long project;
+    private ProjectVO projectVO;
+
+
+    @ApiModelProperty(value = "顺序号")
+    private Integer seq;
+
+
     public String getName(){
         return name;
     }
@@ -42,6 +53,26 @@ public class AppEnvConfigVO {
     }
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Long getProject(){
+        return project;
+    }
+    public void setProject(Long project) {
+        this.project = project;
+    }
+    public ProjectVO getProjectVO(){
+        return projectVO;
+    }
+    public void setProjectVO(ProjectVO projectVO) {
+        this.projectVO = projectVO;
+    }
+
+    public Integer getSeq(){
+        return seq;
+    }
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
 

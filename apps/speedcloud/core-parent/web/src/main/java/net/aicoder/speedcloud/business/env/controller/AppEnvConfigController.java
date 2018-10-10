@@ -16,6 +16,10 @@ import net.aicoder.speedcloud.business.env.dto.AppEnvConfigEditDto;
 import net.aicoder.speedcloud.business.env.service.AppEnvConfigService;
 import net.aicoder.speedcloud.business.env.valid.AppEnvConfigValidator;
 import net.aicoder.speedcloud.business.env.vo.AppEnvConfigVO;
+import net.aicoder.speedcloud.business.project.domain.Project;
+import net.aicoder.speedcloud.business.project.service.ProjectService;
+import net.aicoder.speedcloud.business.project.vo.ProjectVO;
+
 
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
@@ -49,6 +53,9 @@ public class AppEnvConfigController {
 
 	@Autowired
 	private AppEnvConfigService appEnvConfigService;
+
+	@Autowired
+	private ProjectService projectService;
 
 
 	@Autowired
@@ -186,6 +193,7 @@ public class AppEnvConfigController {
 
             headMap.put("name" ,"环境名称");
             headMap.put("level" ,"环境级别");
+            headMap.put("project" ,"所属项目（产品）");
 
         String title = new String("应用环境");
         String fileName = new String(("应用环境_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -199,10 +207,25 @@ public class AppEnvConfigController {
 
 
 	    //初始化其他对象
+	    initProjectPropertyGroup(vo, appEnvConfig);
         return vo;
 
+	}
+
+
+	private void initProjectPropertyGroup(AppEnvConfigVO appEnvConfigVO, AppEnvConfig appEnvConfig){
+	
+		Project project = projectService.find(appEnvConfig.getProject());
+		if(project == null){
+			return;
+		}
+		ProjectVO projectVO = new ProjectVO();
+		BeanUtils.copyProperties(project, projectVO);
+
+		appEnvConfigVO.setProjectVO(projectVO);
 
 	}
 
 
 }
+
