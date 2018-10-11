@@ -9,12 +9,11 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeAddWindow'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditWindow'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow'
-        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeDetailWindow'
     ]
     ,controller: 'speedcloud.deploy.DevpSysDpySchemeController'
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
@@ -35,7 +34,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
+                                    me.getController().onDetailButtonClick();
                                 }
                             }]
                         }
@@ -230,7 +229,6 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
         me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

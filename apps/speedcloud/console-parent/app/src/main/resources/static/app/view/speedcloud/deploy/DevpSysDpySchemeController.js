@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-
+        'AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel'
 	]
 	,alias: 'controller.speedcloud.deploy.DevpSysDpySchemeController'
 
@@ -18,6 +18,44 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeController', {
 		var id = record.get('id');
 
 	}
+	,onDetailButtonClick: function(button, e, options) {
+        var me = this;
+        var mainGridPanel = me.lookupReference('mainGridPanel');
+        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
+        if(selections.length <= 0){
+            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            return;
+        }
+        var record = selections[0];
+        this.createPipelineTabOnMainContentPanel(record, record.getId())
+    }
+    /**在系统主面板创建Tab页*/
+    ,createPipelineTabOnMainContentPanel:function(record, referenceId){
+
+        var me = this;
+
+        var panel = Ext.create('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel',{
+                     reference:'DpySchemeEditPanel_'+referenceId
+                    , title:'编辑方案【'+record.get('name')+"】"
+
+                });
+        panel.getViewModel().set('record', record);
+
+        this.fireViewEvent('createMainTabPanel', this.getView(),panel);
+        // this.fireViewEvent('createMainTabPanel', this.getView()
+        //     ,{
+        //         xtype:'speedcloud.deploy.DevpSysDpySchemeEditPanel'
+        //         , reference:'DpySchemeEditPanel_'+referenceId
+        //         , title:'编辑方案【'+record.get('name')+"】"
+        //         , viewModel:{
+        //             data:{
+        //                 record : record
+        //             }
+        //             ,stores:{}
+        //         }
+        //     }
+        // );
+    }
     ,onAddButtonClick: function() {
 
         var modelConfig = {}
