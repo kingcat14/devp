@@ -66,6 +66,9 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesController', {
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;
         var searchWindow = me.lookupReference('mainSearchWindow');
+        var schemeField = me.lookupReference("schemeField");
+        searchWindow.down('#schemeField').setValue(schemeField.getValue());
+
         searchWindow.onSearchButtonClick();
 
     }

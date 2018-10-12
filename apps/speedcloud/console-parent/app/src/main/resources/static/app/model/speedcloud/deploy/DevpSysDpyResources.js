@@ -104,5 +104,11 @@ Ext.define('AM.model.speedcloud.deploy.DevpSysDpyResources', {
             ,allowNull:false
             ,critical:true
         }
+    	,{
+            name: 'scheme'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
     ]
 });

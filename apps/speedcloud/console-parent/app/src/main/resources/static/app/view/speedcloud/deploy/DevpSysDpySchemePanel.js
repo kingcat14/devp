@@ -9,6 +9,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeAddWindow'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditWindow'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeDetailWindow'
     ]
     ,controller: 'speedcloud.deploy.DevpSysDpySchemeController'
     ,initComponent: function() {
@@ -28,7 +29,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
                             ,menuDisabled: true
                             ,width:35
                             ,items: [{
-                                iconCls: 'x-fa fa-eye'
+                                iconCls: 'fab fa-connectdevelop black'
                                 ,tooltip: '详情'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
@@ -94,9 +95,9 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'evn'
+                            ,dataIndex: 'env'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("evnVO")?record.get("evnVO").name:'';
+                                return record.get("envVO")?record.get("envVO").name:'';
                             }
                             ,text: '所属环境'
                             ,flex:1

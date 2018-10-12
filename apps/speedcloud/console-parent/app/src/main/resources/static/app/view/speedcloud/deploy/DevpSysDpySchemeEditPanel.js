@@ -7,6 +7,8 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
         'AM.view.speedcloud.deploy.DevpSysDpySchemeEditController'
         ,'AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel'
         ,'AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourcePanel'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourceRefPanel'
 
     ]
     ,controller: 'speedcloud.deploy.DevpSysDpySchemeEditController'
@@ -30,7 +32,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                     ,title: '资源'
                     ,collapsible:true
                     ,region: 'west'
-                    ,width: '30%'
+                    ,width: '20%'
                     ,frame: true
                     ,split: true
                     ,reference: 'schemeResourceTree'
@@ -43,6 +45,12 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                             text:'刷新',
                             iconCls: 'fas fa-sync-alt',
                             handler: 'loadResourcesTree'
+                        }
+                        ,{
+                            xtype:'button',
+                            text:'资源',
+                            iconCls: 'fas fa-plus-circle',
+                            handler: 'createResource'
                         }
                     ]
                     ,columns: [
@@ -57,6 +65,29 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                                 return v;
                             }
                         }
+
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                // iconCls: 'x-fa fa-minus-circle'
+                                tooltip: '连接'
+                                ,handler: 'createRelation'
+                                ,getClass:function(value, metadata, record){
+                                    if(!record.get('relationId')) {
+                                        return 'fas fa-link';
+                                    }
+                                }
+                                ,isDisabled:function (value, rowIndex, colIndex, item, record) {
+                                    if(!record.get('relationId')) {
+                                        return false;
+                                    }
+                                    return true;
+                                }
+                            }]
+
+                        }
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
@@ -64,30 +95,86 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                             ,items: [{
                                 // iconCls: 'x-fa fa-minus-circle'
                                 tooltip: '删除'
+                                ,handler: 'deleteResource'
+                                ,getClass:function(value, metadata, record){
+                                    // metadata.attr = 'style="color:red;"'
+                                    if(!record.get('relationId'))
+                                        return 'fas fa-trash-alt';
+                                }
+                                ,isDisabled:function (value, rowIndex, colIndex, item, record) {
+                                    if(!record.get('relationId')){
+                                        return false;
+                                    }
+                                    return true;
+                                }
+                            }]
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                // iconCls: 'x-fa fa-minus-circle'
+                                tooltip: '断连'
                                 ,handler: 'deleteRelation'
                                 ,getClass:function(value, metadata, record){
                                     // metadata.attr = 'style="color:red;"'
                                     if(record.get('relationId'))
                                         return 'fas fa-cut';
                                 }
-                            }]
+                                ,isDisabled:function (value, rowIndex, colIndex, item, record) {
+                                    if(record.get('relationId')) {
+                                        return false;
+                                    }
+                                    return true;
+                                }
 
+                            }]
                         }
                     ]
                     ,listeners: {
-                        itemclick: 'onTreepanelItemClick'
-                        ,afterrender: 'loadTypeTree'
+                        cellclick: 'onResourceNameClick'
+                        ,afterrender: 'loadResourcesTree'
                     }
                 }
                 ,{
                     xtype: 'panel'
                     ,region:'center'
                     ,title:'aaa'
+                    ,bind:{title:'方案【{record.name}】'}
                     ,scrollable:true
                     ,html:'<div id="paper"></div>'
                     ,listeners:{
                         afterrender:me.aaa
                     }
+                }
+                ,{
+                    xtype: 'panel'
+                    ,region:'east'
+                    // ,title:'属性'
+                    ,reference:'detailEditPanel'
+                    ,scrollable:true
+                    ,split: true
+                    ,width: '20%'
+                    ,layout:'card'
+                    ,items:[
+                        {
+                            xtype:'speedcloud.deploy.DevpSysDpySchemeEditResourcePanel'
+                            ,reference:'resourceEditPanel'
+                            ,viewModel:true
+                            ,title:'资源设置'
+                            ,listeners:{
+                                saved:'loadResourcesTree'
+                            }
+                        }
+                        ,{
+                            xtype:'speedcloud.deploy.DevpSysDpySchemeEditResourceRefPanel'
+                            ,reference:'relationEditPanel'
+                            ,viewModel:true
+                            ,title:'关系设置'
+                            ,html:'b'
+                        }
+                    ]
                 }
             ]
         });

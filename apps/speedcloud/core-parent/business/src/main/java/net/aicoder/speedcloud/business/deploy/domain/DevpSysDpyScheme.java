@@ -33,7 +33,7 @@ public class DevpSysDpyScheme extends BaseEntity{
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_NOTES = "notes";
 	public static final String PROPERTY_PROJECT = "project";
-	public static final String PROPERTY_EVN = "evn";
+	public static final String PROPERTY_ENV = "env";
 
 
     @Id
@@ -129,8 +129,8 @@ public class DevpSysDpyScheme extends BaseEntity{
     * 所属环境
     * [所属环境]
     */
-    @Column(name = "evn", nullable = false, updatable = true)
-	private Long evn;
+    @Column(name = "env", nullable = false, updatable = true)
+	private Long env;
 
 	public Long getTid(){
 		return tid;
@@ -209,11 +209,11 @@ public class DevpSysDpyScheme extends BaseEntity{
 		this.project = project;
 	}
 
-	public Long getEvn(){
-		return evn;
+	public Long getEnv(){
+		return env;
 	}
-	public void setEvn(Long evn) {
-		this.evn = evn;
+	public void setEnv(Long env) {
+		this.env = env;
 	}
 
 

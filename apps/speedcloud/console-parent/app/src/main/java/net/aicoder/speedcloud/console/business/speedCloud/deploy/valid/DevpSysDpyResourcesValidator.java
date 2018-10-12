@@ -45,6 +45,9 @@ public class DevpSysDpyResourcesValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if (null == devpSysDpyResources.getScheme() ) {
+			errors.rejectValue("scheme", "EMPTY_SCHEME", "所属方案不能为空");
+		}
 
 		//验证长度
 		if(StringUtils.length(devpSysDpyResources.getName()) > 255){

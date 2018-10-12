@@ -67,7 +67,7 @@ public class DevpSysDpySchemeEditDto {
 
 	/**所属环境*/
 	@ApiModelProperty(value = "所属环境", required = false, notes = "[所属环境]")
-	private Long evn;
+	private Long env;
 
 
 
@@ -151,11 +151,11 @@ public class DevpSysDpySchemeEditDto {
     }
 
 
-	public Long getEvn(){
-        return evn;
+	public Long getEnv(){
+        return env;
     }
-    public void setEvn(Long evn) {
-        this.evn = evn;
+    public void setEnv(Long env) {
+        this.env = env;
     }
 
 

@@ -39,7 +39,7 @@ public class DevpSysDpySchemeCondition extends SaaSCondition{
     @ApiModelProperty(value = "所属项目（产品）", notes = "[所属项目]")
     private Long project;
     @ApiModelProperty(value = "所属环境", notes = "[所属环境]")
-    private Long evn;
+    private Long env;
 
 
 	public Long getTid(){
@@ -144,11 +144,11 @@ public class DevpSysDpySchemeCondition extends SaaSCondition{
     }
 
 
-    public Long getEvn(){
-        return evn;
+    public Long getEnv(){
+        return env;
     }
-    public void setEvn(Long evn) {
-        this.evn = evn;
+    public void setEnv(Long env) {
+        this.env = env;
     }
 
 

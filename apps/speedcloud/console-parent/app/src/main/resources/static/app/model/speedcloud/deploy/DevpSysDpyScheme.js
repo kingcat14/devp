@@ -87,7 +87,7 @@ Ext.define('AM.model.speedcloud.deploy.DevpSysDpyScheme', {
             ,critical:true
         }
     	,{
-            name: 'evn'
+            name: 'env'
             ,type:'string'
             ,allowNull:false
             ,critical:true

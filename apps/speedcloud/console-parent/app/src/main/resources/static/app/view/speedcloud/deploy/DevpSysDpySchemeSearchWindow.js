@@ -101,7 +101,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow', {
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'evnField'
+                            ,itemId: 'envField'
                             ,fieldLabel: '所属环境'
                         }
 
@@ -178,7 +178,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow', {
         var verPostfixField = me.down("#verPostfixField");
         var statusField = me.down("#statusField");
         var projectField = me.down("#projectField");
-        var evnField = me.down("#evnField");
+        var envField = me.down("#envField");
 
         var condition = {
             name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
@@ -189,7 +189,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow', {
             ,verPostfix:Ext.isEmpty(verPostfixField.getValue())?null:verPostfixField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
             ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
-            ,evn:Ext.isEmpty(evnField.getValue())?null:evnField.getValue()
+            ,env:Ext.isEmpty(envField.getValue())?null:envField.getValue()
         };
 
         return condition;

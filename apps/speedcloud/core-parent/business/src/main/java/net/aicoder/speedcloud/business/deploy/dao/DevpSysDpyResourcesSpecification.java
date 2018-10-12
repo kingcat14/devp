@@ -42,6 +42,7 @@ public class DevpSysDpyResourcesSpecification implements Specification<DevpSysDp
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddProjectPredicate(predicateList, root, cb);
 		tryAddOuterResourcePredicate(predicateList, root, cb);
+		tryAddSchemePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -137,6 +138,11 @@ public class DevpSysDpyResourcesSpecification implements Specification<DevpSysDp
 		if (null != condition.getOuterResource() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyResources.PROPERTY_OUTER_RESOURCE).as(Boolean.class), condition.getOuterResource()));
 		}
+	}
+	private void tryAddSchemePredicate(List<Predicate> predicateList, Root<DevpSysDpyResources> root, CriteriaBuilder cb){
+	    if (null != condition.getScheme() ) {
+            predicateList.add(cb.equal(root.get(DevpSysDpyResources.PROPERTY_SCHEME).as(Long.class), condition.getScheme()));
+        }
 	}
 }
 

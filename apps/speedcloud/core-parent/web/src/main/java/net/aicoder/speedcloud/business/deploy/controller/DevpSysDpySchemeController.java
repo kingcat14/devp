@@ -204,7 +204,7 @@ public class DevpSysDpySchemeController {
             headMap.put("status" ,"已生效");
             headMap.put("notes" ,"备注");
             headMap.put("project" ,"所属项目（产品）");
-            headMap.put("evn" ,"所属环境");
+            headMap.put("env" ,"所属环境");
 
         String title = new String("部署方案");
         String fileName = new String(("部署方案_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -219,7 +219,7 @@ public class DevpSysDpySchemeController {
 
 	    //初始化其他对象
 	    initProjectPropertyGroup(vo, devpSysDpyScheme);
-	    initEvnPropertyGroup(vo, devpSysDpyScheme);
+	    initEnvPropertyGroup(vo, devpSysDpyScheme);
         return vo;
 
 	}
@@ -239,16 +239,16 @@ public class DevpSysDpySchemeController {
 	}
 
 
-	private void initEvnPropertyGroup(DevpSysDpySchemeVO devpSysDpySchemeVO, DevpSysDpyScheme devpSysDpyScheme){
+	private void initEnvPropertyGroup(DevpSysDpySchemeVO devpSysDpySchemeVO, DevpSysDpyScheme devpSysDpyScheme){
 	
-		AppEnvConfig evn = appEnvConfigService.find(devpSysDpyScheme.getEvn());
-		if(evn == null){
+		AppEnvConfig env = appEnvConfigService.find(devpSysDpyScheme.getEnv());
+		if(env == null){
 			return;
 		}
-		AppEnvConfigVO evnVO = new AppEnvConfigVO();
-		BeanUtils.copyProperties(evn, evnVO);
+		AppEnvConfigVO envVO = new AppEnvConfigVO();
+		BeanUtils.copyProperties(env, envVO);
 
-		devpSysDpySchemeVO.setEvnVO(evnVO);
+		devpSysDpySchemeVO.setEnvVO(envVO);
 
 	}
 

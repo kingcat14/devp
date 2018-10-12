@@ -64,8 +64,8 @@ public class DevpSysDpySchemeVO {
 
     /**所属环境*/
     @ApiModelProperty(value = "所属环境", notes = "[所属环境]")
-    private Long evn;
-    private AppEnvConfigVO evnVO;
+    private Long env;
+    private AppEnvConfigVO envVO;
 
 
     public String getName(){
@@ -130,17 +130,17 @@ public class DevpSysDpySchemeVO {
         this.projectVO = projectVO;
     }
 
-    public Long getEvn(){
-        return evn;
+    public Long getEnv(){
+        return env;
     }
-    public void setEvn(Long evn) {
-        this.evn = evn;
+    public void setEnv(Long env) {
+        this.env = env;
     }
-    public AppEnvConfigVO getEvnVO(){
-        return evnVO;
+    public AppEnvConfigVO getEnvVO(){
+        return envVO;
     }
-    public void setEvnVO(AppEnvConfigVO evnVO) {
-        this.evnVO = evnVO;
+    public void setEnvVO(AppEnvConfigVO envVO) {
+        this.envVO = envVO;
     }
 
 

@@ -36,6 +36,7 @@ public class DevpSysDpyResources extends BaseEntity{
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_PROJECT = "project";
 	public static final String PROPERTY_OUTER_RESOURCE = "outerResource";
+	public static final String PROPERTY_SCHEME = "scheme";
 
 
     @Id
@@ -147,6 +148,13 @@ public class DevpSysDpyResources extends BaseEntity{
     @Column(name = "outer_resource", nullable = false, updatable = true)
 	private Boolean outerResource;
 
+    /**
+    * 所属方案
+    * 
+    */
+    @Column(name = "scheme", nullable = false, updatable = false)
+	private Long scheme;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -243,6 +251,13 @@ public class DevpSysDpyResources extends BaseEntity{
 	}
 	public void setOuterResource(Boolean outerResource) {
 		this.outerResource = outerResource;
+	}
+
+	public Long getScheme(){
+		return scheme;
+	}
+	public void setScheme(Long scheme) {
+		this.scheme = scheme;
 	}
 
 

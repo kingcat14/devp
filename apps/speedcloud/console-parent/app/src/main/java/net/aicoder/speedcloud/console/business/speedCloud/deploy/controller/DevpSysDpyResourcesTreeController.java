@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.console.business.speedCloud.deploy.controller;
 
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.common.util.IDGenerator;
 import net.aicoder.speedcloud.business.deploy.dto.DevpSysDpyResourceRefCondition;
 import net.aicoder.speedcloud.business.deploy.dto.DevpSysDpyResourcesCondition;
 import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpyResourceRefVO;
@@ -52,8 +53,6 @@ public class DevpSysDpyResourcesTreeController {
 		List<DevpSysDpyResourceTreeNode> topNodeList = new ArrayList<>();
 
 		//得到所有类别
-
-
 		List<DevpSysDpyResourcesVO> assetTypeList = getResourceList();
 
 		//转换成节点
@@ -62,7 +61,7 @@ public class DevpSysDpyResourcesTreeController {
 			BeanUtils.copyProperties(assetType, node);
             node.setId(assetType.getId()+"");
             node.setLeaf(true);
-
+            node.setObjId(assetType.getId()+"");
             nodeMap.put(node.getId(), node);
 
             topNodeList.add(node);
@@ -86,16 +85,18 @@ public class DevpSysDpyResourcesTreeController {
             BeanUtils.copyProperties(refNode, child);
 
             child.setLeaf(true);
-            child.setId(resourceId+"-"+refId);
+            child.setId(IDGenerator.uuid());
             child.setObjId(refNode.getId());
             child.setRelationDirection(vo.getDirection());
             child.setRelationId(vo.getId().toString());
+            child.setChildren(null);
 
             resNode.addChild(child);
 
             //处理引用节点的关联
             DevpSysDpyResourceTreeNode refChild = new DevpSysDpyResourceTreeNode();
             BeanUtils.copyProperties(resNode, refChild);
+            refChild.setChildren(null);
 
             refChild.setLeaf(true);
             refChild.setId(refId+"-"+resourceId);
@@ -104,7 +105,6 @@ public class DevpSysDpyResourcesTreeController {
             refChild.setRelationId(vo.getId().toString());
 
             refNode.addChild(refChild);
-
 
         }
 

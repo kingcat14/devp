@@ -39,7 +39,7 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddProjectPredicate(predicateList, root, cb);
-		tryAddEvnPredicate(predicateList, root, cb);
+		tryAddEnvPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -112,9 +112,9 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
             predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
         }
 	}
-	private void tryAddEvnPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
-	    if (null != condition.getEvn() ) {
-            predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_EVN).as(Long.class), condition.getEvn()));
+	private void tryAddEnvPredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){
+	    if (null != condition.getEnv() ) {
+            predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_ENV).as(Long.class), condition.getEnv()));
         }
 	}
 }

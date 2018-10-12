@@ -48,6 +48,8 @@ public class DevpSysDpyResourcesCondition extends SaaSCondition{
     private Long project;
 	@ApiModelProperty(value = "外部资源")
 	private Boolean outerResource;
+    @ApiModelProperty(value = "所属方案")
+    private Long scheme;
 
 
 	public Long getTid(){
@@ -188,6 +190,14 @@ public class DevpSysDpyResourcesCondition extends SaaSCondition{
 	public void setOuterResource(Boolean outerResource) {
 		this.outerResource = outerResource;
 	}
+
+
+    public Long getScheme(){
+        return scheme;
+    }
+    public void setScheme(Long scheme) {
+        this.scheme = scheme;
+    }
 
 
 

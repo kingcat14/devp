@@ -160,8 +160,8 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'evnField'
-                                    ,name: 'evn'
+                                    ,itemId: 'envField'
+                                    ,name: 'env'
                                     ,fieldLabel: '所属环境'
                                 }
                             ]
@@ -261,7 +261,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditWindow', {
        
         this.down('#projectField').getStore().reload();
        
-        this.down('#evnField').getStore().reload();
+        this.down('#envField').getStore().reload();
        
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }

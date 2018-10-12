@@ -180,7 +180,7 @@ public class DevpSysDpySchemeController {
             headMap.put("status" ,"已生效");
             headMap.put("notes" ,"备注");
             headMap.put("project" ,"所属项目（产品）");
-            headMap.put("evn" ,"所属环境");
+            headMap.put("env" ,"所属环境");
 
         String title = new String("部署方案");
         String fileName = new String(("部署方案_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

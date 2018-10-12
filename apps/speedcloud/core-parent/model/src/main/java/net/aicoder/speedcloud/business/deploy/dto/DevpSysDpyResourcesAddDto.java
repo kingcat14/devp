@@ -70,6 +70,10 @@ public class DevpSysDpyResourcesAddDto {
 	@ApiModelProperty(value = "外部资源", required = false)
 	private Boolean outerResource;
 
+    /**所属方案*/
+	@ApiModelProperty(value = "所属方案", required = true)
+	private Long scheme;
+
 
 	public Long getTid(){
 		return tid;
@@ -168,6 +172,13 @@ public class DevpSysDpyResourcesAddDto {
 	public void setOuterResource(Boolean outerResource) {
 		this.outerResource = outerResource;
 	}
+
+	public Long getScheme(){
+        return scheme;
+    }
+    public void setScheme(Long scheme) {
+        this.scheme = scheme;
+    }
 
 
 	@Override

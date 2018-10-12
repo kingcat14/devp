@@ -1,6 +1,6 @@
-Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
+Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesTreePanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.deploy.DevpSysDpyResourcesPanel'
+    , xtype: 'speedcloud.deploy.DevpSysDpyResourcesTreePanel'
     , title: '方案资源'
     , layout: 'border'
     , requires: [

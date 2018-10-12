@@ -80,6 +80,11 @@ public class DevpSysDpyResourcesEditDto {
 	private Boolean outerResource;
 
 
+	/**所属方案*/
+	@ApiModelProperty(value = "所属方案", required = false)
+	private Long scheme;
+
+
 
 	public String getName(){
 		return name;
@@ -183,6 +188,14 @@ public class DevpSysDpyResourcesEditDto {
 	public void setOuterResource(Boolean outerResource) {
 		this.outerResource = outerResource;
 	}
+
+
+	public Long getScheme(){
+        return scheme;
+    }
+    public void setScheme(Long scheme) {
+        this.scheme = scheme;
+    }
 
 
 	@Override

@@ -152,6 +152,17 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesSearchWindow', {
                             ,fieldLabel: '外部资源'
                         }
 
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.speedcloud.deploy.DevpSysDpySchemeStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'schemeField'
+                            ,fieldLabel: '所属方案'
+                        }
+
                             ]
                 }
             ],
@@ -232,6 +243,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesSearchWindow', {
         var statusField = me.down("#statusField");
         var projectField = me.down("#projectField");
         var outerResourceField = me.down("#outerResourceField");
+        var schemeField = me.down("#schemeField");
 
         var condition = {
             name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
@@ -249,6 +261,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesSearchWindow', {
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
             ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
             ,outerResource:Ext.isEmpty(outerResourceField.getValue())?null:outerResourceField.getValue()
+            ,scheme:Ext.isEmpty(schemeField.getValue())?null:schemeField.getValue()
         };
 
         return condition;

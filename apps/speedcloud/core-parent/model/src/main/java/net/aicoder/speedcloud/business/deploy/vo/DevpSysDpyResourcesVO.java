@@ -6,6 +6,7 @@ import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpyResourcesCategoryVO;
 import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpyResourcesTypeVO;
 import net.aicoder.speedcloud.business.env.vo.AppEnvConfigVO;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
+import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpySchemeVO;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -84,6 +85,12 @@ public class DevpSysDpyResourcesVO {
 
     @ApiModelProperty(value = "外部资源")
     private Boolean outerResource;
+
+
+    /**所属方案*/
+    @ApiModelProperty(value = "所属方案")
+    private Long scheme;
+    private DevpSysDpySchemeVO schemeVO;
 
 
     public String getName(){
@@ -192,6 +199,19 @@ public class DevpSysDpyResourcesVO {
     }
     public void setOuterResource(Boolean outerResource) {
         this.outerResource = outerResource;
+    }
+
+    public Long getScheme(){
+        return scheme;
+    }
+    public void setScheme(Long scheme) {
+        this.scheme = scheme;
+    }
+    public DevpSysDpySchemeVO getSchemeVO(){
+        return schemeVO;
+    }
+    public void setSchemeVO(DevpSysDpySchemeVO schemeVO) {
+        this.schemeVO = schemeVO;
     }
 
 

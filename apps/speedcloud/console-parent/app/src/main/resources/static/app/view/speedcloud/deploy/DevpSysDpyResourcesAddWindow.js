@@ -7,6 +7,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesAddWindow', {
         ,'AM.store.speedcloud.deploy.DevpSysDpyResourcesTypeStore'
         ,'AM.store.speedcloud.env.AppEnvConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
+        ,'AM.store.speedcloud.deploy.DevpSysDpySchemeStore'
 
     ]
     ,autoScroll: true
@@ -224,6 +225,23 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesAddWindow', {
                                     ,fieldLabel: '外部资源'
                                 }
 
+
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.deploy.DevpSysDpySchemeStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
+                                    ,itemId: 'schemeField'
+                                    ,name: 'scheme'
+                                    ,fieldLabel: '所属方案'
+                                }
+
                             ]
                         }
                         ,{
@@ -308,6 +326,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesAddWindow', {
         this.down('#typeField').getStore().reload();
         this.down('#evnField').getStore().reload();
         this.down('#projectField').getStore().reload();
+        this.down('#schemeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -1,17 +1,17 @@
-Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
+Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeTreePanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.deploy.DevpSysDpyResourcesPanel'
-    , title: '方案资源'
+    , xtype: 'speedcloud.deploy.DevpSysDpySchemeTreePanel'
+    , title: '部署方案'
     , layout: 'border'
     , requires: [
-        'AM.view.speedcloud.deploy.DevpSysDpyResourcesController'
-        ,'AM.store.speedcloud.deploy.DevpSysDpyResourcesStore'
-        ,'AM.view.speedcloud.deploy.DevpSysDpyResourcesAddWindow'
-        ,'AM.view.speedcloud.deploy.DevpSysDpyResourcesEditWindow'
-        ,'AM.view.speedcloud.deploy.DevpSysDpyResourcesSearchWindow'
-        ,'AM.view.speedcloud.deploy.DevpSysDpyResourcesDetailWindow'
+        'AM.view.speedcloud.deploy.DevpSysDpySchemeController'
+        ,'AM.store.speedcloud.deploy.DevpSysDpySchemeStore'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeAddWindow'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditWindow'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeSearchWindow'
+        ,'AM.view.speedcloud.deploy.DevpSysDpySchemeDetailWindow'
     ]
-    ,controller: 'speedcloud.deploy.DevpSysDpyResourcesController'
+    ,controller: 'speedcloud.deploy.DevpSysDpySchemeController'
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -20,7 +20,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.deploy.DevpSysDpyResourcesStore').load()
+                    ,store: Ext.create('AM.store.speedcloud.deploy.DevpSysDpySchemeStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -42,37 +42,25 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
-                            ,text: '资源名称'
+                            ,text: '方案名称'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
-                            ,text: '资源代码'
+                            ,text: '方案代码'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'alias'
-                            ,text: '资源别名'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'category'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("categoryVO")?record.get("categoryVO").name:'';
-                            }
-                            ,text: '资源类别'
+                            ,text: '方案别名'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'type'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("typeVO")?record.get("typeVO").name:'';
-                            }
-                            ,text: '资源类型'
+                            ,text: '方案类型'
                             
                         }
                         ,{
@@ -82,25 +70,18 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
                             
                         }
                         ,{
-                            xtype: 'numbercolumn'
-                            ,dataIndex: 'seq'
-                            ,format:'0,000'
-                            ,text: '顺序号'
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'verPostfix'
+                            ,text: '版本标识后缀'
                             
                         }
                         ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'evn'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("evnVO")?record.get("evnVO").name:'';
-                            }
-                            ,text: '所属环境'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
+                            xtype: 'booleancolumn'
                             ,dataIndex: 'status'
-                            ,text: '状态'
+                            ,trueText: '是'
+                            ,falseText: '否'
+                            ,emptyCellText :'不确定'
+                            ,text: '已生效'
                             
                         }
                         ,{
@@ -109,25 +90,16 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("projectVO")?record.get("projectVO").name:'';
                             }
-                            ,text: '产品编号'
-                            
-                        }
-                        ,{
-                            xtype: 'booleancolumn'
-                            ,dataIndex: 'outerResource'
-                            ,trueText: '是'
-                            ,falseText: '否'
-                            ,emptyCellText :'不确定'
-                            ,text: '外部资源'
+                            ,text: '所属项目（产品）'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'scheme'
+                            ,dataIndex: 'env'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("schemeVO")?record.get("schemeVO").name:'';
+                                return record.get("envVO")?record.get("envVO").name:'';
                             }
-                            ,text: '所属方案'
+                            ,text: '所属环境'
                             ,flex:1
                         }
                         ,{
@@ -195,14 +167,16 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
                                 }
                                 ,'-'
                                 ,{
-                                    xtype: 'combobox'
-                                    ,emptyText:'所属方案'
-                                    ,store: Ext.create("AM.store.speedcloud.deploy.DevpSysDpySchemeStore")
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,displayField:'name'
-                                    ,valueField:'id'
-                                    ,reference: 'schemeField'
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'方案名称'
+                                    ,reference: 'nameField'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'方案代码'
+                                    ,reference: 'codeField'
                                 }
                                 ,{
                                     xtype: 'button'
@@ -253,10 +227,10 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpyResourcesPanel', {
 			}
         });
 
-        me.add({xtype:'speedcloud.deploy.DevpSysDpyResourcesAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.deploy.DevpSysDpyResourcesEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.deploy.DevpSysDpyResourcesSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.deploy.DevpSysDpyResourcesDetailWindow',reference:'mainDetailWindow'})
+        me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'speedcloud.deploy.DevpSysDpySchemeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }
