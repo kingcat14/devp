@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_exec_instance", comment = "[运行计划]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineExecInstance extends BaseEntity{
+public class PipelineExecInstance extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_CODE = "code";

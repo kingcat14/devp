@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_task_config", comment = "[配置文件设置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsTaskConfig extends BaseEntity{
+public class DevpSysOpsTaskConfig extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

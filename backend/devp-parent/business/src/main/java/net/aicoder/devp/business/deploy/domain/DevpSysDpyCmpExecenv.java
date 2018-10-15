@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_dpy_cmp_execenv", comment = "[组件部署环境节点]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysDpyCmpExecenv extends BaseEntity{
+public class DevpSysDpyCmpExecenv extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

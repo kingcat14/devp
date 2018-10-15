@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_pipe_node", comment = "[流水线执行节点]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsPipeNode extends BaseEntity{
+public class DevpSysOpsPipeNode extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

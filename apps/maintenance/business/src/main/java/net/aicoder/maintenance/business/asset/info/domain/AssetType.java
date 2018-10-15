@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "asset_type", comment = "[资产分类]")
 //@DynamicUpdate
 //@DynamicInsert
-public class AssetType extends BaseEntity{
+public class AssetType extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NUM = "num";

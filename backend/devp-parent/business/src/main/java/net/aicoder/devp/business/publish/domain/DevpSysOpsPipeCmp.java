@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_pipe_cmp", comment = "[产品运维流水线对应的组件]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsPipeCmp extends BaseEntity{
+public class DevpSysOpsPipeCmp extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

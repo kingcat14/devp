@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "env_config_level", comment = "[环境级别]")
 //@DynamicUpdate
 //@DynamicInsert
-public class EnvConfigLevel extends BaseEntity{
+public class EnvConfigLevel extends BaseEntity<Long>{
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";

@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "devp_sys_dpy_resource_ref", comment = "[方案资源间关系]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysDpyResourceRef extends BaseEntity{
+public class DevpSysDpyResourceRef extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_RESOURCE = "resource";

@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_elm_info_define", comment = "[系统元素扩充信息]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysElmInfoDefine extends BaseEntity{
+public class DevpSysElmInfoDefine extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_prd_prdline", comment = "[产品线]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpPrdPrdline extends BaseEntity{
+public class DevpPrdPrdline extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

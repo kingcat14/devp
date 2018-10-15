@@ -22,7 +22,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_task_docker", comment = "[部署容器]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsTaskDocker extends BaseEntity{
+public class DevpSysOpsTaskDocker extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

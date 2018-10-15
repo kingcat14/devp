@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_dev_funa_module", comment = "[功能模块]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpDevFunaModule extends BaseEntity{
+public class DevpDevFunaModule extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";

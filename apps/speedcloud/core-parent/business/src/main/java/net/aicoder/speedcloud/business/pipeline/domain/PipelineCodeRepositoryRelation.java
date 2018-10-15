@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_code_repository_relation", comment = "[流水线代码库关联]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineCodeRepositoryRelation extends BaseEntity{
+public class PipelineCodeRepositoryRelation extends BaseEntity<Long>{
 
 	public static final String PROPERTY_CODE_REPOSITORY = "codeRepository";
 	public static final String PROPERTY_PIPELINE = "pipeline";

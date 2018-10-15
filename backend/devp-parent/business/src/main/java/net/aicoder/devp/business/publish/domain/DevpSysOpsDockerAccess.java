@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_docker_access", comment = "[部署容器访问参数]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsDockerAccess extends BaseEntity{
+public class DevpSysOpsDockerAccess extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

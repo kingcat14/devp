@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_exec_node_param", comment = "[运行实例节点参数]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineExecNodeParam extends BaseEntity{
+public class PipelineExecNodeParam extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NODE = "node";

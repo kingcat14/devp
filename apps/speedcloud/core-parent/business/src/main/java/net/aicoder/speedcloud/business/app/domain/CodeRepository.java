@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "code_repository", comment = "[代码库]")
 //@DynamicUpdate
 //@DynamicInsert
-public class CodeRepository extends BaseEntity{
+public class CodeRepository extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";

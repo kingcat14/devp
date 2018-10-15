@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_job_command", comment = "[创建Job指令]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineJobCommand extends BaseEntity{
+public class PipelineJobCommand extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_TASK = "task";

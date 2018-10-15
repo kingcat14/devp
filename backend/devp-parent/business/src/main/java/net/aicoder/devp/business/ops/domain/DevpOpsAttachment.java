@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_ops_attachment", comment = "[附件]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpOpsAttachment extends BaseEntity{
+public class DevpOpsAttachment extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

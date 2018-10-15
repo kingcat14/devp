@@ -16,7 +16,7 @@ import org.hibernate.annotations.Table;
 @Table(appliesTo = "tenant_admin_account", comment = "[租户管理员账号]")
 //@DynamicUpdate
 //@DynamicInsert
-public class TenantAdminAccount extends BaseEntity{
+public class TenantAdminAccount extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ACCOUNT_NAME = "accountName";

@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_dpy_cmp_ref", comment = "[系统元素间关系]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysDpyCmpRef extends BaseEntity{
+public class DevpSysDpyCmpRef extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

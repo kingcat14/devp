@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_task_host", comment = "[部署主机节点]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsTaskHost extends BaseEntity{
+public class DevpSysOpsTaskHost extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

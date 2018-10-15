@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_paras_define", comment = "[系统元素扩充信息]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysParasDefine extends BaseEntity{
+public class DevpSysParasDefine extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_task_baseline", comment = "[基线设置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsTaskBaseline extends BaseEntity{
+public class DevpSysOpsTaskBaseline extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

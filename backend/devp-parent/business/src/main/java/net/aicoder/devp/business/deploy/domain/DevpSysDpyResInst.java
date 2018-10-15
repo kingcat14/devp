@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_dpy_res_inst", comment = "[部署关联资源实例]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysDpyResInst extends BaseEntity{
+public class DevpSysDpyResInst extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

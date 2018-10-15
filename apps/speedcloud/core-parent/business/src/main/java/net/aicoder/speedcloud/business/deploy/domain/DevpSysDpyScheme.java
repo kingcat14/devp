@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "devp_sys_dpy_scheme", comment = "[部署方案]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysDpyScheme extends BaseEntity{
+public class DevpSysDpyScheme extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";

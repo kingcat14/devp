@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_task_action_type", comment = "[操作类型]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineTaskActionType extends BaseEntity{
+public class PipelineTaskActionType extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_CODE = "code";

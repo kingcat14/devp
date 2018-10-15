@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_ops_asset_group", comment = "[资产分组]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpOpsAssetGroup extends BaseEntity{
+public class DevpOpsAssetGroup extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

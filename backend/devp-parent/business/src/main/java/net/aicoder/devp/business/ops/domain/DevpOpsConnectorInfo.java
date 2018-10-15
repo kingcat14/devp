@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_ops_connector_info", comment = "[运维元素连接扩充信息]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpOpsConnectorInfo extends BaseEntity{
+public class DevpOpsConnectorInfo extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

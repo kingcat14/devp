@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_cmp_task", comment = "[组件任务]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsCmpTask extends BaseEntity{
+public class DevpSysOpsCmpTask extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

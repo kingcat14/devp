@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "pipeline_stage_node_param", comment = "[阶段执行节点参数]")
 //@DynamicUpdate
 //@DynamicInsert
-public class PipelineStageNodeParam extends BaseEntity{
+public class PipelineStageNodeParam extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";

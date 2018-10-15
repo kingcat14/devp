@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "app_develop_config", comment = "[应用开发配置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class AppDevelopConfig extends BaseEntity{
+public class AppDevelopConfig extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_APP = "app";

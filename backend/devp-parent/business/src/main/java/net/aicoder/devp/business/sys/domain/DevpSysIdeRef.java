@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ide_ref", comment = "[开发工程引用组件]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysIdeRef extends BaseEntity{
+public class DevpSysIdeRef extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

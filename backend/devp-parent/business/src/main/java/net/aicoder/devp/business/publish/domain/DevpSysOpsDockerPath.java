@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ops_docker_path", comment = "[存储路径定义]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysOpsDockerPath extends BaseEntity{
+public class DevpSysOpsDockerPath extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

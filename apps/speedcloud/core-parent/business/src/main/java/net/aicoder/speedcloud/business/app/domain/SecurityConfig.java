@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "security_config", comment = "[应用私密配置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class SecurityConfig extends BaseEntity{
+public class SecurityConfig extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_APP = "app";

@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "config_develop_language_version", comment = "[开发语言版本]")
 //@DynamicUpdate
 //@DynamicInsert
-public class ConfigDevelopLanguageVersion extends BaseEntity{
+public class ConfigDevelopLanguageVersion extends BaseEntity<Long>{
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_LANGUAGE = "language";

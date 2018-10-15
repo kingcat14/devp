@@ -21,7 +21,7 @@ import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 @Table(appliesTo = "devp_sys_ide", comment = "[开发工程]")
 //@DynamicUpdate
 //@DynamicInsert
-public class DevpSysIde extends BaseEntity{
+public class DevpSysIde extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_ETYPE = "etype";

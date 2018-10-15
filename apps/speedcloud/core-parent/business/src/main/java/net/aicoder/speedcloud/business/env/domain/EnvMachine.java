@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(appliesTo = "env_machine", comment = "[环境设备关联]")
 //@DynamicUpdate
 //@DynamicInsert
-public class EnvMachine extends BaseEntity{
+public class EnvMachine extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_EVN = "evn";
