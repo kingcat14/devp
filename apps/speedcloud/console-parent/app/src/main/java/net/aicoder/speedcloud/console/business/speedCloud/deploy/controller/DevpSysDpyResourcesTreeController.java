@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -45,15 +47,15 @@ public class DevpSysDpyResourcesTreeController {
 	 * 得到整个树
 	 * @return
 	 */
-	@RequestMapping("/tree")
-	public List<DevpSysDpyResourceTreeNode> tree(String parentCode){
+	@PostMapping("/tree")
+	public List<DevpSysDpyResourceTreeNode> tree(@RequestParam(name = "scheme") Long schemeId){
 
 		HashMap<String, DevpSysDpyResourceTreeNode> nodeMap = new HashMap<>();
 
 		List<DevpSysDpyResourceTreeNode> topNodeList = new ArrayList<>();
 
 		//得到所有类别
-		List<DevpSysDpyResourcesVO> assetTypeList = getResourceList();
+		List<DevpSysDpyResourcesVO> assetTypeList = getResourceList(schemeId);
 
 		//转换成节点
 		for(DevpSysDpyResourcesVO assetType : assetTypeList){
@@ -69,7 +71,7 @@ public class DevpSysDpyResourcesTreeController {
 
 
 		//开始处理节点关系
-        List<DevpSysDpyResourceRefVO> relationList = getRelationList();
+        List<DevpSysDpyResourceRefVO> relationList = getRelationList(schemeId);
 
 		for(DevpSysDpyResourceRefVO vo : relationList){
             String resourceId = vo.getResource().toString();
@@ -112,11 +114,12 @@ public class DevpSysDpyResourcesTreeController {
 		return topNodeList;
 	}
 
-	private List<DevpSysDpyResourcesVO> getResourceList(){
+	private List<DevpSysDpyResourcesVO> getResourceList(Long schemeId){
 
 	    //得到所有类别
         DevpSysDpyResourcesCondition condition = new DevpSysDpyResourcesCondition();
         condition.setTid(saaSUtil.getAccount().getTenantId());
+        condition.setScheme(schemeId);
 
         PageSearchRequest<DevpSysDpyResourcesCondition> pageSearchRequest = new PageSearchRequest<>();
         pageSearchRequest.setPage(0);
@@ -126,10 +129,11 @@ public class DevpSysDpyResourcesTreeController {
         List<DevpSysDpyResourcesVO> resourceList = assetTypeService.list(pageSearchRequest).getContent();
         return resourceList;
     }
-	private List<DevpSysDpyResourceRefVO> getRelationList(){
+	private List<DevpSysDpyResourceRefVO> getRelationList(Long schemeId){
         //得到所有类别
         DevpSysDpyResourceRefCondition condition = new DevpSysDpyResourceRefCondition();
         condition.setTid(saaSUtil.getAccount().getTenantId());
+        condition.setScheme(schemeId);
 
         PageSearchRequest<DevpSysDpyResourceRefCondition> pageSearchRequest = new PageSearchRequest<>();
         pageSearchRequest.setPage(0);

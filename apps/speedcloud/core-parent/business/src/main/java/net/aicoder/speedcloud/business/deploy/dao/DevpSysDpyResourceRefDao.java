@@ -13,5 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository("devpSysDpyResourceRefDao")
 public interface DevpSysDpyResourceRefDao extends BaseDao<DevpSysDpyResourceRef, Long>{
 
+    int deleteByResource(Long resource);
+    int deleteByRefResource(Long refResource);
 
 }

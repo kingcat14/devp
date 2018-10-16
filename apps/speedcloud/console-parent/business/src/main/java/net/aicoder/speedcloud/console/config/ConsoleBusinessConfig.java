@@ -1,4 +1,4 @@
-package  net.aicoder.speedcloud.config;
+package  net.aicoder.speedcloud.console.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan("net.aicoder.speedcloud")
-@EnableJpaRepositories(basePackages = {"net.aicoder.speedcloud"})
-@EntityScan({"net.aicoder.speedcloud"})
-public class SpeedCloudConfig {
+@ComponentScan("net.aicoder.speedcloud.console")
+@EnableJpaRepositories(basePackages = {"net.aicoder.speedcloud.console"})
+@EntityScan({"net.aicoder.speedcloud.console"})
+public class ConsoleBusinessConfig {
 
 }

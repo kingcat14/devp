@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>speedcloud-parent</artifactId>
-        <groupId>net.aicoder.speedcloud</groupId>
+        <artifactId>console-parent</artifactId>
+        <groupId>net.aicoder.speedcloud.console</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>speedcloud-app</artifactId>
+    <artifactId>console-web</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.yunkang.saas.common</groupId>
-            <artifactId>common-ui-extjs</artifactId>
+            <groupId>com.yunkang.saas.bootstrap</groupId>
+            <artifactId>common-business</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -23,23 +23,8 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.yunkang.saas.platform</groupId>
-            <artifactId>platform-web</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.yunkang.saas.platform</groupId>-->
-            <!--<artifactId>application-web</artifactId>-->
-            <!--<version>1.0.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>com.yunkang.saas.bootstrap</groupId>
-            <artifactId>application</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud</groupId>
-            <artifactId>speedcloud-business</artifactId>
+            <groupId>net.aicoder.speedcloud.console</groupId>
+            <artifactId>console-business</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -61,7 +46,7 @@
 
 
     <build>
-        <finalName>speedcloud-app</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,7 +62,7 @@
         <profile>
             <id>spring-boot</id>
             <build>
-                <finalName>maintenance-web</finalName>
+                <finalName>console-microservice</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>

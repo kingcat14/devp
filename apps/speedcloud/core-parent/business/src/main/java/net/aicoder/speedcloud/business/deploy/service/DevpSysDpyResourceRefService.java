@@ -27,6 +27,13 @@ public class DevpSysDpyResourceRefService  extends GenericCrudService<DevpSysDpy
 	private DevpSysDpyResourcesService devpSysDpyResourcesService;
 
 
+	public void deleteByResource(Long resourceId){
+		dao.deleteByResource(resourceId);
+	}
+	public void deleteByRefResource(Long refResourceId){
+		dao.deleteByRefResource(refResourceId);
+	}
+
 	@Transactional
 	public void add(DevpSysDpyResourceRef relation){
 		relation.fillId();

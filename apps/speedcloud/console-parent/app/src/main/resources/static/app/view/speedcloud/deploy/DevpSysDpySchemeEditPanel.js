@@ -9,6 +9,8 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
         ,'AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourcePanel'
         ,'AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourceRefPanel'
+        ,'AM.store.speedcloud.deploy.DevpSysDpyResourcesStore'
+        ,'AM.store.speedcloud.deploy.DevpSysDpyResourceRefStore'
 
     ]
     ,controller: 'speedcloud.deploy.DevpSysDpySchemeEditController'
@@ -16,6 +18,8 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
         stores:{
             // schemeResourceTreeStore : Ext.create('Ext.data.TreeStore', {autoLoad:false, model:'AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode', nodeParam:'id'})
             schemeResourceTreeStore : {type:'tree', autoLoad:false, model:'AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode', nodeParam:'id'}
+            ,schemeResourceStore : {type:'devpSysDpyResourcesStore', autoLoad:false}
+            ,schemeRelationStore : {type:'devpSysDpyResourceRefStore', autoLoad:false}
         }
     }
 
@@ -116,7 +120,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                             ,items: [{
                                 // iconCls: 'x-fa fa-minus-circle'
                                 tooltip: '断连'
-                                ,handler: 'deleteRelation'
+                                ,handler: 'deleteRelationBtnClick'
                                 ,getClass:function(value, metadata, record){
                                     // metadata.attr = 'style="color:red;"'
                                     if(record.get('relationId'))
@@ -144,8 +148,31 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                     ,bind:{title:'方案【{record.name}】'}
                     ,scrollable:true
                     ,html:'<div id="paper"></div>'
+                    ,tbar:[
+                        {
+                            xtype:'button',
+                            text:'刷新',
+                            iconCls: 'fas fa-sync-alt',
+                            handler: 'loadResourceGraph'
+                        }
+                        ,{
+                            xtype:'button',
+                            text:'保存',
+                            iconCls: 'fas fa-save',
+                            handler: 'saveResourceGraph'
+                        }
+                        ,'->'
+                        ,{
+                            xtype:'button',
+                            text:'重绘',
+                            iconCls: 'fas fa-sync-alt',
+                            handler: 'redrawResourceGraph'
+                        }
+
+                    ]
+                    ,reference:'graphPaper'
                     ,listeners:{
-                        afterrender:me.aaa
+                        afterrender:{fn:me.initGraph, scope:me}
                     }
                 }
                 ,{
@@ -164,7 +191,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                             ,viewModel:true
                             ,title:'资源设置'
                             ,listeners:{
-                                saved:'loadResourcesTree'
+                                saved:'handleResourceSaved'
                             }
                         }
                         ,{
@@ -172,7 +199,10 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
                             ,reference:'relationEditPanel'
                             ,viewModel:true
                             ,title:'关系设置'
-                            ,html:'b'
+
+                            ,listeners:{
+                                saved:'handleRelationSaved'
+                            }
                         }
                     ]
                 }
@@ -184,151 +214,132 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditPanel', {
     }
 
     ,onBeforeShow:function(abstractcomponent, options) {
-	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
+	    // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
-    ,aaa:function () {
+
+    ,initGraph:function () {
+
         var me = this;
+
         console.log(11111111)
 
+        var record = me.getViewModel().get('record');
 
+
+        var paperId = 'paper_'+record.getId();
+
+        me.lookup('graphPaper').setHtml('<div id="'+paperId+'"></div>')
 
         var graph = new joint.dia.Graph;
+        graph.on('remove', function(cell, P2, options) {
+
+            if(options.ignoreRemove){
+                return;
+            }
+            console.log('cell remove:'+cell.id)
+            console.log(cell)
+            var relation = me.getViewModel().getStore('schemeRelationStore').getById(cell.id);
+            if(relation){
+                me.getController().deleteRelation(cell.id)
+            }
+        })
+
+
+        me.getViewModel().set('graph', graph);
 
         var paper = new joint.dia.Paper({
-
-            el: document.getElementById('paper'),
-            width: 800,
-            height: 400,
+            el: $('#'+paperId),
+            width: 1800,
+            height: 1600,
             gridSize: 1,
-            model: graph,
-            snapLinks: true,
-            linkPinning: false,
-            embeddingMode: true,
-            highlighting: {
-                'default': {
-                    name: 'stroke',
-                    options: {
-                        padding: 6
-                    }
-                },
-                'embedding': {
-                    name: 'addClass',
-                    options: {
-                        className: 'highlighted-parent'
-                    }
-                }
-            },
-
-            validateEmbedding: function(childView, parentView) {
-
-                return parentView.model instanceof joint.shapes.devs.Coupled;
-            },
-
-            validateConnection: function(sourceView, sourceMagnet, targetView, targetMagnet) {
-
-                return sourceMagnet != targetMagnet;
-            }
+            model: graph
         });
 
-        var connect = function(source, sourcePort, target, targetPort) {
 
-            var link = new joint.shapes.devs.Link({
-                source: {
-                    id: source.id,
-                    port: sourcePort
-                },
-                target: {
-                    id: target.id,
-                    port: targetPort
-                }
-            });
+        var start = new joint.shapes.fsa.StartState({ position: { x: 50, y: 530 } });
+        graph.addCell(start);
 
-            link.addTo(graph).reparent();
-        };
+        // var code  = me.graphState(180, 390, 'code');
+        // var slash = me.graphState(340, 220, 'slash');
+        // var star  = me.graphState(600, 400, 'star');
+        // var line  = me.graphState(190, 100, 'line');
+        // var block = me.graphState(560, 140, 'block');
 
-        var c1 = new joint.shapes.devs.Coupled({
+        // me.graphLink(start.id, code.id,  'start');
+        // me.graphLink(code.id,  slash.id, '/');
+        // me.graphLink(slash.id, code.id,  'other', [{x: 270, y: 300}]);
+        // me.graphLink(slash.id, line.id,  '/');
+        // me.graphLink(line.id,  code.id,  'new\n line');
+        // me.graphLink(slash.id, block.id, '*');
+        // me.graphLink(block.id, star.id,  '*');
+        // me.graphLink(star.id,  block.id, 'other', [{x: 650, y: 290}]);
+        // me.graphLink(star.id,  code.id,  '/',     [{x: 490, y: 310}]);
+        // me.graphLink(line.id,  line.id,  'other', [{x: 115,y: 100}, {x: 250, y: 50}]);
+        // me.graphLink(block.id, block.id, 'other', [{x: 485,y: 140}, {x: 620, y: 90}]);
+        // me.graphLink(code.id,  code.id,  'other', [{x: 180,y: 500}, {x: 305, y: 450}]);
 
-            position: {
-                x: 230,
-                y: 50
-            },
-            size: {
-                width: 300,
-                height: 300
-            }
-            ,attrs: {
-                text: {
-                    fill: '#ffffff',
-                    text: 'Employee',
-                    'letter-spacing': 0,
-                    style: { 'text-shadow': '1px 0 1px #333333' }
-                },
-                '.outer, .inner': {
-                    fill: '#31d0c6',
-                    stroke: 'none',
-                    filter: { name: 'dropShadow',  args: { dx: 0.5, dy: 2, blur: 2, color: '#333333' }}
-                }
-            }
-        });
-
-        c1.set('inPorts', ['in']);
-        c1.set('outPorts', ['out 1', 'out 2']);
-
-        var a1 = new joint.shapes.devs.Atomic({
-
-            position: {
-                x: 360,
-                y: 260
-            },
-            inPorts: ['xy'],
-            outPorts: ['x', 'y']
-        });
-
-        var a2 = new joint.shapes.devs.Atomic({
-
-            position: {
-                x: 50,
-                y: 160
-            },
-            outPorts: ['out']
-        });
-
-        var a3 = new joint.shapes.devs.Atomic({
-
-            position: {
-                x: 650,
-                y: 50
-            },
-            size: {
-                width: 100,
-                height: 300
-            },
-            inPorts: ['a', 'b']
-        });
-
-        graph.addCells([c1, a1, a2, a3]);
-
-        c1.embed(a1);
-
-        connect(a2, 'out', c1, 'in');
-        connect(c1, 'in', a1, 'xy');
-        connect(a1, 'x', c1, 'out 1');
-        connect(a1, 'y', c1, 'out 2');
-        connect(c1, 'out 1', a3, 'a');
-        connect(c1, 'out 2', a3, 'b');
-
-        /* rounded corners */
-
-        _.each([c1, a1, a2, a3], function(element) {
-
-            element.attr({
-                '.body': {
-                    'rx': 6,
-                    'ry': 6
-                }
-            });
-        });
         console.log(22222222)
+
+        me.getController().loadResourceGraph();
+
+    }
+    ,graphState:function(x, y, label, id){
+
+        var me = this;
+        var graph = me.getViewModel().get('graph');
+        var cell = new joint.shapes.fsa.State({
+            id:id,
+            position: { x: x, y: y },
+            size: { width: 60, height: 60 },
+            attrs: { text : { text: label }}
+        });
+        if(id){
+            // cell.id = id;
+        }
+        graph.addCell(cell);
+        return cell;
+    }
+    ,graphLink:function(sourceId, targetId, label, vertices, id){
+        var me = this;
+        var graph = me.getViewModel().get('graph');
+        var cell = new joint.shapes.fsa.Arrow({
+            id:id,
+            source: { id: sourceId },
+            target: { id: targetId },
+            labels: [{ position: .5, attrs: { text: { text: label || '', 'font-weight': 'bold' } } }],
+            vertices: vertices || []
+        });
+        graph.addCell(cell);
+        return cell;
+    }
+    ,graphDelLink:function(id){
+        var me = this;
+        var graph = me.getViewModel().get('graph');
+
+        var cell = graph.getCell(id);
+        graph.removeCells(cell)
+        // graph.removeLinks(state)
+    }
+    ,graphDelState:function(id){
+        var me = this;
+        var graph = me.getViewModel().get('graph');
+
+        var cell = graph.getCell(id);
+        graph.removeCells(cell)
+
+    }
+    ,graphUpdateCell:function(id, text){
+        console.log('graphUpdateCell')
+        var me = this;
+        var graph = me.getViewModel().get('graph');
+
+        var cell = graph.getCell(id);
+        if(cell){
+            console.log('find cell, try update')
+            cell.attr({
+                text: { 'font-size': 15, text:text }
+            });
+        }
 
     }
 });

@@ -1,5 +1,6 @@
 Ext.define('AM.store.speedcloud.deploy.DevpSysDpyResourcesStore', {
     extend: 'Ext.data.Store'
+    ,alias:'store.devpSysDpyResourcesStore'
     ,requires: [
         'AM.model.speedcloud.deploy.DevpSysDpyResources'
     ]
@@ -57,6 +58,7 @@ Ext.define('AM.store.speedcloud.deploy.DevpSysDpyResourcesStore', {
     ,beforeload :function(store, operation, eOpts ){
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
+        console.log('beforeload')
 
     }
 	,applyCondition:function(condition){

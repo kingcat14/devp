@@ -1,28 +1,27 @@
-Ext.define('AM.store.speedcloud.deploy.DevpSysDpyResourceRefStore', {
+Ext.define('AM.store.console.jointjs.JointDataStore', {
     extend: 'Ext.data.Store'
-    ,alias:'store.devpSysDpyResourceRefStore'
     ,requires: [
-        'AM.model.speedcloud.deploy.DevpSysDpyResourceRef'
+        'AM.model.console.jointjs.JointData'
     ]
     ,constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
             autoLoad: false
-            ,model: 'AM.model.speedcloud.deploy.DevpSysDpyResourceRef'
+            ,model: 'AM.model.console.jointjs.JointData'
             ,pageSize: 25
             ,proxy: {
                 type: 'rest'
                 ,pageParam:'page'
                 ,limitParam:'limit'
-                ,url: 'speedcloud/deploy/devpsysdpyresourceref'
+                ,url: 'console/jointjs/jointdata'
                 ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
                 ,reader: {
                     type: 'json',
                     rootProperty: 'content'
                 }
                 ,actionMethods:{read:'POST'}
-                ,api:{read:"speedcloud/deploy/devpsysdpyresourceref/list"}
+                ,api:{read:"console/jointjs/jointdata/list"}
                 ,paramsAsJson:true
                 ,listeners: {
                     exception: {
@@ -58,7 +57,6 @@ Ext.define('AM.store.speedcloud.deploy.DevpSysDpyResourceRefStore', {
     ,beforeload :function(store, operation, eOpts ){
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
-        console.log('beforeload')
 
     }
 	,applyCondition:function(condition){

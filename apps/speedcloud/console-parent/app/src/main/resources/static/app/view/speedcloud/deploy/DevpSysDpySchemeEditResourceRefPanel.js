@@ -18,7 +18,27 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourceRefPanel', {
         var me = this;
 
         Ext.apply(me, {
-            items: [
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    ui: 'footer',
+                    items: [
+                        {
+                            xtype: 'button',
+                            iconCls: 'fas fa-save',
+                            text: '确定',
+                            listeners: {
+                                click: {
+                                    fn: me.onSaveButtonClick,
+                                    scope: me
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+            ,items: [
                 {
                     xtype: 'form'
                     ,autoScroll: true
@@ -175,29 +195,6 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourceRefPanel', {
 
 
                             ]
-                        }
-                    ]
-                }
-            ],
-            dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
-                        {
-                            xtype: 'tbfill'
-                        },
-                        {
-                            xtype: 'button',
-                            iconCls: 'accept',
-                            text: '确定',
-                            listeners: {
-                                click: {
-                                    fn: me.onSaveButtonClick,
-                                    scope: me
-                                }
-                            }
                         }
                     ]
                 }

@@ -211,7 +211,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourcePanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'x-fa fa-plus-circle'
+                                    ,iconCls: 'fas fa-save'
                                     ,text: '保存'
                                     ,reference:'saveBtn'
                                     ,disabled:true
@@ -263,8 +263,10 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditResourcePanel', {
             success: function (newRecord) {
                 Ext.MsgUtil.show('操作成功', '保存方案资源成功!');
                 me.down('form').getForm().loadRecord(newRecord);
-                me.fireEvent('saved');
                 me.setModel(newRecord);
+
+                me.fireEvent('saved');
+
             }
         });
     }

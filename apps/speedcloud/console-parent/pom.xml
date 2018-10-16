@@ -21,6 +21,16 @@
                 <artifactId>console-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.aicoder.speedcloud.console</groupId>
+                <artifactId>console-business</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.aicoder.speedcloud.console</groupId>
+                <artifactId>console-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -50,6 +60,8 @@
             <modules>
                 <module>app</module>
                 <module>model</module>
+                <module>business</module>
+                <module>web</module>
             </modules>
         </profile>
         <profile>

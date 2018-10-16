@@ -4,19 +4,26 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 		'AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode'
 		,'AM.model.speedcloud.deploy.DevpSysDpyResourceRef'
 		,'AM.model.speedcloud.deploy.DevpSysDpyResources'
+        ,'AM.model.console.jointjs.JointData'
 	]
 	,alias: 'controller.speedcloud.deploy.DevpSysDpySchemeEditController'
+    ,initPanel:function(){
+	    var me = this;
+	    me.loadResourcesTree();
+        me.loadResourceGraph();
+    }
     ,loadResourcesTree:function(){
 		var me = this;
-		// var store = me.lookupReference ('schemeResourceTree').getStore()
 
+		var record = me.getViewModel().get('record');
 
-		var store = me.getViewModel().getStore('schemeResourceTreeStore')
+		var store = me.getViewModel().getStore('schemeResourceTreeStore');
 
 		store.removeAll(true)
 		Ext.Ajax.request({
 			url: 'speedcloud/deploy/devpsysdpyresources/tree'
 			,method: 'POST'
+            ,params:{scheme:record.getId()}
 			,scope:this
 			,success:function(response){
 				var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.speedcloud.deploy.DevpSysDpyResourcesTreeNode').getProxy().getReader().read(response);
@@ -30,8 +37,44 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 		});
 	}
 
+    ,handleResourceSaved:function(){
+        var me = this;
+        me.loadResourcesTree();
+
+        var schemeResourceStore = me.getViewModel().getStore('schemeResourceStore');
+
+        var resourceEditPanel = me.lookup('resourceEditPanel');
+        var record = resourceEditPanel.getViewModel().get('record');
+
+        if(!schemeResourceStore.getById(record.getId())){
+            schemeResourceStore.add(record);
+            me.createGraphState(0, 0, record);
+        }else{
+            me.getView().graphUpdateCell(record.getId(), record.get('name'));
+        }
+
+    }
+    ,handleRelationSaved:function () {
+        var me = this;
+
+        var schemeRelationStore = me.getViewModel().getStore('schemeRelationStore');
+
+        var relationEditPanel = me.lookup('relationEditPanel');
+        var record = relationEditPanel.getViewModel().get('record');
+
+        var relation = schemeRelationStore.getById(record.getId())
+        if(!relation){
+            schemeRelationStore.add(record);
+
+            me.createGraphLink(record);
+            me.loadResourcesTree();
+        }else{
+            me.getView().graphUpdateCell(record.getId(), record.get('name'));
+        }
+    }
 	,createResource:function () {
-        console.log('createResource')
+
+
         var me = this;
 
         var schemeRecord  = me.getViewModel().get('record')
@@ -43,7 +86,7 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
             // ,scheme:schemeRecord.get('id')
         });
 
-        console.log(resource);
+
 
         var detailEditPanel = me.lookup('detailEditPanel');
         var resourceEditPanel = me.lookup('resourceEditPanel');
@@ -61,11 +104,18 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 
         var me = this;
         var currentId = record.getId()
+        var schemeResourceStore = me.getViewModel().getStore('schemeResourceStore').applyCondition({scheme:record.getId()});
+
         var resourceEditPanel = me.lookup('resourceEditPanel');
 		var resource = AM.model.speedcloud.deploy.DevpSysDpyResources.load(record.getId(),{
             success: function(record, operation) {
                 resource.erase({
-                    success: function(record, operation) {
+
+                    failure: function(record, operation) {
+                        var response = Ext.decode(operation.getError().response.responseText)
+                        Ext.MessageBox.alert('操作失败', "ERROR:"+response.status+"<br/>"+response.exception+"<br/>"+response.message);
+                    }
+                    ,success: function(record, operation) {
                         Ext.toast({html: "删除资源", title: "操作成功", width: 200, align: 'tr'})
                         me.loadResourcesTree();
                         //如果编辑面板是当前资源，要删掉
@@ -73,10 +123,28 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 						if(editRecord != null && editRecord.getId() == currentId){
 							me.createResource();
 						}
+
+						//途中删除关系
+
+
+
+                        var record = schemeResourceStore.getById(currentId);
+						if(record){
+                            me.deleteGraphState(record)
+                        }
 					}
 				})
 			}
 		})
+
+        //删除所有的关联
+        var schemeRelationStore = me.getViewModel().getStore('schemeRelationStore').applyCondition({scheme:record.getId()});
+        schemeRelationStore.each(function(relation){
+            if(relation.get('resource') == currentId || relation.get('refResource') == currentId){
+                relation.drop();
+            }
+        })
+
 
     }
 	,createRelation:function (view, rowIndex, colIndex, item, e, record, row) {
@@ -90,7 +158,6 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 			,direction:'EMPTY'
 			// ,scheme:schemeRecord.get('id')
 		});
-		console.log(relation);
 
 		var detailEditPanel = me.lookup('detailEditPanel');
         var relationEditPanel = me.lookup('relationEditPanel');
@@ -105,29 +172,47 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 
 
     }
-	,deleteRelation:function(view, rowIndex, colIndex, item, e, record, row){
+	,deleteRelationBtnClick:function(view, rowIndex, colIndex, item, e, record, row){
 
-		console.log('deleteRelation')
+		console.log('deleteRelationBtnClick')
 
 		var me = this;
-        var store = me.getViewModel().getStore('schemeResourceTreeStore')
 
 		var relationId = record.get('relationId')
-        console.log(record.get('relationId'))
-		console.log(record)
+
 		if(!relationId){
 			return;
 		}
 
+        me.deleteRelation(relationId);
+	}
+    ,deleteRelation:function(relationId){
+
+        console.log('deleteRelation')
+
+        var me = this;
+
+        if(!relationId){
+            return;
+        }
+
+        var store = me.getViewModel().getStore('schemeResourceTreeStore')
+
+        var schemeRelationStore = me.getViewModel().getStore('schemeRelationStore');
 
         var relation = AM.model.speedcloud.deploy.DevpSysDpyResourceRef.load(relationId,{
             scope: this,
             failure: function(record, operation) {
-                Ext.toast({html: "解除失败", title: "操作失败", width: 200, align: 'tr'})
-            },
-            success: function(record, operation) {
+                var response = Ext.decode(operation.getError().response.responseText)
+                Ext.MessageBox.alert('操作失败', "ERROR:"+response.status+"<br/>"+response.exception+"<br/>"+response.message);
+            }
+            ,success: function(record, operation) {
                 relation.erase({
-                    success: function(newRecord, operation) {
+                    failure: function(record, operation) {
+                        var response = Ext.decode(operation.getError().response.responseText)
+                        Ext.MessageBox.alert('操作失败', "ERROR:"+response.status+"<br/>"+response.exception+"<br/>"+response.message);
+                    }
+                    ,success: function(newRecord, operation) {
 
                         Ext.toast({html: "解除成功", title: "操作成功", width: 200, align: 'tr'})
                         //me.loadTypeTree()
@@ -136,12 +221,16 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
                                 node.drop()
                             }
                         })
+
+                        me.deleteGraphLink(relationId)
+
                     }
                 })
             }
         });
 
-	}
+    }
+
 	,onResourceNameClick:function (table, td, cellIndex, record) {
 		console.log('onResourceNameClick')
 
@@ -152,12 +241,6 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 
 		var me = this;
 
-		var treePanel = this.lookup('schemeResourceTree');
-
-
-
-
-        console.log('relationId:'+record.get('relationId'));
         //没有关系ID，说明是资源节点
 		var detailEditPanel = me.lookup('detailEditPanel');
 
@@ -188,6 +271,127 @@ Ext.define('AM.view.speedcloud.deploy.DevpSysDpySchemeEditController', {
 
 		}
 
-        console.log()
+    }
+    ,redrawResourceGraph:function(){
+        var me = this;
+
+        var graph = me.getViewModel().get('graph');
+        if(graph) {
+            graph.clear({ignoreRemove:true});
+        }
+        var record = me.getViewModel().get('record')
+        var schemeResourceStore = me.getViewModel().getStore('schemeResourceStore').applyCondition({scheme:record.getId()});
+        schemeResourceStore.loadPage(0,{
+            scope: this,
+            callback: function(records, operation, success) {
+
+                if(!success){
+                    Ext.Msg.show({title: '加载资源失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+                    return ;
+                }
+
+                for(var i =0; i < records.length;i++){
+
+                    var record = records[i];
+
+                    me.createGraphState(190 * (i+1), 100, record)
+                }
+                me.loadRelationGraph()
+            }
+        });
+
+
+    }
+    ,loadRelationGraph:function(){
+
+	    var me = this;
+
+        var record = me.getViewModel().get('record')
+
+        var schemeRelationStore = me.getViewModel().getStore('schemeRelationStore').applyCondition({scheme:record.getId()});
+        schemeRelationStore.loadPage(0,{
+            scope: this,
+            callback: function(records, operation, success) {
+
+                if(!success){
+                    Ext.Msg.show({title: '加载关系失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+                    return ;
+                }
+
+                for(var i in records){
+
+					var record = records[i];
+					me.createGraphLink(record)
+
+                }
+            }
+        });
+    }
+    ,createGraphState:function(x, y, record){
+		var me = this;
+
+        me.getView().graphState(x, y, record.get('name'), record.getId())
+        me.saveResourceGraph()
+	}
+    ,createGraphLink:function(record){
+        var me = this;
+
+        var resource = record.get('resource')
+        var refResource = record.get('refResource');
+
+        me.getView().graphLink(resource, refResource, record.get('name'), null, record.getId())
+        me.saveResourceGraph()
+
+    }
+    ,deleteGraphLink:function(id){
+
+		var me = this;
+
+        me.getView().graphDelLink(id)
+
+        me.saveResourceGraph();
+    }
+    ,deleteGraphState:function(record){
+
+        var me = this;
+
+        me.getView().graphDelState(record.getId())
+
+        me.saveResourceGraph();
+
+    }
+    ,loadResourceGraph:function(){
+        var me = this;
+        var record = me.getViewModel().get('record');
+        var graph = me.getViewModel().get('graph');
+
+        if(!graph){return};
+
+        var jsonData = AM.model.console.jointjs.JointData.load(record.getId(),{
+            failure: function(record, operation) {
+                var response = Ext.decode(operation.getError().response.responseText)
+                Ext.MessageBox.alert('操作失败', "ERROR:"+response.status+"<br/>"+response.exception+"<br/>"+response.message);
+            }
+            ,success: function(record, operation) {
+                var viewJson = record.get('viewJson');
+                graph.fromJSON(JSON.parse(viewJson));
+            }
+        })
+    }
+    ,saveResourceGraph:function(){
+
+	    var me = this;
+
+	    var record = me.getViewModel().get('record');
+        var graph = me.getViewModel().get('graph');
+
+        var jsonString = JSON.stringify(graph.toJSON());
+
+        var jsonData = AM.model.console.jointjs.JointData.create({id:record.getId(),viewJson:jsonString})
+
+        jsonData.setId(record.getId())
+
+        jsonData.save();
+
     }
 })
