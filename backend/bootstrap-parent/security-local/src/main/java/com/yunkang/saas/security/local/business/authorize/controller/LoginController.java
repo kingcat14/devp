@@ -124,6 +124,7 @@ public class LoginController {
 	 * @return
 	 */
 	@PostMapping("/getResource")
+	@Tenantable
 	public List<ResourceTreeNode> getResource(){
 
 		List<Resource> result =  null;

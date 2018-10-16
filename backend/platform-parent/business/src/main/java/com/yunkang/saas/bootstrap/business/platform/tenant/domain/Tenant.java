@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  * 租户
  * @author icode
  */
-@Entity
-@Table(appliesTo = "tenant", comment = "[租户]")
+@Entity(name = "platform_tenant")
+@Table(appliesTo = "platform_tenant", comment = "[租户]")
 //@DynamicUpdate
 //@DynamicInsert
 public class Tenant extends SaaSEntity{

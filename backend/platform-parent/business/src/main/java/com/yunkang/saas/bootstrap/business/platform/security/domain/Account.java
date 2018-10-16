@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  * 账号
  * @author icode
  */
-@Entity
-@Table(appliesTo = "account", comment = "[账号]")
+@Entity(name = "platform_account")
+@Table(appliesTo = "platform_account", comment = "[账号]")
 //@DynamicUpdate
 //@DynamicInsert
 public class Account extends SaaSEntity{

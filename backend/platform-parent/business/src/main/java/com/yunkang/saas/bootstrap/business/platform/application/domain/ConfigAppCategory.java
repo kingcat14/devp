@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
  * 应用类别
  * @author icode
  */
-@Entity
-@Table(appliesTo = "config_app_category", comment = "[应用类别]")
+@Entity(name = "platform_config_app_category")
+@Table(appliesTo = "platform_config_app_category", comment = "[应用类别]")
 //@DynamicUpdate
 //@DynamicInsert
 public class ConfigAppCategory extends SaaSEntity{

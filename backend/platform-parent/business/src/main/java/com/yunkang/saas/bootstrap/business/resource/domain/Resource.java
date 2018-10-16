@@ -3,11 +3,11 @@ package com.yunkang.saas.bootstrap.business.resource.domain;
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
  * 资源
  * @author icode
  */
-@Entity
-@Table
+@Entity(name = "platform_resource")
+@Table(appliesTo = "platform_resource", comment = "[资源]")
 public class Resource extends BaseEntity{
 
 	public static final Long TOP_NODE_ID = -1L;
@@ -34,8 +34,6 @@ public class Resource extends BaseEntity{
     @Id
     @Column(name = "rid")
     private Long id;
-
-
 
     /**
     * 资源名
@@ -78,10 +76,7 @@ public class Resource extends BaseEntity{
     @Column(name = "parent_code")
 	private Long parentCode;
 
-    /**
-    * 排序
-    * 
-    */
+    /**排序*/
     @Column(name = "order_index")
 	private Integer orderIndex;
 

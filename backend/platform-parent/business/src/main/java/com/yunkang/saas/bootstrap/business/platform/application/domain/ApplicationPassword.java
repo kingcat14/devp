@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  * 应用密码
  * @author icode
  */
-@Entity
-@Table(appliesTo = "application_password", comment = "[应用密码]")
+@Entity(name = "platform_application_password")
+@Table(appliesTo = "platform_application_password", comment = "[应用密码]")
 //@DynamicUpdate
 //@DynamicInsert
 public class ApplicationPassword extends SaaSEntity{

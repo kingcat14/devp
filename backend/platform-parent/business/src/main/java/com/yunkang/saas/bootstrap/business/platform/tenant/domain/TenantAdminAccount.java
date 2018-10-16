@@ -12,8 +12,8 @@ import org.hibernate.annotations.Table;
  * 租户管理员账号
  * @author icode
  */
-@Entity
-@Table(appliesTo = "tenant_admin_account", comment = "[租户管理员账号]")
+@Entity(name = "platform_tenant_admin_account")
+@Table(appliesTo = "platform_tenant_admin_account", comment = "[租户管理员账号]")
 //@DynamicUpdate
 //@DynamicInsert
 public class TenantAdminAccount extends BaseEntity<Long>{

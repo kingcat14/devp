@@ -1,7 +1,7 @@
 application:
   product: speedcloud #产品
-  module: app #模块
-  name: console #子模块名称
+  module: console #模块
+  name: app #子模块名称
   code: 11203 #子模块ID
   displayName: 云效控制台
   uploadFilePath:

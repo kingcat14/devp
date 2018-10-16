@@ -28,7 +28,7 @@ public class PipelineTaskRibbon {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PipelineTaskRibbon.class);
 
-    private String host = "SPEEDCLOUD-MICROSERVICE";
+    private String host = "SPEEDCLOUD-SPEEDCLOUD-MICROSERVICE";
 
 	@Autowired(required = false)
     private RestTemplate restTemplate;

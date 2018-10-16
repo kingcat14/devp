@@ -3,11 +3,11 @@ package com.yunkang.saas.bootstrap.business.platform.security.domain;
 import com.yunkang.saas.common.jpa.SaaSEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  * 角色
  * @author icode
  */
-@Entity
-@Table
+@Entity(name = "platform_role")
+@Table(appliesTo = "platform_role", comment = "[账号密码]")
 public class Role extends SaaSEntity {
 
 	public static final String PROPERTY_NAME = "name";

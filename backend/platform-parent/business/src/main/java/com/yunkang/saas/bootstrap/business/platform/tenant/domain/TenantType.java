@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  * 租户类型
  * @author icode
  */
-@Entity
-@Table(appliesTo = "tenant_type", comment = "[租户类型]")
+@Entity(name = "platform_tenant_type")
+@Table(appliesTo = "platform_tenant_type", comment = "[租户类型]")
 //@DynamicUpdate
 //@DynamicInsert
 public class TenantType extends GenericBaseEntity<Long>{

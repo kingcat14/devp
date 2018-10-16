@@ -17,8 +17,8 @@ import java.util.Date;
  * 应用
  * @author icode
  */
-@Entity
-@Table(appliesTo = "app", comment = "[应用]")
+@Entity(name = "platform_app")
+@Table(appliesTo = "platform_app", comment = "[应用]")
 //@DynamicUpdate
 //@DynamicInsert
 public class App extends SaaSEntity{

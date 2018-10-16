@@ -28,7 +28,7 @@ public class CodeRepositoryRibbon {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CodeRepositoryRibbon.class);
 
-    private String host = "SPEEDCLOUD-MICROSERVICE";
+    private String host = "SPEEDCLOUD-SPEEDCLOUD-MICROSERVICE";
 
 	@Autowired(required = false)
     private RestTemplate restTemplate;
