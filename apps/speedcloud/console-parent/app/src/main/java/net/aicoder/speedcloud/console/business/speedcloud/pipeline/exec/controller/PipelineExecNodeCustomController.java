@@ -53,9 +53,37 @@ public class PipelineExecNodeCustomController {
 	@ApiOperation(value = "新增", notes = "新增自定义运行计划", httpMethod = "POST")
 	@PostMapping(value = "/custom")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PipelineExecInstanceVO add(@RequestBody PipelineExecNodeCustomAddDto pipelineExecNodeCustomAddDto){
+	public PipelineExecInstanceVO custom(@RequestBody PipelineExecNodeCustomAddDto pipelineExecNodeCustomAddDto){
 		fillTid(pipelineExecNodeCustomAddDto);
 		PipelineExecInstanceVO instanceVO = pipelineExecInstanceRibbonService.custom(pipelineExecNodeCustomAddDto);
+		return instanceVO;
+	}
+
+	/**
+	 * 新增自定义运行计划
+	 * @param pipelineExecNodeCustomAddDto
+	 * @return
+	 */
+	@ApiOperation(value = "新增", notes = "新增自定义运行计划", httpMethod = "POST")
+	@PostMapping(value = "/task")
+	@ResponseStatus(HttpStatus.CREATED)
+	public PipelineExecInstanceVO task(@RequestBody PipelineExecNodeCustomAddDto pipelineExecNodeCustomAddDto){
+		fillTid(pipelineExecNodeCustomAddDto);
+		PipelineExecInstanceVO instanceVO = pipelineExecInstanceRibbonService.task(pipelineExecNodeCustomAddDto);
+		return instanceVO;
+	}
+
+	/**
+	 * 新增自定义运行计划
+	 * @param pipelineExecNodeCustomAddDto
+	 * @return
+	 */
+	@ApiOperation(value = "新增", notes = "新增自定义运行计划", httpMethod = "POST")
+	@PostMapping(value = "/pipeline")
+	@ResponseStatus(HttpStatus.CREATED)
+	public PipelineExecInstanceVO pipeline(@RequestBody PipelineExecNodeCustomAddDto pipelineExecNodeCustomAddDto){
+		fillTid(pipelineExecNodeCustomAddDto);
+		PipelineExecInstanceVO instanceVO = pipelineExecInstanceRibbonService.pipeline(pipelineExecNodeCustomAddDto);
 		return instanceVO;
 	}
 

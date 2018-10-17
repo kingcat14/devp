@@ -47,6 +47,36 @@ public class PipelineExecInstanceRibbonService  {
 
 	}
 
+	/**
+	 * 执行任务
+	 * @param addDto
+	 * @return
+	 */
+	public PipelineExecInstanceVO task(PipelineExecNodeCustomAddDto addDto){
+		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.task(addDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+		}
+		return result.getData();
+
+	}
+
+	/**
+	 * 流水线
+	 * @param addDto
+	 * @return
+	 */
+	public PipelineExecInstanceVO pipeline(PipelineExecNodeCustomAddDto addDto){
+		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.pipeline(addDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+		}
+		return result.getData();
+
+	}
+
 
 	public PipelineExecInstanceVO add(PipelineExecInstanceAddDto addDto){
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.add(addDto);

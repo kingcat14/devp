@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
-public class PipelineNodeBuilder implements NodeBuilder {
+public class PipelineBuilder implements ExecNodeBuilder {
 
     @Autowired()@Qualifier("pipelineExecNodeService")
     private PipelineExecNodeService execNodeService;

@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
-public class StageNodeBuilder implements NodeBuilder {
+public class StageBuilder implements ExecNodeBuilder {
 
 
     @Autowired

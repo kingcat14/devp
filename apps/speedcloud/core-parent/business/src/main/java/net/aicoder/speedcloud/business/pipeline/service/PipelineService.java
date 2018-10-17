@@ -40,10 +40,14 @@ public class PipelineService  extends GenericCrudService<Pipeline, Long, Pipelin
 	public Pipeline create(PipelineAddDto pipelineAddDto){
 
 		/*
+		 * 0.TODO 检查流水线的节点是不是会导致循环引用 流水线A-->流水线B-->流水线C-->流水线A
 		 * 1.创建流水线
 		 * 2.创建流水线参数
 		 * 3.创建流水线阶段
 		 */
+
+		//0.
+		//捞出流水线中所有类型为流线的节点,盘点其不为自身后，递归检查节点包含的其他节点
 
 		//1.
 		Pipeline pipeline = new Pipeline();

@@ -9,10 +9,10 @@ import java.util.List;
 
 
 /**
- * 运行计划
+ * 定制运行节点
  * @author icode
  */
-@ApiModel(value = "新增运行计划使用的DTO")
+@ApiModel(value = "新增运行计划节点的DTO")
 public class PipelineExecNodeCustomAddDto {
 
     /**租户id*/
@@ -27,11 +27,12 @@ public class PipelineExecNodeCustomAddDto {
 	@ApiModelProperty(value = "运行主体Id", required = false, notes = "")
 	private Long nodeId;
 
-    /**运行类型*/
-	@ApiModelProperty(value = "运行类型", required = false, notes = "流水线、任务")
+    /**运行主体类型*/
+	@ApiModelProperty(value = "运行类型", required = false, notes = "PIPELINE、TASK、StageNode")
 	private String nodeType;
 
 	private List<PipelineExecNodeCustomAddDto> subNodeList;
+	private List<PipelineExecNodeParamAddDto> nodeParamList;
 
 	public Long getTid(){
 		return tid;
@@ -66,6 +67,13 @@ public class PipelineExecNodeCustomAddDto {
 	}
 	public void setSubNodeList(List<PipelineExecNodeCustomAddDto> subNodeList) {
 		this.subNodeList = subNodeList;
+	}
+
+	public List<PipelineExecNodeParamAddDto> getNodeParamList() {
+		return nodeParamList;
+	}
+	public void setNodeParamList(List<PipelineExecNodeParamAddDto> nodeParamList) {
+		this.nodeParamList = nodeParamList;
 	}
 
 	@Override

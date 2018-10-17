@@ -3,14 +3,12 @@ package net.aicoder.speedcloud.console.business.speedcloud.pipeline.exec.service
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamAddDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
+import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeParamVO;
 import net.aicoder.speedcloud.client.pipeline.exec.PipelineExecNodeParamRibbon;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamPageResult;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamResult;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamEditDto;
-import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeParamVO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +46,7 @@ public class PipelineExecNodeParamRibbonService  {
 			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 	}
-	public PipelineExecNodeParamVO merge(Long id, PipelineExecNodeParamEditDto editDto){
-		PipelineExecNodeParamResult result = pipelineExecNodeParamRibbon.update(id, editDto);
 
-		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
-		}
-
-		return result.getData();
-	}
 	public PipelineExecNodeParamVO find(Long id){
 		PipelineExecNodeParamResult result = pipelineExecNodeParamRibbon.get(id);
 

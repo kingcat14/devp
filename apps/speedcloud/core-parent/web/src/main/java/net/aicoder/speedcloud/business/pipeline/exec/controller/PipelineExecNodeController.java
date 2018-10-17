@@ -1,30 +1,24 @@
 package net.aicoder.speedcloud.business.pipeline.exec.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.common.framework.spring.DateConverter;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeEditDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceService;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
 import net.aicoder.speedcloud.business.pipeline.exec.valid.PipelineExecNodeValidator;
-import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeVO;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecInstanceService;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecInstanceVO;
-import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
+import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeVO;
 import net.aicoder.speedcloud.business.pipeline.task.service.PipelineTaskService;
-import net.aicoder.speedcloud.business.pipeline.task.vo.PipelineTaskVO;
-
-
-import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -34,8 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -59,9 +53,9 @@ public class PipelineExecNodeController {
 
 	@Autowired
 	private PipelineExecInstanceService pipelineExecInstanceService;
+
 	@Autowired
 	private PipelineTaskService pipelineTaskService;
-
 
 	@Autowired
 	private PipelineExecNodeValidator pipelineExecNodeValidator;
@@ -106,23 +100,7 @@ public class PipelineExecNodeController {
 
 	}
 
-	/**
-	 * 更新运行实例节点
-	 * @param pipelineExecNodeEditDto
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "修改", notes = "修改产运行实例节点(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	PipelineExecNodeVO update(@RequestBody @Valid PipelineExecNodeEditDto pipelineExecNodeEditDto, @PathVariable Long id){
-		PipelineExecNode pipelineExecNode = new PipelineExecNode();
-		BeanUtils.copyProperties(pipelineExecNodeEditDto, pipelineExecNode);
-		pipelineExecNode.setId(id);
-		pipelineExecNodeService.merge(pipelineExecNode);
 
-		PipelineExecNodeVO vo = initViewProperty(pipelineExecNode);
-		return  vo;
-	}
 
 	/**
 	 * 根据ID查询运行实例节点

@@ -1,27 +1,23 @@
 package net.aicoder.speedcloud.business.pipeline.exec.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.common.framework.spring.DateConverter;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNodeParam;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamEditDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeParamService;
+import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
 import net.aicoder.speedcloud.business.pipeline.exec.valid.PipelineExecNodeParamValidator;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeParamVO;
-import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeVO;
-
-
-import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -31,8 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -56,7 +52,6 @@ public class PipelineExecNodeParamController {
 
 	@Autowired
 	private PipelineExecNodeService pipelineExecNodeService;
-
 
 	@Autowired
 	private PipelineExecNodeParamValidator pipelineExecNodeParamValidator;
@@ -101,23 +96,7 @@ public class PipelineExecNodeParamController {
 
 	}
 
-	/**
-	 * 更新运行实例节点参数
-	 * @param pipelineExecNodeParamEditDto
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "修改", notes = "修改产运行实例节点参数(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	PipelineExecNodeParamVO update(@RequestBody @Valid PipelineExecNodeParamEditDto pipelineExecNodeParamEditDto, @PathVariable Long id){
-		PipelineExecNodeParam pipelineExecNodeParam = new PipelineExecNodeParam();
-		BeanUtils.copyProperties(pipelineExecNodeParamEditDto, pipelineExecNodeParam);
-		pipelineExecNodeParam.setId(id);
-		pipelineExecNodeParamService.merge(pipelineExecNodeParam);
 
-		PipelineExecNodeParamVO vo = initViewProperty(pipelineExecNodeParam);
-		return  vo;
-	}
 
 	/**
 	 * 根据ID查询运行实例节点参数

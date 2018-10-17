@@ -46,12 +46,22 @@ public class PipelineExecInstanceRibbon {
      * @param addDto
      * @return
      */
-    @HystrixCommand(fallbackMethod = "customFail")
+
     public PipelineExecInstanceResult custom(PipelineExecNodeCustomAddDto addDto) {
-        String url = "http://"+host+"/speedcloud/pipeline/exec/pipelineexecinstance/custom";
+        return custom(addDto, "custom");
+    }
+    public PipelineExecInstanceResult task(PipelineExecNodeCustomAddDto addDto) {
+        return custom(addDto, "task");
+    }
+    public PipelineExecInstanceResult pipeline(PipelineExecNodeCustomAddDto addDto) {
+        return custom(addDto, "pipeline");
+    }
+    @HystrixCommand(fallbackMethod = "customFail")
+    public PipelineExecInstanceResult custom(PipelineExecNodeCustomAddDto addDto, String customName) {
+        String url = "http://"+host+"/speedcloud/pipeline/exec/pipelineexecinstance/"+customName;
         return restTemplate.postForObject(url, addDto, PipelineExecInstanceResult.class);
     }
-    private PipelineExecInstanceResult customFail(PipelineExecNodeCustomAddDto addDto, Throwable throwable) {
+    private PipelineExecInstanceResult customFail(PipelineExecNodeCustomAddDto addDto, String customName, Throwable throwable) {
 
         LOGGER.error("", throwable);
 

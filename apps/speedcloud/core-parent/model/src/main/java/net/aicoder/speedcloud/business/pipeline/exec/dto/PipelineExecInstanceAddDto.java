@@ -45,6 +45,8 @@ public class PipelineExecInstanceAddDto {
 	@ApiModelProperty(value = "开始时间", required = false)
 	private Date startTime;
 
+	private List<PipelineExecNodeParamAddDto> paramList;
+
 
 	public Long getTid(){
 		return tid;

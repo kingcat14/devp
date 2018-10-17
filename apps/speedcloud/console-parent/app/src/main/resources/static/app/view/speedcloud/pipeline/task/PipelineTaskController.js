@@ -3,6 +3,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
 	requires: [
         'AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel'
+        ,'AM.model.speedcloud.pipeline.exec.PipelineTaskExecInstance'
 	]
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskController'
 
@@ -135,9 +136,20 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         var record = selections[0];
 
         //创建一个执行对象
-        var taskExecConfig = {executeTargetId:record.get('id'), executeTargetType:'TASK'}
-        var taskExec = Ext.create('AM.model.speedcloud.pipeline.exec.PipelineExecInstance', taskExecConfig);
+        var taskExec = me.createTaskExec(record.get('id'));
         taskExec.save()
+    }
+    ,createTaskExec:function(taskId){
+        /** 创建定制化执行实例*/
+        var me = this;
+
+        //1.
+        var taskExec = AM.model.speedcloud.pipeline.exec.PipelineTaskExecInstance.create({nodeId:taskId, nodeType:'TASK', subNodeList:[]});
+
+        //TODO 处理添加执行参数
+
+        return taskExec;
+
     }
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;

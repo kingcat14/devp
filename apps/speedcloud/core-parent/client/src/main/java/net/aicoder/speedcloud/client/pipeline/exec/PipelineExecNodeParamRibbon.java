@@ -3,16 +3,14 @@ package net.aicoder.speedcloud.client.pipeline.exec;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yunkang.saas.common.framework.web.controller.RestStatus;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamPageResult;
-import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamResult;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamAddDto;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamEditDto;
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamPageResult;
+import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeParamResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -75,29 +73,6 @@ public class PipelineExecNodeParamRibbon {
 
         return errorResult();
     }
-
-	/**
-	 * 更新运行实例节点参数
-	 * @param id
-	 * @param editDto
-	 * @return
-	 */
-	@HystrixCommand(fallbackMethod = "updateFail")
-    public PipelineExecNodeParamResult update(Long id, PipelineExecNodeParamEditDto editDto) {
-        String url = "http://"+host+"/speedcloud/pipeline/exec/pipelineexecnodeparam/"+id;
-        ResponseEntity<PipelineExecNodeParamResult> response =
-                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<PipelineExecNodeParamResult>() {});
-        return response.getBody();
-    }
-
-    public PipelineExecNodeParamResult updateFail(Long id, PipelineExecNodeParamEditDto updateRequest, Throwable throwable) {
-
-        LOGGER.error("", throwable);
-
-        return errorResult();
-    }
-
-
 
     /**
 	 * 根据ID查询运行实例节点参数

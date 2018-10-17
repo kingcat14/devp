@@ -75,10 +75,11 @@ public class PipelineExecInstanceController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public PipelineExecInstanceVO add(@RequestBody @Valid PipelineExecInstanceAddDto pipelineExecInstanceAddDto){
+
 		PipelineExecInstance pipelineExecInstance = new PipelineExecInstance();
+
 		BeanUtils.copyProperties(pipelineExecInstanceAddDto, pipelineExecInstance);
 
-		//pipelineExecInstanceService.add(pipelineExecInstance);
 		execAction.createExec(pipelineExecInstance);
 
 		return  initViewProperty(pipelineExecInstance);

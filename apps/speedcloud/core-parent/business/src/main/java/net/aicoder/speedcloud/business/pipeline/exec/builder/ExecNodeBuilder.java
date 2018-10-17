@@ -2,7 +2,7 @@ package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 
-public interface NodeBuilder {
+public interface ExecNodeBuilder {
 
     /**
      * 给一个节点创建执行节点

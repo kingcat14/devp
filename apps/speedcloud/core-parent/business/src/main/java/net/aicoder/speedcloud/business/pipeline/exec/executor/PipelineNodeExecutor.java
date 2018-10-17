@@ -1,8 +1,6 @@
 package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
-import net.aicoder.speedcloud.business.pipeline.exec.builder.NodeBuilder;
-import net.aicoder.speedcloud.business.pipeline.exec.builder.PipelineExecInstanceBuilder;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.concurrent.Executor;
 
 /**
  * 流水线节点的执行逻辑

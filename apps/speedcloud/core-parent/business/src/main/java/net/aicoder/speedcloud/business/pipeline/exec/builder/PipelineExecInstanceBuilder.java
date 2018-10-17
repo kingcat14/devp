@@ -1,22 +1,11 @@
 package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
-import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
-import net.aicoder.speedcloud.business.pipeline.domain.Pipeline;
-import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
-import net.aicoder.speedcloud.business.pipeline.service.PipelineService;
-import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 创建执行实例
@@ -24,14 +13,14 @@ import java.util.List;
 @Component
 public class PipelineExecInstanceBuilder {
 
-    private HashMap<String, NodeBuilder> nodeBuilderMap = new HashMap<>();
+    private HashMap<String, ExecNodeBuilder> nodeBuilderMap = new HashMap<>();
 
     public PipelineExecNode build(PipelineExecNode parentNode, String type, Long id, boolean createSubNode){
 
         PipelineExecNode result = null;
-        NodeBuilder nodeBuilder = nodeBuilderMap.get(type);
-        if(nodeBuilder != null){
-            result = nodeBuilder.createExecNode(parentNode, id, createSubNode);
+        ExecNodeBuilder execNodeBuilder = nodeBuilderMap.get(type);
+        if(execNodeBuilder != null){
+            result = execNodeBuilder.createExecNode(parentNode, id, createSubNode);
         }
 
         return result;
@@ -74,8 +63,8 @@ public class PipelineExecInstanceBuilder {
         return fakeParentNode;
     }
 
-    public void register(String type, NodeBuilder nodeBuilder){
-        this.nodeBuilderMap.put(type, nodeBuilder);
+    public void register(String type, ExecNodeBuilder execNodeBuilder){
+        this.nodeBuilderMap.put(type, execNodeBuilder);
     }
 
 

@@ -3,27 +3,25 @@ package net.aicoder.speedcloud.console.business.speedcloud.pipeline.exec.control
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamEditDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeParamCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeParamVO;
 import net.aicoder.speedcloud.console.business.speedcloud.pipeline.exec.service.PipelineExecNodeParamRibbonService;
 import net.aicoder.speedcloud.console.business.speedcloud.pipeline.exec.valid.PipelineExecNodeParamValidator;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -87,20 +85,7 @@ public class PipelineExecNodeParamController {
 
 	}
 
-	/**
-	 * 更新运行实例节点参数
-	 * @param pipelineExecNodeParamEditDto
-	 * @param id
-	 * @return
-	 */
-	@ApiOperation(value = "修改", notes = "修改产运行实例节点参数(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public PipelineExecNodeParamVO update(@RequestBody PipelineExecNodeParamEditDto pipelineExecNodeParamEditDto, @ApiParam(value = "要查询的运行实例节点参数id") @PathVariable Long id){
 
-		PipelineExecNodeParamVO vo = pipelineExecNodeParamRibbonService.merge(id, pipelineExecNodeParamEditDto);
-
-		return  vo;
-	}
 
 	/**
 	 * 根据ID查询运行实例节点参数

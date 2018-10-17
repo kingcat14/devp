@@ -34,11 +34,8 @@ public class ExecAction {
 	@Qualifier("pipelineExecInstanceService")
 	private PipelineExecInstanceService instanceService;
 
-
 	@Autowired
 	private PipelineExecInstanceBuilder pipelineExecInstanceBuilder;
-
-
 
 	@Autowired
 	private PipelineTaskService pipelineTaskService;
@@ -46,17 +43,13 @@ public class ExecAction {
 	@Autowired
 	private PipelineService pipelineService;
 
-
-
 	@Autowired
 	private ExecNodeAction execNodeAction;
 
 
-	/**
-	 * 创建一个任务
-	 */
+
 	@Transactional
-	public PipelineExecInstance createExec(PipelineExecNodeCustomAddDto customAddDto){
+	public PipelineExecInstance createExec(PipelineExecNodeCustomAddDto customAddDto, Boolean createSubNode){
 
 		PipelineExecInstance instance = new PipelineExecInstance();
 		instance.setTid(customAddDto.getTid());
@@ -67,7 +60,7 @@ public class ExecAction {
 		instance.setStatus(PipelineExecInstanceStatus.RUNNING);
 		instanceService.add(instance);
 
-		PipelineExecNode topNode = pipelineExecInstanceBuilder.buildTopNode(instance, customAddDto.getNodeId(), false);
+		PipelineExecNode topNode = pipelineExecInstanceBuilder.buildTopNode(instance, customAddDto.getNodeId(), createSubNode);
 
 		List<PipelineExecNodeCustomAddDto> subNode = customAddDto.getSubNodeList();
 
@@ -82,6 +75,18 @@ public class ExecAction {
 
 		return instance;
 	}
+
+	/**
+	 * 创建一个任务
+	 */
+	@Transactional
+	public PipelineExecInstance createExec(PipelineExecNodeCustomAddDto customAddDto){
+
+		return createExec(customAddDto, false);
+
+	}
+
+
 
 	private void createNode(PipelineExecNode parentNode, PipelineExecNodeCustomAddDto customAddDto){
 
@@ -143,6 +148,7 @@ public class ExecAction {
 
 		PipelineExecNode node = pipelineExecInstanceBuilder.buildTaskInstance(instance, pipelineTask.getId(), true);
 		execNodeAction.execute(node);
+
 
 
 	}

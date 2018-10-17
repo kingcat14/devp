@@ -3,17 +3,15 @@ package net.aicoder.speedcloud.client.pipeline.exec;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yunkang.saas.common.framework.web.controller.RestStatus;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeAddDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCustomAddDto;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodePageResult;
 import net.aicoder.speedcloud.client.pipeline.exec.result.PipelineExecNodeResult;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeEditDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,7 +38,6 @@ public class PipelineExecNodeRibbon {
     public void setHost(String host) {
         this.host = host;
     }
-
 
 
     /**
@@ -94,28 +91,6 @@ public class PipelineExecNodeRibbon {
 
         return errorResult();
     }
-
-	/**
-	 * 更新运行实例节点
-	 * @param id
-	 * @param editDto
-	 * @return
-	 */
-	@HystrixCommand(fallbackMethod = "updateFail")
-    public PipelineExecNodeResult update(Long id, PipelineExecNodeEditDto editDto) {
-        String url = "http://"+host+"/speedcloud/pipeline/exec/pipelineexecnode/"+id;
-        ResponseEntity<PipelineExecNodeResult> response =
-                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<PipelineExecNodeResult>() {});
-        return response.getBody();
-    }
-
-    public PipelineExecNodeResult updateFail(Long id, PipelineExecNodeEditDto updateRequest, Throwable throwable) {
-
-        LOGGER.error("", throwable);
-
-        return errorResult();
-    }
-
 
 
     /**

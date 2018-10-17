@@ -152,6 +152,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
 
         //2.
         var customExecInstance = me.createCustomExec();
+
         if(customExecInstance == null){
             pipelineStagePanel.unmask()
             return ;
@@ -167,8 +168,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             }
         })
     }
-
     ,createCustomExec:function(){
+	    /** 创建定制化执行实例*/
 	    var me = this;
 	    var pipeline = me.getViewModel().get('pipeline');
         /*
