@@ -36,7 +36,7 @@ public class YunkangClient {
         return restTemplate.patchForObject(url, createJobAction, Result.class);
     }
 
-    public Result exec(String jobId, List<ExecParam> execParamList){
+    public ExecResult exec(String jobId, List<ExecParam> execParamList){
 
 
         String url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId;
@@ -44,7 +44,7 @@ public class YunkangClient {
         if(CollectionUtils.isNotEmpty(execParamList)){
             url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId+"/param";
         }
-        return restTemplate.postForObject(url, execParamList, Result.class);
+        return restTemplate.postForObject(url, execParamList, ExecResult.class);
 
     }
 }

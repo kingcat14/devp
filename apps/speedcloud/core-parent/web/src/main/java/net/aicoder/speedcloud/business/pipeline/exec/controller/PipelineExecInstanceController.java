@@ -80,8 +80,6 @@ public class PipelineExecInstanceController {
 
 		BeanUtils.copyProperties(pipelineExecInstanceAddDto, pipelineExecInstance);
 
-		execAction.createExec(pipelineExecInstance);
-
 		return  initViewProperty(pipelineExecInstance);
 	}
 
@@ -99,7 +97,6 @@ public class PipelineExecInstanceController {
 		for (String id : ids ){
 			pipelineExecInstanceService.delete(Long.parseLong(id));
 		}
-
 	}
 
 	/**

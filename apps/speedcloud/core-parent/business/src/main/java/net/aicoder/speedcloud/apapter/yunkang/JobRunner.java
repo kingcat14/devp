@@ -1,5 +1,6 @@
 package net.aicoder.speedcloud.apapter.yunkang;
 
+import net.aicoder.speedcloud.apapter.yunkang.client.ExecResult;
 import net.aicoder.speedcloud.apapter.yunkang.client.Result;
 import net.aicoder.speedcloud.apapter.yunkang.client.YunkangClient;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.ExecParam;
@@ -85,9 +86,10 @@ public class JobRunner {
             }
         }
 
-        Result result = yunkangClient.exec(node.getRelationObjId()+"", execParamList);
+        ExecResult result = yunkangClient.exec(node.getRelationObjId()+"", execParamList);
         node.setResult(result.getFlag());
         node.setResultMessage(result.getErrorMsg());
+        node.setResultRelationObj(result.getData().getCurrentBuildNumber());
 
     }
 

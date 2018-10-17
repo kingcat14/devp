@@ -99,6 +99,11 @@ public class PipelineExecNode extends BaseEntity<Long>{
 	@Size(max = 255, message = "运行结果超长，最多255个字符")
 	private String result;
 
+	/**与结果相关的对象，针对Jenkins, 是job执行的编号*/
+	@Column(name = "result", nullable = true, updatable = true)
+	@Size(max = 255, message = "超长，最多255个字符")
+	private String resultRelationObj;
+
     /**
     * 所属实例
     * 
@@ -143,12 +148,10 @@ public class PipelineExecNode extends BaseEntity<Long>{
     @Column(name = "auto_start", nullable = false, updatable = true)
 	private Boolean autoStart;
 
-    /**
-    * 节点排序
-    * 
-    */
+    /**节点排序*/
     @Column(name = "exec_index", nullable = false, updatable = true)
 	private Integer execIndex;
+
 
 	public Long getTid(){
 		return tid;
@@ -255,6 +258,13 @@ public class PipelineExecNode extends BaseEntity<Long>{
 		this.execIndex = execIndex;
 	}
 
+
+	public String getResultRelationObj() {
+		return resultRelationObj;
+	}
+	public void setResultRelationObj(String resultRelationObj) {
+		this.resultRelationObj = resultRelationObj;
+	}
 
 	public Long getId() {
 		return id;
