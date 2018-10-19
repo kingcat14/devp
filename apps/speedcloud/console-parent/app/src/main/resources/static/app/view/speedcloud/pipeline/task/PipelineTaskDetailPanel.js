@@ -6,8 +6,9 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
         ,'AM.store.speedcloud.project.ProjectStore'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskAction'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel'
-        ,'AM.view.speedcloud.pipeline.task.PipelineTaskEditController'
+        ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailController'
         ,'AM.model.speedcloud.pipeline.task.PipelineTaskParam'
+
     ]
     ,layout: 'fit'
     // ,title: '修改新任务'
@@ -18,11 +19,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
     ,bind:{title:'任务{record.name}'}
     // ,bind:{title:'任务名称:{title}'}
     ,bodyCls: 'app-dashboard'
-    ,controller: 'speedcloud.pipeline.task.PipelineTaskEditController'
+    ,controller: 'speedcloud.pipeline.task.PipelineTaskDetailController'
     // ,viewModel:{data:{}}
     ,initComponent: function () {
 
         var me = this;
+        var task = me.getViewModel().get('record');
+        // me.getViewModel().getStores().execNodeStore = Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecNodeStore').applyCondition({relationObjId:task.getId()})
 
         Ext.apply(me, {
             items:[
@@ -34,7 +37,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
                     , border:true
                     ,tabPosition:'left'
                     ,tabRotation:0
-
+                    ,activeTab:1
                     ,items: [
                         {
                             xtype:'panel', title:'工作空间', html:'工作空间'
@@ -43,7 +46,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
                             xtype:'grid'
                             ,title:'构建历史', border :true, frame:false
                             //, margin:10
-                            ,bind:{store:'{execInstanceStore}'}
+                            ,bind:{store:'{execNodeStore}'}
                             ,columns: [
                                 {
                                     xtype: 'gridcolumn'
@@ -58,9 +61,10 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
                                 }
                                 ,{
                                     xtype: 'gridcolumn'
-                                    ,dataIndex: 'status'
+                                    ,dataIndex: 'result'
                                     ,text: '任务状态'
-                                },{
+                                }
+                                ,{
                                     xtype: 'datecolumn'
                                     ,format: 'Y-m-d H:i:s'
                                     ,dataIndex: 'startTime'
@@ -68,14 +72,31 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
                                     ,flex:1
                                 }
                                 ,{
-                                    xtype: 'datecolumn'
-                                    ,text: '运行时长'
-                                    ,flex:1
-                                }
-                                ,{
                                     xtype: 'gridcolumn'
-                                    ,text: '日志'
+                                    ,text: '运行时长(秒)'
+                                    ,dataIndex: 'millisecondsCost'
                                     ,flex:1
+                                    ,renderer:function(value){
+
+                                        if(value > 0){
+                                            return value/1000;
+                                        }
+                                        return '';
+                                    }
+                                }
+
+                                ,{
+                                    xtype: 'actioncolumn'
+                                    ,menuDisabled: true
+                                    ,width:100
+                                    ,align:'center'
+                                    ,text: '日志'
+                                    , items: [{
+                                        iconCls: 'far fa-eye'
+                                        , tooltip: '日志'
+                                        , handler: 'onViewExecNodeLogClick'
+                                        , padding: '0 10 0 0'
+                                    }]
                                 }
                             ]
                             ,dockedItems: [
@@ -93,7 +114,16 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
 
                 }
             ]
-
+            ,listeners: {
+                beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+                ,beforehide: {
+                    fn: me.onPanelBeforeHide
+                    ,scope: me
+                }
+            }
         });
 
         me.callParent(arguments);

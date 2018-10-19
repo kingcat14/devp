@@ -4,6 +4,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
         'AM.store.speedcloud.pipeline.PipelineStageNodeStore'
         ,'AM.model.speedcloud.pipeline.exec.PipelineCustomExecInstance'
         ,'AM.model.speedcloud.pipeline.exec.PipelineExecInstance'
+        ,'AM.model.speedcloud.pipeline.exec.PipelineExecNodeLog'
+        ,'AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow'
 	]
 	,alias: 'controller.speedcloud.pipeline.PipelineExecController'
     ,onPipelineContinueExecButtonClick:function(){
@@ -83,24 +85,27 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                                 return value;
                             }
                         }
-
                         ,{
-                            xtype: 'gridcolumn'
-                            ,width:35
-                            ,renderer:function(){
-                                return '<i class="far fa-eye"></i>'
-                            }
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30,align:'center'
+                            , items: [{
+                                    iconCls: 'far fa-eye'
+                                    , tooltip: '日志'
+                                    , handler: 'onViewStageNodeLogClick'
+                                    , padding: '0 10 0 0'
+                                }]
                         }
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
                             ,width:25,align:'center'
                             , items: [{
-                                    iconCls: 'fas fa-clipboard-list'
-                                    , tooltip: '详情'
-                                    , handler: 'onEditStageNodeClick'
-                                    , padding: '0 10 0 0'
-                                }]
+                                iconCls: 'fas fa-clipboard-list'
+                                , tooltip: '详情'
+                                , handler: 'onEditStageNodeClick'
+                                , padding: '0 10 0 0'
+                            }]
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -165,6 +170,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             ,success: function(record, operation) {
                 pipelineStagePanel.unmask()
                 me.flushExecStatus(record);
+                me.getViewModel().set('current_instance', record);
             }
         })
     }
@@ -231,7 +237,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             }
         }
 
-        var basicStatusbar = this.lookupReference('basic-statusbar');
+        var basicStatusBar = this.lookupReference('basic-statusbar');
 
 
         // pipelineStagePanel.mask('开始执行');
@@ -277,7 +283,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                                     if(node.status == 'PREPARED'){statusText = '准备执行';}
                                     if(node.status == 'RUNNING'){statusText = '运行中';}
 
-                                    basicStatusbar.setStatus({
+                                    basicStatusBar.setStatus({
                                         text: node.name + statusText
                                         //, iconCls: 'x-status-error'
                                         , clear: true // auto-clear after a set interval
@@ -285,9 +291,9 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                                 }
                                 tasks[node.stageNode].set('status', node.status);
                                 tasks[node.stageNode].set('result', node.result);
+                                tasks[node.stageNode].set('execNodeId', node.id);
                                 tasks[node.stageNode].commit();
                             }
-
                         }
                     }
                 })
@@ -295,6 +301,20 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
             ,interval: 1000
         });
         task.start();
+    }
+    ,onViewStageNodeLogClick:function (view, rowIndex, colIndex, item, e, record) {
+	    var execNodeId = record.get('execNodeId')
+        console.log('execNodeId:' + record.get('execNodeId'))
+
+        var aa = AM.model.speedcloud.pipeline.exec.PipelineExecNodeLog.load(execNodeId, {
+            success: function (record, operation) {
+                console.log(record)
+
+                var logPanel = Ext.create('AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow', {viewModel:{data:{record:record}}, frame:true});
+                // logPanel.setModel(record);
+                logPanel.show();
+            }
+        });
 
     }
 })

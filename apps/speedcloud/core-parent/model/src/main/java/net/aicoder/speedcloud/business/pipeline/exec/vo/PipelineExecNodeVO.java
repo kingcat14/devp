@@ -62,10 +62,26 @@ public class PipelineExecNodeVO {
     @ApiModelProperty(value = "结果消息")
     private String resultMessage;
 
+    /**结果相关的对象*/
+    @ApiModelProperty(value = "结果相关的对象")
+    private String resultRelationObj;
+
 
     /**开始时间*/
     @ApiModelProperty(value = "开始时间")
     private Date startTime;
+
+    /**调度时间*/
+    @ApiModelProperty(value = "调度时间")
+    private Date scheduleTime;
+
+    /**结束时间*/
+    @ApiModelProperty(value = "结束时间")
+    private Date endTime;
+
+    /**耗时(毫秒)*/
+    @ApiModelProperty(value = "耗时")
+    private Long millisecondsCost;
 
 
     /**上级节点*/
@@ -151,11 +167,39 @@ public class PipelineExecNodeVO {
         this.resultMessage = resultMessage;
     }
 
+    public String getResultRelationObj() {
+        return resultRelationObj;
+    }
+    public void setResultRelationObj(String resultRelationObj) {
+        this.resultRelationObj = resultRelationObj;
+    }
+
+    public Date getScheduleTime() {
+        return scheduleTime;
+    }
+    public void setScheduleTime(Date scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+
     public Date getStartTime(){
         return startTime;
     }
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Long getMillisecondsCost() {
+        return millisecondsCost;
+    }
+    public void setMillisecondsCost(Long millisecondsCost) {
+        this.millisecondsCost = millisecondsCost;
     }
 
     public String getParentId(){

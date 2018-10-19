@@ -41,6 +41,7 @@ Ext.define('AM.ux.form.field.CodeMirror', {
 
     mode:'gfm',
     theme:'eclipse',
+    readOnly:false,
     fieldSubTpl: [
         '<textarea id="{id}" data-ref="inputEl" {inputAttrTpl}',
         '<tpl if="name"> name="{name}"</tpl>',
@@ -127,6 +128,7 @@ Ext.define('AM.ux.form.field.CodeMirror', {
                 ,lineNumbers: true
                 ,theme:me.theme
                 ,matchBrackets: true
+                ,readOnly:me.readOnly
                 ,continueComments: "Enter"
             }
         );

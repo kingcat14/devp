@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,7 +87,9 @@ public class JobRunner {
             }
         }
 
+        node.setStartTime(new Date());
         ExecResult result = yunkangClient.exec(node.getRelationObjId()+"", execParamList);
+        node.setEndTime(new Date());
         node.setResult(result.getFlag());
         node.setResultMessage(result.getErrorMsg());
         node.setResultRelationObj(result.getData().getCurrentBuildNumber());

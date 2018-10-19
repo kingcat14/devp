@@ -147,7 +147,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditController', {
 
 
     }
-	,createRelation:function (view, rowIndex, colIndex, item, e, record, row) {
+	,createRelation:function (view, rowIndex, colIndex, item, e, record) {
         console.log('createRelation')
 		var me = this;
 

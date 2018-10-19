@@ -4,6 +4,8 @@ import com.yunkang.saas.common.jpa.BaseEntity;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import net.aicoder.speedcloud.business.pipeline.exec.vo.PipelineExecNodeVO;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.DynamicInsert;
@@ -91,18 +93,7 @@ public class PipelineExecNode extends BaseEntity<Long>{
 	@Size(max = 255, message = "运行状态超长，最多255个字符")
 	private String status;
 
-    /**
-    * 运行结果
-    * 成功、失败
-    */
-    @Column(name = "result", nullable = true, updatable = true)
-	@Size(max = 255, message = "运行结果超长，最多255个字符")
-	private String result;
 
-	/**与结果相关的对象，针对Jenkins, 是job执行的编号*/
-	@Column(name = "result", nullable = true, updatable = true)
-	@Size(max = 255, message = "超长，最多255个字符")
-	private String resultRelationObj;
 
     /**
     * 所属实例
@@ -111,20 +102,21 @@ public class PipelineExecNode extends BaseEntity<Long>{
     @Column(name = "exec", nullable = false, updatable = true)
 	private Long exec;
 
-    /**
-    * 结果消息
-    * 
-    */
-    @Column(name = "result_message", nullable = true, updatable = true)
-	@Size(max = 255, message = "结果消息超长，最多255个字符")
-	private String resultMessage;
+	/**调度时间*/
+	@Column(name = "schedule_time", nullable = true, updatable = true)
+	private Date scheduleTime;
 
-    /**
-    * 开始时间
-    * 
-    */
+    /**开始时间*/
     @Column(name = "start_time", nullable = true, updatable = true)
 	private Date startTime;
+
+	/**结束时间*/
+	@Column(name = "end_time", nullable = true, updatable = true)
+	private Date endTime;
+
+	/**耗时*/
+	@Column(name = "milliseconds_cost", nullable = true, updatable = true)
+	private Long millisecondsCost;
 
     /**
     * 上级节点
@@ -152,6 +144,26 @@ public class PipelineExecNode extends BaseEntity<Long>{
     @Column(name = "exec_index", nullable = false, updatable = true)
 	private Integer execIndex;
 
+	/**
+	 * 运行结果
+	 * 成功、失败
+	 */
+	@Column(name = "result", nullable = true, updatable = true)
+	@Size(max = 255, message = "运行结果超长，最多255个字符")
+	private String result;
+
+	/**与结果相关的对象，针对Jenkins, 是job执行的编号*/
+	@Column(name = "result_relation_obj", nullable = true, updatable = true)
+	@Size(max = 255, message = "超长，最多255个字符")
+	private String resultRelationObj;
+
+	/**
+	 * 结果消息
+	 *
+	 */
+	@Column(name = "result_message", nullable = true, updatable = true)
+	@Size(max = 255, message = "结果消息超长，最多255个字符")
+	private String resultMessage;
 
 	public Long getTid(){
 		return tid;
@@ -216,12 +228,34 @@ public class PipelineExecNode extends BaseEntity<Long>{
 		this.resultMessage = resultMessage;
 	}
 
+	public Date getScheduleTime() {
+		return scheduleTime;
+	}
+	public void setScheduleTime(Date scheduleTime) {
+		this.scheduleTime = scheduleTime;
+	}
+
 	public Date getStartTime(){
 		return startTime;
 	}
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Long getMillisecondsCost() {
+		return millisecondsCost;
+	}
+	public void setMillisecondsCost(Long millisecondsCost) {
+		this.millisecondsCost = millisecondsCost;
+	}
+
 
 	public Long getParentId(){
 		return parentId;

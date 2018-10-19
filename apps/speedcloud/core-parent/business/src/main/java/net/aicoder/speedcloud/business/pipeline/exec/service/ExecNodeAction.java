@@ -6,6 +6,7 @@ import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecInstanceSta
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.executor.NodeExecutorCenter;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,14 @@ public class ExecNodeAction {
 
 		//保存node
 		node.setStatus("FINISH");
+		node.setEndTime(new Date());
+		try {
+			node.setMillisecondsCost(node.getEndTime().getTime() - node.getStartTime().getTime());
+
+		}catch (Exception e){
+			LOGGER.error("CAN NOT calculate time cost", e);
+			LOGGER.error(node.toString());
+		}
 
 		//TODO 这个全局锁，回头要换成使用redis或其他的跨进程的全局锁;根据所操作的节点父节点ID加锁
 		GlobalLock.lock(node.getParentId()) ;

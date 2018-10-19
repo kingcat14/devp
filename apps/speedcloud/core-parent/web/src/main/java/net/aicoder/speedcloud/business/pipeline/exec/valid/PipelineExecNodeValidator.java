@@ -1,15 +1,13 @@
 package net.aicoder.speedcloud.business.pipeline.exec.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeAddDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeEditDto;
-import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeAddDto;
+import net.aicoder.speedcloud.business.pipeline.exec.dto.PipelineExecNodeCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Service
 public class PipelineExecNodeValidator implements Validator {

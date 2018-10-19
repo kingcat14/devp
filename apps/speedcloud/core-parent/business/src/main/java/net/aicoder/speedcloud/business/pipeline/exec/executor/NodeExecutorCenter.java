@@ -26,7 +26,7 @@ public class NodeExecutorCenter {
         NodeExecutor nodeBuilder = executorMap.get(node.getNodeType());
 
         if(nodeBuilder != null){
-            node.setStartTime(new Date());
+            node.setScheduleTime(new Date());
             nodeBuilder.execute(node);
         }else{
             LOGGER.error("try start unknown node type: {}", node.getNodeType());

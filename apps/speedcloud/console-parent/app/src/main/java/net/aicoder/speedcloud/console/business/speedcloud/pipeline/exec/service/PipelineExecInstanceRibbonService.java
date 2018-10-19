@@ -41,7 +41,7 @@ public class PipelineExecInstanceRibbonService  {
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.custom(addDto);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 		return result.getData();
 
@@ -56,7 +56,7 @@ public class PipelineExecInstanceRibbonService  {
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.task(addDto);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 		return result.getData();
 
@@ -71,7 +71,7 @@ public class PipelineExecInstanceRibbonService  {
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.pipeline(addDto);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 		return result.getData();
 
@@ -82,7 +82,7 @@ public class PipelineExecInstanceRibbonService  {
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.add(addDto);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 		return result.getData();
 	
@@ -96,30 +96,30 @@ public class PipelineExecInstanceRibbonService  {
 		LOGGER.debug("delete t:{}", id);
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.delete(id);
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 	}
 	public PipelineExecInstanceVO merge(Long id, PipelineExecInstanceEditDto editDto){
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.update(id, editDto);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 
 		return result.getData();
 	}
 	public PipelineExecInstanceVO find(Long id){
 
-		//得到instacne
+		//得到instance
 		PipelineExecInstanceResult result = pipelineExecInstanceRibbon.get(id);
 
 		if(!result.isSuccess()){
-			throw new BusinessException("SPEEDCLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
+			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 
 		PipelineExecInstanceVO instanceVO = result.getData();
 
-		//得到instacne包含的node
+		//得到instance包含的node
 		PipelineExecNodeCondition condition = new PipelineExecNodeCondition();
 		condition.setExec(id);
 		PageSearchRequest<PipelineExecNodeCondition> pageSearchRequest = new PageSearchRequest<>();

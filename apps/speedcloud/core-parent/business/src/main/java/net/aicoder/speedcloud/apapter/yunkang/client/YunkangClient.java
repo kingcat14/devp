@@ -1,5 +1,6 @@
 package net.aicoder.speedcloud.apapter.yunkang.client;
 
+import com.devin.ciserver.model.job.response.ResultBuildInfo;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.CreateJobAction;
 import net.aicoder.speedcloud.apapter.yunkang.client.dto.ExecParam;
 import org.apache.commons.collections4.CollectionUtils;
@@ -34,6 +35,12 @@ public class YunkangClient {
     public Result update(CreateJobAction createJobAction){
         String url = "http://"+yunkangHost+"/api/job-admin/v1/job";
         return restTemplate.patchForObject(url, createJobAction, Result.class);
+    }
+
+    public ResultBuildInfo buildInfo(String jobId, String number){
+
+        String url = "http://"+yunkangHost+"/api/job-admin/v1/job/build/"+jobId+"/detail/"+number;
+        return restTemplate.getForObject(url, ResultBuildInfo.class);
     }
 
     public ExecResult exec(String jobId, List<ExecParam> execParamList){

@@ -259,7 +259,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                     ]
                 }
             ]
-
             ,listeners:{
                 added:function(panel, container){
                     console.log("panel.id:"+panel.getId())
@@ -269,7 +268,6 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                     me.getController().initPipelinePanel()
                 }
             }
-
         });
         me.add({xtype:'speedcloud.pipeline.PipelineEditStageWindow',reference:'stageWindow'})
         me.add({xtype:'speedcloud.pipeline.PipelineEditStageNodeWindow',reference:'stageNodeWindow'})

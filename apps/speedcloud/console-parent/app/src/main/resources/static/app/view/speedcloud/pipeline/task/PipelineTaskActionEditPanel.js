@@ -17,6 +17,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {
     ,maximizable: true
     ,closeAction: 'hide'
     ,referenceHolder:true
+    ,viewModel:true
     ,initComponent: function () {
         var me = this;
 
@@ -54,7 +55,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {
                                     ,name: 'name'
                                     ,fieldLabel: '操作名称'
                                     ,bind:'{record.name}'
-                                    // ,listeners:{change:{fn:me.updateRecord, scope: me}}
+                                    //,listeners:{change:{fn:me.updateRecord, scope: me}}
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -93,17 +94,16 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {
                     ]
                 }
             ]
-
         });
 
         me.callParent(arguments);
     }
     ,updateContent: function(){
-        console.log('form updateContent')
+
         var contentField =  this.lookup('contentField')
-        console.log(contentField.getValue());
+
         this.viewModel.data.record.set("content", contentField.getValue())
-        console.log(this.viewModel.data.record)
+
     }
 
 });

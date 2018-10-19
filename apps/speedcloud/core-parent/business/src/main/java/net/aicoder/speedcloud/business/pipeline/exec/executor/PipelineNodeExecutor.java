@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 
 /**
  * 流水线节点的执行逻辑
@@ -24,6 +25,7 @@ public class PipelineNodeExecutor implements NodeExecutor {
 
     @Override
     public void execute(PipelineExecNode node){
+        node.setStartTime(new Date());
         node.setStatus(PipelineExecNodeStatus.RUNNING);
         execNodeService.merge(node);
 

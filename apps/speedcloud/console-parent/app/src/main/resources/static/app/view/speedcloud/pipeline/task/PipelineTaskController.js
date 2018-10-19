@@ -99,7 +99,6 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         }
         var record = selections[0];
 
-
         this.fireViewEvent('createMainTabPanel', this.getView()
             ,{
                 xtype: 'speedcloud.pipeline.task.PipelineTaskDetailPanel'
@@ -108,6 +107,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
                     data: {record: record}
                     ,stores:{
                         execInstanceStore:Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecInstanceStore').applyCondition({executeTargetId:record.getId()}).load()
+                        ,execNodeStore : Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecNodeStore').applyCondition({relationObjId:record.getId()}).load()
                     }
                 }
             }

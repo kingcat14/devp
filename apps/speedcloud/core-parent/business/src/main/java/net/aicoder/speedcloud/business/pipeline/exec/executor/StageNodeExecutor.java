@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +42,7 @@ public class StageNodeExecutor implements NodeExecutor {
      * @param node
      */
     public void run(PipelineExecNode node){
+        node.setStartTime(new Date());
         node.setStatus(PipelineExecNodeStatus.RUNNING);
         execNodeService.merge(node);
 
