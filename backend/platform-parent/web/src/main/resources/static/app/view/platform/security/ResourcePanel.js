@@ -58,6 +58,16 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 										var parentCode = parentResource?parentResource.get('code'):-1;
                                         var appCode = parentResource?parentResource.get('appCode'):-1;
 
+                                        var code = null;
+                                        for(var i = 1; i < 999;i++){
+                                        	code = Ext.Number.from(parentCode, 0) * 1000 + i
+
+                                            var record = grid.getStore().findRecord('code', code);
+                                        	if(!record){
+                                        		break;
+											}
+										}
+
 										// Create a model instance
 										var r = Ext.create('AM.model.platform.security.Resource', {
 											name: '<resource_name>'
@@ -65,6 +75,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
                                             ,appCode: appCode
 											,orderIndex: 1
 											,type:'function'
+											,code:code
 											// ,hidden:false
 
 										});
