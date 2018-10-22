@@ -57,7 +57,7 @@ Ext.define('AM.view.application.security.ResourcePanel', {
 
 										// Create a model instance
 										var r = Ext.create('AM.model.application.security.Resource', {
-											name: '<resource_name>',
+											name: '<resource_name>111',
 											parentId:parentId,
 											orderIndex:1,
 											type:'function'

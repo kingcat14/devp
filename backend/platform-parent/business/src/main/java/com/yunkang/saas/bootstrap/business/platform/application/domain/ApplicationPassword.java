@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "platform_application_password", comment = "[应用密码]")
 //@DynamicUpdate
 //@DynamicInsert
-public class ApplicationPassword extends SaaSEntity{
+public class ApplicationPassword extends SaaSEntity<Long>{
 
 	public static final String PROPERTY_APP_ID = "appId";
 	public static final String PROPERTY_ACCESS_ID = "accessId";

@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "platform_config_app_category", comment = "[应用类别]")
 //@DynamicUpdate
 //@DynamicInsert
-public class ConfigAppCategory extends SaaSEntity{
+public class ConfigAppCategory extends SaaSEntity<Long>{
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";

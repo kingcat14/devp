@@ -21,7 +21,7 @@ import java.util.Date;
 @Table(appliesTo = "platform_app", comment = "[应用]")
 //@DynamicUpdate
 //@DynamicInsert
-public class App extends SaaSEntity{
+public class App extends SaaSEntity<Long>{
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";

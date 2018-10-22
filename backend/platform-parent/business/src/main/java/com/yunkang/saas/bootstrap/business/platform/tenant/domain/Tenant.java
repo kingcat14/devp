@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "platform_tenant", comment = "[租户]")
 //@DynamicUpdate
 //@DynamicInsert
-public class Tenant extends SaaSEntity{
+public class Tenant extends SaaSEntity<Long>{
 
 	public static final String PROPERTY_TENANT_CODE = "tenantCode";
 	public static final String PROPERTY_TENANT_TYPE = "tenantType";

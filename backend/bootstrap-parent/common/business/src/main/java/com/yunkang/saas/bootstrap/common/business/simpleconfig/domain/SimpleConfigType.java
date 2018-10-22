@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "simple_config_type", comment = "[通用配置类型]")
 //@DynamicUpdate
 //@DynamicInsert
-public class SimpleConfigType extends SaaSEntity{
+public class SimpleConfigType extends SaaSEntity<Long>{
 
 	public static final String PROPERTY_TYPE_NAME = "typeName";
 	public static final String PROPERTY_TYPE_CODE = "typeCode";
