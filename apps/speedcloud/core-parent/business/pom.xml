@@ -26,5 +26,9 @@
             <groupId>net.aicoder.speedcloud</groupId>
             <artifactId>speedcloud-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.aicoder.speedcloud</groupId>
+            <artifactId>speedcloud-adapter-jenkins</artifactId>
+        </dependency>
     </dependencies>
 </project>

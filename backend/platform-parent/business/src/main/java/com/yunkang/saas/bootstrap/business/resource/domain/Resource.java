@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "platform_resource")
 @Table(appliesTo = "platform_resource", comment = "[资源]")
-public class Resource extends BaseEntity{
+public class Resource extends BaseEntity<Long>{
 
 	public static final Long TOP_NODE_ID = -1L;
 

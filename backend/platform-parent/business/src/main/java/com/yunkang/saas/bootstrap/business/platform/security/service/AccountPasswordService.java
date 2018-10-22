@@ -1,11 +1,11 @@
 package com.yunkang.saas.bootstrap.business.platform.security.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
 import com.yunkang.saas.bootstrap.business.platform.security.dao.AccountPasswordDao;
 import com.yunkang.saas.bootstrap.business.platform.security.dao.AccountPasswordSpecification;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountPassword;
 import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountPasswordCondition;
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("accountPasswordService")
-public class AccountPasswordService  extends CrudService<AccountPassword, AccountPasswordCondition, AccountPasswordDao> {
+public class AccountPasswordService  extends GenericCrudService<AccountPassword, Long, AccountPasswordCondition, AccountPasswordDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AccountPassword.class);
 

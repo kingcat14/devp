@@ -1,5 +1,7 @@
 package com.yunkang.saas.bootstrap.business.platform.security.domain;
 
+
+
 import com.yunkang.saas.common.jpa.SaaSEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -20,7 +22,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "platform_account", comment = "[账号]")
 //@DynamicUpdate
 //@DynamicInsert
-public class Account extends SaaSEntity{
+public class Account extends SaaSEntity<Long> {
 
 	public static final String PROPERTY_NICK_NAME = "nickName";
 	public static final String PROPERTY_NAME = "name";

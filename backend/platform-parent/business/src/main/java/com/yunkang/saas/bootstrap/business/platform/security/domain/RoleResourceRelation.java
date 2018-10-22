@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity(name = "platform_role_resource_relation")
 @Table(appliesTo = "platform_role_resource_relation", comment = "[账号密码]")
-public class RoleResourceRelation extends SaaSEntity {
+public class RoleResourceRelation extends SaaSEntity<Long> {
 
 	public static final String PROPERTY_ROLE_ID = "roleId";
 	public static final String PROPERTY_RESOURCE_ID = "resourceId";

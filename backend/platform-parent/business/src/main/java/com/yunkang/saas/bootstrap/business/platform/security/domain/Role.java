@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "platform_role")
 @Table(appliesTo = "platform_role", comment = "[账号密码]")
-public class Role extends SaaSEntity {
+public class Role extends SaaSEntity<Long> {
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_DESCRIPTION = "description";

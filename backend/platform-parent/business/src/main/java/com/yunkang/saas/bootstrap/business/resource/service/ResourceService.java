@@ -1,12 +1,12 @@
 package com.yunkang.saas.bootstrap.business.resource.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
-import com.yunkang.saas.common.util.IdSnowflake;
 import com.yunkang.saas.bootstrap.business.resource.dao.ResourceDao;
 import com.yunkang.saas.bootstrap.business.resource.dao.ResourceSpecification;
 import com.yunkang.saas.bootstrap.business.resource.domain.Resource;
 import com.yunkang.saas.bootstrap.business.resource.dto.ResourceCondition;
+import com.yunkang.saas.common.jpa.GenericCrudService;
+import com.yunkang.saas.common.util.IdSnowflake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("resourceService")
-public class ResourceService  extends CrudService<Resource, ResourceCondition, ResourceDao> {
+public class ResourceService  extends GenericCrudService<Resource, Long, ResourceCondition, ResourceDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Resource.class);
 

@@ -1,11 +1,12 @@
 package com.yunkang.saas.bootstrap.business.platform.security.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
+
 import com.yunkang.saas.bootstrap.business.platform.security.dao.AccountRoleRelationDao;
 import com.yunkang.saas.bootstrap.business.platform.security.dao.AccountRoleRelationSpecification;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountRoleRelation;
 import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountRoleRelationCondition;
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("accountRoleRelationService")
-public class AccountRoleRelationService  extends CrudService<AccountRoleRelation, AccountRoleRelationCondition, AccountRoleRelationDao> {
+public class AccountRoleRelationService  extends GenericCrudService<AccountRoleRelation, Long, AccountRoleRelationCondition, AccountRoleRelationDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AccountRoleRelation.class);
 

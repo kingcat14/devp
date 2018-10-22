@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Order(value=1)
-public class ApplicationConfigCheckeService implements CommandLineRunner {
+public class ApplicationConfigCheckService implements CommandLineRunner {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfigCheckeService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfigCheckService.class);
 
 	@Value("${application.code:-1}")
 	private Long appCode;

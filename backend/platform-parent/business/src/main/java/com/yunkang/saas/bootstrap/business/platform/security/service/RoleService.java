@@ -1,11 +1,11 @@
 package com.yunkang.saas.bootstrap.business.platform.security.service;
 
 
-import com.yunkang.saas.common.jpa.CrudService;
 import com.yunkang.saas.bootstrap.business.platform.security.dao.RoleDao;
 import com.yunkang.saas.bootstrap.business.platform.security.dao.RoleSpecification;
 import com.yunkang.saas.bootstrap.business.platform.security.domain.Role;
 import com.yunkang.saas.bootstrap.business.platform.security.dto.RoleCondition;
+import com.yunkang.saas.common.jpa.GenericCrudService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("roleService")
-public class RoleService  extends CrudService<Role, RoleCondition, RoleDao> {
+public class RoleService  extends GenericCrudService<Role, Long, RoleCondition, RoleDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Role.class);
 

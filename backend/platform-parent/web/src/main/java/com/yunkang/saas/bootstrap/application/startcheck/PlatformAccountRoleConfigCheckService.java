@@ -21,9 +21,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(value=1)
-public class PlatformAccountRoleConfigCheckeService implements CommandLineRunner {
+public class PlatformAccountRoleConfigCheckService implements CommandLineRunner {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PlatformAccountRoleConfigCheckeService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PlatformAccountRoleConfigCheckService.class);
 
 	@Autowired
     private AccountService accountService;

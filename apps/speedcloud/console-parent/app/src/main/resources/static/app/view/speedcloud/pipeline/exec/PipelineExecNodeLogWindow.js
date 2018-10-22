@@ -33,8 +33,8 @@ Ext.define('AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow', {
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
-                    },
-                    items: [
+                    }
+                    ,items: [
                         {
                             xtype: 'codemirrorfield'
                             // xtype: 'textarea',

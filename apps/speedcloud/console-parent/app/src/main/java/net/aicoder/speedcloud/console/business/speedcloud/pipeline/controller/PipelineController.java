@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.pipeline.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
@@ -14,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.business.pipeline.dto.*;
 import net.aicoder.speedcloud.business.pipeline.vo.PipelineVO;
+
+
 import net.aicoder.speedcloud.console.business.speedcloud.pipeline.service.PipelineRibbonService;
 import net.aicoder.speedcloud.console.business.speedcloud.pipeline.valid.PipelineValidator;
 import org.apache.commons.collections4.CollectionUtils;
@@ -24,6 +27,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import redis.clients.jedis.Pipeline;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -99,14 +103,9 @@ public class PipelineController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询流水线列表", httpMethod = "POST")
 	@PostMapping("/list")
+	@SaaSAnnotation(conditionClass = PipelineCondition.class)
 	public PageContent<PipelineVO> list(@RequestBody PageSearchRequest<PipelineCondition> pageSearchRequest){
 
-		PipelineCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new PipelineCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<PipelineVO> pageContent = pipelineRibbonService.list(pageSearchRequest);
 		for(PipelineVO vo : pageContent.getContent()){
 			initViewProperty(vo);
@@ -159,7 +158,6 @@ public class PipelineController {
 
 	private PipelineVO initViewProperty( PipelineVO vo){
 
-	   
 
 		SimpleConfig typeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("PIPELINE-TYPE", vo.getType());
 

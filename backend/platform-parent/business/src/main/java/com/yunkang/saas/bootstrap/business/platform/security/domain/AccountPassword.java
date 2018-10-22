@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  */
 @Entity(name = "platform_account_password")
 @Table(appliesTo = "platform_account_password", comment = "[账号密码]")
-public class AccountPassword extends SaaSEntity {
+public class AccountPassword extends SaaSEntity<Long> {
 
 	public static final String PROPERTY_ACCOUNT_ID = "accountId";
 	public static final String PROPERTY_ACCOUNT_NAME = "accountName";

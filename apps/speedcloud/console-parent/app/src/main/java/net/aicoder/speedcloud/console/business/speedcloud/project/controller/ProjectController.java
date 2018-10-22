@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.project.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -13,6 +14,7 @@ import net.aicoder.speedcloud.business.project.dto.ProjectCondition;
 import net.aicoder.speedcloud.business.project.dto.ProjectAddDto;
 import net.aicoder.speedcloud.business.project.dto.ProjectEditDto;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
+
 import net.aicoder.speedcloud.console.business.speedcloud.project.service.ProjectRibbonService;
 import net.aicoder.speedcloud.console.business.speedcloud.project.valid.ProjectValidator;
 
@@ -65,9 +67,9 @@ public class ProjectController {
 	@ApiOperation(value = "新增", notes = "新增项目", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ProjectVO add(@RequestBody ProjectAddDto projectAddDto){
-    	projectAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  projectRibbonService.add(projectAddDto);
+    	return  projectRibbonService.add(projectAddDto);
 	}
 
 	/**
@@ -84,7 +86,6 @@ public class ProjectController {
 		for (String id : ids ){
 			projectRibbonService.delete(Long.parseLong(id));
 		}
-
 	}
 
 	/**

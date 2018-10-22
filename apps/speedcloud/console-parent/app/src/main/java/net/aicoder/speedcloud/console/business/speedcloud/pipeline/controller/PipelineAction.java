@@ -1,5 +1,6 @@
 package net.aicoder.speedcloud.console.business.speedcloud.pipeline.controller;
 
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
 import com.yunkang.saas.common.framework.spring.DateConverter;
@@ -58,6 +59,7 @@ public class PipelineAction {
 	@ApiOperation(value = "新增", notes = "新增流水线", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public PipelineVO add(@RequestBody PipelineAddDto pipelineAddDto){
 
 		long tid = saaSUtil.getAccount().getTenantId();
