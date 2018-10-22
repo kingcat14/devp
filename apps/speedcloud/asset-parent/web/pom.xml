@@ -3,38 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>console-parent</artifactId>
-        <groupId>net.aicoder.speedcloud.console</groupId>
+        <artifactId>asset-parent</artifactId>
+        <groupId>net.aicoder.speedcloud.asset</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>console-app</artifactId>
+    <artifactId>asset-web</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.yunkang.saas.common</groupId>
-            <artifactId>common-ui-extjs</artifactId>
-            <version>6.2.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.yunkang.saas.bootstrap</groupId>
-            <artifactId>security-local</artifactId>
+            <artifactId>common-business</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.yunkang.saas.platform</groupId>
-            <artifactId>platform-web</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.yunkang.saas.bootstrap</groupId>
-            <artifactId>application</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
+            <groupId>net.aicoder.speedcloud.asset</groupId>
+            <artifactId>asset-business</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -52,34 +37,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud</groupId>
-            <artifactId>speedcloud-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud.asset</groupId>
-            <artifactId>asset-client</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud.console</groupId>
-            <artifactId>console-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud.console</groupId>
-            <artifactId>console-web</artifactId>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>net.aicoder.maintenance</groupId>-->
-            <!--<artifactId>maintenance-web</artifactId>-->
-            <!--<version>1.0.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
     </dependencies>
 
 
     <build>
-        <finalName>console-app</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +57,7 @@
         <profile>
             <id>spring-boot</id>
             <build>
-                <finalName>maintenance-web</finalName>
+                <finalName>asset-microservice</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -111,5 +73,6 @@
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 </project>
