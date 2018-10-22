@@ -3,11 +3,12 @@ package com.yunkang.saas.bootstrap.common.business.simpleconfig.domain;
 import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,7 +18,7 @@ import javax.validation.constraints.Size;
  * @author icode
  */
 @Entity
-@Table(appliesTo = "simple_config", comment = "[通用配置]")
+@Table(name = "common_simple_config")
 //@DynamicUpdate
 //@DynamicInsert
 public class SimpleConfig extends GenericBaseEntity<Long>{

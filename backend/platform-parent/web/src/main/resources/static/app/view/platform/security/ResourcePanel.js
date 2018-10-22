@@ -18,7 +18,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 					xtype: 'treepanel'
 					,region: 'west'
 					,split: true
-					,width: 150
+					,width: 250
 					,title: '资源树'
                     ,rootVisible: false
                     ,store: Ext.create('AM.store.platform.security.AllResourceTreeStore')
@@ -59,11 +59,13 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
                                         var appCode = parentResource?parentResource.get('appCode'):-1;
 
                                         var code = null;
+                                        var orderIndex = 1;
                                         for(var i = 1; i < 999;i++){
                                         	code = Ext.Number.from(parentCode, 0) * 1000 + i
 
                                             var record = grid.getStore().findRecord('code', code);
                                         	if(!record){
+                                                orderIndex = i;
                                         		break;
 											}
 										}
@@ -76,6 +78,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 											,orderIndex: 1
 											,type:'function'
 											,code:code
+											,orderIndex:orderIndex
 											// ,hidden:false
 
 										});
@@ -125,6 +128,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 							xtype: 'gridcolumn'
 							,dataIndex: 'code'
 							,text: 'CODE'
+							,width:150
 							,editor: {
 								xtype: 'numberfield'
 							}
@@ -133,6 +137,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 							xtype: 'gridcolumn'
 							,dataIndex: 'name'
 							,text: '资源名'
+                            ,width:150
 							,editor: {
 								xtype: 'textfield'
 							}
@@ -287,6 +292,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 
 	setResourceStore: function(store) {
 		this.resourceStore = store;
+        store.getSorters().add('orderIndex')
 		this.down('grid').reconfigure(store);
 	}
 

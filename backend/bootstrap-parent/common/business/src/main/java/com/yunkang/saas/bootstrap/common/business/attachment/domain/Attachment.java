@@ -3,11 +3,12 @@ package com.yunkang.saas.bootstrap.common.business.attachment.domain;
 import com.yunkang.saas.common.framework.eo.GenericBaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import java.util.Date;
  * @author icode
  */
 @Entity
-@Table(appliesTo = "attachment", comment = "[Attachment]")
+@Table(name = "common_attachment")
 //@DynamicUpdate
 //@DynamicInsert
 public class Attachment extends GenericBaseEntity<Long>{
