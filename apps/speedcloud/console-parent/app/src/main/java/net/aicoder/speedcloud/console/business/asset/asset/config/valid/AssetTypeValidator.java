@@ -40,24 +40,22 @@ public class AssetTypeValidator implements Validator {
      * @param assetType 资产分类
      * @param errors
      */
-		public void validateAddDto(AssetTypeAddDto assetType, Errors errors) {
+	public void validateAddDto(AssetTypeAddDto assetType, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if(StringUtils.isEmpty(assetType.getAssetCategoryCode())){
+			errors.rejectValue("assetCategoryCode", "EMPTY_ASSET_CATEGORY_CODE", "所属大类不能为空");
+		}
+		
 
 		//验证长度
-		if(StringUtils.length(assetType.getNum()) > 255){
-			errors.rejectValue("num", null, "编号最长255个字符");
-		}
 		if(StringUtils.length(assetType.getName()) > 255){
 			errors.rejectValue("name", null, "名称最长255个字符");
 		}
 		if(StringUtils.length(assetType.getCode()) > 255){
 			errors.rejectValue("code", null, "代码最长255个字符");
-		}
-		if(StringUtils.length(assetType.getViewIndex()) > 255){
-			errors.rejectValue("viewIndex", null, "展现顺序最长255个字符");
 		}
 		if(StringUtils.length(assetType.getParentCode()) > 255){
 			errors.rejectValue("parentCode", null, "上级代码最长255个字符");
