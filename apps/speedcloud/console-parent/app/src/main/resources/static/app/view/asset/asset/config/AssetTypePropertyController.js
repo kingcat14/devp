@@ -86,7 +86,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
         console.log(condition)
         Ext.Ajax.request({
             disableCaching: true
-            ,url: "asset/config/assetTypeProperty/export"
+            ,url: "asset/asset/config/assettypeproperty/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
             ,params:condition

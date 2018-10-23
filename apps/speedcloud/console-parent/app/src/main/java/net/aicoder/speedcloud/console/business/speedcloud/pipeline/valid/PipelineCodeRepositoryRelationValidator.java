@@ -36,7 +36,7 @@ public class PipelineCodeRepositoryRelationValidator implements Validator {
      * @param pipelineCodeRepositoryRelation 流水线代码库关联
      * @param errors
      */
-		public void validateAddDto(PipelineCodeRepositoryRelationAddDto pipelineCodeRepositoryRelation, Errors errors) {
+	public void validateAddDto(PipelineCodeRepositoryRelationAddDto pipelineCodeRepositoryRelation, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

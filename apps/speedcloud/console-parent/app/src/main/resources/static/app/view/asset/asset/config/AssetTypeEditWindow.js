@@ -4,8 +4,8 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
     ,requires:[
     ],
     autoScroll: true,
-    height: '60%',
-    width: '60%',
+    height: '80%',
+    width: '80%',
     layout: {
         type: 'vbox'
     },
@@ -29,8 +29,8 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
-                    },
-                    items: [
+                    }
+                    ,items: [
                         {
                             xtype:'container'
                             ,anchor: '96% 70%'
@@ -60,7 +60,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
@@ -68,7 +68,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeField'
@@ -99,22 +99,12 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'parentCodeField'
                                     ,name: 'parentCode'
                                     ,fieldLabel: '上级代码'
-                                }
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'assetCategoryCodeField'
-                                    ,name: 'assetCategoryCode'
-                                    ,fieldLabel: '所属大类'
                                 }
                             ]
 
@@ -155,9 +145,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
                     ]
                 }
             ]
-            ,listeners: {
-                beforeshow: me.onBeforeShow
-            }
         });
 
         me.callParent(arguments);
@@ -200,16 +187,9 @@ Ext.define('AM.view.asset.asset.config.AssetTypeEditWindow', {
 
         this.down('form').getForm().loadRecord(model);
 
+    },
+    setStore: function (store) {
+        this.store = store;
     }
-    ,onBeforeShow:function() {
-       
-       
-       
-       
-       
-       
-       
-       
-        // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
-    }
+
 });

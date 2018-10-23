@@ -37,7 +37,7 @@ public class PipelineStageValidator implements Validator {
      * @param pipelineStage 阶段
      * @param errors
      */
-		public void validateAddDto(PipelineStageAddDto pipelineStage, Errors errors) {
+	public void validateAddDto(PipelineStageAddDto pipelineStage, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

@@ -33,8 +33,8 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 		resource998.setAppCode(appCode);
 		resource998.setCode(ResourceConstants.CODE_YYGL);
 	    resource998.setParentCode(Resource.TOP_NODE_ID);
-	    resource998.setName("应用管理");
-	    resource998.setType("menu");
+	    resource998.setName("系统管理");
+	    resource998.setType("module");
 		resource998.setHidden(false);
 	    resource998.setOrderIndex(998);
 	    checkResource(resource998);
@@ -45,7 +45,7 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 		resource998001.setCode(ResourceConstants.CODE_YYGL_AQPZ);
 	    resource998001.setParentCode(998L);
 	    resource998001.setName("安全配置");
-	    resource998001.setType("menu");
+	    resource998001.setType("module");
 		resource998001.setHidden(false);
 	    resource998001.setOrderIndex(1);
 	    checkResource(resource998001);
@@ -89,7 +89,7 @@ public class ApplicationResourceConfigCheckService implements CommandLineRunner 
 		resource998002.setCode(ResourceConstants.CODE_CSPZ);
 	    resource998002.setParentCode(998L);
 	    resource998002.setName("参数配置");
-	    resource998002.setType("menu");
+	    resource998002.setType("module");
 		resource998002.setHidden(false);
 	    resource998002.setOrderIndex(1);
 	    checkResource(resource998002);

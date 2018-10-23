@@ -1,7 +1,6 @@
 Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'asset.asset.config.AssetTypeSearchWindow'
-    ,alias: 'widget.assetasset.configAssetTypeSearchWindow'
     ,autoScroll: true
     ,height: '60%'
     ,width: '60%'
@@ -13,6 +12,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
+
         Ext.apply(me, {
             items: [
                 {
@@ -89,39 +89,39 @@ Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
                             ,fieldLabel: '说明'
                         }
 
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'assetCategoryCodeField'
-                            ,fieldLabel: '所属大类'
-                        }
-
                             ]
                 }
-            ]
-            ,dockedItems: [
+            ],
+            dockedItems: [
                 {
-                    xtype: 'toolbar'
-                    ,dock: 'bottom'
-                    ,ui: 'footer'
-                    ,items: [
+                    xtype: 'toolbar',
+                    dock: 'bottom',
+                    ui: 'footer',
+                    items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'page_white'
-                            ,text: '重置'
-                            ,listeners: {
-                                click: {fn: me.onRestButtonClick,scope: me}
+                            xtype: 'button',
+                            iconCls: 'page_white',
+                            text: '重置',
+                            listeners: {
+                                click: {
+                                    fn: me.onRestButtonClick,
+                                    scope: me
+                                }
                             }
                         }
                         ,{
-                            xtype: 'button'
-                            ,iconCls: 'search'
-                            ,text: '查询'
-                            ,listeners: {
-                                click: {fn: me.onSearchButtonClick,scope: me}
+                            xtype: 'button',
+                            iconCls: 'search',
+                            text: '查询',
+                            listeners: {
+                                click: {
+                                    fn: me.onSearchButtonClick,
+                                    scope: me
+                                }
                             }
                         }
                     ]
@@ -163,7 +163,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
         var viewIndexField = me.down("#viewIndexField");
         var parentCodeField = me.down("#parentCodeField");
         var descriptionField = me.down("#descriptionField");
-        var assetCategoryCodeField = me.down("#assetCategoryCodeField");
 
         var condition = {
             num:Ext.isEmpty(numField.getValue())?null:numField.getValue()
@@ -175,7 +174,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
             ,viewIndex:Ext.isEmpty(viewIndexField.getValue())?null:viewIndexField.getValue()
             ,parentCode:Ext.isEmpty(parentCodeField.getValue())?null:parentCodeField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
-            ,assetCategoryCode:Ext.isEmpty(assetCategoryCodeField.getValue())?null:assetCategoryCodeField.getValue()
         };
 
         return condition;

@@ -5,19 +5,63 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
 	]
 	,alias: 'controller.asset.asset.info.AssetCmdbController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
+    ,onAssetTypeTreeItemClick : function(view, record) {
+        var me = this;
 
 
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
+        var typeCode = record.get('code');
 
-		var id = record.get('id');
+        var assetCategoryCode = record.get('assetCategoryCode');
 
-	}
+        var panel = me.getView();
+
+
+        var addWindow = panel.lookup('mainAddWindow')
+        addWindow.down('#typeCodeField').setValue(typeCode);
+        addWindow.down('#categoryCodeField').setValue(assetCategoryCode);
+
+        var searchWindow = panel.lookup('mainSearchWindow')
+        searchWindow.down('#categoryCodeField').setValue(assetCategoryCode);
+        searchWindow.down('#typeCodeField').setValue(typeCode);
+        searchWindow.onSearchButtonClick();
+        console.log(searchWindow);
+
+        me.lookup('CENTER_REGION').getLayout().setActiveItem(panel)
+
+    }
+    ,loadTypeTree:function(){
+        var me = this;
+        var store = me.lookupReference ('assetTypeTree').getStore()
+        store.removeAll(true)
+        Ext.Ajax.request({
+            url: 'asset/asset/config/assettype/tree'
+            ,method: 'POST'
+            ,scope:this
+            // ,params:{parentCode:'ASSET_HOST'}
+            ,success:function(response){
+
+                // var list = Ext.decode(response.responseText);
+                // var root = {
+                //     children:list
+                // }
+                // store.setRoot(root);
+                // me.lookupReference ('assetTypeTree').expandAll();
+
+                var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.asset.asset.config.AssetTypeTreeNode').getProxy().getReader().read(response);
+                var nodeList = resultSet.getRecords()
+                var root = {
+                    children:nodeList
+                    ,expanded:true
+                }
+                store.setRoot(root);
+                // me.down('treepanel').expandAll();
+                //
+            }
+            // ,failure: this.onFailure
+            // ,mask:myMask
+        });
+    }
+
     ,onAddButtonClick: function() {
 
         var modelConfig = {}

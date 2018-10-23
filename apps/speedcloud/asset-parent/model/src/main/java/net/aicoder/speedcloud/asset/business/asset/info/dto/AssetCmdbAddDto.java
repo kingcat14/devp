@@ -38,12 +38,20 @@ public class AssetCmdbAddDto {
 	private String alias;
 
     /**资产大类*/
-	@ApiModelProperty(value = "资产大类", required = false)
+	@ApiModelProperty(value = "资产大类", required = true)
 	private Long category;
+
+    /**资产大类代码*/
+	@ApiModelProperty(value = "资产大类代码", required = false)
+	private String categoryCode;
 
     /**资产分类*/
 	@ApiModelProperty(value = "资产分类", required = false)
 	private Long type;
+
+    /**资产分类代码*/
+	@ApiModelProperty(value = "资产分类代码", required = false)
+	private String typeCode;
 
     /**计量单位*/
 	@ApiModelProperty(value = "计量单位", required = false)
@@ -135,12 +143,26 @@ public class AssetCmdbAddDto {
         this.category = category;
     }
 
+	public String getCategoryCode(){
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
 	public Long getType(){
         return type;
     }
     public void setType(Long type) {
         this.type = type;
     }
+
+	public String getTypeCode(){
+		return typeCode;
+	}
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
 
 	public String getUnit(){
 		return unit;

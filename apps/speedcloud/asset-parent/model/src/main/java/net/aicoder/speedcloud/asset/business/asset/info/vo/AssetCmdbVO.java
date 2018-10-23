@@ -53,10 +53,20 @@ public class AssetCmdbVO {
     private AssetCategoryVO categoryVO;
 
 
+    /**资产大类代码*/
+    @ApiModelProperty(value = "资产大类代码")
+    private String categoryCode;
+
+
     /**资产分类*/
     @ApiModelProperty(value = "资产分类")
     private Long type;
     private AssetTypeVO typeVO;
+
+
+    /**资产分类代码*/
+    @ApiModelProperty(value = "资产分类代码")
+    private String typeCode;
 
 
     /**计量单位*/
@@ -162,6 +172,13 @@ public class AssetCmdbVO {
         this.categoryVO = categoryVO;
     }
 
+    public String getCategoryCode(){
+        return categoryCode;
+    }
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
     public Long getType(){
         return type;
     }
@@ -173,6 +190,13 @@ public class AssetCmdbVO {
     }
     public void setTypeVO(AssetTypeVO typeVO) {
         this.typeVO = typeVO;
+    }
+
+    public String getTypeCode(){
+        return typeCode;
+    }
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
     }
 
     public String getUnit(){

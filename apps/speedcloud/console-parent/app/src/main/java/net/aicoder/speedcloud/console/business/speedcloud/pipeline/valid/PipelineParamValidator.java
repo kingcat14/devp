@@ -37,7 +37,7 @@ public class PipelineParamValidator implements Validator {
      * @param pipelineParam 流水线参数
      * @param errors
      */
-		public void validateAddDto(PipelineParamAddDto pipelineParam, Errors errors) {
+	public void validateAddDto(PipelineParamAddDto pipelineParam, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

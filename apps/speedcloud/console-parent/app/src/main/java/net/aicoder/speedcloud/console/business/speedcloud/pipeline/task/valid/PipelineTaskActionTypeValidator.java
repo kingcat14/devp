@@ -37,7 +37,7 @@ public class PipelineTaskActionTypeValidator implements Validator {
      * @param pipelineTaskActionType 操作类型
      * @param errors
      */
-		public void validateAddDto(PipelineTaskActionTypeAddDto pipelineTaskActionType, Errors errors) {
+	public void validateAddDto(PipelineTaskActionTypeAddDto pipelineTaskActionType, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

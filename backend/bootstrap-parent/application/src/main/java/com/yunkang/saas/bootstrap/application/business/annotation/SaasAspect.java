@@ -94,6 +94,9 @@ public class SaasAspect {
         if(clazz.equals(Object.class)){
             return;
         }
+        if(pageSearchRequest.getSearchCondition() != null){
+            return;
+        }
         try {
             Object o = clazz.newInstance();
             pageSearchRequest.setSearchCondition(o);

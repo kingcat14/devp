@@ -1,8 +1,8 @@
 Ext.define('AM.controller.asset.asset.config.AssetTypeController', {
     extend: 'Ext.app.Controller'
     ,init: function(application) {
-        this.initPanel(application);
-        //this.initMainPanel(application);
+        // this.initPanel(application);
+        this.initMainPanel(application);
     }
     ,initPanel: function(application) {
         var center = application.getController('application.framework.MainController').getMainContentPanel();
@@ -17,7 +17,7 @@ Ext.define('AM.controller.asset.asset.config.AssetTypeController', {
         center.setActiveTab(assetTypePanel);
     }
     ,initMainPanel: function(application) {
-         var center = application.getController('main.MainController').getMainContentPanel();
+         var center = application.getController('application.framework.MainController').getMainContentPanel();
 
          var assetTypePanel = center.child('asset\\.asset\\.config\\.AssetTypeMainPanel');
          if(!assetTypePanel){

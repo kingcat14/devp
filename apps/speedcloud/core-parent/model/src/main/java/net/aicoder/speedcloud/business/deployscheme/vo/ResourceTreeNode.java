@@ -2,8 +2,8 @@ package net.aicoder.speedcloud.business.deployscheme.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpyResourcesCategoryVO;
-import net.aicoder.speedcloud.business.deploy.vo.DevpSysDpyResourcesTypeVO;
+import net.aicoder.speedcloud.business.deployscheme.vo.ResourcesCategoryVO;
+import net.aicoder.speedcloud.business.deployscheme.vo.ResourcesTypeVO;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

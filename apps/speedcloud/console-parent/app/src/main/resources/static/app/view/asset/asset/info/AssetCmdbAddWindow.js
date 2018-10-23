@@ -103,13 +103,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'categoryField'
-                                    ,name: 'category'
+                                    ,itemId: 'categoryCodeField'
+                                    ,name: 'categoryCode'
                                     ,fieldLabel: '资产大类'
                                 }
 
@@ -120,13 +120,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'typeField'
-                                    ,name: 'type'
+                                    ,itemId: 'typeCodeField'
+                                    ,name: 'typeCode'
                                     ,fieldLabel: '资产分类'
                                 }
 
@@ -141,7 +141,6 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
                                     ,name: 'unit'
                                     ,fieldLabel: '计量单位'
                                 }
-
 
                                 ,{
                                     xtype: 'textfield'
@@ -312,7 +311,6 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
 
         var record = this.down('form').getForm().getRecord();
 
-
         //将form中得数据刷进record
         this.down('form').getForm().updateRecord(record);
         record.save({
@@ -335,8 +333,8 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
 
     }
     ,onBeforeShow:function() {
-        this.down('#categoryField').getStore().reload();
-        this.down('#typeField').getStore().reload();
+        this.down('#categoryCodeField').getStore().reload();
+        this.down('#typeCodeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

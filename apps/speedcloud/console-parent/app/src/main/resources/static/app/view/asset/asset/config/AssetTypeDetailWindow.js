@@ -73,12 +73,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypeDetailWindow', {
                             ,fieldLabel: '上级代码'
                         }
                         ,{
-                            itemId: 'assetCategoryCodeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'assetCategoryCode'
-                            ,fieldLabel: '所属大类'
-                        }
-                        ,{
                             anchor: '98% 70%'
                             ,itemId: 'descriptionField'
                             ,padding: '5 0 0 5'

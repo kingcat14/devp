@@ -35,13 +35,13 @@ public class DevpOpsAssetCmdbValidator implements Validator {
             this.validateDevpOpsAssetCmdbAddDto((DevpOpsAssetCmdbAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<DevpOpsAssetCmdbCondition> search){
-        if(search.getSearchCondition() == null){
-            search.setSearchCondition(new DevpOpsAssetCmdbCondition());
+    public void validateSearchDto(PageSearchRequest<DevpOpsAssetCmdbCondition> search, Errors errors){
+        if(search.getSearchCondition() == null || search.getSearchCondition().getTid() == null){
+			errors.rejectValue("NOT TENANT ID", "未正确设置租户ID");
         }
     }
 

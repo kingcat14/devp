@@ -2,12 +2,10 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'asset.asset.config.AssetTypeAddWindow'
     ,requires:[
-        'AM.store.common.SimpleConfigStore'
-
     ]
     ,autoScroll: true
-    ,height: '60%'
-    ,width: '60%'
+    ,height: '80%'
+    ,width: '80%'
     ,layout: {
         type: 'vbox'
     }
@@ -64,7 +62,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
@@ -75,8 +73,8 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '代码'
@@ -112,26 +110,14 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'parentCodeField'
                                     ,name: 'parentCode'
                                     ,fieldLabel: '上级代码'
                                 }
 
 
-
-
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'assetCategoryCodeField'
-                                    ,name: 'assetCategoryCode'
-                                    ,fieldLabel: '所属大类'
-                                }
 
                             ]
                         }
@@ -171,9 +157,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
                     ]
                 }
             ]
-            ,listeners: {
-                beforeshow: me.onBeforeShow
-            }
         });
 
         me.callParent(arguments);
@@ -197,9 +180,8 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
             success: function (newRecord) {
                 Ext.MsgUtil.show('操作成功', '保存资产分类成功!');
                 me.down('form').getForm().loadRecord(newRecord);
-                me.fireEvent('saved');
                 me.hide(this.targetComp);
-
+                me.fireEvent('saved');
             }
         });
     },
@@ -209,10 +191,13 @@ Ext.define('AM.view.asset.asset.config.AssetTypeAddWindow', {
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
+
+        this.setTitle("修改资产分类信息");
+        if(model.phantom){
+            this.setTitle("新增资产分类信息");
+        }
         this.down('form').getForm().loadRecord(model);
 
     }
-    ,onBeforeShow:function() {
-        // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
-    }
+
 });

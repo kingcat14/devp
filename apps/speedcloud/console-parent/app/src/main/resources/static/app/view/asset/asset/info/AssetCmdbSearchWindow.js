@@ -65,7 +65,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'categoryField'
+                            ,itemId: 'categoryCodeField'
                             ,fieldLabel: '资产大类'
                         }
 
@@ -76,7 +76,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'typeField'
+                            ,itemId: 'typeCodeField'
                             ,fieldLabel: '资产分类'
                         }
 
@@ -248,8 +248,8 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
         var nameField = me.down("#nameField");
         var codeField = me.down("#codeField");
         var aliasField = me.down("#aliasField");
-        var categoryField = me.down("#categoryField");
-        var typeField = me.down("#typeField");
+        var categoryCodeField = me.down("#categoryCodeField");
+        var typeCodeField = me.down("#typeCodeField");
         var unitField = me.down("#unitField");
         var descriptionField = me.down("#descriptionField");
         var statusField = me.down("#statusField");
@@ -273,8 +273,8 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
-            ,category:Ext.isEmpty(categoryField.getValue())?null:categoryField.getValue()
-            ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
+            ,categoryCode:Ext.isEmpty(categoryCodeField.getValue())?null:categoryCodeField.getValue()
+            ,typeCode:Ext.isEmpty(typeCodeField.getValue())?null:typeCodeField.getValue()
             ,unit:Ext.isEmpty(unitField.getValue())?null:unitField.getValue()
             ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()

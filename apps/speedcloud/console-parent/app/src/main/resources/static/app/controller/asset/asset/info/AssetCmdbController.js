@@ -1,5 +1,8 @@
 Ext.define('AM.controller.asset.asset.info.AssetCmdbController', {
     extend: 'Ext.app.Controller'
+    , requires: [
+        'AM.view.asset.asset.info.AssetCmdbPanel'
+    ]
     ,init: function(application) {
         this.initPanel(application);
         //this.initMainPanel(application);

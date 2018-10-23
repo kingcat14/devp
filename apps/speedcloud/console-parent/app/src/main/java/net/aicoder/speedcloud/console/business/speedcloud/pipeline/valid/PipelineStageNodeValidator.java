@@ -37,7 +37,7 @@ public class PipelineStageNodeValidator implements Validator {
      * @param pipelineStageNode 阶段执行节点
      * @param errors
      */
-		public void validateAddDto(PipelineStageNodeAddDto pipelineStageNode, Errors errors) {
+	public void validateAddDto(PipelineStageNodeAddDto pipelineStageNode, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

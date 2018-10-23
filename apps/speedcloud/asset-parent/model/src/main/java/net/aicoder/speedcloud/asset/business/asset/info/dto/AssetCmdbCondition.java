@@ -29,8 +29,12 @@ public class AssetCmdbCondition extends SaaSCondition{
 	private String alias;
     @ApiModelProperty(value = "资产大类")
     private Long category;
+	@ApiModelProperty(value = "资产大类代码")
+	private String categoryCode;
     @ApiModelProperty(value = "资产分类")
     private Long type;
+	@ApiModelProperty(value = "资产分类代码")
+	private String typeCode;
 	@ApiModelProperty(value = "计量单位")
 	private String unit;
 	@ApiModelProperty(value = "描述", notes = "")
@@ -129,12 +133,28 @@ public class AssetCmdbCondition extends SaaSCondition{
     }
 
 
+	public String getCategoryCode(){
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
+
     public Long getType(){
         return type;
     }
     public void setType(Long type) {
         this.type = type;
     }
+
+
+	public String getTypeCode(){
+		return typeCode;
+	}
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
 
 
 	public String getUnit(){

@@ -1,7 +1,7 @@
 Ext.define('AM.store.asset.asset.info.AssetCmdbStore', {
     extend: 'Ext.data.Store'
     , alias: 'store.asset.asset.info.AssetCmdbStore'
-    ,requires: [
+    , requires: [
         'AM.model.asset.asset.info.AssetCmdb'
     ]
     ,constructor: function(cfg) {
@@ -10,7 +10,8 @@ Ext.define('AM.store.asset.asset.info.AssetCmdbStore', {
         me.callParent([Ext.apply({
             autoLoad: false
             ,model: 'AM.model.asset.asset.info.AssetCmdb'
-            ,pageSize: 25
+            ,pageSize: 5
+            // ,currentPage:0
             ,proxy: {
                 type: 'rest'
                 ,pageParam:'page'
@@ -58,6 +59,7 @@ Ext.define('AM.store.asset.asset.info.AssetCmdbStore', {
     ,beforeload :function(store, operation, eOpts ){
         //处理一下分页参数,后台默认是从0开始,ext是从1开始
         operation.setPage(operation.getPage() - 1);
+        console.log('beforeloadbeforeloadbeforeloadbeforeload')
 
     }
 	,applyCondition:function(condition){

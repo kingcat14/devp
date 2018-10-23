@@ -28,7 +28,9 @@ public class AssetCmdb extends BaseEntity<Long>{
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_ALIAS = "alias";
 	public static final String PROPERTY_CATEGORY = "category";
+	public static final String PROPERTY_CATEGORY_CODE = "categoryCode";
 	public static final String PROPERTY_TYPE = "type";
+	public static final String PROPERTY_TYPE_CODE = "typeCode";
 	public static final String PROPERTY_UNIT = "unit";
 	public static final String PROPERTY_DESCRIPTION = "description";
 	public static final String PROPERTY_STATUS = "status";
@@ -90,15 +92,31 @@ public class AssetCmdb extends BaseEntity<Long>{
     * 资产大类
     * 
     */
-    @Column(name = "category", nullable = true, updatable = true)
+    @Column(name = "category", nullable = false, updatable = true)
 	private Long category;
+
+    /**
+    * 资产大类代码
+    * 
+    */
+    @Column(name = "category_code", nullable = false, updatable = true)
+	@Size(max = 255, message = "资产大类代码超长，最多255个字符")
+	private String categoryCode;
 
     /**
     * 资产分类
     * 
     */
-    @Column(name = "type", nullable = true, updatable = true)
+    @Column(name = "type", nullable = false, updatable = true)
 	private Long type;
+
+    /**
+    * 资产分类代码
+    * 
+    */
+    @Column(name = "type_code", nullable = false, updatable = true)
+	@Size(max = 255, message = "资产分类代码超长，最多255个字符")
+	private String typeCode;
 
     /**
     * 计量单位
@@ -230,11 +248,25 @@ public class AssetCmdb extends BaseEntity<Long>{
 		this.category = category;
 	}
 
+	public String getCategoryCode(){
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
 	public Long getType(){
 		return type;
 	}
 	public void setType(Long type) {
 		this.type = type;
+	}
+
+	public String getTypeCode(){
+		return typeCode;
+	}
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
 	}
 
 	public String getUnit(){

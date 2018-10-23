@@ -53,13 +53,25 @@ Ext.define('AM.model.asset.asset.info.AssetCmdb', {
     	,{
             name: 'category'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
+            name: 'categoryCode'
+            ,type:'string'
+            ,allowNull:false
             ,critical:true
         }
     	,{
             name: 'type'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
+            name: 'typeCode'
+            ,type:'string'
+            ,allowNull:false
             ,critical:true
         }
     	,{

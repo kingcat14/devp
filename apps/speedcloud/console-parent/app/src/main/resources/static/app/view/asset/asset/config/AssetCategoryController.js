@@ -85,8 +85,8 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryController', {
         }
         console.log(condition)
         Ext.Ajax.request({
-            disableCaching: true
-            ,url: "asset/config/assetCategory/export"
+            disableCaching: true 
+            ,url: "asset/asset/config/assetcategory/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
             ,params:condition

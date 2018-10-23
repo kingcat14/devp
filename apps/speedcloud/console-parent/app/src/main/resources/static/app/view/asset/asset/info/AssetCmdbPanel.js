@@ -11,17 +11,76 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
         ,'AM.view.asset.asset.info.AssetCmdbEditWindow'
         ,'AM.view.asset.asset.info.AssetCmdbSearchWindow'
         ,'AM.view.asset.asset.info.AssetCmdbDetailWindow'
+        ,'AM.model.asset.asset.config.AssetTypeTreeNode'
     ]
+    ,bodyPadding:10
+    ,bodyCls: 'app-dashboard'
     ,controller: 'asset.asset.info.AssetCmdbController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    assetTypeStore:{type:'tree',autoLoad:false, model:'AM.model.asset.asset.config.AssetTypeTreeNode', nodeParam:'id'}
+                    ,assetCmdbStore:Ext.create('AM.store.asset.asset.info.AssetCmdbStore')
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
+
         Ext.apply(me, {
             items: [
                 {
+                    xtype: 'treepanel'
+                    ,title: '资产分类'
+                    ,collapsible:true
+                    ,region: 'west'
+                    ,width: '30%'
+                    ,frame: true
+                    ,split: true
+                    ,reference: 'assetTypeTree'
+                    ,displayField: 'name'
+                    ,rootVisible: false
+                    ,bind:{
+                        store:'{assetTypeStore}'
+                    }
+                    ,columns:[
+                        {
+                            xtype: 'treecolumn'
+                            ,dataIndex: 'name'
+                            ,flex: 1
+                            ,sortable: true
+                            ,renderer: function(value, metaData, record) {
+                                return record.get('name')+'('+record.get('code')+')'
+                            }
+                        }
+                    ]
+                    ,tbar:[
+                        {
+                            xtype:'button',
+                            text:'刷新',
+                            iconCls: 'arrow_refresh',
+                            handler: 'loadTypeTree'
+                        }
+                    ]
+                    ,listeners: {
+                        itemclick: 'onAssetTypeTreeItemClick'
+                        ,afterrender: 'loadTypeTree'
+                    }
+
+                }
+                ,{
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.asset.asset.info.AssetCmdbStore').load()
+                    // ,store: Ext.create('AM.store.asset.asset.info.AssetCmdbStore').load()
+                    ,bind:{
+                        store:'{assetCmdbStore}'
+                    }
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -44,25 +103,25 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'barcode'
                             ,text: '资产条码'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '资产名称'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
                             ,text: '资产代码'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'alias'
                             ,text: '资产别名'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -71,7 +130,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                                 return record.get("categoryVO")?record.get("categoryVO").name:'';
                             }
                             ,text: '资产大类'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -80,70 +139,70 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                                 return record.get("typeVO")?record.get("typeVO").name:'';
                             }
                             ,text: '资产分类'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'unit'
                             ,text: '计量单位'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'description'
                             ,text: '描述'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'status'
                             ,text: '状态'
-                            
+
                         }
                         ,{
                             xtype: 'datecolumn'
                             ,format: 'Y-m-d'
                             ,dataIndex: 'createDate'
                             ,text: '创建时间'
-                            
+
                         }
                         ,{
                             xtype: 'datecolumn'
                             ,format: 'Y-m-d'
                             ,dataIndex: 'expireDate'
                             ,text: '到期时间'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'assetArea'
                             ,text: '所在区域'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'assetLocation'
                             ,text: '所在地址'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'acquisitionMode'
                             ,text: '获取模式'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'acquisitionDesc'
                             ,text: '获取描述'
-                            
+
                         }
                         ,{
                             xtype: 'datecolumn'
                             ,format: 'Y-m-d'
                             ,dataIndex: 'goliveDate'
                             ,text: '启用时间'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -253,15 +312,15 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                 }
             ]
             ,listeners: {
-            	beforeshow: {
+                beforeshow: {
                     fn: me.onBeforeShow
                     ,scope: me
                 }
-              	,beforehide: {
-                	fn: me.onPanelBeforeHide
-                  	,scope: me
-				}
-			}
+                ,beforehide: {
+                    fn: me.onPanelBeforeHide
+                    ,scope: me
+                }
+            }
         });
 
         me.add({xtype:'asset.asset.info.AssetCmdbAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})

@@ -13,6 +13,18 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryPanel', {
         ,'AM.view.asset.asset.config.AssetCategoryDetailWindow'
     ]
     ,controller: 'asset.asset.config.AssetCategoryController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.asset.asset.config.AssetCategoryStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -21,7 +33,7 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.asset.asset.config.AssetCategoryStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [

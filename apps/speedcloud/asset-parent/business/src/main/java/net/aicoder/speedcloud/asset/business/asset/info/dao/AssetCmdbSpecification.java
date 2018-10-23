@@ -34,7 +34,9 @@ public class AssetCmdbSpecification implements Specification<AssetCmdb>{
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddAliasPredicate(predicateList, root, cb);
 		tryAddCategoryPredicate(predicateList, root, cb);
+		tryAddCategoryCodePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
+		tryAddTypeCodePredicate(predicateList, root, cb);
 		tryAddUnitPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
 		tryAddStatusPredicate(predicateList, root, cb);
@@ -93,10 +95,20 @@ public class AssetCmdbSpecification implements Specification<AssetCmdb>{
             predicateList.add(cb.equal(root.get(AssetCmdb.PROPERTY_CATEGORY).as(Long.class), condition.getCategory()));
         }
 	}
+	private void tryAddCategoryCodePredicate(List<Predicate> predicateList, Root<AssetCmdb> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCategoryCode())){
+			predicateList.add(cb.equal(root.get(AssetCmdb.PROPERTY_CATEGORY_CODE).as(String.class), condition.getCategoryCode()));
+		}
+	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<AssetCmdb> root, CriteriaBuilder cb){
 	    if (null != condition.getType() ) {
             predicateList.add(cb.equal(root.get(AssetCmdb.PROPERTY_TYPE).as(Long.class), condition.getType()));
         }
+	}
+	private void tryAddTypeCodePredicate(List<Predicate> predicateList, Root<AssetCmdb> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getTypeCode())){
+			predicateList.add(cb.equal(root.get(AssetCmdb.PROPERTY_TYPE_CODE).as(String.class), condition.getTypeCode()));
+		}
 	}
 	private void tryAddUnitPredicate(List<Predicate> predicateList, Root<AssetCmdb> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getUnit())){
