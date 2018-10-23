@@ -35,13 +35,16 @@ public class AssetCategoryValidator implements Validator {
             this.validateAssetCategoryAddDto((AssetCategoryAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<AssetCategoryCondition> search){
+    public void validateSearchDto(PageSearchRequest<AssetCategoryCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new AssetCategoryCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -55,6 +58,12 @@ public class AssetCategoryValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if(StringUtils.isEmpty(assetCategory.getName())){
+			errors.rejectValue(AssetCategory.PROPERTY_NAME, "EMPTY_"+AssetCategory.PROPERTY_NAME, "名称不能为空");
+		}
+		if(StringUtils.isEmpty(assetCategory.getCode())){
+			errors.rejectValue(AssetCategory.PROPERTY_CODE, "EMPTY_"+AssetCategory.PROPERTY_CODE, "代码不能为空");
+		}
 
 		//验证长度
 		if(StringUtils.length(assetCategory.getNum()) > 255){

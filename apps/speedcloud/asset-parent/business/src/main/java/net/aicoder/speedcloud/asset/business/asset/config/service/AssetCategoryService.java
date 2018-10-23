@@ -34,6 +34,7 @@ public class AssetCategoryService  extends GenericCrudService<AssetCategory, Lon
 		AssetType assetType = new AssetType();
 		BeanUtils.copyProperties(t, assetType);
 		assetType.setParentCode(assetType.getCode());
+		assetType.setAssetCategoryCode(t.getCode());
 
 		//ID保持一致
 		assetTypeService.merge(assetType);

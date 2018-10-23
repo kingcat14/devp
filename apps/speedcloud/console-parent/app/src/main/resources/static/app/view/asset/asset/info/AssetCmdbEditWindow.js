@@ -104,14 +104,21 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'categoryField'
-                                    ,name: 'category'
+                                    ,itemId: 'categoryCodeField'
+                                    ,name: 'categoryCode'
                                     ,fieldLabel: '资产大类'
+                                    ,listeners:{
+                                        change:function( field, newValue, oldValue){
+                                            console.log('change')
+                                            console.log('newValue:'+newValue)
+                                            me.down('#typeCodeField').getStore().applyCondition({assetCategoryCode:newValue}).load()
+                                        }
+                                    }
                                 }
                                 ,{
                                     xtype: 'combobox'
@@ -119,13 +126,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
-                                    ,valueField:'id'
+                                    ,valueField:'code'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'typeField'
-                                    ,name: 'type'
+                                    ,itemId: 'typeCodeField'
+                                    ,name: 'typeCode'
                                     ,fieldLabel: '资产分类'
                                 }
                                 ,{
@@ -317,26 +324,8 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
 
     }
     ,onBeforeShow:function() {
-       
-       
-       
-       
-       
-        this.down('#categoryField').getStore().reload();
-       
-        this.down('#typeField').getStore().reload();
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+        this.down('#categoryCodeField').getStore().reload();
+        this.down('#typeCodeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -69,7 +70,7 @@ public class AssetCategoryController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
   	@SaaSAnnotation()
-	public AssetCategoryVO add(@RequestBody AssetCategoryAddDto assetCategoryAddDto){
+	public AssetCategoryVO add(@RequestBody @Valid AssetCategoryAddDto assetCategoryAddDto){
 	
 		return  assetCategoryRibbonService.add(assetCategoryAddDto);
 	}

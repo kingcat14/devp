@@ -40,11 +40,19 @@ public class AssetCategoryValidator implements Validator {
      * @param assetCategory 资产大类
      * @param errors
      */
-		public void validateAddDto(AssetCategoryAddDto assetCategory, Errors errors) {
+	public void validateAddDto(AssetCategoryAddDto assetCategory, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if(StringUtils.isEmpty(assetCategory.getName())){
+			errors.rejectValue("name", "EMPTY_NAME", "名称不能为空");
+		}
+		
+		if(StringUtils.isEmpty(assetCategory.getCode())){
+			errors.rejectValue("code", "EMPTY_CODE", "代码不能为空");
+		}
+		
 
 		//验证长度
 		if(StringUtils.length(assetCategory.getNum()) > 255){

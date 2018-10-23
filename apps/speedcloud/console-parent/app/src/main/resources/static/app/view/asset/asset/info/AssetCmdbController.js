@@ -8,12 +8,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
     ,onAssetTypeTreeItemClick : function(view, record) {
         var me = this;
 
-
+        var assetCategoryCode = record.get('assetCategoryCode');
         var typeCode = record.get('code');
 
-        var assetCategoryCode = record.get('assetCategoryCode');
-
         var panel = me.getView();
+
+        console.log('assetCategoryCode:'+assetCategoryCode)
+        console.log('typeCode:'+typeCode)
 
 
         var addWindow = panel.lookup('mainAddWindow')
@@ -25,8 +26,6 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
         searchWindow.down('#typeCodeField').setValue(typeCode);
         searchWindow.onSearchButtonClick();
         console.log(searchWindow);
-
-        me.lookup('CENTER_REGION').getLayout().setActiveItem(panel)
 
     }
     ,loadTypeTree:function(){

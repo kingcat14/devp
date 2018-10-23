@@ -68,7 +68,7 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeField'

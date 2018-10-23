@@ -63,8 +63,8 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
@@ -75,8 +75,8 @@ Ext.define('AM.view.asset.asset.config.AssetCategoryAddWindow', {
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
+                                    ,allowBlank:false
+                                    ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '代码'

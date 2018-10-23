@@ -111,6 +111,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
                                     ,itemId: 'categoryCodeField'
                                     ,name: 'categoryCode'
                                     ,fieldLabel: '资产大类'
+                                    ,listeners:{
+                                        change:function( field, newValue, oldValue){
+                                            console.log('change')
+                                            console.log('newValue:'+newValue)
+                                            me.down('#typeCodeField').getStore().applyCondition({assetCategoryCode:newValue}).load()
+                                        }
+                                    }
                                 }
 
 
@@ -322,13 +329,15 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbAddWindow', {
 
             }
         });
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
+        model.set('typeCode', this.down('#typeCodeField').getValue())
+        model.set('categoryCode', this.down('#categoryCodeField').getValue())
         this.down('form').getForm().loadRecord(model);
 
     }
