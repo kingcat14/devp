@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface AssetCategoryDao extends BaseDao<AssetCategory, Long>{
 
 
+    AssetCategory findByCode(String code);
 }

@@ -40,11 +40,18 @@ public class AssetTypePropertyValidator implements Validator {
      * @param assetTypeProperty 资产分类属性
      * @param errors
      */
-		public void validateAddDto(AssetTypePropertyAddDto assetTypeProperty, Errors errors) {
+	public void validateAddDto(AssetTypePropertyAddDto assetTypeProperty, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if (null == assetTypeProperty.getAssetType() ) {
+			errors.rejectValue("assetType", "EMPTY_ASSET_TYPE", "资产分类不能为空");
+		}
+		if(StringUtils.isEmpty(assetTypeProperty.getCode())){
+			errors.rejectValue("code", "EMPTY_CODE", "属性代码不能为空");
+		}
+		
 
 		//验证长度
 		if(StringUtils.length(assetTypeProperty.getName()) > 255){
@@ -52,6 +59,9 @@ public class AssetTypePropertyValidator implements Validator {
 		}
 		if(StringUtils.length(assetTypeProperty.getType()) > 255){
 			errors.rejectValue("type", null, "属性类型最长255个字符");
+		}
+		if(StringUtils.length(assetTypeProperty.getCode()) > 255){
+			errors.rejectValue("code", null, "属性代码最长255个字符");
 		}
 		if(StringUtils.length(assetTypeProperty.getOptionValues()) > 255){
 			errors.rejectValue("optionValues", null, "备选值最长255个字符");

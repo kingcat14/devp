@@ -32,6 +32,7 @@ public class AssetTypePropertySpecification implements Specification<AssetTypePr
 		tryAddAssetTypePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
+		tryAddCodePredicate(predicateList, root, cb);
 		tryAddRequiredPredicate(predicateList, root, cb);
 		tryAddOptionValuesPredicate(predicateList, root, cb);
 		tryAddSeqPredicate(predicateList, root, cb);
@@ -70,6 +71,11 @@ public class AssetTypePropertySpecification implements Specification<AssetTypePr
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<AssetTypeProperty> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getType())){
 			predicateList.add(cb.like(root.get(AssetTypeProperty.PROPERTY_TYPE).as(String.class), "%"+condition.getType()+"%"));
+		}
+	}
+	private void tryAddCodePredicate(List<Predicate> predicateList, Root<AssetTypeProperty> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCode())){
+			predicateList.add(cb.like(root.get(AssetTypeProperty.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
 		}
 	}
 	private void tryAddRequiredPredicate(List<Predicate> predicateList, Root<AssetTypeProperty> root, CriteriaBuilder cb){

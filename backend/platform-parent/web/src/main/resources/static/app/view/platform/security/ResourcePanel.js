@@ -170,7 +170,7 @@ Ext.define('AM.view.platform.security.ResourcePanel', {
 									['function','功能'],
 									['module','模块']
 								]
-								,value : '1'
+								,value : 'function'
 							})
 							,renderer: function(value){
 								if (value == 'function') {

@@ -13,6 +13,18 @@ Ext.define('AM.view.asset.asset.info.AssetPropertyPanel', {
         ,'AM.view.asset.asset.info.AssetPropertyDetailWindow'
     ]
     ,controller: 'asset.asset.info.AssetPropertyController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.asset.asset.info.AssetPropertyStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -21,7 +33,7 @@ Ext.define('AM.view.asset.asset.info.AssetPropertyPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.asset.asset.info.AssetPropertyStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [

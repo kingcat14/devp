@@ -1,5 +1,6 @@
 Ext.define('AM.controller.speedcloud.pipeline.task.PipelineTaskController', {
     extend: 'Ext.app.Controller'
+    , requires: ['AM.view.speedcloud.pipeline.task.PipelineTaskPanel']
     ,init: function(application) {
         this.initPanel(application);
         //this.initMainPanel(application);

@@ -24,6 +24,8 @@ public class AssetTypePropertyCondition extends SaaSCondition{
 	private String name;
 	@ApiModelProperty(value = "属性类型")
 	private String type;
+	@ApiModelProperty(value = "属性代码")
+	private String code;
 	@ApiModelProperty(value = "必填")
 	private Boolean required;
 	@ApiModelProperty(value = "备选值", notes = "分号分隔的值例如: a:b")
@@ -79,6 +81,14 @@ public class AssetTypePropertyCondition extends SaaSCondition{
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 

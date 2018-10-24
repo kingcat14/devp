@@ -1,6 +1,6 @@
 Ext.define('AM.view.asset.asset.config.AssetTypeMainController', {
-	extend: 'Ext.app.ViewController',
-	requires: [
+	extend: 'Ext.app.ViewController'
+	,requires: [
 
 	]
 	,alias: 'controller.asset.asset.configAssetTypeMainController'
@@ -9,6 +9,8 @@ Ext.define('AM.view.asset.asset.config.AssetTypeMainController', {
 	,onTreepanelItemClick : function() {
 
         var me = this;
+
+        // Ext.MessageBox.alert('操作失败('+errorBody.code+')', errorBody.message);
 
         var treePanel = this.lookup('assetTypeTree');
         var record = treePanel.getSelectionModel().getSelection()[0];

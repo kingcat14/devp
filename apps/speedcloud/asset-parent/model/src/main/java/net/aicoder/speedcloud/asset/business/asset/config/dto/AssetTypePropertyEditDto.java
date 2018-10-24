@@ -30,6 +30,11 @@ public class AssetTypePropertyEditDto {
 	private String type;
 
 
+	/**属性代码*/
+	@ApiModelProperty(value = "属性代码", required = false)
+	private String code;
+
+
 	/**必填*/
 	@ApiModelProperty(value = "必填", required = false)
 	private Boolean required;
@@ -67,6 +72,14 @@ public class AssetTypePropertyEditDto {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 

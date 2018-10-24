@@ -48,30 +48,29 @@ Ext.define('AM.controller.application.framework.MainController', {
 	onTreepanelItemClick: function(tablepanel, record, item, index, e, options) {
 		//Ext.LoadMaskUtil.show(this.getMainContentPanel());
 		var me = this;
-		var myMask = new Ext.LoadMask(this.getMainContentPanel(), {msg:"Please wait..."});
+		var mainContentPanel = this.getMainContentPanel();
+        mainContentPanel.mask("Please wait...");
 
+        if("page" !== record.get('type') && "function" !== record.get('type')){
+            mainContentPanel.unmask();
+            return;
+        }
 
-		myMask.show();
+        if(Ext.isEmpty(record.get('url'))){
+            mainContentPanel.unmask();
+            return;
+        }
+
+        var controllerName = record.get('url');
+
 
 		function loadController(){
-
-			// console.log('type:'+record.get('type'))
-			// console.log('controllerName:'+record.get('url'))
-
-			if("page" !== record.get('type') && "function" !== record.get('type')){
-				myMask.hide();
-				return;
-			}
-
-			if(Ext.isEmpty(record.get('url'))){
-				myMask.hide();
-				return;
-			}
-
 
 			try{
 
 				var controllerName = record.get('url');
+
+				//
 
 				var controller = me.application.getController(controllerName);
 
@@ -85,31 +84,25 @@ Ext.define('AM.controller.application.framework.MainController', {
 					icon: Ext.MessageBox.ERROR
 				});
 				Ext.MsgUtil.show('ERROR',e);
-				console.log(e);
+
+				Ext.log({level:'ERROR', dump:e}, '不能加载页面,请重试或联系管理员!')
 
 			}
-			//测试时，可以使用这里
-			//controller.init(me.application);
-			myMask.hide();
 
-			// if(tagId){
-			// 	clearInterval(tagId);
-			// }
+			mainContentPanel.unmask();
+
 		}
-		loadController();
-		// var tagId = setInterval(loadController, 1000);
-	},
 
-	onFunctionPanelItemClick: function(tablepanel,record) {
+        Ext.require(controllerName, loadController);
+
+	}
+
+	,onFunctionPanelItemClick: function(tablepanel,record) {
 		var controllerName = record.get('url');
 
 		var controller = this.application.getController(controllerName);
 
 		controller.init(this.application);
-	}
-
-	,loadController: function(record) {
-
 	}
 
 

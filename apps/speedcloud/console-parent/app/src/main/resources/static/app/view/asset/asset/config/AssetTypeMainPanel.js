@@ -43,7 +43,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeMainPanel', {
                         {
                             xtype:'button',
                             text:'刷新',
-                            iconCls: 'arrow_refresh',
+                            iconCls: 'fas fa-sync',
                             handler: 'loadTypeTree'
                         }
 					]

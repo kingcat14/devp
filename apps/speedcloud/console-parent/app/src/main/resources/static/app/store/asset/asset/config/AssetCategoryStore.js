@@ -49,7 +49,7 @@ Ext.define('AM.store.asset.asset.config.AssetCategoryStore', {
             error = error.status + ' ' + error.statusText;
         }
         //Ext.Msg.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
-        Ext.Msg.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+        Ext.MessageBox.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
 
         if('read' !== operation.action){
             store.load();

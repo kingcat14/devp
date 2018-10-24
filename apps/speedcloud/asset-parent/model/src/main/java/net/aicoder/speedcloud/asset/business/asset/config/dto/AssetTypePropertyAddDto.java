@@ -19,7 +19,7 @@ public class AssetTypePropertyAddDto {
 	private Long tid;
 
     /**资产分类*/
-	@ApiModelProperty(value = "资产分类", required = false)
+	@ApiModelProperty(value = "资产分类", required = true)
 	private Long assetType;
 
     /**属性名称*/
@@ -29,6 +29,10 @@ public class AssetTypePropertyAddDto {
     /**属性类型*/
 	@ApiModelProperty(value = "属性类型", required = false)
 	private String type;
+
+    /**属性代码*/
+	@ApiModelProperty(value = "属性代码", required = true)
+	private String code;
 
     /**必填*/
 	@ApiModelProperty(value = "必填", required = false)
@@ -69,6 +73,13 @@ public class AssetTypePropertyAddDto {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Boolean getRequired(){

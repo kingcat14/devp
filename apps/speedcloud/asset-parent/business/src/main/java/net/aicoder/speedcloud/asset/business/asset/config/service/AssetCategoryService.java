@@ -40,6 +40,13 @@ public class AssetCategoryService  extends GenericCrudService<AssetCategory, Lon
 		assetTypeService.merge(assetType);
 	}
 
+	public AssetCategory findByCode(String code){
+		if(StringUtils.isEmpty(code)){
+			return null;
+		}
+		return dao.findByCode(code);
+	}
+
 	@Override
 	public Specification<AssetCategory> getSpecification(AssetCategoryCondition condition) {
 		return new AssetCategorySpecification(condition);

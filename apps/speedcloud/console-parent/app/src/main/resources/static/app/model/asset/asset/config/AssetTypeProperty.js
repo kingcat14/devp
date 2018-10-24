@@ -29,7 +29,7 @@ Ext.define('AM.model.asset.asset.config.AssetTypeProperty', {
     	,{
             name: 'assetType'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
@@ -42,6 +42,12 @@ Ext.define('AM.model.asset.asset.config.AssetTypeProperty', {
             name: 'type'
             ,type:'string'
             ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'code'
+            ,type:'string'
+            ,allowNull:false
             ,critical:true
         }
     	,{

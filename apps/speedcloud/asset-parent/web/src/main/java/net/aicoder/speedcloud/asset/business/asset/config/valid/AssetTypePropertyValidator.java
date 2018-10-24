@@ -35,13 +35,16 @@ public class AssetTypePropertyValidator implements Validator {
             this.validateAssetTypePropertyAddDto((AssetTypePropertyAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<AssetTypePropertyCondition> search){
+    public void validateSearchDto(PageSearchRequest<AssetTypePropertyCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new AssetTypePropertyCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -55,6 +58,12 @@ public class AssetTypePropertyValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
+		if (null == assetTypeProperty.getAssetType() ) {
+			errors.rejectValue(AssetTypeProperty.PROPERTY_ASSET_TYPE, "EMPTY_"+AssetTypeProperty.PROPERTY_ASSET_TYPE, "资产分类不能为空");
+		}
+		if(StringUtils.isEmpty(assetTypeProperty.getCode())){
+			errors.rejectValue(AssetTypeProperty.PROPERTY_CODE, "EMPTY_"+AssetTypeProperty.PROPERTY_CODE, "属性代码不能为空");
+		}
 
 		//验证长度
 		if(StringUtils.length(assetTypeProperty.getName()) > 255){
@@ -62,6 +71,9 @@ public class AssetTypePropertyValidator implements Validator {
 		}
 		if(StringUtils.length(assetTypeProperty.getType()) > 255){
 			errors.rejectValue(AssetTypeProperty.PROPERTY_TYPE,null,"属性类型最长255个字符");
+		}
+		if(StringUtils.length(assetTypeProperty.getCode()) > 255){
+			errors.rejectValue(AssetTypeProperty.PROPERTY_CODE,null,"属性代码最长255个字符");
 		}
 		if(StringUtils.length(assetTypeProperty.getOptionValues()) > 255){
 			errors.rejectValue(AssetTypeProperty.PROPERTY_OPTION_VALUES,null,"备选值最长255个字符");

@@ -37,6 +37,11 @@ public class AssetTypePropertyVO {
     private String type;
 
 
+    /**属性代码*/
+    @ApiModelProperty(value = "属性代码")
+    private String code;
+
+
     @ApiModelProperty(value = "必填")
     private Boolean required;
 
@@ -75,6 +80,13 @@ public class AssetTypePropertyVO {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCode(){
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Boolean getRequired(){

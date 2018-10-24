@@ -30,6 +30,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
     },
 
     onTabpanelBeforeRender: function(abstractcomponent, options) {
+        var me = this;
         function getTools(){
             return [{
                 xtype: 'tool',
@@ -55,24 +56,29 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 	    this.insert(0,dashboard);
 	    this.setActiveTab(0);
 
-	    for(var i in Ext.dashboard){
-            var panel = Ext.create(Ext.dashboard[i],{
+        Ext.require(Ext.dashboard, function () {
+            // var panel = Ext.create(aa,{
+            //     closable:true
+            // })
+            //
+            // //this.insert(1,panel);
+            // me.add(panel)
+            console.log(11111)
+
+            for(var i in Ext.dashboard){
+                var panel = Ext.create(Ext.dashboard[i],{
                     closable:true
                 })
-            console.log(i)
-            //this.insert(1,panel);
-            this.add(panel)
 
-        }
-        if(Ext.dashboard.length > 0){
-            this.setActiveTab(1);
-        }
+                me.add(panel)
+                if(Ext.dashboard.length > 0){
+                    me.setActiveTab(1);
+                }
+            }
+        })
 
-        // var assetCmdbPanel = Ext.create("AM.view.maintenance.asset.info.AssetCmdbPanel",{
-        //     closable:true
-        // })
-        // this.insert(1,assetCmdbPanel);
-        // this.setActiveTab(1);
+
+
 
 
     }

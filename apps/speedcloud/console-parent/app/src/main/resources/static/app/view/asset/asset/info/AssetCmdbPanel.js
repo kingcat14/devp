@@ -64,7 +64,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                         {
                             xtype:'button',
                             text:'刷新',
-                            iconCls: 'arrow_refresh',
+                            iconCls: 'fas fa-sync',
                             handler: 'loadTypeTree'
                         }
                     ]
@@ -77,11 +77,13 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                 ,{
                     xtype: 'grid'
                     ,region:'center'
+                    ,title:'资产'
                     // ,store: Ext.create('AM.store.asset.asset.info.AssetCmdbStore').load()
                     ,bind:{
                         store:'{assetCmdbStore}'
                     }
                     ,columnLines: true
+                    ,frame:true
                     ,reference:'mainGridPanel'
                     ,columns: [
                         {
@@ -274,15 +276,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                                     }
                                 }
                                 ,'-'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
-                                    ,text: '查询'
-                                    ,listeners: {
-                                        click: 'onSimpleSearchButtonClick'
-                                    }
-                                }
-                                ,'->'
+
                                 ,{
                                     xtype: 'button'
                                     ,iconCls: 'fas fa-search-plus'
@@ -291,6 +285,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                                         click: 'showSearchWindow'
                                     }
                                 }
+                                ,'->'
                                 ,{
                                     xtype: 'button'
                                     ,iconCls: 'fas fa-download'

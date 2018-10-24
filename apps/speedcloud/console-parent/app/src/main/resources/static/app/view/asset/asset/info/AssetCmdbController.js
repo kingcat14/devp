@@ -30,7 +30,8 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
     }
     ,loadTypeTree:function(){
         var me = this;
-        var store = me.lookupReference ('assetTypeTree').getStore()
+        //var store = me.lookupReference ('assetTypeTree').getStore()
+        var store = me.getViewModel().getStore('assetTypeStore');
         store.removeAll(true)
         Ext.Ajax.request({
             url: 'asset/asset/config/assettype/tree'

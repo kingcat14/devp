@@ -25,6 +25,7 @@ public class AssetTypeProperty extends BaseEntity<Long>{
 	public static final String PROPERTY_ASSET_TYPE = "assetType";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
+	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_REQUIRED = "required";
 	public static final String PROPERTY_OPTION_VALUES = "optionValues";
 	public static final String PROPERTY_SEQ = "seq";
@@ -46,7 +47,7 @@ public class AssetTypeProperty extends BaseEntity<Long>{
     * 资产分类
     * 
     */
-    @Column(name = "asset_type", nullable = true, updatable = true)
+    @Column(name = "asset_type", nullable = false, updatable = true)
 	private Long assetType;
 
     /**
@@ -64,6 +65,14 @@ public class AssetTypeProperty extends BaseEntity<Long>{
     @Column(name = "type", nullable = true, updatable = true)
 	@Size(max = 255, message = "属性类型超长，最多255个字符")
 	private String type;
+
+    /**
+    * 属性代码
+    * 
+    */
+    @Column(name = "code", nullable = false, updatable = false)
+	@Size(max = 255, message = "属性代码超长，最多255个字符")
+	private String code;
 
     /**
     * 必填
@@ -113,6 +122,13 @@ public class AssetTypeProperty extends BaseEntity<Long>{
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getCode(){
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Boolean getRequired(){

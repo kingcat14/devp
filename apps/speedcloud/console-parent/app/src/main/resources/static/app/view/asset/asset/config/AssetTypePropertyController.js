@@ -5,25 +5,58 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
 	]
 	,alias: 'controller.asset.asset.config.AssetTypePropertyController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
+    ,loadAssetTypeTree:function(){
+
+        var me = this;
+
+        var assetTypeTreeStore = me.getViewModel().getStore('assetTypeTreeStore')
+        assetTypeTreeStore.removeAll(true)
+        Ext.Ajax.request({
+            url: 'asset/asset/config/assettype/tree'
+            ,method: 'POST'
+            ,scope:this
+            ,success:function(response){
+
+                var resultSet = Ext.data.schema.Schema.lookupEntity('AM.model.asset.asset.config.AssetTypeTreeNode').getProxy().getReader().read(response);
+                var nodeList = resultSet.getRecords()
+                var root = {
+                    children:nodeList
+                    ,expanded:true
+                }
+                assetTypeTreeStore.setRoot(root);
+            }
+        });
+    }
+    ,onAssetTypeItemClick : function(view, record) {
+        var me = this;
+        var typeId = record.getId();
+        var store = me.getViewModel().getStore('store')
+        store.applyCondition({assetType:typeId}).load()
 
 
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
+        // Ext.MessageBox.alert('Ext.MessageBox.alert', 'Ext.MessageBox.alert');
 
-		var id = record.get('id');
-
-	}
+    }
     ,onAddButtonClick: function() {
 
-        var modelConfig = {}
-        var record = Ext.create('AM.model.asset.asset.config.AssetTypeProperty', modelConfig);
+        Ext.valueFrom(Ext.Date.format(new Date(),'Y-m-d'), null)
 
-        this.showAddWindow(record);
+        var me = this;
+        var treePanel = this.lookup('assetTypeTree');
+        var record = treePanel.getSelectionModel().getSelection()[0];
+        if(!record){
+            Ext.MessageBox.alert('未选择分类', '请先在右侧选择分类');
+            return;
+        }
+
+        var rowEditing =  this.lookup('mainGridPanel').getPlugin('assetTypePropertyRowEditing');
+        rowEditing.cancelEdit();
+
+        var modelConfig = {assetType:record.getId(), assetTypeVO:{name:record.get('name')}, type:'String', required:false}
+        var record = Ext.create('AM.model.asset.asset.config.AssetTypeProperty', modelConfig);
+        var store = me.getViewModel().getStore('store');
+        store.add(record);
+        rowEditing.startEdit(record, 3);
     }
 
     ,onDeleteButtonClick: function(button, e, options) {
@@ -43,7 +76,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
                     scope: this,
                     callback: function(records, operation, success) {
                         if(!success)
-                        	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+                            Ext.MessageBox.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
                         	Ext.MsgUtil.show('操作成功','删除资产分类属性成功!');
                     }
@@ -61,58 +94,9 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
             return;
         }
         var record = selections[0];
-        me.showEditWindow(record, mainGridPanel.getView().getRow(record));
-    }
-    ,onSimpleSearchButtonClick: function(button, e, options) {
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        searchWindow.onSearchButtonClick();
-
-    }
-    ,onExportButtonClick: function(button, e, options) {
-
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        var condition = searchWindow.getCondition();
-        if(!condition){
-            condition = {searchCondition:{}};
-        }
-        if (!Ext.fly('formFly')) {
-            var frm = document.createElement('form');
-            frm.id = 'formFly';
-            frm.className = 'x-hidden';
-            document.body.appendChild(frm);
-        }
-        console.log(condition)
-        Ext.Ajax.request({
-            disableCaching: true
-            ,url: "asset/asset/config/assettypeproperty/export"
-            ,method: "POST"
-            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
-            ,isUpload: true
-            ,form: Ext.fly('formFly')
-        });
-
-    }
-    ,showAddWindow: function(model, targetComponent) {
-        var me = this;
-        var addWindow = me.lookupReference('mainAddWindow');
-        addWindow.setModel(model);
-        addWindow.show(targetComponent);
-        return addWindow;
-    }
-    ,showEditWindow: function(model, targetComponent) {
-        var me = this;
-        var editWindow = me.lookupReference('mainEditWindow');
-        editWindow.setModel(model);
-        editWindow.show(targetComponent);
-        return editWindow;
-    }
-    ,showSearchWindow: function() {
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        searchWindow.show();
+        var rowEditing =  this.lookup('mainGridPanel').getPlugin('assetTypePropertyRowEditing');
+        rowEditing.cancelEdit();
+        rowEditing.startEdit(record, 3);
     }
 	,reloadStore:function () {
 
@@ -128,16 +112,5 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
             }
         });
     }
-    ,doSearch:function () {
-        var me = this;
-        var mainSearchWindow = me.lookupReference ('mainSearchWindow');
-        var mainGridPanel = me.lookupReference('mainGridPanel');
-        mainGridPanel.getStore().proxy.extraParams={searchCondition:mainSearchWindow.getCondition()};
-        mainGridPanel.getStore().load({
-            params:{
-                start:0
-                ,page:0
-            }
-        });
-    }
+
 })

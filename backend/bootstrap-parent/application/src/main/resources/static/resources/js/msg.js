@@ -12,7 +12,10 @@ Ext.MsgUtil = function(){
        return '<div class="msg"><h3>' + t + '</h3><p>' + s + '</p></div>';
     }
     return {
-        show : function(title, message){
+    	notification:function(title, message){
+    		this.show(title, message)
+		}
+        ,show : function(title, message){
             // if(!msgCt){
             //     msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
             // }

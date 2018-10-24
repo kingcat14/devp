@@ -17,16 +17,24 @@
     ,bind:{title:'{stage.name}'}
     ,maximizable: true
     ,closeAction:'hide'
-    ,viewModel:{
-        data:{stageNode:null}
-        ,stores:{
-             selectableNodeStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeStore')
-             ,selectableNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeParamStore')
-             ,taskParamStore: Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskParamStore').applyCondition({task:-999})
-             ,stageNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeParamStore').applyCondition({pipelineStageNode:-999})
-        }
-    }
+
     ,referenceHolder:true
+     ,constructor:function(cfg){
+         var me = this;
+         cfg = cfg || {}
+
+         me.callParent([Ext.apply({
+             viewModel:{
+                 data:{stageNode:null}
+                 ,stores:{
+                     selectableNodeStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeStore')
+                     ,selectableNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeParamStore')
+                     ,taskParamStore: Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskParamStore').applyCondition({task:-999})
+                     ,stageNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeParamStore').applyCondition({pipelineStageNode:-999})
+                 }
+             }
+         }, cfg)])
+     }
     ,initComponent: function () {
         var me = this;
         Ext.apply(me, {

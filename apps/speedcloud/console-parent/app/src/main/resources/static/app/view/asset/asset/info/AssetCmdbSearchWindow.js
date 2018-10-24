@@ -35,6 +35,33 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.asset.asset.config.AssetCategoryStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'code'
+                            ,itemId: 'categoryCodeField'
+                            ,fieldLabel: '资产大类'
+                            ,listeners:{
+                                change:function( field, newValue, oldValue){
+
+                                    me.down('#typeCodeField').getStore().applyCondition({assetCategoryCode:newValue}).load()
+                                }
+                            }
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.asset.asset.config.AssetTypeStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'typeCodeField'
+                            ,fieldLabel: '资产分类'
+                        }
+                        ,{
                             xtype: 'textfield'
                             ,itemId: 'barcodeField'
                             ,fieldLabel: '资产条码'
@@ -59,62 +86,9 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                         }
 
                         ,{
-                            xtype: 'combobox'
-                            ,store: Ext.create("AM.store.asset.asset.config.AssetCategoryStore")
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'name'
-                            ,valueField:'id'
-                            ,itemId: 'categoryCodeField'
-                            ,fieldLabel: '资产大类'
-                        }
-
-                        ,{
-                            xtype: 'combobox'
-                            ,store: Ext.create("AM.store.asset.asset.config.AssetTypeStore")
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'name'
-                            ,valueField:'id'
-                            ,itemId: 'typeCodeField'
-                            ,fieldLabel: '资产分类'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'unitField'
-                            ,fieldLabel: '计量单位'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'descriptionField'
-                            ,fieldLabel: '描述'
-                        }
-
-                        ,{
                             xtype: 'textfield'
                             ,itemId: 'statusField'
                             ,fieldLabel: '状态'
-                        }
-
-                        ,{
-                            xtype: 'datefield'
-                            ,format: 'Y-m-d'
-                            ,itemId: 'createDateField'
-                            ,fieldLabel: '创建时间'
-                        }
-                        ,{
-                            xtype: 'datefield'
-                            ,format: 'Y-m-d'
-                            ,itemId: 'createDateStartField'
-                            ,fieldLabel: '起始创建时间'
-                        }
-                        ,{
-                            xtype: 'datefield'
-                            ,format: 'Y-m-d'
-                            ,itemId: 'createDateEndField'
-                            ,fieldLabel: '结束创建时间'
                         }
 
                         ,{
@@ -149,18 +123,6 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                         }
 
                         ,{
-                            xtype: 'textfield'
-                            ,itemId: 'acquisitionModeField'
-                            ,fieldLabel: '获取模式'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'acquisitionDescField'
-                            ,fieldLabel: '获取描述'
-                        }
-
-                        ,{
                             xtype: 'datefield'
                             ,format: 'Y-m-d'
                             ,itemId: 'goliveDateField'
@@ -179,13 +141,9 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
                             ,fieldLabel: '结束启用时间'
                         }
 
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'notesField'
-                            ,fieldLabel: 'notes'
-                        }
 
-                            ]
+
+                    ]
                 }
             ]
             ,dockedItems: [
@@ -250,48 +208,35 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbSearchWindow', {
         var aliasField = me.down("#aliasField");
         var categoryCodeField = me.down("#categoryCodeField");
         var typeCodeField = me.down("#typeCodeField");
-        var unitField = me.down("#unitField");
-        var descriptionField = me.down("#descriptionField");
         var statusField = me.down("#statusField");
-        var createDateStartField = me.down("#createDateStartField");
-        var createDateEndField = me.down("#createDateEndField");
-        var createDateField = me.down("#createDateField");
         var expireDateStartField = me.down("#expireDateStartField");
         var expireDateEndField = me.down("#expireDateEndField");
         var expireDateField = me.down("#expireDateField");
         var assetAreaField = me.down("#assetAreaField");
         var assetLocationField = me.down("#assetLocationField");
-        var acquisitionModeField = me.down("#acquisitionModeField");
-        var acquisitionDescField = me.down("#acquisitionDescField");
         var goliveDateStartField = me.down("#goliveDateStartField");
         var goliveDateEndField = me.down("#goliveDateEndField");
         var goliveDateField = me.down("#goliveDateField");
-        var notesField = me.down("#notesField");
+
+
 
         var condition = {
-            barcode:Ext.isEmpty(barcodeField.getValue())?null:barcodeField.getValue()
+            barcode: Ext.valueFrom(barcodeField.getValue(), null)
             ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
             ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
             ,alias:Ext.isEmpty(aliasField.getValue())?null:aliasField.getValue()
             ,categoryCode:Ext.isEmpty(categoryCodeField.getValue())?null:categoryCodeField.getValue()
             ,typeCode:Ext.isEmpty(typeCodeField.getValue())?null:typeCodeField.getValue()
-            ,unit:Ext.isEmpty(unitField.getValue())?null:unitField.getValue()
-            ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
-            ,createDate:Ext.isEmpty(createDateField.getValue())?null:Ext.Date.format(createDateField.getValue(),'Y-m-d')
-            ,createDateStart:Ext.isEmpty(createDateStartField.getValue())?null:Ext.Date.format(createDateStartField.getValue(),'Y-m-d')
-            ,createDateEnd:Ext.isEmpty(createDateEndField.getValue())?null:Ext.Date.format(createDateEndField.getValue(),'Y-m-d')
-            ,expireDate:Ext.isEmpty(expireDateField.getValue())?null:Ext.Date.format(expireDateField.getValue(),'Y-m-d')
+            ,expireDate:     Ext.valueFrom(Ext.Date.format(expireDateField.getValue(),'Y-m-d'), null)
             ,expireDateStart:Ext.isEmpty(expireDateStartField.getValue())?null:Ext.Date.format(expireDateStartField.getValue(),'Y-m-d')
             ,expireDateEnd:Ext.isEmpty(expireDateEndField.getValue())?null:Ext.Date.format(expireDateEndField.getValue(),'Y-m-d')
             ,assetArea:Ext.isEmpty(assetAreaField.getValue())?null:assetAreaField.getValue()
             ,assetLocation:Ext.isEmpty(assetLocationField.getValue())?null:assetLocationField.getValue()
-            ,acquisitionMode:Ext.isEmpty(acquisitionModeField.getValue())?null:acquisitionModeField.getValue()
-            ,acquisitionDesc:Ext.isEmpty(acquisitionDescField.getValue())?null:acquisitionDescField.getValue()
             ,goliveDate:Ext.isEmpty(goliveDateField.getValue())?null:Ext.Date.format(goliveDateField.getValue(),'Y-m-d')
             ,goliveDateStart:Ext.isEmpty(goliveDateStartField.getValue())?null:Ext.Date.format(goliveDateStartField.getValue(),'Y-m-d')
             ,goliveDateEnd:Ext.isEmpty(goliveDateEndField.getValue())?null:Ext.Date.format(goliveDateEndField.getValue(),'Y-m-d')
-            ,notes:Ext.isEmpty(notesField.getValue())?null:notesField.getValue()
+
         };
 
         return condition;

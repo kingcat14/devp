@@ -27,7 +27,7 @@ public class AssetTypeService  extends GenericCrudService<AssetType, Long, Asset
 	@Transactional
 	public void add(AssetType assetType) {
 
-		AssetType parentType = dao.findByAssetCategoryCodeAndCode(assetType.getAssetCategoryCode(), assetType.getParentCode());
+		AssetType parentType = findByCategoryCodeAndCode(assetType.getAssetCategoryCode(), assetType.getParentCode());
 
 		if(parentType == null){
 			throw new BusinessException("ASSET_CONFIG", "CONFIG", "NO_ASSET_TYPE", "categoryCode["+assetType.getAssetCategoryCode()+"],code["+assetType.getParentCode()+"]");
@@ -35,6 +35,13 @@ public class AssetTypeService  extends GenericCrudService<AssetType, Long, Asset
 		assetType.fillId();
 		this.dao.save(assetType);
 
+	}
+
+	public AssetType findByCategoryCodeAndCode(String categoryCode, String typeCode){
+		if(StringUtils.isEmpty(categoryCode) || StringUtils.isEmpty(typeCode)){
+			return null;
+		}
+		return dao.findByAssetCategoryCodeAndCode(categoryCode, typeCode);
 	}
 
 	@Override

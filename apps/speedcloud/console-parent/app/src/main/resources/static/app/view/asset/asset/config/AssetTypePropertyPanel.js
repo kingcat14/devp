@@ -7,23 +7,74 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
     , requires: [
         'AM.view.asset.asset.config.AssetTypePropertyController'
         ,'AM.store.asset.asset.config.AssetTypePropertyStore'
-        ,'AM.view.asset.asset.config.AssetTypePropertyAddWindow'
-        ,'AM.view.asset.asset.config.AssetTypePropertyEditWindow'
-        ,'AM.view.asset.asset.config.AssetTypePropertySearchWindow'
-        ,'AM.view.asset.asset.config.AssetTypePropertyDetailWindow'
+        ,'AM.model.asset.asset.config.AssetTypeTreeNode'
     ]
+    ,bodyPadding:10
+    ,bodyCls: 'app-dashboard'
     ,controller: 'asset.asset.config.AssetTypePropertyController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.asset.asset.config.AssetTypePropertyStore').load()
+                    ,assetTypeTreeStore:Ext.create('Ext.data.TreeStore', {autoLoad:false, model:'AM.model.asset.asset.config.AssetTypeTreeNode', nodeParam:'id'})
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
+                    xtype: 'treepanel'
+                    ,title: '资产分类'
+                    ,collapsible:true
+                    ,region: 'west'
+                    ,width: '30%'
+                    ,frame: true
+                    ,split: true
+                    ,reference: 'assetTypeTree'
+                    ,displayField: 'name'
+                    ,rootVisible: false
+                    ,bind:{store: '{assetTypeTreeStore}'}
+                    ,tbar:[
+                        {
+                            xtype:'button',
+                            text:'刷新',
+                            iconCls: 'fas fa-sync',
+                            handler: 'loadAssetTypeTree'
+                        }
+                    ]
+                    ,columns: [{
+                        xtype: 'treecolumn',
+                        text: 'Name',
+                        dataIndex: 'name',
+                        flex: 1,
+                        sortable: true,
+                        renderer: function(v, metaData, record) {
+                            metaData.glyph = record.glyph;
+                            return v;
+                        }
+                    }]
+                    ,listeners: {
+                        itemclick: 'onAssetTypeItemClick'
+                        ,afterrender: 'loadAssetTypeTree'
+                    }
+
+                }
+                ,{
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.asset.asset.config.AssetTypePropertyStore').load()
+                    ,title:'分类属性'
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
+                    ,frame:true
                     ,columns: [
                         {
                             xtype: 'actioncolumn'
@@ -41,26 +92,62 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
                             }]
                         }
                         ,{
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'seq'
+                            ,format:'0,000'
+                            ,text: '顺序'
+                        }
+                        ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'assetType'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("assetTypeVO")?record.get("assetTypeVO").name:'';
                             }
                             ,text: '资产分类'
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '属性名称'
-                            
+                            ,flex:1
+                            ,editor:{xtype: 'textfield', blankText:'必填字段', emptyText:'必填字段'
+                                ,allowBlank:false}
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'code'
+                            ,text: '属性代码'
+                            ,flex:1
+                            ,editor:{xtype: 'textfield', blankText:'必填字段', emptyText:'必填字段'
+                                ,allowBlank:false}
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'type'
                             ,text: '属性类型'
-                            
+                            ,editor: new Ext.form.field.ComboBox({
+                                editable:false
+                                ,triggerAction: 'all'
+                                ,store: [
+                                    ['String','字符']
+                                    ,['Long','数字']
+                                ]
+                                ,value : 'String'
+                            })
+                            ,renderer: function(value){
+                                if (value == 'String') {
+                                    return '字符';
+                                }else if (value == 'Long') {
+                                    return '数字';
+                                }else{
+                                    return '';
+                                }
+                            }
+
                         }
+
                         ,{
                             xtype: 'booleancolumn'
                             ,dataIndex: 'required'
@@ -68,21 +155,25 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '必填'
-                            
+                            ,editor: new Ext.form.field.ComboBox({
+                                editable:false
+                                ,triggerAction: 'all'
+                                ,store: [
+                                    [true,'是']
+                                    ,[false,'否']
+                                ]
+                                ,value : false
+                            })
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'optionValues'
                             ,text: '备选值'
-                            
+                            ,editor:'textfield'
+
                         }
-                        ,{
-                            xtype: 'numbercolumn'
-                            ,dataIndex: 'seq'
-                            ,format:'0,000'
-                            ,text: '顺序'
-                            ,flex:1
-                        }
+
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
@@ -146,32 +237,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
                                         click: 'onDeleteButtonClick'
                                     }
                                 }
-                                ,'-'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
-                                    ,text: '查询'
-                                    ,listeners: {
-                                        click: 'onSimpleSearchButtonClick'
-                                    }
-                                }
-                                ,'->'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search-plus'
-                                    ,text: '高级查询'
-                                    ,listeners: {
-                                        click: 'showSearchWindow'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-download'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
-                                    }
-                                }
                             ]
                         },
                         {
@@ -181,7 +246,26 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {}
+                    ,plugins: [
+                        {
+                            ptype: 'rowediting'
+                            ,id: 'assetTypePropertyRowEditing'
+                            ,clicksToEdit: 2
+                            ,saveBtnText:'保存'
+                            ,cancelBtnText: '取消'
+                            ,dirtyText: "你要确认或取消更改"
+                        }
+                    ]
+                    ,listeners: {
+                        edit:function (editor, e) {
+                            e.record.save();
+                        }
+                        ,canceledit: function(editor, e) {
+                            if(e.record.phantom){
+                                e.record.drop()
+                            }
+                        }
+                    }
                 }
             ]
             ,listeners: {
@@ -196,23 +280,11 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyPanel', {
 			}
         });
 
-        me.add({xtype:'asset.asset.config.AssetTypePropertyAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'asset.asset.config.AssetTypePropertyEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'asset.asset.config.AssetTypePropertySearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'asset.asset.config.AssetTypePropertyDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }
 
-    ,showDetailWindow: function(model, targetComponent) {
-        var me = this;
-        var detailWindow = me.lookupReference('mainDetailWindow');
-        detailWindow.setModel(model);
-        detailWindow.show(targetComponent);
-        return detailWindow;
-    }
 
-    ,onBeforeShow:function(abstractcomponent, options) {
-	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
-    }
+
+
 });

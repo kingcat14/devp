@@ -234,7 +234,7 @@ public class AssetCmdbController {
 
 	private void initCategoryPropertyGroup(AssetCmdbVO assetCmdbVO, AssetCmdb assetCmdb){
 	
-		AssetCategory category = assetCategoryService.find(assetCmdb.getCategory());
+		AssetCategory category = assetCategoryService.findByCode(assetCmdb.getCategoryCode());
 		if(category == null){
 			return;
 		}
@@ -247,11 +247,13 @@ public class AssetCmdbController {
 
 
 	private void initTypePropertyGroup(AssetCmdbVO assetCmdbVO, AssetCmdb assetCmdb){
-	
-		AssetType type = assetTypeService.find(assetCmdb.getType());
+
+
+    	AssetType type = assetTypeService.findByCategoryCodeAndCode(assetCmdb.getCategoryCode(), assetCmdb.getTypeCode());
 		if(type == null){
 			return;
 		}
+
 		AssetTypeVO typeVO = new AssetTypeVO();
 		BeanUtils.copyProperties(type, typeVO);
 
