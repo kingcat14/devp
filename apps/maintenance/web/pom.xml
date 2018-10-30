@@ -12,7 +12,6 @@
     <artifactId>maintenance-web</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-ui-extjs</artifactId>

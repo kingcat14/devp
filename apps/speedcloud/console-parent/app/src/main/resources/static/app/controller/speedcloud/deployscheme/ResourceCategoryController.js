@@ -21,7 +21,7 @@ Ext.define('AM.controller.speedcloud.deployscheme.ResourceCategoryController', {
 
          var resourceCategoryPanel = center.child('speedcloud\\.deployscheme\\.ResourceCategoryMainPanel');
          if(!resourceCategoryPanel){
-             resourceCategoryPanel = Ext.create('AM.view.speedcloud.deployScheme.ResourceCategoryMainPanel',{closable:true});
+             resourceCategoryPanel = Ext.create('AM.view.speedcloud.deployscheme.ResourceCategoryMainPanel',{closable:true});
 
              center.add(resourceCategoryPanel);
              center.setActiveTab(resourceCategoryPanel);

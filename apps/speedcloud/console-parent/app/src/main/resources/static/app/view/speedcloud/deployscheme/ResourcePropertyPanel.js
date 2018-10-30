@@ -11,7 +11,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyPanel', {
         ,'AM.view.speedcloud.deployscheme.ResourcePropertySearchWindow'
         ,'AM.view.speedcloud.deployscheme.ResourcePropertyDetailWindow'
     ]
-    ,controller: 'speedcloud.deployScheme.ResourcePropertyController'
+    ,controller: 'speedcloud.deployscheme.ResourcePropertyController'
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');

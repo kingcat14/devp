@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.yunkang.saas.starter</groupId>
         <artifactId>saas-biz-starter-parent </artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.yunkang.saas.bootstrap</groupId>
     <artifactId>bootstrap-parent</artifactId>
@@ -16,11 +16,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.yunkang.saas.common</groupId>
-                <artifactId>common-jpa</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
+
             <!--<dependency>-->
                 <!--<groupId>com.yunkang.saas.bootstrap</groupId>-->
                 <!--<artifactId>security-model</artifactId>-->
@@ -44,12 +40,10 @@
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-utils</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

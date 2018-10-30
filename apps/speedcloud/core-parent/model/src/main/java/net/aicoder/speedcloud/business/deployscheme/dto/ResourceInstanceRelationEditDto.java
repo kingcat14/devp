@@ -8,10 +8,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 方案资源关联实例
+ * 方案资源关联资产
  * @author icode
  */
-@ApiModel(value = "修改方案资源关联实例使用的DTO")
+@ApiModel(value = "修改方案资源关联资产使用的DTO")
 public class ResourceInstanceRelationEditDto {
 
 
@@ -42,7 +42,7 @@ public class ResourceInstanceRelationEditDto {
 
 	/**产品编号*/
 	@ApiModelProperty(value = "产品编号", required = false, notes = "[产品编号]")
-	private Long prdRid;
+	private Long project;
 
 
 	/**部署方案编号*/
@@ -111,11 +111,11 @@ public class ResourceInstanceRelationEditDto {
 	}
 
 
-	public Long getPrdRid(){
-		return prdRid;
+	public Long getProject(){
+		return project;
 	}
-	public void setPrdRid(Long prdRid) {
-		this.prdRid = prdRid;
+	public void setProject(Long project) {
+		this.project = project;
 	}
 
 

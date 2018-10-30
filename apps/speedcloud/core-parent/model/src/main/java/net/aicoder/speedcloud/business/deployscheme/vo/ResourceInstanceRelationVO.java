@@ -13,9 +13,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
-* 方案资源关联实例的值对象
+* 方案资源关联资产的值对象
 */
-@ApiModel(value = "展现方案资源关联实例的值对象")
+@ApiModel(value = "展现方案资源关联资产的值对象")
 public class ResourceInstanceRelationVO {
 
     @ApiModelProperty(value = "记录id")
@@ -41,7 +41,7 @@ public class ResourceInstanceRelationVO {
 
 
     @ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-    private Long prdRid;
+    private Long project;
 
 
     /**部署方案编号*/
@@ -98,11 +98,11 @@ public class ResourceInstanceRelationVO {
         this.seq = seq;
     }
 
-    public Long getPrdRid(){
-        return prdRid;
+    public Long getProject(){
+        return project;
     }
-    public void setPrdRid(Long prdRid) {
-        this.prdRid = prdRid;
+    public void setProject(Long project) {
+        this.project = project;
     }
 
     public Long getScheme(){

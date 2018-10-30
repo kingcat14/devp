@@ -63,7 +63,7 @@ public class AssetPropertyRibbon {
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
-    public AssetPropertyResult delete(Long id) {
+    public AssetPropertyResult delete(String id) {
         String url = "http://"+host+"/asset/asset/info/assetproperty/"+id;
         ResponseEntity<AssetPropertyResult> response =
                 restTemplate.exchange(url, HttpMethod.DELETE, null, new ParameterizedTypeReference<AssetPropertyResult>() {});
@@ -83,14 +83,14 @@ public class AssetPropertyRibbon {
 	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "updateFail")
-    public AssetPropertyResult update(Long id, AssetPropertyEditDto editDto) {
+    public AssetPropertyResult update(String id, AssetPropertyEditDto editDto) {
         String url = "http://"+host+"/asset/asset/info/assetproperty/"+id;
         ResponseEntity<AssetPropertyResult> response =
                 restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<AssetPropertyResult>() {});
         return response.getBody();
     }
 
-    public AssetPropertyResult updateFail(Long id, AssetPropertyEditDto updateRequest, Throwable throwable) {
+    public AssetPropertyResult updateFail(String id, AssetPropertyEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
 
@@ -105,7 +105,7 @@ public class AssetPropertyRibbon {
 	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "getFail")
-    public AssetPropertyResult get(Long id) {
+    public AssetPropertyResult get(String id) {
         String url = "http://"+host+"/asset/asset/info/assetproperty/"+id;
         return restTemplate.getForObject(url, AssetPropertyResult.class);
     }
@@ -114,7 +114,7 @@ public class AssetPropertyRibbon {
      * @param id
      * @return
      */
-    private AssetPropertyResult getFail(Long id, Throwable throwable) {
+    private AssetPropertyResult getFail(String id, Throwable throwable) {
 
         LOGGER.error("", throwable);
 

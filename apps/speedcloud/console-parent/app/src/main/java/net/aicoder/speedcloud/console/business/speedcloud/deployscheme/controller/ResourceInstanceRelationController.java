@@ -3,30 +3,28 @@ package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controll
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
+import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.business.deployscheme.dto.ResourceInstanceRelationCondition;
+import net.aicoder.speedcloud.asset.business.asset.info.vo.AssetCmdbVO;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceInstanceRelationAddDto;
+import net.aicoder.speedcloud.business.deployscheme.dto.ResourceInstanceRelationCondition;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceInstanceRelationEditDto;
 import net.aicoder.speedcloud.business.deployscheme.vo.ResourceInstanceRelationVO;
+import net.aicoder.speedcloud.console.business.asset.asset.info.controller.AssetCmdbController;
 import net.aicoder.speedcloud.console.business.speedcloud.deployscheme.service.ResourceInstanceRelationRibbonService;
 import net.aicoder.speedcloud.console.business.speedcloud.deployscheme.valid.ResourceInstanceRelationValidator;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -52,6 +50,9 @@ public class ResourceInstanceRelationController {
 
 	@Autowired
 	ResourceInstanceRelationValidator resourceInstanceRelationValidator;
+
+	@Autowired
+	private AssetCmdbController assetCmdbController;
 
 
     @InitBinder
@@ -97,10 +98,29 @@ public class ResourceInstanceRelationController {
 	 * @return
 	 */
 	@ApiOperation(value = "修改", notes = "修改产方案资源关联实例(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
+	@PutMapping(path="/{id}")
 	public ResourceInstanceRelationVO update(@RequestBody ResourceInstanceRelationEditDto resourceInstanceRelationEditDto, @ApiParam(value = "要查询的方案资源关联实例id") @PathVariable Long id){
 
 		ResourceInstanceRelationVO vo = resourceInstanceRelationRibbonService.merge(id, resourceInstanceRelationEditDto);
+
+		return  vo;
+	}
+
+	/**
+	 * 更新方案资源关联实例
+	 * @param addDtoList
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "修改", notes = "修改产方案资源关联实例(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/updateall/{id}")
+	public ResourceInstanceRelationVO updateAll(@RequestBody List<ResourceInstanceRelationAddDto> addDtoList, @ApiParam(value = "要查询的方案资源关联实例id") @PathVariable Long id){
+
+		for(ResourceInstanceRelationAddDto addDto : addDtoList){
+			addDto.setTid(saaSUtil.getAccount().getTid());
+			addDto.setResource(id);
+		}
+		ResourceInstanceRelationVO vo = resourceInstanceRelationRibbonService.updateAll(id, addDtoList);
 
 		return  vo;
 	}
@@ -144,6 +164,37 @@ public class ResourceInstanceRelationController {
 	}
 
 	/**
+	 * 查询方案资源关联实例列表
+	 * @param pageSearchRequest
+	 * @return
+	 */
+	@ApiOperation(value = "查询", notes = "根据条件查询方案资源关联实例列表", httpMethod = "POST")
+	@PostMapping("/asset/list")
+	public List<AssetCmdbVO> assetList(@RequestBody PageSearchRequest<ResourceInstanceRelationCondition> pageSearchRequest){
+
+		ResourceInstanceRelationCondition condition = pageSearchRequest.getSearchCondition();
+		if(condition==null){
+			condition = new ResourceInstanceRelationCondition();
+			pageSearchRequest.setSearchCondition(condition);
+		}
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		PageContent<ResourceInstanceRelationVO> pageContent = resourceInstanceRelationRibbonService.list(pageSearchRequest);
+
+		List<AssetCmdbVO> result = new ArrayList<>();
+
+		for(ResourceInstanceRelationVO relationVO : pageContent.getContent()){
+			AssetCmdbVO assetCmdbVO = assetCmdbController.get(relationVO.getAsset());
+			result.add(assetCmdbVO);
+		}
+
+		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
+
+
+		return result;
+
+	}
+
+	/**
      * 导出方案资源关联实例列表
      * @param condition
      * @param response
@@ -171,7 +222,6 @@ public class ResourceInstanceRelationController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
-    
             headMap.put("type" ,"类型");
             headMap.put("status" ,"状态");
             headMap.put("notes" ,"备注");

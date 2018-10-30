@@ -125,6 +125,31 @@ public class ResourceInstanceRelationController {
 	}
 
 	/**
+	 * 更新方案资源关联的所有IT资产
+	 * @param dtoList
+	 * @param resourceId
+	 * @return
+	 */
+	@ApiOperation(value = "修改", notes = "修改产方案资源关联实例(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(value="/updateall/{resourceId}")
+	public	ResourceInstanceRelationVO updateAll(@RequestBody @Valid List<ResourceInstanceRelationAddDto> dtoList, @PathVariable Long resourceId){
+
+
+		List<ResourceInstanceRelation> relationList = new ArrayList<>();
+		for(int i = 0;i < CollectionUtils.size(dtoList); i++){
+			ResourceInstanceRelation resourceInstanceRelation = new ResourceInstanceRelation();
+			BeanUtils.copyProperties(dtoList.get(i), resourceInstanceRelation);
+			resourceInstanceRelation.setResource(resourceId);
+			relationList.add(resourceInstanceRelation);
+		}
+		resourceInstanceRelationService.updateAll(resourceId, relationList);
+
+		ResourceInstanceRelationVO vo = new ResourceInstanceRelationVO();
+
+		return  vo;
+	}
+
+	/**
 	 * 根据ID查询方案资源关联实例
 	 * @param id
 	 * @return

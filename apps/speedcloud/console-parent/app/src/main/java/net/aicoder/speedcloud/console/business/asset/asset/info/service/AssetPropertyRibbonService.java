@@ -37,7 +37,7 @@ public class AssetPropertyRibbonService  {
 	
 	}
 
-	public void delete(Long id){
+	public void delete(String id){
 		if(null == id){
 			LOGGER.warn("try delete T by empty id. Code need check");
 			return ;
@@ -48,7 +48,7 @@ public class AssetPropertyRibbonService  {
 			throw new BusinessException("ASSET", "ASSET.INFO", result.getCode()+"", result.getMessage());
 		}
 	}
-	public AssetPropertyVO merge(Long id, AssetPropertyEditDto editDto){
+	public AssetPropertyVO merge(String id, AssetPropertyEditDto editDto){
 		AssetPropertyResult result = assetPropertyRibbon.update(id, editDto);
 
 		if(!result.isSuccess()){
@@ -57,7 +57,7 @@ public class AssetPropertyRibbonService  {
 
 		return result.getData();
 	}
-	public AssetPropertyVO find(Long id){
+	public AssetPropertyVO find(String id){
 		AssetPropertyResult result = assetPropertyRibbon.get(id);
 
 		if(!result.isSuccess()){

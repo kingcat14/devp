@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("resourceInstanceRelationRibbonService")
 public class ResourceInstanceRelationRibbonService  {
@@ -50,6 +52,15 @@ public class ResourceInstanceRelationRibbonService  {
 	}
 	public ResourceInstanceRelationVO merge(Long id, ResourceInstanceRelationEditDto editDto){
 		ResourceInstanceRelationResult result = resourceInstanceRelationRibbon.update(id, editDto);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());
+		}
+
+		return result.getData();
+	}
+	public ResourceInstanceRelationVO updateAll(Long id, List<ResourceInstanceRelationAddDto> addDtoList){
+		ResourceInstanceRelationResult result = resourceInstanceRelationRibbon.updateAll(id, addDtoList);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());

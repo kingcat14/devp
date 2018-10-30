@@ -27,7 +27,7 @@ public class ResourceInstanceRelation extends BaseEntity<Long>{
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_NOTES = "notes";
 	public static final String PROPERTY_SEQ = "seq";
-	public static final String PROPERTY_PRD_RID = "prdRid";
+	public static final String PROPERTY_PROJECT = "project";
 	public static final String PROPERTY_SCHEME = "scheme";
 	public static final String PROPERTY_RESOURCE = "resource";
 	public static final String PROPERTY_ASSET = "asset";
@@ -81,8 +81,8 @@ public class ResourceInstanceRelation extends BaseEntity<Long>{
     * 产品编号
     * [产品编号]
     */
-    @Column(name = "prd_rid", nullable = false, updatable = true)
-	private Long prdRid;
+    @Column(name = "project", nullable = true, updatable = true)
+	private Long project;
 
     /**
     * 部署方案编号
@@ -156,11 +156,11 @@ public class ResourceInstanceRelation extends BaseEntity<Long>{
 		this.seq = seq;
 	}
 
-	public Long getPrdRid(){
-		return prdRid;
+	public Long getProject() {
+		return project;
 	}
-	public void setPrdRid(Long prdRid) {
-		this.prdRid = prdRid;
+	public void setProject(Long project) {
+		this.project = project;
 	}
 
 	public Long getScheme(){

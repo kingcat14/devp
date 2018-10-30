@@ -7,11 +7,11 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
          'AM.model.speedcloud.deployscheme.ResourceTreeNode'
         ,'AM.view.speedcloud.deployscheme.SchemeEditController'
         ,'AM.view.speedcloud.deployscheme.ResourcePanel'
+        ,'AM.view.speedcloud.deployscheme.ResourceInstanceWindow'
         ,'AM.view.speedcloud.deployscheme.SchemeEditResourcePanel'
         ,'AM.view.speedcloud.deployscheme.SchemeEditResourceRelationPanel'
         ,'AM.store.speedcloud.deployscheme.ResourceStore'
         ,'AM.store.speedcloud.deployscheme.ResourceRelationStore'
-
     ]
     ,controller: 'speedcloud.deployscheme.SchemeEditController'
     ,viewModel:{
@@ -71,6 +71,27 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
 
                         ,{
                             xtype: 'actioncolumn'
+                            , menuDisabled: true
+                            , width:30
+                            , items: [{
+                                // iconCls: 'x-fa fa-minus-circle'
+                                tooltip: '实例化'
+                                ,handler: 'showInstancePanel'
+                                ,getClass:function(value, metadata, record){
+                                    if(!record.get('relationId')) {
+                                        return 'fas fa-link';
+                                    }
+                                }
+                                ,isDisabled:function (value, rowIndex, colIndex, item, record) {
+                                    if(!record.get('relationId')) {
+                                        return false;
+                                    }
+                                    return true;
+                                }
+                            }]
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
                             ,menuDisabled: true
                             ,width:30
                             ,items: [{
@@ -79,7 +100,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
                                 ,handler: 'createRelation'
                                 ,getClass:function(value, metadata, record){
                                     if(!record.get('relationId')) {
-                                        return 'fas fa-link';
+                                        return 'fas fa-cogs';
                                     }
                                 }
                                 ,isDisabled:function (value, rowIndex, colIndex, item, record) {
@@ -208,6 +229,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
             ]
         });
 
+        me.add({xtype:'speedcloud.deployscheme.ResourceInstanceWindow',reference:'resourceInstanceWindow',listeners:{saved:'reloadStore'}})
 
         me.callParent();
     }

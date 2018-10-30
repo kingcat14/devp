@@ -90,7 +90,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployScheme.ResourceCategoryStore")
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
@@ -107,7 +107,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployScheme.ResourceTypeStore")
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceTypeStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
@@ -228,7 +228,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceAddWindow', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployScheme.SchemeStore")
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.SchemeStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'

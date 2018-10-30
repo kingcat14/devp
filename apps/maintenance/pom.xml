@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.yunkang.saas.starter</groupId>
         <artifactId>saas-biz-starter-parent </artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <groupId>net.aicoder.maintenance</groupId>
     <artifactId>maintenance-parent</artifactId>
@@ -46,7 +46,7 @@
             <dependency>
                 <groupId>com.yunkang.saas.common</groupId>
                 <artifactId>common-ui-extjs</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>6.2.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.yunkang.saas.bootstrap</groupId>
@@ -67,12 +67,10 @@
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-utils</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
             <artifactId>common-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <profiles>

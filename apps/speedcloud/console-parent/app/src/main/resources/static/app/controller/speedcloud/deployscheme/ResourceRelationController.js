@@ -21,7 +21,7 @@ Ext.define('AM.controller.speedcloud.deployscheme.ResourceRelationController', {
 
          var resourceRelationPanel = center.child('speedcloud\\.deployscheme\\.ResourceRelationMainPanel');
          if(!resourceRelationPanel){
-             resourceRelationPanel = Ext.create('AM.view.speedcloud.deployScheme.ResourceRelationMainPanel',{closable:true});
+             resourceRelationPanel = Ext.create('AM.view.speedcloud.deployscheme.ResourceRelationMainPanel',{closable:true});
 
              center.add(resourceRelationPanel);
              center.setActiveTab(resourceRelationPanel);

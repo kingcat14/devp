@@ -33,7 +33,7 @@ public class ResourceInstanceRelationSpecification implements Specification<Reso
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddNotesPredicate(predicateList, root, cb);
 		tryAddSeqPredicate(predicateList, root, cb);
-		tryAddPrdRidPredicate(predicateList, root, cb);
+		tryAddProjectPredicate(predicateList, root, cb);
 		tryAddSchemePredicate(predicateList, root, cb);
 		tryAddResourcePredicate(predicateList, root, cb);
 		tryAddAssetPredicate(predicateList, root, cb);
@@ -90,18 +90,18 @@ public class ResourceInstanceRelationSpecification implements Specification<Reso
 			predicateList.add(cb.lessThan(root.get(ResourceInstanceRelation.PROPERTY_SEQ).as(Integer.class), condition.getSeqMin()));
 		}
 	}
-	private void tryAddPrdRidPredicate(List<Predicate> predicateList, Root<ResourceInstanceRelation> root, CriteriaBuilder cb){
+	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<ResourceInstanceRelation> root, CriteriaBuilder cb){
 
-		if (null != condition.getPrdRid() ) {
-			predicateList.add(cb.equal(root.get(ResourceInstanceRelation.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRid()));
+		if (null != condition.getProject() ) {
+			predicateList.add(cb.equal(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
 		}
 
-		if (null != condition.getPrdRidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceInstanceRelation.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRidMax()));
+		if (null != condition.getProjectMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProjectMax()));
 		}
 
-		if (null != condition.getPrdRidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ResourceInstanceRelation.PROPERTY_PRD_RID).as(Long.class), condition.getPrdRidMin()));
+		if (null != condition.getProjectMin() ) {
+			predicateList.add(cb.lessThan(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProjectMin()));
 		}
 	}
 	private void tryAddSchemePredicate(List<Predicate> predicateList, Root<ResourceInstanceRelation> root, CriteriaBuilder cb){

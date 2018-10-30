@@ -4,30 +4,26 @@ import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.common.framework.web.data.PageRequest;
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
+import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.asset.business.asset.info.dto.AssetPropertyCondition;
 import net.aicoder.speedcloud.asset.business.asset.info.dto.AssetPropertyAddDto;
+import net.aicoder.speedcloud.asset.business.asset.info.dto.AssetPropertyCondition;
 import net.aicoder.speedcloud.asset.business.asset.info.dto.AssetPropertyEditDto;
 import net.aicoder.speedcloud.asset.business.asset.info.vo.AssetPropertyVO;
 import net.aicoder.speedcloud.console.business.asset.asset.info.service.AssetPropertyRibbonService;
 import net.aicoder.speedcloud.console.business.asset.asset.info.valid.AssetPropertyValidator;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -86,7 +82,7 @@ public class AssetPropertyController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			assetPropertyRibbonService.delete(Long.parseLong(id));
+			assetPropertyRibbonService.delete(id);
 		}
 
 	}
@@ -99,7 +95,7 @@ public class AssetPropertyController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产资产属性(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public AssetPropertyVO update(@RequestBody AssetPropertyEditDto assetPropertyEditDto, @ApiParam(value = "要查询的资产属性id") @PathVariable Long id){
+	public AssetPropertyVO update(@RequestBody AssetPropertyEditDto assetPropertyEditDto, @ApiParam(value = "要查询的资产属性id") @PathVariable String id){
 
 		AssetPropertyVO vo = assetPropertyRibbonService.merge(id, assetPropertyEditDto);
 
@@ -113,7 +109,7 @@ public class AssetPropertyController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询资产属性", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public AssetPropertyVO get(@ApiParam(value = "要查询的资产属性id") @PathVariable Long id) {
+	public AssetPropertyVO get(@ApiParam(value = "要查询的资产属性id") @PathVariable String id) {
 
 		AssetPropertyVO vo = assetPropertyRibbonService.find(id);
 		return vo;

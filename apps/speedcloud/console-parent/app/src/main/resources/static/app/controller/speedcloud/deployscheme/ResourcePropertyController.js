@@ -21,7 +21,7 @@ Ext.define('AM.controller.speedcloud.deployscheme.ResourcePropertyController', {
 
          var resourcePropertyPanel = center.child('speedcloud\\.deployscheme\\.ResourcePropertyMainPanel');
          if(!resourcePropertyPanel){
-             resourcePropertyPanel = Ext.create('AM.view.speedcloud.deployScheme.ResourcePropertyMainPanel',{closable:true});
+             resourcePropertyPanel = Ext.create('AM.view.speedcloud.deployscheme.ResourcePropertyMainPanel',{closable:true});
 
              center.add(resourcePropertyPanel);
              center.setActiveTab(resourcePropertyPanel);

@@ -8,10 +8,11 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePanel', {
         ,'AM.store.speedcloud.deployscheme.ResourceStore'
         ,'AM.view.speedcloud.deployscheme.ResourceAddWindow'
         ,'AM.view.speedcloud.deployscheme.ResourceEditWindow'
-        ,'AM.view.speedcloud.deployscheme.ResourceSearchWindow'
-        ,'AM.view.speedcloud.deployscheme.ResourceDetailWindow'
+        // ,'AM.view.speedcloud.deployscheme.ResourceSearchWindow'
+        // ,'AM.view.speedcloud.deployscheme.ResourceDetailWindow'
+        ,'AM.store.speedcloud.deployscheme.SchemeStore'
     ]
-    ,controller: 'speedcloud.deployScheme.ResourceController'
+    ,controller: 'speedcloud.deployscheme.ResourceController'
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -197,7 +198,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePanel', {
                                 ,{
                                     xtype: 'combobox'
                                     ,emptyText:'所属方案'
-                                    ,store: Ext.create("AM.store.speedcloud.deployScheme.SchemeStore")
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.SchemeStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
@@ -255,8 +256,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePanel', {
 
         me.add({xtype:'speedcloud.deployscheme.ResourceAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
         me.add({xtype:'speedcloud.deployscheme.ResourceEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.deployscheme.ResourceSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.deployscheme.ResourceDetailWindow',reference:'mainDetailWindow'})
+        // me.add({xtype:'speedcloud.deployscheme.ResourceSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        // me.add({xtype:'speedcloud.deployscheme.ResourceDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

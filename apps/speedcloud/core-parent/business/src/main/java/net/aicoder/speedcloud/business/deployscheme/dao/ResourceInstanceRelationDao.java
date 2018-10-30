@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository("resourceInstanceRelationDao")
 public interface ResourceInstanceRelationDao extends BaseDao<ResourceInstanceRelation, Long>{
 
+    int deleteByResource(Long resourceId);
 
 }

@@ -3,7 +3,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceController', {
 	requires: [
 
 	]
-	,alias: 'controller.speedcloud.deployScheme.ResourceController'
+	,alias: 'controller.speedcloud.deployscheme.ResourceController'
 
 	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
 		//点击主数据的某行

@@ -21,7 +21,7 @@ Ext.define('AM.controller.speedcloud.deployscheme.SchemeController', {
 
          var schemePanel = center.child('speedcloud\\.deployscheme\\.SchemeMainPanel');
          if(!schemePanel){
-             schemePanel = Ext.create('AM.view.speedcloud.deployScheme.SchemeMainPanel',{closable:true});
+             schemePanel = Ext.create('AM.view.speedcloud.deployscheme.SchemeMainPanel',{closable:true});
 
              center.add(schemePanel);
              center.setActiveTab(schemePanel);

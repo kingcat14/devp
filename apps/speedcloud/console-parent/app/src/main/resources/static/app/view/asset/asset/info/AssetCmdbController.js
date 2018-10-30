@@ -1,7 +1,7 @@
 Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
 	extend: 'Ext.app.ViewController',
 	requires: [
-
+        'AM.model.asset.asset.info.AssetProperty'
 	]
 	,alias: 'controller.asset.asset.info.AssetCmdbController'
 
@@ -128,15 +128,22 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
             document.body.appendChild(frm);
         }
         console.log(condition)
+        me.getView().mask('等待下载...')
         Ext.Ajax.request({
             disableCaching: true
-            ,url: "asset/info/assetCmdb/export"
+            ,url: "asset/asset/info/assetcmdb/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
+            ,jsonData :condition
             ,isUpload: true
+            ,binary:true
             ,form: Ext.fly('formFly')
+            ,success:function(options){
+                console.log(111111111111)
+                me.getView().unmask()
+            }
         });
+        me.getView().unmask()
 
     }
     ,showAddWindow: function(model, targetComponent) {
@@ -183,5 +190,29 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
                 ,page:0
             }
         });
+    }
+    ,assetItemDbClick:function(grid, record){
+	    var me = this;
+	    me.getViewModel().set('record', record);
+        me.getViewModel().getStore('assetPropertyStore').applyCondition({asset:record.getId()}).load()
+
+	    me.lookup('assetPropertyGridPanel').expand();
+    }
+    ,onPropertyAddButtonClick: function() {
+
+        var me = this;
+
+        var record = me.getViewModel().get('record');
+
+        var rowEditing =  this.lookup('assetPropertyGridPanel').getPlugin('assetPropertyRowEditing');
+        rowEditing.cancelEdit();
+
+        var modelConfig = {asset:record.getId()}
+
+        var assetProperty = Ext.create('AM.model.asset.asset.info.AssetProperty', modelConfig);
+
+        var assetPropertyStore = me.getViewModel().getStore('assetPropertyStore');
+        assetPropertyStore.add(assetProperty);
+        rowEditing.startEdit(assetProperty);
     }
 })

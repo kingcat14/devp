@@ -22,9 +22,22 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
 
         me.callParent([Ext.apply({
             viewModel : {
-                stores:{
+                data:{
+                    record:null
+                }
+                ,stores:{
                     assetTypeStore:{type:'tree',autoLoad:false, model:'AM.model.asset.asset.config.AssetTypeTreeNode', nodeParam:'id'}
-                    ,assetCmdbStore:Ext.create('AM.store.asset.asset.info.AssetCmdbStore')
+                    ,assetCmdbStore:Ext.create('AM.store.asset.asset.info.AssetCmdbStore').load()
+                    ,assetPropertyStore:Ext.create('AM.store.asset.asset.info.AssetPropertyStore', {pageSize:1000}).applyCondition({asset:-999}).load()
+                }
+                ,formulas: {
+                    propertyTitle: function (get) {
+                        if(get('record')) {
+
+                            return '属性列表:[' + get('record.name') + ']';
+                        }
+                        return '属性列表';
+                    }
                 }
             }
         }, cfg)])
@@ -90,6 +103,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
                             ,width:35
+                            ,locked: true
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
@@ -103,27 +117,24 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'barcode'
-                            ,text: '资产条码'
-
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '资产名称'
+                            ,locked: true
 
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
                             ,text: '资产代码'
+                            ,locked: true
 
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'alias'
                             ,text: '资产别名'
-
+                            ,locked: true
+                            ,hidden: true
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -145,14 +156,9 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'unit'
-                            ,text: '计量单位'
-
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
+                            ,dataIndex: 'barcode'
+                            ,text: '资产条码'
+                            ,hidden: true
 
                         }
                         ,{
@@ -166,6 +172,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                             ,format: 'Y-m-d'
                             ,dataIndex: 'createDate'
                             ,text: '创建时间'
+                            ,hidden:true
 
                         }
                         ,{
@@ -178,25 +185,15 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'assetArea'
+                            ,flex: 1
                             ,text: '所在区域'
 
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'assetLocation'
+                            ,flex: 1
                             ,text: '所在地址'
-
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'acquisitionMode'
-                            ,text: '获取模式'
-
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'acquisitionDesc'
-                            ,text: '获取描述'
 
                         }
                         ,{
@@ -204,6 +201,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                             ,format: 'Y-m-d'
                             ,dataIndex: 'goliveDate'
                             ,text: '启用时间'
+                            ,hidden: true
 
                         }
                         ,{
@@ -211,6 +209,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                             ,dataIndex: 'notes'
                             ,text: 'notes'
                             ,flex:1
+                            ,hidden:true
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -303,7 +302,97 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {}
+                    ,listeners: {
+                        rowdblclick:'assetItemDbClick'
+                    }
+                }
+                ,{
+                    xtype:'grid'
+                    ,region: 'east'
+                    ,title:'属性'
+                    ,bind:{title:'{propertyTitle}', store:'{assetPropertyStore}'}
+                    ,width: '20%'
+                    ,frame: true
+                    ,split: true
+                    ,collapsible:true
+                    ,collapsed:true
+                    ,reference:'assetPropertyGridPanel'
+                    ,columns: [
+                        {
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'name'
+                            ,text: '属性名称'
+                            ,flex:1
+                            ,editor:{
+                                xtype: 'textfield', blankText:'必填字段', emptyText:'必填字段'
+                                ,allowBlank:false
+                            }
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'value'
+                            ,text: '属性值'
+                            ,flex:1
+                            ,editor:'textfield'
+
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'fas fa-minus-circle red'
+                                ,tooltip: '删除'
+                                ,handler: function(table, rowIndex, colIndex, item, event, record) {
+                                    record.erase({
+                                        failure: function(record, operation) {
+                                            Ext.MsgUtil.notification('操作成功','删除属性成功!');
+                                        }
+                                        ,success: function(record, operation) {
+                                            Ext.MessageBox.show({title: '操作失败', msg: '删除属性失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+                                        }
+                                    })
+                                }
+                            }]
+                        }
+                    ]
+                    ,dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button'
+                                    ,iconCls: 'fas fa-plus-circle'
+                                    ,text: '新增'
+                                    ,listeners: {
+                                        click: 'onPropertyAddButtonClick'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                    ,plugins: [
+                        {
+                            ptype: 'rowediting'
+                            ,id: 'assetPropertyRowEditing'
+                            ,clicksToEdit: 2
+                            ,saveBtnText:'保存'
+                            ,cancelBtnText: '取消'
+                            ,dirtyText: "你要确认或取消更改"
+                        }
+                    ]
+                    ,listeners: {
+                        edit:function (editor, e) {
+                            e.record.save();
+                        }
+                        ,canceledit: function(editor, e) {
+                            if(e.record.phantom){
+                                e.record.drop()
+                            }
+                        }
+                    }
                 }
             ]
             ,listeners: {

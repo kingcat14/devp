@@ -77,6 +77,7 @@ Ext.define('AM.controller.application.framework.MainController', {
 				controller.init(me.application);
 
 			}catch(e){
+                console.log(e);
 				Ext.MessageBox.show({
 					title: '加载页面错误',
 					msg: '不能加载页面,请重试或联系管理员!',

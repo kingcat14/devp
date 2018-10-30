@@ -48,7 +48,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyEditWindow', {
                             ,items:[
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployScheme.ResourceStore")
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceStore")
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'

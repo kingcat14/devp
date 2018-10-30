@@ -31,7 +31,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -85,7 +85,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,items: [{
                                 iconCls: 'edit'
                                 ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -100,7 +100,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,items: [{
                                 iconCls: 'delete'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)

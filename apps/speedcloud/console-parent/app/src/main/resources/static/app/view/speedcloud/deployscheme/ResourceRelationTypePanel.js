@@ -11,7 +11,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceRelationTypePanel', {
         ,'AM.view.speedcloud.deployscheme.ResourceRelationTypeSearchWindow'
         ,'AM.view.speedcloud.deployscheme.ResourceRelationTypeDetailWindow'
     ]
-    ,controller: 'speedcloud.deployScheme.ResourceRelationTypeController'
+    ,controller: 'speedcloud.deployscheme.ResourceRelationTypeController'
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');

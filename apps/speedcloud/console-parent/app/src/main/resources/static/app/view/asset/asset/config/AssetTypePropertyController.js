@@ -39,8 +39,6 @@ Ext.define('AM.view.asset.asset.config.AssetTypePropertyController', {
     }
     ,onAddButtonClick: function() {
 
-        Ext.valueFrom(Ext.Date.format(new Date(),'Y-m-d'), null)
-
         var me = this;
         var treePanel = this.lookup('assetTypeTree');
         var record = treePanel.getSelectionModel().getSelection()[0];

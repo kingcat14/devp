@@ -37,6 +37,14 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditController', {
 		});
 	}
 
+    ,showInstancePanel:function(view, rowIndex, colIndex, item, e, record, row){
+        console.log('showInstancePanel')
+        var me = this;
+
+        var window = Ext.create('AM.view.speedcloud.deployscheme.ResourceInstanceWindow', {height:'60%', width:'60%',closeAction: 'destory'});
+        window.setResource(record);
+        window.show();
+    }
     ,handleResourceSaved:function(){
         var me = this;
         me.loadResourcesTree();

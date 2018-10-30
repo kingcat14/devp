@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 /**
  * 方案资源关联实例客户端
@@ -91,6 +93,26 @@ public class ResourceInstanceRelationRibbon {
     }
 
     public ResourceInstanceRelationResult updateFail(Long id, ResourceInstanceRelationEditDto updateRequest, Throwable throwable) {
+
+        LOGGER.error("", throwable);
+
+        return errorResult();
+    }
+    /**
+     * 更新方案资源关联的所有实例
+     * @param id
+     * @param editDto
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "updateAllFail")
+    public ResourceInstanceRelationResult updateAll(Long id, List<ResourceInstanceRelationAddDto> editDto) {
+        String url = "http://"+host+"/speedcloud/deployscheme/resourceinstancerelation/updateall/"+id;
+        ResponseEntity<ResourceInstanceRelationResult> response =
+                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<ResourceInstanceRelationResult>() {});
+        return response.getBody();
+    }
+
+    public ResourceInstanceRelationResult updateAllFail(Long id, ResourceInstanceRelationEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
 

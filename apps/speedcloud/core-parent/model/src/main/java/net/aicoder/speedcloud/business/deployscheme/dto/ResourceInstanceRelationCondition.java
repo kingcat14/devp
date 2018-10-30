@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-@ApiModel(value = "查询方案资源关联实例使用的DTO")
+@ApiModel(value = "查询方案资源关联资产使用的DTO")
 public class ResourceInstanceRelationCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
@@ -31,11 +31,11 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
 	@ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-	private Long prdRid;
+	private Long project;
 	@ApiModelProperty(value = "产品编号最大值")
-	private Long prdRidMax;
+	private Long projectMax;
 	@ApiModelProperty(value = "产品编号最小值")
-	private Long prdRidMin;
+	private Long projectMin;
     @ApiModelProperty(value = "部署方案编号", notes = "[部署方案编号]")
     private Long scheme;
     @ApiModelProperty(value = "关联资源编号", notes = "[关联资源编号]")
@@ -120,25 +120,25 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 	}
 
 
-	public Long getPrdRid(){
-		return prdRid;
+	public Long getProject(){
+		return project;
 	}
-	public void setPrdRid(Long prdRid) {
-		this.prdRid = prdRid;
-	}
-
-	public Long getPrdRidMin(){
-		return prdRidMin;
-	}
-	public void setPrdRidMin(Long prdRidMin) {
-		this.prdRidMin = prdRidMin;
+	public void setProject(Long project) {
+		this.project = project;
 	}
 
-	public Long getPrdRidMax(){
-		return prdRidMax;
+	public Long getProjectMin(){
+		return projectMin;
 	}
-	public void setPrdRidMax(Long prdRidMax) {
-		this.prdRidMax = prdRidMax;
+	public void setProjectMin(Long projectMin) {
+		this.projectMin = projectMin;
+	}
+
+	public Long getProjectMax(){
+		return projectMax;
+	}
+	public void setProjectMax(Long projectMax) {
+		this.projectMax = projectMax;
 	}
 
 
