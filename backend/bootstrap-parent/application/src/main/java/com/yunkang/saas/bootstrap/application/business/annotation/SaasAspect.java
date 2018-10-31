@@ -48,10 +48,10 @@ public class SaasAspect {
         for(Object arg : args){
             LOGGER.info(arg.getClass().getName());
             if(arg instanceof PageSearchRequest) {
-                fillTenantIdProperty((PageSearchRequest) arg, annotation.conditionClass());
+                fillPageSearchRequest((PageSearchRequest) arg, annotation.autoCondition(), annotation.conditionClass());
             }
             else{
-                fillTenantIdProperty(arg);
+                fillProperty(arg);
             }
         }
 
@@ -62,7 +62,7 @@ public class SaasAspect {
     }
 
 
-    private void fillTenantIdProperty(Object object){
+    private void fillProperty(Object object){
 
         Method method = ReflectionUtils.findMethod(object.getClass(), "setTid", Long.class);
 
@@ -78,16 +78,18 @@ public class SaasAspect {
     }
 
 
-    private void fillTenantIdProperty(PageSearchRequest pageSearchRequest, Class clazz){
+    private void fillPageSearchRequest(PageSearchRequest pageSearchRequest, boolean autoCondition, Class clazz){
 
         LOGGER.info(pageSearchRequest.getClass().getName());
 
-        checkCondition(pageSearchRequest, clazz);
+        if(autoCondition) {
+            checkCondition(pageSearchRequest, clazz);
+        }
 
         Object searchCondition = pageSearchRequest.getSearchCondition();
 
         if(searchCondition != null){
-            fillTenantIdProperty(searchCondition);
+            fillProperty(searchCondition);
         }
 
     }

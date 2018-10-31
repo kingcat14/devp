@@ -48,7 +48,7 @@ public class PersonalAspect {
         for(Object arg : args){
             LOGGER.info(arg.getClass().getName());
             if(arg instanceof PageSearchRequest) {
-                fillPageSearchRequest((PageSearchRequest) arg, annotation.conditionClass());
+                fillPageSearchRequest((PageSearchRequest) arg, annotation.autoCondition(), annotation.conditionClass() );
             }
             else{
                 fillProperty(arg);
@@ -80,11 +80,13 @@ public class PersonalAspect {
     }
 
 
-    private void fillPageSearchRequest(PageSearchRequest pageSearchRequest, Class clazz){
+    private void fillPageSearchRequest(PageSearchRequest pageSearchRequest, boolean autoCondition, Class clazz){
 
         LOGGER.info(pageSearchRequest.getClass().getName());
 
-        checkCondition(pageSearchRequest, clazz);
+        if(autoCondition) {
+            checkCondition(pageSearchRequest, clazz);
+        }
 
         Object searchCondition = pageSearchRequest.getSearchCondition();
 
