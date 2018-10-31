@@ -35,6 +35,10 @@ public class SaasAspect {
     @Before("annotationPointCut()")
     public void before(JoinPoint joinPoint){
 
+        if(saaSUtil == null){
+            return;
+        }
+
         MethodSignature sign =  (MethodSignature)joinPoint.getSignature();
         Method method = sign.getMethod();
         SaaSAnnotation annotation = method.getAnnotation(SaaSAnnotation.class);
@@ -42,12 +46,12 @@ public class SaasAspect {
 
         Object[] args = joinPoint.getArgs();
         for(Object arg : args){
-            System.out.println(arg.getClass().getName());
+            LOGGER.info(arg.getClass().getName());
             if(arg instanceof PageSearchRequest) {
-                aaa((PageSearchRequest) arg, annotation.conditionClass());
+                fillTenantIdProperty((PageSearchRequest) arg, annotation.conditionClass());
             }
             else{
-                aaa(arg);
+                fillTenantIdProperty(arg);
             }
         }
 
@@ -58,39 +62,42 @@ public class SaasAspect {
     }
 
 
-    private void aaa(Object object){
+    private void fillTenantIdProperty(Object object){
 
         Method method = ReflectionUtils.findMethod(object.getClass(), "setTid", Long.class);
 
         if(method == null){
-            System.out.println("-------------NO setId(String) method");
+            LOGGER.info("-------------NO setTid(Long) method");
             return;
         }
 
-        System.out.println("-------------HAVE setId(String) method");
+        LOGGER.info("-------------HAVE setTid(Long) method");
 
-        if(saaSUtil != null){
-            ReflectionUtils.invokeMethod(method, object, saaSUtil.getAccount().getTid());
-        }
+        ReflectionUtils.invokeMethod(method, object, saaSUtil.getAccount().getTid());
 
     }
 
 
-    private void aaa(PageSearchRequest pageSearchRequest, Class clazz){
+    private void fillTenantIdProperty(PageSearchRequest pageSearchRequest, Class clazz){
 
-        System.out.println(pageSearchRequest.getClass().getName());
+        LOGGER.info(pageSearchRequest.getClass().getName());
 
-        tryFillCondition(pageSearchRequest, clazz);
+        checkCondition(pageSearchRequest, clazz);
 
         Object searchCondition = pageSearchRequest.getSearchCondition();
 
         if(searchCondition != null){
-            aaa(searchCondition);
+            fillTenantIdProperty(searchCondition);
         }
 
     }
 
-    private void tryFillCondition(PageSearchRequest pageSearchRequest, Class clazz){
+    /**
+     * 判断是否需要初始化一个查询条件对象
+     * @param pageSearchRequest
+     * @param clazz
+     */
+    private void checkCondition(PageSearchRequest pageSearchRequest, Class clazz){
         if(clazz.equals(Object.class)){
             return;
         }
