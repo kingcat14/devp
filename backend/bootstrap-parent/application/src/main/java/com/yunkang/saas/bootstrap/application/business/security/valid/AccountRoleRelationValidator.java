@@ -1,8 +1,8 @@
 package com.yunkang.saas.bootstrap.application.business.security.valid;
 
-import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountRoleRelation;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountRoleRelationAddDto;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountRoleRelationEditDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountRoleRelation;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountRoleRelationAddDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountRoleRelationEditDto;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

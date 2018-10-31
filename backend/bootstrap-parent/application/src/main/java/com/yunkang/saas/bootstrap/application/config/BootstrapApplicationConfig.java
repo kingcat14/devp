@@ -1,7 +1,7 @@
 package com.yunkang.saas.bootstrap.application.config;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
 import com.yunkang.saas.bootstrap.common.config.CommonConfig;
 import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

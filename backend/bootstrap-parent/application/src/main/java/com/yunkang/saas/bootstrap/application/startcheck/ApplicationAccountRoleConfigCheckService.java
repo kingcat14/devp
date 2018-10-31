@@ -1,10 +1,10 @@
 package com.yunkang.saas.bootstrap.application.startcheck;
 
-import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountRoleRelation;
-import com.yunkang.saas.bootstrap.business.platform.security.service.AccountPasswordService;
-import com.yunkang.saas.bootstrap.business.platform.security.service.AccountRoleRelationService;
-import com.yunkang.saas.bootstrap.business.platform.security.service.AccountService;
-import com.yunkang.saas.bootstrap.business.platform.security.service.RoleService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountRoleRelation;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountPasswordService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountRoleRelationService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

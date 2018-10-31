@@ -2,12 +2,12 @@ package com.yunkang.saas.bootstrap.application.business.security.controller;
 
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.application.business.security.valid.RoleResourceRelationValidator;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.RoleResourceRelation;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.RoleResourceRelationAddDto;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.RoleResourceRelationCondition;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.RoleResourceRelationEditDto;
-import com.yunkang.saas.bootstrap.business.platform.security.service.RoleResourceRelationService;
-import com.yunkang.saas.bootstrap.business.platform.security.vo.RoleResourceRelationVO;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.RoleResourceRelation;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleResourceRelationAddDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleResourceRelationCondition;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleResourceRelationEditDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleResourceRelationService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.RoleResourceRelationVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;

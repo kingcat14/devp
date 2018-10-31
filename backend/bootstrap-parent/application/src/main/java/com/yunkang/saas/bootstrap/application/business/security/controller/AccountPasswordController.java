@@ -2,12 +2,12 @@ package com.yunkang.saas.bootstrap.application.business.security.controller;
 
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.application.business.security.valid.AccountPasswordValidator;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountPasswordAddDto;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountPasswordCondition;
-import com.yunkang.saas.bootstrap.business.platform.security.dto.AccountPasswordEditDto;
-import com.yunkang.saas.bootstrap.business.platform.security.service.AccountPasswordService;
-import com.yunkang.saas.bootstrap.business.platform.security.vo.AccountPasswordVO;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountPasswordAddDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountPasswordCondition;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountPasswordEditDto;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountPasswordService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.AccountPasswordVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;

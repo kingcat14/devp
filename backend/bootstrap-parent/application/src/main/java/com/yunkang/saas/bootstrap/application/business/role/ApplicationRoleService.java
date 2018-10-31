@@ -1,10 +1,10 @@
 package com.yunkang.saas.bootstrap.application.business.role;
 
 import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceConstants;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.RoleResourceRelation;
-import com.yunkang.saas.bootstrap.business.platform.security.service.RoleResourceRelationService;
-import com.yunkang.saas.bootstrap.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.RoleResourceRelation;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleResourceRelationService;
+import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

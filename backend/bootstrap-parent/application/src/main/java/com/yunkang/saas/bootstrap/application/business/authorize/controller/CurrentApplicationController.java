@@ -2,14 +2,13 @@ package com.yunkang.saas.bootstrap.application.business.authorize.controller;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
 
-import com.yunkang.saas.bootstrap.business.platform.application.domain.App;
-import com.yunkang.saas.bootstrap.business.platform.application.service.AppService;
-import com.yunkang.saas.bootstrap.business.platform.application.vo.AppVO;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.business.platform.security.domain.Role;
-import com.yunkang.saas.bootstrap.business.platform.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.business.platform.tenant.service.TenantService;
-import com.yunkang.saas.bootstrap.business.platform.tenant.vo.TenantVO;
+import com.yunkang.saas.bootstrap.platform.business.platform.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.platform.application.service.AppService;
+import com.yunkang.saas.bootstrap.platform.business.platform.application.vo.AppVO;
+import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.platform.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.platform.tenant.vo.TenantVO;
 import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

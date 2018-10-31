@@ -1,7 +1,7 @@
 package com.yunkang.saas.bootstrap.application.startcheck;
 
-import com.yunkang.saas.bootstrap.business.platform.application.domain.App;
-import com.yunkang.saas.bootstrap.business.platform.application.service.AppService;
+import com.yunkang.saas.bootstrap.platform.business.platform.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.platform.application.service.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
