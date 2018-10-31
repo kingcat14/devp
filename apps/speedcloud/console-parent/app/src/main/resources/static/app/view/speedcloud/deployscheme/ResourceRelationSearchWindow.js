@@ -93,7 +93,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceRelationSearchWindow', {
 
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.deployScheme.SchemeStore")
+                            ,store: Ext.create("AM.store.speedcloud.deployscheme.SchemeStore")
                             ,typeAhead:false
                             ,editable:false
                             ,displayField:'name'
