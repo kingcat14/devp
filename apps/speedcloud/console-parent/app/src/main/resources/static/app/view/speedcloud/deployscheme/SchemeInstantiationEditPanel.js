@@ -181,7 +181,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeInstantiationEditPanel', {
 
                                                 ,{
                                                     xtype: 'combobox'
-                                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore")
+                                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore").load()
                                                     ,typeAhead:false
                                                     ,editable:false
                                                     ,displayField:'name'
@@ -196,7 +196,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeInstantiationEditPanel', {
                                                 }
                                                 ,{
                                                     xtype: 'combobox'
-                                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceTypeStore")
+                                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceTypeStore").load()
                                                     ,typeAhead:false
                                                     ,editable:false
                                                     ,displayField:'name'
