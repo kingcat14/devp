@@ -1,9 +1,11 @@
 package net.aicoder.maintenance.business.asset.info.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
@@ -137,16 +139,11 @@ public class AssetTypeController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询资产分类列表", httpMethod = "POST")
 	@PostMapping("/list")
+	@SaaSAnnotation(conditionClass = AssetTypeCondition.class)
 	public PageContent<AssetTypeVO> list(@RequestBody PageSearchRequest<AssetTypeCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<AssetType> page = assetTypeService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<AssetTypeVO> voList = new ArrayList<>();

@@ -6,6 +6,7 @@ import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -157,13 +158,8 @@ public class PipelineTaskController {
 	@PostMapping("/list")
 	public PageContent<PipelineTaskVO> list(@RequestBody PageSearchRequest<PipelineTaskCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<PipelineTask> page = pipelineTaskService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<PipelineTaskVO> voList = new ArrayList<>();

@@ -10,6 +10,7 @@ import com.yunkang.saas.bootstrap.platform.business.platform.security.service.Ac
 import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.AccountRoleRelationVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import org.slf4j.Logger;
@@ -121,13 +122,8 @@ public class AccountRoleRelationController {
 	@PostMapping("/list")
 	public PageContent<AccountRoleRelationVO> list(@RequestBody PageSearchRequest<AccountRoleRelationCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<AccountRoleRelation> page = accountRoleRelationService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<AccountRoleRelationVO> voList = new ArrayList<>();

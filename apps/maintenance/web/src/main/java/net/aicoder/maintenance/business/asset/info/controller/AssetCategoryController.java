@@ -2,6 +2,7 @@ package net.aicoder.maintenance.business.asset.info.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -137,14 +138,10 @@ public class AssetCategoryController {
 	@ApiParam
 	public PageContent<AssetCategoryVO> list(@RequestBody PageSearchRequest<AssetCategoryCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+
 		Page<AssetCategory> page = assetCategoryService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<AssetCategoryVO> voList = new ArrayList<>();

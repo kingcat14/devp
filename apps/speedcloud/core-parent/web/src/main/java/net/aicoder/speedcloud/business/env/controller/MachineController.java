@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.business.env.controller;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -136,13 +137,8 @@ public class MachineController {
 	@PostMapping("/list")
 	public PageContent<MachineVO> list(@RequestBody PageSearchRequest<MachineCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<Machine> page = machineService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<MachineVO> voList = new ArrayList<>();

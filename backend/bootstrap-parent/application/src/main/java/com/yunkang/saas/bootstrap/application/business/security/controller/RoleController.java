@@ -1,5 +1,6 @@
 package com.yunkang.saas.bootstrap.application.business.security.controller;
 
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.application.business.security.valid.RoleValidator;
 import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Role;
@@ -10,6 +11,7 @@ import com.yunkang.saas.bootstrap.platform.business.platform.security.service.Ro
 import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.RoleVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import org.slf4j.Logger;
@@ -119,19 +121,11 @@ public class RoleController {
 	 * @return
 	 */
 	@PostMapping("/list")
+	@SaaSAnnotation(conditionClass = RoleCondition.class)
 	public PageContent<RoleVO> list(@RequestBody PageSearchRequest<RoleCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
 
-		if(pageSearchRequest.getSearchCondition() == null){
-			pageSearchRequest.setSearchCondition(new RoleCondition());
-		}
 		pageSearchRequest.getSearchCondition().setAppCode(saaSUtil.getAppCode());
 		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
 

@@ -2,6 +2,7 @@ package com.yunkang.saas.bootstrap.platform.business.platform.tenant.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import io.swagger.annotations.Api;
@@ -133,13 +134,8 @@ public class TenantController {
 	@PostMapping("/list")
 	public PageContent<TenantVO> list(@RequestBody PageSearchRequest<TenantCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<Tenant> page = tenantService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<TenantVO> voList = new ArrayList<>();

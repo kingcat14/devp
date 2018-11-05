@@ -3,6 +3,7 @@ package net.aicoder.devp.business.ops.controller;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -136,13 +137,8 @@ public class DevpOpsAssetCmdbController {
 	@PostMapping("/list")
 	public PageContent<DevpOpsAssetCmdbVO> list(@RequestBody PageSearchRequest<DevpOpsAssetCmdbCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<DevpOpsAssetCmdb> page = devpOpsAssetCmdbService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<DevpOpsAssetCmdbVO> voList = new ArrayList<>();

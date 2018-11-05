@@ -5,6 +5,7 @@ import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import io.swagger.annotations.Api;
@@ -126,13 +127,8 @@ public class PipelineExecNodeController {
 	@PostMapping("/list")
 	public PageContent<PipelineExecNodeVO> list(@RequestBody PageSearchRequest<PipelineExecNodeCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<PipelineExecNode> page = pipelineExecNodeService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<PipelineExecNodeVO> voList = new ArrayList<>();

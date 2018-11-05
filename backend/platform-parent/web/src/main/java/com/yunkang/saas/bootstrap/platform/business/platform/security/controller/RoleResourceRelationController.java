@@ -2,6 +2,7 @@ package com.yunkang.saas.bootstrap.platform.business.platform.security.controlle
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.RoleResourceRelation;
@@ -116,13 +117,8 @@ public class RoleResourceRelationController {
 	@PostMapping("/list")
 	public PageContent<RoleResourceRelationVO> list(@RequestBody PageSearchRequest<RoleResourceRelationCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<RoleResourceRelation> page = roleResourceRelationService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<RoleResourceRelationVO> voList = new ArrayList<>();

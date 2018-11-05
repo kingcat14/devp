@@ -2,6 +2,7 @@ package net.aicoder.maintenance.business.rdc.config.controller;
 
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import io.swagger.annotations.Api;
@@ -129,13 +130,8 @@ public class DevelopTypeController {
 	@PostMapping("/list")
 	public PageContent<DevelopTypeVO> list(@RequestBody PageSearchRequest<DevelopTypeCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<DevelopType> page = developTypeService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<DevelopTypeVO> voList = new ArrayList<>();

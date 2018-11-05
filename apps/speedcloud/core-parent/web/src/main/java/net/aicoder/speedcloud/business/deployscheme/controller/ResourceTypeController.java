@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.business.deployscheme.controller;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
+import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.SortCondition;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -138,13 +139,8 @@ public class ResourceTypeController {
 	@PostMapping("/list")
 	public PageContent<ResourceTypeVO> list(@RequestBody PageSearchRequest<ResourceTypeCondition> pageSearchRequest){
 
-		SortCondition sortCondition = pageSearchRequest.getSortCondition();
-		Sort sort   = null;
-		if(sortCondition!=null){
-			sort = new Sort(Sort.Direction.fromStringOrNull(sortCondition.getDirection().toString()), sortCondition.getProperty());
-		}
-		PageRequest pageRequest = new PageRequest(pageSearchRequest.getPage(), pageSearchRequest.getLimit());
-		pageRequest.setSort(sort);
+		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
+
 		Page<ResourceType> page = resourceTypeService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<ResourceTypeVO> voList = new ArrayList<>();
