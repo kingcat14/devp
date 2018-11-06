@@ -100,30 +100,6 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 	    resource999001003.setOrderIndex(3);
 	    check(resource999001003);
 
-	    Resource resource999002 = new Resource();
-		resource999002.setHidden(true);
-		resource999002.setAppCode(appCode);
-	    resource999002.setId(CODE_PTGL_CSPZ);
-		resource999002.setCode(CODE_PTGL_CSPZ);
-	    resource999002.setParentCode(CODE_PTGL);
-	    resource999002.setName("参数配置");
-	    resource999002.setType("module");
-	    resource999002.setOrderIndex(2);
-	    check(resource999002);
-
-	    Resource resource999002001 = new Resource();
-		resource999002001.setHidden(true);
-		resource999002001.setAppCode(appCode);
-	    resource999002001.setId(CODE_PTGL_CSPZ_PTCSPZ);
-		resource999002001.setCode(CODE_PTGL_CSPZ_PTCSPZ);
-	    resource999002001.setParentCode(CODE_PTGL_CSPZ);
-	    resource999002001.setName("平台参数配置");
-	    resource999002001.setType("function");
-	    resource999002001.setUrl("AM.controller.platform.config.PlatformConfigController");
-	    resource999002001.setOrderIndex(1);
-	    check(resource999002001);
-		checkRelation();
-
 		Resource resource999003 = new Resource();
 		resource999003.setHidden(true);
 		resource999003.setAppCode(appCode);
