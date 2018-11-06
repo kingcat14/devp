@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.account.controller;
+package com.yunkang.saas.platform.manage.business.platform.security.controller;
 
 
 import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
@@ -6,19 +6,18 @@ import com.yunkang.saas.bootstrap.application.business.security.service.RoleServ
 import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleAddDto;
 import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleCondition;
 import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleEditDto;
-
 import com.yunkang.saas.bootstrap.platform.business.account.vo.RoleVO;
+import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.application.service.AppService;
+import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
-import com.yunkang.saas.bootstrap.platform.business.application.service.AppService;
-import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
-import com.yunkang.saas.bootstrap.platform.business.account.valid.RoleValidator;
-import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
-import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
+import com.yunkang.saas.platform.manage.business.platform.security.valid.RoleValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

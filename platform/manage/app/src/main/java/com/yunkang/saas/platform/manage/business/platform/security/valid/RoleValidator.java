@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.account.valid;
+package com.yunkang.saas.platform.manage.business.platform.security.valid;
 
 
 import com.yunkang.saas.bootstrap.application.business.security.domain.Role;

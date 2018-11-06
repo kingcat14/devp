@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.startcheck;
+package com.yunkang.saas.platform.manage.startcheck;
 
 import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;

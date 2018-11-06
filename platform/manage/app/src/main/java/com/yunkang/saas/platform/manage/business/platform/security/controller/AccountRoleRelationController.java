@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.account.controller;
+package com.yunkang.saas.platform.manage.business.platform.security.controller;
 
 
 import com.yunkang.saas.bootstrap.application.business.security.domain.AccountRoleRelation;
@@ -6,13 +6,12 @@ import com.yunkang.saas.bootstrap.application.business.security.service.AccountR
 import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountRoleRelationAddDto;
 import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountRoleRelationCondition;
 import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountRoleRelationEditDto;
-
-import com.yunkang.saas.bootstrap.platform.business.account.valid.AccountRoleRelationValidator;
 import com.yunkang.saas.bootstrap.platform.business.account.vo.AccountRoleRelationVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.platform.manage.business.platform.security.valid.AccountRoleRelationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

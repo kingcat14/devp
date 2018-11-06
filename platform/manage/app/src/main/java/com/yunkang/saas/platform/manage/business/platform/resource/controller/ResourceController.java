@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.application.business.resource.controller;
+package com.yunkang.saas.platform.manage.business.platform.resource.controller;
 
 
 import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
@@ -6,13 +6,12 @@ import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceAddD
 import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
 import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceEditDto;
 import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
-import com.yunkang.saas.bootstrap.application.business.resource.valid.ResourceValidator;
-
 import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import com.yunkang.saas.platform.manage.business.platform.resource.valid.ResourceValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

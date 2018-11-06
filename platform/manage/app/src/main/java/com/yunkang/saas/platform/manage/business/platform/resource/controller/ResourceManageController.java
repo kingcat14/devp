@@ -1,16 +1,16 @@
-package com.yunkang.saas.bootstrap.application.business.resource.controller;
+package com.yunkang.saas.platform.manage.business.platform.resource.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
-import com.yunkang.saas.bootstrap.platform.business.application.service.AppService;
-import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
-import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
 import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
 import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceTreeNode;
 import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
+import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.application.service.AppService;
+import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
+import com.yunkang.saas.common.framework.web.controller.PageContent;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

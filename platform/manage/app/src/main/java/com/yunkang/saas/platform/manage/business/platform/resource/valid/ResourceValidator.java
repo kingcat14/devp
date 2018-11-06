@@ -1,9 +1,9 @@
-package com.yunkang.saas.bootstrap.application.business.resource.valid;
+package com.yunkang.saas.platform.manage.business.platform.resource.valid;
 
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceAddDto;
 import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceEditDto;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

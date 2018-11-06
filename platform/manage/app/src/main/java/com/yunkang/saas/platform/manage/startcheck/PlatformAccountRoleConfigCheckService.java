@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.startcheck;
+package com.yunkang.saas.platform.manage.startcheck;
 
 import com.yunkang.saas.bootstrap.application.business.security.domain.AccountRoleRelation;
 import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
