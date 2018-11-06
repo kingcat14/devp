@@ -1,0 +1,48 @@
+application:
+  product: platform #产品
+  module: monitor #模块
+  name: console #子模块名称
+  code: 11300 #子模块ID
+  displayName: 平台监控
+  uploadFilePath:
+
+server:
+  port: ${application.code}
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/javascript,text/css,application/javascript
+    min-response-size: 256
+eureka:
+  client:
+    registry-fetch-interval-seconds: 3
+    instance-info-replication-interval-seconds: 3
+    register-with-eureka: true #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true
+    initial-instance-info-replication-interval-seconds: 3
+  instance:
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
+
+
+spring:
+  application:
+    name: ${application.product}-${application.module}-${application.name}
+  profiles:
+    active: local #环境配置- local：本地 dev：开发环境 qa：测试环境 uat：用户测试 pd：生产环境
+  cloud:
+    config:
+      enable: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    database: mysql
+    show-sql: true
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      format_sql: true
+logging:
+  file: logs/${spring.application.name}.log
+
