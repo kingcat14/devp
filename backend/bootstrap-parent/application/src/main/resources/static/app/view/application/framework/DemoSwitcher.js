@@ -3,6 +3,7 @@ Ext.define('AM.view.application.framework.UserSwitcher', {
     ,xtype: 'userSwitcher'
     ,cls: [ 'x-fa', 'fa-bars' ]
     ,initComponent: function() {
+
         var me = this
             ,menuItems = []
             ,menu;
@@ -38,9 +39,6 @@ Ext.define('AM.view.application.framework.UserSwitcher', {
                 });
             }
         }
-
-
-
 
         menuItems.push(logoutItem);
 
