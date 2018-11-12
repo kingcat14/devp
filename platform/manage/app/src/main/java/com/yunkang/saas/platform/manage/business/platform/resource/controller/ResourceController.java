@@ -29,7 +29,7 @@ import java.util.List;
  * 管理资源
  * @author icode
  */
-@RestController
+@RestController("platformResourceController")
 @RequestMapping(value = "/platform/security/resource")
 public class ResourceController {
 

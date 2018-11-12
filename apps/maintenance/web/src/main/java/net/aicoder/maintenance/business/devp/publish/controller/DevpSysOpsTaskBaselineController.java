@@ -66,7 +66,7 @@ public class DevpSysOpsTaskBaselineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsTaskBaselineVO add(@RequestBody DevpSysOpsTaskBaselineAddDto devpSysOpsTaskBaselineAddDto){
-		devpSysOpsTaskBaselineAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsTaskBaselineAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsTaskBaselineRibbonService.add(devpSysOpsTaskBaselineAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsTaskBaselineController {
 			condition = new DevpSysOpsTaskBaselineCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsTaskBaselineVO> pageContent = devpSysOpsTaskBaselineRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsTaskBaselineVO vo : pageContent.getContent()){
 			initViewProperty(vo);

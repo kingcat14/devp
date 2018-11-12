@@ -1,6 +1,10 @@
 Ext.define('AM.view.application.framework.HeaderContainer', {
     extend: 'Ext.container.Container',
     alias: 'widget.mainHeadercontainer',
+    requires:[
+        'AM.view.application.framework.UserSwitcher'
+        ,'AM.view.application.framework.HeaderContainerController'
+    ],
     title: '',
     height: 52,
     layout: {
@@ -8,7 +12,7 @@ Ext.define('AM.view.application.framework.HeaderContainer', {
         align: 'middle'
     }
     ,style: 'background: #28384a;border-bottom: 1px solid #0d1218;'
-
+    ,controller:'HeaderContainerController'
     ,initComponent: function() {
         var me = this;
         document.title = this.title;
@@ -16,15 +20,30 @@ Ext.define('AM.view.application.framework.HeaderContainer', {
         this.items = [{
             xtype: 'component',
             id: 'app-header-logo',
-            style: 'color: white;font-size: 26px;margin: 0 10px;',
-            cls: [ 'ext', 'ext-sencha' ]
-        },{
+            style: 'color: white;font-size: 20px;margin: 0 10px;',
+            cls: [ 'fas', 'fa-search', 'ext-sencha' ]
+        }
+        ,{
             xtype: 'component',
             id: 'app-header-title',
             style: 'color: white;font-size: 18px;font-weight: bold;padding: 10px 0 10px 0;',
             html: this.title,
+        }
+        ,{
+            xtype: 'component',
+            // id: 'app-header-title',
             flex: 1
-        }];
+        }
+        ,{
+                xtype: 'userSwitcher'
+                ,style: 'color: white;font-size: 20px;margin: 0 10px;'
+                ,html:'你好'
+                ,listeners:{
+                    afterrender: 'loadUserInfo'
+                }
+            }
+        ];
+
         this.callParent();
     }
     ,setTitle:function(title){
@@ -32,5 +51,6 @@ Ext.define('AM.view.application.framework.HeaderContainer', {
         this.down('#app-header-title').setHtml(title);
         document.title = title;
     }
+
 
 });

@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.config.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,6 +66,7 @@ public class ConfigDevelopLanguageController {
 	@ApiOperation(value = "新增", notes = "新增开发语言", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ConfigDevelopLanguageVO add(@RequestBody ConfigDevelopLanguageAddDto configDevelopLanguageAddDto){
 		return  configDevelopLanguageRibbonService.add(configDevelopLanguageAddDto);
 	}
@@ -120,14 +122,9 @@ public class ConfigDevelopLanguageController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询开发语言列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ConfigDevelopLanguageCondition.class)
 	public PageContent<ConfigDevelopLanguageVO> list(@RequestBody PageSearchRequest<ConfigDevelopLanguageCondition> pageSearchRequest){
 
-		ConfigDevelopLanguageCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ConfigDevelopLanguageCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
 		PageContent<ConfigDevelopLanguageVO> pageContent = configDevelopLanguageRibbonService.list(pageSearchRequest);
 		for(ConfigDevelopLanguageVO vo : pageContent.getContent()){
 			initViewProperty(vo);

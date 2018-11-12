@@ -73,7 +73,7 @@ public class AssetCategoryController {
 	public AssetCategoryVO add(@RequestBody @Valid AssetCategoryAddDto assetCategoryAddDto){
 		AssetCategory assetCategory = new AssetCategory();
 		BeanUtils.copyProperties(assetCategoryAddDto, assetCategory);
-		assetCategory.setTid(saaSUtil.getAccount().getTenantId());
+		assetCategory.setTid(saaSUtil.getAccount().getTid());
 		assetCategoryService.add(assetCategory);
 
 		return  initViewProperty(assetCategory);
@@ -140,7 +140,7 @@ public class AssetCategoryController {
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
 
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 
 		Page<AssetCategory> page = assetCategoryService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 

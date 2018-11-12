@@ -89,7 +89,7 @@ public class PipelineExecNodeCustomController {
 
 	private void fillTid(PipelineExecNodeCustomAddDto addDto){
 
-		addDto.setTid(saaSUtil.getAccount().getTenantId());
+		addDto.setTid(saaSUtil.getAccount().getTid());
 
 		if(CollectionUtils.isEmpty(addDto.getSubNodeList())){
 			return ;

@@ -58,7 +58,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>web</module>
+                <!--<module>web</module>-->
                 <module>security-local</module>
                 <module>application</module>
                 <module>common</module>

@@ -37,6 +37,12 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
+
+management:
+  security:
+    enabled: false
+  context-path: /actuator
+
 logging:
   file: logs/${spring.application.name}.log
 

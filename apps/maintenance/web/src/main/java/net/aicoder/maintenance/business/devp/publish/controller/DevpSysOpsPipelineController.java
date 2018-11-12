@@ -66,7 +66,7 @@ public class DevpSysOpsPipelineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsPipelineVO add(@RequestBody DevpSysOpsPipelineAddDto devpSysOpsPipelineAddDto){
-		devpSysOpsPipelineAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsPipelineAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsPipelineRibbonService.add(devpSysOpsPipelineAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsPipelineController {
 			condition = new DevpSysOpsPipelineCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsPipelineVO> pageContent = devpSysOpsPipelineRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsPipelineVO vo : pageContent.getContent()){
 			initViewProperty(vo);

@@ -71,7 +71,7 @@ public class BusinessSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public BusinessSoftwareVO add(@RequestBody BusinessSoftwareAddDto businessSoftwareAddDto){
-		businessSoftwareAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		businessSoftwareAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  businessSoftwareRibbonService.add(businessSoftwareAddDto);
 	}
 
@@ -134,7 +134,7 @@ public class BusinessSoftwareController {
 			condition = new BusinessSoftwareCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<BusinessSoftwareVO> pageContent = businessSoftwareRibbonService.list(pageSearchRequest);
 		for(BusinessSoftwareVO vo : pageContent.getContent()){
 			initViewProperty(vo);

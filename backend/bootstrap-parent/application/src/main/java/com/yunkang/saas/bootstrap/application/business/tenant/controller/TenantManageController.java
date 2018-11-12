@@ -1,23 +1,21 @@
 package com.yunkang.saas.bootstrap.application.business.tenant.controller;
 
-
 import com.yunkang.saas.bootstrap.application.business.tenant.service.TenantManageService;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.TenantType;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.dto.TenantAddDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.dto.TenantCondition;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.dto.TenantEditDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.service.TenantService;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.service.TenantTypeService;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.valid.TenantValidator;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.vo.TenantTypeVO;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.vo.TenantVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantType;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantAddDto;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantCondition;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantEditDto;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantTypeService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.valid.TenantValidator;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantTypeVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.data.SortCondition;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -25,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -135,6 +132,7 @@ public class TenantManageController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件快速查询租户列表", httpMethod = "POST")
 	@PostMapping(value = "/list", params = "query")
+
 	public PageContent<TenantVO> query(@RequestBody PageSearchRequest<TenantCondition> pageSearchRequest){
 		return null;
 	}

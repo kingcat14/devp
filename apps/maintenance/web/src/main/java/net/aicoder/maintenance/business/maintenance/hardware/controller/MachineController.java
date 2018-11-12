@@ -73,7 +73,7 @@ public class MachineController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
-		machineAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		machineAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  machineRibbonService.add(machineAddDto);
 	}
 
@@ -136,7 +136,7 @@ public class MachineController {
 			condition = new MachineCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<MachineVO> pageContent = machineRibbonService.list(pageSearchRequest);
 		for(MachineVO vo : pageContent.getContent()){
 			initViewProperty(vo);

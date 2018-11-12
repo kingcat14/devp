@@ -54,7 +54,7 @@ public class DevpSysDpyResInstHostController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyResInstHostVO add(@RequestBody DevpSysDpyResInstHostAddDto devpSysDpyResInstHostAddDto){
-		devpSysDpyResInstHostAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysDpyResInstHostAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysDpyResInstHostRibbonService.add(devpSysDpyResInstHostAddDto);
 	}
 

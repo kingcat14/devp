@@ -1,8 +1,8 @@
 package com.yunkang.saas.bootstrap.application.business.security.valid;
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountAddDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountEditDto;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountAddDto;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountEditDto;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.Errors;

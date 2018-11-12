@@ -66,7 +66,7 @@ public class DevpSysOpsTaskCompileController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsTaskCompileVO add(@RequestBody DevpSysOpsTaskCompileAddDto devpSysOpsTaskCompileAddDto){
-		devpSysOpsTaskCompileAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsTaskCompileAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsTaskCompileRibbonService.add(devpSysOpsTaskCompileAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsTaskCompileController {
 			condition = new DevpSysOpsTaskCompileCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsTaskCompileVO> pageContent = devpSysOpsTaskCompileRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsTaskCompileVO vo : pageContent.getContent()){
 			initViewProperty(vo);

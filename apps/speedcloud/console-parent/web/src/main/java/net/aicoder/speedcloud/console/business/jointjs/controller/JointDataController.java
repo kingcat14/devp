@@ -1,5 +1,6 @@
 package net.aicoder.speedcloud.console.business.jointjs.controller;
 
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -50,9 +51,6 @@ public class JointDataController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JointDataController.class);
 
 	@Autowired
-	private SaaSUtil saaSUtil;
-
-	@Autowired
 	private JointDataService jointDataService;
 
 
@@ -74,6 +72,7 @@ public class JointDataController {
 	@ApiOperation(value = "新增", notes = "新增图形数据", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public JointDataVO add(@RequestBody @Valid JointDataAddDto jointDataAddDto){
 		JointData jointData = new JointData();
 		BeanUtils.copyProperties(jointDataAddDto, jointData);
@@ -113,7 +112,6 @@ public class JointDataController {
 		JointData jointData = new JointData();
 		BeanUtils.copyProperties(jointDataEditDto, jointData);
 		jointData.setId(id);
-		jointData.setTid(saaSUtil.getAccount().getTenantId());
 		jointDataService.merge(jointData);
 
 		JointDataVO vo = initViewProperty(jointData);
@@ -142,6 +140,7 @@ public class JointDataController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询图形数据列表", httpMethod = "POST")
 	@PostMapping("/list")
+	@SaaSAnnotation(conditionClass = JointDataCondition.class)
 	public PageContent<JointDataVO> list(@RequestBody PageSearchRequest<JointDataCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);

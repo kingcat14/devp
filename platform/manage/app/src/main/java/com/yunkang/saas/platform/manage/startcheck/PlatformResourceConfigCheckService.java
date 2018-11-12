@@ -182,10 +182,8 @@ public class PlatformResourceConfigCheckService implements CommandLineRunner {
 		resource999004003.setOrderIndex(3);
 		check(resource999004003);
 
+		checkRelation();
     }
-
-
-
 
 
     public void checkRelation(){

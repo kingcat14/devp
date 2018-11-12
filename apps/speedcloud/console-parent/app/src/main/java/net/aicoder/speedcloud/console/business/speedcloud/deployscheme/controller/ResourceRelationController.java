@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -68,9 +69,9 @@ public class ResourceRelationController {
 	@ApiOperation(value = "新增", notes = "新增方案资源间关系", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ResourceRelationVO add(@RequestBody ResourceRelationAddDto resourceRelationAddDto){
-    	resourceRelationAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  resourceRelationRibbonService.add(resourceRelationAddDto);
+    	return  resourceRelationRibbonService.add(resourceRelationAddDto);
 	}
 
 	/**
@@ -124,15 +125,9 @@ public class ResourceRelationController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询方案资源间关系列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ResourceRelationCondition.class )
 	public PageContent<ResourceRelationVO> list(@RequestBody PageSearchRequest<ResourceRelationCondition> pageSearchRequest){
 
-		ResourceRelationCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ResourceRelationCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<ResourceRelationVO> pageContent = resourceRelationRibbonService.list(pageSearchRequest);
 		for(ResourceRelationVO vo : pageContent.getContent()){
 			initViewProperty(vo);

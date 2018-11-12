@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.pipeline.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -65,6 +66,7 @@ public class PipelineCodeRepositoryRelationController {
 	@ApiOperation(value = "新增", notes = "新增流水线代码库关联", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public PipelineCodeRepositoryRelationVO add(@RequestBody PipelineCodeRepositoryRelationAddDto pipelineCodeRepositoryRelationAddDto){
 		return  pipelineCodeRepositoryRelationRibbonService.add(pipelineCodeRepositoryRelationAddDto);
 	}
@@ -120,14 +122,9 @@ public class PipelineCodeRepositoryRelationController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询流水线代码库关联列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = PipelineCodeRepositoryRelationCondition.class)
 	public PageContent<PipelineCodeRepositoryRelationVO> list(@RequestBody PageSearchRequest<PipelineCodeRepositoryRelationCondition> pageSearchRequest){
 
-		PipelineCodeRepositoryRelationCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new PipelineCodeRepositoryRelationCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
 		PageContent<PipelineCodeRepositoryRelationVO> pageContent = pipelineCodeRepositoryRelationRibbonService.list(pageSearchRequest);
 		for(PipelineCodeRepositoryRelationVO vo : pageContent.getContent()){
 			initViewProperty(vo);

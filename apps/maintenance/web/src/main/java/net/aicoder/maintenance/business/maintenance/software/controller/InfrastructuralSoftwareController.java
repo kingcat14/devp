@@ -74,7 +74,7 @@ public class InfrastructuralSoftwareController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public InfrastructuralSoftwareVO add(@RequestBody InfrastructuralSoftwareAddDto infrastructuralSoftwareAddDto){
-		infrastructuralSoftwareAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		infrastructuralSoftwareAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  infrastructuralSoftwareRibbonService.add(infrastructuralSoftwareAddDto);
 	}
 
@@ -137,7 +137,7 @@ public class InfrastructuralSoftwareController {
 			condition = new InfrastructuralSoftwareCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<InfrastructuralSoftwareVO> pageContent = infrastructuralSoftwareRibbonService.list(pageSearchRequest);
 		for(InfrastructuralSoftwareVO vo : pageContent.getContent()){
 			initViewProperty(vo);

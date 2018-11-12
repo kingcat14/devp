@@ -40,7 +40,6 @@ public class DevpSysOpsDockerAccessController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DevpSysOpsDockerAccessController.class);
 
-
 	@Autowired
 	private SaaSUtil saaSUtil;
 
@@ -66,7 +65,7 @@ public class DevpSysOpsDockerAccessController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsDockerAccessVO add(@RequestBody DevpSysOpsDockerAccessAddDto devpSysOpsDockerAccessAddDto){
-		devpSysOpsDockerAccessAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsDockerAccessAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsDockerAccessRibbonService.add(devpSysOpsDockerAccessAddDto);
 	}
 
@@ -129,7 +128,7 @@ public class DevpSysOpsDockerAccessController {
 			condition = new DevpSysOpsDockerAccessCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsDockerAccessVO> pageContent = devpSysOpsDockerAccessRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsDockerAccessVO vo : pageContent.getContent()){
 			initViewProperty(vo);

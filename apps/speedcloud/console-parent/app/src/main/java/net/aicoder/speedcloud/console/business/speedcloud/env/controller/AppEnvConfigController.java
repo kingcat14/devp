@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -65,9 +66,9 @@ public class AppEnvConfigController {
 	@ApiOperation(value = "新增", notes = "新增应用环境", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public AppEnvConfigVO add(@RequestBody AppEnvConfigAddDto appEnvConfigAddDto){
-    	appEnvConfigAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  appEnvConfigRibbonService.add(appEnvConfigAddDto);
+    	return  appEnvConfigRibbonService.add(appEnvConfigAddDto);
 	}
 
 	/**
@@ -121,15 +122,9 @@ public class AppEnvConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用环境列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AppEnvConfigCondition.class)
 	public PageContent<AppEnvConfigVO> list(@RequestBody PageSearchRequest<AppEnvConfigCondition> pageSearchRequest){
 
-		AppEnvConfigCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new AppEnvConfigCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<AppEnvConfigVO> pageContent = appEnvConfigRibbonService.list(pageSearchRequest);
 		for(AppEnvConfigVO vo : pageContent.getContent()){
 			initViewProperty(vo);

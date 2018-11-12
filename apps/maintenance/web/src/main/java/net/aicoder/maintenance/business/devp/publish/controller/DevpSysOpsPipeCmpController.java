@@ -66,7 +66,7 @@ public class DevpSysOpsPipeCmpController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsPipeCmpVO add(@RequestBody DevpSysOpsPipeCmpAddDto devpSysOpsPipeCmpAddDto){
-		devpSysOpsPipeCmpAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsPipeCmpAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsPipeCmpRibbonService.add(devpSysOpsPipeCmpAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsPipeCmpController {
 			condition = new DevpSysOpsPipeCmpCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsPipeCmpVO> pageContent = devpSysOpsPipeCmpRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsPipeCmpVO vo : pageContent.getContent()){
 			initViewProperty(vo);

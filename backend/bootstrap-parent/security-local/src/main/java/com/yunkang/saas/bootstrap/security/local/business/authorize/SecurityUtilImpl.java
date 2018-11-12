@@ -1,9 +1,10 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,10 @@ public class SecurityUtilImpl implements SecurityUtil {
     public Account getAccount(){
         SecurityExpressionRoot root = null;
 
-        Object principal = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
 
-        if(principal==null || !(principal instanceof SecurityUser)){
+        if(authentication == null || authentication.getPrincipal() == null || !(authentication.getPrincipal() instanceof SecurityUser)){
             //throw new BusinessException("security", "account", "not login", "用户未登陆");
            return null;
         }
@@ -34,6 +34,4 @@ public class SecurityUtilImpl implements SecurityUtil {
         return account;
 
     }
-
-
 }

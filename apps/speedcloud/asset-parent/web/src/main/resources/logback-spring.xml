@@ -32,8 +32,11 @@
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="fileLog" />
         <appender-ref ref="stdout"  />
+        <appender-ref ref="fileLog" />
     </root>
+    <logger name="com.yunkang.saas" level="DEBUG">
+        <appender-ref ref="stdout"  />
+    </logger>
 
 </configuration>

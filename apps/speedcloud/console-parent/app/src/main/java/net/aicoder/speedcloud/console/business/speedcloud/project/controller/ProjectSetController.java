@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.project.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,8 +66,8 @@ public class ProjectSetController {
 	@ApiOperation(value = "新增", notes = "新增项目集", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ProjectSetVO add(@RequestBody ProjectSetAddDto projectSetAddDto){
-    	projectSetAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  projectSetRibbonService.add(projectSetAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class ProjectSetController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询项目集列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ProjectSetCondition.class)
 	public PageContent<ProjectSetVO> list(@RequestBody PageSearchRequest<ProjectSetCondition> pageSearchRequest){
 
-		ProjectSetCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ProjectSetCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<ProjectSetVO> pageContent = projectSetRibbonService.list(pageSearchRequest);
 		for(ProjectSetVO vo : pageContent.getContent()){
 			initViewProperty(vo);

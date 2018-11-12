@@ -54,7 +54,7 @@ public class DevpSysDpySchemeController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpySchemeVO add(@RequestBody DevpSysDpySchemeAddDto devpSysDpySchemeAddDto){
-		devpSysDpySchemeAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysDpySchemeAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysDpySchemeRibbonService.add(devpSysDpySchemeAddDto);
 	}
 

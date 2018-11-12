@@ -66,7 +66,7 @@ public class DevpSysOpsDockerParamController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsDockerParamVO add(@RequestBody DevpSysOpsDockerParamAddDto devpSysOpsDockerParamAddDto){
-		devpSysOpsDockerParamAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsDockerParamAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsDockerParamRibbonService.add(devpSysOpsDockerParamAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsDockerParamController {
 			condition = new DevpSysOpsDockerParamCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsDockerParamVO> pageContent = devpSysOpsDockerParamRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsDockerParamVO vo : pageContent.getContent()){
 			initViewProperty(vo);

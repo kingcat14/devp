@@ -66,7 +66,7 @@ public class DevpSysOpsTaskPublishController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsTaskPublishVO add(@RequestBody DevpSysOpsTaskPublishAddDto devpSysOpsTaskPublishAddDto){
-		devpSysOpsTaskPublishAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsTaskPublishAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsTaskPublishRibbonService.add(devpSysOpsTaskPublishAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsTaskPublishController {
 			condition = new DevpSysOpsTaskPublishCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsTaskPublishVO> pageContent = devpSysOpsTaskPublishRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsTaskPublishVO vo : pageContent.getContent()){
 			initViewProperty(vo);

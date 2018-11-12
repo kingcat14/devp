@@ -1,19 +1,21 @@
 package com.yunkang.saas.bootstrap.application.business.tenant.service;
 
-import com.yunkang.saas.bootstrap.application.business.role.ApplicationRoleService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountRoleRelation;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Role;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountManageService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountRoleRelationService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleService;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.TenantAddEvent;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.domain.TenantAdminAccount;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.service.TenantAdminAccountService;
-import com.yunkang.saas.bootstrap.platform.business.platform.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.application.business.security.domain.AccountRoleRelation;
+import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
+import com.yunkang.saas.bootstrap.application.business.security.service.AccountRoleRelationService;
+import com.yunkang.saas.bootstrap.application.business.security.service.ApplicationRoleService;
+import com.yunkang.saas.bootstrap.application.business.security.service.RoleService;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountManageService;
+
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
+
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantAddEvent;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantAdminAccount;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantAdminAccountService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
 import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +63,7 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
          * 2.给租户开通权限
          */
         tenantService.add(tenant);
-        openApplicationForTenant(tenant.getTenantId(), appCode);
+        openApplicationForTenant(tenant.getTid(), appCode);
 
     }
 
@@ -89,7 +91,7 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
             role.setAppCode(appCode+"");
             role.setName("应用管理员");
             role.setCode(RoleService.CODE_APPLICATION_MANAGER);
-            role.setTenantId(tenantId);
+            role.setTid(tenantId);
             roleService.add(role);
         }
 
@@ -108,7 +110,7 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
         if(account == null ){
 
             account = new Account();
-            account.setTenantId(tenantId);
+            account.setTid(tenantId);
             account.setAccountName(tenantAdminAccount.getAccountName());
             account.setName(tenant.getName());
             account.setEnable(true);
@@ -116,7 +118,7 @@ public class TenantManageService implements ApplicationListener<TenantAddEvent> 
             AccountPassword accountPassword = new AccountPassword();
             accountPassword.setAccountName(tenantAdminAccount.getAccountName());
             accountPassword.setPassword(tenant.getTenantCode());
-            accountPassword.setTenantId(tenantId);
+            accountPassword.setTid(tenantId);
 
             accountManageService.add(account, accountPassword);
         }

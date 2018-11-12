@@ -117,7 +117,7 @@ public class ResourceTreeController {
 
 	    //得到所有类别
         ResourceCondition condition = new ResourceCondition();
-        condition.setTid(saaSUtil.getAccount().getTenantId());
+        condition.setTid(saaSUtil.getAccount().getTid());
         condition.setScheme(schemeId);
 
         PageSearchRequest<ResourceCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -131,7 +131,7 @@ public class ResourceTreeController {
 	private List<ResourceRelationVO> getRelationList(Long schemeId){
         //得到所有类别
         ResourceRelationCondition condition = new ResourceRelationCondition();
-        condition.setTid(saaSUtil.getAccount().getTenantId());
+        condition.setTid(saaSUtil.getAccount().getTid());
         condition.setScheme(schemeId);
 
         PageSearchRequest<ResourceRelationCondition> pageSearchRequest = new PageSearchRequest<>();

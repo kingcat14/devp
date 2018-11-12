@@ -15,8 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yunkang.saas.platform</groupId>
-            <artifactId>platform-web</artifactId>
+            <groupId>com.yunkang.saas.platform.manage</groupId>
+            <artifactId>manage-app</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

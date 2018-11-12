@@ -57,6 +57,9 @@ Ext.define('AM.view.LoginView', {
                             ,name: 'password'
                             ,emptyText: '请输入用户密码'
                             ,inputType: 'password'
+                            ,keyMap:{
+                                13:{handler:'onLoginClick'}
+                            }
                         }
                         ]
                         ,fbar: [
@@ -113,7 +116,8 @@ Ext.define('AM.controller.security.LoginController', {
         Ext.Ajax.request({
             url: 'security/login/authenticate'
             ,method: 'POST'
-            ,jsonData: options.data
+            // ,jsonData: options.data
+            ,params: options.data
             ,scope: this
             ,callback: this.onLoginReturn
             ,original: options

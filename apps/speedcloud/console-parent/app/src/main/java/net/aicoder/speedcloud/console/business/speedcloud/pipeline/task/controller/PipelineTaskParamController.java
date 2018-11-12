@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.pipeline.task.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -65,8 +66,8 @@ public class PipelineTaskParamController {
 	@ApiOperation(value = "新增", notes = "新增任务参数", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public PipelineTaskParamVO add(@RequestBody PipelineTaskParamAddDto pipelineTaskParamAddDto){
-    	pipelineTaskParamAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  pipelineTaskParamRibbonService.add(pipelineTaskParamAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class PipelineTaskParamController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询任务参数列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = PipelineTaskParamCondition.class)
 	public PageContent<PipelineTaskParamVO> list(@RequestBody PageSearchRequest<PipelineTaskParamCondition> pageSearchRequest){
 
-		PipelineTaskParamCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new PipelineTaskParamCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<PipelineTaskParamVO> pageContent = pipelineTaskParamRibbonService.list(pageSearchRequest);
 		for(PipelineTaskParamVO vo : pageContent.getContent()){
 			initViewProperty(vo);

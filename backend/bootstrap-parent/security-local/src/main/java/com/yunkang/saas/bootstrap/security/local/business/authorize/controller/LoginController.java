@@ -1,22 +1,29 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.controller;
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.UpdatePasswordRequest;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.UpdatePasswordResponse;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountManageService;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceTreeNode;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceService;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.UpdatePasswordRequest;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.UpdatePasswordResponse;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountManageService;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceTreeNode;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import com.yunkang.saas.bootstrap.security.model.LoginResult;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityUser;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.service.LoginService;
 import com.yunkang.saas.bootstrap.security.model.LoginRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +45,6 @@ public class LoginController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	private SecurityUtil securityUtil;
-
-	@Autowired
 	private AccountManageService accountManageService;
 
 	@Autowired
@@ -48,10 +52,6 @@ public class LoginController {
 
 	@Autowired
 	private ResourceService resourceService;
-
-
-	@Value("${security.basic.enabled:true}")
-	private boolean notInTest = false;
 
 	/**
 	 * 登陆
@@ -71,36 +71,9 @@ public class LoginController {
 
 	}
 
-	/**
-	 * 获取当前登录用户
-	 * @return
-	 */
-	@PostMapping("/account")
-	public Account getAccount(){
-
-
-		Account account =  securityUtil.getAccount();
-
-//		if(account==null){
-//			if(this.notInTest){
-//				account = new Account();
-//				account.setName("测试中");
-//				account.setNickName("虚拟用户");
-//				return account;
-//			}else {
-//				throw new BusinessException("security", "account", "not login", "用户未登陆");
-//			}
-//		}
-
-		return account;
-
-	}
-
-
-
 
 	/**
-	 * 获取当前登录用户
+	 * 修改当前用户密码
 	 * @return
 	 */
 	@PostMapping("/updatePassword")
@@ -124,24 +97,18 @@ public class LoginController {
 	 * @return
 	 */
 	@PostMapping("/getResource")
-	@Tenantable
-	public List<ResourceTreeNode> getResource(){
+	public List<ResourceTreeNode> getResource(@AuthenticationPrincipal SecurityUser securityUser){
 
-		List<Resource> result =  null;
+		Account account = securityUser.getAccount();
 
-		boolean flag = this.notInTest;
+		List<Resource> result = resourceService.findAllResourceByAccountId(account.getId());
 
-		if(flag) {
-			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-					.getAuthentication()
-					.getPrincipal();
-
-			String username = userDetails.getUsername();
-			result = accountManageService.findAllResource(username);
-		}else{
+		//如果是测试用户, 则返回所有资源
+		if(account.getId() == -1){
 			result = resourceService.findAll(null);
 		}
 
+		//整理成树形结构
 		return ResourceUtil.convert(result);
 
 	}

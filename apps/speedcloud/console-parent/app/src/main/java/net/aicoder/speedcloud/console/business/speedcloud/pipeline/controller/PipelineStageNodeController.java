@@ -1,5 +1,6 @@
 package net.aicoder.speedcloud.console.business.speedcloud.pipeline.controller;
 
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -73,15 +74,9 @@ public class PipelineStageNodeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询阶段执行节点列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = PipelineStageNodeCondition.class)
 	public PageContent<PipelineStageNodeVO> list(@RequestBody PageSearchRequest<PipelineStageNodeCondition> pageSearchRequest){
 
-		PipelineStageNodeCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new PipelineStageNodeCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<PipelineStageNodeVO> pageContent = pipelineStageNodeRibbonService.list(pageSearchRequest);
 		for(PipelineStageNodeVO vo : pageContent.getContent()){
 			initViewProperty(vo);

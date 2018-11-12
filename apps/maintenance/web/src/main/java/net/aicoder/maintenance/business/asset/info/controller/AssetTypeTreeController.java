@@ -49,7 +49,7 @@ public class AssetTypeTreeController {
 
 		//得到所有类别
 		AssetTypeCondition condition = new AssetTypeCondition();
-		condition.setTid(saaSUtil.getAccount().getTenantId());
+		condition.setTid(saaSUtil.getAccount().getTid());
 		List<AssetType> assetTypeList = assetTypeService.findAll(condition);
 
 

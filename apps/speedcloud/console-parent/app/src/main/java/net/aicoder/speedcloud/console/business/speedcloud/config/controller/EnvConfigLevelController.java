@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.config.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,6 +66,7 @@ public class EnvConfigLevelController {
 	@ApiOperation(value = "新增", notes = "新增环境级别", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public EnvConfigLevelVO add(@RequestBody EnvConfigLevelAddDto envConfigLevelAddDto){
 		return  envConfigLevelRibbonService.add(envConfigLevelAddDto);
 	}
@@ -120,7 +122,7 @@ public class EnvConfigLevelController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询环境级别列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = EnvConfigLevelCondition.class)
 	public PageContent<EnvConfigLevelVO> list(@RequestBody PageSearchRequest<EnvConfigLevelCondition> pageSearchRequest){
 
 		EnvConfigLevelCondition condition = pageSearchRequest.getSearchCondition();

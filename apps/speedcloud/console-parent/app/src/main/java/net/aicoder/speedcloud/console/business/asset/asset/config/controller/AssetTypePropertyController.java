@@ -70,7 +70,6 @@ public class AssetTypePropertyController {
 	@ResponseStatus( HttpStatus.CREATED )
   	@SaaSAnnotation()
 	public AssetTypePropertyVO add(@RequestBody AssetTypePropertyAddDto assetTypePropertyAddDto){
-	
 		return  assetTypePropertyRibbonService.add(assetTypePropertyAddDto);
 	}
 
@@ -125,8 +124,7 @@ public class AssetTypePropertyController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询资产分类属性列表", httpMethod = "POST")
-	@PostMapping("/list")
-  	@SaaSAnnotation(conditionClass = AssetTypePropertyCondition.class)
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AssetTypePropertyCondition.class)
 	public PageContent<AssetTypePropertyVO> list(@RequestBody PageSearchRequest<AssetTypePropertyCondition> pageSearchRequest){
 
 		PageContent<AssetTypePropertyVO> pageContent = assetTypePropertyRibbonService.list(pageSearchRequest);

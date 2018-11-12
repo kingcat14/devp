@@ -121,8 +121,7 @@ public class AssetPropertyController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询资产属性列表", httpMethod = "POST")
-	@PostMapping("/list")
-  	@SaaSAnnotation(conditionClass = AssetPropertyCondition.class)
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AssetPropertyCondition.class)
 	public PageContent<AssetPropertyVO> list(@RequestBody PageSearchRequest<AssetPropertyCondition> pageSearchRequest){
 
 		PageContent<AssetPropertyVO> pageContent = assetPropertyRibbonService.list(pageSearchRequest);

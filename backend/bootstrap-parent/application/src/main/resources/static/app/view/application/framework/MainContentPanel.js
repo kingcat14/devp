@@ -63,7 +63,6 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
             //
             // //this.insert(1,panel);
             // me.add(panel)
-            console.log(11111)
 
             for(var i in Ext.dashboard){
                 var panel = Ext.create(Ext.dashboard[i],{

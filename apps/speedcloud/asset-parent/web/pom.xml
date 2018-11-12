@@ -3,14 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>asset-parent</artifactId>
         <groupId>net.aicoder.speedcloud.asset</groupId>
+        <artifactId>asset-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>asset-web</artifactId>
     <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.yunkang.saas.bootstrap</groupId>
@@ -36,6 +37,10 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -66,6 +71,7 @@
                             <execution>
                                 <goals>
                                     <goal>repackage</goal>
+                                    <goal>build-info</goal>
                                 </goals>
                             </execution>
                         </executions>

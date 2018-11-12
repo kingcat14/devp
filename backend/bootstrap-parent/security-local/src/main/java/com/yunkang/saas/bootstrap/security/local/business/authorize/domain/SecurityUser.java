@@ -1,9 +1,9 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.domain;
 
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,7 +45,6 @@ public class SecurityUser implements UserDetails {
 	public Account getAccount() {
 		return account;
 	}
-
 	public void setAccount(Account account) {
 		this.account = account;
 	}
@@ -59,7 +58,6 @@ public class SecurityUser implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
-
 	@Override
 	public String getUsername() {
 		return account.getAccountName();
@@ -85,6 +83,10 @@ public class SecurityUser implements UserDetails {
 		return account.getEnable();
 	}
 
-
-
+	public void setAuthorities(Set<SecurityAuthority> authorities) {
+		this.authorities = authorities;
+	}
+	public void addAuthority(SecurityAuthority securityAuthority){
+		this.authorities.add(securityAuthority);
+	}
 }

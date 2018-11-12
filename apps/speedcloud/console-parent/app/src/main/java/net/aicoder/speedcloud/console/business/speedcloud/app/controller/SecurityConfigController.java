@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -65,8 +66,8 @@ public class SecurityConfigController {
 	@ApiOperation(value = "新增", notes = "新增应用私密配置", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public SecurityConfigVO add(@RequestBody SecurityConfigAddDto securityConfigAddDto){
-    	securityConfigAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  securityConfigRibbonService.add(securityConfigAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class SecurityConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用私密配置列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = SecurityConfigCondition.class)
 	public PageContent<SecurityConfigVO> list(@RequestBody PageSearchRequest<SecurityConfigCondition> pageSearchRequest){
 
-		SecurityConfigCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new SecurityConfigCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<SecurityConfigVO> pageContent = securityConfigRibbonService.list(pageSearchRequest);
 		for(SecurityConfigVO vo : pageContent.getContent()){
 			initViewProperty(vo);

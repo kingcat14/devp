@@ -70,7 +70,6 @@ public class AssetCmdbController {
 	@ResponseStatus( HttpStatus.CREATED )
   	@SaaSAnnotation()
 	public AssetCmdbVO add(@RequestBody AssetCmdbAddDto assetCmdbAddDto){
-	
 		return  assetCmdbRibbonService.add(assetCmdbAddDto);
 	}
 
@@ -125,8 +124,7 @@ public class AssetCmdbController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询IT资产列表", httpMethod = "POST")
-	@PostMapping("/list")
-  	@SaaSAnnotation(conditionClass = AssetCmdbCondition.class)
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AssetCmdbCondition.class)
 	public PageContent<AssetCmdbVO> list(@RequestBody PageSearchRequest<AssetCmdbCondition> pageSearchRequest){
 
 		PageContent<AssetCmdbVO> pageContent = assetCmdbRibbonService.list(pageSearchRequest);

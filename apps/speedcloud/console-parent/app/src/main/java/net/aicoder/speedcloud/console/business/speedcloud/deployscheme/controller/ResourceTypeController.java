@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -68,9 +69,9 @@ public class ResourceTypeController {
 	@ApiOperation(value = "新增", notes = "新增部署资源类型", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ResourceTypeVO add(@RequestBody ResourceTypeAddDto resourceTypeAddDto){
-    	resourceTypeAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  resourceTypeRibbonService.add(resourceTypeAddDto);
+    	return  resourceTypeRibbonService.add(resourceTypeAddDto);
 	}
 
 	/**
@@ -124,15 +125,9 @@ public class ResourceTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询部署资源类型列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ResourceTypeCondition.class)
 	public PageContent<ResourceTypeVO> list(@RequestBody PageSearchRequest<ResourceTypeCondition> pageSearchRequest){
 
-		ResourceTypeCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ResourceTypeCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<ResourceTypeVO> pageContent = resourceTypeRibbonService.list(pageSearchRequest);
 		for(ResourceTypeVO vo : pageContent.getContent()){
 			initViewProperty(vo);

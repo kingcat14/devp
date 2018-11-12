@@ -10,6 +10,7 @@ import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import net.aicoder.speedcloud.asset.business.asset.config.dto.AssetCategoryCondition;
 import net.aicoder.speedcloud.business.project.dto.ProjectCondition;
 import net.aicoder.speedcloud.business.project.dto.ProjectAddDto;
 import net.aicoder.speedcloud.business.project.dto.ProjectEditDto;
@@ -122,15 +123,9 @@ public class ProjectController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询项目列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ProjectCondition.class)
 	public PageContent<ProjectVO> list(@RequestBody PageSearchRequest<ProjectCondition> pageSearchRequest){
 
-		ProjectCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ProjectCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<ProjectVO> pageContent = projectRibbonService.list(pageSearchRequest);
 		for(ProjectVO vo : pageContent.getContent()){
 			initViewProperty(vo);

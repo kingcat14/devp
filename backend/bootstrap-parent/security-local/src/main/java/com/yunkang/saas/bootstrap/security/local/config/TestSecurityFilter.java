@@ -2,7 +2,7 @@ package com.yunkang.saas.bootstrap.security.local.config;
 
 
 import com.yunkang.saas.bootstrap.application.business.authorize.SecurityUtil;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ import java.util.Collections;
 @Component
 public class TestSecurityFilter implements Filter {
 
-    @Value("${security.basic.enabled:true}")
+    @Value("${management.security.enabled:true}")
     private boolean securityEnabled;
 
     @Autowired
@@ -46,11 +46,12 @@ public class TestSecurityFilter implements Filter {
     }
 
     private void initTestAccount(){
+
         Account account = new Account();
         account.setName("测试中");
         account.setNickName("虚拟用户");
-        account.setId(1L);
-        account.setTenantId(-1L);
+        account.setId(-1L);
+        account.setTid(-1L);
 
         SecurityUser userDetails = new SecurityUser(account, null);
 

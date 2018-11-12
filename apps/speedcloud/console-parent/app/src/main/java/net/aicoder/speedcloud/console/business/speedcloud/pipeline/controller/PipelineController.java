@@ -102,8 +102,7 @@ public class PipelineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询流水线列表", httpMethod = "POST")
-	@PostMapping("/list")
-	@SaaSAnnotation(conditionClass = PipelineCondition.class)
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = PipelineCondition.class)
 	public PageContent<PipelineVO> list(@RequestBody PageSearchRequest<PipelineCondition> pageSearchRequest){
 
 		PageContent<PipelineVO> pageContent = pipelineRibbonService.list(pageSearchRequest);

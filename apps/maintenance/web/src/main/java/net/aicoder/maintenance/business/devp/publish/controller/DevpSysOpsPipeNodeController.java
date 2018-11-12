@@ -66,7 +66,7 @@ public class DevpSysOpsPipeNodeController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsPipeNodeVO add(@RequestBody DevpSysOpsPipeNodeAddDto devpSysOpsPipeNodeAddDto){
-		devpSysOpsPipeNodeAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsPipeNodeAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsPipeNodeRibbonService.add(devpSysOpsPipeNodeAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsPipeNodeController {
 			condition = new DevpSysOpsPipeNodeCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsPipeNodeVO> pageContent = devpSysOpsPipeNodeRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsPipeNodeVO vo : pageContent.getContent()){
 			initViewProperty(vo);

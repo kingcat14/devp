@@ -54,7 +54,7 @@ public class DevpOpsAssetCmdbController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpOpsAssetCmdbVO add(@RequestBody DevpOpsAssetCmdbAddDto devpOpsAssetCmdbAddDto){
-		devpOpsAssetCmdbAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpOpsAssetCmdbAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpOpsAssetCmdbRibbonService.add(devpOpsAssetCmdbAddDto);
 	}
 

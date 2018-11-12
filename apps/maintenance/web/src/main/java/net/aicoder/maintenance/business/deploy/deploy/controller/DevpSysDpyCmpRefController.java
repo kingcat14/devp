@@ -54,7 +54,7 @@ public class DevpSysDpyCmpRefController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyCmpRefVO add(@RequestBody DevpSysDpyCmpRefAddDto devpSysDpyCmpRefAddDto){
-		devpSysDpyCmpRefAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysDpyCmpRefAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysDpyCmpRefRibbonService.add(devpSysDpyCmpRefAddDto);
 	}
 

@@ -54,7 +54,7 @@ public class DevpSysCmpController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysCmpVO add(@RequestBody DevpSysCmpAddDto devpSysCmpAddDto){
-		devpSysCmpAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysCmpAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysCmpRibbonService.add(devpSysCmpAddDto);
 	}
 

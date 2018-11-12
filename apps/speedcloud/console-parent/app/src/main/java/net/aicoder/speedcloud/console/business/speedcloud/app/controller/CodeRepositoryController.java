@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -71,8 +72,8 @@ public class CodeRepositoryController {
 	@ApiOperation(value = "新增", notes = "新增代码库", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public CodeRepositoryVO add(@RequestBody CodeRepositoryAddDto codeRepositoryAddDto){
-    	codeRepositoryAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  codeRepositoryRibbonService.add(codeRepositoryAddDto);
 	}
 
@@ -127,15 +128,9 @@ public class CodeRepositoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询代码库列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = CodeRepositoryCondition.class)
 	public PageContent<CodeRepositoryVO> list(@RequestBody PageSearchRequest<CodeRepositoryCondition> pageSearchRequest){
 
-		CodeRepositoryCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new CodeRepositoryCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<CodeRepositoryVO> pageContent = codeRepositoryRibbonService.list(pageSearchRequest);
 		for(CodeRepositoryVO vo : pageContent.getContent()){
 			initViewProperty(vo);

@@ -66,7 +66,7 @@ public class DevpOpsAttachmentController {
 		addDto.setName(attachment.getName());
 		addDto.setTypeName(attachment.getType());
 
-		addDto.setTid(securityUtil.getAccount().getTenantId());
+		addDto.setTid(securityUtil.getAccount().getTid());
 		return  devpOpsAttachmentRibbonService.add(addDto);
 	}
 

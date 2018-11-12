@@ -2,14 +2,14 @@ package com.yunkang.saas.bootstrap.application.business.security.controller;
 
 
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.RoleResourceRelation;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleResourceRelationService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.RoleResourceCheckTreeNode;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceCondition;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceService;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceUtil;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceVO;
+import com.yunkang.saas.bootstrap.application.business.security.domain.RoleResourceRelation;
+import com.yunkang.saas.bootstrap.application.business.security.service.RoleResourceRelationService;
+import com.yunkang.saas.bootstrap.platform.business.account.vo.RoleResourceCheckTreeNode;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

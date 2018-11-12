@@ -74,7 +74,7 @@ public class NetworkDeviceController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public NetworkDeviceVO add(@RequestBody NetworkDeviceAddDto networkDeviceAddDto){
-		networkDeviceAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		networkDeviceAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  networkDeviceRibbonService.add(networkDeviceAddDto);
 	}
 
@@ -137,7 +137,7 @@ public class NetworkDeviceController {
 			condition = new NetworkDeviceCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<NetworkDeviceVO> pageContent = networkDeviceRibbonService.list(pageSearchRequest);
 		for(NetworkDeviceVO vo : pageContent.getContent()){
 			initViewProperty(vo);

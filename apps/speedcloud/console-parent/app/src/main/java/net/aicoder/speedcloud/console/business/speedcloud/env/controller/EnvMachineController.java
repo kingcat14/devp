@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,8 +66,8 @@ public class EnvMachineController {
 	@ApiOperation(value = "新增", notes = "新增环境设备关联", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public EnvMachineVO add(@RequestBody EnvMachineAddDto envMachineAddDto){
-		envMachineAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  envMachineRibbonService.add(envMachineAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class EnvMachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询环境设备关联列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = EnvMachineCondition.class)
 	public PageContent<EnvMachineVO> list(@RequestBody PageSearchRequest<EnvMachineCondition> pageSearchRequest){
 
-		EnvMachineCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new EnvMachineCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<EnvMachineVO> pageContent = envMachineRibbonService.list(pageSearchRequest);
 		for(EnvMachineVO vo : pageContent.getContent()){
 			initViewProperty(vo);

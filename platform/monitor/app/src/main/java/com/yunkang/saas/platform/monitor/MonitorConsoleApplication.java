@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -21,18 +21,18 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Configuration
-@EnableAutoConfiguration
 @EnableAdminServer
+@SpringBootApplication
 @EnableDiscoveryClient
+@EnableRedisHttpSession
 @Slf4j
 public class MonitorConsoleApplication implements ExitCodeGenerator {
-
-
 
 	public static void main(String[] args) {
 
@@ -42,10 +42,10 @@ public class MonitorConsoleApplication implements ExitCodeGenerator {
 		Applications apps = eurekaClient.getApplications();
 		List<Application> applicationList = apps.getRegisteredApplications();
 		for(Application application : applicationList){
-			log.info("application: {}",application.getName());
+			log.info("application: {}", application.getName());
 			List<InstanceInfo> instanceInfoList = application.getInstances();
 			for(InstanceInfo info : instanceInfoList){
-				log.info("{} url : {}:{}",info.getAppName(), info.getIPAddr(), info.getPort());
+				log.info("{} url : {}:{}", info.getAppName(), info.getIPAddr(), info.getPort());
 			}
 		}
 	}

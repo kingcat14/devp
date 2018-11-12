@@ -54,7 +54,7 @@ public class DevpSysDpyResInstController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyResInstVO add(@RequestBody DevpSysDpyResInstAddDto devpSysDpyResInstAddDto){
-		devpSysDpyResInstAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysDpyResInstAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysDpyResInstRibbonService.add(devpSysDpyResInstAddDto);
 	}
 

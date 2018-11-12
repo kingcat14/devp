@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.yunkang.saas.platform.monitor</groupId>
         <artifactId>monitor-parent</artifactId>
+        <groupId>com.yunkang.saas.platform.monitor</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,15 +13,57 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
+            <groupId>com.yunkang.saas.common</groupId>
+            <artifactId>common-ui-extjs</artifactId>
+            <version>6.2.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yunkang.saas.bootstrap</groupId>
+            <artifactId>security-local</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yunkang.saas.platform.manage</groupId>
+            <artifactId>manage-app</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yunkang.saas.bootstrap</groupId>
+            <artifactId>application</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
             <version>1.5.7</version>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
+
+
     <build>
-        <finalName>monitor-app</finalName>
         <plugins>
+            <!--跳过app模块不部署到mvn仓库-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -36,7 +78,7 @@
         <profile>
             <id>spring-boot</id>
             <build>
-                <finalName>maintenance-web</finalName>
+                <finalName>monitor-app</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -52,5 +94,6 @@
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 </project>

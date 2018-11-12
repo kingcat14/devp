@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.config.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,6 +66,7 @@ public class DevelopTypeController {
 	@ApiOperation(value = "新增", notes = "新增开发模式", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public DevelopTypeVO add(@RequestBody DevelopTypeAddDto developTypeAddDto){
 		return  developTypeRibbonService.add(developTypeAddDto);
 	}
@@ -120,14 +122,9 @@ public class DevelopTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询开发模式列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = DevelopTypeCondition.class)
 	public PageContent<DevelopTypeVO> list(@RequestBody PageSearchRequest<DevelopTypeCondition> pageSearchRequest){
 
-		DevelopTypeCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new DevelopTypeCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
 		PageContent<DevelopTypeVO> pageContent = developTypeRibbonService.list(pageSearchRequest);
 		for(DevelopTypeVO vo : pageContent.getContent()){
 			initViewProperty(vo);

@@ -35,5 +35,13 @@
         <appender-ref ref="fileLog" />
         <appender-ref ref="stdout"  />
     </root>
+    <logger level="INFO" name="com.netflix.discovery.DiscoveryClient">
+
+    </logger>
+    <logger level="INFO" name="org.apache.http">
+
+    </logger>
+
+
 
 </configuration>

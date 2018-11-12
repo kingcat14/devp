@@ -3,25 +3,23 @@ package com.yunkang.saas.bootstrap.application.business.security.controller;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.bootstrap.application.business.security.valid.AccountValidator;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountAddDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountCondition;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountEditDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountManageService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.AccountVO;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountAddDto;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountCondition;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountEditDto;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountManageService;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
+import com.yunkang.saas.bootstrap.platform.business.account.vo.AccountVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.data.SortCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -62,13 +60,12 @@ public class AccountController {
 	 */
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public AccountVO add(@RequestBody @Valid AccountAddDto accountAddDto){
 		Account account = new Account();
 
 		BeanUtils.copyProperties(accountAddDto, account);
 
-		account.setTenantId(saaSUtil.getAccount().getTenantId());
-//		saaSUtil.fillSaaSEntity(account);
 		AccountPassword accountPassword = new AccountPassword();
 		accountPassword.setAccountName(account.getAccountName());
 		accountPassword.setPassword(accountAddDto.getInitPwd());
@@ -136,11 +133,6 @@ public class AccountController {
 	public PageContent<AccountVO> list(@RequestBody PageSearchRequest<AccountCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
-
-		//账号暂时不管理与应用的对应关系
-//		pageSearchRequest.getSearchCondition().setAppId(saaSUtil.getAccount().getAppId());
-		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
 
 		Page<Account> page = accountService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 

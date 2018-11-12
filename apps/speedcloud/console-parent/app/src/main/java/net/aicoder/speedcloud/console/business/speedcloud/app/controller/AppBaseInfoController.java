@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,8 +66,8 @@ public class AppBaseInfoController {
 	@ApiOperation(value = "新增", notes = "新增应用", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public AppBaseInfoVO add(@RequestBody AppBaseInfoAddDto appBaseInfoAddDto){
-    	appBaseInfoAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  appBaseInfoRibbonService.add(appBaseInfoAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class AppBaseInfoController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AppBaseInfoCondition.class)
 	public PageContent<AppBaseInfoVO> list(@RequestBody PageSearchRequest<AppBaseInfoCondition> pageSearchRequest){
 
-		AppBaseInfoCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new AppBaseInfoCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<AppBaseInfoVO> pageContent = appBaseInfoRibbonService.list(pageSearchRequest);
 		for(AppBaseInfoVO vo : pageContent.getContent()){
 			initViewProperty(vo);

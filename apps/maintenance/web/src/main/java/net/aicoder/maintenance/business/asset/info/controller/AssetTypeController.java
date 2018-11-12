@@ -73,7 +73,7 @@ public class AssetTypeController {
 	public AssetTypeVO add(@RequestBody @Valid AssetTypeAddDto assetTypeAddDto){
 		AssetType assetType = new AssetType();
 		BeanUtils.copyProperties(assetTypeAddDto, assetType);
-		assetType.setTid(saaSUtil.getAccount().getTenantId());
+		assetType.setTid(saaSUtil.getAccount().getTid());
 		assetTypeService.add(assetType);
 
 		return  initViewProperty(assetType);

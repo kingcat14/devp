@@ -41,3 +41,11 @@ spring:
 logging:
   file: logs/${spring.application.name}.log
 
+info:
+  version: "@project.version@"
+  artifactId: "@project.artifactId@"
+management:
+  security:
+    enabled: false
+  context-path: /actuator
+

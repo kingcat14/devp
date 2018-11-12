@@ -8,7 +8,7 @@ Ext.define('AM.view.ViewportController', {
         var me = this;
         this.getView().mask({msg:"Please wait..."});
         Ext.Ajax.request({
-            //获取当前用户
+            //获取当前应用
             url: 'current/app'
             ,method: 'POST'
             ,scope: this

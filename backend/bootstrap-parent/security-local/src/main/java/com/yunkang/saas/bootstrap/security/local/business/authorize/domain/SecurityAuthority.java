@@ -1,6 +1,5 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.domain;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 /**

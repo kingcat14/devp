@@ -66,7 +66,7 @@ public class DevpSysOpsDockerPathController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysOpsDockerPathVO add(@RequestBody DevpSysOpsDockerPathAddDto devpSysOpsDockerPathAddDto){
-		devpSysOpsDockerPathAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		devpSysOpsDockerPathAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  devpSysOpsDockerPathRibbonService.add(devpSysOpsDockerPathAddDto);
 	}
 
@@ -129,7 +129,7 @@ public class DevpSysOpsDockerPathController {
 			condition = new DevpSysOpsDockerPathCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<DevpSysOpsDockerPathVO> pageContent = devpSysOpsDockerPathRibbonService.list(pageSearchRequest);
 		for(DevpSysOpsDockerPathVO vo : pageContent.getContent()){
 			initViewProperty(vo);

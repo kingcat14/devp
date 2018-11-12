@@ -71,7 +71,7 @@ public class SoftwareLicenseController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public SoftwareLicenseVO add(@RequestBody SoftwareLicenseAddDto softwareLicenseAddDto){
-		softwareLicenseAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		softwareLicenseAddDto.setTid(saaSUtil.getAccount().getTid());
 		return  softwareLicenseRibbonService.add(softwareLicenseAddDto);
 	}
 
@@ -134,7 +134,7 @@ public class SoftwareLicenseController {
 			condition = new SoftwareLicenseCondition();
 			pageSearchRequest.setSearchCondition(condition);
 		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTid());
 		PageContent<SoftwareLicenseVO> pageContent = softwareLicenseRibbonService.list(pageSearchRequest);
 		for(SoftwareLicenseVO vo : pageContent.getContent()){
 			initViewProperty(vo);

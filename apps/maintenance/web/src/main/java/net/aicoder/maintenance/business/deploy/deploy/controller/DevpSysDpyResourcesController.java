@@ -54,7 +54,7 @@ public class DevpSysDpyResourcesController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysDpyResourcesVO add(@RequestBody DevpSysDpyResourcesAddDto devpSysDpyResourcesAddDto){
-		devpSysDpyResourcesAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysDpyResourcesAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysDpyResourcesRibbonService.add(devpSysDpyResourcesAddDto);
 	}
 

@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -65,8 +66,8 @@ public class MachineController {
 	@ApiOperation(value = "新增", notes = "新增服务器", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
-		machineAddDto.setTid(saaSUtil.getAccount().getTenantId());
 		return  machineRibbonService.add(machineAddDto);
 	}
 
@@ -121,15 +122,9 @@ public class MachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询服务器列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = MachineCondition.class)
 	public PageContent<MachineVO> list(@RequestBody PageSearchRequest<MachineCondition> pageSearchRequest){
 
-		MachineCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new MachineCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<MachineVO> pageContent = machineRibbonService.list(pageSearchRequest);
 		for(MachineVO vo : pageContent.getContent()){
 			initViewProperty(vo);

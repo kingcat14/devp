@@ -54,7 +54,7 @@ public class DevpSysElementInfoController {
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
 	public DevpSysElementInfoVO add(@RequestBody DevpSysElementInfoAddDto devpSysElementInfoAddDto){
-		devpSysElementInfoAddDto.setTid(securityUtil.getAccount().getTenantId());
+		devpSysElementInfoAddDto.setTid(securityUtil.getAccount().getTid());
 		return  devpSysElementInfoRibbonService.add(devpSysElementInfoAddDto);
 	}
 

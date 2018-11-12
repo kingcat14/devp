@@ -14,7 +14,7 @@ server:
     min-response-size: 256
 eureka:
   client:
-    registry-fetch-interval-seconds: 3
+    registry -fetch-interval-seconds: 3
     instance-info-replication-interval-seconds: 3
     register-with-eureka: true #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true
     initial-instance-info-replication-interval-seconds: 3
@@ -22,6 +22,9 @@ eureka:
     lease-renewal-interval-in-seconds: 3
     lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
 
 
 spring:
@@ -43,6 +46,23 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
+
+management:
+  security:
+    enabled: true
+    roles:
+  context-path: /actuator
+
+security:
+  user:
+    name: admin
+    password: 123456
+  basic:
+    authorize-mode: authenticated
+
 logging:
   file: logs/${spring.application.name}.log
 
+endpoints:
+  actuator:
+    sensitive: false

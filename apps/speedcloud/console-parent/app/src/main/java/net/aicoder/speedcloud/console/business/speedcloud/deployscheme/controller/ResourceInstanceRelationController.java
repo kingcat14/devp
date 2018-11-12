@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
@@ -69,8 +70,9 @@ public class ResourceInstanceRelationController {
 	@ApiOperation(value = "新增", notes = "新增方案资源关联实例", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public ResourceInstanceRelationVO add(@RequestBody ResourceInstanceRelationAddDto resourceInstanceRelationAddDto){
-    	resourceInstanceRelationAddDto.setTid(saaSUtil.getAccount().getTenantId());
+
 		return  resourceInstanceRelationRibbonService.add(resourceInstanceRelationAddDto);
 	}
 
@@ -144,15 +146,9 @@ public class ResourceInstanceRelationController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询方案资源关联实例列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = ResourceInstanceRelationCondition.class)
 	public PageContent<ResourceInstanceRelationVO> list(@RequestBody PageSearchRequest<ResourceInstanceRelationCondition> pageSearchRequest){
 
-		ResourceInstanceRelationCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ResourceInstanceRelationCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<ResourceInstanceRelationVO> pageContent = resourceInstanceRelationRibbonService.list(pageSearchRequest);
 		for(ResourceInstanceRelationVO vo : pageContent.getContent()){
 			initViewProperty(vo);
@@ -170,14 +166,10 @@ public class ResourceInstanceRelationController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询方案资源关联实例列表", httpMethod = "POST")
 	@PostMapping("/asset/list")
+	@SaaSAnnotation(conditionClass = ResourceInstanceRelationCondition.class)
 	public List<AssetCmdbVO> assetList(@RequestBody PageSearchRequest<ResourceInstanceRelationCondition> pageSearchRequest){
 
-		ResourceInstanceRelationCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new ResourceInstanceRelationCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-		pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
+
 		PageContent<ResourceInstanceRelationVO> pageContent = resourceInstanceRelationRibbonService.list(pageSearchRequest);
 
 		List<AssetCmdbVO> result = new ArrayList<>();

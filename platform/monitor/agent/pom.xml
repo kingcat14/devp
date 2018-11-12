@@ -12,7 +12,7 @@
     <artifactId>monitor-agent</artifactId>
     <packaging>jar</packaging>
     <build>
-        <finalName>monitor-app</finalName>
+        <finalName>monitor-agent</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

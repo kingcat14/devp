@@ -2,24 +2,24 @@ package com.yunkang.saas.bootstrap.application.business.security.controller;
 
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
+import com.yunkang.saas.bootstrap.application.business.security.service.RoleService;
 import com.yunkang.saas.bootstrap.application.business.security.valid.RoleValidator;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Role;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleAddDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleCondition;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleEditDto;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.RoleService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.vo.RoleVO;
+
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleAddDto;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleCondition;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleEditDto;
+
+import com.yunkang.saas.bootstrap.platform.business.account.vo.RoleVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.data.SortCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +57,7 @@ public class RoleController {
 	 */
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public RoleVO add(@RequestBody @Valid RoleAddDto roleAddDto){
 		Role role = new Role();
 		BeanUtils.copyProperties(roleAddDto, role);
@@ -127,7 +128,6 @@ public class RoleController {
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
 
 		pageSearchRequest.getSearchCondition().setAppCode(saaSUtil.getAppCode());
-		pageSearchRequest.getSearchCondition().setTenantId(saaSUtil.getAccount().getTenantId());
 
 		Page<Role> page = roleService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 

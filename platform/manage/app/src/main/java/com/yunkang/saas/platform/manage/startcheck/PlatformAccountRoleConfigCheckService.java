@@ -9,6 +9,7 @@ import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPasswo
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountPasswordService;
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
 
+import com.yunkang.saas.common.framework.app.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import org.springframework.stereotype.Component;
 public class PlatformAccountRoleConfigCheckService implements CommandLineRunner {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlatformAccountRoleConfigCheckService.class);
+
+	@Autowired
+	private ApplicationProperties applicationProperties;
 
 	@Autowired
     private AccountService accountService;
@@ -85,6 +89,7 @@ public class PlatformAccountRoleConfigCheckService implements CommandLineRunner 
 		role.setId(1L);
 		role.setName("超级管理员");
 		role.setTid(1L);
+		role.setAppCode(applicationProperties.getCode()+"");
 		role.setDescription("超级管理员");
 		check(role);
 	}

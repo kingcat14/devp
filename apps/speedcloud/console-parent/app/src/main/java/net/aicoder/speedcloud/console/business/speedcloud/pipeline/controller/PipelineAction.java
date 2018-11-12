@@ -62,8 +62,7 @@ public class PipelineAction {
 	@SaaSAnnotation
 	public PipelineVO add(@RequestBody PipelineAddDto pipelineAddDto){
 
-		long tid = saaSUtil.getAccount().getTenantId();
-    	pipelineAddDto.setTid(saaSUtil.getAccount().getTenantId());
+		long tid = saaSUtil.getAccount().getTid();
 
     	//处理参数的tid
     	if(CollectionUtils.isNotEmpty(pipelineAddDto.getParamList())){
@@ -102,7 +101,7 @@ public class PipelineAction {
 
 
 	private void handleParamTid(List<PipelineParamAddDto> pipelineParamAddDtoList){
-		Long tid = saaSUtil.getAccount().getTenantId();
+		Long tid = saaSUtil.getAccount().getTid();
 		//处理参数的tid
 		if(CollectionUtils.isEmpty(pipelineParamAddDtoList)){
 			return;
@@ -112,7 +111,7 @@ public class PipelineAction {
 		}
 	}
 	private void handleStageTid(List<PipelineStageAddDto> stageList){
-		Long tid = saaSUtil.getAccount().getTenantId();
+		Long tid = saaSUtil.getAccount().getTid();
 		//处理阶段的tid
 		if(CollectionUtils.isEmpty(stageList)){
 			return;
@@ -124,7 +123,7 @@ public class PipelineAction {
 	}
 
 	private void handStageNodeTid(List<PipelineStageNodeAddDto> stageNodeAddDtoList){
-		Long tid = saaSUtil.getAccount().getTenantId();
+		Long tid = saaSUtil.getAccount().getTid();
 		//处理阶段节点的tid
 		if(CollectionUtils.isEmpty(stageNodeAddDtoList)){
 			return;
@@ -137,7 +136,7 @@ public class PipelineAction {
 	}
 
 	private void handleStageNodeParamTid(List<PipelineStageNodeParamAddDto> pipelineStageNodeParamAddDtoList){
-		Long tid = saaSUtil.getAccount().getTenantId();
+		Long tid = saaSUtil.getAccount().getTid();
 		//处理参数的tid
 		if(CollectionUtils.isEmpty(pipelineStageNodeParamAddDtoList)){
 			return;

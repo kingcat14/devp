@@ -12,6 +12,10 @@ Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
     ,controller: 'speedcloud.pipeline.PipelineController'
     ,initComponent: function() {
         var me = this;
+
+        var url  = "http://121.41.14.24:14101/API/Page?f=Viewer/index.html&kfbpath=D:\\\\ScanData\\\\DefaultGroup\\\\2018-11-06\\\\518002984_2018-11-06%2013_23_40.kfb&SwitchCut=0"
+        console.log(encodeURI(url))
+
         me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [

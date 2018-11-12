@@ -70,7 +70,6 @@ public class AssetOwnershipController {
 	@ResponseStatus( HttpStatus.CREATED )
   	@SaaSAnnotation()
 	public AssetOwnershipVO add(@RequestBody AssetOwnershipAddDto assetOwnershipAddDto){
-	
 		return  assetOwnershipRibbonService.add(assetOwnershipAddDto);
 	}
 
@@ -125,8 +124,7 @@ public class AssetOwnershipController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询IT资产归属列表", httpMethod = "POST")
-	@PostMapping("/list")
-  	@SaaSAnnotation(conditionClass = AssetOwnershipCondition.class)
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = AssetOwnershipCondition.class)
 	public PageContent<AssetOwnershipVO> list(@RequestBody PageSearchRequest<AssetOwnershipCondition> pageSearchRequest){
 
 		PageContent<AssetOwnershipVO> pageContent = assetOwnershipRibbonService.list(pageSearchRequest);

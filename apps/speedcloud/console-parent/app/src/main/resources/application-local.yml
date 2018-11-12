@@ -23,14 +23,5 @@ spring:
       max-idle: 8
       min-idle: 0
       max-wait: 1
-
-security:
-  basic:
-    enabled: true
-
-management:
-  security:
-    enabled: true
-
 swagger:
   base-package: net.aicoder.speedcloud.business

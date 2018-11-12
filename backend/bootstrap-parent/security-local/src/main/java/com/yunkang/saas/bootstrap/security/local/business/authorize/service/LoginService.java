@@ -1,11 +1,12 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.service;
 
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Account;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.AccountCondition;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountPasswordService;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.service.AccountService;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPassword;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountCondition;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountPasswordService;
+import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
+import com.yunkang.saas.bootstrap.security.local.business.authorize.spring.SecurityUserService;
 import com.yunkang.saas.bootstrap.security.model.LoginResult;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityUser;
 import com.yunkang.saas.bootstrap.security.model.LoginRequest;

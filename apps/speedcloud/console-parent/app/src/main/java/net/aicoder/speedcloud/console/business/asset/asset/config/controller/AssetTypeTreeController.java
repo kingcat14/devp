@@ -48,7 +48,7 @@ public class AssetTypeTreeController {
 
 		//得到所有类别
 		AssetTypeCondition condition = new AssetTypeCondition();
-		condition.setTid(saaSUtil.getAccount().getTenantId());
+		condition.setTid(saaSUtil.getAccount().getTid());
 		PageSearchRequest<AssetTypeCondition> pageSearchRequest = new PageSearchRequest<>();
 		pageSearchRequest.setSearchCondition(condition);
 		pageSearchRequest.setPage(0);

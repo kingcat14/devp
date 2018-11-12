@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -68,9 +69,9 @@ public class SchemeController {
 	@ApiOperation(value = "新增", notes = "新增部署方案", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@SaaSAnnotation
 	public SchemeVO add(@RequestBody SchemeAddDto schemeAddDto){
-    	schemeAddDto.setTid(saaSUtil.getAccount().getTenantId());
-		return  schemeRibbonService.add(schemeAddDto);
+    	return  schemeRibbonService.add(schemeAddDto);
 	}
 
 	/**
@@ -124,15 +125,9 @@ public class SchemeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询部署方案列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping("/list") @SaaSAnnotation(conditionClass = SchemeCondition.class)
 	public PageContent<SchemeVO> list(@RequestBody PageSearchRequest<SchemeCondition> pageSearchRequest){
 
-		SchemeCondition condition = pageSearchRequest.getSearchCondition();
-		if(condition==null){
-			condition = new SchemeCondition();
-			pageSearchRequest.setSearchCondition(condition);
-		}
-        pageSearchRequest.getSearchCondition().setTid(saaSUtil.getAccount().getTenantId());
 		PageContent<SchemeVO> pageContent = schemeRibbonService.list(pageSearchRequest);
 		for(SchemeVO vo : pageContent.getContent()){
 			initViewProperty(vo);
