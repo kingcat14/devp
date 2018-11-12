@@ -28,6 +28,7 @@ public class Application extends BaseEntity<String>{
 	public static final String PROPERTY_ALARM = "alarm";
 	public static final String PROPERTY_ENABLE = "enable";
 	public static final String PROPERTY_THRESHOLD_VALUE = "thresholdValue";
+	public static final String PROPERTY_STATUS = "status";
 
 
     @Id
@@ -86,6 +87,14 @@ public class Application extends BaseEntity<String>{
     @Column(name = "threshold_value", nullable = true, updatable = true)
 	private Integer thresholdValue;
 
+    /**
+    * 当前状态
+    * 正常、异常
+    */
+    @Column(name = "status", nullable = true, updatable = true)
+	@Size(max = 255, message = "当前状态超长，最多255个字符")
+	private String status;
+
 	public String getName(){
 		return name;
 	}
@@ -133,6 +142,13 @@ public class Application extends BaseEntity<String>{
 	}
 	public void setThresholdValue(Integer thresholdValue) {
 		this.thresholdValue = thresholdValue;
+	}
+
+	public String getStatus(){
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

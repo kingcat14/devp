@@ -50,6 +50,11 @@ public class ApplicationEditDto {
 	private Integer thresholdValue;
 
 
+	/**当前状态*/
+	@ApiModelProperty(value = "当前状态", required = false, notes = "正常、异常")
+	private String status;
+
+
 
 	public String getName(){
 		return name;
@@ -104,6 +109,14 @@ public class ApplicationEditDto {
 	}
 	public void setThresholdValue(Integer thresholdValue) {
 		this.thresholdValue = thresholdValue;
+	}
+
+
+	public String getStatus(){
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

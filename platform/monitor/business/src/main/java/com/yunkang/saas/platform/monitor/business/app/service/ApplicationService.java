@@ -47,11 +47,10 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 		Application application = dao.findOne(code);
 		int oldAlive = application.getAliveCount();
 		application.setAliveCount(aliveCount);
+		application.setStatus(isHealth(application)?"WELL":"UNUSUAL");
 		this.merge(application);
 
 		if(oldAlive > application.getThresholdValue() && aliveCount <= application.getThresholdValue()){
-
-
 
 			String messageTpl = "应用%s的实例从%s变为%s,配置量为:%s";
 			String message = String.format(messageTpl, code, oldAlive, aliveCount, application.getTotalCount());
@@ -64,14 +63,13 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 
 	}
 
-	public Boolean isHealth(String code){
+	public Boolean isHealth(Application application){
 		/*
-		 * 1.活的实例数量 大于 阈值, 则说明是健康的
+		 * 1.活的实例数量 大于等于 阈值, 则说明是健康的
 		 */
-		Application application = dao.findOne(code);
-		Boolean health = application.getAliveCount() > application.getThresholdValue();
 
-		return health;
+		return application.getAliveCount() >= application.getThresholdValue();
+
 	}
 
 	/**
@@ -90,7 +88,6 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 			}
 			//如果活着的应用名单里没有当前应用，则当前应用标记为已近挂了
 			markDead(appCode);
-			isHealth(appCode);
 		}
 	}
 

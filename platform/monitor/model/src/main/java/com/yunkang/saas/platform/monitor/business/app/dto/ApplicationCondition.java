@@ -37,6 +37,8 @@ public class ApplicationCondition {
 	private Integer thresholdValueMax;
 	@ApiModelProperty(value = "告警数量最小值")
 	private Integer thresholdValueMin;
+	@ApiModelProperty(value = "当前状态", notes = "正常、异常")
+	private String status;
 
 
 

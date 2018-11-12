@@ -14,11 +14,11 @@ server:
     min-response-size: 256
 eureka:
   client:
-    registry-fetch-interval-seconds: 30
+    registry-fetch-interval-seconds: 2
     register-with-eureka: true
   instance:
-    lease-renewal-interval-in-seconds: 30
-    lease-expiration-duration-in-seconds: 50
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
     metadata-map:
       user.name: ${security.user.name}

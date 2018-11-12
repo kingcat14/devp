@@ -16,6 +16,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -46,6 +47,7 @@ public class ApplicationStatusCollectService {
     private MailService mailService;
 
     @Scheduled(cron = "*/30 * * * * *")
+    @Transactional
     public void detection(){
         /*
          * 0.捞出应用列表
@@ -83,7 +85,6 @@ public class ApplicationStatusCollectService {
 
         log.info("application: {}", application.getName());
         applicationService.markAlive(application.getName(), CollectionUtils.size(application.getInstances()));
-        applicationService.isHealth(application.getName());
 
         List<InstanceInfo> instanceInfoList = application.getInstances();
 

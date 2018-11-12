@@ -35,6 +35,7 @@ public class ApplicationSpecification implements Specification<Application>{
 		tryAddAlarmPredicate(predicateList, root, cb);
 		tryAddEnablePredicate(predicateList, root, cb);
 		tryAddThresholdValuePredicate(predicateList, root, cb);
+		tryAddStatusPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -103,6 +104,11 @@ public class ApplicationSpecification implements Specification<Application>{
 
 		if (null != condition.getThresholdValueMin() ) {
 			predicateList.add(cb.lessThan(root.get(Application.PROPERTY_THRESHOLD_VALUE).as(Integer.class), condition.getThresholdValueMin()));
+		}
+	}
+	private void tryAddStatusPredicate(List<Predicate> predicateList, Root<Application> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getStatus())){
+			predicateList.add(cb.like(root.get(Application.PROPERTY_STATUS).as(String.class), "%"+condition.getStatus()+"%"));
 		}
 	}
 }

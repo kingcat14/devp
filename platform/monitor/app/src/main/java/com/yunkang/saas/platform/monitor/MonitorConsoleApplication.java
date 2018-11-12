@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.List;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableRedisHttpSession
+@EnableTransactionManagement
 @Slf4j
 public class MonitorConsoleApplication implements ExitCodeGenerator {
 
