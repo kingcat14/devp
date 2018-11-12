@@ -4,7 +4,11 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 	,bodyCls: 'app-dashboard'
 	,reference: 'dashboard'
 	,controller: 'application.dashboard.DashboardController'
-	,requires:['AM.view.application.dashboard.DashboardController', 'AM.view.application.dashboard.UserDetailPanel']
+	,requires:[
+		'AM.view.application.dashboard.DashboardController'
+		,'AM.view.application.dashboard.UserDetailPanel'
+		,'AM.view.application.dashboard.portlet.ApplicationPortlet'
+	]
 	,bodyPadding: 10
 	,layout: {
 		type: 'vbox',
@@ -60,19 +64,12 @@ Ext.define('AM.view.application.dashboard.Dashboard', {
 					}
 					,items:[
 						{
-							xtype:'grid'
-							,title:'测试'
-							,columns:[
-								{
-									xtype:'gridcolumn'
-									,text:'name'
-                                    ,dataIndex:'name'
-								}
-							]
-                            ,selModel: 'checkboxmodel'
-                            ,store:[{name:'a'}]
-
+                            xtype: 'portlet.Application'
+							,frame: true
+							,title: '异常应用'
+							,emptyText: '无异常应用'
 						}
+
 					]
 				}
 
