@@ -15,7 +15,28 @@
     <packaging>pom</packaging>
 
     <dependencyManagement>
-
+        <dependencies>
+            <dependency>
+                <groupId>com.yunkang.saas.bootstrap</groupId>
+                <artifactId>common-model</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yunkang.saas.platform.manage</groupId>
+                <artifactId>manage-model</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yunkang.saas.platform.monitor</groupId>
+                <artifactId>monitor-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yunkang.saas.platform.monitor</groupId>
+                <artifactId>monitor-business</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <dependencies>
@@ -40,10 +61,10 @@
             </properties>
             <modules>
                 <module>app</module>
-                <!-- <module>model</module>
+                <module>model</module>
                 <module>business</module>
                 <module>web</module>
-                <module>client</module> -->
+                <!--<module>client</module>-->
             </modules>
         </profile>
     </profiles>
