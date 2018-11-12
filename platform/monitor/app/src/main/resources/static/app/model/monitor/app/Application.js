@@ -62,5 +62,11 @@ Ext.define('AM.model.monitor.app.Application', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'status'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

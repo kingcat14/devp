@@ -64,6 +64,15 @@ Ext.define('AM.view.application.dashboard.portlet.ApplicationPortlet', {
         });
 
 
+        var runner = new Ext.util.TaskRunner();
+        runner.newTask({
+            run: function() {
+                me.getViewModel().getStore('store').reload();
+            }
+            ,interval: 5000
+        }).start();
+
+
         me.callParent(arguments);
     }
 
