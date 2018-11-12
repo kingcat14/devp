@@ -135,7 +135,48 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                     ,viewConfig: {
 
                     }
+                    ,dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
 
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'代码'
+                                    ,reference: 'codeField'
+                                }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,width:120
+                                    ,emptyText:'忽略'
+                                    ,store: [
+                                        [true,'是']
+                                        ,[false,'否']
+                                    ]
+                                    ,value:true
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,reference: 'ignoredField'
+                                }
+                                ,{
+                                    xtype: 'button'
+                                    ,iconCls: 'fab fa-searchengin'
+                                    ,text: '查询'
+                                    ,listeners: {
+                                        click: 'onSimpleSearchButtonClick'
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'pagingtoolbar'
+                            ,dock: 'bottom'
+                            ,displayInfo: true
+                        }
+                    ]
+                    ,selModel: 'checkboxmodel'
                     ,listeners: {}
                 }
             ]

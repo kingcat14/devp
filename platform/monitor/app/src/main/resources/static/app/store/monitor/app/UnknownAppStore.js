@@ -48,7 +48,6 @@ Ext.define('AM.store.monitor.app.UnknownAppStore', {
         if(error.status){
             error = error.status + ' ' + error.statusText;
         }
-        //Ext.MessageBox.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
         Ext.MessageBox.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
 
         if('read' !== operation.action){
