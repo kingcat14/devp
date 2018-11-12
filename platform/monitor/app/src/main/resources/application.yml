@@ -44,6 +44,18 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 13962217@qq.com
+    password: hliwzyswfolqbjag
+    properties:
+      mail:
+        smtp:
+          auth: true
+#          starttls:
+#            enable: true
+#            required: true
   boot:
     admin:
       context-path: /admin

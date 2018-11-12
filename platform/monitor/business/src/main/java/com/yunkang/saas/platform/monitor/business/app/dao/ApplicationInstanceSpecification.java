@@ -29,11 +29,12 @@ public class ApplicationInstanceSpecification implements Specification<Applicati
 		}
 
 		tryAddAppPredicate(predicateList, root, cb);
-		tryAddIpPredicate(predicateList, root, cb);
+		tryAddHostPredicate(predicateList, root, cb);
 		tryAddPortPredicate(predicateList, root, cb);
 		tryAddAlivePredicate(predicateList, root, cb);
 		tryAddAlarmPredicate(predicateList, root, cb);
-		tryAddStopTimePredicate(predicateList, root, cb);
+		tryAddAliveTimePredicate(predicateList, root, cb);
+		tryAddDetectionTimePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -47,9 +48,9 @@ public class ApplicationInstanceSpecification implements Specification<Applicati
 			predicateList.add(cb.like(root.get(ApplicationInstance.PROPERTY_APP).as(String.class), "%"+condition.getApp()+"%"));
 		}
 	}
-	private void tryAddIpPredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getIp())){
-			predicateList.add(cb.like(root.get(ApplicationInstance.PROPERTY_IP).as(String.class), "%"+condition.getIp()+"%"));
+	private void tryAddHostPredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getHost())){
+			predicateList.add(cb.like(root.get(ApplicationInstance.PROPERTY_HOST).as(String.class), "%"+condition.getHost()+"%"));
 		}
 	}
 	private void tryAddPortPredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
@@ -76,18 +77,32 @@ public class ApplicationInstanceSpecification implements Specification<Applicati
 			predicateList.add(cb.equal(root.get(ApplicationInstance.PROPERTY_ALARM).as(Boolean.class), condition.getAlarm()));
 		}
 	}
-	private void tryAddStopTimePredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
+	private void tryAddAliveTimePredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
 
-		if (null != condition.getStopTime() ) {
-			predicateList.add(cb.equal(root.get(ApplicationInstance.PROPERTY_STOP_TIME).as(Date.class), condition.getStopTime()));
+		if (null != condition.getAliveTime() ) {
+			predicateList.add(cb.equal(root.get(ApplicationInstance.PROPERTY_ALIVE_TIME).as(Date.class), condition.getAliveTime()));
 		}
 
-		if (null != condition.getStopTimeStart() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ApplicationInstance.PROPERTY_STOP_TIME).as(Date.class), condition.getStopTimeStart()));
+		if (null != condition.getAliveTimeStart() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(ApplicationInstance.PROPERTY_ALIVE_TIME).as(Date.class), condition.getAliveTimeStart()));
 		}
 
-		if (null != condition.getStopTimeEnd() ) {
-			predicateList.add(cb.lessThan(root.get(ApplicationInstance.PROPERTY_STOP_TIME).as(Date.class), condition.getStopTimeEnd()));
+		if (null != condition.getAliveTimeEnd() ) {
+			predicateList.add(cb.lessThan(root.get(ApplicationInstance.PROPERTY_ALIVE_TIME).as(Date.class), condition.getAliveTimeEnd()));
+		}
+	}
+	private void tryAddDetectionTimePredicate(List<Predicate> predicateList, Root<ApplicationInstance> root, CriteriaBuilder cb){
+
+		if (null != condition.getDetectionTime() ) {
+			predicateList.add(cb.equal(root.get(ApplicationInstance.PROPERTY_DETECTION_TIME).as(Date.class), condition.getDetectionTime()));
+		}
+
+		if (null != condition.getDetectionTimeStart() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(ApplicationInstance.PROPERTY_DETECTION_TIME).as(Date.class), condition.getDetectionTimeStart()));
+		}
+
+		if (null != condition.getDetectionTimeEnd() ) {
+			predicateList.add(cb.lessThan(root.get(ApplicationInstance.PROPERTY_DETECTION_TIME).as(Date.class), condition.getDetectionTimeEnd()));
 		}
 	}
 }

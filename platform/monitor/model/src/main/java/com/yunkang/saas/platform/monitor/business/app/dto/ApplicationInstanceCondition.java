@@ -12,26 +12,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "查询程序实例使用的DTO")
 public class ApplicationInstanceCondition {
 
-    @ApiModelProperty(value = "app")
+    @ApiModelProperty(value = "应用")
     private String app;
-	@ApiModelProperty(value = "ip")
-	private String ip;
-	@ApiModelProperty(value = "port")
+	@ApiModelProperty(value = "主机")
+	private String host;
+	@ApiModelProperty(value = "端口")
 	private Integer port;
-	@ApiModelProperty(value = "port最大值")
+	@ApiModelProperty(value = "端口最大值")
 	private Integer portMax;
-	@ApiModelProperty(value = "port最小值")
+	@ApiModelProperty(value = "端口最小值")
 	private Integer portMin;
 	@ApiModelProperty(value = "运行中")
 	private Boolean alive;
 	@ApiModelProperty(value = "停运告警")
 	private Boolean alarm;
-	@ApiModelProperty(value = "最近停运时间", notes = "最近停运时间")
-	private Date stopTime;
-	@ApiModelProperty(value = "起始最近停运时间")
-	private Date stopTimeStart;
-	@ApiModelProperty(value = "结束最近停运时间")
-	private Date stopTimeEnd;
+	@ApiModelProperty(value = "最近活跃时间", notes = "最近活跃时间")
+	private Date aliveTime;
+	@ApiModelProperty(value = "起始最近活跃时间")
+	private Date aliveTimeStart;
+	@ApiModelProperty(value = "结束最近活跃时间")
+	private Date aliveTimeEnd;
+	@ApiModelProperty(value = "最近检测时间")
+	private Date detectionTime;
+	@ApiModelProperty(value = "起始最近检测时间")
+	private Date detectionTimeStart;
+	@ApiModelProperty(value = "结束最近检测时间")
+	private Date detectionTimeEnd;
 
 
 

@@ -22,18 +22,18 @@ public class ApplicationInstanceVO {
     private String id;
 
 
-    /**app*/
-    @ApiModelProperty(value = "app")
+    /**应用*/
+    @ApiModelProperty(value = "应用")
     private String app;
     private ApplicationVO appVO;
 
 
-    /**ip*/
-    @ApiModelProperty(value = "ip")
-    private String ip;
+    /**主机*/
+    @ApiModelProperty(value = "主机")
+    private String host;
 
 
-    @ApiModelProperty(value = "port")
+    @ApiModelProperty(value = "端口")
     private Integer port;
 
 
@@ -45,9 +45,14 @@ public class ApplicationInstanceVO {
     private Boolean alarm;
 
 
-    /**最近停运时间*/
-    @ApiModelProperty(value = "最近停运时间", notes = "最近停运时间")
-    private Date stopTime;
+    /**最近活跃时间*/
+    @ApiModelProperty(value = "最近活跃时间", notes = "最近活跃时间")
+    private Date aliveTime;
+
+
+    /**最近检测时间*/
+    @ApiModelProperty(value = "最近检测时间")
+    private Date detectionTime;
 
 
     public String getApp(){
@@ -63,11 +68,11 @@ public class ApplicationInstanceVO {
         this.appVO = appVO;
     }
 
-    public String getIp(){
-        return ip;
+    public String getHost(){
+        return host;
     }
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public Integer getPort(){
@@ -91,11 +96,18 @@ public class ApplicationInstanceVO {
         this.alarm = alarm;
     }
 
-    public Date getStopTime(){
-        return stopTime;
+    public Date getAliveTime(){
+        return aliveTime;
     }
-    public void setStopTime(Date stopTime) {
-        this.stopTime = stopTime;
+    public void setAliveTime(Date aliveTime) {
+        this.aliveTime = aliveTime;
+    }
+
+    public Date getDetectionTime(){
+        return detectionTime;
+    }
+    public void setDetectionTime(Date detectionTime) {
+        this.detectionTime = detectionTime;
     }
 
 

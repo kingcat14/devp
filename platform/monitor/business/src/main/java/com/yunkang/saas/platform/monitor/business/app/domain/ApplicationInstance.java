@@ -23,11 +23,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ApplicationInstance extends BaseEntity<String>{
 
 	public static final String PROPERTY_APP = "app";
-	public static final String PROPERTY_IP = "ip";
+	public static final String PROPERTY_HOST = "host";
 	public static final String PROPERTY_PORT = "port";
 	public static final String PROPERTY_ALIVE = "alive";
 	public static final String PROPERTY_ALARM = "alarm";
-	public static final String PROPERTY_STOP_TIME = "stopTime";
+	public static final String PROPERTY_ALIVE_TIME = "aliveTime";
+	public static final String PROPERTY_DETECTION_TIME = "detectionTime";
 
 
     @Id
@@ -36,26 +37,26 @@ public class ApplicationInstance extends BaseEntity<String>{
 
 
     /**
-    * app
+    * 应用
     * 
     */
-    @Column(name = "app", nullable = true, updatable = true)
-	@Size(max = 255, message = "app超长，最多255个字符")
+    @Column(name = "app", nullable = false, updatable = true)
+	@Size(max = 255, message = "应用超长，最多255个字符")
 	private String app;
 
     /**
-    * ip
+    * 主机
     * 
     */
-    @Column(name = "ip", nullable = false, updatable = true)
-	@Size(max = 255, message = "ip超长，最多255个字符")
-	private String ip;
+    @Column(name = "host", nullable = false, updatable = true)
+	@Size(max = 255, message = "主机超长，最多255个字符")
+	private String host;
 
     /**
-    * port
+    * 端口
     * 
     */
-    @Column(name = "port", nullable = true, updatable = true)
+    @Column(name = "port", nullable = false, updatable = true)
 	private Integer port;
 
     /**
@@ -73,11 +74,18 @@ public class ApplicationInstance extends BaseEntity<String>{
 	private Boolean alarm;
 
     /**
-    * 最近停运时间
-    * 最近停运时间
+    * 最近活跃时间
+    * 最近活跃时间
     */
-    @Column(name = "stop_time", nullable = true, updatable = true)
-	private Date stopTime;
+    @Column(name = "alive_time", nullable = true, updatable = true)
+	private Date aliveTime;
+
+    /**
+    * 最近检测时间
+    * 
+    */
+    @Column(name = "detection_time", nullable = true, updatable = true)
+	private Date detectionTime;
 
 	public String getApp(){
 		return app;
@@ -86,11 +94,11 @@ public class ApplicationInstance extends BaseEntity<String>{
 		this.app = app;
 	}
 
-	public String getIp(){
-		return ip;
+	public String getHost(){
+		return host;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public Integer getPort(){
@@ -114,11 +122,18 @@ public class ApplicationInstance extends BaseEntity<String>{
 		this.alarm = alarm;
 	}
 
-	public Date getStopTime(){
-		return stopTime;
+	public Date getAliveTime(){
+		return aliveTime;
 	}
-	public void setStopTime(Date stopTime) {
-		this.stopTime = stopTime;
+	public void setAliveTime(Date aliveTime) {
+		this.aliveTime = aliveTime;
+	}
+
+	public Date getDetectionTime(){
+		return detectionTime;
+	}
+	public void setDetectionTime(Date detectionTime) {
+		this.detectionTime = detectionTime;
 	}
 
 

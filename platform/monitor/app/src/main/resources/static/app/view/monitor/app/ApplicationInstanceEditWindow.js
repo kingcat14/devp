@@ -59,7 +59,7 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceEditWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'appField'
                                     ,name: 'app'
-                                    ,fieldLabel: 'app'
+                                    ,fieldLabel: '应用'
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -67,9 +67,9 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'ipField'
-                                    ,name: 'ip'
-                                    ,fieldLabel: 'ip'
+                                    ,itemId: 'hostField'
+                                    ,name: 'host'
+                                    ,fieldLabel: '主机'
                                 }
                                 ,{
                                     xtype: 'numberfield'
@@ -80,7 +80,7 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceEditWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'portField'
                                     ,name: 'port'
-                                    ,fieldLabel: 'port'
+                                    ,fieldLabel: '端口'
                                 }
                                 ,{
                                     xtype: 'combobox'
@@ -123,9 +123,20 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'stopTimeField'
-                                    ,name: 'stopTime'
-                                    ,fieldLabel: '最近停运时间'
+                                    ,itemId: 'aliveTimeField'
+                                    ,name: 'aliveTime'
+                                    ,fieldLabel: '最近活跃时间'
+                                }
+                                ,{
+                                    xtype: 'datefield'
+                                    ,format: 'Y-m-d'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'detectionTimeField'
+                                    ,name: 'detectionTime'
+                                    ,fieldLabel: '最近检测时间'
                                 }
                             ]
 
@@ -204,6 +215,7 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceEditWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#appField').getStore().reload();
+       
        
        
        

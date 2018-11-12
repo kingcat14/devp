@@ -61,7 +61,7 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'appField'
                                     ,name: 'app'
-                                    ,fieldLabel: 'app'
+                                    ,fieldLabel: '应用'
                                 }
 
 
@@ -71,9 +71,9 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceAddWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'ipField'
-                                    ,name: 'ip'
-                                    ,fieldLabel: 'ip'
+                                    ,itemId: 'hostField'
+                                    ,name: 'host'
+                                    ,fieldLabel: '主机'
                                 }
 
 
@@ -86,7 +86,7 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'portField'
                                     ,name: 'port'
-                                    ,fieldLabel: 'port'
+                                    ,fieldLabel: '端口'
                                 }
 
 
@@ -116,9 +116,22 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceAddWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'stopTimeField'
-                                    ,name: 'stopTime'
-                                    ,fieldLabel: '最近停运时间'
+                                    ,itemId: 'aliveTimeField'
+                                    ,name: 'aliveTime'
+                                    ,fieldLabel: '最近活跃时间'
+                                }
+
+
+                                ,{
+                                    xtype: 'datefield'
+                                    ,format: 'Y-m-d'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'detectionTimeField'
+                                    ,name: 'detectionTime'
+                                    ,fieldLabel: '最近检测时间'
                                 }
 
                             ]

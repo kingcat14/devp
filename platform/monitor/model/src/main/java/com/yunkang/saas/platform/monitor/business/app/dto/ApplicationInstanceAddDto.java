@@ -17,16 +17,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @ApiModel(value = "新增程序实例使用的DTO")
 public class ApplicationInstanceAddDto {
 
-    /**app*/
-	@ApiModelProperty(value = "app", required = false)
+    /**应用*/
+	@ApiModelProperty(value = "应用", required = false)
 	private String app;
 
-    /**ip*/
-	@ApiModelProperty(value = "ip", required = false)
-	private String ip;
+    /**主机*/
+	@ApiModelProperty(value = "主机", required = false)
+	private String host;
 
-    /**port*/
-	@ApiModelProperty(value = "port", required = false)
+    /**端口*/
+	@ApiModelProperty(value = "端口", required = false)
 	private Integer port;
 
     /**运行中*/
@@ -37,9 +37,13 @@ public class ApplicationInstanceAddDto {
 	@ApiModelProperty(value = "停运告警", required = false)
 	private Boolean alarm;
 
-    /**最近停运时间*/
-	@ApiModelProperty(value = "最近停运时间", required = false, notes = "最近停运时间")
-	private Date stopTime;
+    /**最近活跃时间*/
+	@ApiModelProperty(value = "最近活跃时间", required = false, notes = "最近活跃时间")
+	private Date aliveTime;
+
+    /**最近检测时间*/
+	@ApiModelProperty(value = "最近检测时间", required = false)
+	private Date detectionTime;
 
 
 	public String getApp(){
@@ -49,11 +53,11 @@ public class ApplicationInstanceAddDto {
         this.app = app;
     }
 
-	public String getIp(){
-		return ip;
+	public String getHost(){
+		return host;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public Integer getPort(){
@@ -77,11 +81,18 @@ public class ApplicationInstanceAddDto {
 		this.alarm = alarm;
 	}
 
-	public Date getStopTime(){
-		return stopTime;
+	public Date getAliveTime(){
+		return aliveTime;
 	}
-	public void setStopTime(Date stopTime) {
-		this.stopTime = stopTime;
+	public void setAliveTime(Date aliveTime) {
+		this.aliveTime = aliveTime;
+	}
+
+	public Date getDetectionTime(){
+		return detectionTime;
+	}
+	public void setDetectionTime(Date detectionTime) {
+		this.detectionTime = detectionTime;
 	}
 
 

@@ -57,8 +57,6 @@ Ext.define('AM.view.monitor.app.ApplicationAddWindow', {
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
                                 }
-
-
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
@@ -69,8 +67,6 @@ Ext.define('AM.view.monitor.app.ApplicationAddWindow', {
                                     ,name: 'code'
                                     ,fieldLabel: '代码'
                                 }
-
-
                                 ,{
                                     xtype: 'numberfield'
                                     ,allowDecimals:false
@@ -82,27 +78,6 @@ Ext.define('AM.view.monitor.app.ApplicationAddWindow', {
                                     ,name: 'totalCount'
                                     ,fieldLabel: '配置实例数量'
                                 }
-
-
-                                ,{
-                                    xtype: 'combobox'
-                                    ,store: [
-                                        [true,'是']
-                                        ,[false,'否']
-                                    ]
-                                    ,value:true
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'alarmField'
-                                    ,name: 'alarm'
-                                    ,fieldLabel: '低实例告警'
-                                }
-
-
                                 ,{
                                     xtype: 'combobox'
                                     ,store: [
@@ -120,8 +95,23 @@ Ext.define('AM.view.monitor.app.ApplicationAddWindow', {
                                     ,name: 'enable'
                                     ,fieldLabel: '启动监控'
                                 }
-
-
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: [
+                                        [true,'是']
+                                        ,[false,'否']
+                                    ]
+                                    ,value:true
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'alarmField'
+                                    ,name: 'alarm'
+                                    ,fieldLabel: '低实例告警'
+                                }
                                 ,{
                                     xtype: 'numberfield'
                                     ,allowDecimals:false
@@ -133,7 +123,6 @@ Ext.define('AM.view.monitor.app.ApplicationAddWindow', {
                                     ,name: 'thresholdValue'
                                     ,fieldLabel: '告警数量'
                                 }
-
                             ]
                         }
                     ]

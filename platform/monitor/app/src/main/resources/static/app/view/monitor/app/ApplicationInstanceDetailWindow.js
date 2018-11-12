@@ -34,23 +34,23 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceDetailWindow', {
                             itemId: 'appField'
                             ,padding: '5 0 0 5'
                             ,name: 'app'
-                            ,fieldLabel: 'app'
+                            ,fieldLabel: '应用'
                             ,renderer: function (value, field) {
                                 var record = me.down('form').getForm().getRecord();
                                 return record.get('appVO')?record.get('appVO').name:'';
                             }
                         }
                         ,{
-                            itemId: 'ipField'
+                            itemId: 'hostField'
                             ,padding: '5 0 0 5'
-                            ,name: 'ip'
-                            ,fieldLabel: 'ip'
+                            ,name: 'host'
+                            ,fieldLabel: '主机'
                         }
                         ,{
                             itemId: 'portField'
                             ,padding: '5 0 0 5'
                             ,name: 'port'
-                            ,fieldLabel: 'port'
+                            ,fieldLabel: '端口'
                         }
                         ,{
                             itemId: 'aliveField'
@@ -65,10 +65,19 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceDetailWindow', {
                             ,fieldLabel: '停运告警'
                         }
                         ,{
-                            itemId: 'stopTimeField'
+                            itemId: 'aliveTimeField'
                             ,padding: '5 0 0 5'
-                            ,name: 'stopTime'
-                            ,fieldLabel: '最近停运时间'
+                            ,name: 'aliveTime'
+                            ,fieldLabel: '最近活跃时间'
+                            ,renderer: function (value, field) {
+                                return Ext.Date.format(value, 'Y-m-d H:i:s')
+                            }
+                        }
+                        ,{
+                            itemId: 'detectionTimeField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'detectionTime'
+                            ,fieldLabel: '最近检测时间'
                             ,renderer: function (value, field) {
                                 return Ext.Date.format(value, 'Y-m-d H:i:s')
                             }

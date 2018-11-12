@@ -5,27 +5,12 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceController', {
 	]
 	,alias: 'controller.monitor.app.ApplicationInstanceController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
-
-		var id = record.get('id');
-
-	}
-    ,onAddButtonClick: function() {
+	,onAddButtonClick: function() {
 
         var modelConfig = {}
         var record = Ext.create('AM.model.monitor.app.ApplicationInstance', modelConfig);
-
         this.showAddWindow(record);
     }
-
     ,onDeleteButtonClick: function(button, e, options) {
         var me = this;
         var mainGridPanel = me.lookupReference('mainGridPanel');
@@ -66,6 +51,18 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceController', {
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;
         var searchWindow = me.lookupReference('mainSearchWindow');
+        var appField = me.lookupReference("appField");
+        searchWindow.down('#appField').setValue(appField.getValue());
+
+        var hostField = me.lookupReference("hostField");
+        searchWindow.down('#hostField').setValue(hostField.getValue());
+
+        var portField = me.lookupReference("portField");
+        searchWindow.down('#portField').setValue(portField.getValue());
+
+        var aliveField = me.lookupReference("aliveField");
+        searchWindow.down('#aliveField').setValue(aliveField.getValue());
+
         searchWindow.onSearchButtonClick();
 
     }

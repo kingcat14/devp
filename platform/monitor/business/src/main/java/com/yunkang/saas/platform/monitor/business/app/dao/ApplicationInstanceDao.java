@@ -1,9 +1,10 @@
 package com.yunkang.saas.platform.monitor.business.app.dao;
 
 import com.yunkang.saas.common.jpa.BaseDao;
-import com.yunkang.saas.common.jpa.GenericCrudService;
 import com.yunkang.saas.platform.monitor.business.app.domain.ApplicationInstance;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -13,5 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository("applicationInstanceDao")
 public interface ApplicationInstanceDao extends BaseDao<ApplicationInstance, String>{
 
+    ApplicationInstance findByAppAndHostAndPort(String app, String host, Integer port);
 
+    List<ApplicationInstance> findByAppAndAlive(String app, Boolean alive);
 }

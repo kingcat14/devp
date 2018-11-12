@@ -20,6 +20,11 @@ public class UnknownAppService  extends GenericCrudService<UnknownApp, String, U
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UnknownAppService.class);
 
+	public void add(UnknownApp unknownApp){
+		unknownApp.setId(unknownApp.getCode());
+		dao.save(unknownApp);
+	}
+
 	@Override
 	public Specification<UnknownApp> getSpecification(UnknownAppCondition condition) {
 		return new UnknownAppSpecification(condition);

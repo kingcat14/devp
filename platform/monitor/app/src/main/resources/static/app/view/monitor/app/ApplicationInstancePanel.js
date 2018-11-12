@@ -60,20 +60,20 @@ Ext.define('AM.view.monitor.app.ApplicationInstancePanel', {
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("appVO")?record.get("appVO").name:'';
                             }
-                            ,text: 'app'
+                            ,text: '应用'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'ip'
-                            ,text: 'ip'
+                            ,dataIndex: 'host'
+                            ,text: '主机'
                             
                         }
                         ,{
                             xtype: 'numbercolumn'
                             ,dataIndex: 'port'
-                            ,format:'0,000'
-                            ,text: 'port'
+                            ,format:'0000'
+                            ,text: '端口'
                             
                         }
                         ,{
@@ -97,8 +97,15 @@ Ext.define('AM.view.monitor.app.ApplicationInstancePanel', {
                         ,{
                             xtype: 'datecolumn'
                             ,format: 'Y-m-d H:i:s'
-                            ,dataIndex: 'stopTime'
-                            ,text: '最近停运时间'
+                            ,dataIndex: 'aliveTime'
+                            ,text: '最近活跃时间'
+                            
+                        }
+                        ,{
+                            xtype: 'datecolumn'
+                            ,format: 'Y-m-d H:i:s'
+                            ,dataIndex: 'detectionTime'
+                            ,text: '最近检测时间'
                             ,flex:1
                         }
                         ,{
@@ -165,6 +172,42 @@ Ext.define('AM.view.monitor.app.ApplicationInstancePanel', {
                                     }
                                 }
                                 ,'-'
+                                ,{
+                                    xtype: 'combobox'
+                                    ,emptyText:'应用'
+                                    ,store: Ext.create("AM.store.monitor.app.ApplicationStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,reference: 'appField'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'主机'
+                                    ,reference: 'hostField'
+                                }
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,width:120
+                                    ,emptyText:'端口'
+                                    ,allowDecimals:false
+                                    ,reference: 'portField'
+                                }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,width:120
+                                    ,emptyText:'运行中'
+                                    ,store: [
+                                        [true,'是']
+                                        ,[false,'否']
+                                    ]
+                                    ,value:true
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,reference: 'aliveField'
+                                }
                                 ,{
                                     xtype: 'button'
                                     ,iconCls: 'fab fa-searchengin'

@@ -9,6 +9,7 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
     , requires: [
         'AM.view.monitor.app.UnknownAppController'
         ,'AM.store.monitor.app.UnknownAppStore'
+        ,'AM.view.monitor.app.ApplicationAddWindow'
     ]
     ,controller: 'monitor.app.UnknownAppController'
     ,constructor:function(cfg){
@@ -42,19 +43,14 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
-                                }
+                                ,handler: 'addToMonitor'
                             }]
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
                             ,text: '代码'
-                            
+                            ,flex: 1
                         }
                         ,{
                             xtype: 'datecolumn'
@@ -90,7 +86,6 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'status'
                             ,text: '状态'
-                            
                         }
                         ,{
                             xtype: 'booleancolumn'
@@ -99,7 +94,6 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '忽略'
-                            ,flex:1
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -150,19 +144,18 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                                 ,{
                                     xtype: 'combobox'
                                     ,width:120
-                                    ,emptyText:'忽略'
+                                    ,emptyText:'是否忽略'
                                     ,store: [
-                                        [true,'是']
-                                        ,[false,'否']
+                                        [true,'已忽略']
+                                        ,[false,'未忽略']
                                     ]
-                                    ,value:true
                                     ,typeAhead:false
                                     ,editable:false
                                     ,reference: 'ignoredField'
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'
@@ -192,6 +185,8 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
 			}
         });
 
+
+        me.add({xtype:'monitor.app.ApplicationAddWindow',reference:'applicationAddWindow',listeners:{saved:'reloadStore'}})
 
         me.callParent(arguments);
     }

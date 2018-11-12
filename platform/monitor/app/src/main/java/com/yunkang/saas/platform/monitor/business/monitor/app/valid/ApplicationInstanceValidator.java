@@ -60,8 +60,8 @@ public class ApplicationInstanceValidator implements Validator {
 		if(StringUtils.length(applicationInstance.getApp()) > 255){
 			errors.rejectValue(ApplicationInstance.PROPERTY_APP,null,"app最长255个字符");
 		}
-		if(StringUtils.length(applicationInstance.getIp()) > 255){
-			errors.rejectValue(ApplicationInstance.PROPERTY_IP,null,"ip最长255个字符");
+		if(StringUtils.length(applicationInstance.getHost()) > 255){
+			errors.rejectValue(ApplicationInstance.PROPERTY_HOST,null,"ip最长255个字符");
 		}
 	}
 }

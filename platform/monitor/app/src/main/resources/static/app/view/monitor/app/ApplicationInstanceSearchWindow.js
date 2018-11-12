@@ -42,32 +42,32 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceSearchWindow', {
                             ,displayField:'name'
                             ,valueField:'id'
                             ,itemId: 'appField'
-                            ,fieldLabel: 'app'
+                            ,fieldLabel: '应用'
                         }
 
                         ,{
                             xtype: 'textfield'
-                            ,itemId: 'ipField'
-                            ,fieldLabel: 'ip'
+                            ,itemId: 'hostField'
+                            ,fieldLabel: '主机'
                         }
 
                         ,{
                             xtype: 'numberfield'
                             ,allowDecimals:false
                             ,itemId: 'portField'
-                            ,fieldLabel: 'port'
+                            ,fieldLabel: '端口'
                         }
                         ,{
                             xtype: 'numberfield'
                             ,allowDecimals:false
                             ,itemId: 'portMaxField'
-                            ,fieldLabel: 'port'
+                            ,fieldLabel: '端口'
                         }
                         ,{
                             xtype: 'numberfield'
                             ,allowDecimals:false
                             ,itemId: 'portMinField'
-                            ,fieldLabel: 'port'
+                            ,fieldLabel: '端口'
                         }
 
                         ,{
@@ -99,20 +99,39 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceSearchWindow', {
                         ,{
                             xtype: 'datefield'
                             ,format: 'Y-m-d'
-                            ,itemId: 'stopTimeField'
-                            ,fieldLabel: '最近停运时间'
+                            ,itemId: 'aliveTimeField'
+                            ,fieldLabel: '最近活跃时间'
                         }
                         ,{
                             xtype: 'datefield'
                             ,format: 'Y-m-d'
-                            ,itemId: 'stopTimeStartField'
-                            ,fieldLabel: '起始最近停运时间'
+                            ,itemId: 'aliveTimeStartField'
+                            ,fieldLabel: '起始最近活跃时间'
                         }
                         ,{
                             xtype: 'datefield'
                             ,format: 'Y-m-d'
-                            ,itemId: 'stopTimeEndField'
-                            ,fieldLabel: '结束最近停运时间'
+                            ,itemId: 'aliveTimeEndField'
+                            ,fieldLabel: '结束最近活跃时间'
+                        }
+
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'detectionTimeField'
+                            ,fieldLabel: '最近检测时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'detectionTimeStartField'
+                            ,fieldLabel: '起始最近检测时间'
+                        }
+                        ,{
+                            xtype: 'datefield'
+                            ,format: 'Y-m-d'
+                            ,itemId: 'detectionTimeEndField'
+                            ,fieldLabel: '结束最近检测时间'
                         }
 
                             ]
@@ -175,27 +194,33 @@ Ext.define('AM.view.monitor.app.ApplicationInstanceSearchWindow', {
 
         var me = this;
         var appField = me.down("#appField");
-        var ipField = me.down("#ipField");
+        var hostField = me.down("#hostField");
         var portField = me.down("#portField");
         var portMaxField = me.down("#portMaxField");
         var portMinField = me.down("#portMinField");
         var aliveField = me.down("#aliveField");
         var alarmField = me.down("#alarmField");
-        var stopTimeStartField = me.down("#stopTimeStartField");
-        var stopTimeEndField = me.down("#stopTimeEndField");
-        var stopTimeField = me.down("#stopTimeField");
+        var aliveTimeStartField = me.down("#aliveTimeStartField");
+        var aliveTimeEndField = me.down("#aliveTimeEndField");
+        var aliveTimeField = me.down("#aliveTimeField");
+        var detectionTimeStartField = me.down("#detectionTimeStartField");
+        var detectionTimeEndField = me.down("#detectionTimeEndField");
+        var detectionTimeField = me.down("#detectionTimeField");
 
         var condition = {
             app:Ext.valueFrom(appField.getValue(), null)
-            ,ip:Ext.valueFrom(ipField.getValue(), null)
+            ,host:Ext.valueFrom(hostField.getValue(), null)
             ,port:Ext.isNumber(portField.getValue())?portField.getValue():null
             ,portMax:Ext.isNumber(portMaxField.getValue())?portMaxField.getValue():null
             ,portMin:Ext.isNumber(portMinField.getValue())?portMinField.getValue():null
             ,alive:Ext.valueFrom(aliveField.getValue(), null)
             ,alarm:Ext.valueFrom(alarmField.getValue(), null)
-            ,stopTime:Ext.valueFrom(Ext.Date.format(stopTimeField.getValue(),'Y-m-d H:i:s'), null)
-            ,stopTimeStart:Ext.valueFrom(Ext.Date.format(stopTimeStartField.getValue(),'Y-m-d H:i:s'), null)
-            ,stopTimeEnd:Ext.valueFrom(Ext.Date.format(stopTimeEndField.getValue(),'Y-m-d H:i:s'), null)
+            ,aliveTime:Ext.valueFrom(Ext.Date.format(aliveTimeField.getValue(),'Y-m-d H:i:s'), null)
+            ,aliveTimeStart:Ext.valueFrom(Ext.Date.format(aliveTimeStartField.getValue(),'Y-m-d H:i:s'), null)
+            ,aliveTimeEnd:Ext.valueFrom(Ext.Date.format(aliveTimeEndField.getValue(),'Y-m-d H:i:s'), null)
+            ,detectionTime:Ext.valueFrom(Ext.Date.format(detectionTimeField.getValue(),'Y-m-d H:i:s'), null)
+            ,detectionTimeStart:Ext.valueFrom(Ext.Date.format(detectionTimeStartField.getValue(),'Y-m-d H:i:s'), null)
+            ,detectionTimeEnd:Ext.valueFrom(Ext.Date.format(detectionTimeEndField.getValue(),'Y-m-d H:i:s'), null)
         };
 
         return condition;

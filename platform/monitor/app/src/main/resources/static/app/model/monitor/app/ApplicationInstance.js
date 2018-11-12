@@ -23,11 +23,11 @@ Ext.define('AM.model.monitor.app.ApplicationInstance', {
     	,{
             name: 'app'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
-            name: 'ip'
+            name: 'host'
             ,type:'string'
             ,allowNull:false
             ,critical:true
@@ -35,7 +35,7 @@ Ext.define('AM.model.monitor.app.ApplicationInstance', {
     	,{
             name: 'port'
             ,type:'int'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
@@ -51,7 +51,14 @@ Ext.define('AM.model.monitor.app.ApplicationInstance', {
             ,critical:true
         }
     	,{
-            name: 'stopTime'
+            name: 'aliveTime'
+            ,type:'date'
+            ,dateFormat: 'time'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'detectionTime'
             ,type:'date'
             ,dateFormat: 'time'
             ,allowNull:true

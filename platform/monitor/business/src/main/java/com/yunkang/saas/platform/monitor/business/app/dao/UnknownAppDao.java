@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface UnknownAppDao extends BaseDao<UnknownApp, String>{
 
 
+
 }
