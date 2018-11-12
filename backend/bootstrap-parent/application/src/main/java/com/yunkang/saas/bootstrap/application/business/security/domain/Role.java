@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.domain;
+package com.yunkang.saas.bootstrap.application.business.security.domain;
 
 import com.yunkang.saas.common.jpa.SaaSEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -28,9 +28,8 @@ public class Role extends SaaSEntity<Long> {
     @Column(name = "rid")
     private Long id;
 
-	@Column(name = "app_code")
+	@Column(name = "app_code", updatable = false)
 	private String appCode;
-
 
     /**角色名称*/
     @Column(name = "name")

@@ -1,23 +1,23 @@
-package com.yunkang.saas.bootstrap.platform.business.resource.controller;
+package com.yunkang.saas.bootstrap.application.business.resource.controller;
 
+
+import com.yunkang.saas.bootstrap.application.business.annotation.AppAnnotation;
+import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceAddDto;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceEditDto;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.data.SortCondition;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceAddDto;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceCondition;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceEditDto;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceService;
-import com.yunkang.saas.bootstrap.platform.business.resource.valid.ResourceValidator;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -31,11 +31,10 @@ import java.util.List;
  * @author icode
  */
 @RestController
-@RequestMapping(value = "/platform/security/resource")
+@RequestMapping(value = "/application/security/resource")
 public class ResourceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceController.class);
-
 
 	@Autowired
 	private ResourceService resourceService;
@@ -53,6 +52,7 @@ public class ResourceController {
 	 */
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+	@AppAnnotation
 	public ResourceVO add(@RequestBody @Valid ResourceAddDto resourceAddDto){
 		Resource resource = new Resource();
 		BeanUtils.copyProperties(resourceAddDto, resource);
@@ -116,6 +116,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@PostMapping("/list")
+	@AppAnnotation(conditionClass = ResourceCondition.class)
 	public PageContent<ResourceVO> list(@RequestBody PageSearchRequest<ResourceCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);

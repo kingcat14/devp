@@ -1,8 +1,8 @@
-package com.yunkang.saas.bootstrap.platform.business.resource.service;
+package com.yunkang.saas.bootstrap.application.business.resource.service;
 
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceTreeNode;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceVO;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceTreeNode;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.*;

@@ -1,10 +1,10 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.service;
+package com.yunkang.saas.bootstrap.application.business.security.service;
 
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dao.RoleResourceRelationDao;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dao.RoleResourceRelationSpecification;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.RoleResourceRelation;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleResourceRelationCondition;
+import com.yunkang.saas.bootstrap.application.business.security.dao.RoleResourceRelationDao;
+import com.yunkang.saas.bootstrap.application.business.security.dao.RoleResourceRelationSpecification;
+import com.yunkang.saas.bootstrap.application.business.security.domain.RoleResourceRelation;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleResourceRelationCondition;
 import com.yunkang.saas.common.jpa.GenericCrudService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.resource.domain;
+package com.yunkang.saas.bootstrap.application.business.resource.domain;
 
 import com.yunkang.saas.common.framework.eo.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -60,7 +60,7 @@ public class Resource extends BaseEntity<Long>{
 	private String type;
 
 	/** 所属应用 */
-	@Column(name = "app_code")
+	@Column(name = "app_code", updatable = false)
 	private String appCode;
     /**
     * 资源代码

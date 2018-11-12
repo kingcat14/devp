@@ -1,4 +1,4 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.domain;
+package com.yunkang.saas.bootstrap.application.business.security.domain;
 
 import com.yunkang.saas.common.jpa.SaaSEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -12,21 +12,29 @@ import javax.validation.constraints.NotNull;
 
 
 /**
- * 角色资源关系
+ * 账号角色关联
  * @author icode
  */
-@Entity(name = "platform_role_resource_relation")
-@Table(appliesTo = "platform_role_resource_relation", comment = "[账号密码]")
-public class RoleResourceRelation extends SaaSEntity<Long> {
+@Entity(name = "platform_account_role_relation")
+@Table(appliesTo = "platform_account_role_relation", comment = "[账号密码]")
+public class AccountRoleRelation extends SaaSEntity<Long> {
 
+	public static final String PROPERTY_ACCOUNT_ID = "accountId";
 	public static final String PROPERTY_ROLE_ID = "roleId";
-	public static final String PROPERTY_RESOURCE_ID = "resourceId";
 
 
     @Id
     @Column(name = "rid")
     private Long id;
 
+
+    /**
+    * 账号Id
+    * 
+    */
+    @Column(name = "account_id")
+	@NotNull(message = "账号Id不能为空")
+	private Long accountId;
 
     /**
     * 角色Id
@@ -36,26 +44,18 @@ public class RoleResourceRelation extends SaaSEntity<Long> {
 	@NotNull(message = "角色Id不能为空")
 	private Long roleId;
 
-    /**
-    * 资源Id
-    * 
-    */
-    @Column(name = "resource_id")
-	@NotNull(message = "资源Id不能为空")
-	private Long resourceId;
+	public Long getAccountId(){
+		return accountId;
+	}
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
 
 	public Long getRoleId(){
 		return roleId;
 	}
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
-	}
-
-	public Long getResourceId(){
-		return resourceId;
-	}
-	public void setResourceId(Long resourceId) {
-		this.resourceId = resourceId;
 	}
 
 

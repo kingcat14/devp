@@ -1,10 +1,10 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.service;
+package com.yunkang.saas.bootstrap.application.business.security.service;
 
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dao.RoleDao;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dao.RoleSpecification;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Role;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleCondition;
+import com.yunkang.saas.bootstrap.application.business.security.dao.RoleDao;
+import com.yunkang.saas.bootstrap.application.business.security.dao.RoleSpecification;
+import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleCondition;
 import com.yunkang.saas.common.jpa.GenericCrudService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class RoleService  extends GenericCrudService<Role, Long, RoleCondition, 
 
 	public Role findApplicationManagerForTenant(String appCode, Long tenantId){
 
-		return dao.findByTenantIdAndAppCodeAndCode(tenantId, appCode, CODE_APPLICATION_MANAGER);
+		return dao.findByTidAndAppCodeAndCode(tenantId, appCode, CODE_APPLICATION_MANAGER);
 	}
 
 	@Override

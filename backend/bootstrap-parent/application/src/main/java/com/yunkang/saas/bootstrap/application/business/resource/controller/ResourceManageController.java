@@ -1,16 +1,16 @@
-package com.yunkang.saas.bootstrap.platform.business.resource.controller;
+package com.yunkang.saas.bootstrap.application.business.resource.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceService;
+import com.yunkang.saas.bootstrap.application.business.resource.service.ResourceUtil;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceTreeNode;
+import com.yunkang.saas.bootstrap.application.business.resource.vo.ResourceVO;
+import com.yunkang.saas.bootstrap.platform.business.application.domain.App;
+import com.yunkang.saas.bootstrap.platform.business.application.service.AppService;
+import com.yunkang.saas.bootstrap.platform.business.application.vo.AppVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
-import com.yunkang.saas.bootstrap.platform.business.platform.application.domain.App;
-import com.yunkang.saas.bootstrap.platform.business.platform.application.service.AppService;
-import com.yunkang.saas.bootstrap.platform.business.platform.application.vo.AppVO;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceTreeNode;
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceCondition;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceService;
-import com.yunkang.saas.bootstrap.platform.business.resource.service.ResourceUtil;
-import com.yunkang.saas.bootstrap.platform.business.resource.vo.ResourceVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,8 +30,8 @@ import java.util.List;
  * 管理资源
  * @author icode
  */
-@RestController
-@RequestMapping(value = "/platform/security/resource")
+@RestController("platformResourceManageController")
+@RequestMapping(value = "/application/security/resource")
 public class ResourceManageController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceManageController.class);
@@ -60,7 +60,6 @@ public class ResourceManageController {
 		if(-1L == id){
 			return findAppNode();
 		}
-
 
 		//先查询父节点
 		Resource parentResource = resourceService.find(id);

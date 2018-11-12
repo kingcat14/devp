@@ -1,8 +1,8 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.dao;
+package com.yunkang.saas.bootstrap.application.business.security.dao;
 
 
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.Role;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.dto.RoleCondition;
+import com.yunkang.saas.bootstrap.application.business.security.domain.Role;
+import com.yunkang.saas.bootstrap.platform.business.account.dto.RoleCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -51,8 +51,8 @@ public class RoleSpecification implements Specification<Role>{
 		}
 	}
 	private void tryAddTenantIdPredicate(List<Predicate> predicateList, Root<Role> root, CriteriaBuilder cb){
-		if(null != condition.getTenantId()){
-			predicateList.add(cb.equal(root.get(Role.PROPERTY_TENANT_ID).as(Long.class), condition.getTenantId()));
+		if(null != condition.getTid()){
+			predicateList.add(cb.equal(root.get(Role.PROPERTY_TENANT_ID).as(Long.class), condition.getTid()));
 		}
 	}
 	private void tryAddAppIdPredicate(List<Predicate> predicateList, Root<Role> root, CriteriaBuilder cb){

@@ -1,7 +1,7 @@
-package com.yunkang.saas.bootstrap.platform.business.platform.security.dao;
+package com.yunkang.saas.bootstrap.application.business.security.dao;
 
+import com.yunkang.saas.bootstrap.application.business.security.domain.AccountRoleRelation;
 import com.yunkang.saas.common.jpa.BaseDao;
-import com.yunkang.saas.bootstrap.platform.business.platform.security.domain.AccountRoleRelation;
 import org.springframework.stereotype.Repository;
 
 

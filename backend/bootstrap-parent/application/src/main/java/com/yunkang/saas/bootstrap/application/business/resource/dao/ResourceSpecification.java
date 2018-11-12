@@ -1,8 +1,8 @@
-package com.yunkang.saas.bootstrap.platform.business.resource.dao;
+package com.yunkang.saas.bootstrap.application.business.resource.dao;
 
 
-import com.yunkang.saas.bootstrap.platform.business.resource.domain.Resource;
-import com.yunkang.saas.bootstrap.platform.business.resource.dto.ResourceCondition;
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
+import com.yunkang.saas.bootstrap.application.business.resource.dto.ResourceCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
