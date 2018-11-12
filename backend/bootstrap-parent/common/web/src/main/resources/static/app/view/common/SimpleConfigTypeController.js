@@ -12,15 +12,12 @@ Ext.define('AM.view.common.SimpleConfigTypeController', {
         var simpleConfigPanel = me.lookup('simpleConfigPanel');
         simpleConfigPanel.expand();
 
-        console.log(searchCondition);
-        simpleConfigPanel.getStore().proxy.extraParams = {searchCondition:searchCondition};
-        simpleConfigPanel.getStore().load({
-            params:{
-                page:0
-            }
-        });
 
-		console.log(111111)
+        simpleConfigPanel.getStore().applyCondition(searchCondition)
+        simpleConfigPanel.getStore().load();
+
+        me.getViewModel().set('simpleConfigType', record);
+
         //配置项页展现对应
 
 	}
@@ -48,5 +45,27 @@ Ext.define('AM.view.common.SimpleConfigTypeController', {
                 page:0
             }
         });
+    }
+
+    ,onAddSimpleConfigButtonClick: function() {
+
+        var me = this;
+
+        var simpleConfigType = me.getViewModel().get('simpleConfigType');
+        if(!simpleConfigType){
+            Ext.MessageBox.alert('未选择分类', '请先在左侧选择分类');
+            return;
+        }
+
+        var rowEditing =  this.lookup('simpleConfigPanel').getPlugin('simpleConfigRowEditing');
+        rowEditing.cancelEdit();
+
+
+        var modelConfig = {configType:simpleConfigType.get('typeCode')}
+        var simpleConfig = Ext.create('AM.model.common.SimpleConfig', modelConfig);
+
+        var simpleConfigStore = me.getViewModel().getStore('simpleConfigStore');
+        simpleConfigStore.add(simpleConfig);
+        rowEditing.startEdit(simpleConfig, 2);
     }
 })

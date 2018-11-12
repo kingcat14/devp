@@ -65,4 +65,5 @@ Ext.define('AM.store.common.SimpleConfigStore', {
         return this;
     }
 
+
 });

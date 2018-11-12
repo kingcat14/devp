@@ -20,6 +20,18 @@ public class SimpleConfigService  extends GenericCrudService<SimpleConfig, Long,
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleConfigService.class);
 
+
+	public void updateTypeCode(String oldTypeCode, String newTypeCode){
+
+		List<SimpleConfig> simpleConfigs = dao.findByConfigType(oldTypeCode);
+
+		for(SimpleConfig simpleConfig : simpleConfigs){
+			simpleConfig.setConfigType(newTypeCode);
+		}
+
+		this.merge(simpleConfigs);
+	}
+
 	@Override
 	public Specification<SimpleConfig> getSpecification(SimpleConfigCondition condition) {
 		return new SimpleConfigSpecification(condition);
@@ -27,6 +39,10 @@ public class SimpleConfigService  extends GenericCrudService<SimpleConfig, Long,
 
 	List<SimpleConfig> findByConfigType(String typeCode){
 		return dao.findByConfigType(typeCode);
+	}
+
+	public int deleteByConfigType(String typeCode){
+		return dao.deleteByConfigType(typeCode);
 	}
 
 	public SimpleConfig findByConfigTypeAndCode(String typeCode, String code){

@@ -4,10 +4,6 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
     ,title: '配置类型'
     ,requires: [
         'AM.view.common.SimpleConfigTypeController'
-        ,'AM.view.common.SimpleConfigTypeAddWindow'
-        ,'AM.view.common.SimpleConfigTypeEditWindow'
-        ,'AM.view.common.SimpleConfigTypeSearchWindow'
-        ,'AM.view.common.SimpleConfigTypeDetailWindow'
     ]
     ,controller: 'common_SimpleConfigTypeController'
     ,initComponent: function() {
@@ -21,13 +17,14 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeName'
                     ,text: '类型名称'
-                    
+                    ,editor:'textfield'
+                    ,flex:1
                 }
-
                 ,{
                     xtype: 'gridcolumn'
                     ,dataIndex: 'typeCode'
                     ,text: '类型代码'
+                    ,editor:'textfield'
                     ,flex:1
                 }
                 ,{
@@ -35,28 +32,12 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                     ,menuDisabled: true
                     ,width:30
                     ,items: [{
-                        iconCls: 'x-fa fa-eye'
-                        ,tooltip: '详情'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.showDetailWindow(record, this);
-                        }
-                    }]
-                }
-                ,{
-                    xtype: 'actioncolumn'
-                    ,menuDisabled: true
-                    ,width:30
-                    ,items: [{
-                        iconCls: 'edit'
+                        iconCls: 'fas fa-pencil-alt'
                         ,tooltip: '修改'
-                        ,handler: function(grid, rowIndex, colIndex) {
-                            var record = grid.getStore().getAt(rowIndex);
-                            me.getSelectionModel().deselectAll()
-                            me.getSelectionModel().select(record)
-                            me.showEditWindow(record, this);
+                        ,handler: function(grid, rowIndex, colIndex, item, event, record) {
+
+                            var rowEditing =  me.getPlugin('simpleConfigTypeRowEditing');
+                            rowEditing.startEdit(record);
                         }
                     }]
                 }
@@ -65,7 +46,7 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                     ,menuDisabled: true
                     ,width:30
                     ,items: [{
-                        iconCls: 'delete'
+                        iconCls: 'fas fa-minus-circle red'
                         ,tooltip: '删除'
                         ,handler: function(grid, rowIndex, colIndex) {
                             var record = grid.getStore().getAt(rowIndex);
@@ -95,28 +76,6 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                                 }
                             }
                         }
-                        ,{
-                            xtype: 'button'
-                            ,iconCls: 'edit'
-                            ,text: '修改'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onEditButtonClick
-                                    ,scope: me
-                                }
-                            }
-                        }
-                        ,{
-                            xtype: 'button'
-                            ,iconCls: 'delete'
-                            ,text: '删除'
-                            ,listeners: {
-                                click: {
-                                    fn: me.onDeleteButtonClick
-                                    ,scope: me
-                                }
-                            }
-                        }
                         ,'-'
                         ,{
                             xtype:'textfield'
@@ -135,26 +94,19 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                                 }
                             }
                         }
-                        ,{
-                            xtype: 'button'
-                            ,iconCls: 'search'
-                            ,text: '高级查询'
-                            ,listeners: {
-                                click: {
-                                    fn: me.showSearchWindow
-                                    ,scope: me
-                                }
-                            }
-                        }
                     ]
-                },
-                {
-                    xtype: 'pagingtoolbar'
-                    ,dock: 'bottom'
-                    ,displayInfo: true
                 }
             ]
-            ,selModel: 'checkboxmodel'
+            ,plugins: [
+                {
+                    ptype: 'rowediting'
+                    ,id: 'simpleConfigTypeRowEditing'
+                    ,clicksToEdit: 2
+                    ,saveBtnText:'保存'
+                    ,cancelBtnText: '取消'
+                    ,dirtyText: "你要确认或取消更改"
+                }
+            ]
             ,listeners: {
                 beforeshow: {
                     fn: me.onBeforeShow
@@ -164,14 +116,9 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
                     fn: me.onPanelBeforeHide
                     ,scope: me
                 }
-
             }
             ,items:[]
         });
-        me.add({xtype:'common.SimpleConfigTypeAddWindow',reference:'simpleConfigTypeAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'common.SimpleConfigTypeEditWindow',reference:'simpleConfigTypeEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'common.SimpleConfigTypeSearchWindow',reference:'simpleConfigTypeSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'common.SimpleConfigTypeDetailWindow',reference:'simpleConfigTypeDetailWindow'})
 
         me.callParent(arguments);
     }
@@ -193,13 +140,14 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
     }
 	,onAddButtonClick: function(button, e, options) {
 
+        var me = this;
         var modelConfig = {}
 
         var record = Ext.create('AM.model.common.SimpleConfigType', modelConfig);
 
-        options.src = button;
-        var addWindow = this.showAddWindow(record, button);
-        addWindow.setTitle('添加新通用配置类型');
+        me.getStore().add(record);
+
+
     }
     ,onEditButtonClick: function(button, e, options) {
 
@@ -267,12 +215,6 @@ Ext.define('AM.view.common.SimpleConfigTypePanel', {
 
         var searchWindow = me.lookupReference('simpleConfigTypeSearchWindow');
         searchWindow.show(button);
-    }
-    ,setStore: function(store) {
-        this.reconfigure(store);
-        this.down('pagingtoolbar').bindStore(store);
-
-        this.store=store;
     }
     ,onBeforeShow:function(abstractcomponent, options) {
 	    this.store.reload({scope: this,callback: function(){}});

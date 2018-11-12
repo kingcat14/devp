@@ -27,7 +27,6 @@ Ext.define('AM.view.common.SimpleConfigMainPanel', {
 					,reference: 'simpleConfigGrid'
 				    ,store: simpleConfigStore
 					,listeners: {
-
 						itemdblclick: 'onMainPanelRowClick'
 					}
 			    } 		    ]

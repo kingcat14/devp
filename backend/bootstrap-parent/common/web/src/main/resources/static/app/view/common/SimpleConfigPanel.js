@@ -172,13 +172,13 @@ Ext.define('AM.view.common.SimpleConfigPanel', {
                             }
                         }
                     ]
-                },
-                {
-                    xtype: 'pagingtoolbar'
-                    ,dock: 'bottom'
-                    ,displayInfo: true
                 }
+
             ]
+            ,bbar:{
+                xtype: 'pagingtoolbar'
+                ,displayInfo: true
+            }
             ,selModel: 'checkboxmodel'
             ,listeners: {
                 beforeshow: {
