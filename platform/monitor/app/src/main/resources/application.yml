@@ -14,15 +14,16 @@ server:
     min-response-size: 256
 eureka:
   client:
-    registry-fetch-interval-seconds: 2
+    registry-fetch-interval-seconds: 3
     register-with-eureka: true
   instance:
     lease-renewal-interval-in-seconds: 3
     lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
     metadata-map:
-      user.name: ${security.user.name}
-      user.password: ${security.user.password}
+      user:
+        name: actuator
+        password: 123456
 spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
@@ -70,7 +71,7 @@ management:
 
 security:
   user:
-    name: admin
+    name: actuator
     password: 123456
   basic:
     authorize-mode: authenticated

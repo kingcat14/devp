@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>monitor-app</artifactId>
+    <name>platform monitor app</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -36,11 +37,6 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
-            <version>1.5.7</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

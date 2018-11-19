@@ -30,6 +30,7 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 
 	@Autowired
 	private ApplicationInstanceService applicationInstanceService;
+
 	public void add(Application application){
 
 		/*
@@ -101,6 +102,10 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 
 	public boolean contain(String code){
 		return dao.existsByCode(code);
+	}
+
+	public List<String> findAliveCode(){
+		return dao.findAliveCode();
 	}
 
 	@Override

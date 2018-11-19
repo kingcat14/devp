@@ -91,6 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(restAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and().headers().frameOptions().disable();
+
     }
 
     @Override
@@ -107,13 +108,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 , "/assets/**", "/fonts/**", "/maps/**", "/scripts/**", "/styles/**", "/**/*.js"
                 , "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"
                 , "/**/*.css"
-                , "/ext_*/**/*", "/current/app", "/swagger-resources", "/actuator"
+                , "/ext_*/**/*", "/current/app", "/swagger-resources"//, "/actuator"
         };
 
         if (!securityEnable) {
             String[] testMatchers = {"/security/login/getResource", "/security/login", "/login.html", "/ext_/**"
                     , "/**.html", "/assets/**", "/fonts/**", "/maps/**", "/scripts/**", "/styles/**", "/**/*.js", "/**/*.html"
-                    , "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif", "/actuator"
+                    , "/favicon.ico", "/**/*.jpg", "/**/*.png", "/**/*.gif"//, "/actuator"
                     , "/**/*.css"
                     , "/ext_*/**/*"
                     , "/**/*"

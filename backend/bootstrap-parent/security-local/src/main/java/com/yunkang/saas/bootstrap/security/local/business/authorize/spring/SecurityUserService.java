@@ -6,7 +6,7 @@ import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPasswo
 import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountCondition;
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountPasswordService;
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
-
+import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityAuthority;
 import com.yunkang.saas.bootstrap.security.local.business.authorize.domain.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,7 +40,13 @@ public class SecurityUserService implements UserDetailsService {
 		}
 
 		AccountPassword accountPassword = accountPasswordService.findForAccountId(account.getId());
-		return new SecurityUser(account, accountPassword, null);
+		SecurityUser securityUser = new SecurityUser(account, accountPassword, null);
+//		securityUser.addAuthority(new SecurityAuthority("ROLE_ACTUATOR"));
+
+		if("actuator".equals(username)){
+			securityUser.addAuthority(new SecurityAuthority("ACTUATOR"));
+		}
+		return securityUser;
 	}
 
 }

@@ -25,6 +25,7 @@ public class ApplicationInstanceService  extends GenericCrudService<ApplicationI
 		return dao.findByAppAndHostAndPort(appCode, ip, port);
 	}
 
+
 	public List<ApplicationInstance> find(String appCode, Boolean alive){
 		return dao.findByAppAndAlive(appCode, alive);
 	}

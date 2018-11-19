@@ -9,7 +9,6 @@ import com.yunkang.saas.platform.monitor.business.app.domain.UnknownApp;
 import com.yunkang.saas.platform.monitor.business.app.service.ApplicationInstanceService;
 import com.yunkang.saas.platform.monitor.business.app.service.ApplicationService;
 import com.yunkang.saas.platform.monitor.business.app.service.UnknownAppService;
-import com.yunkang.saas.platform.monitor.business.notification.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -28,8 +27,8 @@ import java.util.Set;
  */
 @Component
 @Slf4j
-
 public class ApplicationStatusCollectService {
+
 
     @Autowired
     private EurekaClient eurekaClient;
@@ -43,9 +42,6 @@ public class ApplicationStatusCollectService {
     @Autowired
     private UnknownAppService unknownAppService;
 
-    @Autowired
-    private MailService mailService;
-
     @Scheduled(cron = "*/30 * * * * *")
     @Transactional
     public void detection(){
@@ -57,7 +53,6 @@ public class ApplicationStatusCollectService {
          * 4.捞出所有要监控的应用，判断哪些挂了
          * 5.捞出所有未监控的应用，判断哪些挂了
          */
-
         //0.
         Applications apps = eurekaClient.getApplications();
 

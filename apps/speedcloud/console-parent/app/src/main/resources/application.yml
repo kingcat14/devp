@@ -12,6 +12,7 @@ server:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/javascript,text/css,application/javascript
     min-response-size: 256
+
 eureka:
   client:
     registry-fetch-interval-seconds: 3
@@ -23,9 +24,9 @@ eureka:
     lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
     metadata-map:
-      user.name: ${security.user.name}
-      user.password: ${security.user.password}
-
+      user:
+        name: actuator
+        password: 123456
 
 spring:
   application:
@@ -50,19 +51,18 @@ spring:
 management:
   security:
     enabled: true
-    roles:
+    sessions: stateless
   context-path: /actuator
-
-security:
-  user:
-    name: admin
-    password: 123456
-  basic:
-    authorize-mode: authenticated
-
-logging:
-  file: logs/${spring.application.name}.log
 
 endpoints:
   actuator:
     sensitive: false
+  health:
+    sensitive: false
+  business:
+    sensitive: true
+
+logging:
+  file: logs/${spring.application.name}.log
+
+

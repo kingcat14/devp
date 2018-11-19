@@ -11,7 +11,7 @@
     <groupId>com.yunkang.saas.platform.monitor</groupId>
     <artifactId>monitor-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
+    <name>platform monitor</name>
     <packaging>pom</packaging>
 
     <dependencyManagement>
@@ -26,6 +26,12 @@
                 <artifactId>manage-model</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.yunkang.saas.bootstrap</groupId>
+                <artifactId>bootstrap-monitor</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>com.yunkang.saas.platform.monitor</groupId>
                 <artifactId>monitor-model</artifactId>
@@ -35,6 +41,11 @@
                 <groupId>com.yunkang.saas.platform.monitor</groupId>
                 <artifactId>monitor-business</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>1.5.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

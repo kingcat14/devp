@@ -2,29 +2,29 @@ package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
+import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
 import com.yunkang.saas.common.framework.spring.DateConverter;
+import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.aicoder.speedcloud.business.app.dto.AppBaseInfoCondition;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoAddDto;
+import net.aicoder.speedcloud.business.app.dto.AppBaseInfoCondition;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoEditDto;
 import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
 import net.aicoder.speedcloud.console.business.speedcloud.app.service.AppBaseInfoRibbonService;
 import net.aicoder.speedcloud.console.business.speedcloud.app.valid.AppBaseInfoValidator;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -123,6 +123,7 @@ public class AppBaseInfoController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用列表", httpMethod = "POST")
 	@PostMapping("/list") @SaaSAnnotation(conditionClass = AppBaseInfoCondition.class)
+	@BusinessFuncMonitor("app/appbaseinfo")
 	public PageContent<AppBaseInfoVO> list(@RequestBody PageSearchRequest<AppBaseInfoCondition> pageSearchRequest){
 
 		PageContent<AppBaseInfoVO> pageContent = appBaseInfoRibbonService.list(pageSearchRequest);

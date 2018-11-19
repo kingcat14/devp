@@ -1,13 +1,16 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.domain;
 
 
+import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
 import com.yunkang.saas.bootstrap.platform.business.account.domain.AccountPassword;
-import com.yunkang.saas.bootstrap.application.business.resource.domain.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by gonghongrui on 2017/1/10.
@@ -51,7 +54,7 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public Collection<SecurityAuthority> getAuthorities() {
-		return new ArrayList<>();
+		return authorities;
 	}
 
 	@Override
