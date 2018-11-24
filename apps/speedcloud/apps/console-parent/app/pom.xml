@@ -63,6 +63,11 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>net.aicoder.speedcloud.icode</groupId>
+            <artifactId>icode-client</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>net.aicoder.speedcloud.console</groupId>
             <artifactId>console-model</artifactId>
         </dependency>
