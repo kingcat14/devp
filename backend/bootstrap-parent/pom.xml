@@ -67,6 +67,7 @@
                 <module>application</module>
                 <module>monitor</module>
                 <module>common</module>
+                <module>monitor</module>
             </modules>
         </profile>
 
