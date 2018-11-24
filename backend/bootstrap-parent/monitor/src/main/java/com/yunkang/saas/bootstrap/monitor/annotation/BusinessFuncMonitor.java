@@ -19,5 +19,9 @@ public @interface BusinessFuncMonitor {
     @AliasFor
     String code() default "";
 
+    boolean exception() default true;
+
+    boolean count() default false;
+
 
 }

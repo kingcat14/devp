@@ -35,4 +35,26 @@
             </modules>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>my-nexus-releases</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>my-nexus-releases</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/repositories/releases/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>my-nexus-snapshots</id>
+            <name>Local Nexus Repository</name>
+            <url>http://121.41.14.24:8081/nexus/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

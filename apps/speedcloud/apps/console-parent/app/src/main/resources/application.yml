@@ -62,6 +62,8 @@ endpoints:
   business:
     sensitive: true
 
+swagger:
+  enabled: false
 logging:
   file: logs/${spring.application.name}.log
 

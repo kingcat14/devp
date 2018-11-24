@@ -21,8 +21,12 @@ Ext.define('AM.view.application.framework.FunctionTreePanel', {
         var me = this;
 
         Ext.apply(me, {
+
             viewConfig: {
 
+            }
+            ,style:{
+                backgroundColor: '#28384a'//'#28384a'
             }
         });
 

@@ -123,7 +123,7 @@ public class AppBaseInfoController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用列表", httpMethod = "POST")
 	@PostMapping("/list") @SaaSAnnotation(conditionClass = AppBaseInfoCondition.class)
-	@BusinessFuncMonitor("app/appbaseinfo")
+	@BusinessFuncMonitor("app.appbaseinfo")
 	public PageContent<AppBaseInfoVO> list(@RequestBody PageSearchRequest<AppBaseInfoCondition> pageSearchRequest){
 
 		PageContent<AppBaseInfoVO> pageContent = appBaseInfoRibbonService.list(pageSearchRequest);

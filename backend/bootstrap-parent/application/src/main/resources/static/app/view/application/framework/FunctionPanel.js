@@ -9,7 +9,7 @@ Ext.define('AM.view.application.framework.FunctionPanel', {
 	],
 	alias: 'widget.mainFunctionPanel',
 	controller: 'main-Function',
-	width: 150,
+	width: 250,
 	collapsible: true,
 	title: '业务中心',
 
@@ -24,8 +24,22 @@ Ext.define('AM.view.application.framework.FunctionPanel', {
 			viewConfig: {
 
 			}
+            ,defaults:{
+                style:{
+                    backgroundColor: '#28384a'//'#28384a'
+                }
+            }
 			,items:[]
-
+			,header:{
+				height:64
+				,style:{
+					backgroundColor: '#2eb1f5'//'#28384a'
+				}
+			}
+			,title:{
+                style: 'color: white;font-size: 18px;'
+                ,iconCls: 'fas fa-search'
+			}
 		});
 
 

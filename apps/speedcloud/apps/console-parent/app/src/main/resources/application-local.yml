@@ -24,4 +24,6 @@ spring:
       min-idle: 0
       max-wait: 1
 swagger:
-  base-package: net.aicoder.speedcloud.business
+  base-package: net.aicoder.speedcloud.console
+  enabled: true
+

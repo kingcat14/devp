@@ -16,7 +16,9 @@ Ext.define('AM.view.ViewportController', {
 				this.getView().unmask();
 				console.log(response.responseText);
 				var app = Ext.decode(response.responseText)
-                me.getView().down('mainHeadercontainer').setTitle(app.name);
+                // me.getView().down('mainHeaderContainer').setTitle(app.name);
+                me.getView().down('mainFunctionPanel').setTitle(app.name);
+				document.title = app.name
 
 			}
         });

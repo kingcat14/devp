@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.console;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.spring4all.swagger.EnableSwagger2Doc;
 import com.yunkang.saas.bootstrap.security.local.config.LocalSecurityAutoConfiguration;
 import com.yunkang.saas.common.framework.web.controller.RestApiExceptionHandler;
 import com.yunkang.saas.common.framework.web.controller.TypedApiResponseBodyHandler;
@@ -23,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication()
 @EnableRedisHttpSession
 @EnableCircuitBreaker
+@EnableSwagger2Doc
 public class SpeedCloudConsoleApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {

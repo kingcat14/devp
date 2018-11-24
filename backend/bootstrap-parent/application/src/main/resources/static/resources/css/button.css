@@ -1,7 +1,9 @@
 .red{
     color: #ff0000;
 }
-
+.header_blue  .x-btn-inner-default-small{
+    color: #28384a; !important;
+}
 
 .app-dashboard {
     background-image: url(../images/square.gif);

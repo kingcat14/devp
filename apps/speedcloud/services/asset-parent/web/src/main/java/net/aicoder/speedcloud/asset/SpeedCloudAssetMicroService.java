@@ -20,10 +20,10 @@ import org.springframework.context.annotation.Import;
 @EnableSwagger2Doc
 @SpringBootApplication()
 @EnableDiscoveryClient
-public class AssetMicroService implements ExitCodeGenerator {
+public class SpeedCloudAssetMicroService implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AssetMicroService.class, args);
+		SpringApplication.run(SpeedCloudAssetMicroService.class, args);
 
 	}
 

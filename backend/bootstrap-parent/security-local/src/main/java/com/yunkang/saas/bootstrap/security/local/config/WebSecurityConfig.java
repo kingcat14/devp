@@ -124,6 +124,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //解决静态资源被拦截的问题
         web.ignoring().antMatchers(antMatchers);
+        //忽略swagger相关的接口
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger*/**");
 
     }
 
