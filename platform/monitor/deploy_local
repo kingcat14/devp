@@ -1,0 +1,2 @@
+mvn clean package -Pspring-boot
+cp app/target/monitor-app.jar /Users/gonghongrui/studio/tools
