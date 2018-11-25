@@ -48,7 +48,7 @@ public class PipelineTaskEditDto {
 
 	/**所属产品*/
 	@ApiModelProperty(value = "所属产品", required = false)
-	private Long project;
+	private String project;
 
 	/**步骤的操作列表*/
 	@ApiModelProperty(value = "步骤的操作列表", required = true)
@@ -106,10 +106,10 @@ public class PipelineTaskEditDto {
 	}
 
 
-	public Long getProject(){
+	public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

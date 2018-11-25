@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改领域使用的DTO")
+@Setter @Getter
 public class DomainEditDto {
 
 
@@ -32,6 +35,11 @@ public class DomainEditDto {
 	/**领域代码前缀*/
 	@ApiModelProperty(value = "领域代码前缀", required = false, notes = "附领域为空时，必须填该字段")
 	private String prefix;
+
+
+	/**描述*/
+	@ApiModelProperty(value = "描述", required = false)
+	private String description;
 
 
 
@@ -64,6 +72,14 @@ public class DomainEditDto {
 	}
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

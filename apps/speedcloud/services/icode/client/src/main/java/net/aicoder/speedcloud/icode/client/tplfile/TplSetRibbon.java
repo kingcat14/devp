@@ -97,7 +97,18 @@ public class TplSetRibbon {
         return errorResult();
     }
 
-
+    /**
+     * 根据ID复制公共代码模板集合
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "getFail")
+    public TplSetResult copy(String id) {
+        String url = "http://"+host+"/icode/tplfile/tplset/"+id+"/copy";
+        ResponseEntity<TplSetResult> response =
+                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(null), new ParameterizedTypeReference<TplSetResult>() {});
+        return response.getBody();
+    }
 
     /**
 	 * 根据ID查询公共代码模板集合

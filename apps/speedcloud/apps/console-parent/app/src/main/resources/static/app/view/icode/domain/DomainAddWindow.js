@@ -94,7 +94,19 @@ Ext.define('AM.view.icode.domain.DomainAddWindow', {
                                     ,fieldLabel: '领域代码前缀'
                                 }
 
+
+
                             ]
+                        }
+                        ,{
+
+                            xtype: 'textarea',
+                            anchor: '96% 70%',
+                            itemId: 'descriptionField',
+                            padding: '5 0 0 5',
+                            name: 'description',
+                            fieldLabel: '描述',
+                            labelAlign: 'top'
                         }
                     ]
                 }
@@ -110,7 +122,7 @@ Ext.define('AM.view.icode.domain.DomainAddWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

@@ -123,7 +123,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceRelationTypePanel', {
                                 ,'-'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'
@@ -132,7 +132,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceRelationTypePanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -140,7 +140,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceRelationTypePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'

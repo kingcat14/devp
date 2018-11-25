@@ -23,12 +23,20 @@
             <artifactId>common-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.yunkang.saas.bootstrap</groupId>
+            <artifactId>bootstrap-monitor</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.aicoder.speedcloud</groupId>
             <artifactId>speedcloud-client</artifactId>
         </dependency>
         <dependency>
             <groupId>net.aicoder.speedcloud</groupId>
             <artifactId>speedcloud-adapter-jenkins</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
     </dependencies>
 </project>

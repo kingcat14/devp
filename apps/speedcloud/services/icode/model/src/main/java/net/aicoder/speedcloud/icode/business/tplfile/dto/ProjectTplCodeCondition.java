@@ -13,10 +13,6 @@ public class ProjectTplCodeCondition {
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "模板代码", notes = "")
 	private String code;
 	@ApiModelProperty(value = "模板名称", notes = "")

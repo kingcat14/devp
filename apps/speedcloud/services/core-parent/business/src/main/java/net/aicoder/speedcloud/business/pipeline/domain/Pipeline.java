@@ -60,7 +60,7 @@ public class Pipeline extends BaseEntity<Long>{
     * 
     */
     @Column(name = "project", nullable = false, updatable = false)
-	private Long project;
+	private String project;
 
 	public Long getTid(){
 		return tid;
@@ -83,10 +83,10 @@ public class Pipeline extends BaseEntity<Long>{
 		this.type = type;
 	}
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 

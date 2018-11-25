@@ -182,7 +182,7 @@ public class CodeBaseInfoController {
 
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
-            headMap.put("codeRepertory" ,"代码库");
+            headMap.put("codeRepository" ,"代码库");
             headMap.put("language" ,"开发语言");
             headMap.put("languageLevel" ,"语言级别");
 
@@ -206,14 +206,14 @@ public class CodeBaseInfoController {
 
 	private void initCodeRepositoryPropertyGroup(CodeBaseInfoVO codeBaseInfoVO, CodeBaseInfo codeBaseInfo){
 	
-		CodeRepository codeRepertory = codeRepositoryService.find(codeBaseInfo.getCodeRepository());
-		if(codeRepertory == null){
+		CodeRepository codeRepository = codeRepositoryService.find(codeBaseInfo.getCodeRepository());
+		if(codeRepository == null){
 			return;
 		}
-		CodeRepositoryVO codeRepertoryVO = new CodeRepositoryVO();
-		BeanUtils.copyProperties(codeRepertory, codeRepertoryVO);
+		CodeRepositoryVO codeRepositoryVO = new CodeRepositoryVO();
+		BeanUtils.copyProperties(codeRepository, codeRepositoryVO);
 
-		codeBaseInfoVO.setCodeRepositoryVO(codeRepertoryVO);
+		codeBaseInfoVO.setCodeRepositoryVO(codeRepositoryVO);
 
 	}
 

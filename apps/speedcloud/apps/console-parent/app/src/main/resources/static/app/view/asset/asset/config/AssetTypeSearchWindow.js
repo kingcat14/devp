@@ -115,7 +115,7 @@ Ext.define('AM.view.asset.asset.config.AssetTypeSearchWindow', {
                         }
                         ,{
                             xtype: 'button',
-                            iconCls: 'search',
+                            iconCls: 'fas fa-search',
                             text: '查询',
                             listeners: {
                                 click: {

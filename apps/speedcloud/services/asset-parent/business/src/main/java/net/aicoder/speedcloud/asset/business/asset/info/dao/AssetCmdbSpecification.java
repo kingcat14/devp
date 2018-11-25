@@ -62,14 +62,6 @@ public class AssetCmdbSpecification implements Specification<AssetCmdb>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(AssetCmdb.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(AssetCmdb.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(AssetCmdb.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddBarcodePredicate(List<Predicate> predicateList, Root<AssetCmdb> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getBarcode())){

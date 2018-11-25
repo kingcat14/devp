@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.publish.dao;
 
-import net.aicoder.devp.business.publish.dto.DevpSysOpsDockerParamCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsDockerParam;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsDockerParamCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysOpsDockerParamSpecification implements Specification<DevpSysOpsDockerParam>{
 
@@ -61,14 +61,6 @@ public class DevpSysOpsDockerParamSpecification implements Specification<DevpSys
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysOpsDockerParam.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysOpsDockerParam.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysOpsDockerParam.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysOpsDockerParam> root, CriteriaBuilder cb){

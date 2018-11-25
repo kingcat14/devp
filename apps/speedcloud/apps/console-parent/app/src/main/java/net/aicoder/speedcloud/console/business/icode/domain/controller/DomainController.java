@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.icode.domain.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -40,16 +39,12 @@ import java.util.*;
 public class DomainController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DomainController.class);
-
-    @Autowired
-	private SaaSUtil saaSUtil;
 	
     @Autowired
 	private DomainRibbonService domainRibbonService;
 
 	@Autowired
 	private DomainValidator domainValidator;
-
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -99,6 +94,19 @@ public class DomainController {
 	public DomainVO update(@RequestBody @Valid DomainEditDto domainEditDto, @ApiParam(value = "要查询的领域id") @PathVariable String id){
 
 		DomainVO vo = domainRibbonService.merge(id, domainEditDto);
+
+		return  vo;
+	}
+	/**
+	 * 更新领域
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "复制", notes = "复制领域(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}/copy")
+	public DomainVO copy(@ApiParam(value = "要复制的领域id") @PathVariable String id) {
+
+		DomainVO vo = domainRibbonService.copy(id);
 
 		return  vo;
 	}

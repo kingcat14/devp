@@ -12,5 +12,4 @@ import org.springframework.stereotype.Repository;
 @Repository("tplCodeDao")
 public interface TplCodeDao extends BaseDao<TplCode, String>{
 
-
 }

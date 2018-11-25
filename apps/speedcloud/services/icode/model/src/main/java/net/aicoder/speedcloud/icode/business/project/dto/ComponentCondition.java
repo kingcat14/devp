@@ -7,12 +7,12 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+@ApiModel(value = "查询组件使用的DTO")
 @Getter @Setter
-@ApiModel(value = "查询系统组件使用的DTO")
 public class ComponentCondition {
 
 	@ApiModelProperty(value = "租户id")
-	private String tid;
+	private Long tid;
 	@ApiModelProperty(value = "组件名称", notes = "")
 	private String name;
 	@ApiModelProperty(value = "组件代码", notes = "")

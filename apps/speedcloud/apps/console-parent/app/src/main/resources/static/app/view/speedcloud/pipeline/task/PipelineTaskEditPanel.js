@@ -64,7 +64,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                     ,menuDisabled: true
                                     ,width:'30px'
                                     ,items: [{
-                                        iconCls: 'delete'
+                                        iconCls: 'fas fa-minus-circle red'
                                         ,tooltip: '删除'
                                         ,handler: function(grid, rowIndex, colIndex) {
 
@@ -374,7 +374,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             xtype: 'actioncolumn'
                                             , menuDisabled: true
                                             , items: [{
-                                                iconCls: 'delete'
+                                                iconCls: 'fas fa-minus-circle red'
                                                 , tooltip: '删除'
                                                 , handler: 'onDeleteTaskParamClick'
                                             }]
@@ -386,7 +386,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                             dock: 'top'
                                             ,items:[{
                                                 xtype: 'button'
-                                                ,iconCls: 'add'
+                                                ,iconCls: 'fas fa-plus-circle'
                                                 ,text: '新增'
                                                 ,listeners: {
                                                     click: 'onAddTaskParamClick'
@@ -422,7 +422,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                         ,items: [
                         '->',{
                             xtype: 'button'
-                            // ,iconCls: 'accept'
+                            // ,iconCls: 'fas fa-save'
                             //,iconCls: 'x-fa fa-plus-circle'
                             ,text: '确定'
                             ,scale: 'large'

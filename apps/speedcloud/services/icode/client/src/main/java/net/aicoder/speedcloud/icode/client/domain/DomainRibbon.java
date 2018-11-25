@@ -90,6 +90,19 @@ public class DomainRibbon {
         return response.getBody();
     }
 
+    /**
+     * 复制
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "getFail")
+    public DomainResult copy(String id) {
+        String url = "http://"+host+"/icode/domain/domain/"+id+"/copy";
+        ResponseEntity<DomainResult> response =
+                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(null), new ParameterizedTypeReference<DomainResult>() {});
+        return response.getBody();
+    }
+
     public DomainResult updateFail(String id, DomainEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);

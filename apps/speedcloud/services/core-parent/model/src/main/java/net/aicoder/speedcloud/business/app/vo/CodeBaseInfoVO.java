@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.app.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,6 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 * 代码库详细信息的值对象
 */
 @ApiModel(value = "展现代码库详细信息的值对象")
+@Getter @Setter
 public class CodeBaseInfoVO {
 
     @ApiModelProperty(value = "记录id")
@@ -20,8 +23,8 @@ public class CodeBaseInfoVO {
 
     /**代码库*/
     @ApiModelProperty(value = "代码库", notes = " ")
-    private Long codeRepertory;
-    private CodeRepositoryVO codeRepertoryVO;
+    private Long codeRepository;
+    private CodeRepositoryVO codeRepositoryVO;
 
 
     /**开发语言*/
@@ -33,41 +36,6 @@ public class CodeBaseInfoVO {
     @ApiModelProperty(value = "语言级别")
     private String languageLevel;
 
-
-    public Long getCodeRepository(){
-        return codeRepertory;
-    }
-    public void setCodeRepository(Long codeRepertory) {
-        this.codeRepertory = codeRepertory;
-    }
-    public CodeRepositoryVO getCodeRepositoryVO(){
-        return codeRepertoryVO;
-    }
-    public void setCodeRepositoryVO(CodeRepositoryVO codeRepertoryVO) {
-        this.codeRepertoryVO = codeRepertoryVO;
-    }
-
-    public String getLanguage(){
-        return language;
-    }
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getLanguageLevel(){
-        return languageLevel;
-    }
-    public void setLanguageLevel(String languageLevel) {
-        this.languageLevel = languageLevel;
-    }
-
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 
     @Override
     public String toString() {

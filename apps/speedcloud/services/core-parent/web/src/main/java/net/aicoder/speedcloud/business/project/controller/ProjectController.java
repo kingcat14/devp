@@ -1,8 +1,7 @@
 package net.aicoder.speedcloud.business.project.controller;
 
-import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.jms.sender.SaaSMessageSender;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
@@ -14,13 +13,12 @@ import net.aicoder.speedcloud.business.project.domain.ProjectSet;
 import net.aicoder.speedcloud.business.project.dto.ProjectAddDto;
 import net.aicoder.speedcloud.business.project.dto.ProjectCondition;
 import net.aicoder.speedcloud.business.project.dto.ProjectEditDto;
+import net.aicoder.speedcloud.business.project.event.ProjectEventTopic;
 import net.aicoder.speedcloud.business.project.service.ProjectService;
 import net.aicoder.speedcloud.business.project.service.ProjectSetService;
 import net.aicoder.speedcloud.business.project.valid.ProjectValidator;
 import net.aicoder.speedcloud.business.project.vo.ProjectSetVO;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -30,10 +28,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 管理项目
@@ -46,7 +44,6 @@ public class ProjectController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
-
 	@Autowired
 	private ProjectService projectService;
 
@@ -55,6 +52,9 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectValidator projectValidator;
+
+	@Autowired
+	private SaaSMessageSender saaSMessageSender;
 
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -75,8 +75,11 @@ public class ProjectController {
 		BeanUtils.copyProperties(projectAddDto, project);
 
 		projectService.add(project);
+		ProjectVO vo = initViewProperty(project);
 
-		return  initViewProperty(project);
+		saaSMessageSender.sendTopic(ProjectEventTopic.CREATE, project.getTid(), vo);
+
+		return vo;
 	}
 
 	/**
@@ -91,7 +94,7 @@ public class ProjectController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			projectService.delete(Long.parseLong(id));
+			projectService.delete(id);
 		}
 
 	}
@@ -104,13 +107,17 @@ public class ProjectController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产项目(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public	ProjectVO update(@RequestBody @Valid ProjectEditDto projectEditDto, @PathVariable Long id){
-		Project project = new Project();
+	public	ProjectVO update(@RequestBody @Valid ProjectEditDto projectEditDto, @PathVariable String id){
+
+		Project project = projectService.find(id);
 		BeanUtils.copyProperties(projectEditDto, project);
 		project.setId(id);
 		projectService.merge(project);
 
 		ProjectVO vo = initViewProperty(project);
+
+		saaSMessageSender.sendTopic(ProjectEventTopic.UPDATE, project.getTid(), vo);
+
 		return  vo;
 	}
 
@@ -121,7 +128,7 @@ public class ProjectController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询项目", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public  ProjectVO get(@PathVariable Long id) {
+	public  ProjectVO get(@PathVariable String id) {
 
 		Project project = projectService.find(id);
 
@@ -153,45 +160,6 @@ public class ProjectController {
 
 	}
 
-	/**
-     * 导出项目列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出项目列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(ProjectCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        PageSearchRequest<ProjectCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<ProjectVO> content = this.list(pageSearchRequest);
-
-        List<ProjectVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(ProjectVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-            headMap.put("name" ,"名称");
-            headMap.put("type" ,"类型");
-            headMap.put("scope" ,"公开性");
-            headMap.put("description" ,"描述");
-            headMap.put("parent" ,"上级项目");
-            headMap.put("projectSet" ,"所属项目集");
-
-        String title = new String("项目");
-        String fileName = new String(("项目_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-    }
 
 	private ProjectVO initViewProperty(Project project){
 

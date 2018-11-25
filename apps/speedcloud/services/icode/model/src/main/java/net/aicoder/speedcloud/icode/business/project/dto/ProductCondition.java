@@ -7,8 +7,8 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Getter @Setter
 @ApiModel(value = "查询产品使用的DTO")
+@Getter @Setter
 public class ProductCondition {
 
 	@ApiModelProperty(value = "租户id")
@@ -23,6 +23,8 @@ public class ProductCondition {
 	private String productCode;
 	@ApiModelProperty(value = "描述", notes = "")
 	private String description;
+	@ApiModelProperty(value = "已失效")
+	private Boolean disabled;
 
 
 

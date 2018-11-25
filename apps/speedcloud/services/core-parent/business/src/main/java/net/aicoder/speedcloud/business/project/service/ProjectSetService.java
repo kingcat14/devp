@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("projectSetService")
-public class ProjectSetService  extends GenericCrudService<ProjectSet, Long, ProjectSetCondition, ProjectSetDao> {
+public class ProjectSetService  extends GenericCrudService<ProjectSet, String, ProjectSetCondition, ProjectSetDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectSetService.class);
 

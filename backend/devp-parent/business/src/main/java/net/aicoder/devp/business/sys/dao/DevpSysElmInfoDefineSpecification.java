@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.dto.DevpSysElmInfoDefineCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysElmInfoDefine;
+import net.aicoder.devp.business.sys.dto.DevpSysElmInfoDefineCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysElmInfoDefineSpecification implements Specification<DevpSysElmInfoDefine>{
 
@@ -56,13 +56,6 @@ public class DevpSysElmInfoDefineSpecification implements Specification<DevpSysE
 			predicateList.add(cb.equal(root.get(DevpSysElmInfoDefine.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysElmInfoDefine.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysElmInfoDefine.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysElmInfoDefine> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEtype())){

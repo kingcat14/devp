@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("projectDao")
-public interface ProjectDao extends BaseDao<Project, Long>{
+public interface ProjectDao extends BaseDao<Project, String>{
 
 
 }

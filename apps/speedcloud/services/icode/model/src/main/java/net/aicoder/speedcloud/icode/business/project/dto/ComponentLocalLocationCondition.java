@@ -13,10 +13,6 @@ public class ComponentLocalLocationCondition {
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "用户id")
 	private Long accountId;
 	@ApiModelProperty(value = "用户id最大值")

@@ -2,15 +2,18 @@ package net.aicoder.speedcloud.icode.business.project.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 系统组件
+ * 组件
  * @author icode
  */
-@ApiModel(value = "修改系统组件使用的DTO")
+@ApiModel(value = "修改组件使用的DTO")
+@Setter @Getter
 public class ComponentEditDto {
 
 

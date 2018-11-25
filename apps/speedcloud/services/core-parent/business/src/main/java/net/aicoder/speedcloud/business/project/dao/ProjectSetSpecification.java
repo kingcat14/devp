@@ -44,14 +44,6 @@ public class ProjectSetSpecification implements Specification<ProjectSet>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(ProjectSet.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ProjectSet.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ProjectSet.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<ProjectSet> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){

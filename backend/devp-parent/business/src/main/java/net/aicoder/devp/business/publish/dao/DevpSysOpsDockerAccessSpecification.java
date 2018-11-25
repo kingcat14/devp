@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.publish.dao;
 
-import net.aicoder.devp.business.publish.dto.DevpSysOpsDockerAccessCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsDockerAccess;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsDockerAccessCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysOpsDockerAccessSpecification implements Specification<DevpSysOpsDockerAccess>{
 
@@ -64,14 +64,6 @@ public class DevpSysOpsDockerAccessSpecification implements Specification<DevpSy
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysOpsDockerAccess.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysOpsDockerAccess.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysOpsDockerAccess.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysOpsDockerAccess> root, CriteriaBuilder cb){

@@ -12,10 +12,6 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
-	@ApiModelProperty(value = "租户编号最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户编号最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "类型", notes = "[类型]")
 	private String type;
 	@ApiModelProperty(value = "状态", notes = "[状态]true:生效，false:失效")
@@ -29,11 +25,7 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
 	@ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-	private Long project;
-	@ApiModelProperty(value = "产品编号最大值")
-	private Long projectMax;
-	@ApiModelProperty(value = "产品编号最小值")
-	private Long projectMin;
+	private String project;
     @ApiModelProperty(value = "部署方案编号", notes = "[部署方案编号]")
     private Long scheme;
     @ApiModelProperty(value = "关联资源编号", notes = "[关联资源编号]")
@@ -57,19 +49,6 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 		this.tid = tid;
 	}
 
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
 
 
 	public String getType(){
@@ -118,25 +97,11 @@ public class ResourceInstanceRelationCondition extends SaaSCondition{
 	}
 
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
-	}
-
-	public Long getProjectMin(){
-		return projectMin;
-	}
-	public void setProjectMin(Long projectMin) {
-		this.projectMin = projectMin;
-	}
-
-	public Long getProjectMax(){
-		return projectMax;
-	}
-	public void setProjectMax(Long projectMax) {
-		this.projectMax = projectMax;
 	}
 
 

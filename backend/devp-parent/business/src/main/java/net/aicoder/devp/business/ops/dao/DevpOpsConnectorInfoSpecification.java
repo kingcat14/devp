@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.ops.dao;
 
-import net.aicoder.devp.business.ops.dto.DevpOpsConnectorInfoCondition;
 import net.aicoder.devp.business.ops.domain.DevpOpsConnectorInfo;
+import net.aicoder.devp.business.ops.dto.DevpOpsConnectorInfoCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpOpsConnectorInfoSpecification implements Specification<DevpOpsConnectorInfo>{
 
@@ -71,14 +71,6 @@ public class DevpOpsConnectorInfoSpecification implements Specification<DevpOpsC
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpOpsConnectorInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpOpsConnectorInfo.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpOpsConnectorInfo.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpOpsConnectorInfo> root, CriteriaBuilder cb){

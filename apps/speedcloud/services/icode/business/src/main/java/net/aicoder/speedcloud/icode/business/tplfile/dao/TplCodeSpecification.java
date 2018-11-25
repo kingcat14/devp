@@ -28,6 +28,7 @@ public class TplCodeSpecification implements Specification<TplCode>{
 			return null;
 		}
 
+		tryAddTidPredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
@@ -45,6 +46,11 @@ public class TplCodeSpecification implements Specification<TplCode>{
     }
 
 
+	private void tryAddTidPredicate(List<Predicate> predicateList, Root<TplCode> root, CriteriaBuilder cb){
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(TplCode.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
+	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<TplCode> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCode())){
 			predicateList.add(cb.like(root.get(TplCode.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
@@ -86,17 +92,8 @@ public class TplCodeSpecification implements Specification<TplCode>{
 		}
 	}
 	private void tryAddOverridablePredicate(List<Predicate> predicateList, Root<TplCode> root, CriteriaBuilder cb){
-
 		if (null != condition.getOverridable() ) {
-			predicateList.add(cb.equal(root.get(TplCode.PROPERTY_OVERRIDABLE).as(Integer.class), condition.getOverridable()));
-		}
-
-		if (null != condition.getOverridableMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(TplCode.PROPERTY_OVERRIDABLE).as(Integer.class), condition.getOverridableMax()));
-		}
-
-		if (null != condition.getOverridableMin() ) {
-			predicateList.add(cb.lessThan(root.get(TplCode.PROPERTY_OVERRIDABLE).as(Integer.class), condition.getOverridableMin()));
+			predicateList.add(cb.equal(root.get(TplCode.PROPERTY_OVERRIDABLE).as(Boolean.class), condition.getOverridable()));
 		}
 	}
 }

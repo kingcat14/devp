@@ -27,6 +27,7 @@ public class Domain extends BaseEntity<String>{
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_PARENT = "parent";
 	public static final String PROPERTY_PREFIX = "prefix";
+	public static final String PROPERTY_DESCRIPTION = "description";
 
 
     @Id
@@ -39,8 +40,7 @@ public class Domain extends BaseEntity<String>{
     * 
     */
     @Column(name = "tid", nullable = false, updatable = false)
-	@Size(max = 255, message = "租户id超长，最多255个字符")
-	private String tid;
+	private Long tid;
 
     /**
     * 领域名称
@@ -74,10 +74,17 @@ public class Domain extends BaseEntity<String>{
 	@Size(max = 255, message = "领域代码前缀超长，最多255个字符")
 	private String prefix;
 
-	public String getTid(){
+    /**
+    * 描述
+    * 
+    */
+    @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
+	private String description;
+
+	public Long getTid(){
 		return tid;
 	}
-	public void setTid(String tid) {
+	public void setTid(Long tid) {
 		this.tid = tid;
 	}
 
@@ -107,6 +114,13 @@ public class Domain extends BaseEntity<String>{
 	}
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

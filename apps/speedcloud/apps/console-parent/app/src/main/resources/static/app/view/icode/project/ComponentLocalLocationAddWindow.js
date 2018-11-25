@@ -105,7 +105,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

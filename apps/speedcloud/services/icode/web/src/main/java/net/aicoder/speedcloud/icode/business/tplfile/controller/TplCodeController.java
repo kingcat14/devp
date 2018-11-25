@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.icode.business.tplfile.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -115,6 +116,24 @@ public class TplCodeController {
 	}
 
 	/**
+	 * 根据ID复制公共代码模板
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询公共代码模板", httpMethod = "GET")
+	@PutMapping(path="/{id}/copy")
+	@BusinessFuncMonitor(value = "icode.tplfile.tplcode.copy")
+	public  TplCodeVO copy(@PathVariable String id) {
+
+		TplCode tplCode = tplCodeService.copy(id);
+		if(tplCode == null){
+			throw new ResourceNotFoundException("无法复制指定的公共代码模板，请检查ID");
+		}
+		TplCodeVO vo = initViewProperty(tplCode);
+		return vo;
+	}
+
+	/**
 	 * 根据ID查询公共代码模板
 	 * @param id
 	 * @return
@@ -125,7 +144,9 @@ public class TplCodeController {
 	public  TplCodeVO get(@PathVariable String id) {
 
 		TplCode tplCode = tplCodeService.find(id);
-
+		if(tplCode == null){
+			throw new ResourceNotFoundException("找不到指定的公共代码模板，请检查ID");
+		}
 		TplCodeVO vo = initViewProperty(tplCode);
 		return vo;
 	}
@@ -183,6 +204,15 @@ public class TplCodeController {
 
         Map<String,String> headMap = new LinkedHashMap<>();
 
+        headMap.put("code" ,"模板代码");
+        headMap.put("name" ,"模板名称");
+        headMap.put("type" ,"模板类型");
+        headMap.put("content" ,"模板内容");
+        headMap.put("fileName" ,"文件名称");
+        headMap.put("filePath" ,"文件路径");
+        headMap.put("tplSet" ,"模板集合");
+        headMap.put("acceptModelType" ,"接受的模型类型");
+        headMap.put("overridable" ,"是否可覆盖");
 
         String title = new String("公共代码模板");
         String fileName = new String(("公共代码模板_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

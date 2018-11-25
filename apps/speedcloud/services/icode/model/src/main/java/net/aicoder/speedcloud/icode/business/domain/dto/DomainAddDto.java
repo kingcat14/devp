@@ -18,7 +18,7 @@ public class DomainAddDto {
 
     /**租户id*/
 	@ApiModelProperty(value = "租户id", required = false)
-	private String tid;
+	private Long tid;
 
     /**领域名称*/
 	@ApiModelProperty(value = "领域名称", required = false)
@@ -36,11 +36,15 @@ public class DomainAddDto {
 	@ApiModelProperty(value = "领域代码前缀", required = false, notes = "附领域为空时，必须填该字段")
 	private String prefix;
 
+    /**描述*/
+	@ApiModelProperty(value = "描述", required = false)
+	private String description;
 
-	public String getTid(){
+
+	public Long getTid(){
 		return tid;
 	}
-	public void setTid(String tid) {
+	public void setTid(Long tid) {
 		this.tid = tid;
 	}
 
@@ -70,6 +74,13 @@ public class DomainAddDto {
 	}
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

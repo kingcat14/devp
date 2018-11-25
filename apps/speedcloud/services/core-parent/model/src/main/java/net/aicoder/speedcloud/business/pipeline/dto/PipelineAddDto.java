@@ -29,7 +29,7 @@ public class PipelineAddDto {
 
     /**所属产品*/
 	@ApiModelProperty(value = "所属产品", required = false)
-	private Long project;
+	private String project;
 
 	/**包含的阶段*/
 	private List<PipelineStageAddDto> stageList;
@@ -58,10 +58,10 @@ public class PipelineAddDto {
         this.type = type;
     }
 
-	public Long getProject(){
+	public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

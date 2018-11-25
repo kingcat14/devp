@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.dto.DevpSysCmpCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysCmp;
+import net.aicoder.devp.business.sys.dto.DevpSysCmpCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysCmpSpecification implements Specification<DevpSysCmp>{
 
@@ -65,14 +65,6 @@ public class DevpSysCmpSpecification implements Specification<DevpSysCmp>{
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysCmp.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysCmp.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysCmp.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysCmp> root, CriteriaBuilder cb){

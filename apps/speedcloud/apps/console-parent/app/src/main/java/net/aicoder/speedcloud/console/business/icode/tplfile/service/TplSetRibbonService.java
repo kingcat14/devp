@@ -56,6 +56,15 @@ public class TplSetRibbonService  {
 
 		return result.getData();
 	}
+	public TplSetVO copy(String id){
+		TplSetResult result = tplSetRibbon.copy(id);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("ICODE", "TPLFILE", result.getCode()+"", result.getMessage());
+		}
+
+		return result.getData();
+	}
 	public TplSetVO find(String id){
 		TplSetResult result = tplSetRibbon.get(id);
 

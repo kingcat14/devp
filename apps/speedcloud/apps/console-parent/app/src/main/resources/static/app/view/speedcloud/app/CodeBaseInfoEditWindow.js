@@ -57,8 +57,8 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'codeRepertoryField'
-                                    ,name: 'codeRepertory'
+                                    ,itemId: 'codeRepositoryField'
+                                    ,name: 'codeRepository'
                                     ,fieldLabel: '代码库'
                                 }
                                 ,{
@@ -98,7 +98,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {
@@ -157,7 +157,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
 
     }
     ,onBeforeShow:function() {
-        this.down('#codeRepertoryField').getStore().reload();
+        this.down('#codeRepositoryField').getStore().reload();
        
        
        

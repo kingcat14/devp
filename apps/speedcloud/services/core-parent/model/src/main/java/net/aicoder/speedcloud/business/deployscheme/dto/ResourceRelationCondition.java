@@ -12,10 +12,6 @@ public class ResourceRelationCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
-	@ApiModelProperty(value = "租户编号最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户编号最小值")
-	private Long tidMin;
     @ApiModelProperty(value = "主资源", notes = "[元素类型]-SYS_DPY_CMP_REF // 部署组件关联元素")
     private Long resource;
     @ApiModelProperty(value = "关联资源", notes = "[关联产品编号]")
@@ -47,20 +43,6 @@ public class ResourceRelationCondition extends SaaSCondition{
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
-	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
 	}
 
 

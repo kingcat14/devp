@@ -3,6 +3,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
     alias: 'widget.mainContentPanel',
 	requires:[
         'AM.view.application.dashboard.Dashboard'
+
 	    //,'AM.view.maintenance.asset.info.AssetCmdbPanel'
 
 	]
@@ -12,6 +13,7 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 		closable: true,
 		//border: false
 	}
+
     ,referenceHolder:true
     ,initComponent: function() {
         var me = this;
@@ -44,11 +46,6 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
                 }
             }];
         }
-
-	    // var portal = Ext.create('Ext.panel.Panel',{ title:'欢迎使用', html:"欢迎使用", closable:false, bodyCls: 'app-dashboard', iconAlign:'right', iconCls:'bullet_red' });
-	    // this.insert(0,portal);
-	    // this.setActiveTab(0);
-
 
 	    var dashboard = Ext.create("AM.view.application.dashboard.Dashboard",{
 			closable:false

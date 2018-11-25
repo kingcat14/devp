@@ -1,6 +1,5 @@
 package  net.aicoder.speedcloud.icode.config;
 
-
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 

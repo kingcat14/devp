@@ -21,6 +21,12 @@ Ext.define('AM.model.icode.tplfile.TplSet', {
             ,allowNull:true
         }
     	,{
+            name: 'tid'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'code'
             ,type:'string'
             ,allowNull:false

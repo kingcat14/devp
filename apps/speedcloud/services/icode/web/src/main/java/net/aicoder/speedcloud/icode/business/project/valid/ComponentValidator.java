@@ -56,11 +56,11 @@ public class ComponentValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-
-		//验证长度
-		if(StringUtils.length(component.getTid()) > 255){
+		if(null == (component.getTid())){
 			errors.rejectValue(Component.PROPERTY_TID,null,"租户id最长255个字符");
 		}
+
+		//验证长度
 		if(StringUtils.length(component.getName()) > 255){
 			errors.rejectValue(Component.PROPERTY_NAME,null,"组件名称最长255个字符");
 		}

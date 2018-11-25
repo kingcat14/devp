@@ -49,18 +49,9 @@ public class ProjectTplCodeSpecification implements Specification<ProjectTplCode
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<ProjectTplCode> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(ProjectTplCode.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ProjectTplCode.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ProjectTplCode.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(ProjectTplCode.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
 	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<ProjectTplCode> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCode())){
@@ -112,14 +103,14 @@ public class ProjectTplCodeSpecification implements Specification<ProjectTplCode
 		}
 	}
 	private void tryAddComponentPredicate(List<Predicate> predicateList, Root<ProjectTplCode> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getComponent())){
-			predicateList.add(cb.like(root.get(ProjectTplCode.PROPERTY_COMPONENT).as(String.class), "%"+condition.getComponent()+"%"));
-		}
+	    if (null != condition.getComponent() ) {
+            predicateList.add(cb.equal(root.get(ProjectTplCode.PROPERTY_COMPONENT).as(String.class), condition.getComponent()));
+        }  
 	}
 	private void tryAddTplCodePredicate(List<Predicate> predicateList, Root<ProjectTplCode> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getTplCode())){
-			predicateList.add(cb.like(root.get(ProjectTplCode.PROPERTY_TPL_CODE).as(String.class), "%"+condition.getTplCode()+"%"));
-		}
+	    if (null != condition.getTplCode() ) {
+            predicateList.add(cb.equal(root.get(ProjectTplCode.PROPERTY_TPL_CODE).as(String.class), condition.getTplCode()));
+        }  
 	}
 	private void tryAddAutoUpdatePredicate(List<Predicate> predicateList, Root<ProjectTplCode> root, CriteriaBuilder cb){
 		if (null != condition.getAutoUpdate() ) {

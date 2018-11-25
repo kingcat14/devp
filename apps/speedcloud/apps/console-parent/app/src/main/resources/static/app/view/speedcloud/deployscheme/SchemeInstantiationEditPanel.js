@@ -341,7 +341,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeInstantiationEditPanel', {
                                             ,menuDisabled: true
                                             ,width:30
                                             ,items: [{
-                                                iconCls: 'delete'
+                                                iconCls: 'fas fa-minus-circle red'
                                                 ,tooltip: '删除'
                                                 ,handler: function(value, rowIndex, colIndex, item, event, record) {
                                                     console.log(record);

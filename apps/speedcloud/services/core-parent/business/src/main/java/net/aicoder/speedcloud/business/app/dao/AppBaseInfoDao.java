@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("appBaseInfoDao")
-public interface AppBaseInfoDao extends BaseDao<AppBaseInfo, Long>{
+public interface AppBaseInfoDao extends BaseDao<AppBaseInfo, String>{
 
 
 }

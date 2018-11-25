@@ -43,8 +43,7 @@ public class Component extends BaseEntity<String>{
     * 
     */
     @Column(name = "tid", nullable = false, updatable = false)
-	@Size(max = 255, message = "租户id超长，最多255个字符")
-	private String tid;
+	private Long tid;
 
     /**
     * 组件名称
@@ -109,10 +108,10 @@ public class Component extends BaseEntity<String>{
 	@Size(max = 255, message = "所属产品超长，最多255个字符")
 	private String product;
 
-	public String getTid(){
+	public Long getTid(){
 		return tid;
 	}
-	public void setTid(String tid) {
+	public void setTid(Long tid) {
 		this.tid = tid;
 	}
 

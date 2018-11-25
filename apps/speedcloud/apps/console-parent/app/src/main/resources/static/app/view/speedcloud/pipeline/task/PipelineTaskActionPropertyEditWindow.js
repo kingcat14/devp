@@ -129,7 +129,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionPropertyEditWindo
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

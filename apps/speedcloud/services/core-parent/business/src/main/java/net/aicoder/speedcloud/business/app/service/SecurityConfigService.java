@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("securityConfigService")
-public class SecurityConfigService  extends GenericCrudService<SecurityConfig, Long, SecurityConfigCondition, SecurityConfigDao> {
+public class SecurityConfigService  extends GenericCrudService<SecurityConfig, String, SecurityConfigCondition, SecurityConfigDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfigService.class);
 

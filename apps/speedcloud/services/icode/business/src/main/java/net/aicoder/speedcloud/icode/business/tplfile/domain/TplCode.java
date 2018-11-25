@@ -20,8 +20,10 @@ import javax.validation.constraints.Size;
 @Table(name = "tplfile_tpl_code")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class TplCode extends BaseEntity<String>{
 
+	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
@@ -37,6 +39,13 @@ public class TplCode extends BaseEntity<String>{
     @Column(name = "id")
     private String id;
 
+
+    /**
+    * 租户id
+    * 
+    */
+    @Column(name = "tid", nullable = false, updatable = false)
+	private Long tid;
 
     /**
     * 模板代码
@@ -67,7 +76,6 @@ public class TplCode extends BaseEntity<String>{
     * 
     */
     @Column(name = "content", nullable = true, updatable = true)
-	@Size(max = 255, message = "模板内容超长，最多255个字符")
 	private String content;
 
     /**
@@ -107,7 +115,14 @@ public class TplCode extends BaseEntity<String>{
     * 
     */
     @Column(name = "overridable", nullable = false, updatable = true)
-	private Integer overridable;
+	private Boolean overridable;
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
 	public String getCode(){
 		return code;
@@ -165,10 +180,10 @@ public class TplCode extends BaseEntity<String>{
 		this.acceptModelType = acceptModelType;
 	}
 
-	public Integer getOverridable(){
+	public Boolean getOverridable(){
 		return overridable;
 	}
-	public void setOverridable(Integer overridable) {
+	public void setOverridable(Boolean overridable) {
 		this.overridable = overridable;
 	}
 

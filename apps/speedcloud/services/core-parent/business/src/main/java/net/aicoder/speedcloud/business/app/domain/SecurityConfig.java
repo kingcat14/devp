@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "security_config", comment = "[应用私密配置]")
 //@DynamicUpdate
 //@DynamicInsert
-public class SecurityConfig extends BaseEntity<Long>{
+public class SecurityConfig extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_APP = "app";
@@ -30,7 +30,7 @@ public class SecurityConfig extends BaseEntity<Long>{
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private String id;
 
 
     /**
@@ -45,7 +45,7 @@ public class SecurityConfig extends BaseEntity<Long>{
     * 
     */
     @Column(name = "app", nullable = true, updatable = true)
-	private Long app;
+	private String app;
 
     /**
     * 配置名
@@ -70,10 +70,10 @@ public class SecurityConfig extends BaseEntity<Long>{
 		this.tid = tid;
 	}
 
-	public Long getApp(){
+	public String getApp(){
 		return app;
 	}
-	public void setApp(Long app) {
+	public void setApp(String app) {
 		this.app = app;
 	}
 
@@ -92,10 +92,10 @@ public class SecurityConfig extends BaseEntity<Long>{
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

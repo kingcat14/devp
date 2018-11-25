@@ -10,6 +10,7 @@ import net.aicoder.speedcloud.icode.business.domain.vo.DomainVO;
 import net.aicoder.speedcloud.icode.client.domain.DomainRibbon;
 import net.aicoder.speedcloud.icode.client.domain.result.DomainPageResult;
 import net.aicoder.speedcloud.icode.client.domain.result.DomainResult;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class DomainRibbonService  {
 	@Autowired
 	private DomainRibbon domainRibbon;
 
+
+	public DomainVO findTopDomain(String domainId){
+		DomainVO domainVO = this.find(domainId);
+		while(domainVO!=null && StringUtils.isNotEmpty(domainVO.getParent())){
+			domainVO = this.find(domainVO.getParent());
+		}
+		return domainVO;
+	}
 
 	public DomainVO add(DomainAddDto addDto){
 		DomainResult result = domainRibbon.add(addDto);
@@ -56,6 +65,15 @@ public class DomainRibbonService  {
 
 		return result.getData();
 	}
+	public DomainVO copy(String id){
+		DomainResult result = domainRibbon.copy(id);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("ICODE", "DOMAIN", result.getCode()+"", result.getMessage());
+		}
+
+		return result.getData();
+	}
 	public DomainVO find(String id){
 		DomainResult result = domainRibbon.get(id);
 
@@ -75,4 +93,7 @@ public class DomainRibbonService  {
 
 		return result.getData();
 	}
+
+
+
 }

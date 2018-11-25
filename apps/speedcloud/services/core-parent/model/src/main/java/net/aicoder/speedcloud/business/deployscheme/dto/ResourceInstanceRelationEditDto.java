@@ -41,7 +41,7 @@ public class ResourceInstanceRelationEditDto {
 
 	/**产品编号*/
 	@ApiModelProperty(value = "产品编号", required = false, notes = "[产品编号]")
-	private Long project;
+	private String project;
 
 
 	/**部署方案编号*/
@@ -110,10 +110,10 @@ public class ResourceInstanceRelationEditDto {
 	}
 
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 

@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.tplfile.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,7 +13,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增公共代码模板集合使用的DTO")
+@Setter @Getter
 public class TplSetAddDto {
+
+    /**租户id*/
+	@ApiModelProperty(value = "租户id", required = false)
+	private Long tid;
 
     /**集合代码*/
 	@ApiModelProperty(value = "集合代码", required = false, notes = "")
@@ -33,6 +40,13 @@ public class TplSetAddDto {
 	@ApiModelProperty(value = "集合描述", required = false, notes = "")
 	private String description;
 
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
 	public String getCode(){
 		return code;

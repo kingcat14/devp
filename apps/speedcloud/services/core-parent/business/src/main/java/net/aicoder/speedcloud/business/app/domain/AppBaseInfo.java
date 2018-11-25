@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "app_base_info", comment = "[应用]")
 //@DynamicUpdate
 //@DynamicInsert
-public class AppBaseInfo extends BaseEntity<Long>{
+public class AppBaseInfo extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
@@ -33,7 +33,7 @@ public class AppBaseInfo extends BaseEntity<Long>{
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private String id;
 
 
     /**
@@ -87,7 +87,7 @@ public class AppBaseInfo extends BaseEntity<Long>{
     * 
     */
     @Column(name = "project", nullable = false, updatable = true)
-	private Long project;
+	private String project;
 
 	public Long getTid(){
 		return tid;
@@ -131,18 +131,18 @@ public class AppBaseInfo extends BaseEntity<Long>{
 		this.registTime = registTime;
 	}
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -44,9 +44,6 @@ public class DomainValidator implements Validator {
 		//验证必填
 
 		//验证长度
-		if(StringUtils.length(domain.getTid()) > 255){
-			errors.rejectValue("tid", null, "租户id最长255个字符");
-		}
 		if(StringUtils.length(domain.getName()) > 255){
 			errors.rejectValue("name", null, "领域名称最长255个字符");
 		}

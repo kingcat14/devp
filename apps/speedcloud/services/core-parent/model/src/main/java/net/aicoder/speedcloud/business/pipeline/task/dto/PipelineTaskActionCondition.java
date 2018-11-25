@@ -12,10 +12,6 @@ public class PipelineTaskActionCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
     @ApiModelProperty(value = "所属任务")
     private Long task;
 	@ApiModelProperty(value = "操作名称")
@@ -40,21 +36,6 @@ public class PipelineTaskActionCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
     public Long getTask(){
         return task;

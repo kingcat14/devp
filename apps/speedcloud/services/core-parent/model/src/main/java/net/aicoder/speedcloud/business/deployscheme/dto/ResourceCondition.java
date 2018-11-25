@@ -12,10 +12,6 @@ public class ResourceCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "资源名称", notes = "[资源名称]")
 	private String name;
 	@ApiModelProperty(value = "资源代码", notes = "[资源代码]")
@@ -43,7 +39,7 @@ public class ResourceCondition extends SaaSCondition{
 	@ApiModelProperty(value = "状态", notes = "[状态]")
 	private String status;
     @ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-    private Long project;
+    private String project;
 	@ApiModelProperty(value = "外部资源")
 	private Boolean outerResource;
     @ApiModelProperty(value = "所属方案")
@@ -56,21 +52,6 @@ public class ResourceCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getName(){
 		return name;
@@ -174,10 +155,10 @@ public class ResourceCondition extends SaaSCondition{
 	}
 
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

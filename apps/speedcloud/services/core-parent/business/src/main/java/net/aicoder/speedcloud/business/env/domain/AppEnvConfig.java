@@ -62,7 +62,7 @@ public class AppEnvConfig extends BaseEntity<Long>{
     * 
     */
     @Column(name = "project", nullable = true, updatable = true)
-	private Long project;
+	private String project;
 
     /**
     * 顺序号
@@ -92,10 +92,10 @@ public class AppEnvConfig extends BaseEntity<Long>{
 		this.level = level;
 	}
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 

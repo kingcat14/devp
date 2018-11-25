@@ -46,14 +46,6 @@ public class PipelineStageSpecification implements Specification<PipelineStage>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(PipelineStage.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineStage.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(PipelineStage.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddPipelinePredicate(List<Predicate> predicateList, Root<PipelineStage> root, CriteriaBuilder cb){
 	    if (null != condition.getPipeline() ) {

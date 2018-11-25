@@ -52,14 +52,6 @@ public class ResourceInstanceRelationSpecification implements Specification<Reso
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(ResourceInstanceRelation.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceInstanceRelation.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ResourceInstanceRelation.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<ResourceInstanceRelation> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getType())){
@@ -94,14 +86,6 @@ public class ResourceInstanceRelationSpecification implements Specification<Reso
 
 		if (null != condition.getProject() ) {
 			predicateList.add(cb.equal(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
-		}
-
-		if (null != condition.getProjectMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProjectMax()));
-		}
-
-		if (null != condition.getProjectMin() ) {
-			predicateList.add(cb.lessThan(root.get(ResourceInstanceRelation.PROPERTY_PROJECT).as(Long.class), condition.getProjectMin()));
 		}
 	}
 	private void tryAddSchemePredicate(List<Predicate> predicateList, Root<ResourceInstanceRelation> root, CriteriaBuilder cb){

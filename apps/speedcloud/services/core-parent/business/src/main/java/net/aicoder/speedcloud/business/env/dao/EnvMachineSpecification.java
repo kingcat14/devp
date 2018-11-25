@@ -44,13 +44,6 @@ public class EnvMachineSpecification implements Specification<EnvMachine>{
 			predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(EnvMachine.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(EnvMachine.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddEvnPredicate(List<Predicate> predicateList, Root<EnvMachine> root, CriteriaBuilder cb){
 	    if (null != condition.getEvn() ) {

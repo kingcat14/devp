@@ -32,6 +32,7 @@ public class ProductSpecification implements Specification<Product>{
 		tryAddProductNamePredicate(predicateList, root, cb);
 		tryAddProductCodePredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
+		tryAddDisabledPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -41,18 +42,9 @@ public class ProductSpecification implements Specification<Product>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<Product> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(Product.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(Product.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(Product.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(Product.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
 	}
 	private void tryAddProductNamePredicate(List<Predicate> predicateList, Root<Product> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getProductName())){
@@ -67,6 +59,11 @@ public class ProductSpecification implements Specification<Product>{
 	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<Product> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getDescription())){
 			predicateList.add(cb.like(root.get(Product.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
+		}
+	}
+	private void tryAddDisabledPredicate(List<Predicate> predicateList, Root<Product> root, CriteriaBuilder cb){
+		if (null != condition.getDisabled() ) {
+			predicateList.add(cb.equal(root.get(Product.PROPERTY_DISABLED).as(Boolean.class), condition.getDisabled()));
 		}
 	}
 }

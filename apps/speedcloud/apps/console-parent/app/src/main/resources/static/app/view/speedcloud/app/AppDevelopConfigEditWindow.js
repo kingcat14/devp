@@ -134,7 +134,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

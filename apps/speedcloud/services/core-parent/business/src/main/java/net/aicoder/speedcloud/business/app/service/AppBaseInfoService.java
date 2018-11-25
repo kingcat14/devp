@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service("appBaseInfoService")
-public class AppBaseInfoService  extends GenericCrudService<AppBaseInfo, Long, AppBaseInfoCondition, AppBaseInfoDao> {
+public class AppBaseInfoService  extends GenericCrudService<AppBaseInfo, String, AppBaseInfoCondition, AppBaseInfoDao> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppBaseInfoService.class);
 

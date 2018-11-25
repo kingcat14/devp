@@ -1,16 +1,16 @@
 package com.yunkang.saas.bootstrap.platform.business.tenant.dao;
 
-import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantAdminAccountCondition;
 import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantAdminAccount;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantAdminAccountCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TenantAdminAccountSpecification implements Specification<TenantAdminAccount>{
 
@@ -42,14 +42,6 @@ public class TenantAdminAccountSpecification implements Specification<TenantAdmi
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(TenantAdminAccount.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(TenantAdminAccount.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(TenantAdminAccount.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddAccountNamePredicate(List<Predicate> predicateList, Root<TenantAdminAccount> root, CriteriaBuilder cb){

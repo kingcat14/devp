@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.deploy.dao;
 
-import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeCondition;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyScheme;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpySchemeCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpyScheme>{
 
@@ -62,14 +62,6 @@ public class DevpSysDpySchemeSpecification implements Specification<DevpSysDpySc
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysDpyScheme.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysDpyScheme> root, CriteriaBuilder cb){

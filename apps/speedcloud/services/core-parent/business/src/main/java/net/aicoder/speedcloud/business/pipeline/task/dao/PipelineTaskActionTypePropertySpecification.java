@@ -48,14 +48,6 @@ public class PipelineTaskActionTypePropertySpecification implements Specificatio
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(PipelineTaskActionTypeProperty.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineTaskActionTypeProperty.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(PipelineTaskActionTypeProperty.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddTaskTypePredicate(List<Predicate> predicateList, Root<PipelineTaskActionTypeProperty> root, CriteriaBuilder cb){
 	    if (null != condition.getTaskType() ) {

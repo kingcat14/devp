@@ -20,12 +20,14 @@ import javax.validation.constraints.Size;
 @Table(name = "project_product")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class Product extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_PRODUCT_NAME = "productName";
 	public static final String PROPERTY_PRODUCT_CODE = "productCode";
 	public static final String PROPERTY_DESCRIPTION = "description";
+	public static final String PROPERTY_DISABLED = "disabled";
 
 
     @Id
@@ -63,6 +65,13 @@ public class Product extends BaseEntity<String>{
     @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
 	private String description;
 
+    /**
+    * 已失效
+    * 
+    */
+    @Column(name = "disabled", nullable = false, updatable = true)
+	private Boolean disabled;
+
 	public Long getTid(){
 		return tid;
 	}
@@ -89,6 +98,13 @@ public class Product extends BaseEntity<String>{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getDisabled(){
+		return disabled;
+	}
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 
 

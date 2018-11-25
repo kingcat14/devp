@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.publish.dao;
 
-import net.aicoder.devp.business.publish.dto.DevpSysOpsPipeCmpCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsPipeCmp;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsPipeCmpCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysOpsPipeCmpSpecification implements Specification<DevpSysOpsPipeCmp>{
 
@@ -59,13 +59,6 @@ public class DevpSysOpsPipeCmpSpecification implements Specification<DevpSysOpsP
 			predicateList.add(cb.equal(root.get(DevpSysOpsPipeCmp.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysOpsPipeCmp.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysOpsPipeCmp.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysOpsPipeCmp> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEtype())){

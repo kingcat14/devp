@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.dto.DevpDevFunaModuleCondition;
 import net.aicoder.devp.business.sys.domain.DevpDevFunaModule;
+import net.aicoder.devp.business.sys.dto.DevpDevFunaModuleCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpDevFunaModuleSpecification implements Specification<DevpDevFunaModule>{
 
@@ -65,13 +65,6 @@ public class DevpDevFunaModuleSpecification implements Specification<DevpDevFuna
 			predicateList.add(cb.equal(root.get(DevpDevFunaModule.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpDevFunaModule.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpDevFunaModule.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<DevpDevFunaModule> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){

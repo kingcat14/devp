@@ -41,7 +41,7 @@ public class AppBaseInfoEditDto {
 
 	/**所属项目*/
 	@ApiModelProperty(value = "所属项目", required = false)
-	private Long project;
+	private String project;
 
 
 
@@ -85,10 +85,10 @@ public class AppBaseInfoEditDto {
 	}
 
 
-	public Long getProject(){
+	public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

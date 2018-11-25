@@ -12,10 +12,6 @@ public class ProjectCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "名称")
 	private String name;
 	@ApiModelProperty(value = "类型")
@@ -27,7 +23,7 @@ public class ProjectCondition extends SaaSCondition{
 	@ApiModelProperty(value = "上级项目", notes = "")
 	private String parent;
     @ApiModelProperty(value = "所属项目集", notes = "")
-    private Long projectSet;
+    private String projectSet;
 
 
 	public Long getTid(){
@@ -36,21 +32,6 @@ public class ProjectCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getName(){
 		return name;
@@ -92,10 +73,10 @@ public class ProjectCondition extends SaaSCondition{
 	}
 
 
-    public Long getProjectSet(){
+    public String getProjectSet(){
         return projectSet;
     }
-    public void setProjectSet(Long projectSet) {
+    public void setProjectSet(String projectSet) {
         this.projectSet = projectSet;
     }
 

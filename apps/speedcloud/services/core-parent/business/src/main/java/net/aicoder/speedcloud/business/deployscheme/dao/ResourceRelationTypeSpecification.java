@@ -45,14 +45,6 @@ public class ResourceRelationTypeSpecification implements Specification<Resource
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(ResourceRelationType.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceRelationType.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ResourceRelationType.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<ResourceRelationType> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){

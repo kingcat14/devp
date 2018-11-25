@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.dto.DevpSysParasDefineCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysParasDefine;
+import net.aicoder.devp.business.sys.dto.DevpSysParasDefineCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysParasDefineSpecification implements Specification<DevpSysParasDefine>{
 
@@ -53,14 +53,6 @@ public class DevpSysParasDefineSpecification implements Specification<DevpSysPar
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysParasDefine.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysParasDefine.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysParasDefine.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysParasDefine> root, CriteriaBuilder cb){

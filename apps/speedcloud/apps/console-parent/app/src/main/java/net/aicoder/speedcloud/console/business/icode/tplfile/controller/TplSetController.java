@@ -39,7 +39,7 @@ import java.util.*;
 public class TplSetController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TplSetController.class);
-	
+   
     @Autowired
 	private TplSetRibbonService tplSetRibbonService;
 
@@ -95,6 +95,20 @@ public class TplSetController {
 	public TplSetVO update(@RequestBody @Valid TplSetEditDto tplSetEditDto, @ApiParam(value = "要查询的公共代码模板集合id") @PathVariable String id){
 
 		TplSetVO vo = tplSetRibbonService.merge(id, tplSetEditDto);
+
+		return  vo;
+	}
+
+	/**
+	 * 复制模板集合
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "修改", notes = "修改产公共代码模板集合(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}/copy")
+	public TplSetVO copy(@ApiParam(value = "要查询的公共代码模板集合id") @PathVariable String id){
+
+		TplSetVO vo = tplSetRibbonService.copy(id);
 
 		return  vo;
 	}
@@ -161,6 +175,11 @@ public class TplSetController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
+            headMap.put("code" ,"集合代码");
+            headMap.put("name" ,"集合名称");
+            headMap.put("parentId" ,"parent_id");
+            headMap.put("type" ,"集合类型");
+            headMap.put("description" ,"集合描述");
 
         String title = new String("公共代码模板集合");
         String fileName = new String(("公共代码模板集合_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

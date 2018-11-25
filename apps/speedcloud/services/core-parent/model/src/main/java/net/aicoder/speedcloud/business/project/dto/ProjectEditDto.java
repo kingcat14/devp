@@ -41,7 +41,7 @@ public class ProjectEditDto {
 
 	/**所属项目集*/
 	@ApiModelProperty(value = "所属项目集", required = false, notes = "")
-	private Long projectSet;
+	private String projectSet;
 
 
 
@@ -85,10 +85,10 @@ public class ProjectEditDto {
 	}
 
 
-	public Long getProjectSet(){
+	public String getProjectSet(){
         return projectSet;
     }
-    public void setProjectSet(Long projectSet) {
+    public void setProjectSet(String projectSet) {
         this.projectSet = projectSet;
     }
 

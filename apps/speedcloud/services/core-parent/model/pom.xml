@@ -18,8 +18,8 @@
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.yunkang.saas.platform</groupId>
-            <artifactId>platform-model</artifactId>
+            <groupId>com.yunkang.saas.platform.manage</groupId>
+            <artifactId>manage-model</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

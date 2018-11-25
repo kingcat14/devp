@@ -7,10 +7,12 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Getter @Setter
 @ApiModel(value = "查询公共代码模板集合使用的DTO")
+@Getter @Setter
 public class TplSetCondition {
 
+	@ApiModelProperty(value = "租户id")
+	private Long tid;
 	@ApiModelProperty(value = "集合代码", notes = "")
 	private String code;
 	@ApiModelProperty(value = "集合名称", notes = "")

@@ -3,8 +3,6 @@ package net.aicoder.devp.business.sys.dto;
 import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,10 +12,6 @@ public class DevpSysCmpResCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
-	@ApiModelProperty(value = "租户编号最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户编号最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-SYS_CMP_RES // 部署组件关联资源")
 	private String etype;
 	@ApiModelProperty(value = "对应关系代码", notes = "[对应关系代码]")
@@ -75,19 +69,6 @@ public class DevpSysCmpResCondition extends SaaSCondition{
 		this.tid = tid;
 	}
 
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
 
 
 	public String getEtype(){

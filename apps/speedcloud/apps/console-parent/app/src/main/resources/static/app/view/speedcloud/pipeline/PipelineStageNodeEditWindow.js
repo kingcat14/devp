@@ -130,7 +130,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineStageNodeEditWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

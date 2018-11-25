@@ -12,10 +12,6 @@ public class SchemeCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "方案名称", notes = "[方案名称]")
 	private String name;
 	@ApiModelProperty(value = "方案代码", notes = "[方案代码]")
@@ -35,7 +31,7 @@ public class SchemeCondition extends SaaSCondition{
 	@ApiModelProperty(value = "备注", notes = "[备注]")
 	private String notes;
     @ApiModelProperty(value = "所属项目（产品）", notes = "[所属项目]")
-    private Long project;
+    private String project;
     @ApiModelProperty(value = "所属环境", notes = "[所属环境]")
     private Long env;
 
@@ -46,21 +42,6 @@ public class SchemeCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getName(){
 		return name;
@@ -134,10 +115,10 @@ public class SchemeCondition extends SaaSCondition{
 	}
 
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

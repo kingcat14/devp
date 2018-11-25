@@ -87,7 +87,7 @@ Ext.define('AM.view.icode.tplfile.TplSetSearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'search'
+                            ,iconCls: 'fas fa-search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}

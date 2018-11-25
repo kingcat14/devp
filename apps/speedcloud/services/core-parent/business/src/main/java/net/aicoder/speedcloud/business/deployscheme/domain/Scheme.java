@@ -123,7 +123,7 @@ public class Scheme extends BaseEntity<Long>{
     * [所属项目]
     */
     @Column(name = "project", nullable = false, updatable = true)
-	private Long project;
+	private String project;
 
     /**
     * 所属环境
@@ -202,10 +202,10 @@ public class Scheme extends BaseEntity<Long>{
 		this.notes = notes;
 	}
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 

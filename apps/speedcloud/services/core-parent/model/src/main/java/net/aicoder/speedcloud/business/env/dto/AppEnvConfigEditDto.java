@@ -26,7 +26,7 @@ public class AppEnvConfigEditDto {
 
 	/**所属项目（产品）*/
 	@ApiModelProperty(value = "所属项目（产品）", required = false)
-	private Long project;
+	private String project;
 
 
 	/**顺序号*/
@@ -51,10 +51,10 @@ public class AppEnvConfigEditDto {
 	}
 
 
-	public Long getProject(){
+	public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

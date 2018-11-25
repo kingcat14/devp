@@ -235,7 +235,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
                                 }
                                 ,'-'
                                 ,{
-                                    // iconCls: 'delete'
+                                    // iconCls: 'fas fa-minus-circle red'
                                     iconCls:'x-fa fa-trash'
                                     , tooltip: '删除'
                                     , handler: 'onDeleteStageNodeClick'

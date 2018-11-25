@@ -68,6 +68,7 @@
                 <module>monitor</module>
                 <module>common</module>
                 <module>monitor</module>
+                <module>jms</module>
             </modules>
         </profile>
 

@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @Table(appliesTo = "project", comment = "[项目]")
 //@DynamicUpdate
 //@DynamicInsert
-public class Project extends BaseEntity<Long>{
+public class Project extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
@@ -33,7 +33,7 @@ public class Project extends BaseEntity<Long>{
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private String id;
 
 
     /**
@@ -50,6 +50,11 @@ public class Project extends BaseEntity<Long>{
     @Column(name = "name", nullable = true, updatable = true)
 	@Size(max = 255, message = "名称超长，最多255个字符")
 	private String name;
+
+	/**代码*/
+	@Column(name = "code", nullable = true, updatable = true)
+	@Size(max = 255, message = "代码超长，最多255个字符")
+	private String code;
 
     /**
     * 类型
@@ -87,7 +92,7 @@ public class Project extends BaseEntity<Long>{
     * 
     */
     @Column(name = "project_set", nullable = true, updatable = true)
-	private Long projectSet;
+	private String projectSet;
 
 	public Long getTid(){
 		return tid;
@@ -101,6 +106,13 @@ public class Project extends BaseEntity<Long>{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getType(){
@@ -131,18 +143,18 @@ public class Project extends BaseEntity<Long>{
 		this.parent = parent;
 	}
 
-	public Long getProjectSet(){
+	public String getProjectSet(){
 		return projectSet;
 	}
-	public void setProjectSet(Long projectSet) {
+	public void setProjectSet(String projectSet) {
 		this.projectSet = projectSet;
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -1,8 +1,6 @@
 package net.aicoder.speedcloud.business.project.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
@@ -16,8 +14,6 @@ import net.aicoder.speedcloud.business.project.dto.ProjectSetEditDto;
 import net.aicoder.speedcloud.business.project.service.ProjectSetService;
 import net.aicoder.speedcloud.business.project.valid.ProjectSetValidator;
 import net.aicoder.speedcloud.business.project.vo.ProjectSetVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,10 +23,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 管理项目集
@@ -86,7 +82,7 @@ public class ProjectSetController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			projectSetService.delete(Long.parseLong(id));
+			projectSetService.delete(id);
 		}
 
 	}
@@ -99,7 +95,7 @@ public class ProjectSetController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产项目集(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public	ProjectSetVO update(@RequestBody @Valid ProjectSetEditDto projectSetEditDto, @PathVariable Long id){
+	public	ProjectSetVO update(@RequestBody @Valid ProjectSetEditDto projectSetEditDto, @PathVariable String id){
 		ProjectSet projectSet = new ProjectSet();
 		BeanUtils.copyProperties(projectSetEditDto, projectSet);
 		projectSet.setId(id);
@@ -116,7 +112,7 @@ public class ProjectSetController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询项目集", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public  ProjectSetVO get(@PathVariable Long id) {
+	public  ProjectSetVO get(@PathVariable String id) {
 
 		ProjectSet projectSet = projectSetService.find(id);
 
@@ -147,42 +143,6 @@ public class ProjectSetController {
 		return pageContent;
 
 	}
-
-	/**
-     * 导出项目集列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出项目集列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(ProjectSetCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        PageSearchRequest<ProjectSetCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<ProjectSetVO> content = this.list(pageSearchRequest);
-
-        List<ProjectSetVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(ProjectSetVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-            headMap.put("name" ,"名称");
-            headMap.put("description" ,"描述");
-
-        String title = new String("项目集");
-        String fileName = new String(("项目集_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-    }
 
 	private ProjectSetVO initViewProperty(ProjectSet projectSet){
 

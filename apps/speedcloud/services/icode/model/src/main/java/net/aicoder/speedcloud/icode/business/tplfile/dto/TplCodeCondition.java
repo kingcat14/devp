@@ -7,10 +7,12 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Getter @Setter
 @ApiModel(value = "查询公共代码模板使用的DTO")
+@Getter @Setter
 public class TplCodeCondition {
 
+	@ApiModelProperty(value = "租户id")
+	private Long tid;
 	@ApiModelProperty(value = "模板代码", notes = "")
 	private String code;
 	@ApiModelProperty(value = "模板名称", notes = "")
@@ -28,11 +30,7 @@ public class TplCodeCondition {
 	@ApiModelProperty(value = "接受的模型类型", notes = "")
 	private String acceptModelType;
 	@ApiModelProperty(value = "是否可覆盖", notes = "")
-	private Integer overridable;
-	@ApiModelProperty(value = "是否可覆盖最大值")
-	private Integer overridableMax;
-	@ApiModelProperty(value = "是否可覆盖最小值")
-	private Integer overridableMin;
+	private Boolean overridable;
 
 
 

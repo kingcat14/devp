@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.icode.business.tplfile.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -10,6 +11,7 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.icode.business.tplfile.domain.TplSet;
 import net.aicoder.speedcloud.icode.business.tplfile.dto.TplSetAddDto;
 import net.aicoder.speedcloud.icode.business.tplfile.dto.TplSetCondition;
@@ -113,7 +115,23 @@ public class TplSetController {
 		TplSetVO vo = initViewProperty(tplSet);
 		return  vo;
 	}
+	/**
+	 * 复制模板集合
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "复制", notes = "复制公共代码模板集合", httpMethod = "PUT")
+	@PutMapping(path="/{id}/copy")
+	@BusinessFuncMonitor(value = "icode.tplfile.tplset.copy")
+	public TplSetVO copy(@ApiParam(value = "要复制的公共代码模板集合id") @PathVariable String id){
 
+		TplSet tplSet = tplSetService.copy(id);
+		if(tplSet == null){
+			throw new ResourceNotFoundException("复制出错，请检查ID");
+		}
+		TplSetVO vo = initViewProperty(tplSet);
+		return vo;
+	}
 	/**
 	 * 根据ID查询公共代码模板集合
 	 * @param id
@@ -125,7 +143,9 @@ public class TplSetController {
 	public  TplSetVO get(@PathVariable String id) {
 
 		TplSet tplSet = tplSetService.find(id);
-
+		if(tplSet == null){
+			throw new ResourceNotFoundException("找不到指定的公共代码模板集合，请检查ID");
+		}
 		TplSetVO vo = initViewProperty(tplSet);
 		return vo;
 	}
@@ -183,6 +203,11 @@ public class TplSetController {
 
         Map<String,String> headMap = new LinkedHashMap<>();
 
+        headMap.put("code" ,"集合代码");
+        headMap.put("name" ,"集合名称");
+        headMap.put("parentId" ,"parent_id");
+        headMap.put("type" ,"集合类型");
+        headMap.put("description" ,"集合描述");
 
         String title = new String("公共代码模板集合");
         String fileName = new String(("公共代码模板集合_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

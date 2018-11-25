@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.publish.dao;
 
-import net.aicoder.devp.business.publish.dto.DevpSysOpsTaskConfigCondition;
 import net.aicoder.devp.business.publish.domain.DevpSysOpsTaskConfig;
+import net.aicoder.devp.business.publish.dto.DevpSysOpsTaskConfigCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysOpsTaskConfigSpecification implements Specification<DevpSysOpsTaskConfig>{
 
@@ -65,14 +65,6 @@ public class DevpSysOpsTaskConfigSpecification implements Specification<DevpSysO
 
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(DevpSysOpsTaskConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysOpsTaskConfig.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysOpsTaskConfig.PROPERTY_TID).as(Long.class), condition.getTidMin()));
 		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysOpsTaskConfig> root, CriteriaBuilder cb){

@@ -91,7 +91,7 @@ public class SecurityConfigController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			securityConfigService.delete(Long.parseLong(id));
+			securityConfigService.delete(id);
 		}
 
 	}
@@ -104,7 +104,7 @@ public class SecurityConfigController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产应用私密配置(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public	SecurityConfigVO update(@RequestBody @Valid SecurityConfigEditDto securityConfigEditDto, @PathVariable Long id){
+	public	SecurityConfigVO update(@RequestBody @Valid SecurityConfigEditDto securityConfigEditDto, @PathVariable String id){
 		SecurityConfig securityConfig = new SecurityConfig();
 		BeanUtils.copyProperties(securityConfigEditDto, securityConfig);
 		securityConfig.setId(id);
@@ -121,7 +121,7 @@ public class SecurityConfigController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询应用私密配置", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public  SecurityConfigVO get(@PathVariable Long id) {
+	public  SecurityConfigVO get(@PathVariable String id) {
 
 		SecurityConfig securityConfig = securityConfigService.find(id);
 
@@ -179,7 +179,7 @@ public class SecurityConfigController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
             headMap.put("app" ,"应用");
             headMap.put("itemName" ,"配置名");

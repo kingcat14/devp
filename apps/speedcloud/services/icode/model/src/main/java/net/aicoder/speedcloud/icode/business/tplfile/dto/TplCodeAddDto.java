@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.tplfile.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,7 +13,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增公共代码模板使用的DTO")
+@Setter @Getter
 public class TplCodeAddDto {
+
+    /**租户id*/
+	@ApiModelProperty(value = "租户id", required = false)
+	private Long tid;
 
     /**模板代码*/
 	@ApiModelProperty(value = "模板代码", required = false, notes = "")
@@ -47,8 +54,15 @@ public class TplCodeAddDto {
 
     /**是否可覆盖*/
 	@ApiModelProperty(value = "是否可覆盖", required = false, notes = "")
-	private Integer overridable;
+	private Boolean overridable;
 
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
 	public String getCode(){
 		return code;
@@ -106,10 +120,10 @@ public class TplCodeAddDto {
 		this.acceptModelType = acceptModelType;
 	}
 
-	public Integer getOverridable(){
+	public Boolean getOverridable(){
 		return overridable;
 	}
-	public void setOverridable(Integer overridable) {
+	public void setOverridable(Boolean overridable) {
 		this.overridable = overridable;
 	}
 

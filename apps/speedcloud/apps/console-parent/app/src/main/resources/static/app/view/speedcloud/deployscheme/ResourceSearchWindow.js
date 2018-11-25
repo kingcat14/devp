@@ -186,7 +186,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceSearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'search'
+                            ,iconCls: 'fas fa-search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}

@@ -97,7 +97,18 @@ public class TplCodeRibbon {
         return errorResult();
     }
 
-
+    /**
+     * 根据ID复制公共代码模板
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "getFail")
+    public TplCodeResult copy(String id) {
+        String url = "http://"+host+"/icode/tplfile/tplcode/"+id+"/copy";
+        ResponseEntity<TplCodeResult> response =
+                restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(null), new ParameterizedTypeReference<TplCodeResult>() {});
+        return response.getBody();
+    }
 
     /**
 	 * 根据ID查询公共代码模板

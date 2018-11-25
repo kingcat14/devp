@@ -62,14 +62,6 @@ public class AssetOwnershipSpecification implements Specification<AssetOwnership
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(AssetOwnership.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(AssetOwnership.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(AssetOwnership.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<AssetOwnership> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){

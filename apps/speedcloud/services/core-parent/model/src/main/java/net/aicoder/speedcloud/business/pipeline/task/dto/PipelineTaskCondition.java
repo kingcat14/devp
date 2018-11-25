@@ -12,10 +12,6 @@ public class PipelineTaskCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户id")
 	private Long tid;
-	@ApiModelProperty(value = "租户id最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户id最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "任务名称")
 	private String name;
 	@ApiModelProperty(value = "任务类型")
@@ -29,7 +25,7 @@ public class PipelineTaskCondition extends SaaSCondition{
 	@ApiModelProperty(value = "任务描述")
 	private String description;
     @ApiModelProperty(value = "所属产品")
-    private Long project;
+    private String project;
 
 
 	public Long getTid(){
@@ -38,21 +34,6 @@ public class PipelineTaskCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getName(){
 		return name;
@@ -102,10 +83,10 @@ public class PipelineTaskCondition extends SaaSCondition{
 	}
 
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

@@ -50,5 +50,11 @@ Ext.define('AM.model.icode.domain.Domain', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'description'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

@@ -45,14 +45,6 @@ public class CodeBaseInfoSpecification implements Specification<CodeBaseInfo>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(CodeBaseInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(CodeBaseInfo.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(CodeBaseInfo.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddCodeRepositoryPredicate(List<Predicate> predicateList, Root<CodeBaseInfo> root, CriteriaBuilder cb){
 	    if (null != condition.getCodeRepository() ) {

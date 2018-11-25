@@ -37,7 +37,7 @@ public class ResourceInstanceRelationVO {
 
 
     @ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-    private Long project;
+    private String project;
 
 
     /**部署方案编号*/
@@ -94,10 +94,10 @@ public class ResourceInstanceRelationVO {
         this.seq = seq;
     }
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

@@ -41,18 +41,9 @@ public class ComponentLocalLocationSpecification implements Specification<Compon
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<ComponentLocalLocation> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(ComponentLocalLocation.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ComponentLocalLocation.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(ComponentLocalLocation.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(ComponentLocalLocation.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
 	}
 	private void tryAddAccountIdPredicate(List<Predicate> predicateList, Root<ComponentLocalLocation> root, CriteriaBuilder cb){
 
@@ -69,9 +60,9 @@ public class ComponentLocalLocationSpecification implements Specification<Compon
 		}
 	}
 	private void tryAddComponentPredicate(List<Predicate> predicateList, Root<ComponentLocalLocation> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getComponent())){
-			predicateList.add(cb.like(root.get(ComponentLocalLocation.PROPERTY_COMPONENT).as(String.class), "%"+condition.getComponent()+"%"));
-		}
+	    if (null != condition.getComponent() ) {
+            predicateList.add(cb.equal(root.get(ComponentLocalLocation.PROPERTY_COMPONENT).as(String.class), condition.getComponent()));
+        }  
 	}
 	private void tryAddLocationPredicate(List<Predicate> predicateList, Root<ComponentLocalLocation> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getLocation())){

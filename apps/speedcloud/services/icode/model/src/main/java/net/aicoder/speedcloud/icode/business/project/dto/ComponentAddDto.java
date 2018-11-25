@@ -2,20 +2,23 @@ package net.aicoder.speedcloud.icode.business.project.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 系统组件
+ * 组件
  * @author icode
  */
-@ApiModel(value = "新增系统组件使用的DTO")
+@ApiModel(value = "新增组件使用的DTO")
+@Setter @Getter
 public class ComponentAddDto {
 
     /**租户id*/
 	@ApiModelProperty(value = "租户id", required = false)
-	private String tid;
+	private Long tid;
 
     /**组件名称*/
 	@ApiModelProperty(value = "组件名称", required = false, notes = "")
@@ -50,10 +53,10 @@ public class ComponentAddDto {
 	private String product;
 
 
-	public String getTid(){
+	public Long getTid(){
 		return tid;
 	}
-	public void setTid(String tid) {
+	public void setTid(Long tid) {
 		this.tid = tid;
 	}
 

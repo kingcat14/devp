@@ -37,6 +37,10 @@ public class BusinessMonitorAspect {
         Method method = sign.getMethod();
         BusinessFuncMonitor annotation = method.getAnnotation(BusinessFuncMonitor.class);
 
+        if(!annotation.exception()){
+            return;
+        }
+
         String businessCode = annotation.value();
 
         //业务异常+1
@@ -54,6 +58,10 @@ public class BusinessMonitorAspect {
         MethodSignature sign =  (MethodSignature)joinPoint.getSignature();
         Method method = sign.getMethod();
         BusinessFuncMonitor annotation = method.getAnnotation(BusinessFuncMonitor.class);
+
+        if(!annotation.count()){
+            return;
+        }
 
         String businessCode = annotation.value();
 

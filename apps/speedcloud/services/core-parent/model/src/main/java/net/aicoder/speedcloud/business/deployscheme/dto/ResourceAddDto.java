@@ -63,7 +63,7 @@ public class ResourceAddDto {
 
     /**产品编号*/
 	@ApiModelProperty(value = "产品编号", required = false, notes = "[产品编号]")
-	private Long project;
+	private String project;
 
     /**外部资源*/
 	@ApiModelProperty(value = "外部资源", required = false)
@@ -158,10 +158,10 @@ public class ResourceAddDto {
 		this.status = status;
 	}
 
-	public Long getProject(){
+	public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
 

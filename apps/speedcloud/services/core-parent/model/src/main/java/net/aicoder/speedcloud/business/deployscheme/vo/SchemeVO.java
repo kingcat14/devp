@@ -56,7 +56,7 @@ public class SchemeVO {
 
     /**所属项目（产品）*/
     @ApiModelProperty(value = "所属项目（产品）", notes = "[所属项目]")
-    private Long project;
+    private String project;
     private ProjectVO projectVO;
 
 
@@ -115,10 +115,10 @@ public class SchemeVO {
         this.notes = notes;
     }
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
     public ProjectVO getProjectVO(){

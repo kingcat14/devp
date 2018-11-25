@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增代码库详细信息使用的DTO")
+@Getter
+@Setter
 public class CodeBaseInfoAddDto {
 
     /**租户id*/
@@ -19,7 +23,7 @@ public class CodeBaseInfoAddDto {
 
     /**代码库*/
 	@ApiModelProperty(value = "代码库", required = false, notes = " ")
-	private Long codeRepertory;
+	private Long codeRepository;
 
     /**开发语言*/
 	@ApiModelProperty(value = "开发语言", required = false)
@@ -28,35 +32,6 @@ public class CodeBaseInfoAddDto {
     /**语言级别*/
 	@ApiModelProperty(value = "语言级别", required = false)
 	private String languageLevel;
-
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-	public Long getCodeRepository(){
-        return codeRepertory;
-    }
-    public void setCodeRepository(Long codeRepertory) {
-        this.codeRepertory = codeRepertory;
-    }
-
-	public String getLanguage(){
-		return language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-	public String getLanguageLevel(){
-		return languageLevel;
-	}
-	public void setLanguageLevel(String languageLevel) {
-		this.languageLevel = languageLevel;
-	}
 
 
 	@Override

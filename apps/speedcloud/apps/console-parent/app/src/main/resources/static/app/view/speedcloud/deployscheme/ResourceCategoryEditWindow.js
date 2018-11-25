@@ -92,7 +92,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryEditWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

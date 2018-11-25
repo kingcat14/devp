@@ -102,7 +102,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigSearchWindow', {
                         }
                         ,{
                             xtype: 'button',
-                            iconCls: 'search',
+                            iconCls: 'fas fa-search',
                             text: '查询',
                             listeners: {
                                 click: {

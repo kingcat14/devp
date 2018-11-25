@@ -46,9 +46,9 @@ public class ComponentSpecification implements Specification<Component>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getTid())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_TID).as(String.class), "%"+condition.getTid()+"%"));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -71,9 +71,9 @@ public class ComponentSpecification implements Specification<Component>{
 		}
 	}
 	private void tryAddTplSetPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getTplSet())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_TPL_SET).as(String.class), "%"+condition.getTplSet()+"%"));
-		}
+	    if (null != condition.getTplSet() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_TPL_SET).as(String.class), condition.getTplSet()));
+        }  
 	}
 	private void tryAddNumberPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
 
@@ -95,9 +95,9 @@ public class ComponentSpecification implements Specification<Component>{
 		}
 	}
 	private void tryAddProductPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getProduct())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_PRODUCT).as(String.class), "%"+condition.getProduct()+"%"));
-		}
+	    if (null != condition.getProduct() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_PRODUCT).as(String.class), condition.getProduct()));
+        }  
 	}
 }
 

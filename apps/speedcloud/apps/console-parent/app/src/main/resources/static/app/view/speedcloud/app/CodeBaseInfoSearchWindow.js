@@ -41,7 +41,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
                             ,editable:false
                             ,displayField:'url'
                             ,valueField:'id'
-                            ,itemId: 'codeRepertoryField'
+                            ,itemId: 'codeRepositoryField'
                             ,fieldLabel: '代码库'
                         }
 
@@ -83,7 +83,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
                         }
                         ,{
                             xtype: 'button',
-                            iconCls: 'search',
+                            iconCls: 'fas fa-search',
                             text: '查询',
                             listeners: {
                                 click: {
@@ -122,12 +122,12 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var codeRepertoryField = me.down("#codeRepertoryField");
+        var codeRepositoryField = me.down("#codeRepositoryField");
         var languageField = me.down("#languageField");
         var languageLevelField = me.down("#languageLevelField");
 
         var condition = {
-            codeRepertory:Ext.isEmpty(codeRepertoryField.getValue())?null:codeRepertoryField.getValue()
+            codeRepository:Ext.isEmpty(codeRepositoryField.getValue())?null:codeRepositoryField.getValue()
             ,language:Ext.isEmpty(languageField.getValue())?null:languageField.getValue()
             ,languageLevel:Ext.isEmpty(languageLevelField.getValue())?null:languageLevelField.getValue()
         };

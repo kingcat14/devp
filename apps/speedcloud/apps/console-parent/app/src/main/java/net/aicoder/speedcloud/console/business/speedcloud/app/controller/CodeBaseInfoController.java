@@ -163,7 +163,7 @@ public class CodeBaseInfoController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
-            headMap.put("codeRepertory" ,"代码库");
+            headMap.put("codeRepository" ,"代码库");
             headMap.put("language" ,"开发语言");
             headMap.put("languageLevel" ,"语言级别");
 

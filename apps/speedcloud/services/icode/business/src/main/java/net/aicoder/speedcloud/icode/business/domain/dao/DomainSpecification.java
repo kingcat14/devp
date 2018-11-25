@@ -33,6 +33,7 @@ public class DomainSpecification implements Specification<Domain>{
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddParentPredicate(predicateList, root, cb);
 		tryAddPrefixPredicate(predicateList, root, cb);
+		tryAddDescriptionPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -42,9 +43,9 @@ public class DomainSpecification implements Specification<Domain>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<Domain> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getTid())){
-			predicateList.add(cb.like(root.get(Domain.PROPERTY_TID).as(String.class), "%"+condition.getTid()+"%"));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(Domain.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Domain> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -64,6 +65,11 @@ public class DomainSpecification implements Specification<Domain>{
 	private void tryAddPrefixPredicate(List<Predicate> predicateList, Root<Domain> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getPrefix())){
 			predicateList.add(cb.like(root.get(Domain.PROPERTY_PREFIX).as(String.class), "%"+condition.getPrefix()+"%"));
+		}
+	}
+	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<Domain> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDescription())){
+			predicateList.add(cb.like(root.get(Domain.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
 		}
 	}
 }

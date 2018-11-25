@@ -45,14 +45,6 @@ public class JointDataSpecification implements Specification<JointData>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(JointData.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(JointData.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(JointData.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddSchemePredicate(List<Predicate> predicateList, Root<JointData> root, CriteriaBuilder cb){
 

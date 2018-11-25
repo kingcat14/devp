@@ -139,7 +139,7 @@ public class Resource extends BaseEntity<Long>{
     * [产品编号]
     */
     @Column(name = "project", nullable = false, updatable = true)
-	private Long project;
+	private String project;
 
     /**
     * 外部资源
@@ -239,10 +239,10 @@ public class Resource extends BaseEntity<Long>{
 		this.status = status;
 	}
 
-	public Long getProject(){
+	public String getProject(){
 		return project;
 	}
-	public void setProject(Long project) {
+	public void setProject(String project) {
 		this.project = project;
 	}
 

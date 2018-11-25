@@ -91,7 +91,7 @@ Ext.define('AM.view.console.jointjs.JointDataSearchWindow', {
                         }
                         ,{
                             xtype: 'button',
-                            iconCls: 'search',
+                            iconCls: 'fas fa-search',
                             text: '查询',
                             listeners: {
                                 click: {

@@ -27,7 +27,7 @@ Ext.define('AM.model.speedcloud.app.CodeBaseInfo', {
             ,critical:true
         }
     	,{
-            name: 'codeRepertory'
+            name: 'codeRepository'
             ,type:'string'
             ,allowNull:true
             ,critical:true

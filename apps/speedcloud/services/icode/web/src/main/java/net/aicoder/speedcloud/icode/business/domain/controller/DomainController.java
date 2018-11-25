@@ -193,7 +193,7 @@ public class DomainController {
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 
-	private DomainVO initViewProperty(Domain domain){
+	public DomainVO initViewProperty(Domain domain){
 
 	    DomainVO vo = new DomainVO();
         BeanUtils.copyProperties(domain, vo);

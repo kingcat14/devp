@@ -114,7 +114,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionPropertySearchWin
                         }
                         ,{
                             xtype: 'button',
-                            iconCls: 'search',
+                            iconCls: 'fas fa-search',
                             text: '查询',
                             listeners: {
                                 click: {

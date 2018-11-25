@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("securityConfigDao")
-public interface SecurityConfigDao extends BaseDao<SecurityConfig, Long>{
+public interface SecurityConfigDao extends BaseDao<SecurityConfig, String>{
 
 
 }

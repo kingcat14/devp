@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.sys.dao;
 
-import net.aicoder.devp.business.sys.dto.DevpSysAttachmentCondition;
 import net.aicoder.devp.business.sys.domain.DevpSysAttachment;
+import net.aicoder.devp.business.sys.dto.DevpSysAttachmentCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysAttachmentSpecification implements Specification<DevpSysAttachment>{
 
@@ -67,13 +67,6 @@ public class DevpSysAttachmentSpecification implements Specification<DevpSysAtta
 			predicateList.add(cb.equal(root.get(DevpSysAttachment.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysAttachment.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysAttachment.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysAttachment> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEtype())){

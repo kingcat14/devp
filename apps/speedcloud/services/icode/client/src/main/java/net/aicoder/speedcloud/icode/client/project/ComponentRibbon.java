@@ -89,7 +89,6 @@ public class ComponentRibbon {
                 restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<ComponentResult>() {});
         return response.getBody();
     }
-
     public ComponentResult updateFail(String id, ComponentEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);

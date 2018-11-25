@@ -71,7 +71,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                             ,menuDisabled: true
                             ,width:30
                             ,items: [{
-                                iconCls: 'edit'
+                                iconCls: 'fas fa-pencil-alt'
                                 ,tooltip: '修改'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
@@ -86,7 +86,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                             ,menuDisabled: true
                             ,width:30
                             ,items: [{
-                                iconCls: 'delete'
+                                iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
                                 ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
@@ -107,7 +107,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'add'
+                                    ,iconCls: 'fas fa-plus-circle'
                                     ,text: '新增'
                                     ,listeners: {
                                         click: 'onAddButtonClick'
@@ -115,7 +115,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'edit'
+                                    ,iconCls: 'fas fa-pencil-alt'
                                     ,text: '修改'
                                     ,listeners: {
                                         click: 'onEditButtonClick'
@@ -123,7 +123,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'delete'
+                                    ,iconCls: 'fas fa-minus-circle red'
                                     ,text: '删除'
                                     ,listeners: {
                                         click: 'onDeleteButtonClick'
@@ -132,7 +132,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                                 ,'-'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'
@@ -141,7 +141,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -149,7 +149,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePropertyTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'

@@ -74,7 +74,7 @@ public class ResourceVO {
 
     /**产品编号*/
     @ApiModelProperty(value = "产品编号", notes = "[产品编号]")
-    private Long project;
+    private String project;
     private ProjectVO projectVO;
 
 
@@ -176,10 +176,10 @@ public class ResourceVO {
         this.evnVO = evnVO;
     }
 
-    public Long getProject(){
+    public String getProject(){
         return project;
     }
-    public void setProject(Long project) {
+    public void setProject(String project) {
         this.project = project;
     }
     public ProjectVO getProjectVO(){

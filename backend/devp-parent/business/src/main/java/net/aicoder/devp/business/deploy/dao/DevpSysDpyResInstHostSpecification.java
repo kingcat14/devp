@@ -1,16 +1,16 @@
 package net.aicoder.devp.business.deploy.dao;
 
-import net.aicoder.devp.business.deploy.dto.DevpSysDpyResInstHostCondition;
 import net.aicoder.devp.business.deploy.domain.DevpSysDpyResInstHost;
+import net.aicoder.devp.business.deploy.dto.DevpSysDpyResInstHostCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevpSysDpyResInstHostSpecification implements Specification<DevpSysDpyResInstHost>{
 
@@ -63,13 +63,6 @@ public class DevpSysDpyResInstHostSpecification implements Specification<DevpSys
 			predicateList.add(cb.equal(root.get(DevpSysDpyResInstHost.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(DevpSysDpyResInstHost.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(DevpSysDpyResInstHost.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddEtypePredicate(List<Predicate> predicateList, Root<DevpSysDpyResInstHost> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getEtype())){

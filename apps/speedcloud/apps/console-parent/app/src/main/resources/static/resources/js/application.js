@@ -1,4 +1,5 @@
 Ext.dashboard=[
-    'AM.view.speedcloud.pipeline.PipelinePanel'
-    ,'AM.view.speedcloud.pipeline.task.PipelineTaskPanel'
+    'AM.view.icode.domainboard.DomainBoard'
+    // ,'AM.view.speedcloud.pipeline.PipelinePanel'
+    // ,'AM.view.speedcloud.pipeline.task.PipelineTaskPanel'
 ]

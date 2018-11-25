@@ -28,6 +28,7 @@ public class TplSetSpecification implements Specification<TplSet>{
 			return null;
 		}
 
+		tryAddTidPredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddParentIdPredicate(predicateList, root, cb);
@@ -41,6 +42,11 @@ public class TplSetSpecification implements Specification<TplSet>{
     }
 
 
+	private void tryAddTidPredicate(List<Predicate> predicateList, Root<TplSet> root, CriteriaBuilder cb){
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(TplSet.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }
+	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<TplSet> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCode())){
 			predicateList.add(cb.like(root.get(TplSet.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));

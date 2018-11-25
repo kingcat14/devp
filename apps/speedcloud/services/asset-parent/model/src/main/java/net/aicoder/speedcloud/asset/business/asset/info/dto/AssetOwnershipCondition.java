@@ -14,10 +14,6 @@ public class AssetOwnershipCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
-	@ApiModelProperty(value = "租户编号最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户编号最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "资产名称", notes = "")
 	private String name;
 	@ApiModelProperty(value = "资产代码", notes = "")
@@ -68,21 +64,6 @@ public class AssetOwnershipCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getName(){
 		return name;

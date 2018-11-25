@@ -57,13 +57,6 @@ public class PipelineExecNodeSpecification implements Specification<PipelineExec
 			predicateList.add(cb.equal(root.get(PipelineExecNode.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
 
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(PipelineExecNode.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(PipelineExecNode.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddCodePredicate(List<Predicate> predicateList, Root<PipelineExecNode> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getCode())){

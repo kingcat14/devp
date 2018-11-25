@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.tplfile.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改公共代码模板使用的DTO")
+@Setter @Getter
 public class TplCodeEditDto {
 
 
@@ -56,7 +59,7 @@ public class TplCodeEditDto {
 
 	/**是否可覆盖*/
 	@ApiModelProperty(value = "是否可覆盖", required = false, notes = "")
-	private Integer overridable;
+	private Boolean overridable;
 
 
 
@@ -124,10 +127,10 @@ public class TplCodeEditDto {
 	}
 
 
-	public Integer getOverridable(){
+	public Boolean getOverridable(){
 		return overridable;
 	}
-	public void setOverridable(Integer overridable) {
+	public void setOverridable(Boolean overridable) {
 		this.overridable = overridable;
 	}
 

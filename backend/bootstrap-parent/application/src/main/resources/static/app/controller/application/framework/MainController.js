@@ -44,8 +44,8 @@ Ext.define('AM.controller.application.framework.MainController', {
 				e.stopEvent();
 			}
 		});
-	},
-	onTreepanelItemClick: function(tablepanel, record, item, index, e, options) {
+	}
+	,onTreepanelItemClick: function(tablepanel, record, item, index, e, options) {
 		//Ext.LoadMaskUtil.show(this.getMainContentPanel());
 		var me = this;
 		var mainContentPanel = this.getMainContentPanel();
@@ -64,8 +64,10 @@ Ext.define('AM.controller.application.framework.MainController', {
         var controllerName = record.get('url');
 
 
+
 		function loadController(){
 
+			console.log()
 			try{
 
 				var controllerName = record.get('url');
@@ -93,8 +95,25 @@ Ext.define('AM.controller.application.framework.MainController', {
 			mainContentPanel.unmask();
 
 		}
+    	function addPanel(){
+            var clazz = Ext.ClassManager.get(controllerName)
+            var xtype = clazz.xtype.replace(new RegExp('\\.','g'), "\\.")
+            var panel = mainContentPanel.child(xtype);
+            if(!panel){
+                panel = Ext.create(controllerName, {closable:true});
+                mainContentPanel.add(panel);
+			}
+            mainContentPanel.setActiveTab(panel);
+            mainContentPanel.unmask();
 
-        Ext.require(controllerName, loadController);
+
+        }
+
+        if(Ext.String.endsWith(controllerName, 'Controller')) {
+            Ext.require(controllerName, loadController);
+        }else{
+            Ext.require(controllerName, addPanel);
+		}
 
 	}
 
@@ -105,6 +124,7 @@ Ext.define('AM.controller.application.framework.MainController', {
 
 		controller.init(this.application);
 	}
+
 
 
 });

@@ -41,6 +41,9 @@ public class TplCodeValidator implements Validator {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new TplCodeCondition());
         }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
+        }
     }
 
 	/**

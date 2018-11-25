@@ -19,6 +19,7 @@ Ext.define('AM.view.Viewport', {
             ,region: 'center'
             ,layout: 'border'
             , bodyCls: 'app-dashboard'
+            // , bodyStyle: 'background:#2eb1f5'
             , items:[
                 {
                     xtype:'mainHeaderToolbar'
@@ -28,9 +29,11 @@ Ext.define('AM.view.Viewport', {
                 }//Header Container 必须放在第一个。如果放在最后一个，则可能出现，头部样式设置的不合适（头部的实际高度比展示的高度要大，则会在样式上有个透明的块遮挡tab页），导致tab的关闭按钮无法点击的情况
                 , {
                     xtype: 'mainContentPanel'
-                    , padding:'5'
+                    // , padding:'5'
                     ,region: 'center'
-                    , bodyCls: 'app-dashboard'
+                    // ,frame:true
+                    // , bodyCls: 'app-dashboard'
+                    ,bodyStyle: 'background:#2eb1f5'
                 }
             ]
         }
@@ -38,8 +41,7 @@ Ext.define('AM.view.Viewport', {
             xtype: 'mainFunctionPanel'
             ,region: 'west'
             ,width: 250
-
-            ,split: false
+            ,split: true
         }
     ]
     , listeners: {

@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.project.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增产品使用的DTO")
+@Setter @Getter
 public class ProductAddDto {
 
     /**租户id*/
@@ -28,6 +31,10 @@ public class ProductAddDto {
     /**描述*/
 	@ApiModelProperty(value = "描述", required = false, notes = "")
 	private String description;
+
+    /**已失效*/
+	@ApiModelProperty(value = "已失效", required = false)
+	private Boolean disabled;
 
 
 	public Long getTid(){
@@ -56,6 +63,13 @@ public class ProductAddDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getDisabled(){
+		return disabled;
+	}
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
 	}
 
 

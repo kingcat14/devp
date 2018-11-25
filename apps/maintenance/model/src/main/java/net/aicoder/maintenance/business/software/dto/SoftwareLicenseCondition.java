@@ -3,11 +3,10 @@ package net.aicoder.maintenance.business.software.dto;
 import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.*;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.Date;
 
 
 @ApiModel(value = "查询服务许可使用的DTO")
@@ -15,10 +14,6 @@ public class SoftwareLicenseCondition extends SaaSCondition{
 
 	@ApiModelProperty(value = "租户编号", notes = "[租户编号]")
 	private Long tid;
-	@ApiModelProperty(value = "租户编号最大值")
-	private Long tidMax;
-	@ApiModelProperty(value = "租户编号最小值")
-	private Long tidMin;
 	@ApiModelProperty(value = "元素类型", notes = "[元素类型]-服务器主机ASSET_HOST,网络设备ASSET_NETWORK,基础软件ASSET_INFRA_SW,服务及许可ASSET_SVC_LIC,业务软件ASSET_BIZ_SW,其它ASSET_OTHERS")
 	private String etype;
 	@ApiModelProperty(value = "名称", notes = "[名称]-资产名称")
@@ -105,21 +100,6 @@ public class SoftwareLicenseCondition extends SaaSCondition{
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
-
-	public Long getTidMin(){
-		return tidMin;
-	}
-	public void setTidMin(Long tidMin) {
-		this.tidMin = tidMin;
-	}
-
-	public Long getTidMax(){
-		return tidMax;
-	}
-	public void setTidMax(Long tidMax) {
-		this.tidMax = tidMax;
-	}
-
 
 	public String getEtype(){
 		return etype;

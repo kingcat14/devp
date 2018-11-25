@@ -48,7 +48,7 @@ public class AppDevelopConfig extends BaseEntity<Long>{
     * 
     */
     @Column(name = "app", nullable = true, updatable = true)
-	private Long app;
+	private String app;
 
     /**
     * 代码
@@ -96,10 +96,10 @@ public class AppDevelopConfig extends BaseEntity<Long>{
 		this.tid = tid;
 	}
 
-	public Long getApp(){
+	public String getApp(){
 		return app;
 	}
-	public void setApp(Long app) {
+	public void setApp(String app) {
 		this.app = app;
 	}
 

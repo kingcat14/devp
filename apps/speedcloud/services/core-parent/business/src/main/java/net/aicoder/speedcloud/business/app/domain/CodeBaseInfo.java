@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 public class CodeBaseInfo extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
-	public static final String PROPERTY_CODE_REPERTORY = "codeRepertory";
+	public static final String PROPERTY_CODE_REPERTORY = "codeRepository";
 	public static final String PROPERTY_LANGUAGE = "language";
 	public static final String PROPERTY_LANGUAGE_LEVEL = "languageLevel";
 
@@ -44,8 +44,8 @@ public class CodeBaseInfo extends BaseEntity<Long>{
     * 代码库
     *  
     */
-    @Column(name = "code_repertory", nullable = true, updatable = true)
-	private Long codeRepertory;
+    @Column(name = "code_repository", nullable = true, updatable = true)
+	private Long codeRepository;
 
     /**
     * 开发语言
@@ -70,11 +70,11 @@ public class CodeBaseInfo extends BaseEntity<Long>{
 		this.tid = tid;
 	}
 
-	public Long getCodeRepository(){
-		return codeRepertory;
+	public Long getCodeRepository() {
+		return codeRepository;
 	}
-	public void setCodeRepository(Long codeRepertory) {
-		this.codeRepertory = codeRepertory;
+	public void setCodeRepository(Long codeRepository) {
+		this.codeRepository = codeRepository;
 	}
 
 	public String getLanguage(){

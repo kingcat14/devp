@@ -10,6 +10,7 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.aicoder.speedcloud.icode.business.domain.controller.EntityController;
 import net.aicoder.speedcloud.icode.business.project.domain.Component;
 import net.aicoder.speedcloud.icode.business.project.domain.Product;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentAddDto;
@@ -50,7 +51,6 @@ public class ComponentController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComponentController.class);
 
-
 	@Autowired
 	private ComponentService componentService;
 
@@ -59,9 +59,11 @@ public class ComponentController {
 	@Autowired
 	private ProductService productService;
 
-
 	@Autowired
 	private ComponentValidator componentValidator;
+
+	@Autowired
+	private EntityController entityController;
 
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -77,7 +79,7 @@ public class ComponentController {
 	@ApiOperation(value = "新增", notes = "新增系统组件", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-  	@BusinessFuncMonitor(value = "icode.project.component.add")
+  	@BusinessFuncMonitor(value = "icode.project.component.add", count = true)
 	public ComponentVO add(@RequestBody @Valid ComponentAddDto componentAddDto){
 		Component component = new Component();
 		BeanUtils.copyProperties(componentAddDto, component);
@@ -93,7 +95,7 @@ public class ComponentController {
 	 */
 	@ApiOperation(value = "删除", notes = "删除系统组件", httpMethod = "DELETE")
 	@DeleteMapping(path="/{idArray}")
-  	@BusinessFuncMonitor(value = "icode.project.component.delete")
+  	@BusinessFuncMonitor(value = "icode.project.component.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete component :{}", idArray);
@@ -113,7 +115,7 @@ public class ComponentController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产系统组件(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(path="/{id}")
-  	@BusinessFuncMonitor(value = "icode.project.component.update")
+  	@BusinessFuncMonitor(value = "icode.project.component.update", count = true)
 	public	ComponentVO update(@RequestBody @Valid ComponentEditDto componentEditDto, @PathVariable String id){
 		Component component = new Component();
 		BeanUtils.copyProperties(componentEditDto, component);
@@ -139,6 +141,7 @@ public class ComponentController {
 		ComponentVO vo = initViewProperty(component);
 		return vo;
 	}
+
 
 	/**
 	 * 查询系统组件列表

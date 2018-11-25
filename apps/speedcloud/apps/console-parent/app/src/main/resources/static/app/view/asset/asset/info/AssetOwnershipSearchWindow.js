@@ -194,7 +194,7 @@ Ext.define('AM.view.asset.asset.info.AssetOwnershipSearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'search'
+                            ,iconCls: 'fas fa-search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}

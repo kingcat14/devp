@@ -97,7 +97,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
                             ,items: [
                                 {
                                     xtype: 'button'
-                                    // ,iconCls: 'accept'
+                                    // ,iconCls: 'fas fa-save'
                                     //,iconCls: 'x-fa fa-plus-circle'
                                     ,text: '确定'
                                     ,scale: 'large'

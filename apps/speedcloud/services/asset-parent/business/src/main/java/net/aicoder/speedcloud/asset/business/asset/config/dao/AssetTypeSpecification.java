@@ -50,14 +50,6 @@ public class AssetTypeSpecification implements Specification<AssetType>{
 		if (null != condition.getTid() ) {
 			predicateList.add(cb.equal(root.get(AssetType.PROPERTY_TID).as(Long.class), condition.getTid()));
 		}
-
-		if (null != condition.getTidMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(AssetType.PROPERTY_TID).as(Long.class), condition.getTidMax()));
-		}
-
-		if (null != condition.getTidMin() ) {
-			predicateList.add(cb.lessThan(root.get(AssetType.PROPERTY_TID).as(Long.class), condition.getTidMin()));
-		}
 	}
 	private void tryAddNumPredicate(List<Predicate> predicateList, Root<AssetType> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getNum())){

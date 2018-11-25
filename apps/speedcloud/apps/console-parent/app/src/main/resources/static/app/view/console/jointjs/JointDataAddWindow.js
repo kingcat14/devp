@@ -99,7 +99,7 @@ Ext.define('AM.view.console.jointjs.JointDataAddWindow', {
                         },
                         {
                             xtype: 'button',
-                            iconCls: 'accept',
+                            iconCls: 'fas fa-save',
                             text: '确定',
                             listeners: {
                                 click: {

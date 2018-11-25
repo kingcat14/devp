@@ -56,7 +56,7 @@ public class AppDevelopConfigController {
 	@Autowired
 	private AppBaseInfoService appBaseInfoService;
 	@Autowired
-	private CodeRepositoryService codeRepertoryService;
+	private CodeRepositoryService codeRepositoryService;
 
 	@Autowired
 	private AppDevelopConfigValidator appDevelopConfigValidator;
@@ -229,7 +229,7 @@ public class AppDevelopConfigController {
 
 	private void initCodePropertyGroup(AppDevelopConfigVO appDevelopConfigVO, AppDevelopConfig appDevelopConfig){
 	
-		CodeRepository code = codeRepertoryService.find(appDevelopConfig.getCode());
+		CodeRepository code = codeRepositoryService.find(appDevelopConfig.getCode());
 		if(code == null){
 			return;
 		}

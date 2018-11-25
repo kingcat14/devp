@@ -20,8 +20,10 @@ import javax.validation.constraints.Size;
 @Table(name = "tplfile_tpl_set")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class TplSet extends BaseEntity<String>{
 
+	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_PARENT_ID = "parentId";
@@ -33,6 +35,13 @@ public class TplSet extends BaseEntity<String>{
     @Column(name = "id")
     private String id;
 
+
+    /**
+    * 租户id
+    * 
+    */
+    @Column(name = "tid", nullable = false, updatable = false)
+	private Long tid;
 
     /**
     * 集合代码
@@ -73,6 +82,13 @@ public class TplSet extends BaseEntity<String>{
     @Column(name = "description", nullable = true, updatable = true)
 	@Size(max = 255, message = "集合描述超长，最多255个字符")
 	private String description;
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
 
 	public String getCode(){
 		return code;

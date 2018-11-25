@@ -113,7 +113,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineExecController', {
                             ,width:25
                             ,align:'center'
                             , items: [{
-                                    // iconCls: 'delete'
+                                    // iconCls: 'fas fa-minus-circle red'
                                     iconCls:'far fa-caret-square-right'
                                     , tooltip: '单独执行'
                                     , handler: 'onDeleteStageNodeClick'

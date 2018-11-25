@@ -1,8 +1,7 @@
 package net.aicoder.speedcloud.business.app.controller;
 
-import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.jms.sender.SaaSMessageSender;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
@@ -13,14 +12,13 @@ import net.aicoder.speedcloud.business.app.domain.AppBaseInfo;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoAddDto;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoCondition;
 import net.aicoder.speedcloud.business.app.dto.AppBaseInfoEditDto;
+import net.aicoder.speedcloud.business.app.event.AppBaseInfoEventTopic;
 import net.aicoder.speedcloud.business.app.service.AppBaseInfoService;
 import net.aicoder.speedcloud.business.app.valid.AppBaseInfoValidator;
 import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
 import net.aicoder.speedcloud.business.project.domain.Project;
 import net.aicoder.speedcloud.business.project.service.ProjectService;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -30,10 +28,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 管理应用
@@ -56,6 +54,9 @@ public class AppBaseInfoController {
 	@Autowired
 	private AppBaseInfoValidator appBaseInfoValidator;
 
+	@Autowired
+	private SaaSMessageSender saaSMessageSender;
+
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.addValidators(appBaseInfoValidator);
@@ -75,8 +76,11 @@ public class AppBaseInfoController {
 		BeanUtils.copyProperties(appBaseInfoAddDto, appBaseInfo);
 
 		appBaseInfoService.add(appBaseInfo);
+		AppBaseInfoVO vo = initViewProperty(appBaseInfo);
 
-		return  initViewProperty(appBaseInfo);
+		saaSMessageSender.sendTopic(AppBaseInfoEventTopic.CREATE, appBaseInfo.getTid(), vo);
+
+		return  vo;
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class AppBaseInfoController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			appBaseInfoService.delete(Long.parseLong(id));
+			appBaseInfoService.delete(id);
 		}
 
 	}
@@ -104,13 +108,14 @@ public class AppBaseInfoController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产应用(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public	AppBaseInfoVO update(@RequestBody @Valid AppBaseInfoEditDto appBaseInfoEditDto, @PathVariable Long id){
-		AppBaseInfo appBaseInfo = new AppBaseInfo();
+	public	AppBaseInfoVO update(@RequestBody @Valid AppBaseInfoEditDto appBaseInfoEditDto, @PathVariable String id){
+		AppBaseInfo appBaseInfo = appBaseInfoService.find(id);
 		BeanUtils.copyProperties(appBaseInfoEditDto, appBaseInfo);
 		appBaseInfo.setId(id);
 		appBaseInfoService.merge(appBaseInfo);
 
 		AppBaseInfoVO vo = initViewProperty(appBaseInfo);
+		saaSMessageSender.sendTopic(AppBaseInfoEventTopic.UPDATE, appBaseInfo.getTid(), vo);
 		return  vo;
 	}
 
@@ -121,7 +126,7 @@ public class AppBaseInfoController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询应用", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public  AppBaseInfoVO get(@PathVariable Long id) {
+	public  AppBaseInfoVO get(@PathVariable String id) {
 
 		AppBaseInfo appBaseInfo = appBaseInfoService.find(id);
 
@@ -152,46 +157,6 @@ public class AppBaseInfoController {
 		return pageContent;
 
 	}
-
-	/**
-     * 导出应用列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出应用列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(AppBaseInfoCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        PageSearchRequest<AppBaseInfoCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<AppBaseInfoVO> content = this.list(pageSearchRequest);
-
-        List<AppBaseInfoVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(AppBaseInfoVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-            headMap.put("name" ,"名称");
-            headMap.put("type" ,"应用类型");
-            headMap.put("status" ,"状态");
-            headMap.put("description" ,"描述");
-            headMap.put("registTime" ,"注册时间");
-            headMap.put("project" ,"所属项目");
-
-        String title = new String("应用");
-        String fileName = new String(("应用_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-    }
 
 	private AppBaseInfoVO initViewProperty(AppBaseInfo appBaseInfo){
 
