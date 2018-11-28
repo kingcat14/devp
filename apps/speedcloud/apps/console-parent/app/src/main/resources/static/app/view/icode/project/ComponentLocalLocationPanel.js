@@ -40,34 +40,81 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationPanel', {
                     ,reference:'mainGridPanel'
                     ,columns: [
                         {
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:35
-                            ,items: [{
-                                iconCls: 'x-fa fa-eye'
-                                ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'product'
+                            // ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                            //     return record.get("productVO")?record.get("productVO").productName:'';
+                            // }
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(!record.get("componentVO") || !record.get("componentVO").productVO){
+                                    return '';
                                 }
-                            }]
+                                return record.get("componentVO").productVO.productName;
+                            }
+                            ,text: '所属产品'
+
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'accountId'
-                            ,text: '用户id'
-                            
+                            ,dataIndex: 'type'
+                            // ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                            //     return record.get("typeVO")?record.get("typeVO").name:'';
+                            // }
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(!record.get("componentVO") || !record.get("componentVO").typeVO){
+                                    return '';
+                                }
+                                return record.get("componentVO").typeVO.name;
+                            }
+                            ,text: '类型'
+                        }
+                        ,{
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'number'
+                            ,format:'0,000'
+                            ,text: '组件编号'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("componentVO")?record.get("componentVO").number:'';
+                            }
+
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'component'
+                            ,dataIndex: 'name'
+                            ,text: '组件名称'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("componentVO")?record.get("componentVO").name:'';
+                            }
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'code'
+                            ,text: '组件代码'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("componentVO")?record.get("componentVO").code:'';
                             }
-                            ,text: '组件'
-                            
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'basePackage'
+                            ,text: '基础包'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("componentVO")?record.get("componentVO").basePackage:'';
+                            }
+
+                        }
+                        ,{
+                            xtype: 'booleancolumn'
+                            ,dataIndex: 'runnable'
+                            ,trueText: '是'
+                            ,falseText: '否'
+                            ,emptyCellText :'不确定'
+                            ,text: '可运行组件'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("componentVO")?(record.get("componentVO").runnable?'是':'否'):'';
+                            }
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -116,16 +163,8 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationPanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-plus-circle'
-                                    ,text: '新增'
-                                    ,listeners: {
-                                        click: 'onAddButtonClick'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
                                     ,iconCls: 'fas fa-pencil-alt'
-                                    ,text: '修改'
+                                    ,text: '设置'
                                     ,listeners: {
                                         click: 'onEditButtonClick'
                                     }
@@ -173,7 +212,8 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {}
+
+
                 }
             ]
             ,listeners: {
@@ -181,10 +221,6 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationPanel', {
                     fn: me.onBeforeShow
                     ,scope: me
                 }
-              	,beforehide: {
-                	fn: me.onPanelBeforeHide
-                  	,scope: me
-				}
 			}
         });
 

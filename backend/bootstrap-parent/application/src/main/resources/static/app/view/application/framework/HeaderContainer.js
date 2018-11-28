@@ -75,4 +75,5 @@ Ext.define('AM.view.application.framework.HeaderContainer', {
         this.callParent();
     }
 
+
 });

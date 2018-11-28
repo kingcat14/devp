@@ -41,6 +41,7 @@ Ext.define('AM.view.Viewport', {
             xtype: 'mainFunctionPanel'
             ,region: 'west'
             ,width: 250
+            , id:'mainFunctionPanel'
             ,split: true
         }
     ]

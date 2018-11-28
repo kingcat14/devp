@@ -39,6 +39,7 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
+                    ,frame: true
                     ,title: '组件列表'
                     ,bind:{store: '{store}'}
                     ,columnLines: true

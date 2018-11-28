@@ -13,9 +13,16 @@ Ext.define('AM.view.application.framework.HeaderToolbar', {
         var me = this;
 
         me.items= [
-
-            '->',
             {
+                xtype:'button'
+                // text:'Menu Button',
+                ,iconCls: 'fas fa-bars'
+                ,ui:'plain-toolbar-small'
+                ,style: 'color: #28384a;'
+                ,handler:'hideFunctionPanel'
+            }
+            ,'->'
+            ,{
                 xtype:'button'
                 // text:'Menu Button',
                 ,iconCls: 'fas fa-bell'

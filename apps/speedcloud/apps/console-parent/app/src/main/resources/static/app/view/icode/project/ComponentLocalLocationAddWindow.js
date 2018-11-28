@@ -12,7 +12,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新组件本地路径'
+    ,title: '设置组件工程位置'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {

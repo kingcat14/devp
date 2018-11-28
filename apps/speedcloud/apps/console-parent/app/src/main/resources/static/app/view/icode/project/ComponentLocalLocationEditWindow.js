@@ -37,7 +37,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationEditWindow', {
                             ,anchor: '96% 70%'
                             ,layout: {
                                 type: 'table',
-                                columns: 3,
+                                columns: 1,
                                 tableAttrs: {
                                     style: {
                                         width: '100%'
@@ -46,16 +46,15 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationEditWindow', {
                             }
                             ,defaults:{width:'100%'}
                             ,items:[
-                                ,{
-                                    xtype: 'numberfield'
-                                    ,allowDecimals:false
+                                {
+                                    xtype: 'textfield'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'accountIdField'
-                                    ,name: 'accountId'
-                                    ,fieldLabel: '用户id'
+                                    ,itemId: 'productField'
+                                    ,name: 'productVO'
+                                    ,fieldLabel: '产品'
+                                    ,dataIndex:'componentVO.productVO.name'
                                 }
                                 ,{
                                     xtype: 'combobox'
@@ -65,7 +64,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationEditWindow', {
                                     ,displayField:'code'
                                     ,valueField:'id'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'componentField'
@@ -141,12 +140,9 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationEditWindow', {
                 me.hide(this.targetComp);
             }
         });
+    }
 
-
-
-    },
-
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
@@ -155,6 +151,12 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationEditWindow', {
         this.setTitle("修改组件本地路径信息");
 
         this.down('form').getForm().loadRecord(model);
+        if(model.get("componentVO") && model.get("componentVO").productVO){
+            var productName = model.get("componentVO").productVO.productName
+            this.down('#productField').setValue(productName)
+        }
+
+
 
     }
     ,onBeforeShow:function() {

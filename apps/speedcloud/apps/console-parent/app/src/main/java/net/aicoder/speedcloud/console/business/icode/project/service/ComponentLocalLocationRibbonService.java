@@ -66,6 +66,27 @@ public class ComponentLocalLocationRibbonService  {
 		return result.getData();
 	}
 
+	public ComponentLocalLocationVO findByComponentIdAndTenantIdAndAccountId(String componentId, Long tenantId, Long accountId){
+
+		ComponentLocalLocationCondition condition = new ComponentLocalLocationCondition();
+
+		condition.setAccountId(accountId);
+		condition.setTid(tenantId);
+		condition.setComponent(componentId);
+
+		PageSearchRequest pageSearchRequest  = new PageSearchRequest();
+		pageSearchRequest.setSearchCondition(condition);
+		PageContent<ComponentLocalLocationVO> pageContent = this.list(pageSearchRequest);
+		ComponentLocalLocationVO vo = null;
+
+		if(pageContent.getTotal() > 0){
+			vo = pageContent.getContent().get(0);
+		}
+
+		return vo;
+
+	}
+
 	public PageContent<ComponentLocalLocationVO> list(PageSearchRequest<ComponentLocalLocationCondition> pageSearchRequest) {
 		ComponentLocalLocationPageResult result = componentLocalLocationRibbon.list(pageSearchRequest);
 

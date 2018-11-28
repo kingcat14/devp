@@ -1,22 +1,23 @@
 package net.aicoder.speedcloud.console.business.icode.project.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
+import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
+import com.yunkang.saas.bootstrap.platform.business.account.domain.Account;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.aicoder.speedcloud.console.business.icode.project.service.ComponentLocalLocationRibbonService;
+import net.aicoder.speedcloud.console.business.icode.project.service.ComponentRibbonService;
 import net.aicoder.speedcloud.console.business.icode.project.valid.ComponentLocalLocationValidator;
+import net.aicoder.speedcloud.icode.business.project.dto.ComponentCondition;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentLocalLocationAddDto;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentLocalLocationCondition;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentLocalLocationEditDto;
 import net.aicoder.speedcloud.icode.business.project.vo.ComponentLocalLocationVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
+import net.aicoder.speedcloud.icode.business.project.vo.ComponentVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 管理组件本地路径
@@ -39,13 +40,21 @@ import java.util.*;
 public class ComponentLocalLocationController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComponentLocalLocationController.class);
-   
+
+	@Autowired
+	private ComponentRibbonService componentRibbonService;
+
+	@Autowired
+	private ComponentController componentController;
+
     @Autowired
 	private ComponentLocalLocationRibbonService componentLocalLocationRibbonService;
 
 	@Autowired
 	private ComponentLocalLocationValidator componentLocalLocationValidator;
 
+	@Autowired
+	private SaaSUtil saaSUtil;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -63,7 +72,8 @@ public class ComponentLocalLocationController {
 	@ResponseStatus( HttpStatus.CREATED )
   	@SaaSAnnotation()
 	public ComponentLocalLocationVO add(@RequestBody @Valid ComponentLocalLocationAddDto componentLocalLocationAddDto){
-	
+		Account account = saaSUtil.getAccount();
+		componentLocalLocationAddDto.setAccountId(account.getId());
 		return  componentLocalLocationRibbonService.add(componentLocalLocationAddDto);
 	}
 
@@ -96,6 +106,8 @@ public class ComponentLocalLocationController {
 
 		ComponentLocalLocationVO vo = componentLocalLocationRibbonService.merge(id, componentLocalLocationEditDto);
 
+		ComponentVO componentVO = componentController.get(vo.getComponent());
+		vo.setComponentVO(componentVO);
 		return  vo;
 	}
 
@@ -120,55 +132,31 @@ public class ComponentLocalLocationController {
 	@ApiOperation(value = "查询", notes = "根据条件查询组件本地路径列表", httpMethod = "POST")
 	@PostMapping(path="/list")
   	@SaaSAnnotation(conditionClass = ComponentLocalLocationCondition.class)
-	public PageContent<ComponentLocalLocationVO> list(@RequestBody @Valid PageSearchRequest<ComponentLocalLocationCondition> pageSearchRequest){
+	public PageContent<ComponentLocalLocationVO> list(@RequestBody @Valid PageSearchRequest<ComponentCondition> pageSearchRequest){
 
-		PageContent<ComponentLocalLocationVO> pageContent = componentLocalLocationRibbonService.list(pageSearchRequest);
-		for(ComponentLocalLocationVO vo : pageContent.getContent()){
-			initViewProperty(vo);
+		PageContent<ComponentVO> pageContent = componentController.list(pageSearchRequest);
+
+		List<ComponentLocalLocationVO> locationVOList = new ArrayList<>();
+
+		for(ComponentVO componentVO : pageContent.getContent()){
+			ComponentLocalLocationVO locationVO = componentLocalLocationRibbonService.findByComponentIdAndTenantIdAndAccountId(componentVO.getId(), saaSUtil.getAccount().getTid(), saaSUtil.getAccount().getId());
+			if(locationVO == null){
+				locationVO = new ComponentLocalLocationVO();
+				locationVO.setComponent(componentVO.getId());
+			}
+			locationVO.setComponentVO(componentVO);
+			locationVOList.add(locationVO);
 		}
+		PageContent<ComponentLocalLocationVO> result = new PageContent<>();
+		result.setTotal(pageContent.getTotal());
+		result.setContent(locationVOList);
+
 
 		LOGGER.debug("page Size :{}, total:{}", pageContent.getContent().size() ,pageContent.getTotal());
-		return pageContent;
+		return result;
 
 	}
 
-	/**
-     * 导出组件本地路径列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出组件本地路径列表", httpMethod = "POST")
-    @RequestMapping(path="/export")
-    public void export(ComponentLocalLocationCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
-
-        PageSearchRequest<ComponentLocalLocationCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<ComponentLocalLocationVO> content = this.list(pageSearchRequest);
-
-        List<ComponentLocalLocationVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(ComponentLocalLocationVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-    
-            headMap.put("component" ,"组件");
-            headMap.put("location" ,"本地路径");
-
-        String title = new String("组件本地路径");
-        String fileName = new String(("组件本地路径_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-
-    }
 
 
 	private ComponentLocalLocationVO initViewProperty( ComponentLocalLocationVO vo){

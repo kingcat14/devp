@@ -20,7 +20,6 @@ public class ComponentLocalLocationVO {
     @ApiModelProperty(value = "记录id")
     private String id;
 
-
     /**组件*/
     @ApiModelProperty(value = "组件")
     private String component;
@@ -29,9 +28,6 @@ public class ComponentLocalLocationVO {
 
     @ApiModelProperty(value = "本地路径")
     private String location;
-
-
-
 
     @Override
     public String toString() {

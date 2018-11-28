@@ -5,19 +5,6 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationController', {
 	]
 	,alias: 'controller.icode.project.ComponentLocalLocationController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
-
-		var id = record.get('id');
-
-	}
     ,onAddButtonClick: function() {
 
         var modelConfig = {}
@@ -61,7 +48,18 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationController', {
             return;
         }
         var record = selections[0];
-        me.showEditWindow(record, mainGridPanel.getView().getRow(record));
+        console.log("phantom:"+record.phantom)
+        console.log("id:"+record.getId())
+        if(record.getId().indexOf('ComponentLocalLocation') >= 0){
+
+            var newRecord = Ext.create('AM.model.icode.project.ComponentLocalLocation', {component:record.get('component')});
+            this.showAddWindow(newRecord);
+        }else{
+            me.showEditWindow(record, mainGridPanel.getView().getRow(record));
+        }
+
+
+
     }
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;

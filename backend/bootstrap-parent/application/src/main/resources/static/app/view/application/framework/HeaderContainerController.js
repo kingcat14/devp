@@ -49,4 +49,11 @@ Ext.define('AM.view.application.framework.HeaderContainerController', {
             }
         });
     }
+    , hideFunctionPanel:function(){
+        var mainFunctionPanel = Ext.getCmp('mainFunctionPanel');
+        var collapsed = mainFunctionPanel.getCollapsed();
+        console.log("collapsed:"+collapsed);
+
+        mainFunctionPanel.setCollapsed(!collapsed);
+    }
 })
