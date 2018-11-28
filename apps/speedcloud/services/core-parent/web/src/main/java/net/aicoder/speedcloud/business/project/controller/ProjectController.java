@@ -77,7 +77,7 @@ public class ProjectController {
 		projectService.add(project);
 		ProjectVO vo = initViewProperty(project);
 
-		saaSMessageSender.sendTopic(ProjectEventTopic.CREATE, project.getTid(), vo);
+		saaSMessageSender.sendTopicAsync(ProjectEventTopic.CREATE, project.getTid(), vo);
 
 		return vo;
 	}
@@ -116,7 +116,7 @@ public class ProjectController {
 
 		ProjectVO vo = initViewProperty(project);
 
-		saaSMessageSender.sendTopic(ProjectEventTopic.UPDATE, project.getTid(), vo);
+		saaSMessageSender.sendTopicAsync(ProjectEventTopic.UPDATE, project.getTid(), vo);
 
 		return  vo;
 	}

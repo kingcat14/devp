@@ -78,7 +78,7 @@ public class AppBaseInfoController {
 		appBaseInfoService.add(appBaseInfo);
 		AppBaseInfoVO vo = initViewProperty(appBaseInfo);
 
-		saaSMessageSender.sendTopic(AppBaseInfoEventTopic.CREATE, appBaseInfo.getTid(), vo);
+		saaSMessageSender.sendTopicAsync(AppBaseInfoEventTopic.CREATE, appBaseInfo.getTid(), vo);
 
 		return  vo;
 	}
@@ -115,7 +115,7 @@ public class AppBaseInfoController {
 		appBaseInfoService.merge(appBaseInfo);
 
 		AppBaseInfoVO vo = initViewProperty(appBaseInfo);
-		saaSMessageSender.sendTopic(AppBaseInfoEventTopic.UPDATE, appBaseInfo.getTid(), vo);
+		saaSMessageSender.sendTopicAsync(AppBaseInfoEventTopic.UPDATE, appBaseInfo.getTid(), vo);
 		return  vo;
 	}
 
