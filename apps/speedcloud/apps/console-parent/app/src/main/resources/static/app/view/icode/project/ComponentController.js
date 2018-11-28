@@ -66,6 +66,9 @@ Ext.define('AM.view.icode.project.ComponentController', {
     ,onSimpleSearchButtonClick: function(button, e, options) {
         var me = this;
         var searchWindow = me.lookupReference('mainSearchWindow');
+        var productField = me.lookupReference("productField");
+        searchWindow.down('#productField').setValue(productField.getValue());
+
         var nameField = me.lookupReference("nameField");
         searchWindow.down('#nameField').setValue(nameField.getValue());
 

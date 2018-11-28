@@ -75,7 +75,7 @@ public class ComponentService  extends GenericCrudService<Component, String, Com
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, Component.PROPERTY_BASE_PACKAGE);
+		Sort sort = new Sort(Sort.Direction.ASC, Component.PROPERTY_PRODUCT, Component.PROPERTY_TYPE, Component.PROPERTY_CODE);
 		return sort;
 	}
 }

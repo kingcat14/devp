@@ -25,7 +25,7 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
         me.callParent([Ext.apply({
             viewModel : {
                 stores:{
-                    store: Ext.create('AM.store.icode.project.ComponentStore').load()
+                    store:Ext.create('AM.store.icode.project.ComponentStore').load()
                     ,tplFileTreeStore: Ext.create('AM.store.icode.tplfile.TplFileTreeStore', {autoLoad:true, sorters: 'name'})
                 }
             }
@@ -133,13 +133,34 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
 
                                 }
                             }
-                            
+
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'description'
                             ,text: '描述'
                             ,flex:1
+                        }
+                        ,{
+                            xtype: 'actioncolumn'
+                            ,menuDisabled: true
+                            ,width:30
+                            ,items: [{
+                                iconCls: 'fas fa-code'
+                                ,tooltip: '代码模板'
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
+
+                                    var tplFileTreePanel = me.lookupReference('tplFileTreePanel').expand();
+                                    tplFileTreePanel.setTitle("【"+record.get('name')+"】代码模板");
+
+                                    var tplSet = Ext.valueFrom(record.get('tplSet'), -999);
+
+                                    var tplFileTreeStore = me.getViewModel().getStore('tplFileTreeStore');
+                                    tplFileTreeStore.getRoot().set('id', tplSet);
+                                    tplFileTreeStore.getRoot().set('type', 'TPL_SET');
+                                    tplFileTreeStore.reload();
+                                }
+                            }]
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -206,6 +227,16 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                                 }
                                 ,'-'
                                 ,{
+                                    xtype: 'combobox'
+                                    ,emptyText:'所属产品'
+                                    ,store: Ext.create("AM.store.icode.project.ProductStore")
+                                    ,typeAhead: false
+                                    ,editable: false
+                                    ,displayField:'productName'
+                                    ,valueField:'id'
+                                    ,reference: 'productField'
+                                }
+                                ,{
                                     xtype: 'textfield'
                                     ,width:120
                                     ,emptyText:'组件名称'
@@ -243,7 +274,19 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {}
+                    ,listeners: {
+                        rowdbclick:function(view, record){
+                            var tplFileTreePanel = me.lookupReference('tplFileTreePanel').expand();
+                            tplFileTreePanel.setTitle("【"+record.get('name')+"】代码模板");
+
+                            var tplSet = Ext.valueFrom(record.get('tplSet'), -999);
+
+                            var tplFileTreeStore = me.getViewModel().getStore('tplFileTreeStore');
+                            tplFileTreeStore.getRoot().set('id', tplSet);
+                            tplFileTreeStore.getRoot().set('type', 'TPL_SET');
+                            tplFileTreeStore.reload();
+                        }
+                    }
                 }
                 ,{
                     xtype: 'treepanel'
