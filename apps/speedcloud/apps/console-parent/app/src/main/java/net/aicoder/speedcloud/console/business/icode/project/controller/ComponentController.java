@@ -161,14 +161,15 @@ public class ComponentController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
+            headMap.put("product" ,"所属产品");
+            headMap.put("number" ,"组件编号");
             headMap.put("name" ,"组件名称");
             headMap.put("code" ,"组件代码");
             headMap.put("basePackage" ,"基础包");
-            headMap.put("description" ,"描述");
             headMap.put("tplSet" ,"代码模板");
-            headMap.put("number" ,"组件编号");
-            headMap.put("groupCode" ,"分组代码");
-            headMap.put("product" ,"所属产品");
+            headMap.put("description" ,"描述");
+            headMap.put("type" ,"类型");
+            headMap.put("runnable" ,"可运行组件");
 
         String title = new String("组件");
         String fileName = new String(("组件_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

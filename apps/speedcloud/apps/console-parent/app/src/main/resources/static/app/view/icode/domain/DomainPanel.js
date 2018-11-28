@@ -144,7 +144,7 @@ Ext.define('AM.view.icode.domain.DomainPanel', {
                                 ,'-'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'

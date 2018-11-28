@@ -48,7 +48,7 @@ public class ComponentValidator implements Validator {
 
 	/**
      * 实现Validator中的validate接口
-     * @param component 系统组件
+     * @param component 组件
      * @param errors
      */
 	public void validateComponentAddDto(ComponentAddDto component, Errors errors) {
@@ -56,11 +56,11 @@ public class ComponentValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if(null == (component.getTid())){
-			errors.rejectValue(Component.PROPERTY_TID,null,"租户id最长255个字符");
-		}
 
 		//验证长度
+		if(StringUtils.length(component.getProduct()) > 255){
+			errors.rejectValue(Component.PROPERTY_PRODUCT,null,"所属产品最长255个字符");
+		}
 		if(StringUtils.length(component.getName()) > 255){
 			errors.rejectValue(Component.PROPERTY_NAME,null,"组件名称最长255个字符");
 		}
@@ -70,17 +70,11 @@ public class ComponentValidator implements Validator {
 		if(StringUtils.length(component.getBasePackage()) > 255){
 			errors.rejectValue(Component.PROPERTY_BASE_PACKAGE,null,"基础包最长255个字符");
 		}
-		if(StringUtils.length(component.getDescription()) > 255){
-			errors.rejectValue(Component.PROPERTY_DESCRIPTION,null,"描述最长255个字符");
-		}
 		if(StringUtils.length(component.getTplSet()) > 255){
 			errors.rejectValue(Component.PROPERTY_TPL_SET,null,"代码模板最长255个字符");
 		}
-		if(StringUtils.length(component.getGroupCode()) > 255){
-			errors.rejectValue(Component.PROPERTY_GROUP_CODE,null,"分组代码最长255个字符");
-		}
-		if(StringUtils.length(component.getProduct()) > 255){
-			errors.rejectValue(Component.PROPERTY_PRODUCT,null,"所属产品最长255个字符");
+		if(StringUtils.length(component.getType()) > 255){
+			errors.rejectValue(Component.PROPERTY_TYPE,null,"类型最长255个字符");
 		}
 	}
 }

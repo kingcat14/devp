@@ -44,6 +44,9 @@ public class ComponentValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(component.getProduct()) > 255){
+			errors.rejectValue("product", null, "所属产品最长255个字符");
+		}
 		if(StringUtils.length(component.getName()) > 255){
 			errors.rejectValue("name", null, "组件名称最长255个字符");
 		}
@@ -53,17 +56,11 @@ public class ComponentValidator implements Validator {
 		if(StringUtils.length(component.getBasePackage()) > 255){
 			errors.rejectValue("basePackage", null, "基础包最长255个字符");
 		}
-		if(StringUtils.length(component.getDescription()) > 255){
-			errors.rejectValue("description", null, "描述最长255个字符");
-		}
 		if(StringUtils.length(component.getTplSet()) > 255){
 			errors.rejectValue("tplSet", null, "代码模板最长255个字符");
 		}
-		if(StringUtils.length(component.getGroupCode()) > 255){
-			errors.rejectValue("groupCode", null, "分组代码最长255个字符");
-		}
-		if(StringUtils.length(component.getProduct()) > 255){
-			errors.rejectValue("product", null, "所属产品最长255个字符");
+		if(StringUtils.length(component.getType()) > 255){
+			errors.rejectValue("type", null, "类型最长255个字符");
 		}
 	}
 }

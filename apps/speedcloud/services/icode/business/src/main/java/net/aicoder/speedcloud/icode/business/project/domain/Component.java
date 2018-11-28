@@ -13,24 +13,26 @@ import javax.validation.constraints.Size;
 
 
 /**
- * 系统组件
+ * 组件
  * @author icode
  */
 @Entity()
 @Table(name = "project_component")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class Component extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_PRODUCT = "product";
+	public static final String PROPERTY_NUMBER = "number";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_BASE_PACKAGE = "basePackage";
-	public static final String PROPERTY_DESCRIPTION = "description";
 	public static final String PROPERTY_TPL_SET = "tplSet";
-	public static final String PROPERTY_NUMBER = "number";
-	public static final String PROPERTY_GROUP_CODE = "groupCode";
-	public static final String PROPERTY_PRODUCT = "product";
+	public static final String PROPERTY_DESCRIPTION = "description";
+	public static final String PROPERTY_TYPE = "type";
+	public static final String PROPERTY_RUNNABLE = "runnable";
 
 
     @Id
@@ -44,6 +46,21 @@ public class Component extends BaseEntity<String>{
     */
     @Column(name = "tid", nullable = false, updatable = false)
 	private Long tid;
+
+    /**
+    * 所属产品
+    * 
+    */
+    @Column(name = "product", nullable = true, updatable = true)
+	@Size(max = 255, message = "所属产品超长，最多255个字符")
+	private String product;
+
+    /**
+    * 组件编号
+    * 
+    */
+    @Column(name = "number", nullable = true, updatable = true)
+	private Integer number;
 
     /**
     * 组件名称
@@ -70,14 +87,6 @@ public class Component extends BaseEntity<String>{
 	private String basePackage;
 
     /**
-    * 描述
-    * 
-    */
-    @Column(name = "description", nullable = true, updatable = true)
-	@Size(max = 255, message = "描述超长，最多255个字符")
-	private String description;
-
-    /**
     * 代码模板
     * 
     */
@@ -86,33 +95,46 @@ public class Component extends BaseEntity<String>{
 	private String tplSet;
 
     /**
-    * 组件编号
+    * 描述
     * 
     */
-    @Column(name = "number", nullable = true, updatable = true)
-	private Integer number;
+    @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
+	private String description;
 
     /**
-    * 分组代码
-    * 
+    * 类型
+    * IOS、ANDROID、WEB、应用、服务、公共组件
     */
-    @Column(name = "group_code", nullable = true, updatable = true)
-	@Size(max = 255, message = "分组代码超长，最多255个字符")
-	private String groupCode;
+    @Column(name = "type", nullable = true, updatable = true)
+	@Size(max = 255, message = "类型超长，最多255个字符")
+	private String type;
 
     /**
-    * 所属产品
+    * 可运行组件
     * 
     */
-    @Column(name = "product", nullable = false, updatable = true)
-	@Size(max = 255, message = "所属产品超长，最多255个字符")
-	private String product;
+    @Column(name = "runnable", nullable = false, updatable = true)
+	private Boolean runnable;
 
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getProduct(){
+		return product;
+	}
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
+	public Integer getNumber(){
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	public String getName(){
@@ -136,13 +158,6 @@ public class Component extends BaseEntity<String>{
 		this.basePackage = basePackage;
 	}
 
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getTplSet(){
 		return tplSet;
 	}
@@ -150,25 +165,25 @@ public class Component extends BaseEntity<String>{
 		this.tplSet = tplSet;
 	}
 
-	public Integer getNumber(){
-		return number;
+	public String getDescription(){
+		return description;
 	}
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getGroupCode(){
-		return groupCode;
-	}
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getProduct(){
-		return product;
+	public String getType(){
+		return type;
 	}
-	public void setProduct(String product) {
-		this.product = product;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Boolean getRunnable(){
+		return runnable;
+	}
+	public void setRunnable(Boolean runnable) {
+		this.runnable = runnable;
 	}
 
 

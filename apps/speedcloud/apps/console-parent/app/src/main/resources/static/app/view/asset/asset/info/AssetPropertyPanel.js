@@ -145,7 +145,7 @@ Ext.define('AM.view.asset.asset.info.AssetPropertyPanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'

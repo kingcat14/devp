@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.icode.business.project.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -71,6 +73,7 @@ public class ComponentLocalLocationController {
 	@ApiOperation(value = "新增", notes = "新增组件本地路径", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "icode.project.componentlocallocation.add", count = true)
 	public ComponentLocalLocationVO add(@RequestBody @Valid ComponentLocalLocationAddDto componentLocalLocationAddDto){
 		ComponentLocalLocation componentLocalLocation = new ComponentLocalLocation();
 		BeanUtils.copyProperties(componentLocalLocationAddDto, componentLocalLocation);
@@ -86,6 +89,7 @@ public class ComponentLocalLocationController {
 	 */
 	@ApiOperation(value = "删除", notes = "删除组件本地路径", httpMethod = "DELETE")
 	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "icode.project.componentlocallocation.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete componentLocalLocation :{}", idArray);
@@ -103,10 +107,11 @@ public class ComponentLocalLocationController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产组件本地路径(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@ApiOperation(value = "修改", notes = "修改组件本地路径(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "icode.project.componentlocallocation.update", count = true)
 	public	ComponentLocalLocationVO update(@RequestBody @Valid ComponentLocalLocationEditDto componentLocalLocationEditDto, @PathVariable String id){
-		ComponentLocalLocation componentLocalLocation = new ComponentLocalLocation();
+		ComponentLocalLocation componentLocalLocation = componentLocalLocationService.find(id);
 		BeanUtils.copyProperties(componentLocalLocationEditDto, componentLocalLocation);
 		componentLocalLocation.setId(id);
 		componentLocalLocationService.merge(componentLocalLocation);
@@ -122,10 +127,13 @@ public class ComponentLocalLocationController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询组件本地路径", httpMethod = "GET")
 	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "icode.project.componentlocallocation.get")
 	public  ComponentLocalLocationVO get(@PathVariable String id) {
 
 		ComponentLocalLocation componentLocalLocation = componentLocalLocationService.find(id);
-
+		if(componentLocalLocation == null){
+			throw new ResourceNotFoundException("找不到指定的组件本地路径，请检查ID");
+		}
 		ComponentLocalLocationVO vo = initViewProperty(componentLocalLocation);
 		return vo;
 	}
@@ -137,6 +145,7 @@ public class ComponentLocalLocationController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询组件本地路径列表", httpMethod = "POST")
 	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "icode.project.componentlocallocation.list")
 	public PageContent<ComponentLocalLocationVO> list(@RequestBody PageSearchRequest<ComponentLocalLocationCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
@@ -180,10 +189,10 @@ public class ComponentLocalLocationController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("component" ,"组件");
-            headMap.put("location" ,"本地路径");
+        headMap.put("component" ,"组件");
+        headMap.put("location" ,"本地路径");
 
         String title = new String("组件本地路径");
         String fileName = new String(("组件本地路径_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -202,7 +211,6 @@ public class ComponentLocalLocationController {
 
 	}
 
-
 	private void initComponentPropertyGroup(ComponentLocalLocationVO componentLocalLocationVO, ComponentLocalLocation componentLocalLocation){
 	
 		Component component = componentService.find(componentLocalLocation.getComponent());
@@ -215,7 +223,6 @@ public class ComponentLocalLocationController {
 		componentLocalLocationVO.setComponentVO(componentVO);
 
 	}
-
 
 }
 

@@ -105,42 +105,34 @@ Ext.define('AM.view.icode.domainboard.DomainBoard', {
                 }
             ]
             ,listeners: {
-                beforeshow: {
-                    fn: me.onBeforeShow
-                    ,scope: me
-                }
-                ,beforehide: {
-                    fn: me.onPanelBeforeHide
-                    ,scope: me
-                }
+
             }
             ,contextMenu:{
                 component:Ext.create('Ext.menu.Menu', {
                     items: [
-                        ,{text:'删除组件', handler:function(){me.getController().deleteComponentAction()}}
-                        ,'-'
-                        ,{text:'新增领域', handler:function(){me.getController().addDomainAction()}}
+                        {text:'新增领域', iconCls:'fas fa-plus', handler:function(){me.getController().addDomainAction()}}
                     ]
                 })
                 ,domain:Ext.create('Ext.menu.Menu', {
                     items: [
-                        {text:'新增领域', handler:function(){me.getController().addDomainAction()}}
-                        ,{text:'删除领域'}
+                        {text:'新增子领域', iconCls:'fas fa-plus', handler:function(){me.getController().addDomainAction()}}
+                        ,{text:'删除领域', iconCls:'fas fa-trash-alt orange'}
                         ,'-'
-                        ,{text:'新增领域对象', handler:function(){me.getController().addEntityAction()}}
+                        ,{text:'新增领域对象', iconCls:'fas fa-plus', handler:function(){me.getController().addEntityAction()}}
                     ]
                 })
                 ,entity:Ext.create('Ext.menu.Menu', {
                     items: [
                         {text:'复制对象', iconCls:'fas fa-copy'}
-                        ,{text:'删除对象'}
+                        ,'-'
+                        ,{text:'删除实体', iconCls:'fas fa-trash-alt orange'}
                         ,'-'
                         ,{text:'新增服务', iconCls:'fas fa-plus', handler:function(){me.getController().addEntityActionAction()}}
                     ]
                 })
                 ,entityAction:Ext.create('Ext.menu.Menu', {
                     items: [
-                        {text:'删除服务', iconCls:'fas fa-trash-alt'}
+                        {text:'删除服务', iconCls:'fas fa-trash-alt orange'}
                         ,'-'
                         ,{text:'设置输入', iconCls:'fas fa-arrow-right', handler:function(){me.getController().setEntityActionParamAction('IN')}}
                         ,{text:'设置输出', iconCls:'fas fa-arrow-left', handler:function(){me.getController().setEntityActionParamAction('OUT')}}

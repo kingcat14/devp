@@ -29,14 +29,15 @@ public class ComponentSpecification implements Specification<Component>{
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
+		tryAddProductPredicate(predicateList, root, cb);
+		tryAddNumberPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddBasePackagePredicate(predicateList, root, cb);
-		tryAddDescriptionPredicate(predicateList, root, cb);
 		tryAddTplSetPredicate(predicateList, root, cb);
-		tryAddNumberPredicate(predicateList, root, cb);
-		tryAddGroupCodePredicate(predicateList, root, cb);
-		tryAddProductPredicate(predicateList, root, cb);
+		tryAddDescriptionPredicate(predicateList, root, cb);
+		tryAddTypePredicate(predicateList, root, cb);
+		tryAddRunnablePredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -50,29 +51,9 @@ public class ComponentSpecification implements Specification<Component>{
             predicateList.add(cb.equal(root.get(Component.PROPERTY_TID).as(Long.class), condition.getTid()));
         }
 	}
-	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getName())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
-		}
-	}
-	private void tryAddCodePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getCode())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
-		}
-	}
-	private void tryAddBasePackagePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getBasePackage())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_BASE_PACKAGE).as(String.class), "%"+condition.getBasePackage()+"%"));
-		}
-	}
-	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getDescription())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
-		}
-	}
-	private void tryAddTplSetPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-	    if (null != condition.getTplSet() ) {
-            predicateList.add(cb.equal(root.get(Component.PROPERTY_TPL_SET).as(String.class), condition.getTplSet()));
+	private void tryAddProductPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+	    if (null != condition.getProduct() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_PRODUCT).as(String.class), condition.getProduct()));
         }  
 	}
 	private void tryAddNumberPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
@@ -89,15 +70,40 @@ public class ComponentSpecification implements Specification<Component>{
 			predicateList.add(cb.lessThan(root.get(Component.PROPERTY_NUMBER).as(Integer.class), condition.getNumberMin()));
 		}
 	}
-	private void tryAddGroupCodePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getGroupCode())){
-			predicateList.add(cb.like(root.get(Component.PROPERTY_GROUP_CODE).as(String.class), "%"+condition.getGroupCode()+"%"));
+	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getName())){
+			predicateList.add(cb.like(root.get(Component.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
 		}
 	}
-	private void tryAddProductPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
-	    if (null != condition.getProduct() ) {
-            predicateList.add(cb.equal(root.get(Component.PROPERTY_PRODUCT).as(String.class), condition.getProduct()));
+	private void tryAddCodePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCode())){
+			predicateList.add(cb.like(root.get(Component.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
+		}
+	}
+	private void tryAddBasePackagePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getBasePackage())){
+			predicateList.add(cb.like(root.get(Component.PROPERTY_BASE_PACKAGE).as(String.class), "%"+condition.getBasePackage()+"%"));
+		}
+	}
+	private void tryAddTplSetPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+	    if (null != condition.getTplSet() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_TPL_SET).as(String.class), condition.getTplSet()));
         }  
+	}
+	private void tryAddDescriptionPredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDescription())){
+			predicateList.add(cb.like(root.get(Component.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
+		}
+	}
+	private void tryAddTypePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+	    if (null != condition.getType() ) {
+            predicateList.add(cb.equal(root.get(Component.PROPERTY_TYPE).as(String.class), condition.getType()));
+        }  
+	}
+	private void tryAddRunnablePredicate(List<Predicate> predicateList, Root<Component> root, CriteriaBuilder cb){
+		if (null != condition.getRunnable() ) {
+			predicateList.add(cb.equal(root.get(Component.PROPERTY_RUNNABLE).as(Boolean.class), condition.getRunnable()));
+		}
 	}
 }
 

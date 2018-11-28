@@ -93,7 +93,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationSearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'fas fa-search'
+                            ,iconCls: 'search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}

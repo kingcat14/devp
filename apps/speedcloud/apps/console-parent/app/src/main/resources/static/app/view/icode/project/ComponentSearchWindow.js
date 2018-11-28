@@ -35,38 +35,14 @@ Ext.define('AM.view.icode.project.ComponentSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
-                            xtype: 'textfield'
-                            ,itemId: 'nameField'
-                            ,fieldLabel: '组件名称'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'codeField'
-                            ,fieldLabel: '组件代码'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'basePackageField'
-                            ,fieldLabel: '基础包'
-                        }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'descriptionField'
-                            ,fieldLabel: '描述'
-                        }
-
-                        ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.icode.tplfile.TplSetStore")
+                            ,store: Ext.create("AM.store.icode.project.ProductStore")
                             ,typeAhead:false
                             ,editable:false
-                            ,displayField:'name'
+                            ,displayField:'productName'
                             ,valueField:'id'
-                            ,itemId: 'tplSetField'
-                            ,fieldLabel: '代码模板'
+                            ,itemId: 'productField'
+                            ,fieldLabel: '所属产品'
                         }
 
                         ,{
@@ -90,19 +66,61 @@ Ext.define('AM.view.icode.project.ComponentSearchWindow', {
 
                         ,{
                             xtype: 'textfield'
-                            ,itemId: 'groupCodeField'
-                            ,fieldLabel: '分组代码'
+                            ,itemId: 'nameField'
+                            ,fieldLabel: '组件名称'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'codeField'
+                            ,fieldLabel: '组件代码'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'basePackageField'
+                            ,fieldLabel: '基础包'
                         }
 
                         ,{
                             xtype: 'combobox'
-                            ,store: Ext.create("AM.store.icode.project.ProductStore")
+                            ,store: Ext.create("AM.store.icode.tplfile.TplSetStore")
                             ,typeAhead:false
                             ,editable:false
-                            ,displayField:'productName'
+                            ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'productField'
-                            ,fieldLabel: '所属产品'
+                            ,itemId: 'tplSetField'
+                            ,fieldLabel: '代码模板'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'descriptionField'
+                            ,fieldLabel: '描述'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.icode.project.ComponentTypeStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'typeField'
+                            ,fieldLabel: '类型'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: [
+                                [true,'是']
+                                ,[false,'否']
+                            ]
+                            ,value:true
+                            ,typeAhead:false
+                            ,editable:false
+                            ,itemId: 'runnableField'
+                            ,fieldLabel: '可运行组件'
                         }
 
                             ]
@@ -128,7 +146,7 @@ Ext.define('AM.view.icode.project.ComponentSearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'fas fa-search'
+                            ,iconCls: 'search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}
@@ -164,28 +182,30 @@ Ext.define('AM.view.icode.project.ComponentSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var nameField = me.down("#nameField");
-        var codeField = me.down("#codeField");
-        var basePackageField = me.down("#basePackageField");
-        var descriptionField = me.down("#descriptionField");
-        var tplSetField = me.down("#tplSetField");
+        var productField = me.down("#productField");
         var numberField = me.down("#numberField");
         var numberMaxField = me.down("#numberMaxField");
         var numberMinField = me.down("#numberMinField");
-        var groupCodeField = me.down("#groupCodeField");
-        var productField = me.down("#productField");
+        var nameField = me.down("#nameField");
+        var codeField = me.down("#codeField");
+        var basePackageField = me.down("#basePackageField");
+        var tplSetField = me.down("#tplSetField");
+        var descriptionField = me.down("#descriptionField");
+        var typeField = me.down("#typeField");
+        var runnableField = me.down("#runnableField");
 
         var condition = {
-            name:Ext.valueFrom(nameField.getValue(), null)
-            ,code:Ext.valueFrom(codeField.getValue(), null)
-            ,basePackage:Ext.valueFrom(basePackageField.getValue(), null)
-            ,description:Ext.valueFrom(descriptionField.getValue(), null)
-            ,tplSet:Ext.valueFrom(tplSetField.getValue(), null)
+            product:Ext.valueFrom(productField.getValue(), null)
             ,number:Ext.isNumber(numberField.getValue())?numberField.getValue():null
             ,numberMax:Ext.isNumber(numberMaxField.getValue())?numberMaxField.getValue():null
             ,numberMin:Ext.isNumber(numberMinField.getValue())?numberMinField.getValue():null
-            ,groupCode:Ext.valueFrom(groupCodeField.getValue(), null)
-            ,product:Ext.valueFrom(productField.getValue(), null)
+            ,name:Ext.valueFrom(nameField.getValue(), null)
+            ,code:Ext.valueFrom(codeField.getValue(), null)
+            ,basePackage:Ext.valueFrom(basePackageField.getValue(), null)
+            ,tplSet:Ext.valueFrom(tplSetField.getValue(), null)
+            ,description:Ext.valueFrom(descriptionField.getValue(), null)
+            ,type:Ext.valueFrom(typeField.getValue(), null)
+            ,runnable:Ext.valueFrom(runnableField.getValue(), null)
         };
 
         return condition;

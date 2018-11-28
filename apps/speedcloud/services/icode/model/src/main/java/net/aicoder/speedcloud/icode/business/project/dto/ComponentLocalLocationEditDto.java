@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.icode.business.project.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改组件本地路径使用的DTO")
+@Setter @Getter
 public class ComponentLocalLocationEditDto {
 
 

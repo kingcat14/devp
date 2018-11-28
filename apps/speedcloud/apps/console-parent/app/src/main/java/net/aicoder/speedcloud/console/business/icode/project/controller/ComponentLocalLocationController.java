@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.icode.project.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -40,10 +39,7 @@ import java.util.*;
 public class ComponentLocalLocationController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComponentLocalLocationController.class);
-
-    @Autowired
-	private SaaSUtil saaSUtil;
-	
+   
     @Autowired
 	private ComponentLocalLocationRibbonService componentLocalLocationRibbonService;
 

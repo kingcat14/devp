@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 @Table(name = "project_component_local_location")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class ComponentLocalLocation extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";

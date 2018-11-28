@@ -20,6 +20,14 @@ public class ComponentAddDto {
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
 
+    /**所属产品*/
+	@ApiModelProperty(value = "所属产品", required = false)
+	private String product;
+
+    /**组件编号*/
+	@ApiModelProperty(value = "组件编号", required = false, notes = "")
+	private Integer number;
+
     /**组件名称*/
 	@ApiModelProperty(value = "组件名称", required = false, notes = "")
 	private String name;
@@ -32,25 +40,21 @@ public class ComponentAddDto {
 	@ApiModelProperty(value = "基础包", required = false, notes = "")
 	private String basePackage;
 
-    /**描述*/
-	@ApiModelProperty(value = "描述", required = false, notes = "")
-	private String description;
-
     /**代码模板*/
 	@ApiModelProperty(value = "代码模板", required = false, notes = "")
 	private String tplSet;
 
-    /**组件编号*/
-	@ApiModelProperty(value = "组件编号", required = false, notes = "")
-	private Integer number;
+    /**描述*/
+	@ApiModelProperty(value = "描述", required = false, notes = "")
+	private String description;
 
-    /**分组代码*/
-	@ApiModelProperty(value = "分组代码", required = false, notes = "")
-	private String groupCode;
+    /**类型*/
+	@ApiModelProperty(value = "类型", required = false, notes = "IOS、ANDROID、WEB、应用、服务、公共组件")
+	private String type;
 
-    /**所属产品*/
-	@ApiModelProperty(value = "所属产品", required = false)
-	private String product;
+    /**可运行组件*/
+	@ApiModelProperty(value = "可运行组件", required = false)
+	private Boolean runnable;
 
 
 	public Long getTid(){
@@ -58,6 +62,20 @@ public class ComponentAddDto {
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getProduct(){
+        return product;
+    }
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+	public Integer getNumber(){
+		return number;
+	}
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	public String getName(){
@@ -81,13 +99,6 @@ public class ComponentAddDto {
 		this.basePackage = basePackage;
 	}
 
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getTplSet(){
         return tplSet;
     }
@@ -95,26 +106,26 @@ public class ComponentAddDto {
         this.tplSet = tplSet;
     }
 
-	public Integer getNumber(){
-		return number;
+	public String getDescription(){
+		return description;
 	}
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-
-	public String getGroupCode(){
-		return groupCode;
-	}
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getProduct(){
-        return product;
+	public String getType(){
+        return type;
     }
-    public void setProduct(String product) {
-        this.product = product;
+    public void setType(String type) {
+        this.type = type;
     }
+
+	public Boolean getRunnable(){
+		return runnable;
+	}
+	public void setRunnable(Boolean runnable) {
+		this.runnable = runnable;
+	}
 
 
 	@Override

@@ -239,7 +239,7 @@ Ext.define('AM.view.asset.asset.info.AssetOwnershipPanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
+                                    ,iconCls: 'fas fa-search'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'

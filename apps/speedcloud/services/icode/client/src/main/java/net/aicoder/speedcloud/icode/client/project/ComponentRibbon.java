@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 /**
- * 系统组件客户端
+ * 组件客户端
  * @author icode
  */
 @Service
@@ -42,7 +42,7 @@ public class ComponentRibbon {
 
 
     /**
-     * 新增系统组件
+     * 新增组件
      * @param addDto
      * @return
      */
@@ -59,7 +59,7 @@ public class ComponentRibbon {
     }
 
 	/**
-	 * 删除系统组件
+	 * 删除组件
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
@@ -77,7 +77,7 @@ public class ComponentRibbon {
     }
 
 	/**
-	 * 更新系统组件
+	 * 更新组件
 	 * @param id
 	 * @param editDto
 	 * @return
@@ -89,6 +89,7 @@ public class ComponentRibbon {
                 restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<ComponentResult>() {});
         return response.getBody();
     }
+
     public ComponentResult updateFail(String id, ComponentEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
@@ -99,7 +100,7 @@ public class ComponentRibbon {
 
 
     /**
-	 * 根据ID查询系统组件
+	 * 根据ID查询组件
 	 * @param id
 	 * @return
 	 */
@@ -121,7 +122,7 @@ public class ComponentRibbon {
     }
 
 	/**
-	 * 查询系统组件列表
+	 * 查询组件列表
 	 * @param pageSearchRequest
 	 * @return
 	 */

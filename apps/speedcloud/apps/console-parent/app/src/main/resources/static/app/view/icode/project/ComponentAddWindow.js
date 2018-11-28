@@ -3,8 +3,9 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
     ,xtype: 'icode.project.ComponentAddWindow'
     ,requires:[
         'AM.store.common.SimpleConfigStore'
-        ,'AM.store.icode.tplfile.TplSetStore'
         ,'AM.store.icode.project.ProductStore'
+        ,'AM.store.icode.tplfile.TplSetStore'
+        ,'AM.store.icode.project.ComponentTypeStore'
 
     ]
     ,autoScroll: true
@@ -30,7 +31,6 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -50,6 +50,38 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                             ,items:[
 
                                 ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.icode.project.ProductStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'productName'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'productField'
+                                    ,name: 'product'
+                                    ,fieldLabel: '所属产品'
+                                                         
+                                }
+
+
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'numberField'
+                                    ,name: 'number'
+                                    ,fieldLabel: '组件编号'
+                                    
+                                }
+
+
+                                ,{
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
@@ -58,6 +90,7 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '组件名称'
+                                    
                                 }
 
 
@@ -70,6 +103,7 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '组件代码'
+                                    
                                 }
 
 
@@ -82,9 +116,8 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                                     ,itemId: 'basePackageField'
                                     ,name: 'basePackage'
                                     ,fieldLabel: '基础包'
+                                    
                                 }
-
-
 
 
                                 ,{
@@ -101,61 +134,60 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
                                     ,itemId: 'tplSetField'
                                     ,name: 'tplSet'
                                     ,fieldLabel: '代码模板'
+                                                         
                                 }
 
 
-                                ,{
-                                    xtype: 'numberfield'
-                                    ,allowDecimals:false
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'numberField'
-                                    ,name: 'number'
-                                    ,fieldLabel: '组件编号'
-                                }
-
-
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'groupCodeField'
-                                    ,name: 'groupCode'
-                                    ,fieldLabel: '分组代码'
-                                }
 
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.icode.project.ProductStore")
+                                    ,store: Ext.create("AM.store.icode.project.ComponentTypeStore")
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'productName'
+                                    ,displayField:'name'
                                     ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'productField'
-                                    ,name: 'product'
-                                    ,fieldLabel: '所属产品'
+                                    ,itemId: 'typeField'
+                                    ,name: 'type'
+                                    ,fieldLabel: '类型'
+                                                         
+                                }
+
+
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: [
+                                        [true,'是']
+                                        ,[false,'否']
+                                    ]
+                                    ,value:true
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'runnableField'
+                                    ,name: 'runnable'
+                                    ,fieldLabel: '可运行组件'
                                 }
 
                             ]
                         }
                         ,{
 
-                            xtype: 'textarea',
-                            anchor: '96% 70%',
-                            itemId: 'descriptionField',
-                            padding: '5 0 0 5',
-                            name: 'description',
-                            fieldLabel: '描述',
-                            labelAlign: 'top'
+                            xtype: 'textarea'
+                            ,anchor: '96% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
+                            
                         }
                     ]
                 }
@@ -225,8 +257,9 @@ Ext.define('AM.view.icode.project.ComponentAddWindow', {
 
     }
     ,onBeforeShow:function() {
-        this.down('#tplSetField').getStore().reload();
         this.down('#productField').getStore().reload();
+        this.down('#tplSetField').getStore().reload();
+        this.down('#typeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

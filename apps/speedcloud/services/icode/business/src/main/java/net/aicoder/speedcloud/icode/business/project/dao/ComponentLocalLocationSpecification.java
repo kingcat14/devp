@@ -50,14 +50,6 @@ public class ComponentLocalLocationSpecification implements Specification<Compon
 		if (null != condition.getAccountId() ) {
 			predicateList.add(cb.equal(root.get(ComponentLocalLocation.PROPERTY_ACCOUNT_ID).as(Long.class), condition.getAccountId()));
 		}
-
-		if (null != condition.getAccountIdMax() ) {
-			predicateList.add(cb.greaterThanOrEqualTo(root.get(ComponentLocalLocation.PROPERTY_ACCOUNT_ID).as(Long.class), condition.getAccountIdMax()));
-		}
-
-		if (null != condition.getAccountIdMin() ) {
-			predicateList.add(cb.lessThan(root.get(ComponentLocalLocation.PROPERTY_ACCOUNT_ID).as(Long.class), condition.getAccountIdMin()));
-		}
 	}
 	private void tryAddComponentPredicate(List<Predicate> predicateList, Root<ComponentLocalLocation> root, CriteriaBuilder cb){
 	    if (null != condition.getComponent() ) {

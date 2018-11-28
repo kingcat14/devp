@@ -29,7 +29,6 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -58,6 +57,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
                                     ,itemId: 'accountIdField'
                                     ,name: 'accountId'
                                     ,fieldLabel: '用户id'
+                                    
                                 }
 
 
@@ -75,6 +75,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
                                     ,itemId: 'componentField'
                                     ,name: 'component'
                                     ,fieldLabel: '组件'
+                                                         
                                 }
 
 
@@ -87,6 +88,7 @@ Ext.define('AM.view.icode.project.ComponentLocalLocationAddWindow', {
                                     ,itemId: 'locationField'
                                     ,name: 'location'
                                     ,fieldLabel: '本地路径'
+                                    
                                 }
 
                             ]

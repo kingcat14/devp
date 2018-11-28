@@ -2,8 +2,9 @@ Ext.define('AM.view.icode.project.ComponentEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'icode.project.ComponentEditWindow'
     ,requires:[
-        'AM.store.icode.tplfile.TplSetStore'
-        ,'AM.store.icode.project.ProductStore'
+        'AM.store.icode.project.ProductStore'
+        ,'AM.store.icode.tplfile.TplSetStore'
+        ,'AM.store.icode.project.ComponentTypeStore'
     ],
     autoScroll: true,
     height: '60%',
@@ -47,6 +48,32 @@ Ext.define('AM.view.icode.project.ComponentEditWindow', {
                             }
                             ,defaults:{width:'100%'}
                             ,items:[
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.icode.project.ProductStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'productName'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'productField'
+                                    ,name: 'product'
+                                    ,fieldLabel: '所属产品'
+                                }
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'numberField'
+                                    ,name: 'number'
+                                    ,fieldLabel: '组件编号'
+                                }
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
@@ -93,40 +120,36 @@ Ext.define('AM.view.icode.project.ComponentEditWindow', {
                                     ,fieldLabel: '代码模板'
                                 }
                                 ,{
-                                    xtype: 'numberfield'
-                                    ,allowDecimals:false
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'numberField'
-                                    ,name: 'number'
-                                    ,fieldLabel: '组件编号'
-                                }
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'groupCodeField'
-                                    ,name: 'groupCode'
-                                    ,fieldLabel: '分组代码'
-                                }
-                                ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.icode.project.ProductStore")
+                                    ,store: Ext.create("AM.store.icode.project.ComponentTypeStore")
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'productName'
+                                    ,displayField:'name'
                                     ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'productField'
-                                    ,name: 'product'
-                                    ,fieldLabel: '所属产品'
+                                    ,itemId: 'typeField'
+                                    ,name: 'type'
+                                    ,fieldLabel: '类型'
+                                }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: [
+                                        [true,'是']
+                                        ,[false,'否']
+                                    ]
+                                    ,value:true
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'runnableField'
+                                    ,name: 'runnable'
+                                    ,fieldLabel: '可运行组件'
                                 }
                             ]
 
@@ -214,6 +237,8 @@ Ext.define('AM.view.icode.project.ComponentEditWindow', {
 
     }
     ,onBeforeShow:function() {
+        this.down('#productField').getStore().reload();
+       
        
        
        
@@ -221,8 +246,8 @@ Ext.define('AM.view.icode.project.ComponentEditWindow', {
         this.down('#tplSetField').getStore().reload();
        
        
+        this.down('#typeField').getStore().reload();
        
-        this.down('#productField').getStore().reload();
        
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }

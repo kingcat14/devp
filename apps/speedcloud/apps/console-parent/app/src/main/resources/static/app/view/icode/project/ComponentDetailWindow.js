@@ -31,6 +31,22 @@ Ext.define('AM.view.icode.project.ComponentDetailWindow', {
                     }
                     ,items: [
                         ,{
+                            itemId: 'productField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'product'
+                            ,fieldLabel: '所属产品'
+                            ,renderer: function (value, field) {
+                                var record = me.down('form').getForm().getRecord();
+                                return record.get('productVO')?record.get('productVO').productName:'';
+                            }
+                        }
+                        ,{
+                            itemId: 'numberField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'number'
+                            ,fieldLabel: '组件编号'
+                        }
+                        ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
                             ,name: 'name'
@@ -49,12 +65,6 @@ Ext.define('AM.view.icode.project.ComponentDetailWindow', {
                             ,fieldLabel: '基础包'
                         }
                         ,{
-                            itemId: 'descriptionField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'description'
-                            ,fieldLabel: '描述'
-                        }
-                        ,{
                             itemId: 'tplSetField'
                             ,padding: '5 0 0 5'
                             ,name: 'tplSet'
@@ -65,26 +75,28 @@ Ext.define('AM.view.icode.project.ComponentDetailWindow', {
                             }
                         }
                         ,{
-                            itemId: 'numberField'
+                            itemId: 'typeField'
                             ,padding: '5 0 0 5'
-                            ,name: 'number'
-                            ,fieldLabel: '组件编号'
-                        }
-                        ,{
-                            itemId: 'groupCodeField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'groupCode'
-                            ,fieldLabel: '分组代码'
-                        }
-                        ,{
-                            itemId: 'productField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'product'
-                            ,fieldLabel: '所属产品'
+                            ,name: 'type'
+                            ,fieldLabel: '类型'
                             ,renderer: function (value, field) {
                                 var record = me.down('form').getForm().getRecord();
-                                return record.get('productVO')?record.get('productVO').productName:'';
+                                return record.get('typeVO')?record.get('typeVO').name:'';
                             }
+                        }
+                        ,{
+                            itemId: 'runnableField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'runnable'
+                            ,fieldLabel: '可运行组件'
+                        }
+                        ,{
+                            anchor: '98% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
                         }
                     ]
                 }

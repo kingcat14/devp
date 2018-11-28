@@ -56,6 +56,22 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
+                            ,dataIndex: 'product'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("productVO")?record.get("productVO").productName:'';
+                            }
+                            ,text: '所属产品'
+                            
+                        }
+                        ,{
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'number'
+                            ,format:'0,000'
+                            ,text: '组件编号'
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '组件名称'
                             
@@ -74,12 +90,6 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
                             ,dataIndex: 'tplSet'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("tplSetVO")?record.get("tplSetVO").name:'';
@@ -88,25 +98,27 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                             
                         }
                         ,{
-                            xtype: 'numbercolumn'
-                            ,dataIndex: 'number'
-                            ,format:'0,000'
-                            ,text: '组件编号'
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'description'
+                            ,text: '描述'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'groupCode'
-                            ,text: '分组代码'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'product'
+                            ,dataIndex: 'type'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("productVO")?record.get("productVO").productName:'';
+                                return record.get("typeVO")?record.get("typeVO").name:'';
                             }
-                            ,text: '所属产品'
+                            ,text: '类型'
+                            
+                        }
+                        ,{
+                            xtype: 'booleancolumn'
+                            ,dataIndex: 'runnable'
+                            ,trueText: '是'
+                            ,falseText: '否'
+                            ,emptyCellText :'不确定'
+                            ,text: '可运行组件'
                             ,flex:1
                         }
                         ,{

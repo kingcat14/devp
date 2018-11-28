@@ -27,6 +27,18 @@ Ext.define('AM.model.icode.project.Component', {
             ,critical:true
         }
     	,{
+            name: 'product'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'number'
+            ,type:'int'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
             name: 'name'
             ,type:'string'
             ,allowNull:false
@@ -45,33 +57,27 @@ Ext.define('AM.model.icode.project.Component', {
             ,critical:true
         }
     	,{
-            name: 'description'
-            ,type:'string'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
             name: 'tplSet'
             ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'number'
-            ,type:'int'
-            ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'groupCode'
+            name: 'description'
             ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'product'
+            name: 'type'
             ,type:'string'
             ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'runnable'
+            ,type:'bool'
+            ,allowNull:false
             ,critical:true
         }
     ]
