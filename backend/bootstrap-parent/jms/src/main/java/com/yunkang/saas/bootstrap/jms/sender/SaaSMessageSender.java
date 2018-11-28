@@ -10,6 +10,7 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.jms.Destination;
@@ -28,11 +29,15 @@ public class SaaSMessageSender {
 
 
 
+    @Async("asyncMessageSendExecutor")
+    public void sendTopicAsync(DomainEvent domainEvent, Long tenantId, Object o){
+        sendTopic(domainEvent, tenantId, o);
+    }
 
     public void sendTopic(DomainEvent domainEvent, Long tenantId, Object o){
 
         if(tenantId == null){
-            throw new BusinessException("SaaSMessageSender", "sendtopic", "NOT_TENANT_ID", "必须设置租户ID,OBJECT:"+o.toString());
+            throw new BusinessException("SaaSMessageSender", "sendTopic", "NOT_TENANT_ID", "必须设置租户ID,OBJECT:"+o.toString());
         }
 
         TenantMessage<Object> message = new TenantMessage<>();
@@ -54,6 +59,8 @@ public class SaaSMessageSender {
         }
 
     }
+
+
     protected void sendQueue(String topic, TenantMessage message){
 
         Destination destination = new ActiveMQQueue(topic);
