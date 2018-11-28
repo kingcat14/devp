@@ -4,7 +4,7 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
     , alias: 'widget.icode.project.ComponentPanel'
     , title: '组件'
     , bodyCls: 'app-dashboard'
-    // , bodyPadding: '10 10'
+    , bodyPadding: '5'
     , layout: 'border'
     , requires: [
         'AM.view.icode.project.ComponentController'
@@ -13,6 +13,9 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
         ,'AM.view.icode.project.ComponentEditWindow'
         ,'AM.view.icode.project.ComponentSearchWindow'
         ,'AM.view.icode.project.ComponentDetailWindow'
+        ,'AM.model.icode.tplfile.TplCode'
+        ,'AM.store.icode.tplfile.TplFileTreeStore'
+        ,'AM.view.icode.tplfile.TplCodeDetailWindow'
     ]
     ,controller: 'icode.project.ComponentController'
     ,constructor:function(cfg){
@@ -22,7 +25,8 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
         me.callParent([Ext.apply({
             viewModel : {
                 stores:{
-                    store:Ext.create('AM.store.icode.project.ComponentStore').load()
+                    store: Ext.create('AM.store.icode.project.ComponentStore').load()
+                    ,tplFileTreeStore: Ext.create('AM.store.icode.tplfile.TplFileTreeStore', {autoLoad:true, sorters: 'name'})
                 }
             }
         }, cfg)])
@@ -35,6 +39,7 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
+                    ,title: '组件列表'
                     ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
@@ -64,6 +69,14 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                             
                         }
                         ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'type'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("typeVO")?record.get("typeVO").name:'';
+                            }
+                            ,text: '类型'
+                        }
+                        ,{
                             xtype: 'numbercolumn'
                             ,dataIndex: 'number'
                             ,format:'0,000'
@@ -89,36 +102,43 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                             
                         }
                         ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'tplSet'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("tplSetVO")?record.get("tplSetVO").name:'';
-                            }
-                            ,text: '代码模板'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'type'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("typeVO")?record.get("typeVO").name:'';
-                            }
-                            ,text: '类型'
-                            
-                        }
-                        ,{
                             xtype: 'booleancolumn'
                             ,dataIndex: 'runnable'
                             ,trueText: '是'
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '可运行组件'
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'tplSet'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("tplSetVO")?record.get("tplSetVO").name:'';
+                            }
+                            ,text: '代码模板'
+                            ,tooltip: '点击查看'
+                            ,flex:0.3
+                            ,listeners:{
+                                click:function (view, td, rowIndex, colIndex, event, record) {
+
+                                    var tplFileTreePanel = me.lookupReference('tplFileTreePanel').expand();
+                                    tplFileTreePanel.setTitle("【"+record.get('name')+"】代码模板");
+
+                                    var tplSet = Ext.valueFrom(record.get('tplSet'), -999);
+
+                                    var tplFileTreeStore = me.getViewModel().getStore('tplFileTreeStore');
+                                    tplFileTreeStore.getRoot().set('id', tplSet);
+                                    tplFileTreeStore.getRoot().set('type', 'TPL_SET');
+                                    tplFileTreeStore.reload();
+
+                                }
+                            }
+                            
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'description'
+                            ,text: '描述'
                             ,flex:1
                         }
                         ,{
@@ -214,14 +234,6 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                                         click: 'showSearchWindow'
                                     }
                                 }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-download'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
-                                    }
-                                }
                             ]
                         },
                         {
@@ -233,16 +245,41 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
                     ,selModel: 'checkboxmodel'
                     ,listeners: {}
                 }
+                ,{
+                    xtype: 'treepanel'
+                    , region: 'east'
+                    , frame:true
+                    , border: false
+                    , reference: 'tplFileTreePanel'
+                    , bind:{store:'{tplFileTreeStore}'}
+                    // , store: Ext.create('AM.store.icode.tplfile.TplFileTreeStore', {autoLoad:true, sorters: 'name'})
+                    , split: true
+                    , collapsible: true
+                    , collapsed: true
+                    , width: 350
+                    , title: '组件代码模板'
+                    , rootVisible: false
+                    , displayField: 'name'
+                    , listeners: {
+                        itemclick: function(view, record, node, index, e){
+
+                            if('TPL_CODE' == record.get('type')){
+                                AM.model.icode.tplfile.TplCode.load(record.get('objectId'), {
+                                    success: function (loadedRecord, operation) {
+                                        me.lookupReference('tplCodeDetailWindow').setModel(loadedRecord);
+                                        me.lookupReference('tplCodeDetailWindow').show(node);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
             ]
             ,listeners: {
             	beforeshow: {
                     fn: me.onBeforeShow
                     ,scope: me
                 }
-              	,beforehide: {
-                	fn: me.onPanelBeforeHide
-                  	,scope: me
-				}
 			}
         });
 
@@ -251,15 +288,8 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
         me.add({xtype:'icode.project.ComponentSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
         me.add({xtype:'icode.project.ComponentDetailWindow',reference:'mainDetailWindow'})
 
+        me.add({xtype:'icode.tplfile.TplCodeDetailWindow',reference:'tplCodeDetailWindow',listeners:{saved:'reloadStore'}})
         me.callParent(arguments);
-    }
-
-    ,showDetailWindow: function(model, targetComponent) {
-        var me = this;
-        var detailWindow = me.lookupReference('mainDetailWindow');
-        detailWindow.setModel(model);
-        detailWindow.show(targetComponent);
-        return detailWindow;
     }
 
     ,onBeforeShow:function(abstractcomponent, options) {

@@ -23,7 +23,7 @@ public class ComponentTypeService  extends GenericCrudService<ComponentType, Str
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, ComponentType.PROPERTY_CODE);
+		Sort sort = new Sort(Sort.Direction.ASC, ComponentType.PROPERTY_IDX);
 		return sort;
 	}
 }
