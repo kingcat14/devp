@@ -28,13 +28,23 @@ spring:
     password: admin
     broker-url: tcp://localhost:61616
 
+
 security:
   basic:
-    enabled: true
+    enabled: false
+  oauth2:
+    client:
+      access-token-uri: http://SAAS-AUTHENTICATION-MICROSERVICE/oauth/token
+      client-id: custom
+      client-secret: custom
+      client-authentication-scheme: header
+    resource:
+      token-info-uri: http://SAAS-AUTHENTICATION-MICROSERVICE/oauth/check_token
+      id: ${spring.application.name}
 
 management:
   security:
-    enabled: true
+    enabled: false
 
 swagger:
   base-package: net.aicoder.speedcloud.icode.business

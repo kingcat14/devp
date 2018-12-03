@@ -29,6 +29,8 @@ eureka:
         password: 123456
 
 spring:
+  config:
+    name: ${application.product}-${application.module}-${application.name}
   application:
     name: ${application.product}-${application.module}-${application.name}
   profiles:
@@ -47,7 +49,10 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
-
+  session:
+    redis:
+      namespace: abcdefg #session:${spring.application.name}
+    store-type: redis
 management:
   security:
     enabled: true
@@ -67,4 +72,29 @@ swagger:
 logging:
   file: logs/${spring.application.name}.log
 
+security:
+  oauth2:
+    client:
+      access-token-uri: http://SAAS-AUTHENTICATION-MICROSERVICE/oauth/token
+      client-id: ${spring.application.name}
+      client-secret: ${spring.application.name}
+      client-authentication-scheme: header
 
+feign:
+  httpclient:
+    connection-timeout: 5000
+  hystrix:
+    enabled: true
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+#设置超时断路时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

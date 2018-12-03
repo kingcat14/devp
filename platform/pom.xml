@@ -28,6 +28,7 @@
             <modules>
                 <module>monitor</module>
                 <module>manage</module>
+                <module>authentication</module>
                 <!-- <module>model</module>
                 <module>business</module>
                 <module>web</module>

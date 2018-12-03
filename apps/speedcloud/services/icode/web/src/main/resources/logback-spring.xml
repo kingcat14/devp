@@ -33,7 +33,10 @@
 
     <root level="INFO">
         <appender-ref ref="fileLog" />
-        <appender-ref ref="stdout"  />
+        <!--<appender-ref ref="stdout"  />-->
     </root>
-
+    <logger name="org.springframework" level="DEBUG">
+        <!--<appender-ref ref="fileLog" />-->
+        <appender-ref ref="stdout"  />
+    </logger>
 </configuration>

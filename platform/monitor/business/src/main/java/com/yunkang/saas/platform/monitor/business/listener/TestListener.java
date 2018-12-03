@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * 参考 sba的 InstanceDiscoveryListener
  */
-@Component
+//@Component
 @Slf4j
 public class TestListener {
 
@@ -45,6 +44,8 @@ public class TestListener {
 
     }
 
+
+
     @EventListener
     public void onInstanceDeregistered(ClientApplicationDeregisteredEvent event){
 
@@ -58,23 +59,14 @@ public class TestListener {
 
     }
     @EventListener
-    public void onInstanceRegistered(ClientApplicationStatusChangedEvent event){
-        log.info("onInstanceDeregistered:{}" + event.getApplication());
+    public void onStatusChanged(ClientApplicationStatusChangedEvent event){
+        log.info("onStatusChanged:{}" + event.getApplication());
         Application application = event.getApplication();
 
         InstanceInfo instanceInfo = getInstanceInfo(application);
         makeIndicator(event.getTimestamp(), application.getStatusInfo().getStatus(), instanceInfo);
 
     }
-
-//    @EventListener
-//    public void onInstanceRegistered(InstanceRegisteredEvent instanceRegisteredEvent){
-//        log.info("onInstanceDeregistered:{}" + instanceRegisteredEvent.getInstance());
-//    }
-//    @EventListener
-//    public void onInstanceDeregisteredEvent(InstanceDeregisteredEvent instanceRegisteredEvent){
-//        log.info("onInstanceDeregistered:{}" + instanceRegisteredEvent.getInstance());
-//    }
 
     @EventListener
     public void onEvent(Object o) {

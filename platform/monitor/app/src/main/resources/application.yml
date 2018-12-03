@@ -15,7 +15,7 @@ server:
 eureka:
   client:
     registry-fetch-interval-seconds: 3
-    register-with-eureka: true
+    register-with-eureka: false
   instance:
     lease-renewal-interval-in-seconds: 3
     lease-expiration-duration-in-seconds: 5

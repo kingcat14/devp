@@ -3,20 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.aicoder.speedcloud</groupId>
-        <artifactId>speedcloud-parent</artifactId>
+        <groupId>net.aicoder.speedcloud.service.core</groupId>
+        <artifactId>core-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>speedcloud-business</artifactId>
+    <artifactId>core-business</artifactId>
     <description>云效核心服务-所有业务实现</description>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>net.aicoder.speedcloud</groupId>
-            <artifactId>speedcloud-model</artifactId>
+            <groupId>net.aicoder.speedcloud.service.core</groupId>
+            <artifactId>core-model</artifactId>
         </dependency>
         <dependency>
             <groupId>com.yunkang.saas.common</groupId>
@@ -27,12 +27,12 @@
             <artifactId>bootstrap-monitor</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.aicoder.speedcloud</groupId>
-            <artifactId>speedcloud-client</artifactId>
+            <groupId>net.aicoder.speedcloud.service.core</groupId>
+            <artifactId>core-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.aicoder.speedcloud</groupId>
-            <artifactId>speedcloud-adapter-jenkins</artifactId>
+            <groupId>net.aicoder.speedcloud.service.core</groupId>
+            <artifactId>core-adapter-jenkins</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

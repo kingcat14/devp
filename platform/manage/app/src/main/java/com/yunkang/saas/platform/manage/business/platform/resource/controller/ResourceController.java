@@ -35,10 +35,8 @@ public class ResourceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceController.class);
 
-
 	@Autowired
 	private ResourceService resourceService;
-
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){

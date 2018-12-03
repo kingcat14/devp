@@ -14,8 +14,6 @@ import net.aicoder.speedcloud.console.business.icode.domainboard.controller.vo.D
 import net.aicoder.speedcloud.console.business.icode.project.service.ComponentDomainRelationRibbonService;
 import net.aicoder.speedcloud.console.business.icode.project.service.ComponentRibbonService;
 import net.aicoder.speedcloud.console.business.icode.project.service.ProductRibbonService;
-import net.aicoder.speedcloud.console.business.speedcloud.app.service.AppBaseInfoRibbonService;
-import net.aicoder.speedcloud.console.business.speedcloud.project.service.ProjectRibbonService;
 import net.aicoder.speedcloud.icode.business.domain.dto.DomainCondition;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionCondition;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityCondition;
@@ -126,10 +124,11 @@ public class DomainModelTreeController {
 	 * @return
 	 */
 	private List<DomainModelTreeNode> findComponentNode(String productId){
+		Long tenantId = saaSUtil.getAccount().getTid();
 
 		ComponentCondition condition = new ComponentCondition();
 		condition.setProduct(productId);
-
+		condition.setTid(tenantId);
 		PageSearchRequest request = new PageSearchRequest();
 		request.setPage(0);
 		request.setLimit(Integer.MAX_VALUE);
@@ -150,8 +149,11 @@ public class DomainModelTreeController {
 
 	private List<DomainModelTreeNode> findTopModuleNode(String componentId){
 
+		Long tenantId = saaSUtil.getAccount().getTid();
+
 		ComponentDomainRelationCondition condition = new ComponentDomainRelationCondition();
 		condition.setComponent(componentId);
+		condition.setTid(tenantId);
 
 		PageSearchRequest request = new PageSearchRequest();
 		request.setPage(0);
@@ -174,9 +176,11 @@ public class DomainModelTreeController {
 	}
 
 	private List<DomainModelTreeNode> findSubModuleNode(String domainId){
+		Long tenantId = saaSUtil.getAccount().getTid();
 
 		DomainCondition condition = new DomainCondition();
 		condition.setParent(domainId);
+		condition.setTid(tenantId);
 
 		PageSearchRequest request = new PageSearchRequest();
 		request.setPage(0);
@@ -197,9 +201,11 @@ public class DomainModelTreeController {
 	}
 
 	private List<DomainModelTreeNode> findEntityNode(String domainId){
+		Long tenantId = saaSUtil.getAccount().getTid();
 
 		EntityCondition condition = new EntityCondition();
 		condition.setDomain(domainId);
+		condition.setTid(tenantId);
 
 		PageSearchRequest request = new PageSearchRequest();
 		request.setPage(0);
@@ -220,9 +226,11 @@ public class DomainModelTreeController {
 	}
 
 	private List<DomainModelTreeNode> findActionNode(String entityId){
+		Long tenantId = saaSUtil.getAccount().getTid();
 
 		EntityActionCondition condition = new EntityActionCondition();
 		condition.setEntity(entityId);
+		condition.setTid(tenantId);
 
 		PageSearchRequest request = new PageSearchRequest();
 		request.setPage(0);
@@ -269,15 +277,6 @@ public class DomainModelTreeController {
 		return result;
 	}
 
-
-
-
-	/**对应(icode里的product)*/
-	@Autowired
-	private ProjectRibbonService projectRibbonService;
-	/**对应icode里的component*/
-	@Autowired
-	private AppBaseInfoRibbonService appBaseInfoRibbonService;
 
 	@Autowired
 	private ProductRibbonService productRibbonService;

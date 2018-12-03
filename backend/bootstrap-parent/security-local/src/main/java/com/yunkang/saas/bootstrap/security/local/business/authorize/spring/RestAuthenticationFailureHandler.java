@@ -1,6 +1,7 @@
 package com.yunkang.saas.bootstrap.security.local.business.authorize.spring;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
@@ -22,8 +23,14 @@ public class RestAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
         logger.debug("No failure URL set, sending 401 Unauthorized error");
 
+        String message = exception.getMessage();
+
+        if (exception instanceof BadCredentialsException) {
+            message = "密码错误";
+        }
+
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                "Authentication456 Failed: " + exception.getMessage());
+                "Authentication Failed: " + message);
 
         super.onAuthenticationFailure(request, response, exception);
 

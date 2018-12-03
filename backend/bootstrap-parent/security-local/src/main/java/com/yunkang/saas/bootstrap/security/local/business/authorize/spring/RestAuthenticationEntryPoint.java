@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 访问资源时, 权限不通过的处理
+ * 访问应用资源时, 权限不通过的处理
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

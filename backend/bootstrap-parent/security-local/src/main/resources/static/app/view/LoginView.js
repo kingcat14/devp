@@ -20,7 +20,7 @@ Ext.define('AM.view.LoginView', {
                     ,{
                         xtype: 'form'
                         ,reference: 'form'
-                        ,title: '登录'
+                        ,title: '云康SaaS服务平台'
                         ,titleAlign: 'center'
                         ,frame: false
                         ,width: 320

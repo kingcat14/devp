@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Created by gonghongrui on 2017/1/10.
@@ -86,12 +87,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //登出后的处理
                 .logout().logoutSuccessHandler(restLogoutSuccessHandler)
+
+                .invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("JSESSIONID").invalidateHttpSession(true)
+                .permitAll()
                 .and()
                 //访问资源不通过后的处理
                 .exceptionHandling().accessDeniedHandler(restAccessDeniedHandler)
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and().headers().frameOptions().disable();
-
     }
 
     @Override

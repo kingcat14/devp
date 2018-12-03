@@ -1,16 +1,16 @@
 package net.aicoder.speedcloud.console.config;
 
 
+import com.yunkang.saas.bootstrap.config.client.feign.Oauth2ClientConfig;
 import com.yunkang.saas.platform.manage.config.PlatformManageAppConfig;
-import net.aicoder.speedcloud.asset.client.asset.AssetClientConfig;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@Configuration
-@ComponentScan("net.aicoder.speedcloud.client")
-@Import({ConsoleBusinessConfig.class,AssetClientConfig.class, PlatformManageAppConfig.class})
 
+@Configuration
+@Import({ConsoleBusinessConfig.class, PlatformManageAppConfig.class, Oauth2ClientConfig.class})
+@EnableFeignClients("net.aicoder.speedcloud.console.config")
 public class SpeedCloudConfig {
 
 }

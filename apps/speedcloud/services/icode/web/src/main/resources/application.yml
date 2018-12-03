@@ -39,9 +39,7 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
       format_sql: true
 
-info:
-  version: "@project.version@"
-  artifactId: "@project.artifactId@"
+
 
 management:
   security:
@@ -51,3 +49,16 @@ management:
 logging:
   file: logs/${spring.application.name}.log
 
+info:
+  version: "@project.version@"
+  artifactId: "@project.artifactId@"
+security:
+  oauth2:
+    client:
+      access-token-uri: http://SAAS-AUTHENTICATION-MICROSERVICE/oauth/token
+      client-id: ${spring.application.name}
+      client-secret: ${spring.application.name}
+      client-authentication-scheme: header
+    resource:
+      token-info-uri: http://SAAS-AUTHENTICATION-MICROSERVICE/oauth/check_token
+      id: ${spring.application.name}

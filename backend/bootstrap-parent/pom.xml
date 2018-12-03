@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.yunkang.saas.starter</groupId>
-        <artifactId>saas-biz-starter-parent </artifactId>
+        <artifactId>saas-biz-starter-parent</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.yunkang.saas.bootstrap</groupId>
@@ -63,12 +63,15 @@
             </properties>
             <modules>
                 <!--<module>web</module>-->
+                <module>security</module>
+                <module>security-demo</module>
                 <module>security-local</module>
                 <module>application</module>
                 <module>monitor</module>
                 <module>common</module>
                 <module>monitor</module>
                 <module>jms</module>
+                <module>config</module>
             </modules>
         </profile>
 

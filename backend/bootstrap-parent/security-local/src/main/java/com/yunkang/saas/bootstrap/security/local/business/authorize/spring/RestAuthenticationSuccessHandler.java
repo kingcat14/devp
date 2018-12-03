@@ -43,7 +43,6 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
 
         clearAuthenticationAttributes(request);
 
-
         SecurityUser userDetails = (SecurityUser)authentication.getPrincipal();
 
         Long accountId = userDetails.getAccount().getId();

@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Import({TypedApiResponseBodyHandler.class, RestApiExceptionHandler.class, LocalSecurityAutoConfiguration.class})
 @SpringBootApplication()
-@EnableRedisHttpSession
+@EnableRedisHttpSession(redisNamespace = "${spring.application.name}")
 @EnableCircuitBreaker
 @EnableSwagger2Doc
 public class SpeedCloudConsoleApplication implements ExitCodeGenerator {

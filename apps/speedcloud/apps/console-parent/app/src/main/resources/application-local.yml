@@ -27,3 +27,10 @@ swagger:
   base-package: net.aicoder.speedcloud.console
   enabled: true
 
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:11301/oauth/token
+      client-id: custom
+      client-secret: custom
+      client-authentication-scheme: header
