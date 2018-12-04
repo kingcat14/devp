@@ -2,7 +2,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'asset.asset.info.AssetCmdbPanel'
     , alias: 'widget.asset.asset.info.AssetCmdbPanel'
-    , title: 'IT资产'
+    , title: '资产'
     , layout: 'border'
     , requires: [
         'AM.view.asset.asset.info.AssetCmdbController'

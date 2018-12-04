@@ -18,8 +18,7 @@
                 <skipTests>true</skipTests>
             </properties>
             <modules>
-                <module>asset-parent</module>
-                <module>core-parent</module>
+                <module>console-parent</module>
             </modules>
         </profile>
 

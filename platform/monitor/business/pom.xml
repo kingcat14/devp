@@ -38,6 +38,10 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.vanroy</groupId>-->
+            <!--<artifactId>spring-cloud-dashboard</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>

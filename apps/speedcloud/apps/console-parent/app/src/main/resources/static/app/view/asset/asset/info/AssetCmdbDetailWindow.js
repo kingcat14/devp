@@ -7,7 +7,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbDetailWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: 'IT资产详细信息'
+    ,title: '资产详细信息'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {

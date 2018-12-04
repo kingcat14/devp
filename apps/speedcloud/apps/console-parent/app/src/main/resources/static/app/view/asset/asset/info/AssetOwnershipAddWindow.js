@@ -13,7 +13,7 @@ Ext.define('AM.view.asset.asset.info.AssetOwnershipAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新IT资产归属'
+    ,title: '添加新资产归属'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -339,7 +339,7 @@ Ext.define('AM.view.asset.asset.info.AssetOwnershipAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存IT资产归属成功!');
+                Ext.MsgUtil.show('操作成功', '保存资产归属成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

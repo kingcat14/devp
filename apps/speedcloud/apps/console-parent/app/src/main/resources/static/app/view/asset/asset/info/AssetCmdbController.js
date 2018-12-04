@@ -89,7 +89,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbController', {
                         if(!success)
                         	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
-                        	Ext.MsgUtil.show('操作成功','删除IT资产成功!');
+                        	Ext.MsgUtil.show('操作成功','删除资产成功!');
                     }
                 });
             }

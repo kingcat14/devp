@@ -45,4 +45,3 @@ management:
 
 logging:
   file: logs/${spring.application.name}.log
-

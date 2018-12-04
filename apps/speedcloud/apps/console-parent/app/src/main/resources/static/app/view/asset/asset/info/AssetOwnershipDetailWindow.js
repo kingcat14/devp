@@ -7,7 +7,7 @@ Ext.define('AM.view.asset.asset.info.AssetOwnershipDetailWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: 'IT资产归属详细信息'
+    ,title: '资产归属详细信息'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {

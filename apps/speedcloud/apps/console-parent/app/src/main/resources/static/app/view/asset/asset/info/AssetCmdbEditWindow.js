@@ -11,7 +11,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
     layout: {
         type: 'vbox'
     },
-    title: '修改IT资产信息',
+    title: '修改资产信息',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {
@@ -301,7 +301,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存IT资产成功!');
+                Ext.MsgUtil.show('操作成功', '保存资产成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -318,7 +318,7 @@ Ext.define('AM.view.asset.asset.info.AssetCmdbEditWindow', {
             return;
         }
 
-        this.setTitle("修改IT资产信息");
+        this.setTitle("修改资产信息");
 
         this.down('form').getForm().loadRecord(model);
 

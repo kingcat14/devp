@@ -1,7 +1,7 @@
 Ext.define('AM.view.asset.asset.info.AssetOwnershipTreePanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'asset.asset.info.AssetOwnershipTreePanel'
-    , title: 'IT资产归属'
+    , title: '资产归属'
     , layout: 'border'
     , requires: [
         'AM.view.asset.asset.info.AssetOwnershipController'

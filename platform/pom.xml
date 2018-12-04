@@ -29,6 +29,7 @@
                 <module>monitor</module>
                 <module>manage</module>
                 <module>authentication</module>
+                <module>discovery</module>
                 <!-- <module>model</module>
                 <module>business</module>
                 <module>web</module>
