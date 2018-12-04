@@ -42,7 +42,7 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             ,width:35
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
-                                ,tooltip: '详情'
+                                ,tooltip: '加入监控'
                                 ,handler: 'addToMonitor'
                             }]
                         }

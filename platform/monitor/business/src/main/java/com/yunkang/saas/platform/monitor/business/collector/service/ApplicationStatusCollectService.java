@@ -10,14 +10,10 @@ import com.yunkang.saas.platform.monitor.business.app.service.ApplicationInstanc
 import com.yunkang.saas.platform.monitor.business.app.service.ApplicationService;
 import com.yunkang.saas.platform.monitor.business.app.service.UnknownAppService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +38,10 @@ public class ApplicationStatusCollectService {
     @Autowired
     private UnknownAppService unknownAppService;
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Autowired
+    private ApplicationStatusUpdater applicationStatusUpdater;
+
+//    @Scheduled(cron = "*/30 * * * * *")
     @Transactional
     public void detection(){
         /*
@@ -59,14 +58,7 @@ public class ApplicationStatusCollectService {
         List<Application> applicationList = apps.getRegisteredApplications();
 
         for(Application application : applicationList){
-            //1.
-            if(applicationService.contain(application.getName())){
-                //2.
-                application(application);
-            }else{
-                //3.
-                unknown(application);
-            }
+            applicationStatusUpdater.update(application);
         }
 
         //4.
@@ -74,60 +66,6 @@ public class ApplicationStatusCollectService {
 
         //5.
         filterDownUnknownApplication(applicationList);
-    }
-
-    private void application(Application application){
-
-        log.info("application: {}", application.getName());
-        applicationService.markAlive(application.getName(), CollectionUtils.size(application.getInstances()));
-
-        List<InstanceInfo> instanceInfoList = application.getInstances();
-
-        for(InstanceInfo info : instanceInfoList){
-            instance(info);
-        }
-    }
-
-    private void unknown(Application application){
-
-
-        UnknownApp unknownApp = unknownAppService.find(application.getName());
-
-        if(unknownApp == null){
-            unknownApp = new UnknownApp();
-
-            unknownApp.setCode(application.getName());
-            unknownApp.setId(unknownApp.getCode());
-            unknownApp.setRegisterTime(new Date());
-            unknownApp.setMaxCount(0);
-        }
-
-        unknownApp.setAlive(true);
-
-        unknownApp.setAliveCount(CollectionUtils.size(application.getInstances()));
-        unknownApp.setMaxCount(NumberUtils.max(unknownApp.getMaxCount(), unknownApp.getAliveCount()));
-
-        unknownAppService.merge(unknownApp);
-
-    }
-    private void instance(InstanceInfo instance){
-
-        ApplicationInstance applicationInstance = applicationInstanceService.find(instance.getAppName(), instance.getIPAddr(), instance.getPort());
-
-        if(applicationInstance == null){
-            log.info("new {} instance ({}:{})", instance.getAppName(), instance.getIPAddr(), instance.getPort());
-            applicationInstance = new ApplicationInstance();
-            applicationInstance.setAlarm(false);
-            applicationInstance.setApp(instance.getAppName());
-            applicationInstance.setHost(instance.getIPAddr());
-            applicationInstance.setPort(instance.getPort());
-            applicationInstance.fillId();
-        }
-        applicationInstance.setAlive(true);
-        applicationInstance.setDetectionTime(new Date());
-        applicationInstance.setAliveTime(new Date());
-
-        applicationInstanceService.merge(applicationInstance);
     }
 
     /**
@@ -189,7 +127,5 @@ public class ApplicationStatusCollectService {
         unknownAppService.merge(unknownAppList);
 
     }
-
-
 
 }

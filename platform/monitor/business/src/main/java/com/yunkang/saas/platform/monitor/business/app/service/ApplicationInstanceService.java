@@ -6,20 +6,42 @@ import com.yunkang.saas.platform.monitor.business.app.dao.ApplicationInstanceDao
 import com.yunkang.saas.platform.monitor.business.app.dao.ApplicationInstanceSpecification;
 import com.yunkang.saas.platform.monitor.business.app.domain.ApplicationInstance;
 import com.yunkang.saas.platform.monitor.business.app.dto.ApplicationInstanceCondition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import de.codecentric.boot.admin.model.Application;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
 
 @Service("applicationInstanceService")
+@Slf4j
 public class ApplicationInstanceService  extends GenericCrudService<ApplicationInstance, String, ApplicationInstanceCondition, ApplicationInstanceDao> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationInstanceService.class);
+	public String getInstanceId(Application application){
+
+		String result = null;
+
+		URL url = null;
+		try {
+			url = new URL(application.getServiceUrl());
+		} catch (MalformedURLException e) {
+			log.error(e.getMessage(), e);
+		}
+
+		ApplicationInstance instanceInfo = find(application.getName(), url.getHost(), url.getPort());
+		if(instanceInfo != null){
+			result = instanceInfo.getId();
+		}else {
+			result = url.getHost() + ":" + application.getName() + ":" + url.getPort();
+		}
+
+		return result;
+	}
 
 	public ApplicationInstance find(String appCode, String ip, Integer port){
 		return dao.findByAppAndHostAndPort(appCode, ip, port);

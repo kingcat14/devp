@@ -1,37 +1,31 @@
 package com.yunkang.saas.platform.monitor.business.monitor.app.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
-import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import com.yunkang.saas.platform.monitor.business.app.domain.UnknownApp;
-import com.yunkang.saas.platform.monitor.business.app.dto.UnknownAppCondition;
 import com.yunkang.saas.platform.monitor.business.app.dto.UnknownAppAddDto;
+import com.yunkang.saas.platform.monitor.business.app.dto.UnknownAppCondition;
 import com.yunkang.saas.platform.monitor.business.app.dto.UnknownAppEditDto;
 import com.yunkang.saas.platform.monitor.business.app.service.UnknownAppService;
 import com.yunkang.saas.platform.monitor.business.app.valid.UnknownAppValidator;
 import com.yunkang.saas.platform.monitor.business.app.vo.UnknownAppVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理未知程序
@@ -148,47 +142,6 @@ public class UnknownAppController {
 		return pageContent;
 
 	}
-
-	/**
-     * 导出未知程序列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出未知程序列表", httpMethod = "POST")
-    @RequestMapping(path="/export")
-    public void export(UnknownAppCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        PageSearchRequest<UnknownAppCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<UnknownAppVO> content = this.list(pageSearchRequest);
-
-        List<UnknownAppVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(UnknownAppVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-            headMap.put("code" ,"代码");
-            headMap.put("registerTime" ,"发现时间");
-            headMap.put("alive" ,"当前活跃");
-            headMap.put("aliveCount" ,"当前数量");
-            headMap.put("maxCount" ,"最大数量");
-            headMap.put("status" ,"状态");
-            headMap.put("ignored" ,"忽略");
-
-        String title = new String("未知程序");
-        String fileName = new String(("未知程序_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-    }
 
 	private UnknownAppVO initViewProperty(UnknownApp unknownApp){
 

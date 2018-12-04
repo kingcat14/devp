@@ -16,7 +16,6 @@ import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -50,7 +49,7 @@ public class BusinessStatusCollectService {
     @Autowired
     private IndicatorValueService indicatorValueService;
 
-    @Scheduled(cron = "1 * * * * *")
+//    @Scheduled(cron = "1 * * * * *")
     public void aaa(){
 
         discoveryClient.getServices();
@@ -145,6 +144,7 @@ public class BusinessStatusCollectService {
         } catch (ParseException e) {
             log.error(e.getMessage(), e);
         }
+
         value.setSaveTime(new Date());
 
         value.setId(Md5Crypt.apr1Crypt((value.getIndicator()+value.getCollectTime()).getBytes(StandardCharsets.UTF_8), "1"));

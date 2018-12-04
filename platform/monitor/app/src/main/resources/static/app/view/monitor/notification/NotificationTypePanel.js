@@ -1,17 +1,32 @@
-Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
+Ext.define('AM.view.monitor.notification.NotificationTypePanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'monitor.app.ApplicationTypeTreePanel'
-    , title: '程序类型'
+    , xtype: 'monitor.notification.NotificationTypePanel'
+    , alias: 'widget.monitor.notification.NotificationTypePanel'
+    , title: '通知方式'
+    , bodyCls: 'app-dashboard'
+    // , bodyPadding: '10 10'
     , layout: 'border'
     , requires: [
-        'AM.view.monitor.app.ApplicationTypeController'
-        ,'AM.store.monitor.app.ApplicationTypeStore'
-        ,'AM.view.monitor.app.ApplicationTypeAddWindow'
-        ,'AM.view.monitor.app.ApplicationTypeEditWindow'
-        ,'AM.view.monitor.app.ApplicationTypeSearchWindow'
-        ,'AM.view.monitor.app.ApplicationTypeDetailWindow'
+        'AM.view.monitor.notification.NotificationTypeController'
+        ,'AM.store.monitor.notification.NotificationTypeStore'
+        ,'AM.view.monitor.notification.NotificationTypeAddWindow'
+        ,'AM.view.monitor.notification.NotificationTypeEditWindow'
+        ,'AM.view.monitor.notification.NotificationTypeSearchWindow'
+        ,'AM.view.monitor.notification.NotificationTypeDetailWindow'
     ]
-    ,controller: 'monitor.app.ApplicationTypeController'
+    ,controller: 'monitor.notification.NotificationTypeController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.monitor.notification.NotificationTypeStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -20,7 +35,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.monitor.app.ApplicationTypeStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -31,7 +46,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -42,19 +57,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
-                            ,text: '代码'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'name'
-                            ,text: '名称'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'icon'
-                            ,text: '图标'
+                            ,text: '通知方式'
                             ,flex:1
                         }
                         ,{
@@ -62,9 +65,9 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                             ,menuDisabled: true
                             ,width:30
                             ,items: [{
-                                iconCls: 'edit'
+                                iconCls: 'fas fa-pencil-alt'
                                 ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -77,9 +80,9 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                             ,menuDisabled: true
                             ,width:30
                             ,items: [{
-                                iconCls: 'delete'
+                                iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -98,7 +101,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'add'
+                                    ,iconCls: 'fas fa-plus-circle'
                                     ,text: '新增'
                                     ,listeners: {
                                         click: 'onAddButtonClick'
@@ -106,7 +109,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'edit'
+                                    ,iconCls: 'fas fa-pencil-alt'
                                     ,text: '修改'
                                     ,listeners: {
                                         click: 'onEditButtonClick'
@@ -114,7 +117,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'delete'
+                                    ,iconCls: 'fas fa-minus-circle red'
                                     ,text: '删除'
                                     ,listeners: {
                                         click: 'onDeleteButtonClick'
@@ -124,18 +127,12 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                                 ,{
                                     xtype: 'textfield'
                                     ,width:120
-                                    ,emptyText:'代码'
+                                    ,emptyText:'通知方式'
                                     ,reference: 'codeField'
                                 }
                                 ,{
-                                    xtype: 'textfield'
-                                    ,width:120
-                                    ,emptyText:'名称'
-                                    ,reference: 'nameField'
-                                }
-                                ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fab fa-searchengin'
                                     ,text: '查询'
                                     ,listeners: {
                                         click: 'onSimpleSearchButtonClick'
@@ -144,7 +141,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-search-plus'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -152,7 +149,7 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'search'
+                                    ,iconCls: 'fas fa-download'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'
@@ -182,10 +179,10 @@ Ext.define('AM.view.monitor.app.ApplicationTypeTreePanel', {
 			}
         });
 
-        me.add({xtype:'monitor.app.ApplicationTypeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'monitor.app.ApplicationTypeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'monitor.app.ApplicationTypeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'monitor.app.ApplicationTypeDetailWindow',reference:'mainDetailWindow'})
+        me.add({xtype:'monitor.notification.NotificationTypeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'monitor.notification.NotificationTypeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'monitor.notification.NotificationTypeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'monitor.notification.NotificationTypeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }

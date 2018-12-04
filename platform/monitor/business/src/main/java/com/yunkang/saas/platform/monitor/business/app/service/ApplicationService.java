@@ -46,9 +46,13 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 	public void markAlive(String code, int aliveCount){
 
 		Application application = dao.findOne(code);
-		int oldAlive = application.getAliveCount();
+
+		Integer oldAlive = application.getAliveCount()==null?0:application.getAliveCount();
+
 		application.setAliveCount(aliveCount);
+
 		application.setStatus(isHealth(application)?"WELL":"UNUSUAL");
+
 		this.merge(application);
 
 		if(oldAlive > application.getThresholdValue() && aliveCount <= application.getThresholdValue()){
@@ -68,8 +72,7 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 		/*
 		 * 1.活的实例数量 大于等于 阈值, 则说明是健康的
 		 */
-
-		return application.getAliveCount() >= application.getThresholdValue();
+		return application.getAliveCount() != null && (application.getAliveCount() >= application.getThresholdValue());
 
 	}
 

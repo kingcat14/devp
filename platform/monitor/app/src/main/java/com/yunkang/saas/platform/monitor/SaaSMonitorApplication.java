@@ -3,10 +3,7 @@ package com.yunkang.saas.platform.monitor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Application;
-import com.netflix.discovery.shared.Applications;
+import com.yunkang.saas.platform.monitor.business.notification.mail.MailService;
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +17,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.Date;
 
 @Configuration
 @EnableAdminServer
@@ -33,22 +31,30 @@ import java.util.List;
 @EnableRedisHttpSession
 @EnableTransactionManagement
 @Slf4j
-public class MonitorConsoleApplication implements ExitCodeGenerator {
+public class SaaSMonitorApplication implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
 
-		ConfigurableApplicationContext ctx = SpringApplication.run(MonitorConsoleApplication.class, args);
+		ConfigurableApplicationContext ctx = SpringApplication.run(SaaSMonitorApplication.class, args);
 
-		EurekaClient eurekaClient = ctx.getBean(EurekaClient.class);
-		Applications apps = eurekaClient.getApplications();
-		List<Application> applicationList = apps.getRegisteredApplications();
-		for(Application application : applicationList){
-			log.info("application: {}", application.getName());
-			List<InstanceInfo> instanceInfoList = application.getInstances();
-			for(InstanceInfo info : instanceInfoList){
-				log.info("{} url : {}:{}", info.getAppName(), info.getIPAddr(), info.getPort());
-			}
-		}
+//		EurekaClient eurekaClient = ctx.getBean(EurekaClient.class);
+//		Applications apps = eurekaClient.getApplications();
+//		List<Application> applicationList = apps.getRegisteredApplications();
+//		for(Application application : applicationList){
+//			log.info("application: {}", application.getName());
+//			List<InstanceInfo> instanceInfoList = application.getInstances();
+//			for(InstanceInfo info : instanceInfoList){
+//				log.info("{} url : {}:{}", info.getAppName(), info.getIPAddr(), info.getPort());
+//			}
+//		}
+
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setTo("hongruigong@qq.com");
+		simpleMailMessage.setSubject("监控程序启动啦");
+		simpleMailMessage.setText(new Date().toString());
+
+		MailService mailService = ctx.getBean(MailService.class);
+		mailService.send(simpleMailMessage);
 	}
 
 	@Override

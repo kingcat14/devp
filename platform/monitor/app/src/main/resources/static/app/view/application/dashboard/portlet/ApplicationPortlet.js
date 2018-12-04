@@ -3,6 +3,7 @@ Ext.define('AM.view.application.dashboard.portlet.ApplicationPortlet', {
     , xtype: 'portlet.Application'
     , title: '程序'
     , layout: 'fit'
+    , height: 200
     , requires: [
         'AM.view.monitor.app.ApplicationController'
         ,'AM.store.monitor.app.ApplicationStore'

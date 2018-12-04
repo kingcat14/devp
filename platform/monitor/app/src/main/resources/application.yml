@@ -1,5 +1,5 @@
 application:
-  product: speedcloud #产品
+  product: saas #产品
   module: monitor #模块
   name: app #子模块名称
   code: 11300 #子模块ID

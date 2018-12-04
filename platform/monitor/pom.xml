@@ -74,7 +74,7 @@
                 <module>app</module>
                 <module>model</module>
                 <module>business</module>
-                <module>web</module>
+                <!--<module>web</module>-->
                 <!--<module>client</module>-->
             </modules>
         </profile>
