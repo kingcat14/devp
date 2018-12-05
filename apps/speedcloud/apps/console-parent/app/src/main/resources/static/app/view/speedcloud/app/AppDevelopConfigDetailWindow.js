@@ -36,23 +36,21 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigDetailWindow', {
                             ,name: 'app'
                             ,fieldLabel: '应用'
                             ,renderer: function (value, field) {
-
                                 var record = me.down('form').getForm().getRecord();
-
-                                return record.get('appVO').name;
+                                return record.get('appVO')?record.get('appVO').name:'';
                             }
                         }
                         ,{
-                            itemId: 'codeField'
+                            itemId: 'developDatabaseField'
                             ,padding: '5 0 0 5'
-                            ,name: 'code'
-                            ,fieldLabel: '代码'
-                            ,renderer: function (value, field) {
-
-                                var record = me.down('form').getForm().getRecord();
-
-                                return record.get('codeVO').url;
-                            }
+                            ,name: 'developDatabase'
+                            ,fieldLabel: '开发环境DB'
+                        }
+                        ,{
+                            itemId: 'developDomainNameField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'developDomainName'
+                            ,fieldLabel: '开发环境域名'
                         }
                         ,{
                             itemId: 'testDatabaseField'
@@ -89,10 +87,8 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

@@ -24,7 +24,7 @@ public class EntityPropertyCondition {
 	@ApiModelProperty(value = "引用对象", notes = "")
 	private String relatedEntityId;
 	@ApiModelProperty(value = "引用对象属性代码", notes = "")
-	private String relatedEntityPropertyCode;
+	private String relatedEntityPropertyId;
 	@ApiModelProperty(value = "排序", notes = "")
 	private Integer idx;
 	@ApiModelProperty(value = "排序最大值")

@@ -40,7 +40,11 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
                             itemId: 'typeField'
                             ,padding: '5 0 0 5'
                             ,name: 'type'
-                            ,fieldLabel: '类型'
+                            ,fieldLabel: '代码库类型'
+                            ,renderer: function (value, field) {
+                                var record = me.down('form').getForm().getRecord();
+                                return record.get('typeVO')?record.get('typeVO').name:'';
+                            }
                         }
                         ,{
                             itemId: 'urlField'
@@ -54,10 +58,8 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
                             ,name: 'developType'
                             ,fieldLabel: '开发模式'
                             ,renderer: function (value, field) {
-
                                 var record = me.down('form').getForm().getRecord();
-
-                                return record.get('developTypeVO').name;
+                                return record.get('developTypeVO')?record.get('developTypeVO').name:'';
                             }
                         }
                         ,{
@@ -65,6 +67,16 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
                             ,padding: '5 0 0 5'
                             ,name: 'username'
                             ,fieldLabel: '用户名'
+                        }
+                        ,{
+                            itemId: 'appField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'app'
+                            ,fieldLabel: '应用'
+                            ,renderer: function (value, field) {
+                                var record = me.down('form').getForm().getRecord();
+                                return record.get('appVO')?record.get('appVO').name:'';
+                            }
                         }
                         ,{
                             anchor: '98% 70%'
@@ -85,10 +97,8 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

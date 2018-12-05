@@ -10,11 +10,32 @@ import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionParameterPro
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service("entityActionParameterPropertyService")
 @Slf4j
 public class EntityActionParameterPropertyService  extends GenericCrudService<EntityActionParameterProperty, String, EntityActionParameterPropertyCondition, EntityActionParameterPropertyDao> {
+
+	/**
+	 * 查询参数的所有属性
+	 * @param parameterId
+	 * @return
+	 */
+	public List<EntityActionParameterProperty> findByParameter(String parameterId){
+		return dao.findByActionParameter(parameterId);
+	}
+
+	/**
+	 * 删除参数的所有属性
+	 * @param parameterId
+	 */
+	@Transactional
+	public int deleteByAction(String parameterId){
+		return dao.deleteByActionParameter(parameterId);
+	}
 
 	@Override
 	public Specification<EntityActionParameterProperty> getSpecification(EntityActionParameterPropertyCondition condition) {

@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 * 领域对象行为参数属性的值对象
 */
 @ApiModel(value = "展现领域对象行为参数属性的值对象")
-@Setter @Getter
+@Setter @Getter @ToString
 public class EntityActionParameterPropertyVO {
 
     @ApiModelProperty(value = "记录id")

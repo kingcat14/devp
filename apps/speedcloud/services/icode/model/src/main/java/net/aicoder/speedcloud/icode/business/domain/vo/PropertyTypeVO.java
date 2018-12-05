@@ -28,6 +28,9 @@ public class PropertyTypeVO {
     @ApiModelProperty(value = "名称", notes = "")
     private String name;
 
+    @ApiModelProperty(value = "带包路径的全名", notes = "")
+    private String fullName;
+
 
     @ApiModelProperty(value = "排序", notes = "")
     private Integer viewIndex;

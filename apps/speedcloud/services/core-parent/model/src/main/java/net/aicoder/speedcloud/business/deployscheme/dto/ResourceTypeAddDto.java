@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.deployscheme.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,11 +13,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增部署资源类型使用的DTO")
+@Setter @Getter
 public class ResourceTypeAddDto {
 
     /**租户id*/
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
+
+    /**资源类别*/
+	@ApiModelProperty(value = "资源类别", required = false)
+	private String category;
 
     /**名称*/
 	@ApiModelProperty(value = "名称", required = false)
@@ -29,6 +36,10 @@ public class ResourceTypeAddDto {
 	@ApiModelProperty(value = "图标", required = false)
 	private String icon;
 
+    /**排序*/
+	@ApiModelProperty(value = "排序", required = false)
+	private Integer idx;
+
 
 	public Long getTid(){
 		return tid;
@@ -36,6 +47,13 @@ public class ResourceTypeAddDto {
 	public void setTid(Long tid) {
 		this.tid = tid;
 	}
+
+	public String getCategory(){
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
 	public String getName(){
 		return name;
@@ -56,6 +74,13 @@ public class ResourceTypeAddDto {
 	}
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public Integer getIdx(){
+		return idx;
+	}
+	public void setIdx(Integer idx) {
+		this.idx = idx;
 	}
 
 

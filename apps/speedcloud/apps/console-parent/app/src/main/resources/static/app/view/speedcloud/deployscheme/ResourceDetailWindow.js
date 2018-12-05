@@ -87,13 +87,13 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceDetailWindow', {
                             ,fieldLabel: '顺序号'
                         }
                         ,{
-                            itemId: 'evnField'
+                            itemId: 'envField'
                             ,padding: '5 0 0 5'
-                            ,name: 'evn'
+                            ,name: 'env'
                             ,fieldLabel: '所属环境'
                             ,renderer: function (value, field) {
                                 var record = me.down('form').getForm().getRecord();
-                                return record.get('evnVO')?record.get('evnVO').name:'';
+                                return record.get('envVO')?record.get('envVO').name:'';
                             }
                         }
                         ,{

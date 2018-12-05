@@ -32,7 +32,7 @@ public class Resource extends BaseEntity<Long>{
 	public static final String PROPERTY_DESCRIPTION = "description";
 	public static final String PROPERTY_VERSION = "version";
 	public static final String PROPERTY_SEQ = "seq";
-	public static final String PROPERTY_EVN = "evn";
+	public static final String PROPERTY_ENV = "env";
 	public static final String PROPERTY_STATUS = "status";
 	public static final String PROPERTY_PROJECT = "project";
 	public static final String PROPERTY_OUTER_RESOURCE = "outerResource";
@@ -80,14 +80,14 @@ public class Resource extends BaseEntity<Long>{
     * 
     */
     @Column(name = "category", nullable = true, updatable = true)
-	private Long category;
+	private String category;
 
     /**
     * 资源类型
     * [类型]-运行环境/数据库/消息队列/缓存/外部接口
     */
     @Column(name = "type", nullable = true, updatable = true)
-	private Long type;
+	private String type;
 
     /**
     * 备注
@@ -123,8 +123,8 @@ public class Resource extends BaseEntity<Long>{
     * 所属环境
     * 
     */
-    @Column(name = "evn", nullable = true, updatable = true)
-	private Long evn;
+    @Column(name = "env", nullable = true, updatable = true)
+	private String env;
 
     /**
     * 状态
@@ -183,17 +183,17 @@ public class Resource extends BaseEntity<Long>{
 		this.alias = alias;
 	}
 
-	public Long getCategory(){
+	public String getCategory(){
 		return category;
 	}
-	public void setCategory(Long category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public Long getType(){
+	public String getType(){
 		return type;
 	}
-	public void setType(Long type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -225,11 +225,12 @@ public class Resource extends BaseEntity<Long>{
 		this.seq = seq;
 	}
 
-	public Long getEvn(){
-		return evn;
+	public String getEnv() {
+		return env;
 	}
-	public void setEvn(Long evn) {
-		this.evn = evn;
+
+	public void setEnv(String env) {
+		this.env = env;
 	}
 
 	public String getStatus(){

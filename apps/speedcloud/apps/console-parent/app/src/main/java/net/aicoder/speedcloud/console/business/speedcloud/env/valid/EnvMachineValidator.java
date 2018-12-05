@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.console.business.speedcloud.env.valid;
 
 
 import net.aicoder.speedcloud.business.env.dto.EnvMachineAddDto;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -41,10 +42,13 @@ public class EnvMachineValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == envMachine.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
+		if(StringUtils.length(envMachine.getEvn()) > 255){
+			errors.rejectValue("evn", null, "环境最长255个字符");
+		}
+		if(StringUtils.length(envMachine.getMachine()) > 255){
+			errors.rejectValue("machine", null, "机器最长255个字符");
+		}
 	}
 }

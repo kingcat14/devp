@@ -8,7 +8,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoSearchWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '应用高级查询'
+    ,title: '应用（系统）高级查询'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {
@@ -35,6 +35,28 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoSearchWindow', {
                     ,defaults:{width:'100%'}
                     ,items:[
                         ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'projectField'
+                            ,fieldLabel: '所属项目'
+                        }
+
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.speedcloud.app.ApplicationTypeStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'typeField'
+                            ,fieldLabel: '应用类型'
+                        }
+
+                        ,{
                             xtype: 'textfield'
                             ,itemId: 'nameField'
                             ,fieldLabel: '名称'
@@ -42,8 +64,8 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoSearchWindow', {
 
                         ,{
                             xtype: 'textfield'
-                            ,itemId: 'typeField'
-                            ,fieldLabel: '应用类型'
+                            ,itemId: 'codeField'
+                            ,fieldLabel: '代码'
                         }
 
                         ,{
@@ -64,50 +86,33 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoSearchWindow', {
                             ,fieldLabel: '注册时间'
                         }
 
-                        ,{
-                            xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'name'
-                            ,valueField:'id'
-                            ,itemId: 'projectField'
-                            ,fieldLabel: '所属项目'
-                        }
-
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -140,22 +145,22 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoSearchWindow', {
     ,getCondition: function(){
 
         var me = this;
-        var nameField = me.down("#nameField");
+        var projectField = me.down("#projectField");
         var typeField = me.down("#typeField");
+        var nameField = me.down("#nameField");
+        var codeField = me.down("#codeField");
         var statusField = me.down("#statusField");
         var descriptionField = me.down("#descriptionField");
         var registTimeField = me.down("#registTimeField");
-        var projectField = me.down("#projectField");
-        var projectMaxField = me.down("#projectMaxField");
-        var projectMinField = me.down("#projectMinField");
 
         var condition = {
-            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
-            ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
-            ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
-            ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
-            ,registTime:Ext.isEmpty(registTimeField.getValue())?null:registTimeField.getValue()
-            ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
+            project:Ext.valueFrom(projectField.getValue(), null)
+            ,type:Ext.valueFrom(typeField.getValue(), null)
+            ,name:Ext.valueFrom(nameField.getValue(), null)
+            ,code:Ext.valueFrom(codeField.getValue(), null)
+            ,status:Ext.valueFrom(statusField.getValue(), null)
+            ,description:Ext.valueFrom(descriptionField.getValue(), null)
+            ,registTime:Ext.valueFrom(registTimeField.getValue(), null)
         };
 
         return condition;

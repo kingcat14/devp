@@ -28,6 +28,11 @@ public class DomainVO {
     @ApiModelProperty(value = "领域代码")
     private String code;
 
+    @ApiModelProperty(value = "顶级领域的代码")
+    private String topCode;
+
+    @ApiModelProperty(value = "包含父级代码的代码路径")
+    private String codePath;
 
     @ApiModelProperty(value = "父领域")
     private String parent;
@@ -40,8 +45,6 @@ public class DomainVO {
     /**描述*/
     @ApiModelProperty(value = "描述")
     private String description;
-
-
 
 
     @Override

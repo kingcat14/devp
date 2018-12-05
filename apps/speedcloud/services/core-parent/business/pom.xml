@@ -26,10 +26,10 @@
             <groupId>com.yunkang.saas.bootstrap</groupId>
             <artifactId>bootstrap-monitor</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.aicoder.speedcloud.service.core</groupId>
-            <artifactId>core-client</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.aicoder.speedcloud.service.core</groupId>-->
+            <!--<artifactId>core-client</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>net.aicoder.speedcloud.service.core</groupId>
             <artifactId>core-adapter-jenkins</artifactId>

@@ -32,6 +32,7 @@ public class ResourceCategorySpecification implements Specification<ResourceCate
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddIconPredicate(predicateList, root, cb);
+		tryAddIdxPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -41,10 +42,9 @@ public class ResourceCategorySpecification implements Specification<ResourceCate
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<ResourceCategory> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(ResourceCategory.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(ResourceCategory.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<ResourceCategory> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -59,6 +59,20 @@ public class ResourceCategorySpecification implements Specification<ResourceCate
 	private void tryAddIconPredicate(List<Predicate> predicateList, Root<ResourceCategory> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getIcon())){
 			predicateList.add(cb.like(root.get(ResourceCategory.PROPERTY_ICON).as(String.class), "%"+condition.getIcon()+"%"));
+		}
+	}
+	private void tryAddIdxPredicate(List<Predicate> predicateList, Root<ResourceCategory> root, CriteriaBuilder cb){
+
+		if (null != condition.getIdx() ) {
+			predicateList.add(cb.equal(root.get(ResourceCategory.PROPERTY_IDX).as(Integer.class), condition.getIdx()));
+		}
+
+		if (null != condition.getIdxMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceCategory.PROPERTY_IDX).as(Integer.class), condition.getIdxMax()));
+		}
+
+		if (null != condition.getIdxMin() ) {
+			predicateList.add(cb.lessThan(root.get(ResourceCategory.PROPERTY_IDX).as(Integer.class), condition.getIdxMin()));
 		}
 	}
 }

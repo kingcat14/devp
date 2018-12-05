@@ -37,7 +37,7 @@ public class ResourceCategoryValidator implements Validator {
      * @param resourceCategory 部署资源类别
      * @param errors
      */
-		public void validateAddDto(ResourceCategoryAddDto resourceCategory, Errors errors) {
+	public void validateAddDto(ResourceCategoryAddDto resourceCategory, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里

@@ -46,14 +46,15 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigSearchWindow', {
                         }
 
                         ,{
-                            xtype: 'combobox'
-                            ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
-                            ,typeAhead:false
-                            ,editable:false
-                            ,displayField:'url'
-                            ,valueField:'id'
-                            ,itemId: 'codeField'
-                            ,fieldLabel: '代码'
+                            xtype: 'textfield'
+                            ,itemId: 'developDatabaseField'
+                            ,fieldLabel: '开发环境DB'
+                        }
+
+                        ,{
+                            xtype: 'textfield'
+                            ,itemId: 'developDomainNameField'
+                            ,fieldLabel: '开发环境域名'
                         }
 
                         ,{
@@ -82,37 +83,31 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigSearchWindow', {
 
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -146,23 +141,21 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigSearchWindow', {
 
         var me = this;
         var appField = me.down("#appField");
-        var appMaxField = me.down("#appMaxField");
-        var appMinField = me.down("#appMinField");
-        var codeField = me.down("#codeField");
-        var codeMaxField = me.down("#codeMaxField");
-        var codeMinField = me.down("#codeMinField");
+        var developDatabaseField = me.down("#developDatabaseField");
+        var developDomainNameField = me.down("#developDomainNameField");
         var testDatabaseField = me.down("#testDatabaseField");
         var testDomainNameField = me.down("#testDomainNameField");
         var productionDatabaseField = me.down("#productionDatabaseField");
         var productionDomainNameField = me.down("#productionDomainNameField");
 
         var condition = {
-            app:Ext.isEmpty(appField.getValue())?null:appField.getValue()
-            ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
-            ,testDatabase:Ext.isEmpty(testDatabaseField.getValue())?null:testDatabaseField.getValue()
-            ,testDomainName:Ext.isEmpty(testDomainNameField.getValue())?null:testDomainNameField.getValue()
-            ,productionDatabase:Ext.isEmpty(productionDatabaseField.getValue())?null:productionDatabaseField.getValue()
-            ,productionDomainName:Ext.isEmpty(productionDomainNameField.getValue())?null:productionDomainNameField.getValue()
+            app:Ext.valueFrom(appField.getValue(), null)
+            ,developDatabase:Ext.valueFrom(developDatabaseField.getValue(), null)
+            ,developDomainName:Ext.valueFrom(developDomainNameField.getValue(), null)
+            ,testDatabase:Ext.valueFrom(testDatabaseField.getValue(), null)
+            ,testDomainName:Ext.valueFrom(testDomainNameField.getValue(), null)
+            ,productionDatabase:Ext.valueFrom(productionDatabaseField.getValue(), null)
+            ,productionDomainName:Ext.valueFrom(productionDomainNameField.getValue(), null)
         };
 
         return condition;

@@ -152,8 +152,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceEditWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'evnField'
-                                    ,name: 'evn'
+                                    ,itemId: 'envField'
+                                    ,name: 'env'
                                     ,fieldLabel: '所属环境'
                                 }
                                 ,{
@@ -310,7 +310,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceEditWindow', {
        
        
        
-        this.down('#evnField').getStore().reload();
+        this.down('#envField').getStore().reload();
        
        
         this.down('#projectField').getStore().reload();

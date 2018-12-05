@@ -59,37 +59,31 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigSearchWindow', {
 
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -123,15 +117,13 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigSearchWindow', {
 
         var me = this;
         var appField = me.down("#appField");
-        var appMaxField = me.down("#appMaxField");
-        var appMinField = me.down("#appMinField");
         var itemNameField = me.down("#itemNameField");
         var itemValueField = me.down("#itemValueField");
 
         var condition = {
-            app:Ext.isEmpty(appField.getValue())?null:appField.getValue()
-            ,itemName:Ext.isEmpty(itemNameField.getValue())?null:itemNameField.getValue()
-            ,itemValue:Ext.isEmpty(itemValueField.getValue())?null:itemValueField.getValue()
+            app:Ext.valueFrom(appField.getValue(), null)
+            ,itemName:Ext.valueFrom(itemNameField.getValue(), null)
+            ,itemValue:Ext.valueFrom(itemValueField.getValue(), null)
         };
 
         return condition;

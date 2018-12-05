@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -58,6 +60,7 @@ public class EnvMachineController {
 	@Autowired
 	private MachineService machineService;
 
+
 	@Autowired
 	private EnvMachineValidator envMachineValidator;
 
@@ -75,6 +78,7 @@ public class EnvMachineController {
 	@ApiOperation(value = "新增", notes = "新增环境设备关联", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.env.envmachine.add", count = true)
 	public EnvMachineVO add(@RequestBody @Valid EnvMachineAddDto envMachineAddDto){
 		EnvMachine envMachine = new EnvMachine();
 		BeanUtils.copyProperties(envMachineAddDto, envMachine);
@@ -89,7 +93,8 @@ public class EnvMachineController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除环境设备关联", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.envmachine.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete envMachine :{}", idArray);
@@ -107,10 +112,11 @@ public class EnvMachineController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产环境设备关联(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
+	@ApiOperation(value = "修改", notes = "修改环境设备关联(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.envmachine.update", count = true)
 	public	EnvMachineVO update(@RequestBody @Valid EnvMachineEditDto envMachineEditDto, @PathVariable Long id){
-		EnvMachine envMachine = new EnvMachine();
+		EnvMachine envMachine = envMachineService.find(id);
 		BeanUtils.copyProperties(envMachineEditDto, envMachine);
 		envMachine.setId(id);
 		envMachineService.merge(envMachine);
@@ -124,12 +130,15 @@ public class EnvMachineController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询环境设备关联", httpMethod = "GET")
-	@GetMapping(value="/{id}")
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询环境设备关联", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.envmachine.get")
 	public  EnvMachineVO get(@PathVariable Long id) {
 
 		EnvMachine envMachine = envMachineService.find(id);
-
+		if(envMachine == null){
+			throw new ResourceNotFoundException("找不到指定的环境设备关联，请检查ID");
+		}
 		EnvMachineVO vo = initViewProperty(envMachine);
 		return vo;
 	}
@@ -140,11 +149,12 @@ public class EnvMachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询环境设备关联列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.env.envmachine.list")
 	public PageContent<EnvMachineVO> list(@RequestBody PageSearchRequest<EnvMachineCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<EnvMachine> page = envMachineService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<EnvMachineVO> voList = new ArrayList<>();
@@ -164,7 +174,7 @@ public class EnvMachineController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出环境设备关联列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(EnvMachineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<EnvMachineCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -184,10 +194,10 @@ public class EnvMachineController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("evn" ,"环境");
-            headMap.put("machine" ,"机器");
+        headMap.put("evn" ,"环境");
+        headMap.put("machine" ,"机器");
 
         String title = new String("环境设备关联");
         String fileName = new String(("环境设备关联_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -205,9 +215,7 @@ public class EnvMachineController {
 	    initMachinePropertyGroup(vo, envMachine);
         return vo;
 
-
 	}
-
 
 	private void initEvnPropertyGroup(EnvMachineVO envMachineVO, EnvMachine envMachine){
 	
@@ -221,8 +229,6 @@ public class EnvMachineController {
 		envMachineVO.setEvnVO(evnVO);
 
 	}
-
-
 	private void initMachinePropertyGroup(EnvMachineVO envMachineVO, EnvMachine envMachine){
 	
 		Machine machine = machineService.find(envMachine.getMachine());
@@ -236,5 +242,5 @@ public class EnvMachineController {
 
 	}
 
-
 }
+

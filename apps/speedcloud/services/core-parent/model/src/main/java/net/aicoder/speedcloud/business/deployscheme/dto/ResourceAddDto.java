@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.deployscheme.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增方案资源使用的DTO")
+@Getter @Setter
 public class ResourceAddDto {
 
     /**租户id*/
@@ -31,11 +34,11 @@ public class ResourceAddDto {
 
     /**资源类别*/
 	@ApiModelProperty(value = "资源类别", required = false)
-	private Long category;
+	private String category;
 
     /**资源类型*/
 	@ApiModelProperty(value = "资源类型", required = false, notes = "[类型]-运行环境/数据库/消息队列/缓存/外部接口")
-	private Long type;
+	private String type;
 
     /**备注*/
 	@ApiModelProperty(value = "备注", required = false, notes = "[备注]")
@@ -55,7 +58,7 @@ public class ResourceAddDto {
 
     /**所属环境*/
 	@ApiModelProperty(value = "所属环境", required = false)
-	private Long evn;
+	private String env;
 
     /**状态*/
 	@ApiModelProperty(value = "状态", required = false, notes = "[状态]")
@@ -74,110 +77,6 @@ public class ResourceAddDto {
 	private Long scheme;
 
 
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-	public String getName(){
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCode(){
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getAlias(){
-		return alias;
-	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public Long getCategory(){
-        return category;
-    }
-    public void setCategory(Long category) {
-        this.category = category;
-    }
-
-	public Long getType(){
-        return type;
-    }
-    public void setType(Long type) {
-        this.type = type;
-    }
-
-	public String getNotes(){
-		return notes;
-	}
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getVersion(){
-		return version;
-	}
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public Integer getSeq(){
-		return seq;
-	}
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
-
-	public Long getEvn(){
-        return evn;
-    }
-    public void setEvn(Long evn) {
-        this.evn = evn;
-    }
-
-	public String getStatus(){
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-	public Boolean getOuterResource(){
-		return outerResource;
-	}
-	public void setOuterResource(Boolean outerResource) {
-		this.outerResource = outerResource;
-	}
-
-	public Long getScheme(){
-        return scheme;
-    }
-    public void setScheme(Long scheme) {
-        this.scheme = scheme;
-    }
 
 
 	@Override

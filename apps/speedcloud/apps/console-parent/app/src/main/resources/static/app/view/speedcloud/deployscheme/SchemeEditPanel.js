@@ -208,7 +208,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
                         {
                             xtype:'speedcloud.deployscheme.SchemeEditResourcePanel'
                             ,reference:'resourceEditPanel'
-                            ,viewModel:true
+                            // ,viewModel:true
                             ,title:'资源设置'
                             ,listeners:{
                                 saved:'handleResourceSaved'
@@ -304,18 +304,22 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
         me.getController().loadResourceGraph();
 
     }
-    ,graphState:function(x, y, label, id){
+    ,graphState:function(x, y, label, id, category){
 
         var me = this;
         var graph = me.getViewModel().get('graph');
-        var cell = new joint.shapes.fsa.State({
+        var cellConfig = {
             id:id,
             position: { x: x, y: y },
-            size: { width: 60, height: 60 },
+            size: { width: 120, height: 60 },
             attrs: { text : { text: label }}
-        });
-        if(id){
-            // cell.id = id;
+        };
+        var cell = null;
+        if(category != 'COMPONENT'){
+            cell = new joint.shapes.standard.Rectangle(cellConfig)
+        }
+        else{
+            cell = new joint.shapes.fsa.State(cellConfig)
         }
         graph.addCell(cell);
         return cell;
@@ -323,12 +327,29 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditPanel', {
     ,graphLink:function(sourceId, targetId, label, vertices, id){
         var me = this;
         var graph = me.getViewModel().get('graph');
-        var cell = new joint.shapes.fsa.Arrow({
-            id:id,
-            source: { id: sourceId },
-            target: { id: targetId },
-            labels: [{ position: .5, attrs: { text: { text: label || '', 'font-weight': 'bold' } } }],
-            vertices: vertices || []
+        //
+        var cell = new joint.shapes.standard.Link({
+        // var cell = new joint.shapes.fsa.Arrow({
+            id:id
+            ,source: { id: sourceId }
+            ,target: { id: targetId }
+            //,labels: [{ position: .5, attrs: { text: { text: label || '', 'font-weight': 'bold' } } }]
+            //,vertices: vertices || []
+            ,attrs: {
+                line: {
+                    stroke: '#222138',
+                    sourceMarker: {
+                        'fill': '#31d0c6',
+                        'stroke': 'none',
+                        'd': 'M 5 -10 L -15 0 L 5 10 Z'
+                    },
+                    targetMarker: {
+                        'fill': '#fe854f',
+                        'stroke': 'none',
+                        'd': 'M 5 -10 L -15 0 L 5 10 Z'
+                    }
+                }
+            }
         });
         graph.addCell(cell);
         return cell;

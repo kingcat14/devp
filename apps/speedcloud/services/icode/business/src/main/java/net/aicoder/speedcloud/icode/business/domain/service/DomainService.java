@@ -105,7 +105,7 @@ public class DomainService  extends GenericCrudService<Domain, String, DomainCon
 		return result;
 	}
 	
-	public String findCodePath(String id){
+	public String getCodePath(String id){
 
 		String result = "";
 		Domain current = null;

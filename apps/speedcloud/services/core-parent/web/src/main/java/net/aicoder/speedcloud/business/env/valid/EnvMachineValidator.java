@@ -1,8 +1,10 @@
 package net.aicoder.speedcloud.business.env.valid;
 
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import net.aicoder.speedcloud.business.env.domain.EnvMachine;
 import net.aicoder.speedcloud.business.env.dto.EnvMachineAddDto;
 import net.aicoder.speedcloud.business.env.dto.EnvMachineCondition;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -31,13 +33,16 @@ public class EnvMachineValidator implements Validator {
             this.validateEnvMachineAddDto((EnvMachineAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<EnvMachineCondition> search){
+    public void validateSearchDto(PageSearchRequest<EnvMachineCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new EnvMachineCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -53,5 +58,11 @@ public class EnvMachineValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(envMachine.getEvn()) > 255){
+			errors.rejectValue(EnvMachine.PROPERTY_EVN,null,"环境最长255个字符");
+		}
+		if(StringUtils.length(envMachine.getMachine()) > 255){
+			errors.rejectValue(EnvMachine.PROPERTY_MACHINE,null,"机器最长255个字符");
+		}
 	}
 }

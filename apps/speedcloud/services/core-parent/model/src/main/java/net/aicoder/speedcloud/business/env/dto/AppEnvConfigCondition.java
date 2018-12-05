@@ -1,23 +1,24 @@
 package net.aicoder.speedcloud.business.env.dto;
 
-import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+@ApiModel(value = "查询产品环境使用的DTO")
+@Getter @Setter
+public class AppEnvConfigCondition {
 
-@ApiModel(value = "查询应用环境使用的DTO")
-public class AppEnvConfigCondition extends SaaSCondition{
-
-	@ApiModelProperty(value = "租户id")
-	private Long tid;
+    @ApiModelProperty(value = "租户id")
+    private Long tid;
+    @ApiModelProperty(value = "所属产品（项目）")
+    private String project;
 	@ApiModelProperty(value = "环境名称")
 	private String name;
-	@ApiModelProperty(value = "环境级别")
-	private String level;
-    @ApiModelProperty(value = "所属项目（产品）")
-    private String project;
+    @ApiModelProperty(value = "环境级别")
+    private String level;
 	@ApiModelProperty(value = "顺序号")
 	private Integer seq;
 	@ApiModelProperty(value = "顺序号最大值")
@@ -25,58 +26,6 @@ public class AppEnvConfigCondition extends SaaSCondition{
 	@ApiModelProperty(value = "顺序号最小值")
 	private Integer seqMin;
 
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-	public String getName(){
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getLevel(){
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-
-    public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-
-	public Integer getSeq(){
-		return seq;
-	}
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
-
-	public Integer getSeqMin(){
-		return seqMin;
-	}
-	public void setSeqMin(Integer seqMin) {
-		this.seqMin = seqMin;
-	}
-
-	public Integer getSeqMax(){
-		return seqMax;
-	}
-	public void setSeqMax(Integer seqMax) {
-		this.seqMax = seqMax;
-	}
 
 
 

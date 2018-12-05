@@ -118,7 +118,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceSearchWindow', {
                             ,editable:false
                             ,displayField:'name'
                             ,valueField:'id'
-                            ,itemId: 'evnField'
+                            ,itemId: 'envField'
                             ,fieldLabel: '所属环境'
                         }
 
@@ -233,7 +233,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceSearchWindow', {
         var seqField = me.down("#seqField");
         var seqMaxField = me.down("#seqMaxField");
         var seqMinField = me.down("#seqMinField");
-        var evnField = me.down("#evnField");
+        var envField = me.down("#envField");
         var statusField = me.down("#statusField");
         var projectField = me.down("#projectField");
         var outerResourceField = me.down("#outerResourceField");
@@ -251,7 +251,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceSearchWindow', {
             ,seq:Ext.isNumber(seqField.getValue())?seqField.getValue():null
             ,seqMax:Ext.isNumber(seqMaxField.getValue())?seqMaxField.getValue():null
             ,seqMin:Ext.isNumber(seqMinField.getValue())?seqMinField.getValue():null
-            ,evn:Ext.isEmpty(evnField.getValue())?null:evnField.getValue()
+            ,env:Ext.isEmpty(envField.getValue())?null:envField.getValue()
             ,status:Ext.isEmpty(statusField.getValue())?null:statusField.getValue()
             ,project:Ext.isEmpty(projectField.getValue())?null:projectField.getValue()
             ,outerResource:Ext.isEmpty(outerResourceField.getValue())?null:outerResourceField.getValue()

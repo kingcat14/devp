@@ -12,9 +12,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
-* 应用的值对象
+* 应用（系统）的值对象
 */
-@ApiModel(value = "展现应用的值对象")
+@ApiModel(value = "展现应用（系统）的值对象")
 @Setter @Getter
 public class AppBaseInfoVO {
 
@@ -22,17 +22,26 @@ public class AppBaseInfoVO {
     private String id;
 
 
-    /**名称*/
-    @ApiModelProperty(value = "名称")
-    private String name;
+    /**所属项目*/
+    @ApiModelProperty(value = "所属项目")
+    private String project;
+    private ProjectVO projectVO;
 
 
     /**应用类型*/
     @ApiModelProperty(value = "应用类型")
     private String type;
+    private ApplicationTypeVO typeVO;
 
 
-    /**状态*/
+    @ApiModelProperty(value = "名称")
+    private String name;
+
+
+    @ApiModelProperty(value = "代码")
+    private String code;
+
+
     @ApiModelProperty(value = "状态")
     private String status;
 
@@ -42,15 +51,15 @@ public class AppBaseInfoVO {
     private String description;
 
 
-    /**注册时间*/
     @ApiModelProperty(value = "注册时间")
     private String registTime;
 
 
-    /**所属项目*/
-    @ApiModelProperty(value = "所属项目")
-    private String project;
-    private ProjectVO projectVO;
+    /**代码库信息*/
+    private CodeRepositoryVO codeRepositoryVO;
+
+    /**应用开发配置*/
+    private AppDevelopConfigVO appDevelopConfigVO;
 
 
 

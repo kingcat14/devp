@@ -34,7 +34,7 @@ public class CodeBaseInfoValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param codeBaseInfo 代码库详细信息
+     * @param codeBaseInfo 代码基本信息
      * @param errors
      */
 	public void validateAddDto(CodeBaseInfoAddDto codeBaseInfo, Errors errors) {
@@ -42,11 +42,11 @@ public class CodeBaseInfoValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == codeBaseInfo.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
+		if(StringUtils.length(codeBaseInfo.getCodeRepository()) > 255){
+			errors.rejectValue("codeRepository", null, "代码库最长255个字符");
+		}
 		if(StringUtils.length(codeBaseInfo.getLanguage()) > 255){
 			errors.rejectValue("language", null, "开发语言最长255个字符");
 		}

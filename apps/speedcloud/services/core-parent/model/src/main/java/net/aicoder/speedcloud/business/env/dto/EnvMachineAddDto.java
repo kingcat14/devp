@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.env.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增环境设备关联使用的DTO")
+@Setter @Getter
 public class EnvMachineAddDto {
 
     /**租户id*/
@@ -19,11 +22,11 @@ public class EnvMachineAddDto {
 
     /**环境*/
 	@ApiModelProperty(value = "环境", required = false)
-	private Long evn;
+	private String evn;
 
     /**机器*/
 	@ApiModelProperty(value = "机器", required = false)
-	private Long machine;
+	private String machine;
 
 
 	public Long getTid(){
@@ -33,17 +36,17 @@ public class EnvMachineAddDto {
 		this.tid = tid;
 	}
 
-	public Long getEvn(){
+	public String getEvn(){
         return evn;
     }
-    public void setEvn(Long evn) {
+    public void setEvn(String evn) {
         this.evn = evn;
     }
 
-	public Long getMachine(){
+	public String getMachine(){
         return machine;
     }
-    public void setMachine(Long machine) {
+    public void setMachine(String machine) {
         this.machine = machine;
     }
 

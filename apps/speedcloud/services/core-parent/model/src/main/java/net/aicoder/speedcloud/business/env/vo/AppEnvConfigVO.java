@@ -2,6 +2,9 @@ package net.aicoder.speedcloud.business.env.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+import net.aicoder.speedcloud.business.config.vo.EnvLevelVO;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -10,16 +13,22 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
-* 应用环境的值对象
+* 产品环境的值对象
 */
-@ApiModel(value = "展现应用环境的值对象")
+@ApiModel(value = "展现产品环境的值对象")
+@Setter @Getter
 public class AppEnvConfigVO {
 
     @ApiModelProperty(value = "记录id")
-    private Long id;
+    private String id;
 
 
-    /**环境名称*/
+    /**所属产品（项目）*/
+    @ApiModelProperty(value = "所属产品（项目）")
+    private String project;
+    private ProjectVO projectVO;
+
+
     @ApiModelProperty(value = "环境名称")
     private String name;
 
@@ -27,59 +36,14 @@ public class AppEnvConfigVO {
     /**环境级别*/
     @ApiModelProperty(value = "环境级别")
     private String level;
-
-
-    /**所属项目（产品）*/
-    @ApiModelProperty(value = "所属项目（产品）")
-    private String project;
-    private ProjectVO projectVO;
+    private EnvLevelVO levelVO;
 
 
     @ApiModelProperty(value = "顺序号")
     private Integer seq;
 
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getLevel(){
-        return level;
-    }
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
-    public ProjectVO getProjectVO(){
-        return projectVO;
-    }
-    public void setProjectVO(ProjectVO projectVO) {
-        this.projectVO = projectVO;
-    }
-
-    public Integer getSeq(){
-        return seq;
-    }
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 
     @Override
     public String toString() {

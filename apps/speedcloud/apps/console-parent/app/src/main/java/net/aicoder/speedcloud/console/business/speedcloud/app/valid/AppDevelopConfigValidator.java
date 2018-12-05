@@ -42,11 +42,17 @@ public class AppDevelopConfigValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == appDevelopConfig.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
+		if(StringUtils.length(appDevelopConfig.getApp()) > 255){
+			errors.rejectValue("app", null, "应用最长255个字符");
+		}
+		if(StringUtils.length(appDevelopConfig.getDevelopDatabase()) > 255){
+			errors.rejectValue("developDatabase", null, "开发环境DB最长255个字符");
+		}
+		if(StringUtils.length(appDevelopConfig.getDevelopDomainName()) > 255){
+			errors.rejectValue("developDomainName", null, "开发环境域名最长255个字符");
+		}
 		if(StringUtils.length(appDevelopConfig.getTestDatabase()) > 255){
 			errors.rejectValue("testDatabase", null, "测试环境DB最长255个字符");
 		}

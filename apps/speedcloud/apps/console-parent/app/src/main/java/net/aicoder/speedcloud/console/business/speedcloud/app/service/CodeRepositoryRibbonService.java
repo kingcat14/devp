@@ -2,14 +2,13 @@ package net.aicoder.speedcloud.console.business.speedcloud.app.service;
 
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.controller.RestResponse;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryAddDto;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryCondition;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryEditDto;
 import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
-import net.aicoder.speedcloud.client.app.CodeRepositoryRibbon;
-import net.aicoder.speedcloud.client.app.result.CodeRepositoryPageResult;
-import net.aicoder.speedcloud.client.app.result.CodeRepositoryResult;
+import net.aicoder.speedcloud.client.app.CodeRepositoryClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,11 @@ public class CodeRepositoryRibbonService  {
 
 
 	@Autowired
-	private CodeRepositoryRibbon codeRepositoryRibbon;
+	private CodeRepositoryClient codeRepositoryClient;
 
 
 	public CodeRepositoryVO add(CodeRepositoryAddDto addDto){
-		CodeRepositoryResult result = codeRepositoryRibbon.add(addDto);
+		RestResponse<CodeRepositoryVO> result = codeRepositoryClient.add(addDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "APP", result.getCode()+"", result.getMessage());
@@ -36,19 +35,19 @@ public class CodeRepositoryRibbonService  {
 	
 	}
 
-	public void delete(Long id){
+	public void delete(String id){
 		if(null == id){
 			LOGGER.warn("try delete T by empty id. Code need check");
 			return ;
 		}
 		LOGGER.debug("delete t:{}", id);
-		CodeRepositoryResult result = codeRepositoryRibbon.delete(id);
+		RestResponse<CodeRepositoryVO> result = codeRepositoryClient.delete(id);
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "APP", result.getCode()+"", result.getMessage());
 		}
 	}
-	public CodeRepositoryVO merge(Long id, CodeRepositoryEditDto editDto){
-		CodeRepositoryResult result = codeRepositoryRibbon.update(id, editDto);
+	public CodeRepositoryVO merge(String id, CodeRepositoryEditDto editDto){
+		RestResponse<CodeRepositoryVO> result = codeRepositoryClient.update(id, editDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "APP", result.getCode()+"", result.getMessage());
@@ -56,8 +55,8 @@ public class CodeRepositoryRibbonService  {
 
 		return result.getData();
 	}
-	public CodeRepositoryVO find(Long id){
-		CodeRepositoryResult result = codeRepositoryRibbon.get(id);
+	public CodeRepositoryVO find(String id){
+		RestResponse<CodeRepositoryVO> result = codeRepositoryClient.get(id);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "APP", result.getCode()+"", result.getMessage());
@@ -67,7 +66,7 @@ public class CodeRepositoryRibbonService  {
 	}
 
 	public PageContent<CodeRepositoryVO> list(PageSearchRequest<CodeRepositoryCondition> pageSearchRequest) {
-		CodeRepositoryPageResult result = codeRepositoryRibbon.list(pageSearchRequest);
+		RestResponse<PageContent<CodeRepositoryVO>> result = codeRepositoryClient.list(pageSearchRequest);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "APP", result.getCode()+"", result.getMessage());

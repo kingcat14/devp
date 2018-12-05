@@ -42,21 +42,41 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
+                            ,dataIndex: 'project'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("projectVO")?record.get("projectVO").name:'';
+                            }
+                            ,text: '所属产品（项目）'
+                            ,width:200
+
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'env'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("envVO")?record.get("envVO").name:'';
+                            }
+                            ,text: '所属环境'
+                            ,width: 160
+                            // ,flex:1
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '方案名称'
-                            
+                            ,flex:1
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
                             ,text: '方案代码'
-                            
+                            ,flex:1
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'alias'
                             ,text: '方案别名'
-                            
+                            ,flex:1
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -85,24 +105,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemePanel', {
                             ,text: '已生效'
                             
                         }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'project'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectVO")?record.get("projectVO").name:'';
-                            }
-                            ,text: '所属项目（产品）'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'env'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("envVO")?record.get("envVO").name:'';
-                            }
-                            ,text: '所属环境'
-                            ,flex:1
-                        }
+
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true

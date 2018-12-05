@@ -33,19 +33,22 @@ public class AppBaseInfoValidator implements Validator {
             this.validateAppBaseInfoAddDto((AppBaseInfoAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<AppBaseInfoCondition> search){
+    public void validateSearchDto(PageSearchRequest<AppBaseInfoCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new AppBaseInfoCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
 	/**
      * 实现Validator中的validate接口
-     * @param appBaseInfo 应用
+     * @param appBaseInfo 应用（系统）
      * @param errors
      */
 	public void validateAppBaseInfoAddDto(AppBaseInfoAddDto appBaseInfo, Errors errors) {
@@ -55,11 +58,17 @@ public class AppBaseInfoValidator implements Validator {
 		//验证必填
 
 		//验证长度
-		if(StringUtils.length(appBaseInfo.getName()) > 255){
-			errors.rejectValue(AppBaseInfo.PROPERTY_NAME,null,"名称最长255个字符");
+		if(StringUtils.length(appBaseInfo.getProject()) > 255){
+			errors.rejectValue(AppBaseInfo.PROPERTY_PROJECT,null,"所属项目最长255个字符");
 		}
 		if(StringUtils.length(appBaseInfo.getType()) > 255){
 			errors.rejectValue(AppBaseInfo.PROPERTY_TYPE,null,"应用类型最长255个字符");
+		}
+		if(StringUtils.length(appBaseInfo.getName()) > 255){
+			errors.rejectValue(AppBaseInfo.PROPERTY_NAME,null,"名称最长255个字符");
+		}
+		if(StringUtils.length(appBaseInfo.getCode()) > 255){
+			errors.rejectValue(AppBaseInfo.PROPERTY_CODE,null,"代码最长255个字符");
 		}
 		if(StringUtils.length(appBaseInfo.getStatus()) > 255){
 			errors.rejectValue(AppBaseInfo.PROPERTY_STATUS,null,"状态最长255个字符");

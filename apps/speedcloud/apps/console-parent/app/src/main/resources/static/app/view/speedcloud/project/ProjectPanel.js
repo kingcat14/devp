@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.project.ProjectPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.project.ProjectPanel'
-    , title: '项目'
+    , title: '产品（项目）'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.project.ProjectController'
@@ -75,7 +75,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 return record.get("projectSetVO")?record.get("projectSetVO").name:'';
                             }
-                            ,text: '所属项目集'
+                            ,text: '所属产品线'
                             ,flex:1
                         }
                         ,{

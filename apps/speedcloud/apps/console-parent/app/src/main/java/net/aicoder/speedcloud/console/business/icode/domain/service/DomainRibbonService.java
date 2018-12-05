@@ -28,6 +28,16 @@ public class DomainRibbonService  {
 	@Autowired
 	private DomainFeignClient domainFeignClient;
 
+	public String getCodePath(String id){
+
+		RestResponse<String> result = domainFeignClient.getCodePath(id);
+
+		if(!result.isSuccess()){
+			throw new BusinessException("ICODE", "DOMAIN", result.getCode()+"", result.getMessage());
+		}
+		return result.getData();
+
+	}
 
 	public DomainVO findTopDomain(String domainId){
 		DomainVO domainVO = this.find(domainId);

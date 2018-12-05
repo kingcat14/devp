@@ -13,11 +13,6 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
     ,closeAction:'hide'
     ,initComponent: function () {
         var me = this;
-        var codeRepositoryTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
-        codeRepositoryTypeStore.proxy.isSynchronous = true;
-        codeRepositoryTypeStore.proxy.extraParams={searchCondition:{configType:'CODEREPOSITORY-TYPE'}};
-        codeRepositoryTypeStore.load();
-
         Ext.apply(me, {
             items: [
                 {
@@ -47,13 +42,13 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
 
                         ,{
                             xtype: 'combobox'
-                            ,store: codeRepositoryTypeStore
+                            ,store: Ext.create("AM.store.speedcloud.config.CodeRepositoryTypeStore")
                             ,typeAhead:false
                             ,editable:false
-                            ,displayField:'displayName'
-                            ,valueField:'value'
+                            ,displayField:'name'
+                            ,valueField:'id'
                             ,itemId: 'typeField'
-                            ,fieldLabel: '类型'
+                            ,fieldLabel: '代码库类型'
                         }
 
                         ,{
@@ -85,39 +80,44 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
                             ,fieldLabel: '描述'
                         }
 
+                        ,{
+                            xtype: 'combobox'
+                            ,store: Ext.create("AM.store.speedcloud.app.AppBaseInfoStore")
+                            ,typeAhead:false
+                            ,editable:false
+                            ,displayField:'name'
+                            ,valueField:'id'
+                            ,itemId: 'appField'
+                            ,fieldLabel: '应用'
+                        }
+
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -156,14 +156,16 @@ Ext.define('AM.view.speedcloud.app.CodeRepositorySearchWindow', {
         var developTypeField = me.down("#developTypeField");
         var usernameField = me.down("#usernameField");
         var descriptionField = me.down("#descriptionField");
+        var appField = me.down("#appField");
 
         var condition = {
-            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
-            ,type:Ext.isEmpty(typeField.getValue())?null:typeField.getValue()
-            ,url:Ext.isEmpty(urlField.getValue())?null:urlField.getValue()
-            ,developType:Ext.isEmpty(developTypeField.getValue())?null:developTypeField.getValue()
-            ,username:Ext.isEmpty(usernameField.getValue())?null:usernameField.getValue()
-            ,description:Ext.isEmpty(descriptionField.getValue())?null:descriptionField.getValue()
+            name:Ext.valueFrom(nameField.getValue(), null)
+            ,type:Ext.valueFrom(typeField.getValue(), null)
+            ,url:Ext.valueFrom(urlField.getValue(), null)
+            ,developType:Ext.valueFrom(developTypeField.getValue(), null)
+            ,username:Ext.valueFrom(usernameField.getValue(), null)
+            ,description:Ext.valueFrom(descriptionField.getValue(), null)
+            ,app:Ext.valueFrom(appField.getValue(), null)
         };
 
         return condition;

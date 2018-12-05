@@ -2,7 +2,10 @@ package net.aicoder.speedcloud.icode.business.domain.dao;
 
 import com.yunkang.saas.common.jpa.BaseDao;
 import net.aicoder.speedcloud.icode.business.domain.domain.EntityActionParameter;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -12,5 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository("entityActionParameterDao")
 public interface EntityActionParameterDao extends BaseDao<EntityActionParameter, String>{
 
+    List<EntityActionParameter> findByEntityAction(String actionId);
+
+    @Modifying
+    int deleteByEntityAction(String actionId);
 
 }

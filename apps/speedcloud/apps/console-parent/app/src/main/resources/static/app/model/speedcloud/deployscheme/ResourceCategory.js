@@ -44,5 +44,11 @@ Ext.define('AM.model.speedcloud.deployscheme.ResourceCategory', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'idx'
+            ,type:'int'
+            ,allowNull:false
+            ,critical:true
+        }
     ]
 });

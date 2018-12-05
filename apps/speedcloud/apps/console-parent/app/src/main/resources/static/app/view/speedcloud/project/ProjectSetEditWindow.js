@@ -9,7 +9,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSetEditWindow', {
     layout: {
         type: 'vbox'
     },
-    title: '修改项目集信息',
+    title: '修改产品线（项目集）信息',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {

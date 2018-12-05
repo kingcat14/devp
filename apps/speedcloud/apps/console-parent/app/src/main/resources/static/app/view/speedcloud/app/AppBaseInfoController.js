@@ -1,31 +1,62 @@
 Ext.define('AM.view.speedcloud.app.AppBaseInfoController', {
-	extend: 'Ext.app.ViewController',
-	requires: [
-
+	extend: 'Ext.app.ViewController'
+	,requires: [
+	    'AM.model.speedcloud.app.AppBaseInfo'
+        ,'AM.model.speedcloud.app.CodeRepository'
+        ,'AM.model.speedcloud.app.AppDevelopConfig'
 	]
 	,alias: 'controller.speedcloud.app.AppBaseInfoController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
+    ,baseInfoSaved:function(appBaseInfo ,b ,c){
+        var appBaseInfoStore = this.getViewModel().getStore('store');
+        if(!appBaseInfoStore.getById(appBaseInfo.getId())){
+            appBaseInfoStore.add(appBaseInfo);
+            this.lookupReference('mainGridPanel').setSelection(appBaseInfo)
         }
-
-		var id = record.get('id');
-
-	}
-    ,onAddButtonClick: function() {
-
-        var modelConfig = {}
-        var record = Ext.create('AM.model.speedcloud.app.AppBaseInfo', modelConfig);
-
-        this.showAddWindow(record);
+    }
+    ,productChange:function(combo, newValue){
+	    var appBaseInfoStore = this.getViewModel().getStore('store')
+        appBaseInfoStore.applyCondition({project:newValue}).load()
     }
 
+    ,onAppRowSelect:function(table, record, rowIndex, event) {
+        var me = this;
+        me.lookupReference("detailPanel").setModel(record);
+
+        var appBaseInfo = AM.model.speedcloud.app.AppBaseInfo.load(record.getId(), {
+            success: function (loadedRecord, operation) {
+
+                // if(loadedRecord.codeRepositoryVO) {
+                //     var codeRepository = Ext.create('AM.model.speedcloud.app.CodeRepository', loadedRecord.codeRepositoryVO);
+                //     this.lookupReference("codeRepositoryEditPanel").setModel(codeRepository);
+                // }
+
+                var codeRepository = Ext.create('AM.model.speedcloud.app.CodeRepository', loadedRecord.get('codeRepositoryVO'));
+                codeRepository.set('app', record.getId())
+                me.lookupReference("codeRepositoryEditPanel").setModel(codeRepository);
+
+                var appDevelopConfig = Ext.create('AM.model.speedcloud.app.AppDevelopConfig', loadedRecord.get('appDevelopConfigVO'));
+                me.lookupReference("appDevelopConfigEditPanel").setModel(appDevelopConfig);
+
+            }
+            ,failure: function (loadedRecord, operation) {}
+            ,callback: function (loadedRecord, operation) {}
+        })
+    }
+    ,onAddButtonClick: function() {
+        var currentProject = this.lookupReference('currentProject').getValue();
+        if(!currentProject){
+            Ext.MessageBox.show({title: '请先选择产品', msg: '请先选择产品', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            this.lookupReference('currentProject').expand();
+            return;
+        }
+        var modelConfig = {project:currentProject};
+        var record = Ext.create('AM.model.speedcloud.app.AppBaseInfo', modelConfig);
+
+        this.lookupReference("detailPanel").setModel(record);
+        this.lookupReference("codeRepositoryEditPanel").setModel(null);
+        this.lookupReference("appDevelopConfigEditPanel").setModel(null);
+    }
     ,onDeleteButtonClick: function(button, e, options) {
         var me = this;
         var mainGridPanel = me.lookupReference('mainGridPanel');
@@ -40,12 +71,16 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoController', {
 		        var targetPage = count<=0 ? store.currentPage-1 : store.currentPage;
 		        targetPage = targetPage <=0 ? 1 :targetPage;
                 store.loadPage(targetPage,{
-                    scope: this,
-                    callback: function(records, operation, success) {
+                    scope: this
+                    ,callback: function(records, operation, success) {
                         if(!success)
-                        	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
-                        else
-                        	Ext.MsgUtil.show('操作成功','删除应用成功!');
+                        	Ext.MessageBox.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+                        else {
+                            Ext.MsgUtil.notification('操作成功', '删除应用（系统）成功!');
+                            me.lookupReference("detailPanel").setModel(null);
+                            me.lookupReference("codeRepositoryEditPanel").setModel(null);
+                            me.lookupReference("appDevelopConfigEditPanel").setModel(null);
+                        }
                     }
                 });
             }
@@ -57,64 +92,13 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoController', {
         var mainGridPanel = me.lookupReference('mainGridPanel');
         var selections = mainGridPanel.getSelectionModel( ).getSelection( );
         if(selections.length <= 0){
-            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            Ext.MessageBox.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
             return;
         }
         var record = selections[0];
         me.showEditWindow(record, mainGridPanel.getView().getRow(record));
     }
-    ,onSimpleSearchButtonClick: function(button, e, options) {
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        searchWindow.onSearchButtonClick();
-
-    }
-    ,onExportButtonClick: function(button, e, options) {
-
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        var condition = searchWindow.getCondition();
-        if(!condition){
-            condition = {searchCondition:{}};
-        }
-        if (!Ext.fly('formFly')) {
-            var frm = document.createElement('form');
-            frm.id = 'formFly';
-            frm.className = 'x-hidden';
-            document.body.appendChild(frm);
-        }
-        console.log(condition)
-        Ext.Ajax.request({
-            disableCaching: true
-            ,url: "app/appBaseInfo/export"
-            ,method: "POST"
-            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
-            ,isUpload: true
-            ,form: Ext.fly('formFly')
-        });
-
-    }
-    ,showAddWindow: function(model, targetComponent) {
-        var me = this;
-        var addWindow = me.lookupReference('mainAddWindow');
-        addWindow.setModel(model);
-        addWindow.show(targetComponent);
-        return addWindow;
-    }
-    ,showEditWindow: function(model, targetComponent) {
-        var me = this;
-        var editWindow = me.lookupReference('mainEditWindow');
-        editWindow.setModel(model);
-        editWindow.show(targetComponent);
-        return editWindow;
-    }
-    ,showSearchWindow: function() {
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        searchWindow.show();
-    }
-	,reloadStore:function () {
+    ,reloadStore:function () {
 
         var me = this;
 
@@ -123,21 +107,10 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoController', {
         mainGridPanel.getStore().load({
             callback: function (records, operation, success) {
                 if (success) {
-                    Ext.MsgUtil.show('操作成功', '同步列表成功');
+                    Ext.MsgUtil.notification('操作成功', '同步列表成功');
                 }
             }
         });
     }
-    ,doSearch:function () {
-        var me = this;
-        var mainSearchWindow = me.lookupReference ('mainSearchWindow');
-        var mainGridPanel = me.lookupReference('mainGridPanel');
-        mainGridPanel.getStore().proxy.extraParams={searchCondition:mainSearchWindow.getCondition()};
-        mainGridPanel.getStore().load({
-            params:{
-                start:0
-                ,page:0
-            }
-        });
-    }
+
 })

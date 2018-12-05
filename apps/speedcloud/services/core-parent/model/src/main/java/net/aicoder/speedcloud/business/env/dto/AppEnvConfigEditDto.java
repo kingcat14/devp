@@ -2,16 +2,24 @@ package net.aicoder.speedcloud.business.env.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 应用环境
+ * 产品环境
  * @author icode
  */
-@ApiModel(value = "修改应用环境使用的DTO")
+@ApiModel(value = "修改产品环境使用的DTO")
+@Setter @Getter
 public class AppEnvConfigEditDto {
+
+
+	/**所属产品（项目）*/
+	@ApiModelProperty(value = "所属产品（项目）", required = false)
+	private String project;
 
 
 	/**环境名称*/
@@ -24,15 +32,18 @@ public class AppEnvConfigEditDto {
 	private String level;
 
 
-	/**所属项目（产品）*/
-	@ApiModelProperty(value = "所属项目（产品）", required = false)
-	private String project;
-
-
 	/**顺序号*/
 	@ApiModelProperty(value = "顺序号", required = false)
 	private Integer seq;
 
+
+
+	public String getProject(){
+        return project;
+    }
+    public void setProject(String project) {
+        this.project = project;
+    }
 
 
 	public String getName(){
@@ -44,18 +55,10 @@ public class AppEnvConfigEditDto {
 
 
 	public String getLevel(){
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-
-	public String getProject(){
-        return project;
+        return level;
     }
-    public void setProject(String project) {
-        this.project = project;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
 

@@ -83,14 +83,14 @@ public class AppBaseInfoRibbon {
 	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "updateFail")
-    public AppBaseInfoResult update(Long id, AppBaseInfoEditDto editDto) {
+    public AppBaseInfoResult update(String id, AppBaseInfoEditDto editDto) {
         String url = "http://"+host+"/speedcloud/app/appbaseinfo/"+id;
         ResponseEntity<AppBaseInfoResult> response =
                 restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<AppBaseInfoResult>() {});
         return response.getBody();
     }
 
-    public AppBaseInfoResult updateFail(Long id, AppBaseInfoEditDto updateRequest, Throwable throwable) {
+    public AppBaseInfoResult updateFail(String id, AppBaseInfoEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
 

@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.deployscheme.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import net.aicoder.speedcloud.business.env.vo.AppEnvConfigVO;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -14,6 +16,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 * 方案资源的值对象
 */
 @ApiModel(value = "展现方案资源的值对象")
+@Getter
+@Setter
 public class ResourceVO {
 
     @ApiModelProperty(value = "记录id")
@@ -37,13 +41,13 @@ public class ResourceVO {
 
     /**资源类别*/
     @ApiModelProperty(value = "资源类别")
-    private Long category;
+    private String category;
     private ResourcesCategoryVO categoryVO;
 
 
     /**资源类型*/
     @ApiModelProperty(value = "资源类型", notes = "[类型]-运行环境/数据库/消息队列/缓存/外部接口")
-    private Long type;
+    private String type;
     private ResourcesTypeVO typeVO;
 
 
@@ -68,8 +72,8 @@ public class ResourceVO {
 
     /**所属环境*/
     @ApiModelProperty(value = "所属环境")
-    private Long evn;
-    private AppEnvConfigVO evnVO;
+    private String env;
+    private AppEnvConfigVO envVO;
 
 
     /**产品编号*/
@@ -88,134 +92,7 @@ public class ResourceVO {
     private SchemeVO schemeVO;
 
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getCode(){
-        return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getAlias(){
-        return alias;
-    }
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public Long getCategory(){
-        return category;
-    }
-    public void setCategory(Long category) {
-        this.category = category;
-    }
-    public ResourcesCategoryVO getCategoryVO(){
-        return categoryVO;
-    }
-    public void setCategoryVO(ResourcesCategoryVO categoryVO) {
-        this.categoryVO = categoryVO;
-    }
-
-    public Long getType(){
-        return type;
-    }
-    public void setType(Long type) {
-        this.type = type;
-    }
-    public ResourcesTypeVO getTypeVO(){
-        return typeVO;
-    }
-    public void setTypeVO(ResourcesTypeVO typeVO) {
-        this.typeVO = typeVO;
-    }
-
-    public String getNotes(){
-        return notes;
-    }
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getDescription(){
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getVersion(){
-        return version;
-    }
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public Integer getSeq(){
-        return seq;
-    }
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
-    public Long getEvn(){
-        return evn;
-    }
-    public void setEvn(Long evn) {
-        this.evn = evn;
-    }
-    public AppEnvConfigVO getEvnVO(){
-        return evnVO;
-    }
-    public void setEvnVO(AppEnvConfigVO evnVO) {
-        this.evnVO = evnVO;
-    }
-
-    public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
-    public ProjectVO getProjectVO(){
-        return projectVO;
-    }
-    public void setProjectVO(ProjectVO projectVO) {
-        this.projectVO = projectVO;
-    }
-
-    public Boolean getOuterResource(){
-        return outerResource;
-    }
-    public void setOuterResource(Boolean outerResource) {
-        this.outerResource = outerResource;
-    }
-
-    public Long getScheme(){
-        return scheme;
-    }
-    public void setScheme(Long scheme) {
-        this.scheme = scheme;
-    }
-    public SchemeVO getSchemeVO(){
-        return schemeVO;
-    }
-    public void setSchemeVO(SchemeVO schemeVO) {
-        this.schemeVO = schemeVO;
-    }
-
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 
     @Override
     public String toString() {

@@ -66,7 +66,7 @@ public class SchemeEditDto {
 
 	/**所属环境*/
 	@ApiModelProperty(value = "所属环境", required = false, notes = "[所属环境]")
-	private Long env;
+	private String env;
 
 
 
@@ -150,10 +150,10 @@ public class SchemeEditDto {
     }
 
 
-	public Long getEnv(){
+	public String getEnv(){
         return env;
     }
-    public void setEnv(Long env) {
+    public void setEnv(String env) {
         this.env = env;
     }
 

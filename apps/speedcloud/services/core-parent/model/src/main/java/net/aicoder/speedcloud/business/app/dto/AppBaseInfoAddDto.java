@@ -2,28 +2,39 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 应用
+ * 应用（系统）
  * @author icode
  */
-@ApiModel(value = "新增应用使用的DTO")
+@ApiModel(value = "新增应用（系统）使用的DTO")
+@Setter @Getter
 public class AppBaseInfoAddDto {
 
     /**租户id*/
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
 
-    /**名称*/
-	@ApiModelProperty(value = "名称", required = false)
-	private String name;
+    /**所属项目*/
+	@ApiModelProperty(value = "所属项目", required = false)
+	private String project;
 
     /**应用类型*/
 	@ApiModelProperty(value = "应用类型", required = false)
 	private String type;
+
+    /**名称*/
+	@ApiModelProperty(value = "名称", required = false)
+	private String name;
+
+    /**代码*/
+	@ApiModelProperty(value = "代码", required = false)
+	private String code;
 
     /**状态*/
 	@ApiModelProperty(value = "状态", required = false)
@@ -37,10 +48,6 @@ public class AppBaseInfoAddDto {
 	@ApiModelProperty(value = "注册时间", required = false)
 	private String registTime;
 
-    /**所属项目*/
-	@ApiModelProperty(value = "所属项目", required = false)
-	private String project;
-
 
 	public Long getTid(){
 		return tid;
@@ -49,6 +56,20 @@ public class AppBaseInfoAddDto {
 		this.tid = tid;
 	}
 
+	public String getProject(){
+        return project;
+    }
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+	public String getType(){
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
 	public String getName(){
 		return name;
 	}
@@ -56,11 +77,11 @@ public class AppBaseInfoAddDto {
 		this.name = name;
 	}
 
-	public String getType(){
-		return type;
+	public String getCode(){
+		return code;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getStatus(){
@@ -83,13 +104,6 @@ public class AppBaseInfoAddDto {
 	public void setRegistTime(String registTime) {
 		this.registTime = registTime;
 	}
-
-	public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
 
 
 	@Override

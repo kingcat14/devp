@@ -10,7 +10,7 @@ Ext.define('AM.view.speedcloud.project.ProjectEditWindow', {
     layout: {
         type: 'vbox'
     },
-    title: '修改项目信息',
+    title: '修改产品（项目）信息',
     maximizable: true,
     closeAction:'hide',
     initComponent: function () {
@@ -76,16 +76,7 @@ Ext.define('AM.view.speedcloud.project.ProjectEditWindow', {
                                     ,name: 'scope'
                                     ,fieldLabel: '公开性'
                                 }
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'parentField'
-                                    ,name: 'parent'
-                                    ,fieldLabel: '上级项目'
-                                }
+
                                 ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.project.ProjectSetStore")
@@ -99,7 +90,7 @@ Ext.define('AM.view.speedcloud.project.ProjectEditWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'projectSetField'
                                     ,name: 'projectSet'
-                                    ,fieldLabel: '所属项目集'
+                                    ,fieldLabel: '所属产品线（项目集）'
                                 }
                             ]
 
@@ -164,7 +155,7 @@ Ext.define('AM.view.speedcloud.project.ProjectEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存项目成功!');
+                Ext.MsgUtil.show('操作成功', '保存产品（项目）成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -181,7 +172,7 @@ Ext.define('AM.view.speedcloud.project.ProjectEditWindow', {
             return;
         }
 
-        this.setTitle("修改项目信息");
+        this.setTitle("修改产品（项目）信息");
 
         this.down('form').getForm().loadRecord(model);
 

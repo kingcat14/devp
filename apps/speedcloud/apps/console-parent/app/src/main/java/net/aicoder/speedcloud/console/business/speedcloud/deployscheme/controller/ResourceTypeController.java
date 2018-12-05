@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controll
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -39,16 +39,12 @@ import java.util.*;
 public class ResourceTypeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceTypeController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
-
-	@Autowired
+   
+    @Autowired
 	private ResourceTypeRibbonService resourceTypeRibbonService;
 
 	@Autowired
-	ResourceTypeValidator resourceTypeValidator;
+	private ResourceTypeValidator resourceTypeValidator;
 
 
     @InitBinder
@@ -65,9 +61,10 @@ public class ResourceTypeController {
 	@ApiOperation(value = "新增", notes = "新增部署资源类型", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	@SaaSAnnotation
-	public ResourceTypeVO add(@RequestBody ResourceTypeAddDto resourceTypeAddDto){
-    	return  resourceTypeRibbonService.add(resourceTypeAddDto);
+  	@SaaSAnnotation()
+	public ResourceTypeVO add(@RequestBody @Valid ResourceTypeAddDto resourceTypeAddDto){
+	
+		return  resourceTypeRibbonService.add(resourceTypeAddDto);
 	}
 
 	/**
@@ -75,14 +72,14 @@ public class ResourceTypeController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除部署资源类型", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete resourceType :{}", idArray);
 
 		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			resourceTypeRibbonService.delete(Long.parseLong(id));
+      	for (String id : ids ){
+			resourceTypeRibbonService.delete(id);
 		}
 
 	}
@@ -94,8 +91,8 @@ public class ResourceTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "修改", notes = "修改产部署资源类型(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public ResourceTypeVO update(@RequestBody ResourceTypeEditDto resourceTypeEditDto, @ApiParam(value = "要查询的部署资源类型id") @PathVariable Long id){
+	@PutMapping(path="/{id}")
+	public ResourceTypeVO update(@RequestBody @Valid ResourceTypeEditDto resourceTypeEditDto, @ApiParam(value = "要查询的部署资源类型id") @PathVariable String id){
 
 		ResourceTypeVO vo = resourceTypeRibbonService.merge(id, resourceTypeEditDto);
 
@@ -108,8 +105,8 @@ public class ResourceTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询部署资源类型", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public ResourceTypeVO get(@ApiParam(value = "要查询的部署资源类型id") @PathVariable Long id) {
+	@GetMapping(path="/{id}")
+	public ResourceTypeVO get(@ApiParam(value = "要查询的部署资源类型id") @PathVariable String id) {
 
 		ResourceTypeVO vo = resourceTypeRibbonService.find(id);
 		return vo;
@@ -121,8 +118,9 @@ public class ResourceTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询部署资源类型列表", httpMethod = "POST")
-	@PostMapping("/list") @SaaSAnnotation(conditionClass = ResourceTypeCondition.class)
-	public PageContent<ResourceTypeVO> list(@RequestBody PageSearchRequest<ResourceTypeCondition> pageSearchRequest){
+	@PostMapping(path="/list")
+  	@SaaSAnnotation(conditionClass = ResourceTypeCondition.class)
+	public PageContent<ResourceTypeVO> list(@RequestBody @Valid PageSearchRequest<ResourceTypeCondition> pageSearchRequest){
 
 		PageContent<ResourceTypeVO> pageContent = resourceTypeRibbonService.list(pageSearchRequest);
 		for(ResourceTypeVO vo : pageContent.getContent()){
@@ -140,7 +138,7 @@ public class ResourceTypeController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出部署资源类型列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(ResourceTypeCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
 
         PageSearchRequest<ResourceTypeCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -163,9 +161,11 @@ public class ResourceTypeController {
         Map<String,String> headMap = new LinkedHashMap<String,String>();
 
     
+            headMap.put("category" ,"资源类别");
             headMap.put("name" ,"名称");
             headMap.put("code" ,"代码");
             headMap.put("icon" ,"图标");
+            headMap.put("idx" ,"排序");
 
         String title = new String("部署资源类型");
         String fileName = new String(("部署资源类型_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -176,13 +176,9 @@ public class ResourceTypeController {
 
 	private ResourceTypeVO initViewProperty( ResourceTypeVO vo){
 
-	   
-
 
 	   
         return vo;
 
 	}
-
-
 }

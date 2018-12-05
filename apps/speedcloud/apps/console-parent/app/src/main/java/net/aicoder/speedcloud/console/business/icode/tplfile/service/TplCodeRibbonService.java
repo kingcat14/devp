@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("tplCodeRibbonService")
 public class TplCodeRibbonService  {
@@ -75,6 +77,13 @@ public class TplCodeRibbonService  {
 		return result.getData();
 	}
 
+	public List<TplCodeVO> list(TplCodeCondition codeCondition) {
+		PageSearchRequest request = new PageSearchRequest();
+		request.setPage(0);
+		request.setLimit(Integer.MAX_VALUE);
+		request.setSearchCondition(codeCondition);
+		return list(request).getContent();
+	}
 
 	public PageContent<TplCodeVO> list(PageSearchRequest<TplCodeCondition> pageSearchRequest) {
 		TplCodePageResult result = tplCodeRibbon.list(pageSearchRequest);

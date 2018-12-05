@@ -48,6 +48,12 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryDetailWindow', {
                             ,name: 'icon'
                             ,fieldLabel: '图标'
                         }
+                        ,{
+                            itemId: 'idxField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'idx'
+                            ,fieldLabel: '排序'
+                        }
                     ]
                 }
             ]
@@ -59,10 +65,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

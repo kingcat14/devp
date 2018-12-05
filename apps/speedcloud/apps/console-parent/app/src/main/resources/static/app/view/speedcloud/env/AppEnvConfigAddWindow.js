@@ -4,6 +4,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
+        ,'AM.store.speedcloud.config.EnvLevelStore'
 
     ]
     ,autoScroll: true
@@ -12,7 +13,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新应用环境'
+    ,title: '添加新产品环境'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -29,7 +30,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -49,30 +49,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
                             ,items:[
 
                                 ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'nameField'
-                                    ,name: 'name'
-                                    ,fieldLabel: '环境名称'
-                                }
-
-
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'levelField'
-                                    ,name: 'level'
-                                    ,fieldLabel: '环境级别'
-                                }
-
-
-                                ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
                                     ,typeAhead:false
@@ -85,7 +61,39 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'projectField'
                                     ,name: 'project'
-                                    ,fieldLabel: '所属项目（产品）'
+                                    ,fieldLabel: '所属产品（项目）'
+                                                         
+                                }
+
+
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '环境名称'
+                                    
+                                }
+
+
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.config.EnvLevelStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'levelField'
+                                    ,name: 'level'
+                                    ,fieldLabel: '环境级别'
+                                                         
                                 }
 
 
@@ -99,6 +107,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
                                     ,itemId: 'seqField'
                                     ,name: 'seq'
                                     ,fieldLabel: '顺序号'
+                                    
                                 }
 
                             ]
@@ -153,7 +162,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用环境成功!');
+                Ext.MsgUtil.notification('操作成功', '保存产品环境成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -172,6 +181,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigAddWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#projectField').getStore().reload();
+        this.down('#levelField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

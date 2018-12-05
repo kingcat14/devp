@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.deployscheme.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -16,21 +16,24 @@ import javax.validation.constraints.Size;
  * 部署资源类型
  * @author icode
  */
-@Entity(name = "deployscheme_resource_type")
-@Table(appliesTo = "deployscheme_resource_type", comment = "[部署资源类型]")
+@Entity()
+@Table(name = "deployscheme_resource_type")
 //@DynamicUpdate
 //@DynamicInsert
-public class ResourceType extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class ResourceType extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_CATEGORY = "category";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_CODE = "code";
 	public static final String PROPERTY_ICON = "icon";
+	public static final String PROPERTY_IDX = "idx";
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -39,6 +42,14 @@ public class ResourceType extends BaseEntity<Long>{
     */
     @Column(name = "tid", nullable = false, updatable = false)
 	private Long tid;
+
+    /**
+    * 资源类别
+    * 
+    */
+    @Column(name = "category", nullable = false, updatable = true)
+	@Size(max = 255, message = "资源类别超长，最多255个字符")
+	private String category;
 
     /**
     * 名称
@@ -64,11 +75,25 @@ public class ResourceType extends BaseEntity<Long>{
 	@Size(max = 255, message = "图标超长，最多255个字符")
 	private String icon;
 
+    /**
+    * 排序
+    * 
+    */
+    @Column(name = "idx", nullable = false, updatable = true)
+	private Integer idx;
+
 	public Long getTid(){
 		return tid;
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getCategory(){
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getName(){
@@ -92,11 +117,18 @@ public class ResourceType extends BaseEntity<Long>{
 		this.icon = icon;
 	}
 
+	public Integer getIdx(){
+		return idx;
+	}
+	public void setIdx(Integer idx) {
+		this.idx = idx;
+	}
 
-	public Long getId() {
+
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

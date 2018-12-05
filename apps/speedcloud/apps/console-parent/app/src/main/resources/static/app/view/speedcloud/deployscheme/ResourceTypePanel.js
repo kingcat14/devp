@@ -3,6 +3,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
     , xtype: 'speedcloud.deployscheme.ResourceTypePanel'
     , alias: 'widget.speedcloud.deployscheme.ResourceTypePanel'
     , title: '部署资源类型'
+    , bodyCls: 'app-dashboard'
+    // , bodyPadding: '10 10'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.deployscheme.ResourceTypeController'
@@ -13,6 +15,18 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
         ,'AM.view.speedcloud.deployscheme.ResourceTypeDetailWindow'
     ]
     ,controller: 'speedcloud.deployscheme.ResourceTypeController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.speedcloud.deployscheme.ResourceTypeStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
         me.enableBubble('createMainTabPanel');
@@ -21,7 +35,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.deployscheme.ResourceTypeStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -32,13 +46,22 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
                                     me.showDetailWindow(record, this);
                                 }
                             }]
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'category'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("categoryVO")?record.get("categoryVO").name:'';
+                            }
+                            ,text: '资源类别'
+                            
                         }
                         ,{
                             xtype: 'gridcolumn'
@@ -56,6 +79,13 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'icon'
                             ,text: '图标'
+                            
+                        }
+                        ,{
+                            xtype: 'numbercolumn'
+                            ,dataIndex: 'idx'
+                            ,format:'0,000'
+                            ,text: '排序'
                             ,flex:1
                         }
                         ,{
@@ -65,7 +95,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                             ,items: [{
                                 iconCls: 'fas fa-pencil-alt'
                                 ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -80,7 +110,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                             ,items: [{
                                 iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -123,6 +153,16 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                                 }
                                 ,'-'
                                 ,{
+                                    xtype: 'combobox'
+                                    ,emptyText:'资源类别'
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,reference: 'categoryField'
+                                }
+                                ,{
                                     xtype: 'button'
                                     ,iconCls: 'fas fa-search'
                                     ,text: '查询'
@@ -133,7 +173,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-search-plus'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -141,7 +181,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-download'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'

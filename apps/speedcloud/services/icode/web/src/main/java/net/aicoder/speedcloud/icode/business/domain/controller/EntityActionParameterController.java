@@ -2,6 +2,7 @@ package net.aicoder.speedcloud.icode.business.domain.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -10,6 +11,7 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.aicoder.speedcloud.icode.business.domain.controller.convert.EntityActionParameterVOConvert;
 import net.aicoder.speedcloud.icode.business.domain.domain.EntityAction;
 import net.aicoder.speedcloud.icode.business.domain.domain.EntityActionParameter;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionParameterAddDto;
@@ -53,6 +55,9 @@ public class EntityActionParameterController {
 
 	@Autowired
 	private EntityActionService entityActionService;
+
+	@Autowired
+	private EntityActionParameterVOConvert parameterVOConvert;
 
 
 	@Autowired
@@ -124,7 +129,7 @@ public class EntityActionParameterController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询领域对象行为参数", httpMethod = "GET")
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询领域对象行为参数", httpMethod = "GET")
 	@GetMapping(path="/{id}")
   	@BusinessFuncMonitor(value = "icode.domain.entityactionparameter.get")
 	public  EntityActionParameterVO get(@PathVariable String id) {
@@ -132,6 +137,24 @@ public class EntityActionParameterController {
 		EntityActionParameter entityActionParameter = entityActionParameterService.find(id);
 
 		EntityActionParameterVO vo = initViewProperty(entityActionParameter);
+		return vo;
+	}
+
+	/**
+	 * 根据ID查询行为参数的详细信息
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "根据ID查询详细信息", notes = "根据ID查询领域对象", httpMethod = "GET")
+	@GetMapping(path="/{id}/detail")
+	@BusinessFuncMonitor(value = "icode.domain.entity.get")
+	public EntityActionParameterVO getDetail(@PathVariable String id) {
+
+		EntityActionParameter parameter = entityActionParameterService.find(id);
+		if(parameter == null){
+			throw new ResourceNotFoundException("找不到指定的对象，请检查ID");
+		}
+		EntityActionParameterVO vo = parameterVOConvert.initDetail(parameter);
 		return vo;
 	}
 

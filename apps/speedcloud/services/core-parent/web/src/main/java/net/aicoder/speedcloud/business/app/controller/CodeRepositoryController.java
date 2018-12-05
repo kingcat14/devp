@@ -1,9 +1,8 @@
 package net.aicoder.speedcloud.business.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -12,15 +11,21 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.aicoder.speedcloud.business.app.domain.AppBaseInfo;
 import net.aicoder.speedcloud.business.app.domain.CodeRepository;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryAddDto;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryCondition;
 import net.aicoder.speedcloud.business.app.dto.CodeRepositoryEditDto;
+import net.aicoder.speedcloud.business.app.service.AppBaseInfoService;
 import net.aicoder.speedcloud.business.app.service.CodeRepositoryService;
 import net.aicoder.speedcloud.business.app.valid.CodeRepositoryValidator;
+import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
 import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
+import net.aicoder.speedcloud.business.config.domain.CodeRepositoryType;
 import net.aicoder.speedcloud.business.config.domain.DevelopType;
+import net.aicoder.speedcloud.business.config.service.CodeRepositoryTypeService;
 import net.aicoder.speedcloud.business.config.service.DevelopTypeService;
+import net.aicoder.speedcloud.business.config.vo.CodeRepositoryTypeVO;
 import net.aicoder.speedcloud.business.config.vo.DevelopTypeVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -54,10 +59,12 @@ public class CodeRepositoryController {
 	private CodeRepositoryService codeRepositoryService;
 
 	@Autowired
+	private CodeRepositoryTypeService codeRepositoryTypeService;
+	@Autowired
 	private DevelopTypeService developTypeService;
+	@Autowired
+	private AppBaseInfoService appBaseInfoService;
 
-    @Autowired
-    private SimpleConfigService simpleConfigService;
 
 	@Autowired
 	private CodeRepositoryValidator codeRepositoryValidator;
@@ -76,6 +83,7 @@ public class CodeRepositoryController {
 	@ApiOperation(value = "新增", notes = "新增代码库", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.app.coderepository.add", count = true)
 	public CodeRepositoryVO add(@RequestBody @Valid CodeRepositoryAddDto codeRepositoryAddDto){
 		CodeRepository codeRepository = new CodeRepository();
 		BeanUtils.copyProperties(codeRepositoryAddDto, codeRepository);
@@ -90,14 +98,15 @@ public class CodeRepositoryController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除代码库", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.coderepository.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete codeRepository :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			codeRepositoryService.delete(Long.parseLong(id));
+			codeRepositoryService.delete(id);
 		}
 
 	}
@@ -108,10 +117,11 @@ public class CodeRepositoryController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产代码库(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	CodeRepositoryVO update(@RequestBody @Valid CodeRepositoryEditDto codeRepositoryEditDto, @PathVariable Long id){
-		CodeRepository codeRepository = new CodeRepository();
+	@ApiOperation(value = "修改", notes = "修改代码库(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.coderepository.update", count = true)
+	public	CodeRepositoryVO update(@RequestBody @Valid CodeRepositoryEditDto codeRepositoryEditDto, @PathVariable String id){
+		CodeRepository codeRepository = codeRepositoryService.find(id);
 		BeanUtils.copyProperties(codeRepositoryEditDto, codeRepository);
 		codeRepository.setId(id);
 		codeRepositoryService.merge(codeRepository);
@@ -125,12 +135,15 @@ public class CodeRepositoryController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询代码库", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  CodeRepositoryVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询代码库", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.coderepository.get")
+	public  CodeRepositoryVO get(@PathVariable String id) {
 
 		CodeRepository codeRepository = codeRepositoryService.find(id);
-
+		if(codeRepository == null){
+			throw new ResourceNotFoundException("找不到指定的代码库，请检查ID");
+		}
 		CodeRepositoryVO vo = initViewProperty(codeRepository);
 		return vo;
 	}
@@ -141,11 +154,12 @@ public class CodeRepositoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询代码库列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.app.coderepository.list")
 	public PageContent<CodeRepositoryVO> list(@RequestBody PageSearchRequest<CodeRepositoryCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<CodeRepository> page = codeRepositoryService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<CodeRepositoryVO> voList = new ArrayList<>();
@@ -165,7 +179,7 @@ public class CodeRepositoryController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出代码库列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(CodeRepositoryCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<CodeRepositoryCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -185,14 +199,15 @@ public class CodeRepositoryController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("name" ,"名称");
-            headMap.put("type" ,"类型");
-            headMap.put("url" ,"url");
-            headMap.put("developType" ,"开发模式");
-            headMap.put("username" ,"用户名");
-            headMap.put("description" ,"描述");
+        headMap.put("name" ,"名称");
+        headMap.put("type" ,"代码库类型");
+        headMap.put("url" ,"url");
+        headMap.put("developType" ,"开发模式");
+        headMap.put("username" ,"用户名");
+        headMap.put("description" ,"描述");
+        headMap.put("app" ,"应用");
 
         String title = new String("代码库");
         String fileName = new String(("代码库_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -204,21 +219,27 @@ public class CodeRepositoryController {
 	    CodeRepositoryVO vo = new CodeRepositoryVO();
         BeanUtils.copyProperties(codeRepository, vo);
 
-		SimpleConfig typeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("CODEREPOSITORY-TYPE", codeRepository.getType());
-
-		if(typeSimpleConfig!=null) {
-		    SimpleConfigVO typeSimpleConfigVO = new SimpleConfigVO();
-            BeanUtils.copyProperties(typeSimpleConfig, typeSimpleConfigVO);
-			vo.setTypeVO(typeSimpleConfigVO);
-		}
 
 	    //初始化其他对象
+	    initTypePropertyGroup(vo, codeRepository);
 	    initDevelopTypePropertyGroup(vo, codeRepository);
+	    initAppPropertyGroup(vo, codeRepository);
         return vo;
 
 	}
 
+	private void initTypePropertyGroup(CodeRepositoryVO codeRepositoryVO, CodeRepository codeRepository){
+	
+		CodeRepositoryType type = codeRepositoryTypeService.find(codeRepository.getType());
+		if(type == null){
+			return;
+		}
+		CodeRepositoryTypeVO typeVO = new CodeRepositoryTypeVO();
+		BeanUtils.copyProperties(type, typeVO);
 
+		codeRepositoryVO.setTypeVO(typeVO);
+
+	}
 	private void initDevelopTypePropertyGroup(CodeRepositoryVO codeRepositoryVO, CodeRepository codeRepository){
 	
 		DevelopType developType = developTypeService.find(codeRepository.getDevelopType());
@@ -231,7 +252,18 @@ public class CodeRepositoryController {
 		codeRepositoryVO.setDevelopTypeVO(developTypeVO);
 
 	}
+	private void initAppPropertyGroup(CodeRepositoryVO codeRepositoryVO, CodeRepository codeRepository){
+	
+		AppBaseInfo app = appBaseInfoService.find(codeRepository.getApp());
+		if(app == null){
+			return;
+		}
+		AppBaseInfoVO appVO = new AppBaseInfoVO();
+		BeanUtils.copyProperties(app, appVO);
 
+		codeRepositoryVO.setAppVO(appVO);
+
+	}
 
 }
 

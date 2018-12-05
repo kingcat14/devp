@@ -59,10 +59,8 @@ Ext.define('AM.view.speedcloud.env.MachineDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

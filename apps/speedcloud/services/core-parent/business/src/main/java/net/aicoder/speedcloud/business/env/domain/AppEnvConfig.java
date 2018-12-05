@@ -3,35 +3,36 @@ package net.aicoder.speedcloud.business.env.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
 
 /**
- * 应用环境
+ * 产品环境
  * @author icode
  */
-@Entity
-@Table(appliesTo = "app_env_config", comment = "[应用环境]")
+@Entity()
+@Table(name = "env_app_env_config")
 //@DynamicUpdate
 //@DynamicInsert
-public class AppEnvConfig extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class AppEnvConfig extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
+	public static final String PROPERTY_PROJECT = "project";
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_LEVEL = "level";
-	public static final String PROPERTY_PROJECT = "project";
 	public static final String PROPERTY_SEQ = "seq";
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -40,6 +41,14 @@ public class AppEnvConfig extends BaseEntity<Long>{
     */
     @Column(name = "tid", nullable = false, updatable = false)
 	private Long tid;
+
+    /**
+    * 所属产品（项目）
+    * 
+    */
+    @Column(name = "project", nullable = false, updatable = true)
+	@Size(max = 255, message = "所属产品（项目）超长，最多255个字符")
+	private String project;
 
     /**
     * 环境名称
@@ -58,13 +67,6 @@ public class AppEnvConfig extends BaseEntity<Long>{
 	private String level;
 
     /**
-    * 所属项目（产品）
-    * 
-    */
-    @Column(name = "project", nullable = true, updatable = true)
-	private String project;
-
-    /**
     * 顺序号
     * 
     */
@@ -76,6 +78,13 @@ public class AppEnvConfig extends BaseEntity<Long>{
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	public String getProject(){
+		return project;
+	}
+	public void setProject(String project) {
+		this.project = project;
 	}
 
 	public String getName(){
@@ -92,13 +101,6 @@ public class AppEnvConfig extends BaseEntity<Long>{
 		this.level = level;
 	}
 
-	public String getProject(){
-		return project;
-	}
-	public void setProject(String project) {
-		this.project = project;
-	}
-
 	public Integer getSeq(){
 		return seq;
 	}
@@ -107,10 +109,10 @@ public class AppEnvConfig extends BaseEntity<Long>{
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

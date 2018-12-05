@@ -2,10 +2,6 @@ package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
-import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -23,13 +19,13 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -43,19 +39,13 @@ import java.util.*;
 public class CodeRepositoryController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CodeRepositoryController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
-
-	@Autowired
+   
+    @Autowired
 	private CodeRepositoryRibbonService codeRepositoryRibbonService;
 
 	@Autowired
-	CodeRepositoryValidator codeRepositoryValidator;
+	private CodeRepositoryValidator codeRepositoryValidator;
 
-    @Autowired
-    private SimpleConfigService simpleConfigService;
 
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
@@ -71,8 +61,9 @@ public class CodeRepositoryController {
 	@ApiOperation(value = "新增", notes = "新增代码库", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	@SaaSAnnotation
-	public CodeRepositoryVO add(@RequestBody CodeRepositoryAddDto codeRepositoryAddDto){
+  	@SaaSAnnotation()
+	public CodeRepositoryVO add(@RequestBody @Valid CodeRepositoryAddDto codeRepositoryAddDto){
+	
 		return  codeRepositoryRibbonService.add(codeRepositoryAddDto);
 	}
 
@@ -81,14 +72,14 @@ public class CodeRepositoryController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除代码库", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete codeRepository :{}", idArray);
 
 		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			codeRepositoryRibbonService.delete(Long.parseLong(id));
+      	for (String id : ids ){
+			codeRepositoryRibbonService.delete(id);
 		}
 
 	}
@@ -100,8 +91,8 @@ public class CodeRepositoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "修改", notes = "修改产代码库(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public CodeRepositoryVO update(@RequestBody CodeRepositoryEditDto codeRepositoryEditDto, @ApiParam(value = "要查询的代码库id") @PathVariable Long id){
+	@PutMapping(path="/{id}")
+	public CodeRepositoryVO update(@RequestBody @Valid CodeRepositoryEditDto codeRepositoryEditDto, @ApiParam(value = "要查询的代码库id") @PathVariable String id){
 
 		CodeRepositoryVO vo = codeRepositoryRibbonService.merge(id, codeRepositoryEditDto);
 
@@ -114,8 +105,8 @@ public class CodeRepositoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询代码库", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public CodeRepositoryVO get(@ApiParam(value = "要查询的代码库id") @PathVariable Long id) {
+	@GetMapping(path="/{id}")
+	public CodeRepositoryVO get(@ApiParam(value = "要查询的代码库id") @PathVariable String id) {
 
 		CodeRepositoryVO vo = codeRepositoryRibbonService.find(id);
 		return vo;
@@ -127,8 +118,9 @@ public class CodeRepositoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询代码库列表", httpMethod = "POST")
-	@PostMapping("/list") @SaaSAnnotation(conditionClass = CodeRepositoryCondition.class)
-	public PageContent<CodeRepositoryVO> list(@RequestBody PageSearchRequest<CodeRepositoryCondition> pageSearchRequest){
+	@PostMapping(path="/list")
+  	@SaaSAnnotation(conditionClass = CodeRepositoryCondition.class)
+	public PageContent<CodeRepositoryVO> list(@RequestBody @Valid PageSearchRequest<CodeRepositoryCondition> pageSearchRequest){
 
 		PageContent<CodeRepositoryVO> pageContent = codeRepositoryRibbonService.list(pageSearchRequest);
 		for(CodeRepositoryVO vo : pageContent.getContent()){
@@ -146,7 +138,7 @@ public class CodeRepositoryController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出代码库列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(CodeRepositoryCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
 
         PageSearchRequest<CodeRepositoryCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -170,11 +162,12 @@ public class CodeRepositoryController {
 
     
             headMap.put("name" ,"名称");
-            headMap.put("type" ,"类型");
+            headMap.put("type" ,"代码库类型");
             headMap.put("url" ,"url");
             headMap.put("developType" ,"开发模式");
             headMap.put("username" ,"用户名");
             headMap.put("description" ,"描述");
+            headMap.put("app" ,"应用");
 
         String title = new String("代码库");
         String fileName = new String(("代码库_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -185,21 +178,9 @@ public class CodeRepositoryController {
 
 	private CodeRepositoryVO initViewProperty( CodeRepositoryVO vo){
 
-	   
-
-		SimpleConfig typeSimpleConfig = simpleConfigService.findByConfigTypeAndCode("CODEREPOSITORY-TYPE", vo.getType());
-
-		if(typeSimpleConfig!=null) {
-
-		    SimpleConfigVO typeSimpleConfigVO = new SimpleConfigVO();
-		    BeanUtils.copyProperties(typeSimpleConfig, typeSimpleConfigVO);
-		    vo.setTypeVO(typeSimpleConfigVO);
-		}
 
 	   
         return vo;
 
 	}
-
-
 }

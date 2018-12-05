@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.project.ProjectSetPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.project.ProjectSetPanel'
-    , title: '项目集'
+    , title: '产品线（项目集）'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.project.ProjectSetController'

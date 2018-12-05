@@ -37,13 +37,16 @@ public class ResourceTypeValidator implements Validator {
      * @param resourceType 部署资源类型
      * @param errors
      */
-		public void validateAddDto(ResourceTypeAddDto resourceType, Errors errors) {
+	public void validateAddDto(ResourceTypeAddDto resourceType, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(resourceType.getCategory()) > 255){
+			errors.rejectValue("category", null, "资源类别最长255个字符");
+		}
 		if(StringUtils.length(resourceType.getName()) > 255){
 			errors.rejectValue("name", null, "名称最长255个字符");
 		}

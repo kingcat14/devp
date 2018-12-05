@@ -10,10 +10,13 @@ import net.aicoder.speedcloud.icode.business.domain.vo.EntityPropertyVO;
 import net.aicoder.speedcloud.icode.client.domain.EntityPropertyRibbon;
 import net.aicoder.speedcloud.icode.client.domain.result.EntityPropertyPageResult;
 import net.aicoder.speedcloud.icode.client.domain.result.EntityPropertyResult;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service("entityPropertyRibbonService")
@@ -74,5 +77,29 @@ public class EntityPropertyRibbonService  {
 		}
 
 		return result.getData();
+	}
+
+	public List<EntityPropertyVO> list(EntityPropertyCondition condition) {
+		PageSearchRequest request = new PageSearchRequest();
+		request.setPage(0);
+		request.setLimit(Integer.MAX_VALUE);
+		request.setSearchCondition(condition);
+		PageContent<EntityPropertyVO> result = list(request);
+
+		return result.getContent();
+	}
+
+	public EntityPropertyVO findPrimaryKeyFormModel(String modelId){
+		EntityPropertyCondition condition = new EntityPropertyCondition();
+		condition.setEntity(modelId);
+		condition.setPrimaryKey(true);
+
+		List<EntityPropertyVO> list = this.list(condition);
+		EntityPropertyVO result = null;
+		if(CollectionUtils.size(list) >0){
+			result = list.get(0);
+		}
+
+		return result;
 	}
 }

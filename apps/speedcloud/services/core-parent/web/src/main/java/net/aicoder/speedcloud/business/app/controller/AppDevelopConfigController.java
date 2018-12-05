@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -11,17 +13,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.aicoder.speedcloud.business.app.domain.AppBaseInfo;
 import net.aicoder.speedcloud.business.app.domain.AppDevelopConfig;
-import net.aicoder.speedcloud.business.app.domain.CodeRepository;
 import net.aicoder.speedcloud.business.app.dto.AppDevelopConfigAddDto;
 import net.aicoder.speedcloud.business.app.dto.AppDevelopConfigCondition;
 import net.aicoder.speedcloud.business.app.dto.AppDevelopConfigEditDto;
 import net.aicoder.speedcloud.business.app.service.AppBaseInfoService;
 import net.aicoder.speedcloud.business.app.service.AppDevelopConfigService;
-import net.aicoder.speedcloud.business.app.service.CodeRepositoryService;
 import net.aicoder.speedcloud.business.app.valid.AppDevelopConfigValidator;
 import net.aicoder.speedcloud.business.app.vo.AppBaseInfoVO;
 import net.aicoder.speedcloud.business.app.vo.AppDevelopConfigVO;
-import net.aicoder.speedcloud.business.app.vo.CodeRepositoryVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -55,8 +54,7 @@ public class AppDevelopConfigController {
 
 	@Autowired
 	private AppBaseInfoService appBaseInfoService;
-	@Autowired
-	private CodeRepositoryService codeRepositoryService;
+
 
 	@Autowired
 	private AppDevelopConfigValidator appDevelopConfigValidator;
@@ -75,6 +73,7 @@ public class AppDevelopConfigController {
 	@ApiOperation(value = "新增", notes = "新增应用开发配置", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.app.appdevelopconfig.add", count = true)
 	public AppDevelopConfigVO add(@RequestBody @Valid AppDevelopConfigAddDto appDevelopConfigAddDto){
 		AppDevelopConfig appDevelopConfig = new AppDevelopConfig();
 		BeanUtils.copyProperties(appDevelopConfigAddDto, appDevelopConfig);
@@ -89,14 +88,15 @@ public class AppDevelopConfigController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除应用开发配置", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.appdevelopconfig.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete appDevelopConfig :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			appDevelopConfigService.delete(Long.parseLong(id));
+			appDevelopConfigService.delete(id);
 		}
 
 	}
@@ -107,10 +107,11 @@ public class AppDevelopConfigController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产应用开发配置(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	AppDevelopConfigVO update(@RequestBody @Valid AppDevelopConfigEditDto appDevelopConfigEditDto, @PathVariable Long id){
-		AppDevelopConfig appDevelopConfig = new AppDevelopConfig();
+	@ApiOperation(value = "修改", notes = "修改应用开发配置(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.appdevelopconfig.update", count = true)
+	public	AppDevelopConfigVO update(@RequestBody @Valid AppDevelopConfigEditDto appDevelopConfigEditDto, @PathVariable String id){
+		AppDevelopConfig appDevelopConfig = appDevelopConfigService.find(id);
 		BeanUtils.copyProperties(appDevelopConfigEditDto, appDevelopConfig);
 		appDevelopConfig.setId(id);
 		appDevelopConfigService.merge(appDevelopConfig);
@@ -124,12 +125,15 @@ public class AppDevelopConfigController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询应用开发配置", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  AppDevelopConfigVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询应用开发配置", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.appdevelopconfig.get")
+	public  AppDevelopConfigVO get(@PathVariable String id) {
 
 		AppDevelopConfig appDevelopConfig = appDevelopConfigService.find(id);
-
+		if(appDevelopConfig == null){
+			throw new ResourceNotFoundException("找不到指定的应用开发配置，请检查ID");
+		}
 		AppDevelopConfigVO vo = initViewProperty(appDevelopConfig);
 		return vo;
 	}
@@ -140,11 +144,12 @@ public class AppDevelopConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用开发配置列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.app.appdevelopconfig.list")
 	public PageContent<AppDevelopConfigVO> list(@RequestBody PageSearchRequest<AppDevelopConfigCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<AppDevelopConfig> page = appDevelopConfigService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<AppDevelopConfigVO> voList = new ArrayList<>();
@@ -164,7 +169,7 @@ public class AppDevelopConfigController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出应用开发配置列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(AppDevelopConfigCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<AppDevelopConfigCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -184,14 +189,15 @@ public class AppDevelopConfigController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("app" ,"应用");
-            headMap.put("code" ,"代码");
-            headMap.put("testDatabase" ,"测试环境DB");
-            headMap.put("testDomainName" ,"测试环境域名");
-            headMap.put("productionDatabase" ,"生产环境DB");
-            headMap.put("productionDomainName" ,"生产环境域名");
+        headMap.put("app" ,"应用");
+        headMap.put("developDatabase" ,"开发环境DB");
+        headMap.put("developDomainName" ,"开发环境域名");
+        headMap.put("testDatabase" ,"测试环境DB");
+        headMap.put("testDomainName" ,"测试环境域名");
+        headMap.put("productionDatabase" ,"生产环境DB");
+        headMap.put("productionDomainName" ,"生产环境域名");
 
         String title = new String("应用开发配置");
         String fileName = new String(("应用开发配置_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -206,12 +212,9 @@ public class AppDevelopConfigController {
 
 	    //初始化其他对象
 	    initAppPropertyGroup(vo, appDevelopConfig);
-	    initCodePropertyGroup(vo, appDevelopConfig);
         return vo;
 
-
 	}
-
 
 	private void initAppPropertyGroup(AppDevelopConfigVO appDevelopConfigVO, AppDevelopConfig appDevelopConfig){
 	
@@ -226,19 +229,5 @@ public class AppDevelopConfigController {
 
 	}
 
-
-	private void initCodePropertyGroup(AppDevelopConfigVO appDevelopConfigVO, AppDevelopConfig appDevelopConfig){
-	
-		CodeRepository code = codeRepositoryService.find(appDevelopConfig.getCode());
-		if(code == null){
-			return;
-		}
-		CodeRepositoryVO codeVO = new CodeRepositoryVO();
-		BeanUtils.copyProperties(code, codeVO);
-
-		appDevelopConfigVO.setCodeVO(codeVO);
-
-	}
-
-
 }
+

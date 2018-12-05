@@ -2,11 +2,13 @@ package net.aicoder.speedcloud.console.business.icode.domain.service;
 
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.controller.RestResponse;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionParameterAddDto;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionParameterCondition;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityActionParameterEditDto;
 import net.aicoder.speedcloud.icode.business.domain.vo.EntityActionParameterVO;
+import net.aicoder.speedcloud.icode.client.domain.EntityActionParameterClient;
 import net.aicoder.speedcloud.icode.client.domain.EntityActionParameterRibbon;
 import net.aicoder.speedcloud.icode.client.domain.result.EntityActionParameterPageResult;
 import net.aicoder.speedcloud.icode.client.domain.result.EntityActionParameterResult;
@@ -24,6 +26,9 @@ public class EntityActionParameterRibbonService  {
 
 	@Autowired
 	private EntityActionParameterRibbon entityActionParameterRibbon;
+
+	@Autowired
+	private EntityActionParameterClient parameterClient;
 
 
 	public EntityActionParameterVO add(EntityActionParameterAddDto addDto){
@@ -57,7 +62,7 @@ public class EntityActionParameterRibbonService  {
 		return result.getData();
 	}
 	public EntityActionParameterVO find(String id){
-		EntityActionParameterResult result = entityActionParameterRibbon.get(id);
+		RestResponse<EntityActionParameterVO> result = entityActionParameterRibbon.get(id);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("ICODE", "DOMAIN", result.getCode()+"", result.getMessage());
@@ -65,7 +70,15 @@ public class EntityActionParameterRibbonService  {
 
 		return result.getData();
 	}
+	public EntityActionParameterVO getDetail(String id){
+		RestResponse<EntityActionParameterVO> result = parameterClient.getDetail(id);
 
+		if(!result.isSuccess()){
+			throw new BusinessException("ICODE", "DOMAIN", result.getCode()+"", result.getMessage());
+		}
+
+		return result.getData();
+	}
 	public PageContent<EntityActionParameterVO> list(PageSearchRequest<EntityActionParameterCondition> pageSearchRequest) {
 		EntityActionParameterPageResult result = entityActionParameterRibbon.list(pageSearchRequest);
 

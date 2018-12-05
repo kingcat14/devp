@@ -91,9 +91,9 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourcePanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'evn'
+                            ,dataIndex: 'env'
                             ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("evnVO")?record.get("evnVO").name:'';
+                                return record.get("envVO")?record.get("envVO").name:'';
                             }
                             ,text: '所属环境'
                             

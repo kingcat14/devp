@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改代码库使用的DTO")
+@Setter @Getter
 public class CodeRepositoryEditDto {
 
 
@@ -19,9 +22,9 @@ public class CodeRepositoryEditDto {
 	private String name;
 
 
-	/**类型*/
-	@ApiModelProperty(value = "类型", required = false, notes = "git,svn")
-    private String type;
+	/**代码库类型*/
+	@ApiModelProperty(value = "代码库类型", required = false, notes = "git,svn")
+	private String type;
 
 
 	/**url*/
@@ -49,6 +52,11 @@ public class CodeRepositoryEditDto {
 	private String description;
 
 
+	/**应用*/
+	@ApiModelProperty(value = "应用", required = false)
+	private String app;
+
+
 
 	public String getName(){
 		return name;
@@ -58,7 +66,7 @@ public class CodeRepositoryEditDto {
 	}
 
 
-    public String getType(){
+	public String getType(){
         return type;
     }
     public void setType(String type) {
@@ -104,6 +112,14 @@ public class CodeRepositoryEditDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public String getApp(){
+        return app;
+    }
+    public void setApp(String app) {
+        this.app = app;
+    }
 
 
 	@Override

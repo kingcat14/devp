@@ -3,17 +3,20 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
     ,xtype: 'speedcloud.env.AppEnvConfigEditWindow'
     ,requires:[
         'AM.store.speedcloud.project.ProjectStore'
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+        ,'AM.store.speedcloud.config.EnvLevelStore'
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改应用环境信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改产品环境信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -22,7 +25,12 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -47,26 +55,6 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
                             ,defaults:{width:'100%'}
                             ,items:[
                                 ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'nameField'
-                                    ,name: 'name'
-                                    ,fieldLabel: '环境名称'
-                                }
-                                ,{
-                                    xtype: 'textfield'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'levelField'
-                                    ,name: 'level'
-                                    ,fieldLabel: '环境级别'
-                                }
-                                ,{
                                     xtype: 'combobox'
                                     ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
                                     ,typeAhead:false
@@ -79,7 +67,32 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'projectField'
                                     ,name: 'project'
-                                    ,fieldLabel: '所属项目（产品）'
+                                    ,fieldLabel: '所属产品（项目）'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '环境名称'
+                                }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.config.EnvLevelStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'levelField'
+                                    ,name: 'level'
+                                    ,fieldLabel: '环境级别'
                                 }
                                 ,{
                                     xtype: 'numberfield'
@@ -145,7 +158,7 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用环境成功!');
+                Ext.MsgUtil.notification('操作成功', '保存产品环境成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -154,25 +167,24 @@ Ext.define('AM.view.speedcloud.env.AppEnvConfigEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
 
-        this.setTitle("修改应用环境信息");
+        this.setTitle("修改产品环境信息");
 
         this.down('form').getForm().loadRecord(model);
 
     }
     ,onBeforeShow:function() {
-       
-       
         this.down('#projectField').getStore().reload();
-       
-       
+      
+        this.down('#levelField').getStore().reload();
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

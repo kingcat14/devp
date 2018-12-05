@@ -4,7 +4,6 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.app.AppBaseInfoStore'
-        ,'AM.store.speedcloud.app.CodeRepositoryStore'
 
     ]
     ,autoScroll: true
@@ -30,7 +29,6 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -63,23 +61,33 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                                     ,itemId: 'appField'
                                     ,name: 'app'
                                     ,fieldLabel: '应用'
+                                                         
                                 }
 
 
                                 ,{
-                                    xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,displayField:'url'
-                                    ,valueField:'id'
+                                    xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'codeField'
-                                    ,name: 'code'
-                                    ,fieldLabel: '代码'
+                                    ,itemId: 'developDatabaseField'
+                                    ,name: 'developDatabase'
+                                    ,fieldLabel: '开发环境DB'
+                                    
+                                }
+
+
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'developDomainNameField'
+                                    ,name: 'developDomainName'
+                                    ,fieldLabel: '开发环境域名'
+                                    
                                 }
 
 
@@ -92,6 +100,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                                     ,itemId: 'testDatabaseField'
                                     ,name: 'testDatabase'
                                     ,fieldLabel: '测试环境DB'
+                                    
                                 }
 
 
@@ -104,6 +113,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                                     ,itemId: 'testDomainNameField'
                                     ,name: 'testDomainName'
                                     ,fieldLabel: '测试环境域名'
+                                    
                                 }
 
 
@@ -116,6 +126,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                                     ,itemId: 'productionDatabaseField'
                                     ,name: 'productionDatabase'
                                     ,fieldLabel: '生产环境DB'
+                                    
                                 }
 
 
@@ -128,6 +139,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
                                     ,itemId: 'productionDomainNameField'
                                     ,name: 'productionDomainName'
                                     ,fieldLabel: '生产环境域名'
+                                    
                                 }
 
                             ]
@@ -182,7 +194,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用开发配置成功!');
+                Ext.MsgUtil.notification('操作成功', '保存应用开发配置成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -201,7 +213,6 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigAddWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#appField').getStore().reload();
-        this.down('#codeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("resourceTypeDao")
-public interface ResourceTypeDao extends BaseDao<ResourceType, Long>{
+public interface ResourceTypeDao extends BaseDao<ResourceType, String>{
 
+    ResourceType findByCode(String code);
 
 }

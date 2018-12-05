@@ -52,6 +52,25 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategorySearchWindow', {
                             ,fieldLabel: '图标'
                         }
 
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'idxField'
+                            ,fieldLabel: '排序'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'idxMaxField'
+                            ,fieldLabel: '排序'
+                        }
+                        ,{
+                            xtype: 'numberfield'
+                            ,allowDecimals:false
+                            ,itemId: 'idxMinField'
+                            ,fieldLabel: '排序'
+                        }
+
                             ]
                 }
             ]
@@ -75,7 +94,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategorySearchWindow', {
                         }
                         ,{
                             xtype: 'button'
-                            ,iconCls: 'fas fa-search'
+                            ,iconCls: 'search'
                             ,text: '查询'
                             ,listeners: {
                                 click: {fn: me.onSearchButtonClick,scope: me}
@@ -114,11 +133,17 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategorySearchWindow', {
         var nameField = me.down("#nameField");
         var codeField = me.down("#codeField");
         var iconField = me.down("#iconField");
+        var idxField = me.down("#idxField");
+        var idxMaxField = me.down("#idxMaxField");
+        var idxMinField = me.down("#idxMinField");
 
         var condition = {
-            name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
-            ,code:Ext.isEmpty(codeField.getValue())?null:codeField.getValue()
-            ,icon:Ext.isEmpty(iconField.getValue())?null:iconField.getValue()
+            name:Ext.valueFrom(nameField.getValue(), null)
+            ,code:Ext.valueFrom(codeField.getValue(), null)
+            ,icon:Ext.valueFrom(iconField.getValue(), null)
+            ,idx:Ext.isNumber(idxField.getValue())?idxField.getValue():null
+            ,idxMax:Ext.isNumber(idxMaxField.getValue())?idxMaxField.getValue():null
+            ,idxMin:Ext.isNumber(idxMinField.getValue())?idxMinField.getValue():null
         };
 
         return condition;

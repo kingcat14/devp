@@ -33,13 +33,16 @@ public class AppDevelopConfigValidator implements Validator {
             this.validateAppDevelopConfigAddDto((AppDevelopConfigAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<AppDevelopConfigCondition> search){
+    public void validateSearchDto(PageSearchRequest<AppDevelopConfigCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new AppDevelopConfigCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -55,6 +58,15 @@ public class AppDevelopConfigValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(appDevelopConfig.getApp()) > 255){
+			errors.rejectValue(AppDevelopConfig.PROPERTY_APP,null,"应用最长255个字符");
+		}
+		if(StringUtils.length(appDevelopConfig.getDevelopDatabase()) > 255){
+			errors.rejectValue(AppDevelopConfig.PROPERTY_DEVELOP_DATABASE,null,"开发环境DB最长255个字符");
+		}
+		if(StringUtils.length(appDevelopConfig.getDevelopDomainName()) > 255){
+			errors.rejectValue(AppDevelopConfig.PROPERTY_DEVELOP_DOMAIN_NAME,null,"开发环境域名最长255个字符");
+		}
 		if(StringUtils.length(appDevelopConfig.getTestDatabase()) > 255){
 			errors.rejectValue(AppDevelopConfig.PROPERTY_TEST_DATABASE,null,"测试环境DB最长255个字符");
 		}

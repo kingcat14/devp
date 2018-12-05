@@ -82,7 +82,7 @@ public class ProjectController {
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			projectRibbonService.delete(Long.parseLong(id));
+			projectRibbonService.delete((id));
 		}
 	}
 
@@ -94,7 +94,7 @@ public class ProjectController {
 	 */
 	@ApiOperation(value = "修改", notes = "修改产项目(修改全部字段,未传入置空)", httpMethod = "PUT")
 	@PutMapping(value="/{id}")
-	public ProjectVO update(@RequestBody ProjectEditDto projectEditDto, @ApiParam(value = "要查询的项目id") @PathVariable Long id){
+	public ProjectVO update(@RequestBody ProjectEditDto projectEditDto, @ApiParam(value = "要查询的项目id") @PathVariable String id){
 
 		ProjectVO vo = projectRibbonService.merge(id, projectEditDto);
 
@@ -108,7 +108,7 @@ public class ProjectController {
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询项目", httpMethod = "GET")
 	@GetMapping(value="/{id}")
-	public ProjectVO get(@ApiParam(value = "要查询的项目id") @PathVariable Long id) {
+	public ProjectVO get(@ApiParam(value = "要查询的项目id") @PathVariable String id) {
 
 		ProjectVO vo = projectRibbonService.find(id);
 		return vo;

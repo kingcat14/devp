@@ -63,13 +63,13 @@ public class ProjectRibbon {
 	 * @param id
 	 */
     @HystrixCommand(fallbackMethod = "deleteFail")
-    public ProjectResult delete(Long id) {
+    public ProjectResult delete(String id) {
         String url = "http://"+host+"/speedcloud/project/project/"+id;
         ResponseEntity<ProjectResult> response =
                 restTemplate.exchange(url, HttpMethod.DELETE, null, new ParameterizedTypeReference<ProjectResult>() {});
         return response.getBody();
     }
-    private ProjectResult deleteFail(Long id, Throwable throwable) {
+    private ProjectResult deleteFail(String id, Throwable throwable) {
 
         LOGGER.error("", throwable);
 
@@ -83,14 +83,14 @@ public class ProjectRibbon {
 	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "updateFail")
-    public ProjectResult update(Long id, ProjectEditDto editDto) {
+    public ProjectResult update(String id, ProjectEditDto editDto) {
         String url = "http://"+host+"/speedcloud/project/project/"+id;
         ResponseEntity<ProjectResult> response =
                 restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(editDto), new ParameterizedTypeReference<ProjectResult>() {});
         return response.getBody();
     }
 
-    public ProjectResult updateFail(Long id, ProjectEditDto updateRequest, Throwable throwable) {
+    public ProjectResult updateFail(String id, ProjectEditDto updateRequest, Throwable throwable) {
 
         LOGGER.error("", throwable);
 
@@ -105,7 +105,7 @@ public class ProjectRibbon {
 	 * @return
 	 */
 	@HystrixCommand(fallbackMethod = "getFail")
-    public ProjectResult get(Long id) {
+    public ProjectResult get(String id) {
         String url = "http://"+host+"/speedcloud/project/project/"+id;
         return restTemplate.getForObject(url, ProjectResult.class);
     }
@@ -114,7 +114,7 @@ public class ProjectRibbon {
      * @param id
      * @return
      */
-    private ProjectResult getFail(Long id, Throwable throwable) {
+    private ProjectResult getFail(String id, Throwable throwable) {
 
         LOGGER.error("", throwable);
 

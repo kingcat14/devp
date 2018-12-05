@@ -1,5 +1,6 @@
 Ext.define('AM.store.speedcloud.project.ProjectStore', {
     extend: 'Ext.data.Store'
+    , alias: 'store.speedcloud.project.ProjectStore'
     ,requires: [
         'AM.model.speedcloud.project.Project'
     ]

@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -66,6 +68,7 @@ public class ResourceCategoryController {
 	@ApiOperation(value = "新增", notes = "新增部署资源类别", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcecategory.add", count = true)
 	public ResourceCategoryVO add(@RequestBody @Valid ResourceCategoryAddDto resourceCategoryAddDto){
 		ResourceCategory resourceCategory = new ResourceCategory();
 		BeanUtils.copyProperties(resourceCategoryAddDto, resourceCategory);
@@ -80,14 +83,15 @@ public class ResourceCategoryController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除部署资源类别", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcecategory.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete resourceCategory :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			resourceCategoryService.delete(Long.parseLong(id));
+			resourceCategoryService.delete(id);
 		}
 
 	}
@@ -98,10 +102,11 @@ public class ResourceCategoryController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产部署资源类别(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	ResourceCategoryVO update(@RequestBody @Valid ResourceCategoryEditDto resourceCategoryEditDto, @PathVariable Long id){
-		ResourceCategory resourceCategory = new ResourceCategory();
+	@ApiOperation(value = "修改", notes = "修改部署资源类别(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcecategory.update", count = true)
+	public	ResourceCategoryVO update(@RequestBody @Valid ResourceCategoryEditDto resourceCategoryEditDto, @PathVariable String id){
+		ResourceCategory resourceCategory = resourceCategoryService.find(id);
 		BeanUtils.copyProperties(resourceCategoryEditDto, resourceCategory);
 		resourceCategory.setId(id);
 		resourceCategoryService.merge(resourceCategory);
@@ -115,12 +120,15 @@ public class ResourceCategoryController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询部署资源类别", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  ResourceCategoryVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询部署资源类别", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcecategory.get")
+	public  ResourceCategoryVO get(@PathVariable String id) {
 
 		ResourceCategory resourceCategory = resourceCategoryService.find(id);
-
+		if(resourceCategory == null){
+			throw new ResourceNotFoundException("找不到指定的部署资源类别，请检查ID");
+		}
 		ResourceCategoryVO vo = initViewProperty(resourceCategory);
 		return vo;
 	}
@@ -131,11 +139,12 @@ public class ResourceCategoryController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询部署资源类别列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcecategory.list")
 	public PageContent<ResourceCategoryVO> list(@RequestBody PageSearchRequest<ResourceCategoryCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<ResourceCategory> page = resourceCategoryService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<ResourceCategoryVO> voList = new ArrayList<>();
@@ -155,7 +164,7 @@ public class ResourceCategoryController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出部署资源类别列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(ResourceCategoryCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<ResourceCategoryCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -175,11 +184,12 @@ public class ResourceCategoryController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("name" ,"名称");
-            headMap.put("code" ,"代码");
-            headMap.put("icon" ,"图标");
+        headMap.put("name" ,"名称");
+        headMap.put("code" ,"代码");
+        headMap.put("icon" ,"图标");
+        headMap.put("idx" ,"排序");
 
         String title = new String("部署资源类别");
         String fileName = new String(("部署资源类别_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");

@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=net.aicoder.speedcloud.icode.config.IcodeClientConfig
+# org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yunkang.saas.bootstrap.config.client.feign.Oauth2ClientConfig

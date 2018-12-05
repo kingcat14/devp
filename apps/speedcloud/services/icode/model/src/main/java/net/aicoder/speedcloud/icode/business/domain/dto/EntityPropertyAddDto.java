@@ -42,7 +42,7 @@ public class EntityPropertyAddDto {
 
     /**引用对象属性代码*/
 	@ApiModelProperty(value = "引用对象属性代码", required = false, notes = "")
-	private String relatedEntityPropertyCode;
+	private String relatedEntityPropertyId;
 
     /**排序*/
 	@ApiModelProperty(value = "排序", required = false, notes = "")
@@ -123,11 +123,11 @@ public class EntityPropertyAddDto {
 		this.relatedEntityId = relatedEntityId;
 	}
 
-	public String getRelatedEntityPropertyCode(){
-		return relatedEntityPropertyCode;
+	public String getRelatedEntityPropertyId(){
+		return relatedEntityPropertyId;
 	}
-	public void setRelatedEntityPropertyCode(String relatedEntityPropertyCode) {
-		this.relatedEntityPropertyCode = relatedEntityPropertyCode;
+	public void setRelatedEntityPropertyId(String relatedEntityPropertyId) {
+		this.relatedEntityPropertyId = relatedEntityPropertyId;
 	}
 
 	public Integer getIdx(){

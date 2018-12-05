@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -36,10 +38,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
- * 管理代码库详细信息
+ * 管理代码基本信息
  * @author icode
  */
-@Api(description = "代码库详细信息", tags = "CodeBaseInfo")
+@Api(description = "代码基本信息", tags = "CodeBaseInfo")
 @RestController
 @RequestMapping(value = "/speedcloud/app/codebaseinfo")
 public class CodeBaseInfoController {
@@ -64,13 +66,14 @@ public class CodeBaseInfoController {
 	}
 
 	/**
-	 * 新增代码库详细信息
+	 * 新增代码基本信息
 	 * @param codeBaseInfoAddDto
 	 * @return
 	 */
-	@ApiOperation(value = "新增", notes = "新增代码库详细信息", httpMethod = "POST")
+	@ApiOperation(value = "新增", notes = "新增代码基本信息", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.app.codebaseinfo.add", count = true)
 	public CodeBaseInfoVO add(@RequestBody @Valid CodeBaseInfoAddDto codeBaseInfoAddDto){
 		CodeBaseInfo codeBaseInfo = new CodeBaseInfo();
 		BeanUtils.copyProperties(codeBaseInfoAddDto, codeBaseInfo);
@@ -81,32 +84,34 @@ public class CodeBaseInfoController {
 	}
 
 	/**
-	 * 删除代码库详细信息,id以逗号分隔
+	 * 删除代码基本信息,id以逗号分隔
 	 * @param idArray
 	 */
-	@ApiOperation(value = "删除", notes = "删除代码库详细信息", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@ApiOperation(value = "删除", notes = "删除代码基本信息", httpMethod = "DELETE")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.codebaseinfo.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete codeBaseInfo :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			codeBaseInfoService.delete(Long.parseLong(id));
+			codeBaseInfoService.delete(id);
 		}
 
 	}
 
 	/**
-	 * 更新代码库详细信息
+	 * 更新代码基本信息
 	 * @param codeBaseInfoEditDto
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产代码库详细信息(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	CodeBaseInfoVO update(@RequestBody @Valid CodeBaseInfoEditDto codeBaseInfoEditDto, @PathVariable Long id){
-		CodeBaseInfo codeBaseInfo = new CodeBaseInfo();
+	@ApiOperation(value = "修改", notes = "修改代码基本信息(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.codebaseinfo.update", count = true)
+	public	CodeBaseInfoVO update(@RequestBody @Valid CodeBaseInfoEditDto codeBaseInfoEditDto, @PathVariable String id){
+		CodeBaseInfo codeBaseInfo = codeBaseInfoService.find(id);
 		BeanUtils.copyProperties(codeBaseInfoEditDto, codeBaseInfo);
 		codeBaseInfo.setId(id);
 		codeBaseInfoService.merge(codeBaseInfo);
@@ -116,31 +121,35 @@ public class CodeBaseInfoController {
 	}
 
 	/**
-	 * 根据ID查询代码库详细信息
+	 * 根据ID查询代码基本信息
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询代码库详细信息", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  CodeBaseInfoVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询代码基本信息", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.codebaseinfo.get")
+	public  CodeBaseInfoVO get(@PathVariable String id) {
 
 		CodeBaseInfo codeBaseInfo = codeBaseInfoService.find(id);
-
+		if(codeBaseInfo == null){
+			throw new ResourceNotFoundException("找不到指定的代码基本信息，请检查ID");
+		}
 		CodeBaseInfoVO vo = initViewProperty(codeBaseInfo);
 		return vo;
 	}
 
 	/**
-	 * 查询代码库详细信息列表
+	 * 查询代码基本信息列表
 	 * @param pageSearchRequest
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据条件查询代码库详细信息列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@ApiOperation(value = "查询", notes = "根据条件查询代码基本信息列表", httpMethod = "POST")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.app.codebaseinfo.list")
 	public PageContent<CodeBaseInfoVO> list(@RequestBody PageSearchRequest<CodeBaseInfoCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<CodeBaseInfo> page = codeBaseInfoService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<CodeBaseInfoVO> voList = new ArrayList<>();
@@ -155,12 +164,12 @@ public class CodeBaseInfoController {
 	}
 
 	/**
-     * 导出代码库详细信息列表
+     * 导出代码基本信息列表
      * @param condition
      * @param response
      */
-    @ApiOperation(value = "导出", notes = "根据条件导出代码库详细信息列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @ApiOperation(value = "导出", notes = "根据条件导出代码基本信息列表", httpMethod = "POST")
+    @RequestMapping(path="/export")
     public void export(CodeBaseInfoCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<CodeBaseInfoCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -180,14 +189,14 @@ public class CodeBaseInfoController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("codeRepository" ,"代码库");
-            headMap.put("language" ,"开发语言");
-            headMap.put("languageLevel" ,"语言级别");
+        headMap.put("codeRepository" ,"代码库");
+        headMap.put("language" ,"开发语言");
+        headMap.put("languageLevel" ,"语言级别");
 
-        String title = new String("代码库详细信息");
-        String fileName = new String(("代码库详细信息_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
+        String title = new String("代码基本信息");
+        String fileName = new String(("代码基本信息_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 
@@ -203,7 +212,6 @@ public class CodeBaseInfoController {
 
 	}
 
-
 	private void initCodeRepositoryPropertyGroup(CodeBaseInfoVO codeBaseInfoVO, CodeBaseInfo codeBaseInfo){
 	
 		CodeRepository codeRepository = codeRepositoryService.find(codeBaseInfo.getCodeRepository());
@@ -216,7 +224,6 @@ public class CodeBaseInfoController {
 		codeBaseInfoVO.setCodeRepositoryVO(codeRepositoryVO);
 
 	}
-
 
 }
 

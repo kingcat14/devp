@@ -57,7 +57,7 @@ Ext.define('AM.model.icode.domain.EntityProperty', {
             ,critical:true
         }
     	,{
-            name: 'relatedEntityPropertyCode'
+            name: 'relatedEntityPropertyId'
             ,type:'string'
             ,allowNull:true
             ,critical:true

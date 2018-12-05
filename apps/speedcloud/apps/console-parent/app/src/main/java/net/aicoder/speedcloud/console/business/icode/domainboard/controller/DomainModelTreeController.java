@@ -46,6 +46,26 @@ import java.util.List;
 @Slf4j
 public class DomainModelTreeController {
 
+	@Autowired
+	private ProductRibbonService productRibbonService;
+
+	@Autowired
+	private ComponentRibbonService componentRibbonService;
+
+	@Autowired
+	private ComponentDomainRelationRibbonService relationRibbonService;
+
+	@Autowired
+	private DomainRibbonService domainRibbonService;
+
+	@Autowired
+	private EntityRibbonService entityRibbonService;
+
+	@Autowired
+	private EntityActionRibbonService actionRibbonService;
+
+	@Autowired
+	private EntityActionParameterRibbonService parameterRibbonService;
 
 	@Autowired
 	private SaaSUtil saaSUtil;
@@ -53,7 +73,7 @@ public class DomainModelTreeController {
 	/**
 	 * Method getChildNodes.
 	 * @param type String
-	 * @param id int
+	 * @param objectId String
 	 * @return ResponseEntity<String>
 	 */
 	@RequestMapping("/{id}")
@@ -277,27 +297,6 @@ public class DomainModelTreeController {
 		return result;
 	}
 
-
-	@Autowired
-	private ProductRibbonService productRibbonService;
-
-	@Autowired
-	private ComponentRibbonService componentRibbonService;
-
-	@Autowired
-	private ComponentDomainRelationRibbonService relationRibbonService;
-
-	@Autowired
-	private DomainRibbonService domainRibbonService;
-
-	@Autowired
-	private EntityRibbonService entityRibbonService;
-
-	@Autowired
-	private EntityActionRibbonService actionRibbonService;
-
-	@Autowired
-	private EntityActionParameterRibbonService parameterRibbonService;
 
 
 

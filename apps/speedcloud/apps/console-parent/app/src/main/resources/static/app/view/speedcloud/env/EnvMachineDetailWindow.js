@@ -36,10 +36,8 @@ Ext.define('AM.view.speedcloud.env.EnvMachineDetailWindow', {
                             ,name: 'evn'
                             ,fieldLabel: '环境'
                             ,renderer: function (value, field) {
-
                                 var record = me.down('form').getForm().getRecord();
-
-                                return record.get('evnVO').name;
+                                return record.get('evnVO')?record.get('evnVO').name:'';
                             }
                         }
                         ,{
@@ -48,10 +46,8 @@ Ext.define('AM.view.speedcloud.env.EnvMachineDetailWindow', {
                             ,name: 'machine'
                             ,fieldLabel: '机器'
                             ,renderer: function (value, field) {
-
                                 var record = me.down('form').getForm().getRecord();
-
-                                return record.get('machineVO').name;
+                                return record.get('machineVO')?record.get('machineVO').name:'';
                             }
                         }
                     ]
@@ -65,10 +61,8 @@ Ext.define('AM.view.speedcloud.env.EnvMachineDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

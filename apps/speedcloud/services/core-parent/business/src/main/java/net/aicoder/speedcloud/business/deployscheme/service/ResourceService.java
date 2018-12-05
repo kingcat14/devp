@@ -25,7 +25,7 @@ public class ResourceService  extends GenericCrudService<Resource, Long, Resourc
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, Resource.PROPERTY_NAME);
+		Sort sort = new Sort(Sort.Direction.ASC, Resource.PROPERTY_CATEGORY, Resource.PROPERTY_NAME);
 		return sort;
 	}
 }

@@ -36,7 +36,7 @@ public class ProjectRibbonService  {
 	
 	}
 
-	public void delete(Long id){
+	public void delete(String id){
 		if(null == id){
 			LOGGER.warn("try delete T by empty id. Code need check");
 			return ;
@@ -47,7 +47,7 @@ public class ProjectRibbonService  {
 			throw new BusinessException("SPEEDCLOUD", "PROJECT", result.getCode()+"", result.getMessage());
 		}
 	}
-	public ProjectVO merge(Long id, ProjectEditDto editDto){
+	public ProjectVO merge(String id, ProjectEditDto editDto){
 		ProjectResult result = projectRibbon.update(id, editDto);
 
 		if(!result.isSuccess()){
@@ -56,7 +56,7 @@ public class ProjectRibbonService  {
 
 		return result.getData();
 	}
-	public ProjectVO find(Long id){
+	public ProjectVO find(String id){
 		ProjectResult result = projectRibbon.get(id);
 
 		if(!result.isSuccess()){

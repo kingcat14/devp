@@ -12,7 +12,7 @@ Ext.define('AM.view.speedcloud.project.ProjectAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新项目'
+    ,title: '添加新产品（项目）'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -94,7 +94,7 @@ Ext.define('AM.view.speedcloud.project.ProjectAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'parentField'
                                     ,name: 'parent'
-                                    ,fieldLabel: '上级项目'
+                                    ,fieldLabel: '上级产品（项目）'
                                 }
 
 
@@ -111,7 +111,7 @@ Ext.define('AM.view.speedcloud.project.ProjectAddWindow', {
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'projectSetField'
                                     ,name: 'projectSet'
-                                    ,fieldLabel: '所属项目集'
+                                    ,fieldLabel: '所属产品线'
                                 }
 
                             ]
@@ -176,7 +176,7 @@ Ext.define('AM.view.speedcloud.project.ProjectAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存项目成功!');
+                Ext.MsgUtil.show('操作成功', '保存产品（项目）成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

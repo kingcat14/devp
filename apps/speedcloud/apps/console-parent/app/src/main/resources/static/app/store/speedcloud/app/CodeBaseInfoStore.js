@@ -1,5 +1,6 @@
 Ext.define('AM.store.speedcloud.app.CodeBaseInfoStore', {
     extend: 'Ext.data.Store'
+    , alias: 'store.speedcloud.app.CodeBaseInfoStore'
     ,requires: [
         'AM.model.speedcloud.app.CodeBaseInfo'
     ]
@@ -17,8 +18,8 @@ Ext.define('AM.store.speedcloud.app.CodeBaseInfoStore', {
                 ,url: 'speedcloud/app/codebaseinfo'
                 ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
                 ,reader: {
-                    type: 'json',
-                    rootProperty: 'content'
+                    type: 'json'
+                    ,rootProperty: 'content'
                 }
                 ,actionMethods:{read:'POST'}
                 ,api:{read:"speedcloud/app/codebaseinfo/list"}
@@ -47,8 +48,8 @@ Ext.define('AM.store.speedcloud.app.CodeBaseInfoStore', {
         if(error.status){
             error = error.status + ' ' + error.statusText;
         }
-        //Ext.Msg.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
-        Ext.Msg.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+        //Ext.MessageBox.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+        Ext.MessageBox.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
 
         if('read' !== operation.action){
             store.load();
@@ -59,5 +60,9 @@ Ext.define('AM.store.speedcloud.app.CodeBaseInfoStore', {
         operation.setPage(operation.getPage() - 1);
 
     }
-
+	,applyCondition:function(condition){
+        condition = condition || {}
+        this.proxy.setExtraParam("searchCondition", condition);
+        return this;
+    }
 });

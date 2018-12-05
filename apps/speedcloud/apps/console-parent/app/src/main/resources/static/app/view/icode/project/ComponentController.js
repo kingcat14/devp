@@ -5,19 +5,6 @@ Ext.define('AM.view.icode.project.ComponentController', {
 	]
 	,alias: 'controller.icode.project.ComponentController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
-
-		var id = record.get('id');
-
-	}
     ,onAddButtonClick: function() {
 
         var modelConfig = {}

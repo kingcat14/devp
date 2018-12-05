@@ -33,19 +33,22 @@ public class AppEnvConfigValidator implements Validator {
             this.validateAppEnvConfigAddDto((AppEnvConfigAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<AppEnvConfigCondition> search){
+    public void validateSearchDto(PageSearchRequest<AppEnvConfigCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new AppEnvConfigCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
 	/**
      * 实现Validator中的validate接口
-     * @param appEnvConfig 应用环境
+     * @param appEnvConfig 产品环境
      * @param errors
      */
 	public void validateAppEnvConfigAddDto(AppEnvConfigAddDto appEnvConfig, Errors errors) {
@@ -55,6 +58,9 @@ public class AppEnvConfigValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(appEnvConfig.getProject()) > 255){
+			errors.rejectValue(AppEnvConfig.PROPERTY_PROJECT,null,"所属产品（项目）最长255个字符");
+		}
 		if(StringUtils.length(appEnvConfig.getName()) > 255){
 			errors.rejectValue(AppEnvConfig.PROPERTY_NAME,null,"环境名称最长255个字符");
 		}

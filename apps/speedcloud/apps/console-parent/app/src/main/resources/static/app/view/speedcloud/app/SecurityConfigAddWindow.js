@@ -29,7 +29,6 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -62,6 +61,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
                                     ,itemId: 'appField'
                                     ,name: 'app'
                                     ,fieldLabel: '应用'
+                                                         
                                 }
 
 
@@ -74,6 +74,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
                                     ,itemId: 'itemNameField'
                                     ,name: 'itemName'
                                     ,fieldLabel: '配置名'
+                                    
                                 }
 
 
@@ -86,6 +87,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
                                     ,itemId: 'itemValueField'
                                     ,name: 'itemValue'
                                     ,fieldLabel: '配置值'
+                                    
                                 }
 
                             ]
@@ -140,7 +142,7 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用私密配置成功!');
+                Ext.MsgUtil.notification('操作成功', '保存应用私密配置成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

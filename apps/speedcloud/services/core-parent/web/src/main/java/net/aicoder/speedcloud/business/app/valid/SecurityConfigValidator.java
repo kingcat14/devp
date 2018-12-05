@@ -33,13 +33,16 @@ public class SecurityConfigValidator implements Validator {
             this.validateSecurityConfigAddDto((SecurityConfigAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<SecurityConfigCondition> search){
+    public void validateSearchDto(PageSearchRequest<SecurityConfigCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new SecurityConfigCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -55,6 +58,9 @@ public class SecurityConfigValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(securityConfig.getApp()) > 255){
+			errors.rejectValue(SecurityConfig.PROPERTY_APP,null,"应用最长255个字符");
+		}
 		if(StringUtils.length(securityConfig.getItemName()) > 255){
 			errors.rejectValue(SecurityConfig.PROPERTY_ITEM_NAME,null,"配置名最长255个字符");
 		}

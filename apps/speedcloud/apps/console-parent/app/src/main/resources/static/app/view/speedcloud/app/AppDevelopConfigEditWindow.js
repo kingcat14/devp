@@ -3,18 +3,19 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
     ,xtype: 'speedcloud.app.AppDevelopConfigEditWindow'
     ,requires:[
         'AM.store.speedcloud.app.AppBaseInfoStore'
-        ,'AM.store.speedcloud.app.CodeRepositoryStore'
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改应用开发配置信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改应用开发配置信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -23,7 +24,12 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -63,19 +69,24 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
                                     ,fieldLabel: '应用'
                                 }
                                 ,{
-                                    xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.app.CodeRepositoryStore")
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,displayField:'url'
-                                    ,valueField:'id'
+                                    xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'codeField'
-                                    ,name: 'code'
-                                    ,fieldLabel: '代码'
+                                    ,itemId: 'developDatabaseField'
+                                    ,name: 'developDatabase'
+                                    ,fieldLabel: '开发环境DB'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'developDomainNameField'
+                                    ,name: 'developDomainName'
+                                    ,fieldLabel: '开发环境域名'
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -170,7 +181,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用开发配置成功!');
+                Ext.MsgUtil.notification('操作成功', '保存应用开发配置成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -179,9 +190,9 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
@@ -194,7 +205,7 @@ Ext.define('AM.view.speedcloud.app.AppDevelopConfigEditWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#appField').getStore().reload();
-        this.down('#codeField').getStore().reload();
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

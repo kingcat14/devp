@@ -42,9 +42,6 @@ public class MachineValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == machine.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
 		if(StringUtils.length(machine.getName()) > 255){

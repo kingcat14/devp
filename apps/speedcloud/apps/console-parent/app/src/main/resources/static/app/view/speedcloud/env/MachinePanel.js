@@ -1,7 +1,10 @@
 Ext.define('AM.view.speedcloud.env.MachinePanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.env.MachinePanel'
+    , alias: 'widget.speedcloud.env.MachinePanel'
     , title: '服务器'
+    , bodyCls: 'app-dashboard'
+    // , bodyPadding: '10 10'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.env.MachineController'
@@ -12,15 +15,27 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
         ,'AM.view.speedcloud.env.MachineDetailWindow'
     ]
     ,controller: 'speedcloud.env.MachineController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.speedcloud.env.MachineStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.env.MachineStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -31,7 +46,7 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                             ,items: [{
                                 iconCls: 'x-fa fa-eye'
                                 ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -71,7 +86,7 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                             ,items: [{
                                 iconCls: 'fas fa-pencil-alt'
                                 ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -86,7 +101,7 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                             ,items: [{
                                 iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -139,7 +154,7 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-search-plus'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -147,7 +162,7 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-download'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'
@@ -162,18 +177,19 @@ Ext.define('AM.view.speedcloud.env.MachinePanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
-                    }
+                    ,listeners: {}
                 }
             ]
+            ,listeners: {
+            	beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+              	,beforehide: {
+                	fn: me.onPanelBeforeHide
+                  	,scope: me
+				}
+			}
         });
 
         me.add({xtype:'speedcloud.env.MachineAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})

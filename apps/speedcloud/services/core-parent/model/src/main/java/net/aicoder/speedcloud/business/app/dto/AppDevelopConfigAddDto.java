@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "新增应用开发配置使用的DTO")
+@Setter @Getter
 public class AppDevelopConfigAddDto {
 
     /**租户id*/
@@ -19,11 +22,15 @@ public class AppDevelopConfigAddDto {
 
     /**应用*/
 	@ApiModelProperty(value = "应用", required = false)
-	private Long app;
+	private String app;
 
-    /**代码*/
-	@ApiModelProperty(value = "代码", required = false, notes = "")
-	private Long code;
+    /**开发环境DB*/
+	@ApiModelProperty(value = "开发环境DB", required = false)
+	private String developDatabase;
+
+    /**开发环境域名*/
+	@ApiModelProperty(value = "开发环境域名", required = false)
+	private String developDomainName;
 
     /**测试环境DB*/
 	@ApiModelProperty(value = "测试环境DB", required = false)
@@ -49,19 +56,26 @@ public class AppDevelopConfigAddDto {
 		this.tid = tid;
 	}
 
-	public Long getApp(){
+	public String getApp(){
         return app;
     }
-    public void setApp(Long app) {
+    public void setApp(String app) {
         this.app = app;
     }
 
-	public Long getCode(){
-        return code;
-    }
-    public void setCode(Long code) {
-        this.code = code;
-    }
+	public String getDevelopDatabase(){
+		return developDatabase;
+	}
+	public void setDevelopDatabase(String developDatabase) {
+		this.developDatabase = developDatabase;
+	}
+
+	public String getDevelopDomainName(){
+		return developDomainName;
+	}
+	public void setDevelopDomainName(String developDomainName) {
+		this.developDomainName = developDomainName;
+	}
 
 	public String getTestDatabase(){
 		return testDatabase;

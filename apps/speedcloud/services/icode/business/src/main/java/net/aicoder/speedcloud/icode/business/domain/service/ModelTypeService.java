@@ -23,7 +23,7 @@ public class ModelTypeService  extends GenericCrudService<ModelType, String, Mod
 
 	public Sort getDefaultSort(){
 
-		Sort sort = new Sort(Sort.Direction.DESC, ModelType.PROPERTY_CODE);
+		Sort sort = new Sort(Sort.Direction.ASC, ModelType.PROPERTY_IDX);
 		return sort;
 	}
 }

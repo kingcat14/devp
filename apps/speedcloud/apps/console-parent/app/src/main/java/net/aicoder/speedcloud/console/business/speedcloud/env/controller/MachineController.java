@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.speedcloud.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -39,16 +39,12 @@ import java.util.*;
 public class MachineController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MachineController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
-
-	@Autowired
+   
+    @Autowired
 	private MachineRibbonService machineRibbonService;
 
 	@Autowired
-	MachineValidator machineValidator;
+	private MachineValidator machineValidator;
 
 
     @InitBinder
@@ -65,8 +61,9 @@ public class MachineController {
 	@ApiOperation(value = "新增", notes = "新增服务器", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	@SaaSAnnotation
-	public MachineVO add(@RequestBody MachineAddDto machineAddDto){
+  	@SaaSAnnotation()
+	public MachineVO add(@RequestBody @Valid MachineAddDto machineAddDto){
+	
 		return  machineRibbonService.add(machineAddDto);
 	}
 
@@ -75,14 +72,14 @@ public class MachineController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除服务器", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete machine :{}", idArray);
 
 		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			machineRibbonService.delete(Long.parseLong(id));
+      	for (String id : ids ){
+			machineRibbonService.delete(id);
 		}
 
 	}
@@ -94,8 +91,8 @@ public class MachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "修改", notes = "修改产服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public MachineVO update(@RequestBody MachineEditDto machineEditDto, @ApiParam(value = "要查询的服务器id") @PathVariable Long id){
+	@PutMapping(path="/{id}")
+	public MachineVO update(@RequestBody @Valid MachineEditDto machineEditDto, @ApiParam(value = "要查询的服务器id") @PathVariable String id){
 
 		MachineVO vo = machineRibbonService.merge(id, machineEditDto);
 
@@ -108,8 +105,8 @@ public class MachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询服务器", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public MachineVO get(@ApiParam(value = "要查询的服务器id") @PathVariable Long id) {
+	@GetMapping(path="/{id}")
+	public MachineVO get(@ApiParam(value = "要查询的服务器id") @PathVariable String id) {
 
 		MachineVO vo = machineRibbonService.find(id);
 		return vo;
@@ -121,8 +118,9 @@ public class MachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询服务器列表", httpMethod = "POST")
-	@PostMapping("/list") @SaaSAnnotation(conditionClass = MachineCondition.class)
-	public PageContent<MachineVO> list(@RequestBody PageSearchRequest<MachineCondition> pageSearchRequest){
+	@PostMapping(path="/list")
+  	@SaaSAnnotation(conditionClass = MachineCondition.class)
+	public PageContent<MachineVO> list(@RequestBody @Valid PageSearchRequest<MachineCondition> pageSearchRequest){
 
 		PageContent<MachineVO> pageContent = machineRibbonService.list(pageSearchRequest);
 		for(MachineVO vo : pageContent.getContent()){
@@ -140,7 +138,7 @@ public class MachineController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出服务器列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(MachineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
 
         PageSearchRequest<MachineCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -176,13 +174,9 @@ public class MachineController {
 
 	private MachineVO initViewProperty( MachineVO vo){
 
-	   
-
 
 	   
         return vo;
 
 	}
-
-
 }

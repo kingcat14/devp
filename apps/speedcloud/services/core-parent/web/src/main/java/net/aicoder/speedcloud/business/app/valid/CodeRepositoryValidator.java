@@ -33,13 +33,16 @@ public class CodeRepositoryValidator implements Validator {
             this.validateCodeRepositoryAddDto((CodeRepositoryAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<CodeRepositoryCondition> search){
+    public void validateSearchDto(PageSearchRequest<CodeRepositoryCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new CodeRepositoryCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -58,6 +61,9 @@ public class CodeRepositoryValidator implements Validator {
 		if(StringUtils.length(codeRepository.getName()) > 255){
 			errors.rejectValue(CodeRepository.PROPERTY_NAME,null,"名称最长255个字符");
 		}
+		if(StringUtils.length(codeRepository.getType()) > 255){
+			errors.rejectValue(CodeRepository.PROPERTY_TYPE,null,"代码库类型最长255个字符");
+		}
 		if(StringUtils.length(codeRepository.getUrl()) > 255){
 			errors.rejectValue(CodeRepository.PROPERTY_URL,null,"url最长255个字符");
 		}
@@ -66,6 +72,9 @@ public class CodeRepositoryValidator implements Validator {
 		}
 		if(StringUtils.length(codeRepository.getPassword()) > 255){
 			errors.rejectValue(CodeRepository.PROPERTY_PASSWORD,null,"密码最长255个字符");
+		}
+		if(StringUtils.length(codeRepository.getApp()) > 255){
+			errors.rejectValue(CodeRepository.PROPERTY_APP,null,"应用最长255个字符");
 		}
 	}
 }

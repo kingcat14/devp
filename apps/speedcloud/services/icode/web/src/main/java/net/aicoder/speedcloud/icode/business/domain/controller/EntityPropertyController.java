@@ -10,6 +10,7 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.aicoder.speedcloud.icode.business.domain.domain.Entity;
 import net.aicoder.speedcloud.icode.business.domain.domain.EntityProperty;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityPropertyAddDto;
 import net.aicoder.speedcloud.icode.business.domain.dto.EntityPropertyCondition;
@@ -18,7 +19,9 @@ import net.aicoder.speedcloud.icode.business.domain.service.EntityPropertyServic
 import net.aicoder.speedcloud.icode.business.domain.service.EntityService;
 import net.aicoder.speedcloud.icode.business.domain.valid.EntityPropertyValidator;
 import net.aicoder.speedcloud.icode.business.domain.vo.EntityPropertyVO;
+import net.aicoder.speedcloud.icode.business.domain.vo.EntityVO;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,16 +194,39 @@ public class EntityPropertyController {
         ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
     }
 
-	private EntityPropertyVO initViewProperty(EntityProperty entityProperty){
+	public EntityPropertyVO initViewProperty(EntityProperty entityProperty){
 
 	    EntityPropertyVO vo = new EntityPropertyVO();
         BeanUtils.copyProperties(entityProperty, vo);
+
+        if(StringUtils.isNotEmpty(entityProperty.getRelatedEntityPropertyId())) {
+			initRelatedEntity(vo);
+			initRelatedEntityProperty(vo);
+		}
 
 	    return vo;
 
 	}
 
+	private void initRelatedEntity(EntityPropertyVO vo){
 
+		Entity entity = entityService.find(vo.getRelatedEntityId());
+
+		EntityVO entityVO = new EntityVO();
+		BeanUtils.copyProperties(entity, entityVO);
+
+		vo.setRelatedEntity(entityVO);
+	}
+
+	private void initRelatedEntityProperty(EntityPropertyVO vo){
+
+		EntityProperty entityProperty = entityPropertyService.find(vo.getRelatedEntityPropertyId());
+
+		EntityPropertyVO entityPropertyVO = new EntityPropertyVO();
+		BeanUtils.copyProperties(entityProperty, entityPropertyVO);
+
+		vo.setRelatedEntityProperty(entityPropertyVO);
+	}
 
 }
 

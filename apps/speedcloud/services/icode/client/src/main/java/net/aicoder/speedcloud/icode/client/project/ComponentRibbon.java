@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.icode.client.project;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yunkang.saas.common.framework.web.controller.RestStatus;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
+import lombok.extern.slf4j.Slf4j;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentAddDto;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentCondition;
 import net.aicoder.speedcloud.icode.business.project.dto.ComponentEditDto;
@@ -24,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
  * @author icode
  */
 @Service
+@Slf4j
 public class ComponentRibbon {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComponentRibbon.class);
@@ -116,8 +118,8 @@ public class ComponentRibbon {
      */
     private ComponentResult getFail(String id, Throwable throwable) {
 
-        LOGGER.error("", throwable);
-
+        log.error(throwable.getMessage(), throwable);
+        throwable.printStackTrace();
         return errorResult();
     }
 

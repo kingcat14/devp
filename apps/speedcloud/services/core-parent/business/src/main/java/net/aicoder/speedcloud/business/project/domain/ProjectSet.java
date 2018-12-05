@@ -3,21 +3,19 @@ package net.aicoder.speedcloud.business.project.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-
 
 /**
  * 项目集
  * @author icode
  */
 @Entity
-@Table(appliesTo = "project_set", comment = "[项目集]")
+@Table(name = "project_project_set")
 //@DynamicUpdate
 //@DynamicInsert
 public class ProjectSet extends BaseEntity<String>{

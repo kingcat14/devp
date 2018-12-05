@@ -33,13 +33,16 @@ public class MachineValidator implements Validator {
             this.validateMachineAddDto((MachineAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<MachineCondition> search){
+    public void validateSearchDto(PageSearchRequest<MachineCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new MachineCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 

@@ -48,8 +48,6 @@ public class DomainController {
 	@Autowired
 	private DomainService domainService;
 
-
-
 	@Autowired
 	private DomainValidator domainValidator;
 
@@ -128,6 +126,21 @@ public class DomainController {
 
 		DomainVO vo = initViewProperty(domain);
 		return vo;
+	}
+
+	/**
+	 * 根据ID查询领域
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "查询", notes = "根据ID查询领域", httpMethod = "GET")
+	@GetMapping(path="/{id}/getCodePath")
+	@BusinessFuncMonitor(value = "icode.domain.domain.get")
+	public @ResponseBody String getCodePath(@PathVariable String id) {
+
+		String codePath = domainService.getCodePath(id);
+
+		return codePath;
 	}
 
 	/**

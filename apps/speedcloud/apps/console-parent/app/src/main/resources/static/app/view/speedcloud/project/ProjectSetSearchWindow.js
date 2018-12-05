@@ -8,7 +8,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSetSearchWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '项目集高级查询'
+    ,title: '产品线（项目集）高级查询'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {

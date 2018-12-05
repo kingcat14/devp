@@ -29,12 +29,13 @@ public class AppBaseInfoSpecification implements Specification<AppBaseInfo>{
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
-		tryAddNamePredicate(predicateList, root, cb);
+		tryAddProjectPredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
+		tryAddNamePredicate(predicateList, root, cb);
+		tryAddCodePredicate(predicateList, root, cb);
 		tryAddStatusPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
 		tryAddRegistTimePredicate(predicateList, root, cb);
-		tryAddProjectPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -44,20 +45,28 @@ public class AppBaseInfoSpecification implements Specification<AppBaseInfo>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(AppBaseInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(AppBaseInfo.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
+	}
+	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
+	    if (null != condition.getProject() ) {
+            predicateList.add(cb.equal(root.get(AppBaseInfo.PROPERTY_PROJECT).as(String.class), condition.getProject()));
+        }
+	}
+	private void tryAddTypePredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
+	    if (null != condition.getType() ) {
+            predicateList.add(cb.equal(root.get(AppBaseInfo.PROPERTY_TYPE).as(String.class), condition.getType()));
+        }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
 			predicateList.add(cb.like(root.get(AppBaseInfo.PROPERTY_NAME).as(String.class), "%"+condition.getName()+"%"));
 		}
 	}
-	private void tryAddTypePredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getType())){
-			predicateList.add(cb.like(root.get(AppBaseInfo.PROPERTY_TYPE).as(String.class), "%"+condition.getType()+"%"));
+	private void tryAddCodePredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getCode())){
+			predicateList.add(cb.like(root.get(AppBaseInfo.PROPERTY_CODE).as(String.class), "%"+condition.getCode()+"%"));
 		}
 	}
 	private void tryAddStatusPredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
@@ -74,11 +83,6 @@ public class AppBaseInfoSpecification implements Specification<AppBaseInfo>{
 		if(StringUtils.isNotEmpty(condition.getRegistTime())){
 			predicateList.add(cb.like(root.get(AppBaseInfo.PROPERTY_REGIST_TIME).as(String.class), "%"+condition.getRegistTime()+"%"));
 		}
-	}
-	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<AppBaseInfo> root, CriteriaBuilder cb){
-	    if (null != condition.getProject() ) {
-            predicateList.add(cb.equal(root.get(AppBaseInfo.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
-        }
 	}
 }
 

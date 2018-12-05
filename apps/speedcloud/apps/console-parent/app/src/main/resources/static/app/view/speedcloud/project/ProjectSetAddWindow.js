@@ -11,7 +11,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSetAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新项目集'
+    ,title: '添加新产品线（项目集）'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -122,7 +122,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSetAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存项目集成功!');
+                Ext.MsgUtil.show('操作成功', '保存产品线（项目集）成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

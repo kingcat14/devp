@@ -36,10 +36,8 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigDetailWindow', {
                             ,name: 'app'
                             ,fieldLabel: '应用'
                             ,renderer: function (value, field) {
-
                                 var record = me.down('form').getForm().getRecord();
-
-                                return record.get('appVO').name;
+                                return record.get('appVO')?record.get('appVO').name:'';
                             }
                         }
                         ,{
@@ -65,10 +63,8 @@ Ext.define('AM.view.speedcloud.app.SecurityConfigDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

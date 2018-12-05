@@ -1,23 +1,10 @@
 Ext.define('AM.view.speedcloud.app.CodeRepositoryController', {
-	extend: 'Ext.app.ViewController',
-	requires: [
+	extend: 'Ext.app.ViewController'
+	,requires: [
 
 	]
 	,alias: 'controller.speedcloud.app.CodeRepositoryController'
 
-	,onMainPanelRowClick:function(tablepanel, record, item, index, e, options) {
-		//点击主数据的某行
-		var me = this;
-
-
-		var detailTabPanel = me.lookup('detailTabPanel');
-		if(detailTabPanel) {
-            detailTabPanel.expand();
-        }
-
-		var id = record.get('id');
-
-	}
     ,onAddButtonClick: function() {
 
         var modelConfig = {}
@@ -40,12 +27,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryController', {
 		        var targetPage = count<=0 ? store.currentPage-1 : store.currentPage;
 		        targetPage = targetPage <=0 ? 1 :targetPage;
                 store.loadPage(targetPage,{
-                    scope: this,
-                    callback: function(records, operation, success) {
+                    scope: this
+                    ,callback: function(records, operation, success) {
                         if(!success)
-                        	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+                        	Ext.MessageBox.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
-                        	Ext.MsgUtil.show('操作成功','删除代码库成功!');
+                        	Ext.MsgUtil.notification('操作成功','删除代码库成功!');
                     }
                 });
             }
@@ -57,7 +44,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryController', {
         var mainGridPanel = me.lookupReference('mainGridPanel');
         var selections = mainGridPanel.getSelectionModel( ).getSelection( );
         if(selections.length <= 0){
-            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            Ext.MessageBox.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
             return;
         }
         var record = selections[0];
@@ -85,8 +72,8 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryController', {
         }
         console.log(condition)
         Ext.Ajax.request({
-            disableCaching: true
-            ,url: "app/codeRepository/export"
+            disableCaching: true 
+            ,url: "speedcloud/app/coderepository/export"
             ,method: "POST"
             ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
             ,params:condition
@@ -123,7 +110,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryController', {
         mainGridPanel.getStore().load({
             callback: function (records, operation, success) {
                 if (success) {
-                    Ext.MsgUtil.show('操作成功', '同步列表成功');
+                    Ext.MsgUtil.notification('操作成功', '同步列表成功');
                 }
             }
         });

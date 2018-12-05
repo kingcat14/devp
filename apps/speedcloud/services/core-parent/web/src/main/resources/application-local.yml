@@ -32,4 +32,9 @@ swagger:
   base-package: net.aicoder.speedcloud.business
 
 
-
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false

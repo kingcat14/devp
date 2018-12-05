@@ -42,11 +42,11 @@ public class SecurityConfigValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == securityConfig.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
 
 		//验证长度
+		if(StringUtils.length(securityConfig.getApp()) > 255){
+			errors.rejectValue("app", null, "应用最长255个字符");
+		}
 		if(StringUtils.length(securityConfig.getItemName()) > 255){
 			errors.rejectValue("itemName", null, "配置名最长255个字符");
 		}

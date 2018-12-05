@@ -31,6 +31,16 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeDetailWindow', {
                     }
                     ,items: [
                         ,{
+                            itemId: 'categoryField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'category'
+                            ,fieldLabel: '资源类别'
+                            ,renderer: function (value, field) {
+                                var record = me.down('form').getForm().getRecord();
+                                return record.get('categoryVO')?record.get('categoryVO').name:'';
+                            }
+                        }
+                        ,{
                             itemId: 'nameField'
                             ,padding: '5 0 0 5'
                             ,name: 'name'
@@ -48,6 +58,12 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeDetailWindow', {
                             ,name: 'icon'
                             ,fieldLabel: '图标'
                         }
+                        ,{
+                            itemId: 'idxField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'idx'
+                            ,fieldLabel: '排序'
+                        }
                     ]
                 }
             ]
@@ -59,10 +75,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeDetailWindow', {
     ,setModel: function (model) {
         if (model && model.get('id')) {
             this.down('form').getForm().loadRecord(model);
-
         } else {
             this.down('form').getForm().reset();
-
         }
     }
 

@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.env.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -48,6 +50,7 @@ public class MachineController {
 	private MachineService machineService;
 
 
+
 	@Autowired
 	private MachineValidator machineValidator;
 
@@ -65,6 +68,7 @@ public class MachineController {
 	@ApiOperation(value = "新增", notes = "新增服务器", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.env.machine.add", count = true)
 	public MachineVO add(@RequestBody @Valid MachineAddDto machineAddDto){
 		Machine machine = new Machine();
 		BeanUtils.copyProperties(machineAddDto, machine);
@@ -79,14 +83,15 @@ public class MachineController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除服务器", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.machine.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete machine :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			machineService.delete(Long.parseLong(id));
+			machineService.delete(id);
 		}
 
 	}
@@ -97,10 +102,11 @@ public class MachineController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	MachineVO update(@RequestBody @Valid MachineEditDto machineEditDto, @PathVariable Long id){
-		Machine machine = new Machine();
+	@ApiOperation(value = "修改", notes = "修改服务器(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.machine.update", count = true)
+	public	MachineVO update(@RequestBody @Valid MachineEditDto machineEditDto, @PathVariable String id){
+		Machine machine = machineService.find(id);
 		BeanUtils.copyProperties(machineEditDto, machine);
 		machine.setId(id);
 		machineService.merge(machine);
@@ -114,12 +120,15 @@ public class MachineController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询服务器", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  MachineVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询服务器", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.env.machine.get")
+	public  MachineVO get(@PathVariable String id) {
 
 		Machine machine = machineService.find(id);
-
+		if(machine == null){
+			throw new ResourceNotFoundException("找不到指定的服务器，请检查ID");
+		}
 		MachineVO vo = initViewProperty(machine);
 		return vo;
 	}
@@ -130,11 +139,12 @@ public class MachineController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询服务器列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.env.machine.list")
 	public PageContent<MachineVO> list(@RequestBody PageSearchRequest<MachineCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<Machine> page = machineService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<MachineVO> voList = new ArrayList<>();
@@ -154,7 +164,7 @@ public class MachineController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出服务器列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(MachineCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<MachineCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -174,11 +184,11 @@ public class MachineController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("name" ,"名称");
-            headMap.put("ipAddress" ,"IP地址");
-            headMap.put("port" ,"端口");
+        headMap.put("name" ,"名称");
+        headMap.put("ipAddress" ,"IP地址");
+        headMap.put("port" ,"端口");
 
         String title = new String("服务器");
         String fileName = new String(("服务器_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -194,8 +204,8 @@ public class MachineController {
 	    //初始化其他对象
         return vo;
 
-
 	}
 
 
 }
+

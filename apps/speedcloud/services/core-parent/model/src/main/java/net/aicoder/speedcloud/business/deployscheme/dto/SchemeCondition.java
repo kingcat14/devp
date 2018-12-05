@@ -33,7 +33,7 @@ public class SchemeCondition extends SaaSCondition{
     @ApiModelProperty(value = "所属项目（产品）", notes = "[所属项目]")
     private String project;
     @ApiModelProperty(value = "所属环境", notes = "[所属环境]")
-    private Long env;
+    private String env;
 
 
 	public Long getTid(){
@@ -123,10 +123,10 @@ public class SchemeCondition extends SaaSCondition{
     }
 
 
-    public Long getEnv(){
+    public String getEnv(){
         return env;
     }
-    public void setEnv(Long env) {
+    public void setEnv(String env) {
         this.env = env;
     }
 

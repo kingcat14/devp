@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.deployscheme.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -9,12 +11,15 @@ import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.aicoder.speedcloud.business.deployscheme.domain.ResourceCategory;
 import net.aicoder.speedcloud.business.deployscheme.domain.ResourceType;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeAddDto;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeCondition;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeEditDto;
+import net.aicoder.speedcloud.business.deployscheme.service.ResourceCategoryService;
 import net.aicoder.speedcloud.business.deployscheme.service.ResourceTypeService;
 import net.aicoder.speedcloud.business.deployscheme.valid.ResourceTypeValidator;
+import net.aicoder.speedcloud.business.deployscheme.vo.ResourceCategoryVO;
 import net.aicoder.speedcloud.business.deployscheme.vo.ResourceTypeVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -47,6 +52,8 @@ public class ResourceTypeController {
 	@Autowired
 	private ResourceTypeService resourceTypeService;
 
+	@Autowired
+	private ResourceCategoryService resourceCategoryService;
 
 
 	@Autowired
@@ -66,6 +73,7 @@ public class ResourceTypeController {
 	@ApiOperation(value = "新增", notes = "新增部署资源类型", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcetype.add", count = true)
 	public ResourceTypeVO add(@RequestBody @Valid ResourceTypeAddDto resourceTypeAddDto){
 		ResourceType resourceType = new ResourceType();
 		BeanUtils.copyProperties(resourceTypeAddDto, resourceType);
@@ -80,14 +88,15 @@ public class ResourceTypeController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除部署资源类型", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcetype.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete resourceType :{}", idArray);
 
 		String[] ids = idArray.split(",");
 		for (String id : ids ){
-			resourceTypeService.delete(Long.parseLong(id));
+			resourceTypeService.delete(id);
 		}
 
 	}
@@ -98,10 +107,11 @@ public class ResourceTypeController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产部署资源类型(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public	ResourceTypeVO update(@RequestBody @Valid ResourceTypeEditDto resourceTypeEditDto, @PathVariable Long id){
-		ResourceType resourceType = new ResourceType();
+	@ApiOperation(value = "修改", notes = "修改部署资源类型(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcetype.update", count = true)
+	public	ResourceTypeVO update(@RequestBody @Valid ResourceTypeEditDto resourceTypeEditDto, @PathVariable String id){
+		ResourceType resourceType = resourceTypeService.find(id);
 		BeanUtils.copyProperties(resourceTypeEditDto, resourceType);
 		resourceType.setId(id);
 		resourceTypeService.merge(resourceType);
@@ -115,12 +125,15 @@ public class ResourceTypeController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询部署资源类型", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public  ResourceTypeVO get(@PathVariable Long id) {
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询部署资源类型", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcetype.get")
+	public  ResourceTypeVO get(@PathVariable String id) {
 
 		ResourceType resourceType = resourceTypeService.find(id);
-
+		if(resourceType == null){
+			throw new ResourceNotFoundException("找不到指定的部署资源类型，请检查ID");
+		}
 		ResourceTypeVO vo = initViewProperty(resourceType);
 		return vo;
 	}
@@ -131,11 +144,12 @@ public class ResourceTypeController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询部署资源类型列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.deployscheme.resourcetype.list")
 	public PageContent<ResourceTypeVO> list(@RequestBody PageSearchRequest<ResourceTypeCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<ResourceType> page = resourceTypeService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<ResourceTypeVO> voList = new ArrayList<>();
@@ -155,7 +169,7 @@ public class ResourceTypeController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出部署资源类型列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(ResourceTypeCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<ResourceTypeCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -175,11 +189,13 @@ public class ResourceTypeController {
             jsonArray.add(vo);
         }
 
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
+        Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("name" ,"名称");
-            headMap.put("code" ,"代码");
-            headMap.put("icon" ,"图标");
+        headMap.put("category" ,"资源类别");
+        headMap.put("name" ,"名称");
+        headMap.put("code" ,"代码");
+        headMap.put("icon" ,"图标");
+        headMap.put("idx" ,"排序");
 
         String title = new String("部署资源类型");
         String fileName = new String(("部署资源类型_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -193,10 +209,23 @@ public class ResourceTypeController {
 
 
 	    //初始化其他对象
+	    initCategoryPropertyGroup(vo, resourceType);
         return vo;
 
 	}
 
+	private void initCategoryPropertyGroup(ResourceTypeVO resourceTypeVO, ResourceType resourceType){
+	
+		ResourceCategory category = resourceCategoryService.find(resourceType.getCategory());
+		if(category == null){
+			return;
+		}
+		ResourceCategoryVO categoryVO = new ResourceCategoryVO();
+		BeanUtils.copyProperties(category, categoryVO);
+
+		resourceTypeVO.setCategoryVO(categoryVO);
+
+	}
 
 }
 

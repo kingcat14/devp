@@ -3,17 +3,19 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
     ,xtype: 'speedcloud.app.CodeBaseInfoEditWindow'
     ,requires:[
         'AM.store.speedcloud.app.CodeRepositoryStore'
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改代码库详细信息信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改代码基本信息信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -22,7 +24,12 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -134,7 +141,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存代码库详细信息成功!');
+                Ext.MsgUtil.notification('操作成功', '保存代码基本信息成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -143,24 +150,22 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
         }
 
-        this.setTitle("修改代码库详细信息信息");
+        this.setTitle("修改代码基本信息信息");
 
         this.down('form').getForm().loadRecord(model);
 
     }
     ,onBeforeShow:function() {
         this.down('#codeRepositoryField').getStore().reload();
-       
-       
-       
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

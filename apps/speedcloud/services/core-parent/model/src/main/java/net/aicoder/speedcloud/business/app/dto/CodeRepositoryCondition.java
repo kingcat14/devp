@@ -1,21 +1,22 @@
 package net.aicoder.speedcloud.business.app.dto;
 
-import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
 @ApiModel(value = "查询代码库使用的DTO")
-public class CodeRepositoryCondition extends SaaSCondition{
+@Getter @Setter
+public class CodeRepositoryCondition {
 
-	@ApiModelProperty(value = "租户id")
-	private Long tid;
+    @ApiModelProperty(value = "租户id")
+    private Long tid;
 	@ApiModelProperty(value = "名称")
 	private String name;
-	@ApiModelProperty(value = "类型", notes = "git,svn")
-	private String type;
+    @ApiModelProperty(value = "代码库类型", notes = "git,svn")
+    private String type;
 	@ApiModelProperty(value = "url")
 	private String url;
     @ApiModelProperty(value = "开发模式")
@@ -26,69 +27,9 @@ public class CodeRepositoryCondition extends SaaSCondition{
 	private String password;
 	@ApiModelProperty(value = "描述")
 	private String description;
+    @ApiModelProperty(value = "应用")
+    private String app;
 
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-	public String getName(){
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getType(){
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
-	public String getUrl(){
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-
-    public Long getDevelopType(){
-        return developType;
-    }
-    public void setDevelopType(Long developType) {
-        this.developType = developType;
-    }
-
-
-	public String getUsername(){
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getPassword(){
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 
 

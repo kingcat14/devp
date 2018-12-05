@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.env.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -16,11 +16,12 @@ import javax.validation.constraints.Size;
  * 服务器
  * @author icode
  */
-@Entity
-@Table(appliesTo = "machine", comment = "[服务器]")
+@Entity()
+@Table(name = "env_machine")
 //@DynamicUpdate
 //@DynamicInsert
-public class Machine extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class Machine extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
@@ -29,8 +30,8 @@ public class Machine extends BaseEntity<Long>{
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -92,10 +93,10 @@ public class Machine extends BaseEntity<Long>{
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

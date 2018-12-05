@@ -211,7 +211,7 @@ public class ResourceController {
             headMap.put("description" ,"资源描述");
             headMap.put("version" ,"版本");
             headMap.put("seq" ,"顺序号");
-            headMap.put("evn" ,"所属环境");
+            headMap.put("env" ,"所属环境");
             headMap.put("project" ,"产品编号");
             headMap.put("outerResource" ,"外部资源");
             headMap.put("scheme" ,"所属方案");
@@ -230,7 +230,7 @@ public class ResourceController {
 	    //初始化其他对象
 	    initCategoryPropertyGroup(vo, resource);
 	    initTypePropertyGroup(vo, resource);
-	    initEvnPropertyGroup(vo, resource);
+	    initEnvPropertyGroup(vo, resource);
 	    initProjectPropertyGroup(vo, resource);
 	    initSchemePropertyGroup(vo, resource);
         return vo;
@@ -266,16 +266,16 @@ public class ResourceController {
 	}
 
 
-	private void initEvnPropertyGroup(ResourceVO resourceVO, Resource resource){
+	private void initEnvPropertyGroup(ResourceVO resourceVO, Resource resource){
 	
-		AppEnvConfig evn = appEnvConfigService.find(resource.getEvn());
-		if(evn == null){
+		AppEnvConfig env = appEnvConfigService.find(resource.getEnv());
+		if(env == null){
 			return;
 		}
-		AppEnvConfigVO evnVO = new AppEnvConfigVO();
-		BeanUtils.copyProperties(evn, evnVO);
+		AppEnvConfigVO envVO = new AppEnvConfigVO();
+		BeanUtils.copyProperties(env, envVO);
 
-		resourceVO.setEvnVO(evnVO);
+		resourceVO.setEnvVO(envVO);
 
 	}
 

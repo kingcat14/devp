@@ -27,6 +27,12 @@ Ext.define('AM.model.speedcloud.env.AppEnvConfig', {
             ,critical:true
         }
     	,{
+            name: 'project'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'name'
             ,type:'string'
             ,allowNull:true
@@ -36,12 +42,6 @@ Ext.define('AM.model.speedcloud.env.AppEnvConfig', {
             name: 'level'
             ,type:'string'
             ,allowNull:false
-            ,critical:true
-        }
-    	,{
-            name: 'project'
-            ,type:'string'
-            ,allowNull:true
             ,critical:true
         }
     	,{

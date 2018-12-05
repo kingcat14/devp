@@ -39,12 +39,21 @@ public class EntityPropertyVO {
     private String type;
 
 
-    @ApiModelProperty(value = "引用对象", notes = "")
+    @ApiModelProperty(value = "引用对象ID", notes = "")
     private String relatedEntityId;
+
+    @ApiModelProperty(value = "引用对象", notes = "")
+    private EntityVO relatedEntity;
+
+    @ApiModelProperty(value = "引用主键属性", notes = "")
+    private String relatedEntityPrimaryKeyType;
 
 
     @ApiModelProperty(value = "引用对象属性代码", notes = "")
-    private String relatedEntityPropertyCode;
+    private String relatedEntityPropertyId;
+
+    @ApiModelProperty(value = "引用对象属性", notes = "")
+    private EntityPropertyVO relatedEntityProperty;
 
 
     @ApiModelProperty(value = "排序", notes = "")
@@ -83,7 +92,8 @@ public class EntityPropertyVO {
     private Boolean sortable;
 
 
-
+    @ApiModelProperty
+    private EntityViewPropertyVO viewProperty;
 
     @Override
     public String toString() {

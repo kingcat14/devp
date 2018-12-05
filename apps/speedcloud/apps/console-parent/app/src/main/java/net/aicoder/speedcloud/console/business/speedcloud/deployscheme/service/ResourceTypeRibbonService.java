@@ -2,14 +2,13 @@ package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.service;
 
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.controller.RestResponse;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeAddDto;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeCondition;
 import net.aicoder.speedcloud.business.deployscheme.dto.ResourceTypeEditDto;
 import net.aicoder.speedcloud.business.deployscheme.vo.ResourceTypeVO;
-import net.aicoder.speedcloud.client.deployscheme.ResourceTypeRibbon;
-import net.aicoder.speedcloud.client.deployscheme.result.ResourceTypePageResult;
-import net.aicoder.speedcloud.client.deployscheme.result.ResourceTypeResult;
+import net.aicoder.speedcloud.client.deployscheme.ResourceTypeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,11 @@ public class ResourceTypeRibbonService  {
 
 
 	@Autowired
-	private ResourceTypeRibbon resourceTypeRibbon;
+	private ResourceTypeClient resourceTypeClient;
 
 
 	public ResourceTypeVO add(ResourceTypeAddDto addDto){
-		ResourceTypeResult result = resourceTypeRibbon.add(addDto);
+		RestResponse<ResourceTypeVO> result = resourceTypeClient.add(addDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());
@@ -36,19 +35,19 @@ public class ResourceTypeRibbonService  {
 	
 	}
 
-	public void delete(Long id){
+	public void delete(String id){
 		if(null == id){
 			LOGGER.warn("try delete T by empty id. Code need check");
 			return ;
 		}
 		LOGGER.debug("delete t:{}", id);
-		ResourceTypeResult result = resourceTypeRibbon.delete(id);
+		RestResponse<ResourceTypeVO> result = resourceTypeClient.delete(id);
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());
 		}
 	}
-	public ResourceTypeVO merge(Long id, ResourceTypeEditDto editDto){
-		ResourceTypeResult result = resourceTypeRibbon.update(id, editDto);
+	public ResourceTypeVO merge(String id, ResourceTypeEditDto editDto){
+		RestResponse<ResourceTypeVO> result = resourceTypeClient.update(id, editDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());
@@ -56,8 +55,8 @@ public class ResourceTypeRibbonService  {
 
 		return result.getData();
 	}
-	public ResourceTypeVO find(Long id){
-		ResourceTypeResult result = resourceTypeRibbon.get(id);
+	public ResourceTypeVO find(String id){
+		RestResponse<ResourceTypeVO> result = resourceTypeClient.get(id);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());
@@ -67,7 +66,7 @@ public class ResourceTypeRibbonService  {
 	}
 
 	public PageContent<ResourceTypeVO> list(PageSearchRequest<ResourceTypeCondition> pageSearchRequest) {
-		ResourceTypePageResult result = resourceTypeRibbon.list(pageSearchRequest);
+		RestResponse<PageContent<ResourceTypeVO>> result = resourceTypeClient.list(pageSearchRequest);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "DEPLOYSCHEME", result.getCode()+"", result.getMessage());

@@ -28,7 +28,7 @@ public class EntityProperty extends BaseEntity<String>{
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_TYPE = "type";
 	public static final String PROPERTY_RELATED_ENTITY_ID = "relatedEntityId";
-	public static final String PROPERTY_RELATED_ENTITY_PROPERTY_CODE = "relatedEntityPropertyCode";
+	public static final String PROPERTY_RELATED_ENTITY_PROPERTY_CODE = "relatedEntityPropertyId";
 	public static final String PROPERTY_IDX = "idx";
 	public static final String PROPERTY_MEMO = "memo";
 	public static final String PROPERTY_PRIMARY_KEY = "primaryKey";
@@ -98,7 +98,7 @@ public class EntityProperty extends BaseEntity<String>{
     */
     @Column(name = "related_entity_property_code", nullable = true, updatable = true)
 	@Size(max = 255, message = "引用对象属性代码超长，最多255个字符")
-	private String relatedEntityPropertyCode;
+	private String relatedEntityPropertyId;
 
     /**
     * 排序
@@ -206,11 +206,11 @@ public class EntityProperty extends BaseEntity<String>{
 		this.relatedEntityId = relatedEntityId;
 	}
 
-	public String getRelatedEntityPropertyCode(){
-		return relatedEntityPropertyCode;
+	public String getRelatedEntityPropertyId(){
+		return relatedEntityPropertyId;
 	}
-	public void setRelatedEntityPropertyCode(String relatedEntityPropertyCode) {
-		this.relatedEntityPropertyCode = relatedEntityPropertyCode;
+	public void setRelatedEntityPropertyId(String relatedEntityPropertyId) {
+		this.relatedEntityPropertyId = relatedEntityPropertyId;
 	}
 
 	public Integer getIdx(){

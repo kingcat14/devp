@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.project.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
  * @author icode
  */
 @Entity
-@Table(appliesTo = "project", comment = "[项目]")
+@Table(name = "project_project")
 //@DynamicUpdate
 //@DynamicInsert
 public class Project extends BaseEntity<String>{
@@ -32,7 +32,7 @@ public class Project extends BaseEntity<String>{
 
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length = 32)
     private String id;
 
 

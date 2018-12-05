@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,17 +13,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改应用私密配置使用的DTO")
+@Setter @Getter
 public class SecurityConfigEditDto {
-
-
-	/**租户id*/
-	@ApiModelProperty(value = "租户id", required = false)
-	private Long tid;
 
 
 	/**应用*/
 	@ApiModelProperty(value = "应用", required = false)
-	private Long app;
+	private String app;
 
 
 	/**配置名*/
@@ -35,18 +33,10 @@ public class SecurityConfigEditDto {
 
 
 
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-
-	public Long getApp(){
+	public String getApp(){
         return app;
     }
-    public void setApp(Long app) {
+    public void setApp(String app) {
         this.app = app;
     }
 

@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.app.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -16,15 +16,17 @@ import javax.validation.constraints.Size;
  * 应用开发配置
  * @author icode
  */
-@Entity
-@Table(appliesTo = "app_develop_config", comment = "[应用开发配置]")
+@Entity()
+@Table(name = "app_app_develop_config")
 //@DynamicUpdate
 //@DynamicInsert
-public class AppDevelopConfig extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class AppDevelopConfig extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_APP = "app";
-	public static final String PROPERTY_CODE = "code";
+	public static final String PROPERTY_DEVELOP_DATABASE = "developDatabase";
+	public static final String PROPERTY_DEVELOP_DOMAIN_NAME = "developDomainName";
 	public static final String PROPERTY_TEST_DATABASE = "testDatabase";
 	public static final String PROPERTY_TEST_DOMAIN_NAME = "testDomainName";
 	public static final String PROPERTY_PRODUCTION_DATABASE = "productionDatabase";
@@ -32,8 +34,8 @@ public class AppDevelopConfig extends BaseEntity<Long>{
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -48,14 +50,24 @@ public class AppDevelopConfig extends BaseEntity<Long>{
     * 
     */
     @Column(name = "app", nullable = true, updatable = true)
+	@Size(max = 255, message = "应用超长，最多255个字符")
 	private String app;
 
     /**
-    * 代码
+    * 开发环境DB
     * 
     */
-    @Column(name = "code", nullable = true, updatable = true)
-	private Long code;
+    @Column(name = "develop_database", nullable = true, updatable = true)
+	@Size(max = 255, message = "开发环境DB超长，最多255个字符")
+	private String developDatabase;
+
+    /**
+    * 开发环境域名
+    * 
+    */
+    @Column(name = "develop_domain_name", nullable = true, updatable = true)
+	@Size(max = 255, message = "开发环境域名超长，最多255个字符")
+	private String developDomainName;
 
     /**
     * 测试环境DB
@@ -103,11 +115,18 @@ public class AppDevelopConfig extends BaseEntity<Long>{
 		this.app = app;
 	}
 
-	public Long getCode(){
-		return code;
+	public String getDevelopDatabase(){
+		return developDatabase;
 	}
-	public void setCode(Long code) {
-		this.code = code;
+	public void setDevelopDatabase(String developDatabase) {
+		this.developDatabase = developDatabase;
+	}
+
+	public String getDevelopDomainName(){
+		return developDomainName;
+	}
+	public void setDevelopDomainName(String developDomainName) {
+		this.developDomainName = developDomainName;
 	}
 
 	public String getTestDatabase(){
@@ -139,10 +158,10 @@ public class AppDevelopConfig extends BaseEntity<Long>{
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

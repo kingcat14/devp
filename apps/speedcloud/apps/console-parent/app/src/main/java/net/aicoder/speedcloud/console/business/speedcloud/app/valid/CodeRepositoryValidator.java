@@ -37,7 +37,7 @@ public class CodeRepositoryValidator implements Validator {
      * @param codeRepository 代码库
      * @param errors
      */
-		public void validateAddDto(CodeRepositoryAddDto codeRepository, Errors errors) {
+	public void validateAddDto(CodeRepositoryAddDto codeRepository, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
@@ -47,6 +47,9 @@ public class CodeRepositoryValidator implements Validator {
 		if(StringUtils.length(codeRepository.getName()) > 255){
 			errors.rejectValue("name", null, "名称最长255个字符");
 		}
+		if(StringUtils.length(codeRepository.getType()) > 255){
+			errors.rejectValue("type", null, "代码库类型最长255个字符");
+		}
 		if(StringUtils.length(codeRepository.getUrl()) > 255){
 			errors.rejectValue("url", null, "url最长255个字符");
 		}
@@ -55,6 +58,9 @@ public class CodeRepositoryValidator implements Validator {
 		}
 		if(StringUtils.length(codeRepository.getPassword()) > 255){
 			errors.rejectValue("password", null, "密码最长255个字符");
+		}
+		if(StringUtils.length(codeRepository.getApp()) > 255){
+			errors.rejectValue("app", null, "应用最长255个字符");
 		}
 	}
 }

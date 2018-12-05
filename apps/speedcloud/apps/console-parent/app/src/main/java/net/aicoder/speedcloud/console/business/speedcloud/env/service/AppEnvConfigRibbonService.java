@@ -2,14 +2,13 @@ package net.aicoder.speedcloud.console.business.speedcloud.env.service;
 
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
+import com.yunkang.saas.common.framework.web.controller.RestResponse;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import net.aicoder.speedcloud.business.env.dto.AppEnvConfigAddDto;
 import net.aicoder.speedcloud.business.env.dto.AppEnvConfigCondition;
 import net.aicoder.speedcloud.business.env.dto.AppEnvConfigEditDto;
 import net.aicoder.speedcloud.business.env.vo.AppEnvConfigVO;
-import net.aicoder.speedcloud.client.env.AppEnvConfigRibbon;
-import net.aicoder.speedcloud.client.env.result.AppEnvConfigPageResult;
-import net.aicoder.speedcloud.client.env.result.AppEnvConfigResult;
+import net.aicoder.speedcloud.client.env.AppEnvConfigClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,11 @@ public class AppEnvConfigRibbonService  {
 
 
 	@Autowired
-	private AppEnvConfigRibbon appEnvConfigRibbon;
+	private AppEnvConfigClient appEnvConfigClient;
 
 
 	public AppEnvConfigVO add(AppEnvConfigAddDto addDto){
-		AppEnvConfigResult result = appEnvConfigRibbon.add(addDto);
+		RestResponse<AppEnvConfigVO> result = appEnvConfigClient.add(addDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "ENV", result.getCode()+"", result.getMessage());
@@ -36,19 +35,19 @@ public class AppEnvConfigRibbonService  {
 	
 	}
 
-	public void delete(Long id){
+	public void delete(String id){
 		if(null == id){
 			LOGGER.warn("try delete T by empty id. Code need check");
 			return ;
 		}
 		LOGGER.debug("delete t:{}", id);
-		AppEnvConfigResult result = appEnvConfigRibbon.delete(id);
+		RestResponse<AppEnvConfigVO> result = appEnvConfigClient.delete(id);
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "ENV", result.getCode()+"", result.getMessage());
 		}
 	}
-	public AppEnvConfigVO merge(Long id, AppEnvConfigEditDto editDto){
-		AppEnvConfigResult result = appEnvConfigRibbon.update(id, editDto);
+	public AppEnvConfigVO merge(String id, AppEnvConfigEditDto editDto){
+		RestResponse<AppEnvConfigVO> result = appEnvConfigClient.update(id, editDto);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "ENV", result.getCode()+"", result.getMessage());
@@ -56,8 +55,8 @@ public class AppEnvConfigRibbonService  {
 
 		return result.getData();
 	}
-	public AppEnvConfigVO find(Long id){
-		AppEnvConfigResult result = appEnvConfigRibbon.get(id);
+	public AppEnvConfigVO find(String id){
+		RestResponse<AppEnvConfigVO> result = appEnvConfigClient.get(id);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "ENV", result.getCode()+"", result.getMessage());
@@ -67,7 +66,7 @@ public class AppEnvConfigRibbonService  {
 	}
 
 	public PageContent<AppEnvConfigVO> list(PageSearchRequest<AppEnvConfigCondition> pageSearchRequest) {
-		AppEnvConfigPageResult result = appEnvConfigRibbon.list(pageSearchRequest);
+		RestResponse<PageContent<AppEnvConfigVO>> result = appEnvConfigClient.list(pageSearchRequest);
 
 		if(!result.isSuccess()){
 			throw new BusinessException("SPEEDCLOUD", "ENV", result.getCode()+"", result.getMessage());

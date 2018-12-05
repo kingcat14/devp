@@ -39,20 +39,18 @@ public class EnvMachineSpecification implements Specification<EnvMachine>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<EnvMachine> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
-
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddEvnPredicate(List<Predicate> predicateList, Root<EnvMachine> root, CriteriaBuilder cb){
 	    if (null != condition.getEvn() ) {
-            predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_EVN).as(Long.class), condition.getEvn()));
+            predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_EVN).as(String.class), condition.getEvn()));
         }
 	}
 	private void tryAddMachinePredicate(List<Predicate> predicateList, Root<EnvMachine> root, CriteriaBuilder cb){
 	    if (null != condition.getMachine() ) {
-            predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_MACHINE).as(Long.class), condition.getMachine()));
+            predicateList.add(cb.equal(root.get(EnvMachine.PROPERTY_MACHINE).as(String.class), condition.getMachine()));
         }
 	}
 }

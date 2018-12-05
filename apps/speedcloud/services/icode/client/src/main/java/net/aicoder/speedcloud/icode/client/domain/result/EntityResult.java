@@ -5,5 +5,4 @@ import net.aicoder.speedcloud.icode.business.domain.vo.EntityVO;
 
 public class EntityResult  extends RestResponse<EntityVO> {
 
-	
 }

@@ -27,6 +27,7 @@ eureka:
       user:
         name: actuator
         password: 123456
+    home-page-url-path: /index.html
 
 spring:
   config:

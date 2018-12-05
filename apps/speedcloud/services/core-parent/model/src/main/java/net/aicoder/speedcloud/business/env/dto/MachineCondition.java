@@ -1,17 +1,18 @@
 package net.aicoder.speedcloud.business.env.dto;
 
-import com.yunkang.saas.common.framework.eo.SaaSCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
 @ApiModel(value = "查询服务器使用的DTO")
-public class MachineCondition extends SaaSCondition{
+@Getter @Setter
+public class MachineCondition {
 
-	@ApiModelProperty(value = "租户id")
-	private Long tid;
+    @ApiModelProperty(value = "租户id")
+    private Long tid;
 	@ApiModelProperty(value = "名称")
 	private String name;
 	@ApiModelProperty(value = "IP地址")
@@ -23,51 +24,6 @@ public class MachineCondition extends SaaSCondition{
 	@ApiModelProperty(value = "端口最小值")
 	private Integer portMin;
 
-
-	public Long getTid(){
-		return tid;
-	}
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
-
-
-	public String getName(){
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public String getIpAddress(){
-		return ipAddress;
-	}
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-
-
-	public Integer getPort(){
-		return port;
-	}
-	public void setPort(Integer port) {
-		this.port = port;
-	}
-
-	public Integer getPortMin(){
-		return portMin;
-	}
-	public void setPortMin(Integer portMin) {
-		this.portMin = portMin;
-	}
-
-	public Integer getPortMax(){
-		return portMax;
-	}
-	public void setPortMax(Integer portMax) {
-		this.portMax = portMax;
-	}
 
 
 

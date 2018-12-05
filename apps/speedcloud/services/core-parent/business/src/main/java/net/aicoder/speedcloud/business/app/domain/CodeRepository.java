@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.app.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -16,11 +16,12 @@ import javax.validation.constraints.Size;
  * 代码库
  * @author icode
  */
-@Entity
-@Table(appliesTo = "code_repository", comment = "[代码库]")
+@Entity()
+@Table(name = "app_code_repository")
 //@DynamicUpdate
 //@DynamicInsert
-public class CodeRepository extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class CodeRepository extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
 	public static final String PROPERTY_NAME = "name";
@@ -30,11 +31,12 @@ public class CodeRepository extends BaseEntity<Long>{
 	public static final String PROPERTY_USERNAME = "username";
 	public static final String PROPERTY_PASSWORD = "password";
 	public static final String PROPERTY_DESCRIPTION = "description";
+	public static final String PROPERTY_APP = "app";
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -53,10 +55,11 @@ public class CodeRepository extends BaseEntity<Long>{
 	private String name;
 
     /**
-    * 类型
+    * 代码库类型
     * git,svn
     */
     @Column(name = "type", nullable = true, updatable = true)
+	@Size(max = 255, message = "代码库类型超长，最多255个字符")
 	private String type;
 
     /**
@@ -96,6 +99,14 @@ public class CodeRepository extends BaseEntity<Long>{
     */
     @Column(name = "description", nullable = true, updatable = true, length=1999, columnDefinition = "TEXT")
 	private String description;
+
+    /**
+    * 应用
+    * 
+    */
+    @Column(name = "app", nullable = true, updatable = true)
+	@Size(max = 255, message = "应用超长，最多255个字符")
+	private String app;
 
 	public Long getTid(){
 		return tid;
@@ -153,11 +164,18 @@ public class CodeRepository extends BaseEntity<Long>{
 		this.description = description;
 	}
 
+	public String getApp(){
+		return app;
+	}
+	public void setApp(String app) {
+		this.app = app;
+	}
 
-	public Long getId() {
+
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

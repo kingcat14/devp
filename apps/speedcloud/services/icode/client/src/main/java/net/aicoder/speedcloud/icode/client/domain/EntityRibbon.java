@@ -110,7 +110,16 @@ public class EntityRibbon {
         return errorResult();
     }
 
-
+    /**
+     * 根据ID查询领域对象的详细信息
+     * @param id
+     * @return
+     */
+    @HystrixCommand(fallbackMethod = "getFail")
+    public EntityResult getDetail(String id) {
+        String url = "http://"+host+"/icode/domain/entity/"+id+"/detail";
+        return restTemplate.getForObject(url, EntityResult.class);
+    }
 
     /**
 	 * 根据ID查询领域对象

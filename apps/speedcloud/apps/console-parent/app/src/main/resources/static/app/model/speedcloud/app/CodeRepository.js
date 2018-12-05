@@ -68,5 +68,11 @@ Ext.define('AM.model.speedcloud.app.CodeRepository', {
             ,allowNull:true
             ,critical:true
         }
+    	,{
+            name: 'app'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
     ]
 });

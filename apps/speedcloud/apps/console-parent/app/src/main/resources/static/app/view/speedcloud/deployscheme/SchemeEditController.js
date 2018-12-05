@@ -242,12 +242,18 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditController', {
 	,onResourceNameClick:function (table, td, cellIndex, record) {
 		console.log('onResourceNameClick')
 
+
 		if(cellIndex != 0){
 			console.log('cellIndex:'+cellIndex)
 			return;
 		}
 
-		var me = this;
+        if(record.get('type') == null && record.get('relationId') == null){
+            return ;
+        }
+
+
+        var me = this;
 
         //没有关系ID，说明是资源节点
 		var detailEditPanel = me.lookup('detailEditPanel');
@@ -298,11 +304,29 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditController', {
                     return ;
                 }
 
+                var y = 0;
+                var categoryList = [];
+                var categoryCount = 0;
+
                 for(var i =0; i < records.length;i++){
+
 
                     var record = records[i];
 
-                    me.createGraphState(190 * (i+1), 100, record)
+                    var category = record.get('category');
+                    if(!categoryList[category]){
+                        console.log(i+' new category :' + category +', ' + categoryCount)
+                        categoryCount++;
+                        categoryList[category] = {count:0, y: categoryCount};
+                    }else{
+                        console.log(i+' old category :' + category )
+                        categoryList[category].count = categoryList[category].count+1
+                    }
+
+                    console.log(categoryList[category])
+
+                    //me.createGraphState(190 * (i+1), 100, record)
+                    me.createGraphState(190 * (categoryList[category].count + 1), (categoryList[category].y +1) * 100, record);
                 }
                 me.loadRelationGraph()
             }
@@ -338,7 +362,7 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditController', {
     ,createGraphState:function(x, y, record){
 		var me = this;
 
-        me.getView().graphState(x, y, record.get('name'), record.getId())
+        me.getView().graphState(x, y, record.get('name'), record.getId(), record.get('category'))
         me.saveResourceGraph()
 	}
     ,createGraphLink:function(record){

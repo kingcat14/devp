@@ -24,7 +24,6 @@ public class SpeedCloudAssetMicroService implements ExitCodeGenerator {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpeedCloudAssetMicroService.class, args);
-
 	}
 
 	@Override

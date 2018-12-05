@@ -29,9 +29,11 @@ public class ResourceTypeSpecification implements Specification<ResourceType>{
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
+		tryAddCategoryPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddCodePredicate(predicateList, root, cb);
 		tryAddIconPredicate(predicateList, root, cb);
+		tryAddIdxPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -41,10 +43,14 @@ public class ResourceTypeSpecification implements Specification<ResourceType>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<ResourceType> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(ResourceType.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(ResourceType.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
+	}
+	private void tryAddCategoryPredicate(List<Predicate> predicateList, Root<ResourceType> root, CriteriaBuilder cb){
+	    if (null != condition.getCategory() ) {
+            predicateList.add(cb.equal(root.get(ResourceType.PROPERTY_CATEGORY).as(String.class), condition.getCategory()));
+        }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<ResourceType> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -59,6 +65,20 @@ public class ResourceTypeSpecification implements Specification<ResourceType>{
 	private void tryAddIconPredicate(List<Predicate> predicateList, Root<ResourceType> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getIcon())){
 			predicateList.add(cb.like(root.get(ResourceType.PROPERTY_ICON).as(String.class), "%"+condition.getIcon()+"%"));
+		}
+	}
+	private void tryAddIdxPredicate(List<Predicate> predicateList, Root<ResourceType> root, CriteriaBuilder cb){
+
+		if (null != condition.getIdx() ) {
+			predicateList.add(cb.equal(root.get(ResourceType.PROPERTY_IDX).as(Integer.class), condition.getIdx()));
+		}
+
+		if (null != condition.getIdxMax() ) {
+			predicateList.add(cb.greaterThanOrEqualTo(root.get(ResourceType.PROPERTY_IDX).as(Integer.class), condition.getIdxMax()));
+		}
+
+		if (null != condition.getIdxMin() ) {
+			predicateList.add(cb.lessThan(root.get(ResourceType.PROPERTY_IDX).as(Integer.class), condition.getIdxMin()));
 		}
 	}
 }

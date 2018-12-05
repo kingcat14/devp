@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 应用的数据库操作
+ * 应用（系统）的数据库操作
  * @author icode
  */
 @Repository("appBaseInfoDao")

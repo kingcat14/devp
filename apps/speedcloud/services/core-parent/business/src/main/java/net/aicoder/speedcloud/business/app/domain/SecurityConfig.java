@@ -3,11 +3,11 @@ package net.aicoder.speedcloud.business.app.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
@@ -16,10 +16,11 @@ import javax.validation.constraints.Size;
  * 应用私密配置
  * @author icode
  */
-@Entity
-@Table(appliesTo = "security_config", comment = "[应用私密配置]")
+@Entity()
+@Table(name = "app_security_config")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class SecurityConfig extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
@@ -29,7 +30,7 @@ public class SecurityConfig extends BaseEntity<String>{
 
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length = 32)
     private String id;
 
 
@@ -45,6 +46,7 @@ public class SecurityConfig extends BaseEntity<String>{
     * 
     */
     @Column(name = "app", nullable = true, updatable = true)
+	@Size(max = 255, message = "应用超长，最多255个字符")
 	private String app;
 
     /**

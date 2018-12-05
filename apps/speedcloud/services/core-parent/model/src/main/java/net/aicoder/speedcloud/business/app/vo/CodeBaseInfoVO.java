@@ -11,30 +11,30 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
-* 代码库详细信息的值对象
+* 代码基本信息的值对象
 */
-@ApiModel(value = "展现代码库详细信息的值对象")
-@Getter @Setter
+@ApiModel(value = "展现代码基本信息的值对象")
+@Setter @Getter
 public class CodeBaseInfoVO {
 
     @ApiModelProperty(value = "记录id")
-    private Long id;
+    private String id;
 
 
     /**代码库*/
     @ApiModelProperty(value = "代码库", notes = " ")
-    private Long codeRepository;
+    private String codeRepository;
     private CodeRepositoryVO codeRepositoryVO;
 
 
-    /**开发语言*/
     @ApiModelProperty(value = "开发语言")
     private String language;
 
 
-    /**语言级别*/
     @ApiModelProperty(value = "语言级别")
     private String languageLevel;
+
+
 
 
     @Override

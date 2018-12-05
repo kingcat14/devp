@@ -41,10 +41,9 @@ public class MachineSpecification implements Specification<Machine>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<Machine> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(Machine.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(Machine.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<Machine> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){

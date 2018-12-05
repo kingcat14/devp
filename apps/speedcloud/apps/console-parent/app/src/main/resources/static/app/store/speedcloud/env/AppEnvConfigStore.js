@@ -1,5 +1,6 @@
 Ext.define('AM.store.speedcloud.env.AppEnvConfigStore', {
     extend: 'Ext.data.Store'
+    , alias: 'store.speedcloud.env.AppEnvConfigStore'
     ,requires: [
         'AM.model.speedcloud.env.AppEnvConfig'
     ]
@@ -17,8 +18,8 @@ Ext.define('AM.store.speedcloud.env.AppEnvConfigStore', {
                 ,url: 'speedcloud/env/appenvconfig'
                 ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
                 ,reader: {
-                    type: 'json',
-                    rootProperty: 'content'
+                    type: 'json'
+                    ,rootProperty: 'content'
                 }
                 ,actionMethods:{read:'POST'}
                 ,api:{read:"speedcloud/env/appenvconfig/list"}
@@ -47,8 +48,8 @@ Ext.define('AM.store.speedcloud.env.AppEnvConfigStore', {
         if(error.status){
             error = error.status + ' ' + error.statusText;
         }
-        //Ext.Msg.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
-        Ext.Msg.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+        //Ext.MessageBox.show({title: '操作失败', msg: response.responseText, buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
+        Ext.MessageBox.show({title: '操作失败', msg: "ERROR:"+response.status+"<br/>请重试或联系管理员", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
 
         if('read' !== operation.action){
             store.load();

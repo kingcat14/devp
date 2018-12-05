@@ -33,7 +33,13 @@ Ext.define('AM.model.speedcloud.app.AppDevelopConfig', {
             ,critical:true
         }
     	,{
-            name: 'code'
+            name: 'developDatabase'
+            ,type:'string'
+            ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'developDomainName'
             ,type:'string'
             ,allowNull:true
             ,critical:true

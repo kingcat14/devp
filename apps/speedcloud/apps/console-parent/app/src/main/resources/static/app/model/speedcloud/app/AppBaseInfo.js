@@ -27,15 +27,27 @@ Ext.define('AM.model.speedcloud.app.AppBaseInfo', {
             ,critical:true
         }
     	,{
+            name: 'project'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
+            name: 'type'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'name'
             ,type:'string'
             ,allowNull:true
             ,critical:true
         }
     	,{
-            name: 'type'
+            name: 'code'
             ,type:'string'
-            ,allowNull:true
+            ,allowNull:false
             ,critical:true
         }
     	,{
@@ -54,12 +66,6 @@ Ext.define('AM.model.speedcloud.app.AppBaseInfo', {
             name: 'registTime'
             ,type:'string'
             ,allowNull:true
-            ,critical:true
-        }
-    	,{
-            name: 'project'
-            ,type:'string'
-            ,allowNull:false
             ,critical:true
         }
     ]

@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -29,6 +29,10 @@ public class EntityVO {
     private String name;
 
 
+    @ApiModelProperty(value = "描述", notes = "")
+    private String description;
+
+
     @ApiModelProperty(value = "父对象")
     private String parentEntity;
 
@@ -43,7 +47,13 @@ public class EntityVO {
     private String domain;
     private DomainVO domainVO;
 
+    /**实体的行为*/
+    @ApiModelProperty(value = "实体的行为")
+    List<EntityActionVO> actionList;
 
+    /**实体的属性*/
+    @ApiModelProperty(value = "实体的属性")
+    List<EntityPropertyVO> propertyList;
 
 
     @Override

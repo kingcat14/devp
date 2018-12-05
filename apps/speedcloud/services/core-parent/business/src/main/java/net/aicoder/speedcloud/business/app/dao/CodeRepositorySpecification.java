@@ -36,6 +36,7 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 		tryAddUsernamePredicate(predicateList, root, cb);
 		tryAddPasswordPredicate(predicateList, root, cb);
 		tryAddDescriptionPredicate(predicateList, root, cb);
+		tryAddAppPredicate(predicateList, root, cb);
 
 
 		Predicate[] pre = new Predicate[predicateList.size()];
@@ -45,10 +46,9 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(CodeRepository.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(CodeRepository.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -56,9 +56,9 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 		}
 	}
 	private void tryAddTypePredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getType())){
-			predicateList.add(cb.equal(root.get(CodeRepository.PROPERTY_TYPE).as(String.class), condition.getType()));
-		}
+	    if (null != condition.getType() ) {
+            predicateList.add(cb.equal(root.get(CodeRepository.PROPERTY_TYPE).as(String.class), condition.getType()));
+        }
 	}
 	private void tryAddUrlPredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getUrl())){
@@ -84,6 +84,11 @@ public class CodeRepositorySpecification implements Specification<CodeRepository
 		if(StringUtils.isNotEmpty(condition.getDescription())){
 			predicateList.add(cb.like(root.get(CodeRepository.PROPERTY_DESCRIPTION).as(String.class), "%"+condition.getDescription()+"%"));
 		}
+	}
+	private void tryAddAppPredicate(List<Predicate> predicateList, Root<CodeRepository> root, CriteriaBuilder cb){
+	    if (null != condition.getApp() ) {
+            predicateList.add(cb.equal(root.get(CodeRepository.PROPERTY_APP).as(String.class), condition.getApp()));
+        }
 	}
 }
 

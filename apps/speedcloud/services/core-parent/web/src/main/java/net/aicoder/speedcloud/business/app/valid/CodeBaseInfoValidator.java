@@ -33,19 +33,22 @@ public class CodeBaseInfoValidator implements Validator {
             this.validateCodeBaseInfoAddDto((CodeBaseInfoAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<CodeBaseInfoCondition> search){
+    public void validateSearchDto(PageSearchRequest<CodeBaseInfoCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new CodeBaseInfoCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
 	/**
      * 实现Validator中的validate接口
-     * @param codeBaseInfo 代码库详细信息
+     * @param codeBaseInfo 代码基本信息
      * @param errors
      */
 	public void validateCodeBaseInfoAddDto(CodeBaseInfoAddDto codeBaseInfo, Errors errors) {
@@ -55,6 +58,9 @@ public class CodeBaseInfoValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(codeBaseInfo.getCodeRepository()) > 255){
+			errors.rejectValue(CodeBaseInfo.PROPERTY_CODE_REPOSITORY,null,"代码库最长255个字符");
+		}
 		if(StringUtils.length(codeBaseInfo.getLanguage()) > 255){
 			errors.rejectValue(CodeBaseInfo.PROPERTY_LANGUAGE,null,"开发语言最长255个字符");
 		}

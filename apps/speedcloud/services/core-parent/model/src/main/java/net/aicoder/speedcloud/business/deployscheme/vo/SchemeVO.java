@@ -62,7 +62,7 @@ public class SchemeVO {
 
     /**所属环境*/
     @ApiModelProperty(value = "所属环境", notes = "[所属环境]")
-    private Long env;
+    private String env;
     private AppEnvConfigVO envVO;
 
 
@@ -128,10 +128,10 @@ public class SchemeVO {
         this.projectVO = projectVO;
     }
 
-    public Long getEnv(){
+    public String getEnv(){
         return env;
     }
-    public void setEnv(Long env) {
+    public void setEnv(String env) {
         this.env = env;
     }
     public AppEnvConfigVO getEnvVO(){

@@ -8,7 +8,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '代码库详细信息高级查询'
+    ,title: '代码基本信息高级查询'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {
@@ -59,37 +59,31 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
 
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -127,9 +121,9 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoSearchWindow', {
         var languageLevelField = me.down("#languageLevelField");
 
         var condition = {
-            codeRepository:Ext.isEmpty(codeRepositoryField.getValue())?null:codeRepositoryField.getValue()
-            ,language:Ext.isEmpty(languageField.getValue())?null:languageField.getValue()
-            ,languageLevel:Ext.isEmpty(languageLevelField.getValue())?null:languageLevelField.getValue()
+            codeRepository:Ext.valueFrom(codeRepositoryField.getValue(), null)
+            ,language:Ext.valueFrom(languageField.getValue(), null)
+            ,languageLevel:Ext.valueFrom(languageLevelField.getValue(), null)
         };
 
         return condition;

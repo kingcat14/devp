@@ -8,7 +8,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSearchWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '项目高级查询'
+    ,title: '产品（项目）高级查询'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {
@@ -57,13 +57,6 @@ Ext.define('AM.view.speedcloud.project.ProjectSearchWindow', {
                             ,itemId: 'descriptionField'
                             ,fieldLabel: '描述'
                         }
-
-                        ,{
-                            xtype: 'textfield'
-                            ,itemId: 'parentField'
-                            ,fieldLabel: '上级项目'
-                        }
-
                         ,{
                             xtype: 'combobox'
                             ,store: Ext.create("AM.store.speedcloud.project.ProjectSetStore")
@@ -72,7 +65,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSearchWindow', {
                             ,displayField:'name'
                             ,valueField:'id'
                             ,itemId: 'projectSetField'
-                            ,fieldLabel: '所属项目集'
+                            ,fieldLabel: '所属产品线'
                         }
 
                             ]

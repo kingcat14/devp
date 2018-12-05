@@ -44,7 +44,7 @@ public class EntityPropertyEditDto {
 
 	/**引用对象属性代码*/
 	@ApiModelProperty(value = "引用对象属性代码", required = false, notes = "")
-	private String relatedEntityPropertyCode;
+	private String relatedEntityPropertyId;
 
 
 	/**排序*/
@@ -133,11 +133,11 @@ public class EntityPropertyEditDto {
 	}
 
 
-	public String getRelatedEntityPropertyCode(){
-		return relatedEntityPropertyCode;
+	public String getRelatedEntityPropertyId(){
+		return relatedEntityPropertyId;
 	}
-	public void setRelatedEntityPropertyCode(String relatedEntityPropertyCode) {
-		this.relatedEntityPropertyCode = relatedEntityPropertyCode;
+	public void setRelatedEntityPropertyId(String relatedEntityPropertyId) {
+		this.relatedEntityPropertyId = relatedEntityPropertyId;
 	}
 
 

@@ -4,6 +4,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
     ,requires:[
         'AM.store.common.SimpleConfigStore'
         ,'AM.store.speedcloud.project.ProjectStore'
+        ,'AM.store.speedcloud.app.ApplicationTypeStore'
 
     ]
     ,autoScroll: true
@@ -12,7 +13,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新应用'
+    ,title: '添加新应用（系统）'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -29,7 +30,6 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -49,14 +49,38 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
                             ,items:[
 
                                 ,{
-                                    xtype: 'textfield'
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'nameField'
-                                    ,name: 'name'
-                                    ,fieldLabel: '名称'
+                                    ,itemId: 'projectField'
+                                    ,name: 'project'
+                                    ,fieldLabel: '所属项目'
+                                                         
+                                }
+
+
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.app.ApplicationTypeStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'typeField'
+                                    ,name: 'type'
+                                    ,fieldLabel: '应用类型'
+                                                         
                                 }
 
 
@@ -66,9 +90,23 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
-                                    ,itemId: 'typeField'
-                                    ,name: 'type'
-                                    ,fieldLabel: '应用类型'
+                                    ,itemId: 'nameField'
+                                    ,name: 'name'
+                                    ,fieldLabel: '名称'
+                                    
+                                }
+
+
+                                ,{
+                                    xtype: 'textfield'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'codeField'
+                                    ,name: 'code'
+                                    ,fieldLabel: '代码'
+                                    
                                 }
 
 
@@ -81,6 +119,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
                                     ,itemId: 'statusField'
                                     ,name: 'status'
                                     ,fieldLabel: '状态'
+                                    
                                 }
 
 
@@ -95,36 +134,21 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
                                     ,itemId: 'registTimeField'
                                     ,name: 'registTime'
                                     ,fieldLabel: '注册时间'
-                                }
-
-
-                                ,{
-                                    xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.project.ProjectStore")
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,displayField:'name'
-                                    ,valueField:'id'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:true
-                                    ,afterLabelTextTpl: []
-                                    ,itemId: 'projectField'
-                                    ,name: 'project'
-                                    ,fieldLabel: '所属项目'
+                                    
                                 }
 
                             ]
                         }
                         ,{
 
-                            xtype: 'textarea',
-                            anchor: '96% 70%',
-                            itemId: 'descriptionField',
-                            padding: '5 0 0 5',
-                            name: 'description',
-                            fieldLabel: '描述',
-                            labelAlign: 'top'
+                            xtype: 'textarea'
+                            ,anchor: '96% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
+                            
                         }
                     ]
                 }
@@ -176,7 +200,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存应用成功!');
+                Ext.MsgUtil.notification('操作成功', '保存应用（系统）成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -195,6 +219,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoAddWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#projectField').getStore().reload();
+        this.down('#typeField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

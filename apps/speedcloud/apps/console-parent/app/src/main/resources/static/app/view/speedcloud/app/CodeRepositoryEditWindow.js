@@ -2,24 +2,23 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.app.CodeRepositoryEditWindow'
     ,requires:[
-        'AM.store.speedcloud.config.DevelopTypeStore'
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+        'AM.store.speedcloud.config.CodeRepositoryTypeStore'
+        ,'AM.store.speedcloud.config.DevelopTypeStore'
+        ,'AM.store.speedcloud.app.AppBaseInfoStore'
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改代码库信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改代码库信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
-
-        var codeRepositoryTypeStore = Ext.create("AM.store.common.SimpleConfigStore")
-        codeRepositoryTypeStore.proxy.isSynchronous = true;
-        codeRepositoryTypeStore.proxy.extraParams={searchCondition:{configType:'CODEREPOSITORY-TYPE'}};
-        codeRepositoryTypeStore.load();
 
         Ext.apply(me, {
             items: [
@@ -27,7 +26,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -63,18 +67,18 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
                                 }
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: codeRepositoryTypeStore
+                                    ,store: Ext.create("AM.store.speedcloud.config.CodeRepositoryTypeStore")
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,displayField:'displayName'
-                                    ,valueField:'code'
+                                    ,displayField:'name'
+                                    ,valueField:'id'
                                     ,hidden: false
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'typeField'
                                     ,name: 'type'
-                                    ,fieldLabel: '类型'
+                                    ,fieldLabel: '代码库类型'
                                 }
                                 ,{
                                     xtype: 'textfield'
@@ -121,18 +125,34 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
                                     ,name: 'password'
                                     ,fieldLabel: '密码'
                                 }
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.app.AppBaseInfoStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'appField'
+                                    ,name: 'app'
+                                    ,fieldLabel: '应用'
+                                }
                             ]
 
                         }
                         ,{
 
-                            xtype: 'textarea',
-                            anchor: '96% 70%',
-                            itemId: 'descriptionField',
-                            padding: '5 0 0 5',
-                            name: 'description',
-                            fieldLabel: '描述',
-                            labelAlign: 'top'
+                            xtype: 'textarea'
+                            ,anchor: '96% 70%'
+                            ,itemId: 'descriptionField'
+                            ,padding: '5 0 0 5'
+                            ,name: 'description'
+                            ,fieldLabel: '描述'
+                            ,labelAlign: 'top'
+                          	,flex:1
                         }
                     ]
                 }
@@ -184,7 +204,7 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存代码库成功!');
+                Ext.MsgUtil.notification('操作成功', '保存代码库成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -193,9 +213,9 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
@@ -207,15 +227,12 @@ Ext.define('AM.view.speedcloud.app.CodeRepositoryEditWindow', {
 
     }
     ,onBeforeShow:function() {
-       
         this.down('#typeField').getStore().reload();
-       
-       
+      
         this.down('#developTypeField').getStore().reload();
-       
-       
-       
-       
+      
+        this.down('#appField').getStore().reload();
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

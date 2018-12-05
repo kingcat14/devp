@@ -36,7 +36,7 @@ public class PipelineCodeRepositoryRelation extends BaseEntity<Long>{
     * 
     */
     @Column(name = "code_repository", nullable = false, updatable = true)
-	private Long codeRepository;
+	private String codeRepository;
 
     /**
     * 流水线
@@ -52,10 +52,10 @@ public class PipelineCodeRepositoryRelation extends BaseEntity<Long>{
     @Column(name = "auto_start", nullable = false, updatable = true)
 	private Boolean autoStart;
 
-	public Long getCodeRepository(){
+	public String getCodeRepository(){
 		return codeRepository;
 	}
-	public void setCodeRepository(Long codeRepository) {
+	public void setCodeRepository(String codeRepository) {
 		this.codeRepository = codeRepository;
 	}
 

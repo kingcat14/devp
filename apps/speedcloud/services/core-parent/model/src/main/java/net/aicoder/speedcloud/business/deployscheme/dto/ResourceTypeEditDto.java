@@ -2,6 +2,8 @@ package net.aicoder.speedcloud.business.deployscheme.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,7 +13,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author icode
  */
 @ApiModel(value = "修改部署资源类型使用的DTO")
+@Setter @Getter
 public class ResourceTypeEditDto {
+
+
+	/**资源类别*/
+	@ApiModelProperty(value = "资源类别", required = false)
+	private String category;
 
 
 	/**名称*/
@@ -28,6 +36,19 @@ public class ResourceTypeEditDto {
 	@ApiModelProperty(value = "图标", required = false)
 	private String icon;
 
+
+	/**排序*/
+	@ApiModelProperty(value = "排序", required = false)
+	private Integer idx;
+
+
+
+	public String getCategory(){
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
 
 	public String getName(){
@@ -51,6 +72,14 @@ public class ResourceTypeEditDto {
 	}
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+
+	public Integer getIdx(){
+		return idx;
+	}
+	public void setIdx(Integer idx) {
+		this.idx = idx;
 	}
 
 

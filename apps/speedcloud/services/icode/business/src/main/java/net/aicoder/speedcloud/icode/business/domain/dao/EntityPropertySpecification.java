@@ -34,7 +34,7 @@ public class EntityPropertySpecification implements Specification<EntityProperty
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddTypePredicate(predicateList, root, cb);
 		tryAddRelatedEntityIdPredicate(predicateList, root, cb);
-		tryAddRelatedEntityPropertyCodePredicate(predicateList, root, cb);
+		tryAddRelatedEntityPropertyIdPredicate(predicateList, root, cb);
 		tryAddIdxPredicate(predicateList, root, cb);
 		tryAddMemoPredicate(predicateList, root, cb);
 		tryAddPrimaryKeyPredicate(predicateList, root, cb);
@@ -82,9 +82,9 @@ public class EntityPropertySpecification implements Specification<EntityProperty
 			predicateList.add(cb.like(root.get(EntityProperty.PROPERTY_RELATED_ENTITY_ID).as(String.class), "%"+condition.getRelatedEntityId()+"%"));
 		}
 	}
-	private void tryAddRelatedEntityPropertyCodePredicate(List<Predicate> predicateList, Root<EntityProperty> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getRelatedEntityPropertyCode())){
-			predicateList.add(cb.like(root.get(EntityProperty.PROPERTY_RELATED_ENTITY_PROPERTY_CODE).as(String.class), "%"+condition.getRelatedEntityPropertyCode()+"%"));
+	private void tryAddRelatedEntityPropertyIdPredicate(List<Predicate> predicateList, Root<EntityProperty> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getRelatedEntityPropertyId())){
+			predicateList.add(cb.like(root.get(EntityProperty.PROPERTY_RELATED_ENTITY_PROPERTY_CODE).as(String.class), "%"+condition.getRelatedEntityPropertyId()+"%"));
 		}
 	}
 	private void tryAddIdxPredicate(List<Predicate> predicateList, Root<EntityProperty> root, CriteriaBuilder cb){

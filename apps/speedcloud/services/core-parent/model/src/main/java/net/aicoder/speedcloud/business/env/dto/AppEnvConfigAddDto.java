@@ -2,20 +2,27 @@ package net.aicoder.speedcloud.business.env.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 应用环境
+ * 产品环境
  * @author icode
  */
-@ApiModel(value = "新增应用环境使用的DTO")
+@ApiModel(value = "新增产品环境使用的DTO")
+@Setter @Getter
 public class AppEnvConfigAddDto {
 
     /**租户id*/
 	@ApiModelProperty(value = "租户id", required = false)
 	private Long tid;
+
+    /**所属产品（项目）*/
+	@ApiModelProperty(value = "所属产品（项目）", required = false)
+	private String project;
 
     /**环境名称*/
 	@ApiModelProperty(value = "环境名称", required = false)
@@ -24,10 +31,6 @@ public class AppEnvConfigAddDto {
     /**环境级别*/
 	@ApiModelProperty(value = "环境级别", required = false)
 	private String level;
-
-    /**所属项目（产品）*/
-	@ApiModelProperty(value = "所属项目（产品）", required = false)
-	private String project;
 
     /**顺序号*/
 	@ApiModelProperty(value = "顺序号", required = false)
@@ -41,6 +44,13 @@ public class AppEnvConfigAddDto {
 		this.tid = tid;
 	}
 
+	public String getProject(){
+        return project;
+    }
+    public void setProject(String project) {
+        this.project = project;
+    }
+
 	public String getName(){
 		return name;
 	}
@@ -49,17 +59,10 @@ public class AppEnvConfigAddDto {
 	}
 
 	public String getLevel(){
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-	public String getProject(){
-        return project;
+        return level;
     }
-    public void setProject(String project) {
-        this.project = project;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
 	public Integer getSeq(){

@@ -8,7 +8,7 @@ Ext.define('AM.view.speedcloud.project.ProjectMainPanel', {
 	,layout: {
 		type: 'border'
 	}
-    ,title: '项目'
+    ,title: '产品（项目）'
 	,store:null
 	,controller: 'project_ProjectController'
     ,initComponent: function() {

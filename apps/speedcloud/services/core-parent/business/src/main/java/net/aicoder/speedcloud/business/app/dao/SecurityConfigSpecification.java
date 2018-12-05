@@ -41,14 +41,13 @@ public class SecurityConfigSpecification implements Specification<SecurityConfig
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<SecurityConfig> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(SecurityConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(SecurityConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddAppPredicate(List<Predicate> predicateList, Root<SecurityConfig> root, CriteriaBuilder cb){
 	    if (null != condition.getApp() ) {
-            predicateList.add(cb.equal(root.get(SecurityConfig.PROPERTY_APP).as(Long.class), condition.getApp()));
+            predicateList.add(cb.equal(root.get(SecurityConfig.PROPERTY_APP).as(String.class), condition.getApp()));
         }
 	}
 	private void tryAddItemNamePredicate(List<Predicate> predicateList, Root<SecurityConfig> root, CriteriaBuilder cb){

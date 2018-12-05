@@ -3,34 +3,35 @@ package net.aicoder.speedcloud.business.app.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 
 
 /**
- * 代码库详细信息
+ * 代码基本信息
  * @author icode
  */
-@Entity
-@Table(appliesTo = "code_base_info", comment = "[代码库详细信息]")
+@Entity()
+@Table(name = "app_code_base_info")
 //@DynamicUpdate
 //@DynamicInsert
-public class CodeBaseInfo extends BaseEntity<Long>{
+//@Where(clause="delete=0")
+public class CodeBaseInfo extends BaseEntity<String>{
 
 	public static final String PROPERTY_TID = "tid";
-	public static final String PROPERTY_CODE_REPERTORY = "codeRepository";
+	public static final String PROPERTY_CODE_REPOSITORY = "codeRepository";
 	public static final String PROPERTY_LANGUAGE = "language";
 	public static final String PROPERTY_LANGUAGE_LEVEL = "languageLevel";
 
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id", length = 32)
+    private String id;
 
 
     /**
@@ -45,7 +46,8 @@ public class CodeBaseInfo extends BaseEntity<Long>{
     *  
     */
     @Column(name = "code_repository", nullable = true, updatable = true)
-	private Long codeRepository;
+	@Size(max = 255, message = "代码库超长，最多255个字符")
+	private String codeRepository;
 
     /**
     * 开发语言
@@ -70,10 +72,10 @@ public class CodeBaseInfo extends BaseEntity<Long>{
 		this.tid = tid;
 	}
 
-	public Long getCodeRepository() {
+	public String getCodeRepository(){
 		return codeRepository;
 	}
-	public void setCodeRepository(Long codeRepository) {
+	public void setCodeRepository(String codeRepository) {
 		this.codeRepository = codeRepository;
 	}
 
@@ -92,10 +94,10 @@ public class CodeBaseInfo extends BaseEntity<Long>{
 	}
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

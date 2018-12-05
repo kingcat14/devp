@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("codeRepositoryDao")
-public interface CodeRepositoryDao extends BaseDao<CodeRepository, Long>{
+public interface CodeRepositoryDao extends BaseDao<CodeRepository, String>{
 
+    CodeRepository findByApp(String app);
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("machineDao")
-public interface MachineDao extends BaseDao<Machine, Long>{
+public interface MachineDao extends BaseDao<Machine, String>{
 
 
 }

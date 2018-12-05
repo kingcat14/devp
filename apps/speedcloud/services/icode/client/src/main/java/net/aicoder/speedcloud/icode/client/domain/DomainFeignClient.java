@@ -1,6 +1,5 @@
 package net.aicoder.speedcloud.icode.client.domain;
 
-import com.yunkang.saas.bootstrap.config.client.feign.OAuth2FeignAutoConfiguration;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.controller.RestResponse;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
  * 领域客户端
  * @author icode
  */
-@FeignClient(name = "SPEEDCLOUD-ICODE-MICROSERVICE", path = "/icode/domain/domain", decode404 = true, configuration = {OAuth2FeignAutoConfiguration.class})
+@FeignClient(name = "SPEEDCLOUD-ICODE-MICROSERVICE", path = "/icode/domain/domain", decode404 = true)
+//@FeignClient(name = "SPEEDCLOUD-ICODE-MICROSERVICE", path = "/icode/domain/domain", decode404 = true, configuration = {OAuth2FeignAutoConfiguration.class})
 public interface DomainFeignClient {
 
-	
     /**
      * 新增领域
      * @param addDto
@@ -27,7 +26,6 @@ public interface DomainFeignClient {
      */
     @PostMapping
 	RestResponse<DomainVO> add(@RequestBody DomainAddDto addDto);
-
 
 	/**
 	 * 删除领域
@@ -53,8 +51,6 @@ public interface DomainFeignClient {
     @PutMapping("/{id}/copy")
     RestResponse<DomainVO> copy(@PathVariable("id") String id);
 
-
-
     /**
 	 * 根据ID查询领域
 	 * @param id
@@ -63,6 +59,8 @@ public interface DomainFeignClient {
     @GetMapping("/{id}")
     RestResponse<DomainVO> get(@PathVariable("id") String id);
 
+    @GetMapping("/{id}/findCodePath")
+	RestResponse<String> getCodePath(@PathVariable("id") String id);
 	/**
 	 * 查询领域列表
 	 * @param pageSearchRequest

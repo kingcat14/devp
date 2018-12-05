@@ -68,7 +68,7 @@ Ext.define('AM.model.speedcloud.deployscheme.ResourceTreeNode', {
             ,critical:true
         }
     	,{
-            name: 'evn'
+            name: 'env'
             ,type:'string'
             ,allowNull:true
             ,critical:true

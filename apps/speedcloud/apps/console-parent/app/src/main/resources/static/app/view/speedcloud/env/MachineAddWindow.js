@@ -28,7 +28,6 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -57,6 +56,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
                                     ,itemId: 'tidField'
                                     ,name: 'tid'
                                     ,fieldLabel: '租户id'
+                                    
                                 }
 
 
@@ -69,6 +69,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
+                                    
                                 }
 
 
@@ -81,6 +82,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
                                     ,itemId: 'ipAddressField'
                                     ,name: 'ipAddress'
                                     ,fieldLabel: 'IP地址'
+                                    
                                 }
 
 
@@ -94,6 +96,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
                                     ,itemId: 'portField'
                                     ,name: 'port'
                                     ,fieldLabel: '端口'
+                                    
                                 }
 
                             ]
@@ -148,7 +151,7 @@ Ext.define('AM.view.speedcloud.env.MachineAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存服务器成功!');
+                Ext.MsgUtil.notification('操作成功', '保存服务器成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

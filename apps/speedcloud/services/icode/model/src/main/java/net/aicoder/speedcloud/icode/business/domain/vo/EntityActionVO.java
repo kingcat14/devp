@@ -8,8 +8,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
-
-
 /**
 * 领域对象行为的值对象
 */
@@ -40,11 +38,12 @@ public class EntityActionVO {
 
     @ApiModelProperty(value = "行为输入对象")
     private String request;
+    private EntityActionParameterVO requestParameter;
 
 
     @ApiModelProperty(value = "行为响应对象")
     private String response;
-
+    private EntityActionParameterVO responseParameter;
 
     /**所属领域对象*/
     @ApiModelProperty(value = "所属领域对象")
@@ -54,8 +53,6 @@ public class EntityActionVO {
 
     @ApiModelProperty(value = "行为类型", notes = "备用字段,将来用于标识 增、删、改、查、业务 等行为")
     private String type;
-
-
 
 
     @Override

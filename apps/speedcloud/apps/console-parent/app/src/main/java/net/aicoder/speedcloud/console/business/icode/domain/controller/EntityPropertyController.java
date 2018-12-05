@@ -166,7 +166,7 @@ public class EntityPropertyController {
             headMap.put("name" ,"名称");
             headMap.put("type" ,"类型");
             headMap.put("relatedEntityId" ,"引用对象");
-            headMap.put("relatedEntityPropertyCode" ,"引用对象属性代码");
+            headMap.put("relatedEntityPropertyId" ,"引用对象属性代码");
             headMap.put("idx" ,"排序");
             headMap.put("memo" ,"备注");
             headMap.put("primaryKey" ,"是否主键");

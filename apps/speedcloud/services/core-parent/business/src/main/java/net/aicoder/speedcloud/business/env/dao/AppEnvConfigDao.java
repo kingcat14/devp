@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 应用环境的数据库操作
+ * 产品环境的数据库操作
  * @author icode
  */
 @Repository("appEnvConfigDao")
-public interface AppEnvConfigDao extends BaseDao<AppEnvConfig, Long>{
+public interface AppEnvConfigDao extends BaseDao<AppEnvConfig, String>{
 
 
 }

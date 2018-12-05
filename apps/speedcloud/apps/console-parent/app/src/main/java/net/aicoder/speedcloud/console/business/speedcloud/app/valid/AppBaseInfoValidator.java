@@ -34,7 +34,7 @@ public class AppBaseInfoValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param appBaseInfo 应用
+     * @param appBaseInfo 应用（系统）
      * @param errors
      */
 	public void validateAddDto(AppBaseInfoAddDto appBaseInfo, Errors errors) {
@@ -42,19 +42,19 @@ public class AppBaseInfoValidator implements Validator {
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
-		if (null == appBaseInfo.getTid() ) {
-			errors.rejectValue("tid", "EMPTY_TID", "租户id不能为空");
-		}
-		if (null == appBaseInfo.getProject() ) {
-			errors.rejectValue("project", "EMPTY_PROJECT", "所属项目不能为空");
-		}
 
 		//验证长度
-		if(StringUtils.length(appBaseInfo.getName()) > 255){
-			errors.rejectValue("name", null, "名称最长255个字符");
+		if(StringUtils.length(appBaseInfo.getProject()) > 255){
+			errors.rejectValue("project", null, "所属项目最长255个字符");
 		}
 		if(StringUtils.length(appBaseInfo.getType()) > 255){
 			errors.rejectValue("type", null, "应用类型最长255个字符");
+		}
+		if(StringUtils.length(appBaseInfo.getName()) > 255){
+			errors.rejectValue("name", null, "名称最长255个字符");
+		}
+		if(StringUtils.length(appBaseInfo.getCode()) > 255){
+			errors.rejectValue("code", null, "代码最长255个字符");
 		}
 		if(StringUtils.length(appBaseInfo.getStatus()) > 255){
 			errors.rejectValue("status", null, "状态最长255个字符");

@@ -45,7 +45,7 @@ Ext.define('AM.view.speedcloud.project.ProjectController', {
                         if(!success)
                         	Ext.Msg.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
                         else
-                        	Ext.MsgUtil.show('操作成功','删除项目成功!');
+                        	Ext.MsgUtil.show('操作成功','删除产品（项目）成功!');
                     }
                 });
             }

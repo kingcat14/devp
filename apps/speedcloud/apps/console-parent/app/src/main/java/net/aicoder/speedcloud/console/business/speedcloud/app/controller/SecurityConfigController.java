@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.speedcloud.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -39,16 +39,12 @@ import java.util.*;
 public class SecurityConfigController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfigController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
-
-	@Autowired
+   
+    @Autowired
 	private SecurityConfigRibbonService securityConfigRibbonService;
 
 	@Autowired
-	SecurityConfigValidator securityConfigValidator;
+	private SecurityConfigValidator securityConfigValidator;
 
 
     @InitBinder
@@ -65,8 +61,9 @@ public class SecurityConfigController {
 	@ApiOperation(value = "新增", notes = "新增应用私密配置", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
-	@SaaSAnnotation
-	public SecurityConfigVO add(@RequestBody SecurityConfigAddDto securityConfigAddDto){
+  	@SaaSAnnotation()
+	public SecurityConfigVO add(@RequestBody @Valid SecurityConfigAddDto securityConfigAddDto){
+	
 		return  securityConfigRibbonService.add(securityConfigAddDto);
 	}
 
@@ -75,14 +72,14 @@ public class SecurityConfigController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除应用私密配置", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete securityConfig :{}", idArray);
 
 		String[] ids = idArray.split(",");
-		for (String id : ids ){
-			securityConfigRibbonService.delete(Long.parseLong(id));
+      	for (String id : ids ){
+			securityConfigRibbonService.delete(id);
 		}
 
 	}
@@ -94,8 +91,8 @@ public class SecurityConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "修改", notes = "修改产应用私密配置(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
-	public SecurityConfigVO update(@RequestBody SecurityConfigEditDto securityConfigEditDto, @ApiParam(value = "要查询的应用私密配置id") @PathVariable Long id){
+	@PutMapping(path="/{id}")
+	public SecurityConfigVO update(@RequestBody @Valid SecurityConfigEditDto securityConfigEditDto, @ApiParam(value = "要查询的应用私密配置id") @PathVariable String id){
 
 		SecurityConfigVO vo = securityConfigRibbonService.merge(id, securityConfigEditDto);
 
@@ -108,8 +105,8 @@ public class SecurityConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据ID查询应用私密配置", httpMethod = "GET")
-	@GetMapping(value="/{id}")
-	public SecurityConfigVO get(@ApiParam(value = "要查询的应用私密配置id") @PathVariable Long id) {
+	@GetMapping(path="/{id}")
+	public SecurityConfigVO get(@ApiParam(value = "要查询的应用私密配置id") @PathVariable String id) {
 
 		SecurityConfigVO vo = securityConfigRibbonService.find(id);
 		return vo;
@@ -121,8 +118,9 @@ public class SecurityConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用私密配置列表", httpMethod = "POST")
-	@PostMapping("/list") @SaaSAnnotation(conditionClass = SecurityConfigCondition.class)
-	public PageContent<SecurityConfigVO> list(@RequestBody PageSearchRequest<SecurityConfigCondition> pageSearchRequest){
+	@PostMapping(path="/list")
+  	@SaaSAnnotation(conditionClass = SecurityConfigCondition.class)
+	public PageContent<SecurityConfigVO> list(@RequestBody @Valid PageSearchRequest<SecurityConfigCondition> pageSearchRequest){
 
 		PageContent<SecurityConfigVO> pageContent = securityConfigRibbonService.list(pageSearchRequest);
 		for(SecurityConfigVO vo : pageContent.getContent()){
@@ -140,7 +138,7 @@ public class SecurityConfigController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出应用私密配置列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(SecurityConfigCondition condition, HttpServletResponse response) throws UnsupportedEncodingException  {
 
         PageSearchRequest<SecurityConfigCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -176,13 +174,9 @@ public class SecurityConfigController {
 
 	private SecurityConfigVO initViewProperty( SecurityConfigVO vo){
 
-	   
-
 
 	   
         return vo;
 
 	}
-
-
 }

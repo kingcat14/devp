@@ -86,37 +86,31 @@ Ext.define('AM.view.speedcloud.env.MachineSearchWindow', {
 
                             ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'bottom',
-                    ui: 'footer',
-                    items: [
+                    xtype: 'toolbar'
+                    ,dock: 'bottom'
+                    ,ui: 'footer'
+                    ,items: [
                         {
                             xtype: 'tbfill'
                         }
 
                         ,{
-                            xtype: 'button',
-                            iconCls: 'page_white',
-                            text: '重置',
-                            listeners: {
-                                click: {
-                                    fn: me.onRestButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'page_white'
+                            ,text: '重置'
+                            ,listeners: {
+                                click: {fn: me.onRestButtonClick,scope: me}
                             }
                         }
                         ,{
-                            xtype: 'button',
-                            iconCls: 'fas fa-search',
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onSearchButtonClick,
-                                    scope: me
-                                }
+                            xtype: 'button'
+                            ,iconCls: 'search'
+                            ,text: '查询'
+                            ,listeners: {
+                                click: {fn: me.onSearchButtonClick,scope: me}
                             }
                         }
                     ]
@@ -162,8 +156,8 @@ Ext.define('AM.view.speedcloud.env.MachineSearchWindow', {
             tid:Ext.isNumber(tidField.getValue())?tidField.getValue():null
             ,tidMax:Ext.isNumber(tidMaxField.getValue())?tidMaxField.getValue():null
             ,tidMin:Ext.isNumber(tidMinField.getValue())?tidMinField.getValue():null
-            ,name:Ext.isEmpty(nameField.getValue())?null:nameField.getValue()
-            ,ipAddress:Ext.isEmpty(ipAddressField.getValue())?null:ipAddressField.getValue()
+            ,name:Ext.valueFrom(nameField.getValue(), null)
+            ,ipAddress:Ext.valueFrom(ipAddressField.getValue(), null)
             ,port:Ext.isNumber(portField.getValue())?portField.getValue():null
             ,portMax:Ext.isNumber(portMaxField.getValue())?portMaxField.getValue():null
             ,portMin:Ext.isNumber(portMinField.getValue())?portMinField.getValue():null

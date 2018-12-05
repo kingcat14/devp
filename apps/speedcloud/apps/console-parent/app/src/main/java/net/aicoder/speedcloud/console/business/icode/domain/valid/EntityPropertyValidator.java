@@ -59,8 +59,8 @@ public class EntityPropertyValidator implements Validator {
 		if(StringUtils.length(entityProperty.getRelatedEntityId()) > 255){
 			errors.rejectValue("relatedEntityId", null, "引用对象最长255个字符");
 		}
-		if(StringUtils.length(entityProperty.getRelatedEntityPropertyCode()) > 255){
-			errors.rejectValue("relatedEntityPropertyCode", null, "引用对象属性代码最长255个字符");
+		if(StringUtils.length(entityProperty.getRelatedEntityPropertyId()) > 255){
+			errors.rejectValue("relatedEntityPropertyId", null, "引用对象属性代码最长255个字符");
 		}
 		if(StringUtils.length(entityProperty.getMemo()) > 255){
 			errors.rejectValue("memo", null, "备注最长255个字符");

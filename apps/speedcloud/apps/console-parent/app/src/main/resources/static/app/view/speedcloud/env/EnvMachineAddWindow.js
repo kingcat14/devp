@@ -30,7 +30,6 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -59,6 +58,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
                                     ,itemId: 'tidField'
                                     ,name: 'tid'
                                     ,fieldLabel: '租户id'
+                                    
                                 }
 
 
@@ -76,6 +76,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
                                     ,itemId: 'evnField'
                                     ,name: 'evn'
                                     ,fieldLabel: '环境'
+                                                         
                                 }
 
 
@@ -93,6 +94,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
                                     ,itemId: 'machineField'
                                     ,name: 'machine'
                                     ,fieldLabel: '机器'
+                                                         
                                 }
 
                             ]
@@ -147,7 +149,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存环境设备关联成功!');
+                Ext.MsgUtil.notification('操作成功', '保存环境设备关联成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

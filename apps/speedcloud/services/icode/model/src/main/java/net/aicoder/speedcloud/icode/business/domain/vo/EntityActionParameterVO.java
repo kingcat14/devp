@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
+import java.util.List;
 
 
 /**
@@ -37,14 +37,19 @@ public class EntityActionParameterVO {
     @ApiModelProperty(value = "描述", notes = "")
     private String description;
 
+    /**所属领域*/
+    @ApiModelProperty(value = "所属领域, 只有在获取明细信息时才会填充这个值")
+    private String domain;
+    private DomainVO domainVO;
 
     /**领域对象行为*/
-    @ApiModelProperty(value = "领域对象行为")
+    @ApiModelProperty(value = "领域对象行为, 只有在获取明细信息时才会填充这个值")
     private String entityAction;
     private EntityActionVO entityActionVO;
 
-
-
+    /**参数包含的属性*/
+    @ApiModelProperty(value = "领域对象行为, 只有在获取明细信息时才会填充这个值")
+    private List<EntityActionParameterPropertyVO> propertyList;
 
     @Override
     public String toString() {

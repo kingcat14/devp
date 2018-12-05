@@ -3,11 +3,12 @@ package net.aicoder.speedcloud.business.env.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 
 
@@ -15,10 +16,11 @@ import javax.persistence.Id;
  * 环境设备关联
  * @author icode
  */
-@Entity
-@Table(appliesTo = "env_machine", comment = "[环境设备关联]")
+@Entity()
+@Table(name = "env_env_machine")
 //@DynamicUpdate
 //@DynamicInsert
+//@Where(clause="delete=0")
 public class EnvMachine extends BaseEntity<Long>{
 
 	public static final String PROPERTY_TID = "tid";
@@ -27,7 +29,7 @@ public class EnvMachine extends BaseEntity<Long>{
 
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length = 32)
     private Long id;
 
 
@@ -43,14 +45,16 @@ public class EnvMachine extends BaseEntity<Long>{
     * 
     */
     @Column(name = "evn", nullable = true, updatable = true)
-	private Long evn;
+	@Size(max = 255, message = "环境超长，最多255个字符")
+	private String evn;
 
     /**
     * 机器
     * 
     */
     @Column(name = "machine", nullable = true, updatable = true)
-	private Long machine;
+	@Size(max = 255, message = "机器超长，最多255个字符")
+	private String machine;
 
 	public Long getTid(){
 		return tid;
@@ -59,17 +63,17 @@ public class EnvMachine extends BaseEntity<Long>{
 		this.tid = tid;
 	}
 
-	public Long getEvn(){
+	public String getEvn(){
 		return evn;
 	}
-	public void setEvn(Long evn) {
+	public void setEvn(String evn) {
 		this.evn = evn;
 	}
 
-	public Long getMachine(){
+	public String getMachine(){
 		return machine;
 	}
-	public void setMachine(Long machine) {
+	public void setMachine(String machine) {
 		this.machine = machine;
 	}
 

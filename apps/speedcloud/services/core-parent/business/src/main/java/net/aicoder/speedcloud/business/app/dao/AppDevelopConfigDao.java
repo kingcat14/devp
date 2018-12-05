@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
  * @author icode
  */
 @Repository("appDevelopConfigDao")
-public interface AppDevelopConfigDao extends BaseDao<AppDevelopConfig, Long>{
+public interface AppDevelopConfigDao extends BaseDao<AppDevelopConfig, String>{
 
+    AppDevelopConfig findByApp(String appId);
 
 }

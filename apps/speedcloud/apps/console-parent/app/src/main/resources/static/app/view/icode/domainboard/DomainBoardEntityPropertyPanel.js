@@ -79,8 +79,6 @@ Ext.define('AM.view.icode.domainboard.DomainBoardEntityPropertyPanel', {
 			        ,store:Ext.create('AM.store.icode.domain.ReferencePropertyTypeStore', {autoLoad:false, asynchronousLoad:false/*, sorters: 'name'*/})
 			        ,value : 'String'
 		        })
-
-
             }
 			,{
 				xtype: 'checkcolumn'
@@ -206,7 +204,7 @@ Ext.define('AM.view.icode.domainboard.DomainBoardEntityPropertyPanel', {
                 xtype: 'gridcolumn'
                 ,dataIndex: 'relatedEntityPropertyId'
                 ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                    return record.get("relatedEntityPropertyName")?record.get("relatedEntityPropertyName"):'';
+                    return record.get("relatedEntityProperty")?record.get("relatedEntityProperty").name:'';
                 }
                 ,text: '展现的关联对象属性'
 

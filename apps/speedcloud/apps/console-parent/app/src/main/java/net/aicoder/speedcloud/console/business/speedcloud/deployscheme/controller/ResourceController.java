@@ -2,7 +2,6 @@ package net.aicoder.speedcloud.console.business.speedcloud.deployscheme.controll
 
 import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.application.business.annotation.SaaSAnnotation;
-import com.yunkang.saas.bootstrap.application.business.security.SaaSUtil;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -39,10 +38,6 @@ import java.util.*;
 public class ResourceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceController.class);
-
-
-	@Autowired
-	private SaaSUtil saaSUtil;
 
 	@Autowired
 	private ResourceRibbonService resourceRibbonService;
@@ -172,7 +167,7 @@ public class ResourceController {
             headMap.put("description" ,"资源描述");
             headMap.put("version" ,"版本");
             headMap.put("seq" ,"顺序号");
-            headMap.put("evn" ,"所属环境");
+            headMap.put("env" ,"所属环境");
             headMap.put("project" ,"产品编号");
             headMap.put("outerResource" ,"外部资源");
             headMap.put("scheme" ,"所属方案");

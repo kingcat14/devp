@@ -2,16 +2,29 @@ package net.aicoder.speedcloud.business.app.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 应用
+ * 应用（系统）
  * @author icode
  */
-@ApiModel(value = "修改应用使用的DTO")
+@ApiModel(value = "修改应用（系统）使用的DTO")
+@Setter @Getter
 public class AppBaseInfoEditDto {
+
+
+	/**所属项目*/
+	@ApiModelProperty(value = "所属项目", required = false)
+	private String project;
+
+
+	/**应用类型*/
+	@ApiModelProperty(value = "应用类型", required = false)
+	private String type;
 
 
 	/**名称*/
@@ -19,9 +32,9 @@ public class AppBaseInfoEditDto {
 	private String name;
 
 
-	/**应用类型*/
-	@ApiModelProperty(value = "应用类型", required = false)
-	private String type;
+	/**代码*/
+	@ApiModelProperty(value = "代码", required = false)
+	private String code;
 
 
 	/**状态*/
@@ -39,10 +52,21 @@ public class AppBaseInfoEditDto {
 	private String registTime;
 
 
-	/**所属项目*/
-	@ApiModelProperty(value = "所属项目", required = false)
-	private String project;
 
+	public String getProject(){
+        return project;
+    }
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+
+	public String getType(){
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
 
 
 	public String getName(){
@@ -53,11 +77,11 @@ public class AppBaseInfoEditDto {
 	}
 
 
-	public String getType(){
-		return type;
+	public String getCode(){
+		return code;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 
@@ -83,14 +107,6 @@ public class AppBaseInfoEditDto {
 	public void setRegistTime(String registTime) {
 		this.registTime = registTime;
 	}
-
-
-	public String getProject(){
-        return project;
-    }
-    public void setProject(String project) {
-        this.project = project;
-    }
 
 
 	@Override

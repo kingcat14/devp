@@ -28,7 +28,6 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -56,6 +55,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryAddWindow', {
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
+                                    
                                 }
 
 
@@ -68,6 +68,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryAddWindow', {
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '代码'
+                                    
                                 }
 
 
@@ -80,6 +81,21 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryAddWindow', {
                                     ,itemId: 'iconField'
                                     ,name: 'icon'
                                     ,fieldLabel: '图标'
+                                    
+                                }
+
+
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'idxField'
+                                    ,name: 'idx'
+                                    ,fieldLabel: '排序'
+                                    
                                 }
 
                             ]
@@ -134,7 +150,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceCategoryAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存部署资源类别成功!');
+                Ext.MsgUtil.notification('操作成功', '保存部署资源类别成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

@@ -33,13 +33,16 @@ public class ResourceCategoryValidator implements Validator {
             this.validateResourceCategoryAddDto((ResourceCategoryAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<ResourceCategoryCondition> search){
+    public void validateSearchDto(PageSearchRequest<ResourceCategoryCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new ResourceCategoryCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 

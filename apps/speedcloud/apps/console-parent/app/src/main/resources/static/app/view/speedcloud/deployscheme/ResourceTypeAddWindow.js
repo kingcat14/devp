@@ -3,6 +3,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
     ,xtype: 'speedcloud.deployscheme.ResourceTypeAddWindow'
     ,requires:[
         'AM.store.common.SimpleConfigStore'
+        ,'AM.store.speedcloud.deployscheme.ResourceCategoryStore'
 
     ]
     ,autoScroll: true
@@ -28,7 +29,6 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -48,6 +48,24 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
                             ,items:[
 
                                 ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'categoryField'
+                                    ,name: 'category'
+                                    ,fieldLabel: '资源类别'
+                                                         
+                                }
+
+
+                                ,{
                                     xtype: 'textfield'
                                     ,hidden: false
                                     ,readOnly:false
@@ -56,6 +74,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
                                     ,itemId: 'nameField'
                                     ,name: 'name'
                                     ,fieldLabel: '名称'
+                                    
                                 }
 
 
@@ -68,6 +87,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
                                     ,itemId: 'codeField'
                                     ,name: 'code'
                                     ,fieldLabel: '代码'
+                                    
                                 }
 
 
@@ -80,6 +100,21 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
                                     ,itemId: 'iconField'
                                     ,name: 'icon'
                                     ,fieldLabel: '图标'
+                                    
+                                }
+
+
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'idxField'
+                                    ,name: 'idx'
+                                    ,fieldLabel: '排序'
+                                    
                                 }
 
                             ]
@@ -134,7 +169,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存部署资源类型成功!');
+                Ext.MsgUtil.notification('操作成功', '保存部署资源类型成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -152,6 +187,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeAddWindow', {
 
     }
     ,onBeforeShow:function() {
+        this.down('#categoryField').getStore().reload();
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

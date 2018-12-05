@@ -29,9 +29,9 @@ public class AppEnvConfigSpecification implements Specification<AppEnvConfig>{
 		}
 
 		tryAddTidPredicate(predicateList, root, cb);
+		tryAddProjectPredicate(predicateList, root, cb);
 		tryAddNamePredicate(predicateList, root, cb);
 		tryAddLevelPredicate(predicateList, root, cb);
-		tryAddProjectPredicate(predicateList, root, cb);
 		tryAddSeqPredicate(predicateList, root, cb);
 
 
@@ -42,10 +42,14 @@ public class AppEnvConfigSpecification implements Specification<AppEnvConfig>{
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
+	}
+	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
+	    if (null != condition.getProject() ) {
+            predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_PROJECT).as(String.class), condition.getProject()));
+        }
 	}
 	private void tryAddNamePredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getName())){
@@ -53,13 +57,8 @@ public class AppEnvConfigSpecification implements Specification<AppEnvConfig>{
 		}
 	}
 	private void tryAddLevelPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
-		if(StringUtils.isNotEmpty(condition.getLevel())){
-			predicateList.add(cb.like(root.get(AppEnvConfig.PROPERTY_LEVEL).as(String.class), "%"+condition.getLevel()+"%"));
-		}
-	}
-	private void tryAddProjectPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){
-	    if (null != condition.getProject() ) {
-            predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_PROJECT).as(Long.class), condition.getProject()));
+	    if (null != condition.getLevel() ) {
+            predicateList.add(cb.equal(root.get(AppEnvConfig.PROPERTY_LEVEL).as(String.class), condition.getLevel()));
         }
 	}
 	private void tryAddSeqPredicate(List<Predicate> predicateList, Root<AppEnvConfig> root, CriteriaBuilder cb){

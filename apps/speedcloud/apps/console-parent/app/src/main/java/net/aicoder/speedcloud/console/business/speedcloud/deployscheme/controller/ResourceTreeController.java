@@ -51,19 +51,40 @@ public class ResourceTreeController {
 
 		HashMap<String, ResourceTreeNode> nodeMap = new HashMap<>();
 
+		List<ResourceTreeNode> categoryNodeList = new ArrayList<>();
+        ResourceTreeNode componentNode = new ResourceTreeNode();
+        componentNode.setIconCls("fas fa-leaf green");
+        componentNode.setId(IDGenerator.uuid());
+        componentNode.setName("系统应用");
+        categoryNodeList.add(componentNode);
+
+        ResourceTreeNode otherNode = new ResourceTreeNode();
+        otherNode.setId(IDGenerator.uuid());
+        otherNode.setName("其他");
+        categoryNodeList.add(otherNode);
+
 		List<ResourceTreeNode> topNodeList = new ArrayList<>();
 
 		//得到所有类别
-		List<ResourceVO> assetTypeList = getResourceList(schemeId);
+		List<ResourceVO> resourceList = getResourceList(schemeId);
 
 		//转换成节点
-		for(ResourceVO assetType : assetTypeList){
+		for(ResourceVO resourceVO : resourceList){
             ResourceTreeNode node = new ResourceTreeNode();
-			BeanUtils.copyProperties(assetType, node);
-            node.setId(assetType.getId()+"");
+			BeanUtils.copyProperties(resourceVO, node);
+            node.setId(resourceVO.getId()+"");
             node.setLeaf(true);
-            node.setObjId(assetType.getId()+"");
+            node.setObjId(resourceVO.getId()+"");
             nodeMap.put(node.getId(), node);
+            if(StringUtils.equals("COMPONENT", resourceVO.getCategory())){
+                node.setIconCls("fas fa-leaf green");
+                componentNode.addChild(node);
+            }else{
+                otherNode.addChild(node);
+            }
+            if(StringUtils.equals("DATABASE", resourceVO.getCategory())){
+                node.setIconCls("fas fa-database yellow");
+            }
 
             topNodeList.add(node);
 		}
@@ -109,8 +130,8 @@ public class ResourceTreeController {
 
         }
 
-
-		return topNodeList;
+        return categoryNodeList;
+//		return topNodeList;
 	}
 
 	private List<ResourceVO> getResourceList(Long schemeId){

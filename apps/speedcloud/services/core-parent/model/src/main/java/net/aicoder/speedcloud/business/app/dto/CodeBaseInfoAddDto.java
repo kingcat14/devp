@@ -9,12 +9,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
- * 代码库详细信息
+ * 代码基本信息
  * @author icode
  */
-@ApiModel(value = "新增代码库详细信息使用的DTO")
-@Getter
-@Setter
+@ApiModel(value = "新增代码基本信息使用的DTO")
+@Setter @Getter
 public class CodeBaseInfoAddDto {
 
     /**租户id*/
@@ -23,7 +22,7 @@ public class CodeBaseInfoAddDto {
 
     /**代码库*/
 	@ApiModelProperty(value = "代码库", required = false, notes = " ")
-	private Long codeRepository;
+	private String codeRepository;
 
     /**开发语言*/
 	@ApiModelProperty(value = "开发语言", required = false)
@@ -32,6 +31,35 @@ public class CodeBaseInfoAddDto {
     /**语言级别*/
 	@ApiModelProperty(value = "语言级别", required = false)
 	private String languageLevel;
+
+
+	public Long getTid(){
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+
+	public String getCodeRepository(){
+        return codeRepository;
+    }
+    public void setCodeRepository(String codeRepository) {
+        this.codeRepository = codeRepository;
+    }
+
+	public String getLanguage(){
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getLanguageLevel(){
+		return languageLevel;
+	}
+	public void setLanguageLevel(String languageLevel) {
+		this.languageLevel = languageLevel;
+	}
 
 
 	@Override

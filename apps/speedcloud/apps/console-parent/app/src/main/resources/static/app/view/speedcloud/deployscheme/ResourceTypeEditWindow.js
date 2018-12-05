@@ -2,17 +2,20 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.deployscheme.ResourceTypeEditWindow'
     ,requires:[
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+        'AM.store.speedcloud.deployscheme.ResourceCategoryStore'
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改部署资源类型信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改部署资源类型信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -21,7 +24,12 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -45,6 +53,21 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
                             }
                             ,defaults:{width:'100%'}
                             ,items:[
+                                ,{
+                                    xtype: 'combobox'
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore")
+                                    ,typeAhead:false
+                                    ,editable:false
+                                    ,displayField:'name'
+                                    ,valueField:'id'
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'categoryField'
+                                    ,name: 'category'
+                                    ,fieldLabel: '资源类别'
+                                }
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
@@ -74,6 +97,17 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
                                     ,itemId: 'iconField'
                                     ,name: 'icon'
                                     ,fieldLabel: '图标'
+                                }
+                                ,{
+                                    xtype: 'numberfield'
+                                    ,allowDecimals:false
+                                    ,hidden: false
+                                    ,readOnly:false
+                                    ,allowBlank:true
+                                    ,afterLabelTextTpl: []
+                                    ,itemId: 'idxField'
+                                    ,name: 'idx'
+                                    ,fieldLabel: '排序'
                                 }
                             ]
 
@@ -128,7 +162,7 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存部署资源类型成功!');
+                Ext.MsgUtil.notification('操作成功', '保存部署资源类型成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -137,9 +171,9 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
@@ -151,9 +185,8 @@ Ext.define('AM.view.speedcloud.deployscheme.ResourceTypeEditWindow', {
 
     }
     ,onBeforeShow:function() {
-       
-       
-       
+        this.down('#categoryField').getStore().reload();
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

@@ -12,7 +12,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
     ,layout: {
         type: 'vbox'
     }
-    ,title: '添加新代码库详细信息'
+    ,title: '添加新代码基本信息'
     ,maximizable: true
     ,closeAction: 'hide'
     ,initComponent: function () {
@@ -29,7 +29,6 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
                         labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
-                        ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
@@ -62,6 +61,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
                                     ,itemId: 'codeRepositoryField'
                                     ,name: 'codeRepository'
                                     ,fieldLabel: '代码库'
+                                                         
                                 }
 
 
@@ -74,6 +74,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
                                     ,itemId: 'languageField'
                                     ,name: 'language'
                                     ,fieldLabel: '开发语言'
+                                    
                                 }
 
 
@@ -86,6 +87,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
                                     ,itemId: 'languageLevelField'
                                     ,name: 'languageLevel'
                                     ,fieldLabel: '语言级别'
+                                    
                                 }
 
                             ]
@@ -140,7 +142,7 @@ Ext.define('AM.view.speedcloud.app.CodeBaseInfoAddWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存代码库详细信息成功!');
+                Ext.MsgUtil.notification('操作成功', '保存代码基本信息成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);

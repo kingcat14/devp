@@ -111,11 +111,11 @@ Ext.define('AM.view.icode.tplfileboard.TplFileBoardTplCodePanel', {
 							            ,typeAhead:false
 							            ,editable:false
 							            ,displayField:'name'
-							            ,valueField:'id'
+							            ,valueField:'code'
 							            ,allowBlank:false
 							            ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
 							            ,itemId: 'acceptModelTypeField'
-							            ,name: 'acceptModelTypeId'
+							            ,name: 'acceptModelType'
 							            ,fieldLabel: '接收模型类型'
 						            }
 						            ,{
@@ -183,8 +183,6 @@ Ext.define('AM.view.icode.tplfileboard.TplFileBoardTplCodePanel', {
             Ext.MessageBox.alert('提交失败', '请检查数据项');
             return;
         }
-
-        var id = this.down("#idField").getValue();
 
         var record = this.down('form').getForm().getRecord();
 

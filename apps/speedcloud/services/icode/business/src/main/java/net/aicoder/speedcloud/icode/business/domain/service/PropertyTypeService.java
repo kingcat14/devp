@@ -58,6 +58,7 @@ public class PropertyTypeService  extends GenericCrudService<PropertyType, Strin
 
 //		Module module  = moduleService.find(domainModel.getModuleId());
 		vo.setName(domainService.findNamePath(entity.getDomain())+"."+entity.getName());
+		vo.setFullName(domainService.findNamePath(entity.getDomain())+"."+entity.getName());
 		vo.setId(entity.getId());
 		vo.setCode(entity.getId());
 		//初始化其他对象

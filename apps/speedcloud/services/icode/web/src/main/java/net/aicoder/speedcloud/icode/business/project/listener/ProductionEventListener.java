@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yunkang.saas.bootstrap.jms.message.TenantMessage;
 import lombok.extern.slf4j.Slf4j;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
+import net.aicoder.speedcloud.icode.business.platformmapping.domain.ProductMapping;
+import net.aicoder.speedcloud.icode.business.platformmapping.service.ProductMappingService;
 import net.aicoder.speedcloud.icode.business.project.domain.Product;
 import net.aicoder.speedcloud.icode.business.project.service.ProductService;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +37,9 @@ public class ProductionEventListener {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ProductMappingService productMappingService;
+
 
     @JmsListener(destination="Consumer.${spring.application.name}.VirtualTopic.#{T(net.aicoder.speedcloud.business.project.event.ProjectEventTopic).UPDATE.getTopic()}", containerFactory = "queueListenerFactory")
     public void listenProjectCreate(String json){
@@ -45,14 +50,31 @@ public class ProductionEventListener {
 
             ProjectVO projectVO = tenantMessage.getMessage();
 
-            Product product = new Product();
-            product.setDescription(projectVO.getDescription());
-            product.setProductCode(StringUtils.trimToEmpty(projectVO.getCode()));
-            product.setProductName(projectVO.getName());
-            product.setTid(tenantMessage.getTid());
-            product.setId(projectVO.getId()+"");
 
-            productService.merge(product);
+
+            ProductMapping mapping = productMappingService.findByPlatformProductId(projectVO.getId());
+            if(mapping == null){
+
+                //没有映射关系，就先创建一个产品
+                Product product = new Product();
+                product.setDescription(projectVO.getDescription());
+                product.setProductCode(StringUtils.trimToEmpty(projectVO.getCode()));
+                product.setProductName(projectVO.getName());
+                product.setTid(tenantMessage.getTid());
+                product.setId(projectVO.getId()+"");
+                product.setDisabled(false);
+
+                productService.merge(product);
+
+                mapping = new ProductMapping();
+                mapping.setId(projectVO.getId());
+                mapping.setPlatformProductId(projectVO.getId());
+                mapping.setProduct(product.getId());
+
+            }
+
+            mapping.setPlatformProductName(projectVO.getName());
+            productMappingService.merge(mapping);
 
         } catch (IOException e) {
             log.error(e.getMessage(), e);

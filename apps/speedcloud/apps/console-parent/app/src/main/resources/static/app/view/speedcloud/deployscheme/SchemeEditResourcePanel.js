@@ -13,12 +13,23 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditResourcePanel', {
     // ,width: '60%'
     ,layout: {type: 'vbox'}
     ,title: '资源信息'
-    ,viewModel:{
-        data:{
-            phantom:true
-        }
-    }
+
     ,referenceHolder:true
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel:{
+                data:{
+                    phantom:true
+                }
+                ,stores:{
+                    resourceTypeStore: Ext.create("AM.store.speedcloud.deployscheme.ResourceTypeStore").load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function () {
         var me = this;
 
@@ -79,7 +90,8 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditResourcePanel', {
 
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore").load()
+                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore", {pageSize:0}).load()
+                                    // ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceCategoryStore").load()
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
@@ -91,10 +103,16 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditResourcePanel', {
                                     ,itemId: 'categoryField'
                                     ,name: 'category'
                                     ,fieldLabel: '资源类别'
+                                    ,listeners:{
+                                        change:function(store, newValue){
+                                            me.down('#typeField').setValue(null)
+                                            me.getViewModel().getStore('resourceTypeStore').applyCondition({category:newValue}).load()
+                                        }
+                                    }
                                 }
                                 ,{
                                     xtype: 'combobox'
-                                    ,store: Ext.create("AM.store.speedcloud.deployscheme.ResourceTypeStore").load()
+                                    ,bind:{store:'{resourceTypeStore}'}
                                     ,typeAhead:false
                                     ,editable:false
                                     ,displayField:'name'
@@ -106,6 +124,18 @@ Ext.define('AM.view.speedcloud.deployscheme.SchemeEditResourcePanel', {
                                     ,itemId: 'typeField'
                                     ,name: 'type'
                                     ,fieldLabel: '资源类型'
+                                    ,listeners:{
+                                        change:function(combo, newValue){
+
+                                            if(newValue){
+                                                var type = combo.getStore().getById(newValue);
+                                                me.down('#codeField').setValue(type.get('code'))
+                                                me.down('#nameField').setValue(type.get('name'))
+                                            }
+
+
+                                        }
+                                    }
                                 }
                                 ,{
                                     xtype: 'textfield'

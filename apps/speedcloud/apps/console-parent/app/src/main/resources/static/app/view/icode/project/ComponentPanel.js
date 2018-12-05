@@ -153,8 +153,14 @@ Ext.define('AM.view.icode.project.ComponentPanel', {
 
                                     var tplFileTreePanel = me.lookupReference('tplFileTreePanel').expand();
                                     tplFileTreePanel.setTitle("【"+record.get('name')+"】代码模板");
+                                    if(!record.get('tplSet')){
+                                        Ext.toast({width:200, title:'未设置代码模板',html:'请点击修改按钮设置代码模板'})
 
+                                        tplFileTreePanel.setTitle("可选代码模板");
+                                        return
+                                    }
                                     var tplSet = Ext.valueFrom(record.get('tplSet'), -999);
+
 
                                     var tplFileTreeStore = me.getViewModel().getStore('tplFileTreeStore');
                                     tplFileTreeStore.getRoot().set('id', tplSet);

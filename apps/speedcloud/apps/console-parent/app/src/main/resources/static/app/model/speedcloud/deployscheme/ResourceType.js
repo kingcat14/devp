@@ -27,6 +27,12 @@ Ext.define('AM.model.speedcloud.deployscheme.ResourceType', {
             ,critical:true
         }
     	,{
+            name: 'category'
+            ,type:'string'
+            ,allowNull:false
+            ,critical:true
+        }
+    	,{
             name: 'name'
             ,type:'string'
             ,allowNull:false
@@ -42,6 +48,12 @@ Ext.define('AM.model.speedcloud.deployscheme.ResourceType', {
             name: 'icon'
             ,type:'string'
             ,allowNull:true
+            ,critical:true
+        }
+    	,{
+            name: 'idx'
+            ,type:'int'
+            ,allowNull:false
             ,critical:true
         }
     ]

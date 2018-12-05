@@ -1,97 +1,96 @@
 Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.app.AppBaseInfoPanel'
-    , title: '应用'
+    , alias: 'widget.speedcloud.app.AppBaseInfoPanel'
+    , title: '应用（系统）'
+    , bodyCls: 'app-dashboard'
+    , bodyPadding: '5'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.app.AppBaseInfoController'
         ,'AM.store.speedcloud.app.AppBaseInfoStore'
-        ,'AM.view.speedcloud.app.AppBaseInfoAddWindow'
-        ,'AM.view.speedcloud.app.AppBaseInfoEditWindow'
-        ,'AM.view.speedcloud.app.AppBaseInfoSearchWindow'
-        ,'AM.view.speedcloud.app.AppBaseInfoDetailWindow'
+        ,'AM.store.speedcloud.project.ProjectStore'
+        ,'AM.view.speedcloud.app.AppBaseInfoEditPanel'
+        ,'AM.view.speedcloud.app.CodeRepositoryEditPanel'
+        ,'AM.view.speedcloud.app.AppDevelopConfigEditPanel'
     ]
     ,controller: 'speedcloud.app.AppBaseInfoController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.speedcloud.app.AppBaseInfoStore', {autoLoad:true, pageSize:100}).applyCondition({project:-999})
+                    ,projectStore:Ext.create('AM.store.speedcloud.project.ProjectStore', {autoLoad:true, pageSize:100}).load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
+                    xtype: 'toolbar'
+                    ,region:'north'
+                    ,height:50
+                    ,split: true
+                    ,items:[
+                        {
+                            xtype: 'combobox'
+                            ,hideLabel: false
+                            ,fieldLabel: '当前产品'
+                            ,labelAlign:'right'
+                            ,bind:{store:'{projectStore}'}
+
+                            // }
+                            // ,store:Ext.create('AM.store.speedcloud.project.ProjectStore', {autoLoad:true}).load()
+                            ,displayField: 'name'
+                            ,valueField:'id'
+                            ,triggerAction: 'all'
+                            ,selectOnFocus: true
+                            ,forceSelection: true
+                            ,editable:false
+                            ,indent: true
+                            ,allowBlank: false
+                            ,allowEmpty: false
+                            ,reference:'currentProject'
+                            ,listeners:{
+                                change:'productChange'
+                            }
+                        }
+                        ,'<--请选择产品'
+                    ]
+                }
+                ,{
                     xtype: 'grid'
-                    ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.app.AppBaseInfoStore').load()
+                    ,region:'west'
+                    ,width: 300
+                    ,frame: true
+                    ,split: true
+                    , collapsible: true
+                    , title: '应用列表'
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
                         {
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:35
-                            ,items: [{
-                                iconCls: 'x-fa fa-eye'
-                                ,tooltip: '详情'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.showDetailWindow(record, this);
-                                }
-                            }]
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'type'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("typeVO")?record.get("typeVO").name:'';
+                            }
+                            ,text: '类型'
+                            ,flex: 1
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '名称'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'type'
-                            ,text: '应用类型'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'status'
-                            ,text: '状态'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'registTime'
-                            ,text: '注册时间'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'project'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectVO")?record.get("projectVO").name:'';
-                            }
-                            ,text: '所属项目'
-                            ,flex:1
-                        }
-                        ,{
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:30
-                            ,items: [{
-                                iconCls: 'fas fa-pencil-alt'
-                                ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.getController().onEditButtonClick();
-                                }
-                            }]
+                            ,flex: 1
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -100,7 +99,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
                             ,items: [{
                                 iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -109,9 +108,6 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
                             }]
                         }
                     ]
-                    ,viewConfig: {
-
-                    }
                     ,dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -125,86 +121,58 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
                                         click: 'onAddButtonClick'
                                     }
                                 }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-pencil-alt'
-                                    ,text: '修改'
-                                    ,listeners: {
-                                        click: 'onEditButtonClick'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-minus-circle red'
-                                    ,text: '删除'
-                                    ,listeners: {
-                                        click: 'onDeleteButtonClick'
-                                    }
-                                }
-                                ,'-'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
-                                    ,text: '查询'
-                                    ,listeners: {
-                                        click: 'onSimpleSearchButtonClick'
-                                    }
-                                }
-                                ,'->'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
-                                    ,text: '高级查询'
-                                    ,listeners: {
-                                        click: 'showSearchWindow'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
-                                    }
-                                }
                             ]
-                        },
-                        {
-                            xtype: 'pagingtoolbar'
-                            ,dock: 'bottom'
-                            ,displayInfo: true
                         }
+
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
+                    ,listeners: {select:'onAppRowSelect'}
+                }
+                ,{
+                    xtype:'tabpanel'
+                    ,region:'center'
+                    , frame: false
+                    , plain: true
+                    , items:[
+                        {
+                            xtype:'speedcloud.app.AppBaseInfoEditPanel'
+                            // ,title: '详情'
+                            ,reference:'detailPanel'
+                            ,listeners:{
+                                saved:'baseInfoSaved'
+                            }
+
                         }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
+                        ,{
+                            xtype:'speedcloud.app.CodeRepositoryEditPanel'
+                            ,title: '代码库'
+                            ,reference:'codeRepositoryEditPanel'
                         }
-                    }
+                        ,{
+                            xtype:'speedcloud.app.AppDevelopConfigEditPanel'
+                            ,title: '开发配置信息'
+                            ,reference:'appDevelopConfigEditPanel'
+                        }
+                    ]
                 }
             ]
+            ,listeners: {
+            	beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+              	,beforehide: {
+                	fn: me.onPanelBeforeHide
+                  	,scope: me
+				}
+			}
         });
 
-        me.add({xtype:'speedcloud.app.AppBaseInfoAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.app.AppBaseInfoEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.app.AppBaseInfoSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.app.AppBaseInfoDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
     }
 
-    ,showDetailWindow: function(model, targetComponent) {
-        var me = this;
-        var detailWindow = me.lookupReference('mainDetailWindow');
-        detailWindow.setModel(model);
-        detailWindow.show(targetComponent);
-        return detailWindow;
-    }
+
 
     ,onBeforeShow:function(abstractcomponent, options) {
 	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});

@@ -33,13 +33,16 @@ public class ResourceTypeValidator implements Validator {
             this.validateResourceTypeAddDto((ResourceTypeAddDto)obj, errors);
         }
         if(obj instanceof PageSearchRequest){
-            this.validateSearchDto((PageSearchRequest)obj);
+            this.validateSearchDto((PageSearchRequest)obj, errors);
         }
 	}
 	
-    public void validateSearchDto(PageSearchRequest<ResourceTypeCondition> search){
+    public void validateSearchDto(PageSearchRequest<ResourceTypeCondition> search, Errors errors) {
         if(search.getSearchCondition() == null){
             search.setSearchCondition(new ResourceTypeCondition());
+        }
+        if(search.getSearchCondition().getTid() == null){
+        	errors.rejectValue("NOT_TENANT_ID", "未正确设置租户ID");
         }
     }
 
@@ -55,6 +58,9 @@ public class ResourceTypeValidator implements Validator {
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(resourceType.getCategory()) > 255){
+			errors.rejectValue(ResourceType.PROPERTY_CATEGORY,null,"资源类别最长255个字符");
+		}
 		if(StringUtils.length(resourceType.getName()) > 255){
 			errors.rejectValue(ResourceType.PROPERTY_NAME,null,"名称最长255个字符");
 		}

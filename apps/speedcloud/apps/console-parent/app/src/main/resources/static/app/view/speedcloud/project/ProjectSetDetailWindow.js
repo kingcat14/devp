@@ -7,7 +7,7 @@ Ext.define('AM.view.speedcloud.project.ProjectSetDetailWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '项目集详细信息'
+    ,title: '产品（项目）集详细信息'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {

@@ -1,6 +1,8 @@
 package net.aicoder.speedcloud.business.app.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.yunkang.saas.bootstrap.monitor.annotation.BusinessFuncMonitor;
+import com.yunkang.saas.common.framework.exception.ResourceNotFoundException;
 import com.yunkang.saas.common.framework.spring.DateConverter;
 import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
@@ -53,6 +55,7 @@ public class SecurityConfigController {
 	@Autowired
 	private AppBaseInfoService appBaseInfoService;
 
+
 	@Autowired
 	private SecurityConfigValidator securityConfigValidator;
 
@@ -70,6 +73,7 @@ public class SecurityConfigController {
 	@ApiOperation(value = "新增", notes = "新增应用私密配置", httpMethod = "POST")
 	@PostMapping
 	@ResponseStatus( HttpStatus.CREATED )
+  	@BusinessFuncMonitor(value = "speedcloud.app.securityconfig.add", count = true)
 	public SecurityConfigVO add(@RequestBody @Valid SecurityConfigAddDto securityConfigAddDto){
 		SecurityConfig securityConfig = new SecurityConfig();
 		BeanUtils.copyProperties(securityConfigAddDto, securityConfig);
@@ -84,7 +88,8 @@ public class SecurityConfigController {
 	 * @param idArray
 	 */
 	@ApiOperation(value = "删除", notes = "删除应用私密配置", httpMethod = "DELETE")
-	@DeleteMapping(value="/{idArray}")
+	@DeleteMapping(path="/{idArray}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.securityconfig.delete", count = true)
 	public void delete(@PathVariable String idArray){
 
 	    LOGGER.debug("delete securityConfig :{}", idArray);
@@ -102,10 +107,11 @@ public class SecurityConfigController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "修改", notes = "修改产应用私密配置(修改全部字段,未传入置空)", httpMethod = "PUT")
-	@PutMapping(value="/{id}")
+	@ApiOperation(value = "修改", notes = "修改应用私密配置(修改全部字段,未传入置空)", httpMethod = "PUT")
+	@PutMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.securityconfig.update", count = true)
 	public	SecurityConfigVO update(@RequestBody @Valid SecurityConfigEditDto securityConfigEditDto, @PathVariable String id){
-		SecurityConfig securityConfig = new SecurityConfig();
+		SecurityConfig securityConfig = securityConfigService.find(id);
 		BeanUtils.copyProperties(securityConfigEditDto, securityConfig);
 		securityConfig.setId(id);
 		securityConfigService.merge(securityConfig);
@@ -119,12 +125,15 @@ public class SecurityConfigController {
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value = "查询", notes = "根据ID查询应用私密配置", httpMethod = "GET")
-	@GetMapping(value="/{id}")
+	@ApiOperation(value = "根据ID查询", notes = "根据ID查询应用私密配置", httpMethod = "GET")
+	@GetMapping(path="/{id}")
+  	@BusinessFuncMonitor(value = "speedcloud.app.securityconfig.get")
 	public  SecurityConfigVO get(@PathVariable String id) {
 
 		SecurityConfig securityConfig = securityConfigService.find(id);
-
+		if(securityConfig == null){
+			throw new ResourceNotFoundException("找不到指定的应用私密配置，请检查ID");
+		}
 		SecurityConfigVO vo = initViewProperty(securityConfig);
 		return vo;
 	}
@@ -135,11 +144,12 @@ public class SecurityConfigController {
 	 * @return
 	 */
 	@ApiOperation(value = "查询", notes = "根据条件查询应用私密配置列表", httpMethod = "POST")
-	@PostMapping("/list")
+	@PostMapping(path="/list")
+	@BusinessFuncMonitor(value = "speedcloud.app.securityconfig.list")
 	public PageContent<SecurityConfigVO> list(@RequestBody PageSearchRequest<SecurityConfigCondition> pageSearchRequest){
 
 		PageRequest pageRequest = PageRequestConvert.convert(pageSearchRequest);
-
+      
 		Page<SecurityConfig> page = securityConfigService.find(pageSearchRequest.getSearchCondition(), pageRequest);
 
 		List<SecurityConfigVO> voList = new ArrayList<>();
@@ -159,7 +169,7 @@ public class SecurityConfigController {
      * @param response
      */
     @ApiOperation(value = "导出", notes = "根据条件导出应用私密配置列表", httpMethod = "POST")
-    @RequestMapping("/export")
+    @RequestMapping(path="/export")
     public void export(SecurityConfigCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
 
         PageSearchRequest<SecurityConfigCondition> pageSearchRequest = new PageSearchRequest<>();
@@ -181,9 +191,9 @@ public class SecurityConfigController {
 
         Map<String,String> headMap = new LinkedHashMap<>();
 
-            headMap.put("app" ,"应用");
-            headMap.put("itemName" ,"配置名");
-            headMap.put("itemValue" ,"配置值");
+        headMap.put("app" ,"应用");
+        headMap.put("itemName" ,"配置名");
+        headMap.put("itemValue" ,"配置值");
 
         String title = new String("应用私密配置");
         String fileName = new String(("应用私密配置_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
@@ -200,9 +210,7 @@ public class SecurityConfigController {
 	    initAppPropertyGroup(vo, securityConfig);
         return vo;
 
-
 	}
-
 
 	private void initAppPropertyGroup(SecurityConfigVO securityConfigVO, SecurityConfig securityConfig){
 	
@@ -217,5 +225,5 @@ public class SecurityConfigController {
 
 	}
 
-
 }
+

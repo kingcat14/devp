@@ -4,17 +4,19 @@ Ext.define('AM.view.speedcloud.env.EnvMachineEditWindow', {
     ,requires:[
         'AM.store.speedcloud.env.AppEnvConfigStore'
         ,'AM.store.speedcloud.env.MachineStore'
-    ],
-    autoScroll: true,
-    height: '60%',
-    width: '60%',
-    layout: {
+    ]
+    ,autoScroll: true
+    ,height: '60%'
+    ,width: '60%'
+    ,layout: {
         type: 'vbox'
-    },
-    title: '修改环境设备关联信息',
-    maximizable: true,
-    closeAction:'hide',
-    initComponent: function () {
+        ,pack: 'start'
+        ,align: 'stretch'
+    }
+    ,title: '修改环境设备关联信息'
+    ,maximizable: true
+    ,closeAction:'hide'
+    ,initComponent: function () {
         var me = this;
 
         Ext.apply(me, {
@@ -23,7 +25,12 @@ Ext.define('AM.view.speedcloud.env.EnvMachineEditWindow', {
                     xtype: 'form',
                     autoScroll: true,
                     bodyPadding: 10
-
+                    ,layout: {
+                      type: 'vbox'
+                      ,pack: 'start'
+                      ,align: 'stretch'
+                    }
+                  	,flex:1
                     ,width:'100%'
                     ,fieldDefaults: {
                         labelAlign: 'top'
@@ -141,7 +148,7 @@ Ext.define('AM.view.speedcloud.env.EnvMachineEditWindow', {
         this.down('form').getForm().updateRecord(record);
         record.save({
             success: function (newRecord) {
-                Ext.MsgUtil.show('操作成功', '保存环境设备关联成功!');
+                Ext.MsgUtil.notification('操作成功', '保存环境设备关联成功!');
                 me.down('form').getForm().loadRecord(newRecord);
                 me.fireEvent('saved');
                 me.hide(this.targetComp);
@@ -150,9 +157,9 @@ Ext.define('AM.view.speedcloud.env.EnvMachineEditWindow', {
 
 
 
-    },
+    }
 
-    setModel: function (model) {
+    ,setModel: function (model) {
         if(!model){
             Ext.Msg.show({title: '操作失败', msg: "未设置模型", buttons: Ext.Msg.OK, icon: Ext.Msg.ERROR});
             return;
@@ -165,7 +172,9 @@ Ext.define('AM.view.speedcloud.env.EnvMachineEditWindow', {
     }
     ,onBeforeShow:function() {
         this.down('#evnField').getStore().reload();
+      
         this.down('#machineField').getStore().reload();
+      
         // this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

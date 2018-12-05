@@ -34,16 +34,19 @@ public class AppEnvConfigValidator implements Validator {
 
 	/**
      * 验证新增信息
-     * @param appEnvConfig 应用环境
+     * @param appEnvConfig 产品环境
      * @param errors
      */
-		public void validateAddDto(AppEnvConfigAddDto appEnvConfig, Errors errors) {
+	public void validateAddDto(AppEnvConfigAddDto appEnvConfig, Errors errors) {
 
 
 		//把校验信息注册到Error的实现类里
 		//验证必填
 
 		//验证长度
+		if(StringUtils.length(appEnvConfig.getProject()) > 255){
+			errors.rejectValue("project", null, "所属产品（项目）最长255个字符");
+		}
 		if(StringUtils.length(appEnvConfig.getName()) > 255){
 			errors.rejectValue("name", null, "环境名称最长255个字符");
 		}

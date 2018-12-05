@@ -7,7 +7,7 @@ Ext.define('AM.view.speedcloud.project.ProjectDetailWindow', {
     ,layout: {
         type: 'fit'
     }
-    ,title: '项目详细信息'
+    ,title: '产品（项目）详细信息'
     ,maximizable: true
     ,closeAction:'hide'
     ,initComponent: function () {
@@ -48,17 +48,12 @@ Ext.define('AM.view.speedcloud.project.ProjectDetailWindow', {
                             ,name: 'scope'
                             ,fieldLabel: '公开性'
                         }
-                        ,{
-                            itemId: 'parentField'
-                            ,padding: '5 0 0 5'
-                            ,name: 'parent'
-                            ,fieldLabel: '上级项目'
-                        }
+
                         ,{
                             itemId: 'projectSetField'
                             ,padding: '5 0 0 5'
                             ,name: 'projectSet'
-                            ,fieldLabel: '所属项目集'
+                            ,fieldLabel: '所属产品线'
                             ,renderer: function (value, field) {
 
                                 var record = me.down('form').getForm().getRecord();

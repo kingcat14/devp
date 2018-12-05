@@ -30,7 +30,8 @@ public class AppDevelopConfigSpecification implements Specification<AppDevelopCo
 
 		tryAddTidPredicate(predicateList, root, cb);
 		tryAddAppPredicate(predicateList, root, cb);
-		tryAddCodePredicate(predicateList, root, cb);
+		tryAddDevelopDatabasePredicate(predicateList, root, cb);
+		tryAddDevelopDomainNamePredicate(predicateList, root, cb);
 		tryAddTestDatabasePredicate(predicateList, root, cb);
 		tryAddTestDomainNamePredicate(predicateList, root, cb);
 		tryAddProductionDatabasePredicate(predicateList, root, cb);
@@ -44,20 +45,24 @@ public class AppDevelopConfigSpecification implements Specification<AppDevelopCo
 
 
 	private void tryAddTidPredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
-
-		if (null != condition.getTid() ) {
-			predicateList.add(cb.equal(root.get(AppDevelopConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
-		}
+        if (null != condition.getTid() ) {
+            predicateList.add(cb.equal(root.get(AppDevelopConfig.PROPERTY_TID).as(Long.class), condition.getTid()));
+        }  
 	}
 	private void tryAddAppPredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
 	    if (null != condition.getApp() ) {
-            predicateList.add(cb.equal(root.get(AppDevelopConfig.PROPERTY_APP).as(Long.class), condition.getApp()));
+            predicateList.add(cb.equal(root.get(AppDevelopConfig.PROPERTY_APP).as(String.class), condition.getApp()));
         }
 	}
-	private void tryAddCodePredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
-	    if (null != condition.getCode() ) {
-            predicateList.add(cb.equal(root.get(AppDevelopConfig.PROPERTY_CODE).as(Long.class), condition.getCode()));
-        }
+	private void tryAddDevelopDatabasePredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDevelopDatabase())){
+			predicateList.add(cb.like(root.get(AppDevelopConfig.PROPERTY_DEVELOP_DATABASE).as(String.class), "%"+condition.getDevelopDatabase()+"%"));
+		}
+	}
+	private void tryAddDevelopDomainNamePredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
+		if(StringUtils.isNotEmpty(condition.getDevelopDomainName())){
+			predicateList.add(cb.like(root.get(AppDevelopConfig.PROPERTY_DEVELOP_DOMAIN_NAME).as(String.class), "%"+condition.getDevelopDomainName()+"%"));
+		}
 	}
 	private void tryAddTestDatabasePredicate(List<Predicate> predicateList, Root<AppDevelopConfig> root, CriteriaBuilder cb){
 		if(StringUtils.isNotEmpty(condition.getTestDatabase())){

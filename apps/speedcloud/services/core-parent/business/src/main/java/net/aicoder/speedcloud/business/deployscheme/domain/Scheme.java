@@ -130,7 +130,7 @@ public class Scheme extends BaseEntity<Long>{
     * [所属环境]
     */
     @Column(name = "env", nullable = false, updatable = true)
-	private Long env;
+	private String env;
 
 	public Long getTid(){
 		return tid;
@@ -209,10 +209,10 @@ public class Scheme extends BaseEntity<Long>{
 		this.project = project;
 	}
 
-	public Long getEnv(){
+	public String getEnv(){
 		return env;
 	}
-	public void setEnv(Long env) {
+	public void setEnv(String env) {
 		this.env = env;
 	}
 
