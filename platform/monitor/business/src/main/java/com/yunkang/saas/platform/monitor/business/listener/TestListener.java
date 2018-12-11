@@ -59,7 +59,7 @@ public class TestListener {
 
         String instanceId = applicationInstanceService.getInstanceId(application);
 
-        makeIndicator(event.getTimestamp(), "Registered", application.getStatusInfo().getStatus(), instanceId);
+        makeIndicator(event.getTimestamp(), event.getType(), application.getStatusInfo().getStatus(), instanceId);
 
     }
 
@@ -72,7 +72,7 @@ public class TestListener {
 
         log.info("onInstanceDeregistered:{}" + application.getName());
         String instanceId = applicationInstanceService.getInstanceId(application);
-        makeIndicator(event.getTimestamp(), "Deregistered", application.getStatusInfo().getStatus(), instanceId);
+        makeIndicator(event.getTimestamp(), event.getType(), application.getStatusInfo().getStatus(), instanceId);
 
     }
     @EventListener
@@ -98,7 +98,7 @@ public class TestListener {
 
         String instanceId = applicationInstanceService.getInstanceId(application);
 
-        IndicatorValue indicatorValue = makeIndicator(event.getTimestamp(), "StatusChanged", event.getFrom().getStatus() +"->"+event.getTo().getStatus(), instanceId);
+        IndicatorValue indicatorValue = makeIndicator(event.getTimestamp(), event.getType(), event.getFrom().getStatus() +"->"+event.getTo().getStatus(), instanceId);
 
         Alarm alarm = new Alarm();
         alarm.setApp(applicationName);
