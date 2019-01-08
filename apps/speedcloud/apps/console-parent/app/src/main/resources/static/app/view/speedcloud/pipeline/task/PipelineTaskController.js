@@ -4,6 +4,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         'AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel'
         ,'AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel'
         ,'AM.model.speedcloud.pipeline.exec.PipelineTaskExecInstance'
+        ,'AM.model.speedcloud.pipeline.exec.PipelineExecNodeLog'
 	]
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskController'
 
@@ -97,17 +98,17 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
             Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
             return;
         }
-        var record = selections[0];
+        var task = selections[0];
 
         this.fireViewEvent('createMainTabPanel', this.getView()
             ,{
                 xtype: 'speedcloud.pipeline.task.PipelineTaskDetailPanel'
-                ,reference:'PipelineTaskDetailPanel_'+record.getId()
+                ,reference:'PipelineTaskDetailPanel_'+task.getId()
                 , viewModel: {
-                    data: {record: record}
+                    data: {record: task}
                     ,stores:{
-                        execInstanceStore:Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecInstanceStore').applyCondition({executeTargetId:record.getId()}).load()
-                        ,execNodeStore : Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecNodeStore').applyCondition({relationObjId:record.getId()}).load()
+                        execInstanceStore:Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecInstanceStore').applyCondition({executeTargetId:task.getId()}).load()
+                        ,execNodeStore : Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecNodeStore').applyCondition({relationObjId:task.getId()}).load()
                     }
                 }
             }
@@ -130,14 +131,59 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskController', {
         var mainGridPanel = me.lookupReference('mainGridPanel');
         var selections = mainGridPanel.getSelectionModel( ).getSelection( );
         if(selections.length <= 0){
-            Ext.Msg.show({title: '操作失败', msg: '未选择数据', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+            Ext.MessageBox.alert('提交失败', '未选择数据');
             return;
         }
-        var record = selections[0];
+        var task = selections[0];
 
         //创建一个执行对象
-        var taskExec = me.createTaskExec(record.get('id'));
-        taskExec.save()
+        var taskExec = me.createTaskExec(task.get('id'));
+        taskExec.save({
+            success:function(instance){
+
+                Ext.MsgUtil.show('操作成功', '任务开始执行');
+                var store = Ext.create('AM.store.speedcloud.pipeline.exec.PipelineExecNodeStore').applyCondition({exec:instance.getId(), relationObjId:task.getId()});
+                store.load({
+                    callback:function(records, operation, success){
+                        console.log(records)
+                        if(records.length == 0){
+                            Ext.MessageBox.alert('操作失败', '执行失败');
+                            return;
+                        }
+
+                        var execNode = records[0];
+                        var logPanel = Ext.create('AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow', {viewModel:{data:{record:null}}, frame:true});
+                        logPanel.show();
+
+                        var count = 60 * 3;
+                        var runner = new Ext.util.TaskRunner();
+
+                        var task = runner.newTask({
+                            run: function() {
+                                AM.model.speedcloud.pipeline.exec.PipelineExecNodeLog.load(execNode.getId(), {
+                                    success: function (nodeLog, operation) {
+                                        logPanel.getViewModel().set('record', nodeLog);
+                                        console.log(nodeLog.get('log'))
+                                        if(nodeLog.get('status') == 'FINISH' && nodeLog.get('log') ){
+                                            task.stop()
+                                            // count = 3;
+                                        }
+                                        if(count-- <=0){
+                                            task.stop()
+                                        }
+                                    }
+                                });
+                            }
+                            ,interval: 1000
+                        });
+                        task.start();
+
+                    }
+                })
+
+
+            }
+        })
     }
     ,createTaskExec:function(taskId){
         /** 创建定制化执行实例*/

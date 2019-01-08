@@ -1,6 +1,7 @@
 package com.yunkang.saas.platform.monitor.business.collector.service;
 
 import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
 import com.yunkang.saas.platform.monitor.business.app.domain.ApplicationInstance;
 import com.yunkang.saas.platform.monitor.business.app.domain.UnknownApp;
@@ -21,6 +22,9 @@ import java.util.List;
 public class ApplicationStatusUpdater {
 
     @Autowired
+    private EurekaClient eurekaClient;
+
+    @Autowired
     private ApplicationService applicationService;
 
     @Autowired
@@ -30,37 +34,46 @@ public class ApplicationStatusUpdater {
     private UnknownAppService unknownAppService;
 
     public void update(Application application){
-        //1.
-        if(applicationService.contain(application.getName())){
-            //2.
-            application(application);
-        }else{
-            //3.
+
+        if(unknownAppService.contain(application.getName())){
             unknown(application);
+        }else{
+            application(application);
         }
+//        application(application);
     }
 
     public void application(Application application){
 
         log.info("application: {}", application.getName());
 
+        //不存在则加入
+        if(!applicationService.contain(application.getName())){
+            applicationService.add(application.getName());
+        }
+
         int aliveCount = 0;
         for(int i = 0; i < CollectionUtils.size(application.getInstances()); i++){
             InstanceInfo instanceInfo = application.getInstances().get(i);
             InstanceInfo.InstanceStatus status = instanceInfo.getStatus();
-            log.info("{}:{}", instanceInfo.getHealthCheckUrl(), instanceInfo.getStatus());
+            log.info(" instance:({}), status:({})", instanceInfo.getHealthCheckUrl(), instanceInfo.getStatus());
             if(InstanceInfo.InstanceStatus.UP.equals(status)){
                 ++aliveCount;
             }
         }
 
-        applicationService.markAlive(application.getName(),aliveCount);
+        applicationService.markAlive(application.getName(), aliveCount);
 
         List<InstanceInfo> instanceInfoList = application.getInstances();
 
         for(InstanceInfo info : instanceInfoList){
             instance(info);
         }
+    }
+
+    public void application(String code){
+        Application application = eurekaClient.getApplication(code);
+        application(application);
     }
 
     public void instance(InstanceInfo instance){

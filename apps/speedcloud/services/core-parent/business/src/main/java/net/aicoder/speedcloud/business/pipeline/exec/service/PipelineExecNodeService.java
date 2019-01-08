@@ -3,6 +3,7 @@ package net.aicoder.speedcloud.business.pipeline.exec.service;
 
 import com.yunkang.saas.common.jpa.GenericCrudService;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.exec.dao.PipelineExecNodeDao;
 import net.aicoder.speedcloud.business.pipeline.exec.dao.PipelineExecNodeSpecification;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;

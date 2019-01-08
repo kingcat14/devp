@@ -14,7 +14,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
     ,maximizable: true
     ,closeAction: 'hide'
     ,referenceHolder:true
-    ,bodyPadding:10
+    ,bodyPadding:5
     ,bind:{title:'任务{record.name}'}
     // ,bind:{title:'任务名称:{title}'}
     ,bodyCls: 'app-dashboard'
@@ -35,15 +35,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                     xtype:'panel'
                     , region:'west'
                     , width:'30%'
-                    ,bind:{title:'任务名称:{record.name}'}
-                    ,autoScroll:true
+                    , bind:{title:'任务名称:{record.name}'}
+                    , autoScroll:true
                     , collapsible:true
                     , split: true
-                    ,frame:true
-                    ,items:[
+                    , frame:true
+                    , items:[
                         {
                             xtype:'grid', title:''
-
                             ,bind:{store:"{actionStore}"}
                             ,reference:'actionGrid'
                             ,columnLines:true
@@ -56,16 +55,17 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                 ,{
                                     xtype: 'gridcolumn'
                                     ,dataIndex: 'name'
-                                    // ,text: '操作名称'
+                                    ,text: '操作名称'
                                     ,flex:1
                                 }
                                 ,{
                                     xtype: 'actioncolumn'
                                     ,menuDisabled: true
-                                    ,width:'30px'
+                                    // ,width:'55px'
                                     ,items: [{
                                         iconCls: 'fas fa-minus-circle red'
                                         ,tooltip: '删除'
+                                        ,width:'35px'
                                         ,handler: function(grid, rowIndex, colIndex) {
 
                                             var selectedRecord = grid.getSelection()[0];
@@ -111,7 +111,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
 
                                             var contentCardPanel = me.down('#contentCardPanel');
 
-                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {viewModel:{data:{record:action}}, frame:true});
+                                            var panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {viewModel:{data:{record:action}}, frame:false});
                                             action.panel = panel;
 
                                             contentCardPanel.add(panel);
@@ -127,7 +127,14 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
 
                                     if(!record.dropped) {
                                         if(!record.panel){
-                                            record.panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {viewModel:{data:{record:record}}, frame:true});
+                                            record.panel = Ext.create('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel'
+                                                , {
+                                                    viewModel:{data:{record:record}}
+                                                    , frame:false
+                                                    // , title:record.get('name')
+                                                    , bind:{title:'{record.name}'}
+                                                }
+                                            );
                                         }
                                         contentCardPanel.getLayout().setActiveItem(record.panel)
 
@@ -153,13 +160,19 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                     ]
                 }
                 ,{
-                    xtype:'panel', region:'center', layout: 'card', collapsible:false
+                    xtype:'tabpanel'
+                    , region:'center'
+                    // , layout: 'card'
+                    , collapsible:false
+                    ,frame: true
+                    ,plain: true
                     ,reference:'contentCardPanel'
                     ,itemId:'contentCardPanel'
                     ,items:[
                         {
                             xtype:'panel'
-                            ,frame: true
+
+                            ,title: '任务基本配置'
                             // ,scrollable :true
                             ,layout:'vbox'
                             ,items:[
@@ -167,7 +180,8 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskEditPanel', {
                                     xtype: 'form'
                                     ,bodyPadding: 10
                                     ,width:'100%'
-                                    ,title:''
+                                    ,margin:10
+                                    ,frame: true
                                     ,reference:'taskFormPanel'
                                     // ,layout:'vbox'
                                     ,bind:{title:'{record.name}'}

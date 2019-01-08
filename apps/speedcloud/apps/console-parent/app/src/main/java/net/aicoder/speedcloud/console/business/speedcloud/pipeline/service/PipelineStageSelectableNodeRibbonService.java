@@ -46,6 +46,7 @@ public class PipelineStageSelectableNodeRibbonService  {
 		PipelineTaskCondition taskCondition = new PipelineTaskCondition();
 		taskCondition.setTaskType(pageSearchRequest.getSearchCondition().getType());
 		taskCondition.setTid(pageSearchRequest.getSearchCondition().getTid());
+		taskCondition.setProject(pageSearchRequest.getSearchCondition().getProject());
 		taskPageSearchRequest.setSearchCondition(taskCondition);
 
 		PipelineTaskPageResult result = pipelineTaskRibbon.list(taskPageSearchRequest);

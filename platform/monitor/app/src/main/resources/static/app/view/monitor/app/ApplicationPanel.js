@@ -22,7 +22,8 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
         me.callParent([Ext.apply({
             viewModel : {
                 stores:{
-                    store:Ext.create('AM.store.monitor.app.ApplicationStore').load()
+                    store:Ext.create('AM.store.monitor.app.ApplicationStore', {pageSize:200}).load()
+                    ,cacheStore:Ext.create('AM.store.monitor.app.ApplicationStore', {pageSize:200})
                 }
             }
         }, cfg)])
@@ -35,7 +36,7 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,bind:{store: '{store}'}
+                    ,bind:{store: '{cacheStore}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -58,19 +59,32 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
                             ,text: '名称'
-                            
+                            ,flex:0.7
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(record.get('aliveCount') <= record.get('thresholdValue')){
+                                    return '<span style="color:red">'+value+'</span>'
+                                }
+                                return '<span style="color:green">'+value+'</span>'
+                            }
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'code'
                             ,text: '代码'
-                            
+                            ,flex:1
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(record.get('aliveCount') <= record.get('thresholdValue')){
+                                    return '<span style="color:red">'+value+'</span>'
+                                }
+                                return '<span style="color:green">'+value+'</span>'
+                            }
                         }
                         ,{
                             xtype: 'numbercolumn'
                             ,dataIndex: 'totalCount'
                             ,format:'0,000'
                             ,text: '配置实例数量'
+                            ,hidden:true
                             
                         }
                         ,{
@@ -78,7 +92,12 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                             ,dataIndex: 'aliveCount'
                             ,format:'0,000'
                             ,text: '当前实例数量'
-                            
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(record.get('aliveCount') <= record.get('thresholdValue')){
+                                    return '<span style="color:red">'+value+'</span>'
+                                }
+                                return '<span style="color:green">'+value+'</span>'
+                            }
                         }
                         ,{
                             xtype: 'booleancolumn'
@@ -87,6 +106,7 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '低实例告警'
+                            ,hidden:true
                             
                         }
                         ,{
@@ -96,14 +116,19 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '启动监控'
-                            
+                            ,hidden:true
                         }
                         ,{
                             xtype: 'numbercolumn'
                             ,dataIndex: 'thresholdValue'
                             ,format:'0,000'
                             ,text: '告警数量'
-                            ,flex:1
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                if(record.get('aliveCount') <= record.get('thresholdValue')){
+                                    return '<span style="color:red">'+value+'</span>'
+                                }
+                                return '<span style="color:green">'+value+'</span>'
+                            }
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -146,87 +171,77 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
                             items: [
                                 {
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-plus-circle'
-                                    ,text: '新增'
-                                    ,listeners: {
-                                        click: 'onAddButtonClick'
+                                    ,text: 'Spring Boot Admin'
+                                    ,iconCls: 'fas fa-leaf green'
+                                    ,handler: function() {
+                                        window.open("/admin")
                                     }
                                 }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-pencil-alt'
-                                    ,text: '修改'
-                                    ,listeners: {
-                                        click: 'onEditButtonClick'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-minus-circle red'
-                                    ,text: '删除'
-                                    ,listeners: {
-                                        click: 'onDeleteButtonClick'
-                                    }
-                                }
+                                // ,{
+                                //     xtype: 'button'
+                                //     ,iconCls: 'fas fa-plus-circle'
+                                //     ,text: '新增'
+                                //     ,listeners: {
+                                //         click: 'onAddButtonClick'
+                                //     }
+                                // }
+                                // ,{
+                                //     xtype: 'button'
+                                //     ,iconCls: 'fas fa-pencil-alt'
+                                //     ,text: '修改'
+                                //     ,listeners: {
+                                //         click: 'onEditButtonClick'
+                                //     }
+                                // }
+                                // ,{
+                                //     xtype: 'button'
+                                //     ,iconCls: 'fas fa-minus-circle red'
+                                //     ,text: '删除'
+                                //     ,listeners: {
+                                //         click: 'onDeleteButtonClick'
+                                //     }
+                                // }
                                 ,'-'
                                 ,{
-                                    xtype: 'textfield'
-                                    ,width:120
-                                    ,emptyText:'名称'
-                                    ,reference: 'nameField'
-                                }
-                                ,{
-                                    xtype: 'textfield'
-                                    ,width:120
-                                    ,emptyText:'代码'
-                                    ,reference: 'codeField'
-                                }
-                                ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fab fa-searchengin'
-                                    ,text: '查询'
+                                    ,iconCls: 'fas fa-sync-alt'
+                                    ,text: '刷新'
                                     ,listeners: {
-                                        click: 'onSimpleSearchButtonClick'
+                                        click: 'refresh'
                                     }
                                 }
-                                ,'->'
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search-plus'
-                                    ,text: '高级查询'
-                                    ,listeners: {
-                                        click: 'showSearchWindow'
-                                    }
-                                }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-download'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
-                                    }
-                                }
+                                // ,{
+                                //     xtype: 'textfield'
+                                //     ,width:120
+                                //     ,emptyText:'名称'
+                                //     ,reference: 'nameField'
+                                // }
+                                // ,{
+                                //     xtype: 'textfield'
+                                //     ,width:300
+                                //     ,emptyText:'代码'
+                                //     ,reference: 'codeField'
+                                // }
+                                // ,{
+                                //     xtype: 'button'
+                                //     ,iconCls: 'fab fa-search'
+                                //     ,text: '查询'
+                                //     ,listeners: {
+                                //         click: 'onSimpleSearchButtonClick'
+                                //     }
+                                // }
                             ]
-                        },
-                        {
-                            xtype: 'pagingtoolbar'
-                            ,dock: 'bottom'
-                            ,displayInfo: true
                         }
+
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {}
+                    ,listeners:{
+                        afterrender: 'refreshData'
+                    }
                 }
             ]
             ,listeners: {
-            	beforeshow: {
-                    fn: me.onBeforeShow
-                    ,scope: me
-                }
-              	,beforehide: {
-                	fn: me.onPanelBeforeHide
-                  	,scope: me
-				}
+
 			}
         });
 
@@ -244,9 +259,5 @@ Ext.define('AM.view.monitor.app.ApplicationPanel', {
         detailWindow.setModel(model);
         detailWindow.show(targetComponent);
         return detailWindow;
-    }
-
-    ,onBeforeShow:function(abstractcomponent, options) {
-	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

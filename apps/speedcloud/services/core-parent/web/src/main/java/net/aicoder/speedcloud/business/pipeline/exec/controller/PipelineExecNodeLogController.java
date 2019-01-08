@@ -51,9 +51,9 @@ public class PipelineExecNodeLogController {
 	@GetMapping(value="/{id}")
 	public  PipelineExecNodeLogVO get(@PathVariable Long id) {
 
-		PipelineExecNodeLog pipelineExecNodeLog = pipelineExecNodeLogService.find(id);
-
-		PipelineExecNodeLogVO vo = initViewProperty(pipelineExecNodeLog);
+//		PipelineExecNodeLog pipelineExecNodeLog = pipelineExecNodeLogService.find(id);
+//		PipelineExecNodeLogVO vo = initViewProperty(pipelineExecNodeLog);
+		PipelineExecNodeLogVO vo = pipelineExecNodeLogService.findPipeline(id);
 		return vo;
 	}
 

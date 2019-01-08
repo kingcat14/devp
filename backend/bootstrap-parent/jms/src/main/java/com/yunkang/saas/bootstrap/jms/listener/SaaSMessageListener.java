@@ -20,7 +20,7 @@ public class SaaSMessageListener {
     private ObjectMapper objectMapper;
 
     /**
-     * destination的格式:Consumer.${spring.application.name}.VirtualTopic.speedcloud.project.create
+     * destination的格式:Consumer.${spring.application.name}.VirtualTopic.speedcloud.project.
      * Consumer.${spring.application.name}.VirtualTopic 这段是固定的
      * speedcloud.project.create 这个可以替换成对应的事件队列的
      * @param json

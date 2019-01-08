@@ -3,12 +3,11 @@ package net.aicoder.speedcloud.business.pipeline.exec.domain;
 import com.yunkang.saas.common.jpa.BaseEntity;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.Table;
 
 
 
@@ -16,8 +15,8 @@ import javax.validation.constraints.Size;
  * 运行节点日志
  * @author icode
  */
-@Entity(name = "pipeline_pipeline_exec_node_log")
-@Table(appliesTo = "pipeline_pipeline_exec_node_log", comment = "[运行节点日志]")
+@Entity()
+@Table(name = "pipeline_exec_node_log")
 //@DynamicUpdate
 //@DynamicInsert
 public class PipelineExecNodeLog extends BaseEntity<String>{
@@ -29,14 +28,15 @@ public class PipelineExecNodeLog extends BaseEntity<String>{
     @Column(name = "id")
     private String id;
 
+    private String status;
 
-    /**
-    * log
-    * 
-    */
+	@Column(name = "result", nullable = true, updatable = true)
+    private String result;
+
+    /**log*/
     @Column(name = "log", nullable = true, updatable = true)
-	@Size(max = 255, message = "log超长，最多255个字符")
 	private String log;
+
 
 	public String getLog(){
 		return log;
@@ -51,6 +51,20 @@ public class PipelineExecNodeLog extends BaseEntity<String>{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	@Override

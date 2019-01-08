@@ -2,9 +2,9 @@ package net.aicoder.speedcloud.business.pipeline.exec.executor;
 
 import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

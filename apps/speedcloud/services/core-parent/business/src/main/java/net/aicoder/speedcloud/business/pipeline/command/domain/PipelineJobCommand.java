@@ -78,7 +78,6 @@ public class PipelineJobCommand extends BaseEntity<Long>{
     * 
     */
     @Column(name = "result", nullable = true, updatable = true)
-	@Size(max = 255, message = "执行结果超长，最多255个字符")
 	private String result;
 
 	public Long getTid(){

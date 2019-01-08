@@ -1,5 +1,8 @@
 package net.aicoder.speedcloud.apapter.yunkang;
 
+import com.devin.ciserver.model.job.PipelineJob;
+import com.devin.ciserver.model.job.PipelineStage;
+import com.devin.ciserver.model.job.StringParm;
 import com.yunkang.saas.common.framework.exception.BusinessException;
 import net.aicoder.speedcloud.apapter.yunkang.client.Result;
 import net.aicoder.speedcloud.apapter.yunkang.client.YunkangClient;
@@ -47,7 +50,7 @@ public class CommandRunner {
     @Autowired
     private PipelineJobCommandService pipelineJobCommandService;
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "*/20 * * * * *")
     @Transactional
     public void schedual(){
 
@@ -74,10 +77,12 @@ public class CommandRunner {
     public void run(PipelineJobCommand pipelineJobCommand){
 
         if("CREATE".equals(pipelineJobCommand.getType())){
-            createJob(pipelineJobCommand);
+//            createJob(pipelineJobCommand);
+            createPipeline(pipelineJobCommand);
         }
         if("UPDATE".equals(pipelineJobCommand.getType())){
-            updateJob(pipelineJobCommand);
+//            updateJob(pipelineJobCommand);
+            updatePipeline(pipelineJobCommand);
         }
         if("DELETE".equals(pipelineJobCommand.getType())){
             deleteJob(pipelineJobCommand);
@@ -105,7 +110,9 @@ public class CommandRunner {
         CreateJobAction createJobAction = buildCreateJobAction(command.getTask());
 
         Result result = yunkangClient.update(createJobAction);
-
+        if(StringUtils.equals("FAILURE",result.getFlag())){
+            result = yunkangClient.create(createJobAction);
+        }
         command.setResult(result.getFlag()+":"+result.getErrorMsg());
         command.setStatus("FINISH");
 
@@ -120,6 +127,32 @@ public class CommandRunner {
 
     }
 
+    /**
+     * 在云康的发布平台创建一个JOB
+     * @param command
+     */
+    public void createPipeline(PipelineJobCommand command){
+
+        PipelineJob createJobAction = pipelineJob(command.getTask());
+
+        Result result = yunkangClient.create(createJobAction);
+//
+        command.setResult(result.getFlag()+":"+result.getErrorMsg());
+        command.setStatus("FINISH");
+
+    }
+
+    public void updatePipeline(PipelineJobCommand command){
+
+        PipelineJob createJobAction = pipelineJob(command.getTask());
+
+        Result result = yunkangClient.update(createJobAction);
+        if(StringUtils.equals("FAILURE",result.getFlag())){
+            result = yunkangClient.create(createJobAction);
+        }
+        command.setResult(result.getFlag()+":"+result.getErrorMsg());
+        command.setStatus("FINISH");
+    }
 
     private CreateJobAction buildCreateJobAction(Long taskId){
 
@@ -157,5 +190,54 @@ public class CommandRunner {
         return createJobAction;
     }
 
+    public PipelineJob pipelineJob(Long taskId){
+
+        PipelineTask task = pipelineTaskService.find(taskId);
+
+        if(task==null){
+            throw new BusinessException("JOB COMMAND RUNNER", "CREATE_JOB_ACTION", "NO TASK", "找不到task:"+taskId);
+        }
+
+        List<PipelineTaskParam> pipelineTaskParamList = pipelineTaskParamService.findByTask(task.getId());
+        List<PipelineTaskAction> pipelineTaskActionList = pipelineTaskActionService.findByTask(task.getId());
+
+
+
+        List<PipelineStage> stageList = new ArrayList<>();
+
+        List<String> shellCmdList;
+        PipelineStage pipelineStage;
+
+        for(PipelineTaskAction action : pipelineTaskActionList){
+
+            pipelineStage = new PipelineStage();
+            pipelineStage.setStageName(action.getName());
+            shellCmdList = new ArrayList<>();
+            shellCmdList.add(action.getContent());
+            pipelineStage.setShellCmd(shellCmdList);
+
+            stageList.add(pipelineStage);
+        }
+
+        List<StringParm> stringParmaList = new ArrayList<>();
+
+
+        for(PipelineTaskParam param : pipelineTaskParamList){
+            StringParm stringParm = new StringParm();
+            stringParm.setName(param.getName());
+            stringParm.setDefaultValue(param.getDefaultValue());
+            stringParm.setDescription(param.getDescription());
+            stringParmaList.add(stringParm);
+        }
+
+
+        PipelineJob pipelineJob = new PipelineJob();
+
+        pipelineJob.setDesc(task.getDescription());
+        pipelineJob.setJobName(task.getId()+"");
+        pipelineJob.setPipelineStages(stageList);
+        pipelineJob.setStringParms(stringParmaList);
+        return pipelineJob;
+    }
 
 }

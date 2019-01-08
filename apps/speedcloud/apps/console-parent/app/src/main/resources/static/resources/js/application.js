@@ -4,6 +4,7 @@ Ext.dashboard=[
     //'AM.view.icode.project.ComponentPanel'
     'AM.view.speedcloud.app.AppBaseInfoPanel'
     ,'AM.view.speedcloud.deployscheme.SchemePanel'
-    // ,'AM.view.speedcloud.pipeline.PipelinePanel'
-    // ,'AM.view.speedcloud.pipeline.task.PipelineTaskPanel'
+    ,'AM.view.speedcloud.pipeline.task.PipelineTaskPanel'
+    ,'AM.view.speedcloud.pipeline.PipelinePanel'
+
 ]

@@ -2,7 +2,8 @@ package net.aicoder.speedcloud.business.pipeline.exec.service;
 
 
 import net.aicoder.speedcloud.business.pipeline.constant.GlobalLock;
-import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecInstanceStatus;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeResult;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecInstance;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.executor.NodeExecutorCenter;
@@ -86,30 +87,37 @@ public class ExecNodeAction {
 
 		/*
 		 * 1.找到子节点的父节点（作为当前节点）
+		 * 1.1如果子节点失败, 则把当前节点的父节点的所有子节点都标注为失败
 		 * 2.找到改父节点下所有子节点
 		 * 3.如果所有子节点已结束，则结束改节点，通知当前节点的父节点当前节点结束
 		 * 4.如果有子节点未结束，则尝试找到改节点的某一个在等待的子节点
 		 * 4.1如果找到等待的子节点，则开始下一个节点
 		 */
 
-		//获取父节点
+		//1.获取父节点
 		PipelineExecNode currentNode = pipelineExecNodeService.find(childNode.getParentId());
+		if(!childNode.success()){
+			currentNode.setResult(PipelineExecNodeResult.FAILURE);
+			cancelAllChild(currentNode);
+			finishNode(currentNode);
+		}
 
 
-		//找到所有子节点
+		//2.找到所有子节点
 		List<PipelineExecNode> nodeList = execNodeService.findChildNode(currentNode.getId());
 		boolean currentNodeFinish = true;
 		boolean currentNodeFinishSuccess = true;
-		for(PipelineExecNode node:nodeList){
-			currentNodeFinish = currentNodeFinish && StringUtils.equalsIgnoreCase(PipelineExecInstanceStatus.FINISH, node.getStatus());
+
+		for(PipelineExecNode node : nodeList){
+			currentNodeFinish = currentNodeFinish && StringUtils.equalsIgnoreCase(PipelineExecNodeStatus.FINISH, node.getStatus());
 			if(currentNodeFinish){
-				currentNodeFinishSuccess = currentNodeFinishSuccess && StringUtils.equalsIgnoreCase("SUCCESS", node.getResult());
+				currentNodeFinishSuccess = currentNodeFinishSuccess && StringUtils.equals(PipelineExecNodeResult.SUCCESS, node.getResult());
 			}
 		}
 
 		//3
 		if(currentNodeFinish){
-			currentNode.setResult(currentNodeFinishSuccess?"SUCCESS":"FAILURE");
+			currentNode.setResult(currentNodeFinishSuccess ? "SUCCESS" : "FAILURE" );
 			finishNode(currentNode);
 			return;
 		}
@@ -125,6 +133,29 @@ public class ExecNodeAction {
 		//4.1
 		nodeExecutorCenter.execute(nextWaitingNode);
 
+	}
+
+	/**
+	 * 让当前节点的所有子节点都取消
+	 * @param currentNode
+	 */
+	private void cancelAllChild(PipelineExecNode currentNode){
+
+		//2.找到所有子节点
+		List<PipelineExecNode> nodeList = execNodeService.findChildNode(currentNode.getId());
+
+		for(PipelineExecNode node:nodeList){
+			if(PipelineExecNodeStatus.isStart(node.getStatus())){
+				continue;
+			}
+			if(StringUtils.isEmpty(node.getResult())){
+				node.setStatus(PipelineExecNodeStatus.FINISH);
+				node.setResult(PipelineExecNodeStatus.CANCEL);
+				node.setResultMessage("STOP BY PARENT NODE");
+				execNodeService.merge(node);
+				cancelAllChild(node);
+			}
+		}
 	}
 
 }

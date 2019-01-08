@@ -2,7 +2,7 @@ Ext.define('AM.view.monitor.supporter.SupporterPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'monitor.supporter.SupporterPanel'
     , alias: 'widget.monitor.supporter.SupporterPanel'
-    , title: '运维人员'
+    , title: '人员信息'
     , bodyCls: 'app-dashboard'
     // , bodyPadding: '10 10'
     , layout: 'border'

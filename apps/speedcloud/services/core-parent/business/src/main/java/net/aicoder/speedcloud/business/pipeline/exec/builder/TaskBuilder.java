@@ -2,13 +2,13 @@ package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
 import net.aicoder.speedcloud.business.pipeline.constant.ExecMode;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNode;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNodeParam;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNodeParam;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeParamService;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeParamService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeService;
 import net.aicoder.speedcloud.business.pipeline.task.domain.PipelineTask;
@@ -158,5 +158,7 @@ public class TaskBuilder implements ExecNodeBuilder {
         pipelineExecInstanceBuilder.register(ExecNodeType.TASK, this);
         pipelineExecInstanceBuilder.register(ExecNodeType.TASK_COMPILE, this);
         pipelineExecInstanceBuilder.register(ExecNodeType.TASK_DEPLOY, this);
+        pipelineExecInstanceBuilder.register("PACKAGE", this);
     }
+
 }

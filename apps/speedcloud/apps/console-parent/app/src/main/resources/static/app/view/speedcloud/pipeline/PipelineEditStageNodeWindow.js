@@ -1,4 +1,4 @@
- Ext.define('AM.view.speedcloud.pipeline.PipelineEditStageNodeWindow', {
+Ext.define('AM.view.speedcloud.pipeline.PipelineEditStageNodeWindow', {
     extend: 'Ext.window.Window'
     ,xtype: 'speedcloud.pipeline.PipelineEditStageNodeWindow'
     ,requires:[
@@ -8,10 +8,12 @@
          ,'AM.store.speedcloud.pipeline.PipelineStageSelectableNodeParamStore'
     ]
     ,autoScroll: true
-    ,height: 500
+    ,height: '80%'
     ,width: 500
     ,layout: {
         type: 'vbox'
+        ,pack: 'start'
+        ,align: 'stretch'
     }
     ,title: '任务详情信息'
     ,bind:{title:'{stage.name}'}
@@ -19,7 +21,7 @@
     ,closeAction:'hide'
 
     ,referenceHolder:true
-     ,constructor:function(cfg){
+    ,constructor:function(cfg){
          var me = this;
          cfg = cfg || {}
 
@@ -27,7 +29,7 @@
              viewModel:{
                  data:{stageNode:null}
                  ,stores:{
-                     selectableNodeStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeStore')
+                     selectableNodeStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeStore').load()
                      ,selectableNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeParamStore')
                      ,taskParamStore: Ext.create('AM.store.speedcloud.pipeline.task.PipelineTaskParamStore').applyCondition({task:-999})
                      ,stageNodeParamStore: Ext.create('AM.store.speedcloud.pipeline.PipelineStageNodeParamStore').applyCondition({pipelineStageNode:-999})
@@ -60,31 +62,11 @@
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,name: 'name'
+                                    ,width:'100%'
                                     ,fieldLabel: '名称'
                                 }
-                                ,{
-                                    xtype:'combo'
-                                    ,reference:'objTypeField'
-                                    ,store: Ext.create("AM.store.common.SimpleConfigStore").applyCondition({configType: "PIPELINETASK-TASKTYPE"}).load()
-                                    ,typeAhead:false
-                                    ,editable:false
-                                    ,displayField:'displayName'
-                                    ,valueField:'code'
-                                    ,hidden: false
-                                    ,readOnly:false
-                                    ,allowBlank:false
-                                    ,forceSelection:true
-                                    ,afterLabelTextTpl: []
-                                    ,value:'COMPILE'
-                                    ,name: 'objType'
-                                    ,fieldLabel: '类型'
-                                    ,listeners:{
-                                        change:{fn:me.loadSelectableNode, scope:me}
-                                    }
 
-                                }
                                 ,{xtype: 'label',text:'　'}
-
 
                                 ,{
                                     xtype:'grid'
@@ -93,7 +75,10 @@
                                     ,tools:[{xtype:'label',text:'找不到合适的任务?'}]
                                     ,reference:'selectableNodeGrid'
                                     ,width:'100%'
-                                    ,bind:{store:'{selectableNodeStore}'}
+                                    // ,height:200
+                                    ,flex:1
+                                    // ,bind:{store:'{selectableNodeStore}'}
+                                    ,store:Ext.create('AM.store.speedcloud.pipeline.PipelineStageSelectableNodeStore').load()
                                     ,columns: [
                                         {
                                             xtype: 'gridcolumn'
@@ -102,7 +87,6 @@
                                         }
                                     ]
                                     ,selModel: {type:'checkboxmodel', mode:'SINGLE'}
-                                    // ,selType: 'checkboxmodel'
                                     ,listeners:{
                                         // selectionchange:me.loadSelectionParam
                                     }
@@ -113,18 +97,40 @@
                                             ,items:[
                                                 {
                                                     xtype:'combo'
-                                                    ,value:'本项目'
-                                                    ,store:['本项目','全部项目']
+                                                    ,reference:'objTypeField'
+                                                    ,store: Ext.create("AM.store.common.SimpleConfigStore").applyCondition({configType: "PIPELINETASK-TASKTYPE"}).load()
+                                                    ,typeAhead:false
+                                                    ,editable:false
+                                                    ,displayField:'displayName'
+                                                    ,valueField:'code'
+                                                    ,hidden: false
+                                                    ,readOnly:false
+                                                    ,allowBlank:false
+                                                    ,forceSelection:true
+                                                    ,afterLabelTextTpl: []
+                                                    ,labelWidth:50
+                                                    ,value:'COMPILE'
+                                                    ,name: 'objType'
+                                                    ,fieldLabel: '类型'
+                                                    ,listeners:{
+                                                        change:{fn:me.loadSelectableNode, scope:me}
+                                                    }
+
                                                 }
-                                                ,{
-                                                    xtype:'textfield'
-                                                    ,emptyText:'请输入关键字'
-                                                }
-                                                ,{
-                                                    xtype:'button'
-                                                    // ,scale: 'medium'
-                                                    ,iconCls:'x-fa fa-search'
-                                                }
+                                                // ,{
+                                                //     xtype:'combo'
+                                                //     ,value:'本项目'
+                                                //     ,store:['本项目','全部项目']
+                                                // }
+                                                // ,{
+                                                //     xtype:'textfield'
+                                                //     ,emptyText:'请输入关键字'
+                                                // }
+                                                // ,{
+                                                //     xtype:'button'
+                                                //     // ,scale: 'medium'
+                                                //     ,iconCls:'x-fa fa-search'
+                                                // }
                                             ]
                                         }
                                     ]
@@ -136,6 +142,7 @@
                                     ,border:true
                                     ,collapsible:true
                                     ,title:'设置任务参数'
+                                    ,width:'100%'
                                     ,reference:'selectableNodeParamGrid'
                                     ,columns: [
                                         {
@@ -163,8 +170,8 @@
                         }
                     ]
                 }
-            ],
-            dockedItems: [
+            ]
+            ,dockedItems: [
                 {
                     xtype: 'toolbar',
                     dock: 'bottom',
@@ -264,20 +271,28 @@
 
         var me = this;
         var stageNode = this.getViewModel().get('stageNode');
-         var selectableNodeParamGrid = this.lookup('selectableNodeParamGrid');
+        var selectableNodeParamGrid = this.lookup('selectableNodeParamGrid');
+        var projectId = this.up('speedcloud\\.pipeline\\.PipelineEditPanel').down('#projectField').getValue();
+
 
         this.getViewModel().getStore('selectableNodeParamStore').removeAll();
         this.lookup('selectableNodeGrid').getSelectionModel().deselectAll();
-         selectableNodeParamGrid.setVisible(false);
+        selectableNodeParamGrid.setVisible(false);
 
         var selectableNodeGrid = this.lookup('selectableNodeGrid');
         selectableNodeGrid.un('rowclick', me.loadClickNodeParam);
 
         var selectableNodeParamStore = this.getViewModel().getStore('selectableNodeParamStore');
 
-        var selectableNodeStore = this.getViewModel().getStore('selectableNodeStore').applyCondition({type:me.lookup('objTypeField').getValue()});
+        var selectableNodeStore = selectableNodeGrid.getStore()
+        // var selectableNodeStore = this.getViewModel().getStore('selectableNodeStore').load()
+        // var selectableNodeStore = this.getViewModel().getStore('selectableNodeStore');
+
         selectableNodeStore.load({
             scope: me
+            ,params:{
+                searchCondition:{project:projectId, type:me.lookup('objTypeField').getValue()}
+            }
             ,callback: function(records, operation, success) {
                 if(success && stageNode) {
                     for (var i in records) {

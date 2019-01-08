@@ -2,7 +2,7 @@ Ext.define('AM.view.monitor.supporter.SupporterAppRelationPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'monitor.supporter.SupporterAppRelationPanel'
     , alias: 'widget.monitor.supporter.SupporterAppRelationPanel'
-    , title: '支持应用'
+    , title: '人员支持的应用'
     , bodyCls: 'app-dashboard'
     // , bodyPadding: '10 10'
     , layout: 'border'

@@ -35,5 +35,30 @@ Ext.define('AM.view.monitor.app.UnknownAppController', {
         addWindow.show(targetComponent);
         return addWindow;
     }
+    ,onDeleteButtonClick: function(button, e, options) {
+        var me = this;
+        var mainGridPanel = me.lookupReference('mainGridPanel');
+        var store = mainGridPanel.getStore();
+        var selections = mainGridPanel.getSelectionModel( ).getSelection( );
+        store.remove(selections);
+        store.sync({
+            success:function(batch,options){
 
+                var count = store.getCount();
+
+                var targetPage = count<=0 ? store.currentPage-1 : store.currentPage;
+                targetPage = targetPage <=0 ? 1 :targetPage;
+                store.loadPage(targetPage,{
+                    scope: this
+                    ,callback: function(records, operation, success) {
+                        if(!success)
+                            Ext.MessageBox.show({title: '操作失败', msg: '重新加载数据失败', buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING});
+                        else
+                            Ext.MsgUtil.notification('操作成功','删除程序成功!');
+                    }
+                });
+            }
+            ,scope:me.getStore()
+        });
+    }
 })

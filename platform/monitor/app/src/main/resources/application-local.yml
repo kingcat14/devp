@@ -2,7 +2,9 @@ eureka:
   client:
     enabled: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      # defaultZone: http://localhost:8761/eureka
+#      defaultZone: http://202.116.104.159:8761/eureka
+      defaultZone: http://qybl.daanlab.com:8761/eureka
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -10,20 +12,23 @@ spring:
     username: root
     password: 123456
   jpa:
+    show-sql: false
     hibernate:
       ddl-auto: update
-  redis:
-    host: localhost
-    port: 6379
-    password: null
-    database: 1
-    timeout: 300
-    pool:
-      max-active: 8
-      max-idle: 8
-      min-idle: 0
-      max-wait: 1
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 2170290560@qq.com
+    password: sekhkgopnoroebcj
 
-swagger:
-  base-package: com.yunkang.saas.platform.monitor.business
+aliyun:
+  sms:
+    accessKeyId: LTAIKAkguzKJkjsY
+    accessKeySecret: w2ygKmYFkv6HHXUV2AmPGsdCsmh193
+    signName: 鹰眼盯盘
+    type:
+      statueChange: SMS_152213274
 
+notify:
+  sms:
+    enable: true

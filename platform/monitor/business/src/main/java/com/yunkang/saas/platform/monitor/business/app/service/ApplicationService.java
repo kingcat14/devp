@@ -5,15 +5,19 @@ import com.yunkang.saas.common.jpa.GenericCrudService;
 import com.yunkang.saas.platform.monitor.business.app.dao.ApplicationDao;
 import com.yunkang.saas.platform.monitor.business.app.dao.ApplicationSpecification;
 import com.yunkang.saas.platform.monitor.business.app.domain.Application;
+import com.yunkang.saas.platform.monitor.business.app.domain.UnknownApp;
 import com.yunkang.saas.platform.monitor.business.app.dto.ApplicationCondition;
 import com.yunkang.saas.platform.monitor.business.notification.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +35,46 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 	@Autowired
 	private ApplicationInstanceService applicationInstanceService;
 
+
+	@Transactional
+	public void delete(String id){
+		/*
+		 * 1.新增未知应用
+		 * 2.从应用中删除
+		 */
+		if(StringUtils.isEmpty(id)){
+			return;
+		}
+
+		applicationInstanceService.deleteByApp(id);
+
+		Application application = this.find(id);
+		UnknownApp unknownApp = new UnknownApp();
+		unknownApp.setId(id);
+		unknownApp.setCode(application.getCode());
+		unknownApp.setAlive(application.getAliveCount()>0);
+		unknownApp.setAliveCount(application.getAliveCount());
+		unknownApp.setRegisterTime(new Date());
+		unknownApp.setMaxCount(application.getAliveCount());
+		unknownAppService.merge(unknownApp);
+
+		super.delete(id);
+
+
+	}
+
+	public void add(String code){
+		Application application = new Application();
+		application.setId(code);
+		application.setCode(code);
+		application.setName(code);
+		application.setAlarm(true);
+		application.setAliveCount(0);
+		application.setThresholdValue(0);
+		this.add(application);
+	}
+
+	@Transactional
 	public void add(Application application){
 
 		/*
@@ -39,8 +83,9 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 		 */
 		application.setId(application.getCode());
 		dao.save(application);
-
-		unknownAppService.delete(application.getCode());
+		if(unknownAppService.contain(application.getCode())) {
+			unknownAppService.delete(application.getCode());
+		}
 	}
 
 	public void markAlive(String code, int aliveCount){
@@ -51,7 +96,7 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 
 		application.setAliveCount(aliveCount);
 
-		application.setStatus(isHealth(application)?"WELL":"UNUSUAL");
+		application.setStatus(isHealth(application)?"UP":"UNUSUAL");
 
 		this.merge(application);
 
@@ -72,7 +117,7 @@ public class ApplicationService  extends GenericCrudService<Application, String,
 		/*
 		 * 1.活的实例数量 大于等于 阈值, 则说明是健康的
 		 */
-		return application.getAliveCount() != null && (application.getAliveCount() >= application.getThresholdValue());
+		return application.getAliveCount() != null && application.getThresholdValue() !=null && (application.getAliveCount() >= application.getThresholdValue());
 
 	}
 

@@ -58,7 +58,6 @@ public class PipelineExecInstanceRibbonService  {
 			throw new BusinessException("SPEED_CLOUD", "PIPELINE.EXEC", result.getCode()+"", result.getMessage());
 		}
 		return result.getData();
-
 	}
 
 	/**

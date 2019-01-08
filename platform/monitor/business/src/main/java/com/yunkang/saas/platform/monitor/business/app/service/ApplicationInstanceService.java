@@ -27,6 +27,7 @@ public class ApplicationInstanceService  extends GenericCrudService<ApplicationI
 		String result = null;
 
 		URL url = null;
+
 		try {
 			url = new URL(application.getServiceUrl());
 		} catch (MalformedURLException e) {
@@ -48,9 +49,12 @@ public class ApplicationInstanceService  extends GenericCrudService<ApplicationI
 	}
 
 
+
 	public List<ApplicationInstance> find(String appCode, Boolean alive){
 		return dao.findByAppAndAlive(appCode, alive);
 	}
+
+
 
 	public void markAliveInstanceDead(String appCode){
 		List<ApplicationInstance> list = dao.findByAppAndAlive(appCode, true);
@@ -60,6 +64,12 @@ public class ApplicationInstanceService  extends GenericCrudService<ApplicationI
 			dao.saveAndFlush(instance);
 		});
 	}
+
+
+	public int deleteByApp(String app){
+		return dao.deleteByApp(app);
+	}
+
 
 	@Override
 	public Specification<ApplicationInstance> getSpecification(ApplicationInstanceCondition condition) {

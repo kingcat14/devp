@@ -58,7 +58,7 @@ Ext.define('AM.view.monitor.app.ApplicationEditWindow', {
                                 ,{
                                     xtype: 'textfield'
                                     ,hidden: false
-                                    ,readOnly:false
+                                    ,readOnly:true
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
                                     ,itemId: 'codeField'
@@ -68,7 +68,7 @@ Ext.define('AM.view.monitor.app.ApplicationEditWindow', {
                                 ,{
                                     xtype: 'numberfield'
                                     ,allowDecimals:false
-                                    ,hidden: false
+                                    ,hidden: true
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
@@ -96,7 +96,7 @@ Ext.define('AM.view.monitor.app.ApplicationEditWindow', {
                                     ,value:true
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,hidden: false
+                                    ,hidden: true
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []
@@ -113,7 +113,7 @@ Ext.define('AM.view.monitor.app.ApplicationEditWindow', {
                                     ,value:true
                                     ,typeAhead:false
                                     ,editable:false
-                                    ,hidden: false
+                                    ,hidden: true
                                     ,readOnly:false
                                     ,allowBlank:true
                                     ,afterLabelTextTpl: []

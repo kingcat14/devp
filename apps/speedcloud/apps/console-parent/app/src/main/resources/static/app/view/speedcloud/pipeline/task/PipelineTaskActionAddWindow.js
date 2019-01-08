@@ -16,6 +16,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionAddWindow', {
     ,title: '添加新操作'
     ,maximizable: true
     ,closeAction: 'hide'
+    , frame:false
     ,initComponent: function () {
         var me = this;
 

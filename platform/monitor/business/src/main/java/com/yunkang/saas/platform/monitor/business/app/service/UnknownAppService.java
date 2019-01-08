@@ -47,6 +47,10 @@ public class UnknownAppService  extends GenericCrudService<UnknownApp, String, U
 		dao.save(unknownApp);
 	}
 
+	public boolean contain(String code){
+		return dao.existsByCode(code);
+	}
+
 	@Override
 	public Specification<UnknownApp> getSpecification(UnknownAppCondition condition) {
 		return new UnknownAppSpecification(condition);

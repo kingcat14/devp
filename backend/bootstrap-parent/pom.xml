@@ -69,7 +69,6 @@
                 <module>application</module>
                 <module>monitor</module>
                 <module>common</module>
-                <module>monitor</module>
                 <module>jms</module>
                 <module>config</module>
             </modules>

@@ -47,11 +47,14 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
             }];
         }
 
-	    var dashboard = Ext.create("AM.view.application.dashboard.Dashboard",{
-			closable:false
-	    })
-	    this.insert(0,dashboard);
-	    this.setActiveTab(0);
+
+        if(!Ext.dashboard ||Ext.dashboard.length <=0 ){
+            var dashboard = Ext.create("AM.view.application.dashboard.Dashboard",{
+                closable:false
+            })
+            this.insert(0,dashboard);
+            this.setActiveTab(0);
+        }
 
         Ext.require(Ext.dashboard, function () {
             // var panel = Ext.create(aa,{
@@ -63,12 +66,12 @@ Ext.define('AM.view.application.framework.MainContentPanel', {
 
             for(var i in Ext.dashboard){
                 var panel = Ext.create(Ext.dashboard[i],{
-                    closable:true
+                    closable:false
                 })
 
                 me.add(panel)
                 if(Ext.dashboard.length > 0){
-                    me.setActiveTab(1);
+                    me.setActiveTab(0);
                 }
             }
         })

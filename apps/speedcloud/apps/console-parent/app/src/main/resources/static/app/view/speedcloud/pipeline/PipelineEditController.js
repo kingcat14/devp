@@ -25,6 +25,8 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
 
 	    var pipelineStagePanel = this.lookup('pipelineStageListPanel');
 
+	    var pipeline = this.getViewModel().get('record');
+
         var index = 0;
         for(var i =0; i < pipelineStagePanel.items.getCount();i++){
             console.log(pipelineStagePanel.items.getAt(i).getId())
@@ -34,7 +36,7 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditController', {
         }
 
         var stageStore = this.getViewModel().getStore('stageStore');
-        var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'Stage_'+stageStore.getCount(), execMode:'SERIALIZED', flowType:'AUTO'})
+        var stage = Ext.create('AM.model.speedcloud.pipeline.PipelineStage',{name:'Stage_'+stageStore.getCount(), pipeline:pipeline.getId(), execMode:'SERIALIZED', flowType:'AUTO'})
         stageStore.add(stage);
         me.addStagePanelGroup(stage, index+1);
 

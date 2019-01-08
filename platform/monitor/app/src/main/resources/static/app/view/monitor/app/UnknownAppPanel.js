@@ -39,9 +39,9 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                         {
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
-                            ,width:35
+                            ,width:30
                             ,items: [{
-                                iconCls: 'x-fa fa-eye'
+                                iconCls: 'fas fa-plus green'
                                 ,tooltip: '加入监控'
                                 ,handler: 'addToMonitor'
                             }]
@@ -94,21 +94,6 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             ,falseText: '否'
                             ,emptyCellText :'不确定'
                             ,text: '忽略'
-                        }
-                        ,{
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:30
-                            ,items: [{
-                                iconCls: 'fas fa-pencil-alt'
-                                ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.getController().onEditButtonClick();
-                                }
-                            }]
                         }
                         ,{
                             xtype: 'actioncolumn'
@@ -169,7 +154,6 @@ Ext.define('AM.view.monitor.app.UnknownAppPanel', {
                             ,displayInfo: true
                         }
                     ]
-                    ,selModel: 'checkboxmodel'
                     ,listeners: {}
                 }
             ]

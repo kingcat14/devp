@@ -18,6 +18,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskActionEditPanel', {
     ,closeAction: 'hide'
     ,referenceHolder:true
     ,viewModel:true
+    , frame:false
     ,initComponent: function () {
         var me = this;
 

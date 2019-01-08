@@ -3,7 +3,8 @@ Ext.define('AM.model.monitor.app.Application', {
     ,proxy: {
         type: "rest"
         ,writer:{writeRecordId:false, partialDataOptions:{changes:false}}
-        ,headers:{"Accept":"application/json"}
+        // ,headers:{"Accept":"application/json"}
+        ,paramsAsJson:true
         ,url: 'monitor/app/application'
         ,listeners: {
             exception: {

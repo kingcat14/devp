@@ -34,6 +34,7 @@ public class DbNotifier implements Notifier {
 
         makeIndicator(event.getTimestamp(), application.getStatusInfo().getStatus(), instanceId);
     }
+
     private void makeIndicator(long collectTime, String value, String instanceId) {
         IndicatorValue indicatorValue = new IndicatorValue();
         indicatorValue.setCollectTime(new Date(collectTime));

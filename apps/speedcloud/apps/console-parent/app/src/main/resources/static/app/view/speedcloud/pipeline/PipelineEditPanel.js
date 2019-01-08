@@ -7,6 +7,9 @@ Ext.define('AM.view.speedcloud.pipeline.PipelineEditPanel', {
         'AM.view.speedcloud.pipeline.PipelineEditController'
         ,'AM.view.speedcloud.pipeline.PipelineEditStageWindow'
         ,'AM.view.speedcloud.pipeline.PipelineEditStageNodeWindow'
+        ,'AM.store.speedcloud.pipeline.task.PipelineTaskParamStore'
+        ,'AM.store.speedcloud.pipeline.PipelineStageStore'
+        ,'AM.store.speedcloud.pipeline.PipelineParamStore'
     ]
     ,bodyPadding:10
     ,bodyCls: 'app-dashboard'

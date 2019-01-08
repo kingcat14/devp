@@ -3,8 +3,6 @@ package net.aicoder.speedcloud.business.pipeline.constant;
 public class PipelineExecInstanceStatus {
 
 
-
-
     /**等待中*/
     public static final String WAITING = "WAITING";
 

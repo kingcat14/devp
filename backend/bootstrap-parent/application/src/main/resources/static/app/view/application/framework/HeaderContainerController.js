@@ -4,8 +4,22 @@ Ext.define('AM.view.application.framework.HeaderContainerController', {
         // 'AM.model.main.Resource'
     ]
     , alias: 'controller.HeaderContainerController'
+    , refreshUserInfo: function (component) {
+        var me = this;
+        console.log("header refresh user info")
+        me.loadUserInfo(component);
+        var runner = new Ext.util.TaskRunner();
+
+        var task = runner.newTask({
+            run: function() {
+                me.loadUserInfo(component)
+            }
+            ,interval: 60 * 1000
+        });
+        task.start();
+    }
     , loadUserInfo: function (component) {
-        console.log("header load user info")
+        // console.log("header load user info")
         Ext.Ajax.request({
             //获取当前用户
             url: '/current/account'
@@ -20,6 +34,9 @@ Ext.define('AM.view.application.framework.HeaderContainerController', {
                 component.setHtml(account.get('name'))
             }
         });
+
+
+
     }
     , userLogout: function(){
         Ext.Ajax.request({
@@ -56,4 +73,11 @@ Ext.define('AM.view.application.framework.HeaderContainerController', {
 
         mainFunctionPanel.setCollapsed(!collapsed);
     }
+    ,showChangePasswordWindow:function(){
+        if(!this.getView().changePasswordWindow){
+            this.getView().changePasswordWindow = Ext.create('AM.view.application.framework.ChangePasswordWindow');
+        }
+        this.getView().changePasswordWindow.show();
+    }
+
 })

@@ -1,11 +1,9 @@
 package net.aicoder.speedcloud.business.pipeline.task.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.domain.SimpleConfig;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.service.SimpleConfigService;
 import com.yunkang.saas.bootstrap.common.business.simpleconfig.vo.SimpleConfigVO;
 import com.yunkang.saas.common.framework.spring.DateConverter;
-import com.yunkang.saas.common.framework.web.ExcelUtil;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
@@ -23,7 +21,6 @@ import net.aicoder.speedcloud.business.project.domain.Project;
 import net.aicoder.speedcloud.business.project.service.ProjectService;
 import net.aicoder.speedcloud.business.project.vo.ProjectVO;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -33,10 +30,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 管理任务
@@ -168,46 +165,6 @@ public class PipelineTaskController {
 
 	}
 
-	/**
-     * 导出任务列表
-     * @param condition
-     * @param response
-     */
-    @ApiOperation(value = "导出", notes = "根据条件导出任务列表", httpMethod = "POST")
-    @RequestMapping("/export")
-    public void export(PipelineTaskCondition condition, HttpServletResponse response) throws UnsupportedEncodingException {
-
-        PageSearchRequest<PipelineTaskCondition> pageSearchRequest = new PageSearchRequest<>();
-        pageSearchRequest.setPage(0);
-        pageSearchRequest.setLimit(Integer.MAX_VALUE);
-        pageSearchRequest.setSearchCondition(condition);
-
-        PageContent<PipelineTaskVO> content = this.list(pageSearchRequest);
-
-        List<PipelineTaskVO> voList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(content.getContent())){
-            voList.addAll(content.getContent());
-        }
-
-        JSONArray jsonArray = new JSONArray();
-        for(PipelineTaskVO vo : voList){
-            jsonArray.add(vo);
-        }
-
-        Map<String,String> headMap = new LinkedHashMap<String,String>();
-
-            headMap.put("name" ,"任务名称");
-            headMap.put("taskType" ,"任务类型");
-            headMap.put("execType" ,"执行计划");
-            headMap.put("taskStartTime" ,"执行开始时间");
-            headMap.put("taskDayOfWeeks" ,"执行日");
-            headMap.put("description" ,"任务描述");
-            headMap.put("project" ,"所属产品");
-
-        String title = new String("任务");
-        String fileName = new String(("任务_"+ DateFormatUtils.ISO_8601_EXTENDED_TIME_FORMAT.format(new Date())).getBytes("UTF-8"), "ISO-8859-1");
-        ExcelUtil.downloadExcelFile(title, headMap, jsonArray, response, fileName);
-    }
 
 	private PipelineTaskVO initViewProperty(PipelineTask pipelineTask){
 

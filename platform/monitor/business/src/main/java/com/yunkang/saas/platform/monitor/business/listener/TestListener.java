@@ -5,11 +5,11 @@ import com.yunkang.saas.platform.monitor.business.alarm.domain.Alarm;
 import com.yunkang.saas.platform.monitor.business.alarm.service.AlarmAction;
 import com.yunkang.saas.platform.monitor.business.app.service.ApplicationInstanceService;
 import com.yunkang.saas.platform.monitor.business.app.service.ApplicationService;
-import com.yunkang.saas.platform.monitor.business.app.service.UnknownAppService;
 import com.yunkang.saas.platform.monitor.business.collector.service.ApplicationStatusUpdater;
 import com.yunkang.saas.platform.monitor.business.indicator.domain.IndicatorValue;
 import com.yunkang.saas.platform.monitor.business.indicator.service.IndicatorValueService;
 import de.codecentric.boot.admin.event.ClientApplicationDeregisteredEvent;
+import de.codecentric.boot.admin.event.ClientApplicationEvent;
 import de.codecentric.boot.admin.event.ClientApplicationRegisteredEvent;
 import de.codecentric.boot.admin.event.ClientApplicationStatusChangedEvent;
 import de.codecentric.boot.admin.model.Application;
@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -36,9 +37,6 @@ public class TestListener {
     private IndicatorValueService indicatorValueService;
 
     @Autowired
-    private UnknownAppService unknownAppService;
-
-    @Autowired
     private ApplicationService applicationService;
 
     @Autowired
@@ -55,35 +53,50 @@ public class TestListener {
 
         Application application = event.getApplication();
 
-        log.info("onInstanceRegistered:{}" + application.getName());
-
-        String instanceId = applicationInstanceService.getInstanceId(application);
-
-        makeIndicator(event.getTimestamp(), event.getType(), application.getStatusInfo().getStatus(), instanceId);
+        log.info("onInstanceRegistered:{}" + event.getApplication().getName());
 
     }
-
-
 
     @EventListener
     public void onInstanceDeregistered(ClientApplicationDeregisteredEvent event){
 
-        Application application = event.getApplication();
+        log.info("onInstanceDeregistered:{},{}" , event.getApplication().getName(), event.getApplication().getStatusInfo().getStatus());
 
-        log.info("onInstanceDeregistered:{}" + application.getName());
-        String instanceId = applicationInstanceService.getInstanceId(application);
-        makeIndicator(event.getTimestamp(), event.getType(), application.getStatusInfo().getStatus(), instanceId);
+        monitorStatusChange(event, "OFFLINE");
+
 
     }
     @EventListener
     public void onStatusChanged(ClientApplicationStatusChangedEvent event){
         log.info("onStatusChanged:{}" + event.getApplication());
+
+
         Application application = event.getApplication();
 
-        String applicationName = application.getName();
+        //如果是事件则直接跳过, 这里就只会处理 UP 事件
+        if(StringUtils.equals("OFFLINE", event.getTo().getStatus())){
+            return;
+        }
 
-        if(StringUtils.equals("OFFLINE",event.getTo().getStatus())){
 
+        monitorStatusChange(event, null);
+    }
+
+    @Transactional
+    public void monitorStatusChange(ClientApplicationEvent event, String status){
+
+        String targetStatus = status;
+
+        if(StringUtils.isEmpty(targetStatus)){
+            targetStatus = event.getApplication().getStatusInfo().getStatus();
+        }
+
+        Application application = event.getApplication();
+        String applicationName = event.getApplication().getName();
+
+        /*不监控直接跳过*/
+        if(!applicationService.contain(applicationName)){
+            return;
         }
 
         /*
@@ -92,31 +105,25 @@ public class TestListener {
          */
         applicationStatusUpdater.update(eurekaClient.getApplication(applicationName));
 
-        if(!applicationService.contain(applicationName)){
-            return;
-        }
 
         String instanceId = applicationInstanceService.getInstanceId(application);
 
-        IndicatorValue indicatorValue = makeIndicator(event.getTimestamp(), event.getType(), event.getFrom().getStatus() +"->"+event.getTo().getStatus(), instanceId);
+        IndicatorValue indicatorValue = makeIndicator(event.getTimestamp(), event.getType(), targetStatus, instanceId);
+
+        if(!StringUtils.equals("OFFLINE", targetStatus) && !StringUtils.equals("DOWN", targetStatus) ){
+            return;
+        }
 
         Alarm alarm = new Alarm();
         alarm.setApp(applicationName);
         alarm.setCounter(indicatorValue.getId());
-        alarm.setContent("状态:"+event.getFrom().getStatus()+"-->"+event.getTo().getStatus());
+        alarm.setContent("状态:" + application.getStatusInfo().getStatus());
         alarm.setOccurTime(new Date());
-        alarm.setCode("STATUS.CHANGE");
-        alarm.setName("STATUS.CHANGE");
+        alarm.setCode(event.getType());
+        alarm.setName(event.getType());
         alarm.setValue(indicatorValue.getValue());
         alarmAction.add(alarm);
     }
-
-    //@EventListener
-    public void onEvent(Object o) {
-
-        log.info("onEvent:{}" + o);
-    }
-
 
 
     private IndicatorValue makeIndicator(long collectTime, String indicatorType, String value, String instanceId) {

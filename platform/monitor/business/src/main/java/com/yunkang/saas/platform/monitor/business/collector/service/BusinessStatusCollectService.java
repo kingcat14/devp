@@ -52,8 +52,6 @@ public class BusinessStatusCollectService {
 //    @Scheduled(cron = "1 * * * * *")
     public void aaa(){
 
-        discoveryClient.getServices();
-
         Applications apps = eurekaClient.getApplications();
 
         List<Application> applicationList = apps.getRegisteredApplications();
@@ -79,7 +77,6 @@ public class BusinessStatusCollectService {
         for(InstanceInfo info : instanceInfoList){
             log.info("{}", info.getMetadata());
             instance(info, "actuator", "123456");
-
         }
     }
 

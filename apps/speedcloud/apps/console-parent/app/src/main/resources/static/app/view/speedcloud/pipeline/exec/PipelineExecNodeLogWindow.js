@@ -28,14 +28,26 @@ Ext.define('AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow', {
 
                     ,width:'100%'
                     ,fieldDefaults: {
-                        labelAlign: 'top'
+                        labelAlign: 'right'
                         ,msgTarget: 'side'
                         ,padding: '5 0 0 5'
                         ,blankText:'该字段为必填项'
                         ,anchor: '96%'
                     }
                     ,items: [
-                        {
+                        ,{
+                            xtype: 'displayfield'
+                            ,hidden: false
+                            ,readOnly:false
+                            ,allowBlank:false
+                            ,afterLabelTextTpl: ['<span style="color:red;font-weight:bold" data-qtip="Required">*</span>']
+                            ,itemId: 'nameField'
+                            ,reference:'nameField'
+                            ,name: 'name'
+                            ,fieldLabel: '任务状态'
+                            ,bind:'{record.status}'
+                        }
+                        ,{
                             xtype: 'codemirrorfield'
                             // xtype: 'textarea',
                             ,itemId: 'contentField'

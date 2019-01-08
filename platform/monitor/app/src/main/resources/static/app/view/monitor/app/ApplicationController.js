@@ -75,32 +75,8 @@ Ext.define('AM.view.monitor.app.ApplicationController', {
         searchWindow.onSearchButtonClick();
 
     }
-    ,onExportButtonClick: function(button, e, options) {
 
-        var me = this;
-        var searchWindow = me.lookupReference('mainSearchWindow');
-        var condition = searchWindow.getCondition();
-        if(!condition){
-            condition = {searchCondition:{}};
-        }
-        if (!Ext.fly('formFly')) {
-            var frm = document.createElement('form');
-            frm.id = 'formFly';
-            frm.className = 'x-hidden';
-            document.body.appendChild(frm);
-        }
-        console.log(condition)
-        Ext.Ajax.request({
-            disableCaching: true 
-            ,url: "monitor/app/application/export"
-            ,method: "POST"
-            ,async: false  //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
-            ,params:condition
-            ,isUpload: true
-            ,form: Ext.fly('formFly')
-        });
 
-    }
     ,showAddWindow: function(model, targetComponent) {
         var me = this;
         var addWindow = me.lookupReference('mainAddWindow');
@@ -143,6 +119,39 @@ Ext.define('AM.view.monitor.app.ApplicationController', {
             params:{
                 start:0
                 ,page:0
+            }
+        });
+    }
+    ,refreshData: function(){
+	    console.log("refreshData")
+
+	    var me = this;
+
+	    me.refresh();
+
+	    var runner = new Ext.util.TaskRunner();
+        runner.newTask({
+            run: function() {
+                me.refresh();
+            }
+            ,interval: 5000
+        }).start();
+    }
+    ,refresh:function(){
+	    var me =  this;
+        var cacheStore = me.getViewModel().getStore('cacheStore');
+        var store = me.getViewModel().getStore('store');
+        store.load(function(records, operation, success) {
+
+            cacheStore.each(function(record){
+                var temp = store.getById(record.getId());
+                if(!temp){
+                    record.drop();
+                }
+            })
+
+            for(var i = 0; i < records.length; i++){
+                cacheStore.add(records[i])
             }
         });
     }

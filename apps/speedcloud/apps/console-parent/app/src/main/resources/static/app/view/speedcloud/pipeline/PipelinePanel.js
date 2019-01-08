@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.pipeline.PipelinePanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.pipeline.PipelinePanel'
-    , title: '流水线'
+    , title: '运维流水线'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.pipeline.PipelineController'

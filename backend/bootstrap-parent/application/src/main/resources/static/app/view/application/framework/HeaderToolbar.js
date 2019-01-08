@@ -4,6 +4,7 @@ Ext.define('AM.view.application.framework.HeaderToolbar', {
     ,requires:[
         'AM.view.application.framework.UserSwitcher'
         ,'AM.view.application.framework.HeaderContainerController'
+        ,'AM.view.application.framework.ChangePasswordWindow'
     ]
     ,title: ''
     ,height: 64
@@ -46,14 +47,6 @@ Ext.define('AM.view.application.framework.HeaderToolbar', {
                 }]
             }
             ,{ xtype: 'tbseparator' }
-            // ,{
-            //     xtype: 'userSwitcher'
-            //     ,style: 'color: 28384a;font-size: 18px; font-weight:bold; margin: 0 10px;'
-            //     ,html:'你好'
-            //     ,listeners:{
-            //         afterrender: 'loadUserInfo'
-            //     }
-            // }
             ,{
                 xtype:'button'
                 ,ui:'plain-toolbar-small'
@@ -62,14 +55,19 @@ Ext.define('AM.view.application.framework.HeaderToolbar', {
                 // ,text:'超级管理员'
                 ,style: 'color: 28384a;font-size: 18px; font-weight:bold; margin: 0 10px;'
                 ,menu:[
-                    {text:'修改' }
+                    {text:'修改密码',handler:'showChangePasswordWindow' }
                     ,'-'
                     ,{text:'登出' ,handler:'userLogout'}
                 ]
                 ,listeners:{
-                    afterrender: 'loadUserInfo'
+                    // afterrender: 'loadUserInfo'
+                    afterrender: 'refreshUserInfo'
                 }
             }
+            // ,{
+            //     xtype:'application.framework.ChangePasswordWindow'
+            //     ,reference:'changePasswordWindow'
+            // }
         ];
 
         this.callParent();

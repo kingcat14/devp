@@ -1,7 +1,8 @@
 Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailController', {
-	extend: 'Ext.app.ViewController',
-	requires: [
-        ,'AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow'
+	extend: 'Ext.app.ViewController'
+	,requires: [
+        'AM.view.speedcloud.pipeline.exec.PipelineExecNodeLogWindow'
+        ,'AM.model.speedcloud.pipeline.exec.PipelineExecNodeLog'
 	]
 	,alias: 'controller.speedcloud.pipeline.task.PipelineTaskDetailController'
 

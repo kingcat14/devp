@@ -85,6 +85,7 @@
                 <module>client</module>
                 <module>business</module>
                 <module>jenkins</module>
+                <module>ci_server</module>
             </modules>
         </profile>
         <profile>

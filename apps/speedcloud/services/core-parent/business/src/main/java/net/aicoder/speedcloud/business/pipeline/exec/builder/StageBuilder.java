@@ -2,11 +2,11 @@ package net.aicoder.speedcloud.business.pipeline.exec.builder;
 
 import net.aicoder.speedcloud.business.pipeline.constant.ExecFlowType;
 import net.aicoder.speedcloud.business.pipeline.constant.ExecNodeType;
+import net.aicoder.speedcloud.business.pipeline.constant.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStage;
 import net.aicoder.speedcloud.business.pipeline.domain.PipelineStageNode;
 import net.aicoder.speedcloud.business.pipeline.exec.domain.PipelineExecNode;
 import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeService;
-import net.aicoder.speedcloud.business.pipeline.exec.service.PipelineExecNodeStatus;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageNodeService;
 import net.aicoder.speedcloud.business.pipeline.service.PipelineStageService;
 import org.apache.commons.collections4.CollectionUtils;

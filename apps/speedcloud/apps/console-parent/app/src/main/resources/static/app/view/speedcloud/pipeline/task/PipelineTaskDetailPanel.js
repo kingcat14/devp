@@ -15,7 +15,7 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
     ,maximizable: true
     ,closeAction: 'hide'
     ,referenceHolder:true
-    ,bodyPadding:10
+    ,bodyPadding:5
     ,bind:{title:'任务{record.name}'}
     // ,bind:{title:'任务名称:{title}'}
     ,bodyCls: 'app-dashboard'
@@ -61,8 +61,13 @@ Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskDetailPanel', {
                                 }
                                 ,{
                                     xtype: 'gridcolumn'
-                                    ,dataIndex: 'result'
+                                    ,dataIndex: 'status'
                                     ,text: '任务状态'
+                                }
+                                ,{
+                                    xtype: 'gridcolumn'
+                                    ,dataIndex: 'result'
+                                    ,text: '执行结果'
                                 }
                                 ,{
                                     xtype: 'datecolumn'

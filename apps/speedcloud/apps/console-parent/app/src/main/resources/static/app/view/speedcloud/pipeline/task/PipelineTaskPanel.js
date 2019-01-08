@@ -1,7 +1,7 @@
 Ext.define('AM.view.speedcloud.pipeline.task.PipelineTaskPanel', {
     extend: 'Ext.panel.Panel'
     , xtype: 'speedcloud.pipeline.task.PipelineTaskPanel'
-    , title: '任务'
+    , title: '运维任务'
     , layout: 'border'
     , requires: [
         'AM.view.speedcloud.pipeline.task.PipelineTaskController'

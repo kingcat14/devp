@@ -36,11 +36,11 @@
         <appender-ref ref="stdout"  />
     </root>
     <logger level="INFO" name="com.netflix.discovery.DiscoveryClient">
-
+        <appender-ref ref="stdout"  />
     </logger>
-    <logger level="INFO" name="org.apache.http">
+    <!--<logger level="INFO" name="org.apache.http">-->
 
-    </logger>
+    <!--</logger>-->
 
 
 

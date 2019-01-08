@@ -45,7 +45,12 @@ public class ExecAction {
 	private ExecNodeAction execNodeAction;
 
 
-
+	/**
+	 * 创建执行实例
+	 * @param customAddDto
+	 * @param createSubNode
+	 * @return
+	 */
 	@Transactional
 	public PipelineExecInstance createExec(PipelineExecNodeCustomAddDto customAddDto, Boolean createSubNode){
 

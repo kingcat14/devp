@@ -40,7 +40,7 @@ spring:
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
     database: mysql
-    show-sql: true
+    show-sql: false
   properties:
     hibernate:
       dialect: org.hibernate.dialect.MySQL5Dialect
@@ -48,8 +48,8 @@ spring:
   mail:
     host: smtp.qq.com
     port: 587
-    username: 13962217@qq.com
-    password: hliwzyswfolqbjag
+    username: 2170290560@qq.com
+    password: sekhkgopnoroebcj
     properties:
       mail:
         smtp:
@@ -63,7 +63,8 @@ spring:
       discovery:
         converter:
           management-context-path: /actuator
-
+  session:
+    store-type: hash_map
 management:
   security:
       enabled: true

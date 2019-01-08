@@ -1,6 +1,7 @@
 package net.aicoder.speedcloud.business.pipeline.exec.domain;
 
 import com.yunkang.saas.common.jpa.BaseEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Table;
@@ -160,7 +161,6 @@ public class PipelineExecNode extends BaseEntity<Long>{
 	 *
 	 */
 	@Column(name = "result_message", nullable = true, updatable = true)
-	@Size(max = 255, message = "结果消息超长，最多255个字符")
 	private String resultMessage;
 
 	public Long getTid(){
@@ -303,6 +303,10 @@ public class PipelineExecNode extends BaseEntity<Long>{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public boolean success(){
+		return StringUtils.equals("SUCCESS", result);
 	}
 
 	@Override

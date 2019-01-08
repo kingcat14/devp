@@ -51,7 +51,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
                             ,displayField: 'name'
                             ,valueField:'id'
                             ,triggerAction: 'all'
-                            ,selectOnFocus: true
+                            ,selectOnFocus: false
                             ,forceSelection: true
                             ,editable:false
                             ,indent: true

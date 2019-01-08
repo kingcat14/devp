@@ -24,6 +24,8 @@ eureka:
     lease-expiration-duration-in-seconds: 5
     prefer-ip-address: true
     metadata-map:
+      datacenterId: 1
+      workerId: 2
       user:
         name: actuator
         password: 123456
@@ -52,7 +54,8 @@ spring:
       format_sql: true
   session:
     redis:
-      namespace: abcdefg #session:${spring.application.name}
+      namespace: abcdefg
+      #session:${spring.application.name}
     store-type: redis
 management:
   security:
