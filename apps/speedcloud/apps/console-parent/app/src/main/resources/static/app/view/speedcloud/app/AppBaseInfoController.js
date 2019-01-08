@@ -50,12 +50,18 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoController', {
             this.lookupReference('currentProject').expand();
             return;
         }
+
+        //取消选中
+
+        this.lookupReference("mainGridPanel").setSelection(null);
+
         var modelConfig = {project:currentProject};
         var record = Ext.create('AM.model.speedcloud.app.AppBaseInfo', modelConfig);
 
         this.lookupReference("detailPanel").setModel(record);
         this.lookupReference("codeRepositoryEditPanel").setModel(null);
         this.lookupReference("appDevelopConfigEditPanel").setModel(null);
+        this.lookupReference("detailPanel").show();
     }
     ,onDeleteButtonClick: function(button, e, options) {
         var me = this;

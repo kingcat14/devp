@@ -150,7 +150,7 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoEditPanel', {
                             xtype: 'button'
                             ,iconCls: 'fas fa-save'
                             ,scale:'medium'
-                            ,text: '保存详情'
+                            ,text: '保存基础信息'
                             ,listeners: {
                                 click: {
                                     fn: me.onSaveButtonClick

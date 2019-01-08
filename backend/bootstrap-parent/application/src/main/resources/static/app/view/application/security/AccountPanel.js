@@ -3,11 +3,9 @@ Ext.define('AM.view.application.security.AccountPanel', {
     alias: 'widget.applicationSecurityAccountPanel',
     requires: [
 
-    ],
-
-    title: '账号',
-
-    initComponent: function() {
+    ]
+    ,title: '系统账号'
+    ,initComponent: function() {
         var me = this;
 
         Ext.apply(me, {

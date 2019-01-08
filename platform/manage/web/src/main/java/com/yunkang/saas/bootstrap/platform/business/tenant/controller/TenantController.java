@@ -1,30 +1,29 @@
 package com.yunkang.saas.bootstrap.platform.business.tenant.controller;
 
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantType;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantAddDto;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantCondition;
+import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantEditDto;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantTypeService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.valid.TenantValidator;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantTypeVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantCondition;
-import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantAddDto;
-import com.yunkang.saas.bootstrap.platform.business.tenant.dto.TenantEditDto;
-import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
-import com.yunkang.saas.bootstrap.platform.business.tenant.valid.TenantValidator;
-import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
-import com.yunkang.saas.bootstrap.platform.business.tenant.domain.TenantType;
-import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantTypeService;
-import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantTypeVO;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import java.util.List;
 public class TenantController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TenantController.class);
-
 
 	@Autowired
 	private TenantService tenantService;

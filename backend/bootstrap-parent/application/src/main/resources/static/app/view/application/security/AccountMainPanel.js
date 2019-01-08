@@ -7,7 +7,7 @@ Ext.define('AM.view.application.security.AccountMainPanel', {
 	layout: {
 		type: 'border'
 	},
-    title: '账号',
+    title: '系统账号',
 	store:null,
     initComponent: function() {
         var me = this;

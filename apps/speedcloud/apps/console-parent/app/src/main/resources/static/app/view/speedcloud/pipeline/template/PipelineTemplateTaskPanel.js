@@ -1,83 +1,66 @@
-Ext.define('AM.view.speedcloud.project.ProjectPanel', {
+Ext.define('AM.view.speedcloud.pipeline.template.PipelineTemplateTaskPanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.project.ProjectPanel'
-    , title: '产品（项目）'
+    , xtype: 'speedcloud.pipeline.template.PipelineTemplateTaskPanel'
+    , title: '运维任务模板'
     , layout: 'border'
     , requires: [
-        'AM.view.speedcloud.project.ProjectController'
-        ,'AM.store.speedcloud.project.ProjectStore'
-        ,'AM.view.speedcloud.project.ProjectAddWindow'
-        ,'AM.view.speedcloud.project.ProjectEditWindow'
-        ,'AM.view.speedcloud.project.ProjectSearchWindow'
-        ,'AM.view.speedcloud.project.ProjectDetailWindow'
+        'AM.view.speedcloud.pipeline.template.PipelineTemplateTaskController'
+        ,'AM.store.speedcloud.pipeline.template.PipelineTemplateTaskStore'
+        ,'AM.view.speedcloud.pipeline.template.PipelineTemplateTaskSearchWindow'
     ]
-    ,controller: 'speedcloud.project.ProjectController'
+    ,controller: 'speedcloud.pipeline.template.PipelineTemplateTaskController'
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.project.ProjectStore').load()
+                    ,store: Ext.create('AM.store.speedcloud.pipeline.template.PipelineTemplateTaskStore').load()
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
                         {
-                            xtype: 'actioncolumn'
-                            ,menuDisabled: true
-                            ,width:35
-                            ,items: [{
-                                iconCls: 'x-fa fa-cog'
-                                ,tooltip: '明细'
-                                ,handler: function(grid, rowIndex, colIndex) {
-                                    var record = grid.getStore().getAt(rowIndex);
-                                    grid.getSelectionModel().deselectAll()
-                                    grid.getSelectionModel().select(record)
-                                    me.getController().onExecButtonClick();
-                                }
-                            }]
-                        }
-                        ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'name'
-                            ,text: '名称'
+                            ,text: '任务名称'
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'taskType'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("taskTypeVO")?record.get("taskTypeVO").displayName:'';
+                            }
+                            ,text: '任务类型'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'type'
-                            ,text: '类型'
+                            ,dataIndex: 'execType'
+                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                return record.get("execTypeVO")?record.get("execTypeVO").displayName:'';
+                            }
+                            ,text: '执行计划'
                             
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'scope'
-                            ,text: '公开性'
-                            
+                            ,dataIndex: 'taskStartTime'
+                            ,text: '执行开始时间'
+                        }
+                        ,{
+                            xtype: 'gridcolumn'
+                            ,dataIndex: 'taskDayOfWeeks'
+                            ,text: '执行日'
                         }
                         ,{
                             xtype: 'gridcolumn'
                             ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'parent'
-                            ,text: '上级项目'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'projectSet'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectSetVO")?record.get("projectSetVO").name:'';
-                            }
-                            ,text: '所属产品线'
+                            ,text: '任务描述'
                             ,flex:1
                         }
+
                         ,{
                             xtype: 'actioncolumn'
                             ,menuDisabled: true
@@ -85,7 +68,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,items: [{
                                 iconCls: 'fas fa-pencil-alt'
                                 ,tooltip: '修改'
-                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
+                                ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -100,7 +83,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,items: [{
                                 iconCls: 'fas fa-minus-circle red'
                                 ,tooltip: '删除'
-                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
+                                ,handler: function(grid, rowIndex, colIndex) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
@@ -159,14 +142,6 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                                         click: 'showSearchWindow'
                                     }
                                 }
-                                ,{
-                                    xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
-                                    ,text: '导出'
-                                    ,listeners: {
-                                        click: 'onExportButtonClick'
-                                    }
-                                }
                             ]
                         },
                         {
@@ -177,28 +152,39 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                     ]
                     ,selModel: 'checkboxmodel'
                     ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
+                        itemdblclick:'onMainPanelRowClick'
                     }
                 }
             ]
+            ,listeners: {
+                beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+                ,beforehide: {
+                    fn: me.onPanelBeforeHide
+                    ,scope: me
+                }
+            }
         });
 
-        me.add({xtype:'speedcloud.project.ProjectAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.project.ProjectEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.project.ProjectSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.project.ProjectDetailWindow',reference:'mainDetailWindow'})
+        me.add({xtype:'speedcloud.pipeline.template.PipelineTemplateTaskSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
 
         me.callParent(arguments);
     }
 
+    ,showDetailWindow: function(model, targetComponent) {
+        var me = this;
+        var detailWindow = me.lookupReference('mainDetailWindow');
+        detailWindow.setModel(model);
+        detailWindow.show(targetComponent);
+        return detailWindow;
+    }
+    ,onPanelBeforeHide:function () {
+        console.log('onPanelBeforeHide')
+    }
     ,onBeforeShow:function(abstractcomponent, options) {
+        console.log('onBeforeShow')
 	    this.lookupReference('mainGridPanel').getStore().reload({scope: this,callback: function(){}});
     }
 });

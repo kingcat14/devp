@@ -50,7 +50,7 @@ public class PipelineTemplateTaskActionSpecification implements Specification<Pi
 	}
 	private void tryAddTaskPredicate(List<Predicate> predicateList, Root<PipelineTemplateTaskAction> root, CriteriaBuilder cb){
 	    if (null != condition.getTask() ) {
-            predicateList.add(cb.equal(root.get(PipelineTemplateTaskAction.PROPERTY_TASK).as(Long.class), condition.getTask()));
+            predicateList.add(cb.equal(root.get(PipelineTemplateTaskAction.PROPERTY_TASK).as(String.class), condition.getTask()));
         }
 	}
 	private void tryAddMemoPredicate(List<Predicate> predicateList, Root<PipelineTemplateTaskAction> root, CriteriaBuilder cb){

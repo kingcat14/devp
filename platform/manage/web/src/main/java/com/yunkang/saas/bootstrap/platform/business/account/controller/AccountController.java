@@ -7,15 +7,15 @@ import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountCondition
 import com.yunkang.saas.bootstrap.platform.business.account.dto.AccountEditDto;
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountManageService;
 import com.yunkang.saas.bootstrap.platform.business.account.service.AccountService;
+import com.yunkang.saas.bootstrap.platform.business.account.valid.AccountValidator;
 import com.yunkang.saas.bootstrap.platform.business.account.vo.AccountVO;
+import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
+import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
+import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import com.yunkang.saas.common.framework.web.controller.PageContent;
 import com.yunkang.saas.common.framework.web.data.PageRequest;
 import com.yunkang.saas.common.framework.web.data.PageRequestConvert;
 import com.yunkang.saas.common.framework.web.data.PageSearchRequest;
-import com.yunkang.saas.bootstrap.platform.business.account.valid.AccountValidator;
-import com.yunkang.saas.bootstrap.platform.business.tenant.domain.Tenant;
-import com.yunkang.saas.bootstrap.platform.business.tenant.service.TenantService;
-import com.yunkang.saas.bootstrap.platform.business.tenant.vo.TenantVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -151,12 +151,14 @@ public class AccountController {
 	    AccountVO vo = new AccountVO();
 
         BeanUtils.copyProperties(account, vo);
+		vo.setTenantId(account.getTid());
 
         Tenant tenant = tenantService.find(account.getTid());
         if(tenant != null){
 			TenantVO tenantVO = new TenantVO();
 			BeanUtils.copyProperties(tenant, tenantVO);
 			vo.setTenantVO(tenantVO);
+
 		}
 
 

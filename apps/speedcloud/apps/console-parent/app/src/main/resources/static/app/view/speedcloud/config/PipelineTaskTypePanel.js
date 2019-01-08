@@ -1,26 +1,41 @@
-Ext.define('AM.view.speedcloud.project.ProjectPanel', {
+Ext.define('AM.view.speedcloud.config.PipelineTaskTypePanel', {
     extend: 'Ext.panel.Panel'
-    , xtype: 'speedcloud.project.ProjectPanel'
-    , title: '产品（项目）'
+    , xtype: 'speedcloud.config.PipelineTaskTypePanel'
+    , alias: 'widget.speedcloud.config.PipelineTaskTypePanel'
+    , title: '任务类型'
+    , bodyCls: 'app-dashboard'
+    // , bodyPadding: '10 10'
     , layout: 'border'
     , requires: [
-        'AM.view.speedcloud.project.ProjectController'
-        ,'AM.store.speedcloud.project.ProjectStore'
-        ,'AM.view.speedcloud.project.ProjectAddWindow'
-        ,'AM.view.speedcloud.project.ProjectEditWindow'
-        ,'AM.view.speedcloud.project.ProjectSearchWindow'
-        ,'AM.view.speedcloud.project.ProjectDetailWindow'
+        'AM.view.speedcloud.config.PipelineTaskTypeController'
+        ,'AM.store.speedcloud.config.PipelineTaskTypeStore'
+        ,'AM.view.speedcloud.config.PipelineTaskTypeAddWindow'
+        ,'AM.view.speedcloud.config.PipelineTaskTypeEditWindow'
+        ,'AM.view.speedcloud.config.PipelineTaskTypeSearchWindow'
+        ,'AM.view.speedcloud.config.PipelineTaskTypeDetailWindow'
     ]
-    ,controller: 'speedcloud.project.ProjectController'
+    ,controller: 'speedcloud.config.PipelineTaskTypeController'
+    ,constructor:function(cfg){
+        var me = this;
+        cfg = cfg || {}
+
+        me.callParent([Ext.apply({
+            viewModel : {
+                stores:{
+                    store:Ext.create('AM.store.speedcloud.config.PipelineTaskTypeStore').load()
+                }
+            }
+        }, cfg)])
+    }
     ,initComponent: function() {
         var me = this;
-
+        me.enableBubble('createMainTabPanel');
         Ext.apply(me, {
             items: [
                 {
                     xtype: 'grid'
                     ,region:'center'
-                    ,store: Ext.create('AM.store.speedcloud.project.ProjectStore').load()
+                    ,bind:{store: '{store}'}
                     ,columnLines: true
                     ,reference:'mainGridPanel'
                     ,columns: [
@@ -29,13 +44,13 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                             ,menuDisabled: true
                             ,width:35
                             ,items: [{
-                                iconCls: 'x-fa fa-cog'
-                                ,tooltip: '明细'
-                                ,handler: function(grid, rowIndex, colIndex) {
+                                iconCls: 'x-fa fa-eye'
+                                ,tooltip: '详情'
+                                ,handler: function(grid, rowIndex, colIndex, item, event, record) {
                                     var record = grid.getStore().getAt(rowIndex);
                                     grid.getSelectionModel().deselectAll()
                                     grid.getSelectionModel().select(record)
-                                    me.getController().onExecButtonClick();
+                                    me.showDetailWindow(record, this);
                                 }
                             }]
                         }
@@ -47,35 +62,8 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                         }
                         ,{
                             xtype: 'gridcolumn'
-                            ,dataIndex: 'type'
-                            ,text: '类型'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'scope'
-                            ,text: '公开性'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'description'
-                            ,text: '描述'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'parent'
-                            ,text: '上级项目'
-                            
-                        }
-                        ,{
-                            xtype: 'gridcolumn'
-                            ,dataIndex: 'projectSet'
-                            ,renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                return record.get("projectSetVO")?record.get("projectSetVO").name:'';
-                            }
-                            ,text: '所属产品线'
+                            ,dataIndex: 'code'
+                            ,text: '代码'
                             ,flex:1
                         }
                         ,{
@@ -143,6 +131,18 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                                 }
                                 ,'-'
                                 ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'名称'
+                                    ,reference: 'nameField'
+                                }
+                                ,{
+                                    xtype: 'textfield'
+                                    ,width:120
+                                    ,emptyText:'代码'
+                                    ,reference: 'codeField'
+                                }
+                                ,{
                                     xtype: 'button'
                                     ,iconCls: 'fas fa-search'
                                     ,text: '查询'
@@ -153,7 +153,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                                 ,'->'
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-search-plus'
                                     ,text: '高级查询'
                                     ,listeners: {
                                         click: 'showSearchWindow'
@@ -161,7 +161,7 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                                 }
                                 ,{
                                     xtype: 'button'
-                                    ,iconCls: 'fas fa-search'
+                                    ,iconCls: 'fas fa-download'
                                     ,text: '导出'
                                     ,listeners: {
                                         click: 'onExportButtonClick'
@@ -176,26 +176,35 @@ Ext.define('AM.view.speedcloud.project.ProjectPanel', {
                         }
                     ]
                     ,selModel: 'checkboxmodel'
-                    ,listeners: {
-                        beforeshow: {
-                            fn: me.onBeforeShow
-                            ,scope: me
-                        }
-                        ,beforehide: {
-                            fn: me.onPanelBeforeHide
-                            ,scope: me
-                        }
-                    }
+                    ,listeners: {}
                 }
             ]
+            ,listeners: {
+            	beforeshow: {
+                    fn: me.onBeforeShow
+                    ,scope: me
+                }
+              	,beforehide: {
+                	fn: me.onPanelBeforeHide
+                  	,scope: me
+				}
+			}
         });
 
-        me.add({xtype:'speedcloud.project.ProjectAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.project.ProjectEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
-        me.add({xtype:'speedcloud.project.ProjectSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
-        me.add({xtype:'speedcloud.project.ProjectDetailWindow',reference:'mainDetailWindow'})
+        me.add({xtype:'speedcloud.config.PipelineTaskTypeAddWindow',reference:'mainAddWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.config.PipelineTaskTypeEditWindow',reference:'mainEditWindow',listeners:{saved:'reloadStore'}})
+        me.add({xtype:'speedcloud.config.PipelineTaskTypeSearchWindow',reference:'mainSearchWindow',listeners:{saved:'doSearch'}})
+        me.add({xtype:'speedcloud.config.PipelineTaskTypeDetailWindow',reference:'mainDetailWindow'})
 
         me.callParent(arguments);
+    }
+
+    ,showDetailWindow: function(model, targetComponent) {
+        var me = this;
+        var detailWindow = me.lookupReference('mainDetailWindow');
+        detailWindow.setModel(model);
+        detailWindow.show(targetComponent);
+        return detailWindow;
     }
 
     ,onBeforeShow:function(abstractcomponent, options) {
