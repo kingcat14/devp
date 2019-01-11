@@ -45,8 +45,6 @@ Ext.define('AM.view.speedcloud.app.AppBaseInfoPanel', {
                             ,fieldLabel: '当前产品'
                             ,labelAlign:'right'
                             ,bind:{store:'{projectStore}'}
-
-                            // }
                             // ,store:Ext.create('AM.store.speedcloud.project.ProjectStore', {autoLoad:true}).load()
                             ,displayField: 'name'
                             ,valueField:'id'

@@ -47,6 +47,5 @@ public class Oauth2ClientConfig {
         oAuth2RestTemplate.setRequestFactory(new Netty4ClientHttpRequestFactory());
 
         return oAuth2RestTemplate;
-
     }
 }

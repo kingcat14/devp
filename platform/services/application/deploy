@@ -1,0 +1,6 @@
+cd /Users/gonghongrui/studio/svn_yk/code/pp/EGG/saas-backend/application/trunk
+mvn clean deploy
+scp web/target/application-web.jar root@121.41.14.24:/studio/apps/devp/application
+
+
+java -jar product-we5b.jar -Dspring.profiles.active=local

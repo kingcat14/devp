@@ -59,5 +59,10 @@ Ext.define('AM.store.speedcloud.pipeline.PipelineStore', {
         operation.setPage(operation.getPage() - 1);
 
     }
+    ,applyCondition:function(condition){
+        condition = condition || {}
+        this.proxy.setExtraParam("searchCondition", condition);
+        return this;
+    }
 
 });

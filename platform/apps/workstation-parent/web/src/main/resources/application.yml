@@ -1,0 +1,44 @@
+application:
+  product: saas #产品
+  module: portal #模块
+  name: app #子模块名称
+  code: 11102 #子模块ID
+  displayName: 平台门户
+  uploadFilePath:
+sys:
+  module: workstation  #模块
+  name: web #应用
+server:
+  port: 11201
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,text/javascript,text/css,application/javascript
+    min-response-size: 256
+eureka:
+  client:
+    registry-fetch-interval-seconds: 3
+    #register-with-eureka: false
+  instance:
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 5
+spring:
+  application:
+    name: ${application.product}-${application.module}-${application.name}
+  profiles:
+    active: local #环境配置- local：本地 dev：开发环境 qa：测试环境 uat：用户测试 pd：生产环境
+  cloud:
+    config:
+      enable: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    database: mysql
+    show-sql: false
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      format_sql: true
+logging:
+  file: logs/${spring.application.name}.log

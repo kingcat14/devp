@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yunkang.saas.platform.services.core.config.CoreClientConfig

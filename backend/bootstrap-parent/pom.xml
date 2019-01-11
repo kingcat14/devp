@@ -64,7 +64,7 @@
             <modules>
                 <!--<module>web</module>-->
                 <module>security</module>
-                <module>security-demo</module>
+                <!--<module>security-demo</module>-->
                 <module>security-local</module>
                 <module>application</module>
                 <module>monitor</module>

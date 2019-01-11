@@ -40,6 +40,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * 怎么验证token
+     * @return
+     */
     @Primary
     @Bean
     public RemoteTokenServices tokenServices(){

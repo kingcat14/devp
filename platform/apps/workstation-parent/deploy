@@ -1,0 +1,6 @@
+cd /Users/gonghongrui/studio/svn_yk/code/pp/EGG/saas-apps/workstation/trunk
+mvn clean package
+scp web/target/workstation-web.jar root@121.41.14.24:/studio/apps/devp/workstation
+
+
+java -jar product-we5b.jar -Dspring.profiles.active=local
